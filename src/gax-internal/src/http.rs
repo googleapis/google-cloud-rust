@@ -55,6 +55,8 @@ use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
 
+const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
+
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: ::reqwest::Client,
@@ -386,24 +388,32 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
-        builder = if let Some(user_agent) = options.user_agent() {
-            builder.header(
-                reqwest::USER_AGENT,
-                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            )
-        } else {
-            builder
-        };
-
         builder = effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
 
-        builder = match self.cred.headers(Extensions::new()).await {
+        let mut headers = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),
-            Ok(CacheableResource::New { data, .. }) => builder.headers(data),
+            Ok(CacheableResource::New { data, .. }) => data,
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
+
+        if let Some(user_agent) = options.user_agent() {
+            headers.insert(
+                http::header::USER_AGENT,
+                http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            );
+        }
+
+        if let Some(quota_project) = options.quota_project() {
+            headers.insert(
+                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+                http::header::HeaderValue::from_str(quota_project).map_err(Error::ser)?,
+            );
+        }
+
+        builder = builder.headers(headers);
+
         builder.build().map_err(map_send_error)
     }
 

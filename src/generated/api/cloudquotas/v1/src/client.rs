@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    service_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudQuotas::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_quota_infos()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -137,10 +141,10 @@ impl CloudQuotas {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, parent: &str
+    ///    client: &CloudQuotas, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_quota_infos()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -159,10 +163,10 @@ impl CloudQuotas {
     /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, name: &str
+    ///    client: &CloudQuotas, project_id: &str, location_id: &str, service_id: &str, quota_info_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_quota_info()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/quotaInfos/{quota_info_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -180,10 +184,10 @@ impl CloudQuotas {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, parent: &str
+    ///    client: &CloudQuotas, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_quota_preferences()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -202,10 +206,10 @@ impl CloudQuotas {
     /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, name: &str
+    ///    client: &CloudQuotas, project_id: &str, location_id: &str, quota_preference_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_quota_preference()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/quotaPreferences/{quota_preference_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -223,10 +227,10 @@ impl CloudQuotas {
     /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, parent: &str
+    ///    client: &CloudQuotas, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_quota_preference()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_quota_preference(
     ///             QuotaPreference::new()/* set fields */
     ///         )
@@ -250,11 +254,11 @@ impl CloudQuotas {
     /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, name: &str
+    ///    client: &CloudQuotas, project_id: &str, location_id: &str, quota_preference_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_quota_preference()
     ///         .set_quota_preference(
-    ///             QuotaPreference::new().set_name(name)/* set fields */
+    ///             QuotaPreference::new().set_name(format!("projects/{project_id}/locations/{location_id}/quotaPreferences/{quota_preference_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

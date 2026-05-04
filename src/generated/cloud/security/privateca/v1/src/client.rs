@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    ca_pool_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CertificateAuthorityService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_certificates()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -142,10 +146,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::Certificate;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, parent: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_certificate()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
     ///         .set_certificate_id("certificate_id_value")
     ///         .set_certificate(
     ///             Certificate::new()/* set fields */
@@ -170,10 +174,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificates/{certificate_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -193,10 +197,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, parent: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_certificates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -249,11 +253,11 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::Certificate;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate()
     ///         .set_certificate(
-    ///             Certificate::new().set_name(name)/* set fields */
+    ///             Certificate::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificates/{certificate_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -339,10 +343,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, parent: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_certificate_authority()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
     ///         .set_certificate_authority(
     ///             CertificateAuthority::new()/* set fields */
     ///         )
@@ -484,10 +488,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_authority()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -512,10 +516,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, parent: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_certificate_authorities()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -553,10 +557,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_certificate_authority()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -591,10 +595,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_certificate_authority()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -632,11 +636,11 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate_authority()
     ///         .set_certificate_authority(
-    ///             CertificateAuthority::new().set_name(name)/* set fields */
+    ///             CertificateAuthority::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -712,11 +716,11 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::CaPool;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_ca_pool()
     ///         .set_ca_pool(
-    ///             CaPool::new().set_name(name)/* set fields */
+    ///             CaPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -737,10 +741,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_ca_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -795,10 +799,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_ca_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -842,10 +846,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str, certificate_revocation_list_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_revocation_list()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}/certificateRevocationLists/{certificate_revocation_list_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -870,10 +874,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, parent: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_certificate_revocation_lists()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -913,11 +917,11 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::CertificateRevocationList;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, ca_pool_id: &str, certificate_authority_id: &str, certificate_revocation_list_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate_revocation_list()
     ///         .set_certificate_revocation_list(
-    ///             CertificateRevocationList::new().set_name(name)/* set fields */
+    ///             CertificateRevocationList::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}/certificateRevocationLists/{certificate_revocation_list_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -997,10 +1001,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, certificate_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1023,10 +1027,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, certificate_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1094,11 +1098,11 @@ impl CertificateAuthorityService {
     /// use google_cloud_security_privateca_v1::model::CertificateTemplate;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, name: &str
+    ///    client: &CertificateAuthorityService, project_id: &str, location_id: &str, certificate_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate_template()
     ///         .set_certificate_template(
-    ///             CertificateTemplate::new().set_name(name)/* set fields */
+    ///             CertificateTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;

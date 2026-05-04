@@ -22,7 +22,8 @@
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Agents;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Agents::builder().build().await?;
 ///     let mut list = client.search_agents()
 ///         /* set fields */
@@ -30,7 +31,8 @@
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -574,16 +576,18 @@ impl Agents {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AnswerRecords::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_answer_records()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -690,10 +694,10 @@ impl AnswerRecords {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &AnswerRecords, parent: &str
+    ///    client: &AnswerRecords, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_answer_records()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -715,11 +719,11 @@ impl AnswerRecords {
     /// use google_cloud_dialogflow_v2::model::AnswerRecord;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &AnswerRecords, name: &str
+    ///    client: &AnswerRecords, project_id: &str, answer_record_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_answer_record()
     ///         .set_answer_record(
-    ///             AnswerRecord::new().set_name(name)/* set fields */
+    ///             AnswerRecord::new().set_name(format!("projects/{project_id}/answerRecords/{answer_record_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -865,16 +869,19 @@ impl AnswerRecords {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Contexts;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    session_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Contexts::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_contexts()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/agent/sessions/{session_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -979,10 +986,10 @@ impl Contexts {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, parent: &str
+    ///    client: &Contexts, project_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_contexts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent/sessions/{session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1001,10 +1008,10 @@ impl Contexts {
     /// # use google_cloud_dialogflow_v2::client::Contexts;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, name: &str
+    ///    client: &Contexts, project_id: &str, session_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_context()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/sessions/{session_id}/contexts/{context_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1024,10 +1031,10 @@ impl Contexts {
     /// use google_cloud_dialogflow_v2::model::Context;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, parent: &str
+    ///    client: &Contexts, project_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_context()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent/sessions/{session_id}"))
     ///         .set_context(
     ///             Context::new()/* set fields */
     ///         )
@@ -1050,11 +1057,11 @@ impl Contexts {
     /// use google_cloud_dialogflow_v2::model::Context;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, name: &str
+    ///    client: &Contexts, project_id: &str, session_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_context()
     ///         .set_context(
-    ///             Context::new().set_name(name)/* set fields */
+    ///             Context::new().set_name(format!("projects/{project_id}/agent/sessions/{session_id}/contexts/{context_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1073,10 +1080,10 @@ impl Contexts {
     /// # use google_cloud_dialogflow_v2::client::Contexts;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, name: &str
+    ///    client: &Contexts, project_id: &str, session_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     client.delete_context()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/sessions/{session_id}/contexts/{context_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1238,16 +1245,18 @@ impl Contexts {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Conversations;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Conversations::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_conversations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1377,10 +1386,10 @@ impl Conversations {
     /// use google_cloud_dialogflow_v2::model::Conversation;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Conversations, parent: &str
+    ///    client: &Conversations, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_conversation_id("conversation_id_value")
     ///         .set_conversation(
     ///             Conversation::new()/* set fields */
@@ -1402,10 +1411,10 @@ impl Conversations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Conversations, parent: &str
+    ///    client: &Conversations, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_conversations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1424,10 +1433,10 @@ impl Conversations {
     /// # use google_cloud_dialogflow_v2::client::Conversations;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Conversations, name: &str
+    ///    client: &Conversations, project_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1493,10 +1502,10 @@ impl Conversations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Conversations, parent: &str
+    ///    client: &Conversations, project_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_messages()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/conversations/{conversation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1754,16 +1763,19 @@ impl Conversations {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConversationDatasets::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_conversation_datasets()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1918,10 +1930,10 @@ impl ConversationDatasets {
     /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationDatasets, name: &str
+    ///    client: &ConversationDatasets, project_id: &str, location_id: &str, conversation_dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversationDatasets/{conversation_dataset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1942,10 +1954,10 @@ impl ConversationDatasets {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationDatasets, parent: &str
+    ///    client: &ConversationDatasets, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_conversation_datasets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1988,10 +2000,10 @@ impl ConversationDatasets {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationDatasets, name: &str
+    ///    client: &ConversationDatasets, project_id: &str, location_id: &str, conversation_dataset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversationDatasets/{conversation_dataset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2183,16 +2195,18 @@ impl ConversationDatasets {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::ConversationModels;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConversationModels::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_conversation_models()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2738,16 +2752,18 @@ impl ConversationModels {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConversationProfiles::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_conversation_profiles()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2854,10 +2870,10 @@ impl ConversationProfiles {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, parent: &str
+    ///    client: &ConversationProfiles, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_conversation_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2878,10 +2894,10 @@ impl ConversationProfiles {
     /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, name: &str
+    ///    client: &ConversationProfiles, project_id: &str, conversation_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/conversationProfiles/{conversation_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2912,10 +2928,10 @@ impl ConversationProfiles {
     /// use google_cloud_dialogflow_v2::model::ConversationProfile;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, parent: &str
+    ///    client: &ConversationProfiles, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation_profile()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_conversation_profile(
     ///             ConversationProfile::new()/* set fields */
     ///         )
@@ -2951,11 +2967,11 @@ impl ConversationProfiles {
     /// use google_cloud_dialogflow_v2::model::ConversationProfile;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, name: &str
+    ///    client: &ConversationProfiles, project_id: &str, conversation_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_conversation_profile()
     ///         .set_conversation_profile(
-    ///             ConversationProfile::new().set_name(name)/* set fields */
+    ///             ConversationProfile::new().set_name(format!("projects/{project_id}/conversationProfiles/{conversation_profile_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2976,10 +2992,10 @@ impl ConversationProfiles {
     /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, name: &str
+    ///    client: &ConversationProfiles, project_id: &str, conversation_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/conversationProfiles/{conversation_profile_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3223,16 +3239,19 @@ impl ConversationProfiles {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Documents;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    knowledge_base_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Documents::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_documents()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3338,10 +3357,10 @@ impl Documents {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, parent: &str
+    ///    client: &Documents, project_id: &str, knowledge_base_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_documents()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3360,10 +3379,10 @@ impl Documents {
     /// # use google_cloud_dialogflow_v2::client::Documents;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, name: &str
+    ///    client: &Documents, project_id: &str, knowledge_base_id: &str, document_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_document()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}/documents/{document_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3403,10 +3422,10 @@ impl Documents {
     /// use google_cloud_dialogflow_v2::model::Document;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, parent: &str
+    ///    client: &Documents, project_id: &str, knowledge_base_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_document()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}"))
     ///         .set_document(
     ///             Document::new()/* set fields */
     ///         )
@@ -3493,10 +3512,10 @@ impl Documents {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, name: &str
+    ///    client: &Documents, project_id: &str, knowledge_base_id: &str, document_id: &str
     /// ) -> Result<()> {
     ///     client.delete_document()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}/documents/{document_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3537,11 +3556,11 @@ impl Documents {
     /// use google_cloud_dialogflow_v2::model::Document;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, name: &str
+    ///    client: &Documents, project_id: &str, knowledge_base_id: &str, document_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_document()
     ///         .set_document(
-    ///             Document::new().set_name(name)/* set fields */
+    ///             Document::new().set_name(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}/documents/{document_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3777,14 +3796,17 @@ impl Documents {
 /// # Example
 /// ```
 /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EncryptionSpecService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_encryption_spec()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/encryptionSpec"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3887,10 +3909,10 @@ impl EncryptionSpecService {
     /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EncryptionSpecService, name: &str
+    ///    client: &EncryptionSpecService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_encryption_spec()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/encryptionSpec"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4073,16 +4095,18 @@ impl EncryptionSpecService {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::EntityTypes;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EntityTypes::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_entity_types()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/agent"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4187,10 +4211,10 @@ impl EntityTypes {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, parent: &str
+    ///    client: &EntityTypes, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entity_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4209,10 +4233,10 @@ impl EntityTypes {
     /// # use google_cloud_dialogflow_v2::client::EntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, name: &str
+    ///    client: &EntityTypes, project_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4234,10 +4258,10 @@ impl EntityTypes {
     /// use google_cloud_dialogflow_v2::model::EntityType;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, parent: &str
+    ///    client: &EntityTypes, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entity_type()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .set_entity_type(
     ///             EntityType::new()/* set fields */
     ///         )
@@ -4264,11 +4288,11 @@ impl EntityTypes {
     /// use google_cloud_dialogflow_v2::model::EntityType;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, name: &str
+    ///    client: &EntityTypes, project_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entity_type()
     ///         .set_entity_type(
-    ///             EntityType::new().set_name(name)/* set fields */
+    ///             EntityType::new().set_name(format!("projects/{project_id}/agent/entityTypes/{entity_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4291,10 +4315,10 @@ impl EntityTypes {
     /// # use google_cloud_dialogflow_v2::client::EntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, name: &str
+    ///    client: &EntityTypes, project_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4661,16 +4685,18 @@ impl EntityTypes {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Environments;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Environments::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_environments()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/agent"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4775,10 +4801,10 @@ impl Environments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_environments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4797,10 +4823,10 @@ impl Environments {
     /// # use google_cloud_dialogflow_v2::client::Environments;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_environment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/environments/{environment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4818,10 +4844,10 @@ impl Environments {
     /// use google_cloud_dialogflow_v2::model::Environment;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_environment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .set_environment_id("environment_id_value")
     ///         .set_environment(
     ///             Environment::new()/* set fields */
@@ -4856,11 +4882,11 @@ impl Environments {
     /// use google_cloud_dialogflow_v2::model::Environment;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_environment()
     ///         .set_environment(
-    ///             Environment::new().set_name(name)/* set fields */
+    ///             Environment::new().set_name(format!("projects/{project_id}/agent/environments/{environment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4879,10 +4905,10 @@ impl Environments {
     /// # use google_cloud_dialogflow_v2::client::Environments;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_environment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/environments/{environment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5047,14 +5073,16 @@ impl Environments {
 /// # Example
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Fulfillments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Fulfillments::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_fulfillment()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/agent/fulfillment"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5158,10 +5186,10 @@ impl Fulfillments {
     /// # use google_cloud_dialogflow_v2::client::Fulfillments;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Fulfillments, name: &str
+    ///    client: &Fulfillments, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_fulfillment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/fulfillment"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5181,11 +5209,11 @@ impl Fulfillments {
     /// use google_cloud_dialogflow_v2::model::Fulfillment;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Fulfillments, name: &str
+    ///    client: &Fulfillments, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_fulfillment()
     ///         .set_fulfillment(
-    ///             Fulfillment::new().set_name(name)/* set fields */
+    ///             Fulfillment::new().set_name(format!("projects/{project_id}/agent/fulfillment"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -5331,16 +5359,18 @@ impl Fulfillments {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Generators;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Generators::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_generators()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5471,10 +5501,10 @@ impl Generators {
     /// # use google_cloud_dialogflow_v2::client::Generators;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Generators, name: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_generator()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5514,10 +5544,10 @@ impl Generators {
     /// # use google_cloud_dialogflow_v2::client::Generators;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Generators, name: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     client.delete_generator()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5536,11 +5566,11 @@ impl Generators {
     /// use google_cloud_dialogflow_v2::model::Generator;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Generators, name: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_generator()
     ///         .set_generator(
-    ///             Generator::new().set_name(name)/* set fields */
+    ///             Generator::new().set_name(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -5686,16 +5716,20 @@ impl Generators {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    generator_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = GeneratorEvaluations::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_generator_evaluations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5810,10 +5844,10 @@ impl GeneratorEvaluations {
     /// use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &GeneratorEvaluations, parent: &str
+    ///    client: &GeneratorEvaluations, project_id: &str, location_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_generator_evaluation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}"))
     ///         .set_generator_evaluation(
     ///             GeneratorEvaluation::new()/* set fields */
     ///         )
@@ -5835,10 +5869,10 @@ impl GeneratorEvaluations {
     /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &GeneratorEvaluations, name: &str
+    ///    client: &GeneratorEvaluations, project_id: &str, location_id: &str, generator_id: &str, evaluation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_generator_evaluation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}/evaluations/{evaluation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5858,10 +5892,10 @@ impl GeneratorEvaluations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &GeneratorEvaluations, parent: &str
+    ///    client: &GeneratorEvaluations, project_id: &str, location_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_generator_evaluations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5882,10 +5916,10 @@ impl GeneratorEvaluations {
     /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &GeneratorEvaluations, name: &str
+    ///    client: &GeneratorEvaluations, project_id: &str, location_id: &str, generator_id: &str, evaluation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_generator_evaluation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/generators/{generator_id}/evaluations/{evaluation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6030,16 +6064,18 @@ impl GeneratorEvaluations {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Intents;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Intents::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_intents()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/agent"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6144,10 +6180,10 @@ impl Intents {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, parent: &str
+    ///    client: &Intents, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_intents()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6166,10 +6202,10 @@ impl Intents {
     /// # use google_cloud_dialogflow_v2::client::Intents;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, name: &str
+    ///    client: &Intents, project_id: &str, intent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/intents/{intent_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6191,10 +6227,10 @@ impl Intents {
     /// use google_cloud_dialogflow_v2::model::Intent;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, parent: &str
+    ///    client: &Intents, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_intent()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .set_intent(
     ///             Intent::new()/* set fields */
     ///         )
@@ -6221,11 +6257,11 @@ impl Intents {
     /// use google_cloud_dialogflow_v2::model::Intent;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, name: &str
+    ///    client: &Intents, project_id: &str, intent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_intent()
     ///         .set_intent(
-    ///             Intent::new().set_name(name)/* set fields */
+    ///             Intent::new().set_name(format!("projects/{project_id}/agent/intents/{intent_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -6248,10 +6284,10 @@ impl Intents {
     /// # use google_cloud_dialogflow_v2::client::Intents;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, name: &str
+    ///    client: &Intents, project_id: &str, intent_id: &str
     /// ) -> Result<()> {
     ///     client.delete_intent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/intents/{intent_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6483,16 +6519,18 @@ impl Intents {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = KnowledgeBases::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_knowledge_bases()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6598,10 +6636,10 @@ impl KnowledgeBases {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, parent: &str
+    ///    client: &KnowledgeBases, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_knowledge_bases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6620,10 +6658,10 @@ impl KnowledgeBases {
     /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, name: &str
+    ///    client: &KnowledgeBases, project_id: &str, knowledge_base_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_knowledge_base()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6641,10 +6679,10 @@ impl KnowledgeBases {
     /// use google_cloud_dialogflow_v2::model::KnowledgeBase;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, parent: &str
+    ///    client: &KnowledgeBases, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_knowledge_base()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_knowledge_base(
     ///             KnowledgeBase::new()/* set fields */
     ///         )
@@ -6664,10 +6702,10 @@ impl KnowledgeBases {
     /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, name: &str
+    ///    client: &KnowledgeBases, project_id: &str, knowledge_base_id: &str
     /// ) -> Result<()> {
     ///     client.delete_knowledge_base()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6686,11 +6724,11 @@ impl KnowledgeBases {
     /// use google_cloud_dialogflow_v2::model::KnowledgeBase;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, name: &str
+    ///    client: &KnowledgeBases, project_id: &str, knowledge_base_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_knowledge_base()
     ///         .set_knowledge_base(
-    ///             KnowledgeBase::new().set_name(name)/* set fields */
+    ///             KnowledgeBase::new().set_name(format!("projects/{project_id}/knowledgeBases/{knowledge_base_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -6836,16 +6874,19 @@ impl KnowledgeBases {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Participants;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    conversation_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Participants::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_participants()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/conversations/{conversation_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6950,10 +6991,10 @@ impl Participants {
     /// use google_cloud_dialogflow_v2::model::Participant;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Participants, parent: &str
+    ///    client: &Participants, project_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_participant()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/conversations/{conversation_id}"))
     ///         .set_participant(
     ///             Participant::new()/* set fields */
     ///         )
@@ -6973,10 +7014,10 @@ impl Participants {
     /// # use google_cloud_dialogflow_v2::client::Participants;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Participants, name: &str
+    ///    client: &Participants, project_id: &str, conversation_id: &str, participant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_participant()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/conversations/{conversation_id}/participants/{participant_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6994,10 +7035,10 @@ impl Participants {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Participants, parent: &str
+    ///    client: &Participants, project_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_participants()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/conversations/{conversation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -7019,11 +7060,11 @@ impl Participants {
     /// use google_cloud_dialogflow_v2::model::Participant;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Participants, name: &str
+    ///    client: &Participants, project_id: &str, conversation_id: &str, participant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_participant()
     ///         .set_participant(
-    ///             Participant::new().set_name(name)/* set fields */
+    ///             Participant::new().set_name(format!("projects/{project_id}/conversations/{conversation_id}/participants/{participant_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -7276,13 +7317,15 @@ impl Participants {
 /// # Example
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Sessions;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Sessions::builder().build().await?;
 ///     let response = client.detect_intent()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7550,16 +7593,19 @@ impl Sessions {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    session_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionEntityTypes::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_session_entity_types()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/agent/sessions/{session_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7670,10 +7716,10 @@ impl SessionEntityTypes {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, parent: &str
+    ///    client: &SessionEntityTypes, project_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_session_entity_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent/sessions/{session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -7698,10 +7744,10 @@ impl SessionEntityTypes {
     /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, name: &str
+    ///    client: &SessionEntityTypes, project_id: &str, session_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/sessions/{session_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7728,10 +7774,10 @@ impl SessionEntityTypes {
     /// use google_cloud_dialogflow_v2::model::SessionEntityType;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, parent: &str
+    ///    client: &SessionEntityTypes, project_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session_entity_type()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent/sessions/{session_id}"))
     ///         .set_session_entity_type(
     ///             SessionEntityType::new()/* set fields */
     ///         )
@@ -7760,11 +7806,11 @@ impl SessionEntityTypes {
     /// use google_cloud_dialogflow_v2::model::SessionEntityType;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, name: &str
+    ///    client: &SessionEntityTypes, project_id: &str, session_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_session_entity_type()
     ///         .set_session_entity_type(
-    ///             SessionEntityType::new().set_name(name)/* set fields */
+    ///             SessionEntityType::new().set_name(format!("projects/{project_id}/agent/sessions/{session_id}/entityTypes/{entity_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -7789,10 +7835,10 @@ impl SessionEntityTypes {
     /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, name: &str
+    ///    client: &SessionEntityTypes, project_id: &str, session_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/sessions/{session_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -7937,16 +7983,19 @@ impl SessionEntityTypes {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::SipTrunks;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SipTrunks::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_sip_trunks()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8051,10 +8100,10 @@ impl SipTrunks {
     /// use google_cloud_dialogflow_v2::model::SipTrunk;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, parent: &str
+    ///    client: &SipTrunks, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_sip_trunk()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_sip_trunk(
     ///             SipTrunk::new()/* set fields */
     ///         )
@@ -8074,10 +8123,10 @@ impl SipTrunks {
     /// # use google_cloud_dialogflow_v2::client::SipTrunks;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, name: &str
+    ///    client: &SipTrunks, project_id: &str, location_id: &str, siptrunk_id: &str
     /// ) -> Result<()> {
     ///     client.delete_sip_trunk()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sipTrunks/{siptrunk_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -8094,10 +8143,10 @@ impl SipTrunks {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, parent: &str
+    ///    client: &SipTrunks, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sip_trunks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -8116,10 +8165,10 @@ impl SipTrunks {
     /// # use google_cloud_dialogflow_v2::client::SipTrunks;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, name: &str
+    ///    client: &SipTrunks, project_id: &str, location_id: &str, siptrunk_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_sip_trunk()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sipTrunks/{siptrunk_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8139,11 +8188,11 @@ impl SipTrunks {
     /// use google_cloud_dialogflow_v2::model::SipTrunk;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, name: &str
+    ///    client: &SipTrunks, project_id: &str, location_id: &str, siptrunk_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_sip_trunk()
     ///         .set_sip_trunk(
-    ///             SipTrunk::new().set_name(name)/* set fields */
+    ///             SipTrunk::new().set_name(format!("projects/{project_id}/locations/{location_id}/sipTrunks/{siptrunk_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -8289,16 +8338,19 @@ impl SipTrunks {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Tools;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Tools::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tools()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8403,10 +8455,10 @@ impl Tools {
     /// use google_cloud_dialogflow_v2::model::Tool;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, parent: &str
+    ///    client: &Tools, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_tool_id("tool_id_value")
     ///         .set_tool(
     ///             Tool::new()/* set fields */
@@ -8427,10 +8479,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_v2::client::Tools;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tools/{tool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8448,10 +8500,10 @@ impl Tools {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, parent: &str
+    ///    client: &Tools, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -8470,10 +8522,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_v2::client::Tools;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tools/{tool_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -8492,11 +8544,11 @@ impl Tools {
     /// use google_cloud_dialogflow_v2::model::Tool;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tool()
     ///         .set_tool(
-    ///             Tool::new().set_name(name)/* set fields */
+    ///             Tool::new().set_name(format!("projects/{project_id}/locations/{location_id}/tools/{tool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -8642,16 +8694,18 @@ impl Tools {
 /// ```
 /// # use google_cloud_dialogflow_v2::client::Versions;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Versions::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_versions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/agent"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8756,10 +8810,10 @@ impl Versions {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, parent: &str
+    ///    client: &Versions, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -8778,10 +8832,10 @@ impl Versions {
     /// # use google_cloud_dialogflow_v2::client::Versions;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, name: &str
+    ///    client: &Versions, project_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8801,10 +8855,10 @@ impl Versions {
     /// use google_cloud_dialogflow_v2::model::Version;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, parent: &str
+    ///    client: &Versions, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/agent"))
     ///         .set_version(
     ///             Version::new()/* set fields */
     ///         )
@@ -8831,11 +8885,11 @@ impl Versions {
     /// use google_cloud_dialogflow_v2::model::Version;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, name: &str
+    ///    client: &Versions, project_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_version()
     ///         .set_version(
-    ///             Version::new().set_name(name)/* set fields */
+    ///             Version::new().set_name(format!("projects/{project_id}/agent/versions/{version_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -8854,10 +8908,10 @@ impl Versions {
     /// # use google_cloud_dialogflow_v2::client::Versions;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, name: &str
+    ///    client: &Versions, project_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/agent/versions/{version_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

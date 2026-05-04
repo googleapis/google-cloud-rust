@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_scheduler_v1::client::CloudScheduler;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudScheduler::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_jobs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl CloudScheduler {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, parent: &str
+    ///    client: &CloudScheduler, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl CloudScheduler {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, name: &str
+    ///    client: &CloudScheduler, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -175,10 +178,10 @@ impl CloudScheduler {
     /// use google_cloud_scheduler_v1::model::Job;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, parent: &str
+    ///    client: &CloudScheduler, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_job(
     ///             Job::new()/* set fields */
     ///         )
@@ -213,11 +216,11 @@ impl CloudScheduler {
     /// use google_cloud_scheduler_v1::model::Job;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, name: &str
+    ///    client: &CloudScheduler, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_job()
     ///         .set_job(
-    ///             Job::new().set_name(name)/* set fields */
+    ///             Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -236,10 +239,10 @@ impl CloudScheduler {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, name: &str
+    ///    client: &CloudScheduler, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

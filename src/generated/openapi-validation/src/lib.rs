@@ -56,7 +56,8 @@ pub mod stub;
 /// ```
 /// # use secretmanager_openapi_v1::client::SecretManagerService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SecretManagerService::builder().build().await?;
 ///     let mut list = client.list_locations()
 ///         /* set fields */
@@ -64,7 +65,8 @@ pub mod stub;
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

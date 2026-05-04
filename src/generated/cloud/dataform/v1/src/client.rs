@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_dataform_v1::client::Dataform;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Dataform::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_repositories()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +133,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, team_folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_team_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -178,11 +180,11 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::TeamFolder;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, team_folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_team_folder()
     ///         .set_team_folder(
-    ///             TeamFolder::new().set_name(name)/* set fields */
+    ///             TeamFolder::new().set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -201,10 +203,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, team_folder_id: &str
     /// ) -> Result<()> {
     ///     client.delete_team_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -298,10 +300,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -345,11 +347,11 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::Folder;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_folder()
     ///         .set_folder(
-    ///             Folder::new().set_name(name)/* set fields */
+    ///             Folder::new().set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -368,10 +370,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, folder_id: &str
     /// ) -> Result<()> {
     ///     client.delete_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -522,10 +524,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -575,11 +577,11 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::Repository;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_repository()
     ///         .set_repository(
-    ///             Repository::new().set_name(name)/* set fields */
+    ///             Repository::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -598,10 +600,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -782,10 +784,10 @@ impl Dataform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workspaces()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -804,10 +806,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workspace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workspace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -825,10 +827,10 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::Workspace;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workspace()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_workspace_id("workspace_id_value")
     ///         .set_workspace(
     ///             Workspace::new()/* set fields */
@@ -849,10 +851,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workspace_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workspace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1216,10 +1218,10 @@ impl Dataform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_release_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1238,10 +1240,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, release_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_release_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1259,10 +1261,10 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::ReleaseConfig;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_release_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_release_config(
     ///             ReleaseConfig::new()/* set fields */
     ///         )
@@ -1290,11 +1292,11 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::ReleaseConfig;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, release_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_release_config()
     ///         .set_release_config(
-    ///             ReleaseConfig::new().set_name(name)/* set fields */
+    ///             ReleaseConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1313,10 +1315,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, release_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_release_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1333,10 +1335,10 @@ impl Dataform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_compilation_results()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1355,10 +1357,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, compilation_result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_compilation_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1376,10 +1378,10 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::CompilationResult;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_compilation_result()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_compilation_result(
     ///             CompilationResult::new()/* set fields */
     ///         )
@@ -1425,10 +1427,10 @@ impl Dataform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workflow_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1447,10 +1449,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workflow_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1468,10 +1470,10 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::WorkflowConfig;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workflow_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_workflow_config(
     ///             WorkflowConfig::new()/* set fields */
     ///         )
@@ -1499,11 +1501,11 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::WorkflowConfig;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workflow_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workflow_config()
     ///         .set_workflow_config(
-    ///             WorkflowConfig::new().set_name(name)/* set fields */
+    ///             WorkflowConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1522,10 +1524,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workflow_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1542,10 +1544,10 @@ impl Dataform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workflow_invocations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1564,10 +1566,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workflow_invocation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow_invocation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1585,10 +1587,10 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::WorkflowInvocation;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, parent: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workflow_invocation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_workflow_invocation(
     ///             WorkflowInvocation::new()/* set fields */
     ///         )
@@ -1608,10 +1610,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str, repository_id: &str, workflow_invocation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow_invocation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1672,10 +1674,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/config"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1700,11 +1702,11 @@ impl Dataform {
     /// use google_cloud_dataform_v1::model::Config;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, name: &str
+    ///    client: &Dataform, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_config()
     ///         .set_config(
-    ///             Config::new().set_name(name)/* set fields */
+    ///             Config::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

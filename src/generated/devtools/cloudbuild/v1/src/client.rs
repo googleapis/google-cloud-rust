@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_build_v1::client::CloudBuild;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudBuild::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_builds()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -153,10 +155,10 @@ impl CloudBuild {
     /// use google_cloud_build_v1::model::Build;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, parent: &str
+    ///    client: &CloudBuild, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_build()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_build(
     ///             Build::new()/* set fields */
     ///         )
@@ -179,10 +181,10 @@ impl CloudBuild {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, name: &str
+    ///    client: &CloudBuild, project_id: &str, build_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_build()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/builds/{build_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -203,10 +205,10 @@ impl CloudBuild {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, parent: &str
+    ///    client: &CloudBuild, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_builds()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -379,10 +381,10 @@ impl CloudBuild {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, parent: &str
+    ///    client: &CloudBuild, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_build_triggers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -533,10 +535,10 @@ impl CloudBuild {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, name: &str
+    ///    client: &CloudBuild, project_id: &str, location_id: &str, worker_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_worker_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -564,10 +566,10 @@ impl CloudBuild {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, name: &str
+    ///    client: &CloudBuild, project_id: &str, location_id: &str, worker_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_worker_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -597,11 +599,11 @@ impl CloudBuild {
     /// use google_cloud_build_v1::model::WorkerPool;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, name: &str
+    ///    client: &CloudBuild, project_id: &str, location_id: &str, worker_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_worker_pool()
     ///         .set_worker_pool(
-    ///             WorkerPool::new().set_name(name)/* set fields */
+    ///             WorkerPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -643,10 +645,10 @@ impl CloudBuild {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, name: &str
+    ///    client: &CloudBuild, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_default_service_account()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/defaultServiceAccount"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

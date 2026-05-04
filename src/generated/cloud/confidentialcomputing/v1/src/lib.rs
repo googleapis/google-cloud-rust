@@ -56,9 +56,10 @@ pub mod stub;
 /// ```
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
 /// use google_cloud_confidentialcomputing_v1::model::Challenge;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConfidentialComputing::builder().build().await?;
-///     let parent = "parent_value";
 ///     let response = client.create_challenge()
 ///         .set_parent(parent)
 ///         .set_challenge(
@@ -66,7 +67,8 @@ pub mod stub;
 ///         )
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

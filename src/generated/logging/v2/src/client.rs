@@ -21,10 +21,12 @@
 /// # Example
 /// ```
 /// # use google_cloud_logging_v2::client::LoggingServiceV2;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = LoggingServiceV2::builder().build().await?;
 ///     // use `client` to make requests to the Cloud Logging API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -186,10 +188,12 @@ impl LoggingServiceV2 {
 /// # Example
 /// ```
 /// # use google_cloud_logging_v2::client::ConfigServiceV2;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ConfigServiceV2::builder().build().await?;
 ///     // use `client` to make requests to the Cloud Logging API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -609,10 +613,12 @@ impl ConfigServiceV2 {
 /// # Example
 /// ```
 /// # use google_cloud_logging_v2::client::MetricsServiceV2;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MetricsServiceV2::builder().build().await?;
 ///     // use `client` to make requests to the Cloud Logging API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_securityposture_v1::client::SecurityPosture;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SecurityPosture::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_postures()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -137,10 +140,10 @@ impl SecurityPosture {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, parent: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_postures()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -187,10 +190,10 @@ impl SecurityPosture {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_posture()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -222,10 +225,10 @@ impl SecurityPosture {
     /// use google_cloud_securityposture_v1::model::Posture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, parent: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_posture()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_posture_id("posture_id_value")
     ///         .set_posture(
     ///             Posture::new()/* set fields */
@@ -271,11 +274,11 @@ impl SecurityPosture {
     /// use google_cloud_securityposture_v1::model::Posture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_posture()
     ///         .set_posture(
-    ///             Posture::new().set_name(name)/* set fields */
+    ///             Posture::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -307,10 +310,10 @@ impl SecurityPosture {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_id: &str
     /// ) -> Result<()> {
     ///     client.delete_posture()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -361,10 +364,10 @@ impl SecurityPosture {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, parent: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_posture_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -385,10 +388,10 @@ impl SecurityPosture {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_posture_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/postureDeployments/{posture_deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -417,10 +420,10 @@ impl SecurityPosture {
     /// use google_cloud_securityposture_v1::model::PostureDeployment;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, parent: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_posture_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_posture_deployment(
     ///             PostureDeployment::new()/* set fields */
     ///         )
@@ -456,11 +459,11 @@ impl SecurityPosture {
     /// use google_cloud_securityposture_v1::model::PostureDeployment;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_posture_deployment()
     ///         .set_posture_deployment(
-    ///             PostureDeployment::new().set_name(name)/* set fields */
+    ///             PostureDeployment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postureDeployments/{posture_deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -492,10 +495,10 @@ impl SecurityPosture {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_posture_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/postureDeployments/{posture_deployment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -515,10 +518,10 @@ impl SecurityPosture {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, parent: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_posture_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -542,10 +545,10 @@ impl SecurityPosture {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, name: &str
+    ///    client: &SecurityPosture, organization_id: &str, location_id: &str, posture_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_posture_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/postureTemplates/{posture_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

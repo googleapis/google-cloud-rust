@@ -60,16 +60,19 @@ pub mod stub;
 /// ```
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    case_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CaseAttachmentService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_attachments()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/cases/{case_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

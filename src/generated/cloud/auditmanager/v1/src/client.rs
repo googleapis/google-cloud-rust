@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_auditmanager_v1::client::AuditManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AuditManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_audit_reports()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -211,10 +214,10 @@ impl AuditManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_auditmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AuditManager, parent: &str
+    ///    client: &AuditManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_audit_reports()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -233,10 +236,10 @@ impl AuditManager {
     /// # use google_cloud_auditmanager_v1::client::AuditManager;
     /// use google_cloud_auditmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AuditManager, name: &str
+    ///    client: &AuditManager, project_id: &str, location_id: &str, audit_report_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_audit_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/auditReports/{audit_report_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +256,10 @@ impl AuditManager {
     /// # use google_cloud_auditmanager_v1::client::AuditManager;
     /// use google_cloud_auditmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AuditManager, name: &str
+    ///    client: &AuditManager, folder_id: &str, location_id: &str, resource_enrollment_status_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_enrollment_status()
-    ///         .set_name(name)
+    ///         .set_name(format!("folders/{folder_id}/locations/{location_id}/resourceEnrollmentStatuses/{resource_enrollment_status_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

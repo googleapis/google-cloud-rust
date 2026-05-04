@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = RapidMigrationAssessment::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_collectors()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -206,10 +208,10 @@ impl RapidMigrationAssessment {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, name: &str
+    ///    client: &RapidMigrationAssessment, project_id: &str, location_id: &str, annotation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_annotation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/annotations/{annotation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -249,10 +251,10 @@ impl RapidMigrationAssessment {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, name: &str
+    ///    client: &RapidMigrationAssessment, project_id: &str, location_id: &str, collector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_collector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -283,11 +285,11 @@ impl RapidMigrationAssessment {
     /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, name: &str
+    ///    client: &RapidMigrationAssessment, project_id: &str, location_id: &str, collector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_collector()
     ///         .set_collector(
-    ///             Collector::new().set_name(name)/* set fields */
+    ///             Collector::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -318,10 +320,10 @@ impl RapidMigrationAssessment {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, name: &str
+    ///    client: &RapidMigrationAssessment, project_id: &str, location_id: &str, collector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_collector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiGatewayService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_gateways()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -154,10 +156,10 @@ impl ApiGatewayService {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,11 +226,11 @@ impl ApiGatewayService {
     /// use google_cloud_apigateway_v1::model::Gateway;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_gateway()
     ///         .set_gateway(
-    ///             Gateway::new().set_name(name)/* set fields */
+    ///             Gateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -258,10 +260,10 @@ impl ApiGatewayService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     client.delete_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -300,10 +302,10 @@ impl ApiGatewayService {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/apis/{api_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -370,11 +372,11 @@ impl ApiGatewayService {
     /// use google_cloud_apigateway_v1::model::Api;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_api()
     ///         .set_api(
-    ///             Api::new().set_name(name)/* set fields */
+    ///             Api::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -404,10 +406,10 @@ impl ApiGatewayService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     client.delete_api()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/apis/{api_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -424,10 +426,10 @@ impl ApiGatewayService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, parent: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_api_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/global/apis/{api_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -446,10 +448,10 @@ impl ApiGatewayService {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str, api_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -478,10 +480,10 @@ impl ApiGatewayService {
     /// use google_cloud_apigateway_v1::model::ApiConfig;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, parent: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_api_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/global/apis/{api_id}"))
     ///         .set_api_config(
     ///             ApiConfig::new()/* set fields */
     ///         )
@@ -515,11 +517,11 @@ impl ApiGatewayService {
     /// use google_cloud_apigateway_v1::model::ApiConfig;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str, api_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_api_config()
     ///         .set_api_config(
-    ///             ApiConfig::new().set_name(name)/* set fields */
+    ///             ApiConfig::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -549,10 +551,10 @@ impl ApiGatewayService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, name: &str
+    ///    client: &ApiGatewayService, project_id: &str, api_id: &str, api_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_api_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

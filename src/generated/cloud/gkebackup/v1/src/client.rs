@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BackupForGKE::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_backup_plans()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -189,10 +191,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -223,11 +225,11 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::BackupPlan;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_plan()
     ///         .set_backup_plan(
-    ///             BackupPlan::new().set_name(name)/* set fields */
+    ///             BackupPlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -257,10 +259,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_plan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -334,10 +336,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -368,11 +370,11 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::BackupChannel;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_channel()
     ///         .set_backup_channel(
-    ///             BackupChannel::new().set_name(name)/* set fields */
+    ///             BackupChannel::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -402,10 +404,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_channel_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -422,10 +424,10 @@ impl BackupForGKE {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_channel_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_plan_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -446,10 +448,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_channel_id: &str, backup_plan_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}/backupPlanBindings/{backup_plan_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -478,10 +480,10 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::Backup;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
@@ -503,10 +505,10 @@ impl BackupForGKE {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -525,10 +527,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -559,11 +561,11 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::Backup;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -593,10 +595,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -613,10 +615,10 @@ impl BackupForGKE {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_volume_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -635,10 +637,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, backup_plan_id: &str, backup_id: &str, volume_backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}/volumeBackups/{volume_backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -713,10 +715,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore_plan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -747,11 +749,11 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::RestorePlan;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_restore_plan()
     ///         .set_restore_plan(
-    ///             RestorePlan::new().set_name(name)/* set fields */
+    ///             RestorePlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -781,10 +783,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str
     /// ) -> Result<()> {
     ///     client.delete_restore_plan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -858,10 +860,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -892,11 +894,11 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::RestoreChannel;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_restore_channel()
     ///         .set_restore_channel(
-    ///             RestoreChannel::new().set_name(name)/* set fields */
+    ///             RestoreChannel::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -926,10 +928,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_channel_id: &str
     /// ) -> Result<()> {
     ///     client.delete_restore_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -946,10 +948,10 @@ impl BackupForGKE {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_channel_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_restore_plan_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -970,10 +972,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_channel_id: &str, restore_plan_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore_plan_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}/restorePlanBindings/{restore_plan_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1004,10 +1006,10 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::Restore;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_restore()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"))
     ///         .set_restore_id("restore_id_value")
     ///         .set_restore(
     ///             Restore::new()/* set fields */
@@ -1029,10 +1031,10 @@ impl BackupForGKE {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_restores()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1051,10 +1053,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str, restore_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1085,11 +1087,11 @@ impl BackupForGKE {
     /// use google_cloud_gkebackup_v1::model::Restore;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str, restore_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_restore()
     ///         .set_restore(
-    ///             Restore::new().set_name(name)/* set fields */
+    ///             Restore::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1119,10 +1121,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str, restore_id: &str
     /// ) -> Result<()> {
     ///     client.delete_restore()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1139,10 +1141,10 @@ impl BackupForGKE {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, parent: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str, restore_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_volume_restores()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1161,10 +1163,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, name: &str
+    ///    client: &BackupForGKE, project_id: &str, location_id: &str, restore_plan_id: &str, restore_id: &str, volume_restore_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume_restore()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}/volumeRestores/{volume_restore_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

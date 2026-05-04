@@ -4386,6 +4386,15 @@ pub mod monitoring {
             self.0.request.filter = v.into();
             self
         }
+
+        /// Sets the value of [view][crate::model::ListFrameworkComplianceSummariesRequest::view].
+        pub fn set_view<T: Into<crate::model::FrameworkComplianceSummaryView>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.view = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4604,6 +4613,12 @@ pub mod monitoring {
             T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::FetchFrameworkComplianceReportRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
             self
         }
     }

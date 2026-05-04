@@ -40,19 +40,9 @@ pub(crate) async fn resolve(cred: &Credentials) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::{CacheableResource, CredentialsProvider};
-    use http::{Extensions, HeaderMap};
+
+    use crate::credentials::tests::MockCredentials;
     use test_case::test_case;
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> crate::Result<CacheableResource<HeaderMap>>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-    }
 
     #[tokio::test]
     async fn test_resolve_default() {

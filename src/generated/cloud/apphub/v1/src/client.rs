@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_apphub_v1::client::AppHub;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AppHub::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_service_project_attachments()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -154,10 +157,10 @@ impl AppHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_service_project_attachments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -190,10 +193,10 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_project_attachment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_project_attachment(
     ///             ServiceProjectAttachment::new()/* set fields */
     ///         )
@@ -215,10 +218,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, service_project_attachment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_project_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceProjectAttachments/{service_project_attachment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -248,10 +251,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, service_project_attachment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_project_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceProjectAttachments/{service_project_attachment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -295,10 +298,10 @@ impl AppHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_discovered_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -317,10 +320,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, discovered_service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/discoveredServices/{discovered_service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -359,10 +362,10 @@ impl AppHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -393,10 +396,10 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::Service;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
@@ -417,10 +420,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/services/{service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -451,11 +454,11 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::Service;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service()
     ///         .set_service(
-    ///             Service::new().set_name(name)/* set fields */
+    ///             Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/services/{service_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -485,10 +488,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/services/{service_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -506,10 +509,10 @@ impl AppHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_discovered_workloads()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -528,10 +531,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, discovered_workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_workload()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/discoveredWorkloads/{discovered_workload_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -570,10 +573,10 @@ impl AppHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workloads()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -604,10 +607,10 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::Workload;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workload()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .set_workload_id("workload_id_value")
     ///         .set_workload(
     ///             Workload::new()/* set fields */
@@ -628,10 +631,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/workloads/{workload_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -662,11 +665,11 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::Workload;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workload()
     ///         .set_workload(
-    ///             Workload::new().set_name(name)/* set fields */
+    ///             Workload::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/workloads/{workload_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -696,10 +699,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workload()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/workloads/{workload_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -716,10 +719,10 @@ impl AppHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_applications()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -750,10 +753,10 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::Application;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, parent: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_application()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_application_id("application_id_value")
     ///         .set_application(
     ///             Application::new()/* set fields */
@@ -774,10 +777,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_application()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -808,11 +811,11 @@ impl AppHub {
     /// use google_cloud_apphub_v1::model::Application;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_application()
     ///         .set_application(
-    ///             Application::new().set_name(name)/* set fields */
+    ///             Application::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -842,10 +845,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, name: &str
+    ///    client: &AppHub, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     client.delete_application()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

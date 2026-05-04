@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-dialogflow-cx-v3"
-version                = "2.4.0"
+version                = "2.5.0"
 description            = "Google Cloud Client Libraries for Rust - Dialogflow API"
 edition.workspace      = true
 authors.workspace      = true
@@ -117,3 +117,6 @@ serde_json.workspace               = true
 serde_with.workspace               = true
 tracing.workspace                  = true
 wkt.workspace                      = true
+
+[dev-dependencies]
+anyhow.workspace = true

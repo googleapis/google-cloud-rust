@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_clouddms_v1::client::DataMigrationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataMigrationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_migration_jobs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl DataMigrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_migration_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, migration_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migration_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::MigrationJob;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_migration_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_migration_job(
     ///             MigrationJob::new()/* set fields */
     ///         )
@@ -225,11 +228,11 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::MigrationJob;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, migration_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_migration_job()
     ///         .set_migration_job(
-    ///             MigrationJob::new().set_name(name)/* set fields */
+    ///             MigrationJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -261,10 +264,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, migration_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_migration_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -527,10 +530,10 @@ impl DataMigrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connection_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -551,10 +554,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, connection_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -585,10 +588,10 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::ConnectionProfile;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection_profile()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_connection_profile(
     ///             ConnectionProfile::new()/* set fields */
     ///         )
@@ -624,11 +627,11 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::ConnectionProfile;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, connection_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connection_profile()
     ///         .set_connection_profile(
-    ///             ConnectionProfile::new().set_name(name)/* set fields */
+    ///             ConnectionProfile::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -662,10 +665,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, connection_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connection_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -695,10 +698,10 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::PrivateConnection;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_private_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_private_connection(
     ///             PrivateConnection::new()/* set fields */
     ///         )
@@ -720,10 +723,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -743,10 +746,10 @@ impl DataMigrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_private_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -778,10 +781,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_private_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -799,10 +802,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, conversion_workspace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversion_workspace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -822,10 +825,10 @@ impl DataMigrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_conversion_workspaces()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -858,10 +861,10 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::ConversionWorkspace;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversion_workspace()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_conversion_workspace(
     ///             ConversionWorkspace::new()/* set fields */
     ///         )
@@ -897,11 +900,11 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::ConversionWorkspace;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, conversion_workspace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_conversion_workspace()
     ///         .set_conversion_workspace(
-    ///             ConversionWorkspace::new().set_name(name)/* set fields */
+    ///             ConversionWorkspace::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -933,10 +936,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, conversion_workspace_id: &str
     /// ) -> Result<()> {
     ///     client.delete_conversion_workspace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -955,10 +958,10 @@ impl DataMigrationService {
     /// use google_cloud_clouddms_v1::model::MappingRule;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, conversion_workspace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mapping_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"))
     ///         .set_mapping_rule(
     ///             MappingRule::new()/* set fields */
     ///         )
@@ -998,10 +1001,10 @@ impl DataMigrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, parent: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, conversion_workspace_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mapping_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1020,10 +1023,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, name: &str
+    ///    client: &DataMigrationService, project_id: &str, location_id: &str, conversion_workspace_id: &str, mapping_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mapping_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}/mappingRules/{mapping_rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

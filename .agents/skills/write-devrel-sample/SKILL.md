@@ -151,8 +151,8 @@ If it does fail, you can remove the `compile_error!()` and move on.
 
 ### Verify the new sample is run.
 
-Add a `panic!("TODO : making sure the test is built")`, and then execute the
-samples as before.
+Add a `panic!("TODO : making sure the test is run")` inside the sample function,
+and then execute the samples as before.
 
 ```shell
 GOOGLE_CLOUD_PROJECT=${PROJECT_ID} \

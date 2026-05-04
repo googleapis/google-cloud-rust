@@ -22,16 +22,21 @@
 /// ```
 /// # use google_cloud_workstations_v1::client::Workstations;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    workstation_cluster_id: &str,
+///    workstation_config_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Workstations::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_workstations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -130,10 +135,10 @@ impl Workstations {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workstation_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -151,10 +156,10 @@ impl Workstations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workstation_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -187,10 +192,10 @@ impl Workstations {
     /// use google_cloud_workstations_v1::model::WorkstationCluster;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workstation_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_workstation_cluster(
     ///             WorkstationCluster::new()/* set fields */
     ///         )
@@ -226,11 +231,11 @@ impl Workstations {
     /// use google_cloud_workstations_v1::model::WorkstationCluster;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workstation_cluster()
     ///         .set_workstation_cluster(
-    ///             WorkstationCluster::new().set_name(name)/* set fields */
+    ///             WorkstationCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -262,10 +267,10 @@ impl Workstations {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_workstation_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -284,10 +289,10 @@ impl Workstations {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workstation_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -305,10 +310,10 @@ impl Workstations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workstation_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -329,10 +334,10 @@ impl Workstations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_usable_workstation_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -365,10 +370,10 @@ impl Workstations {
     /// use google_cloud_workstations_v1::model::WorkstationConfig;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workstation_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"))
     ///         .set_workstation_config(
     ///             WorkstationConfig::new()/* set fields */
     ///         )
@@ -404,11 +409,11 @@ impl Workstations {
     /// use google_cloud_workstations_v1::model::WorkstationConfig;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workstation_config()
     ///         .set_workstation_config(
-    ///             WorkstationConfig::new().set_name(name)/* set fields */
+    ///             WorkstationConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -440,10 +445,10 @@ impl Workstations {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_workstation_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -462,10 +467,10 @@ impl Workstations {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str, workstation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workstation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -483,10 +488,10 @@ impl Workstations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workstations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -507,10 +512,10 @@ impl Workstations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_usable_workstations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -541,10 +546,10 @@ impl Workstations {
     /// use google_cloud_workstations_v1::model::Workstation;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, parent: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workstation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"))
     ///         .set_workstation_id("workstation_id_value")
     ///         .set_workstation(
     ///             Workstation::new()/* set fields */
@@ -579,11 +584,11 @@ impl Workstations {
     /// use google_cloud_workstations_v1::model::Workstation;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str, workstation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workstation()
     ///         .set_workstation(
-    ///             Workstation::new().set_name(name)/* set fields */
+    ///             Workstation::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -613,10 +618,10 @@ impl Workstations {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, name: &str
+    ///    client: &Workstations, project_id: &str, location_id: &str, workstation_cluster_id: &str, workstation_config_id: &str, workstation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_workstation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

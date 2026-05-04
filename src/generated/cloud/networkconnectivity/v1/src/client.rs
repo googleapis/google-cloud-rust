@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CrossNetworkAutomationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_service_connection_maps()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -159,10 +161,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_connection_map()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionMaps/{service_connection_map_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -195,10 +197,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionMap;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, parent: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_connection_map()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_connection_map(
     ///             ServiceConnectionMap::new()/* set fields */
     ///         )
@@ -236,11 +238,11 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionMap;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_connection_map()
     ///         .set_service_connection_map(
-    ///             ServiceConnectionMap::new().set_name(name)/* set fields */
+    ///             ServiceConnectionMap::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionMaps/{service_connection_map_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -274,10 +276,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_map_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_connection_map()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionMaps/{service_connection_map_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -324,10 +326,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_connection_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionPolicies/{service_connection_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -360,10 +362,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionPolicy;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, parent: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_connection_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_connection_policy(
     ///             ServiceConnectionPolicy::new()/* set fields */
     ///         )
@@ -401,11 +403,11 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionPolicy;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_connection_policy()
     ///         .set_service_connection_policy(
-    ///             ServiceConnectionPolicy::new().set_name(name)/* set fields */
+    ///             ServiceConnectionPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionPolicies/{service_connection_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -439,10 +441,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_connection_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionPolicies/{service_connection_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -489,10 +491,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_class_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_class()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceClasses/{service_class_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -525,11 +527,11 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_networkconnectivity_v1::model::ServiceClass;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_class_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_class()
     ///         .set_service_class(
-    ///             ServiceClass::new().set_name(name)/* set fields */
+    ///             ServiceClass::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceClasses/{service_class_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -563,10 +565,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_class_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_class()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceClasses/{service_class_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -586,10 +588,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_token_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_connection_token()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionTokens/{service_connection_token_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -649,10 +651,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionToken;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, parent: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_connection_token()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_connection_token(
     ///             ServiceConnectionToken::new()/* set fields */
     ///         )
@@ -687,10 +689,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, name: &str
+    ///    client: &CrossNetworkAutomationService, project_id: &str, location_id: &str, service_connection_token_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_connection_token()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceConnectionTokens/{service_connection_token_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -925,16 +927,18 @@ impl CrossNetworkAutomationService {
 /// ```
 /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataTransferService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_multicloud_data_transfer_configs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1062,10 +1066,10 @@ impl DataTransferService {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_multicloud_data_transfer_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1141,11 +1145,11 @@ impl DataTransferService {
     /// use google_cloud_networkconnectivity_v1::model::MulticloudDataTransferConfig;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_multicloud_data_transfer_config()
     ///         .set_multicloud_data_transfer_config(
-    ///             MulticloudDataTransferConfig::new().set_name(name)/* set fields */
+    ///             MulticloudDataTransferConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1179,10 +1183,10 @@ impl DataTransferService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_multicloud_data_transfer_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1203,10 +1207,10 @@ impl DataTransferService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, parent: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_destinations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1225,10 +1229,10 @@ impl DataTransferService {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str, destination_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_destination()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}/destinations/{destination_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1257,10 +1261,10 @@ impl DataTransferService {
     /// use google_cloud_networkconnectivity_v1::model::Destination;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, parent: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_destination()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}"))
     ///         .set_destination_id("destination_id_value")
     ///         .set_destination(
     ///             Destination::new()/* set fields */
@@ -1295,11 +1299,11 @@ impl DataTransferService {
     /// use google_cloud_networkconnectivity_v1::model::Destination;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str, destination_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_destination()
     ///         .set_destination(
-    ///             Destination::new().set_name(name)/* set fields */
+    ///             Destination::new().set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}/destinations/{destination_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1329,10 +1333,10 @@ impl DataTransferService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_config_id: &str, destination_id: &str
     /// ) -> Result<()> {
     ///     client.delete_destination()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferConfigs/{multicloud_data_transfer_config_id}/destinations/{destination_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1349,10 +1353,10 @@ impl DataTransferService {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, location_id: &str, multicloud_data_transfer_supported_service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_multicloud_data_transfer_supported_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/multicloudDataTransferSupportedServices/{multicloud_data_transfer_supported_service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1606,16 +1610,18 @@ impl DataTransferService {
 /// ```
 /// # use google_cloud_networkconnectivity_v1::client::HubService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = HubService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_hubs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1739,10 +1745,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hub()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1810,11 +1816,11 @@ impl HubService {
     /// use google_cloud_networkconnectivity_v1::model::Hub;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_hub()
     ///         .set_hub(
-    ///             Hub::new().set_name(name)/* set fields */
+    ///             Hub::new().set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1844,10 +1850,10 @@ impl HubService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str
     /// ) -> Result<()> {
     ///     client.delete_hub()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1936,10 +1942,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, location_id: &str, spoke_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_spoke()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/spokes/{spoke_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2006,11 +2012,11 @@ impl HubService {
     /// use google_cloud_networkconnectivity_v1::model::Spoke;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, location_id: &str, spoke_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_spoke()
     ///         .set_spoke(
-    ///             Spoke::new().set_name(name)/* set fields */
+    ///             Spoke::new().set_name(format!("projects/{project_id}/locations/{location_id}/spokes/{spoke_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2168,10 +2174,10 @@ impl HubService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, location_id: &str, spoke_id: &str
     /// ) -> Result<()> {
     ///     client.delete_spoke()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/spokes/{spoke_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2187,10 +2193,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str, route_table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_route_table()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}/routeTables/{route_table_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2207,10 +2213,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str, route_table_id: &str, route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}/routeTables/{route_table_id}/routes/{route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2228,10 +2234,10 @@ impl HubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, parent: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str, route_table_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_routes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/global/hubs/{hub_id}/routeTables/{route_table_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2251,10 +2257,10 @@ impl HubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, parent: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_route_tables()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/global/hubs/{hub_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2273,10 +2279,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}/groups/{group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2294,10 +2300,10 @@ impl HubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, parent: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/global/hubs/{hub_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2330,11 +2336,11 @@ impl HubService {
     /// use google_cloud_networkconnectivity_v1::model::Group;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, name: &str
+    ///    client: &HubService, project_id: &str, hub_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_group()
     ///         .set_group(
-    ///             Group::new().set_name(name)/* set fields */
+    ///             Group::new().set_name(format!("projects/{project_id}/locations/global/hubs/{hub_id}/groups/{group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2556,16 +2562,18 @@ impl HubService {
 /// ```
 /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = InternalRangeService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_internal_ranges()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2691,10 +2699,10 @@ impl InternalRangeService {
     /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &InternalRangeService, name: &str
+    ///    client: &InternalRangeService, project_id: &str, location_id: &str, internal_range_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_internal_range()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/internalRanges/{internal_range_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2723,10 +2731,10 @@ impl InternalRangeService {
     /// use google_cloud_networkconnectivity_v1::model::InternalRange;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &InternalRangeService, parent: &str
+    ///    client: &InternalRangeService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_internal_range()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_internal_range(
     ///             InternalRange::new()/* set fields */
     ///         )
@@ -2762,11 +2770,11 @@ impl InternalRangeService {
     /// use google_cloud_networkconnectivity_v1::model::InternalRange;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &InternalRangeService, name: &str
+    ///    client: &InternalRangeService, project_id: &str, location_id: &str, internal_range_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_internal_range()
     ///         .set_internal_range(
-    ///             InternalRange::new().set_name(name)/* set fields */
+    ///             InternalRange::new().set_name(format!("projects/{project_id}/locations/{location_id}/internalRanges/{internal_range_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2798,10 +2806,10 @@ impl InternalRangeService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &InternalRangeService, name: &str
+    ///    client: &InternalRangeService, project_id: &str, location_id: &str, internal_range_id: &str
     /// ) -> Result<()> {
     ///     client.delete_internal_range()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/internalRanges/{internal_range_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3024,16 +3032,18 @@ impl InternalRangeService {
 /// ```
 /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PolicyBasedRoutingService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_policy_based_routes()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3160,10 +3170,10 @@ impl PolicyBasedRoutingService {
     /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyBasedRoutingService, name: &str
+    ///    client: &PolicyBasedRoutingService, project_id: &str, policy_based_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy_based_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/PolicyBasedRoutes/{policy_based_route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3232,10 +3242,10 @@ impl PolicyBasedRoutingService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyBasedRoutingService, name: &str
+    ///    client: &PolicyBasedRoutingService, project_id: &str, policy_based_route_id: &str
     /// ) -> Result<()> {
     ///     client.delete_policy_based_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/PolicyBasedRoutes/{policy_based_route_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

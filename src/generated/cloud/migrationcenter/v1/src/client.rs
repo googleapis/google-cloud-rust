@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = MigrationCenter::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_assets()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_assets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -176,11 +179,11 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Asset;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_asset()
     ///         .set_asset(
-    ///             Asset::new().set_name(name)/* set fields */
+    ///             Asset::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -219,10 +222,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -311,10 +314,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::ImportJob;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_import_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_import_job(
     ///             ImportJob::new()/* set fields */
     ///         )
@@ -335,10 +338,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_import_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -357,10 +360,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_import_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -388,10 +391,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_import_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -421,11 +424,11 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::ImportJob;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_import_job()
     ///         .set_import_job(
-    ///             ImportJob::new().set_name(name)/* set fields */
+    ///             ImportJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -504,10 +507,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str, import_data_file_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_import_data_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}/importDataFiles/{import_data_file_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -525,10 +528,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_import_data_files()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -559,10 +562,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::ImportDataFile;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_import_data_file()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"))
     ///         .set_import_data_file(
     ///             ImportDataFile::new()/* set fields */
     ///         )
@@ -595,10 +598,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, import_job_id: &str, import_data_file_id: &str
     /// ) -> Result<()> {
     ///     client.delete_import_data_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}/importDataFiles/{import_data_file_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -617,10 +620,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -639,10 +642,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -671,10 +674,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Group;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_group_id("group_id_value")
     ///         .set_group(
     ///             Group::new()/* set fields */
@@ -709,11 +712,11 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Group;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_group()
     ///         .set_group(
-    ///             Group::new().set_name(name)/* set fields */
+    ///             Group::new().set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -743,10 +746,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -827,10 +830,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_error_frames()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -849,10 +852,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, source_id: &str, error_frame_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_error_frame()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/errorFrames/{error_frame_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -870,10 +873,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -892,10 +895,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -924,10 +927,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Source;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_source()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_source_id("source_id_value")
     ///         .set_source(
     ///             Source::new()/* set fields */
@@ -962,11 +965,11 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Source;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_source()
     ///         .set_source(
-    ///             Source::new().set_name(name)/* set fields */
+    ///             Source::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -996,10 +999,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     client.delete_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1016,10 +1019,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_preference_sets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1038,10 +1041,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, preference_set_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_preference_set()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1070,10 +1073,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::PreferenceSet;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_preference_set()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_preference_set(
     ///             PreferenceSet::new()/* set fields */
     ///         )
@@ -1107,11 +1110,11 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::PreferenceSet;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, preference_set_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_preference_set()
     ///         .set_preference_set(
-    ///             PreferenceSet::new().set_name(name)/* set fields */
+    ///             PreferenceSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1141,10 +1144,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, preference_set_id: &str
     /// ) -> Result<()> {
     ///     client.delete_preference_set()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1160,10 +1163,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/settings"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1194,11 +1197,11 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Settings;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_settings()
     ///         .set_settings(
-    ///             Settings::new().set_name(name)/* set fields */
+    ///             Settings::new().set_name(format!("projects/{project_id}/locations/{location_id}/settings"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1229,10 +1232,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::ReportConfig;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_report_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_report_config(
     ///             ReportConfig::new()/* set fields */
     ///         )
@@ -1252,10 +1255,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1273,10 +1276,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_report_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1306,10 +1309,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_report_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1337,10 +1340,10 @@ impl MigrationCenter {
     /// use google_cloud_migrationcenter_v1::model::Report;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_report()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .set_report_id("report_id_value")
     ///         .set_report(
     ///             Report::new()/* set fields */
@@ -1361,10 +1364,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, report_config_id: &str, report_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reports/{report_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1382,10 +1385,10 @@ impl MigrationCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, parent: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_reports()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1415,10 +1418,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, name: &str
+    ///    client: &MigrationCenter, project_id: &str, location_id: &str, report_config_id: &str, report_id: &str
     /// ) -> Result<()> {
     ///     client.delete_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reports/{report_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

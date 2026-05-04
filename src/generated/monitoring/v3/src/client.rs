@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AlertPolicyService::builder().build().await?;
-///     let name = "name_value";
 ///     let mut list = client.list_alert_policies()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -140,10 +142,10 @@ impl AlertPolicyService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, name: &str
+    ///    client: &AlertPolicyService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_alert_policies()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -162,10 +164,10 @@ impl AlertPolicyService {
     /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, name: &str
+    ///    client: &AlertPolicyService, project_id: &str, alert_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_alert_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -187,10 +189,10 @@ impl AlertPolicyService {
     /// use google_cloud_monitoring_v3::model::AlertPolicy;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, name: &str
+    ///    client: &AlertPolicyService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_alert_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .set_alert_policy(
     ///             AlertPolicy::new()/* set fields */
     ///         )
@@ -214,10 +216,10 @@ impl AlertPolicyService {
     /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, name: &str
+    ///    client: &AlertPolicyService, project_id: &str, alert_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_alert_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -243,11 +245,11 @@ impl AlertPolicyService {
     /// use google_cloud_monitoring_v3::model::AlertPolicy;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, name: &str
+    ///    client: &AlertPolicyService, project_id: &str, alert_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_alert_policy()
     ///         .set_alert_policy(
-    ///             AlertPolicy::new().set_name(name)/* set fields */
+    ///             AlertPolicy::new().set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -266,16 +268,18 @@ impl AlertPolicyService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::GroupService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = GroupService::builder().build().await?;
-///     let name = "name_value";
 ///     let mut list = client.list_groups()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -386,10 +390,10 @@ impl GroupService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, name: &str
+    ///    client: &GroupService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_groups()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -408,10 +412,10 @@ impl GroupService {
     /// # use google_cloud_monitoring_v3::client::GroupService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, name: &str
+    ///    client: &GroupService, project_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/groups/{group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -429,10 +433,10 @@ impl GroupService {
     /// use google_cloud_monitoring_v3::model::Group;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, name: &str
+    ///    client: &GroupService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .set_group(
     ///             Group::new()/* set fields */
     ///         )
@@ -454,11 +458,11 @@ impl GroupService {
     /// use google_cloud_monitoring_v3::model::Group;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, name: &str
+    ///    client: &GroupService, project_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_group()
     ///         .set_group(
-    ///             Group::new().set_name(name)/* set fields */
+    ///             Group::new().set_name(format!("projects/{project_id}/groups/{group_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -476,10 +480,10 @@ impl GroupService {
     /// # use google_cloud_monitoring_v3::client::GroupService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, name: &str
+    ///    client: &GroupService, project_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/groups/{group_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -518,7 +522,8 @@ impl GroupService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::MetricService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MetricService::builder().build().await?;
 ///     let mut list = client.list_metric_descriptors()
 ///         /* set fields */
@@ -526,7 +531,8 @@ impl GroupService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -845,16 +851,18 @@ impl MetricService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = NotificationChannelService::builder().build().await?;
-///     let name = "name_value";
 ///     let mut list = client.list_notification_channel_descriptors()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -958,10 +966,10 @@ impl NotificationChannelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_notification_channel_descriptors()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -985,10 +993,10 @@ impl NotificationChannelService {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str, channel_descriptor_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification_channel_descriptor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/notificationChannelDescriptors/{channel_descriptor_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1012,10 +1020,10 @@ impl NotificationChannelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_notification_channels()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1042,10 +1050,10 @@ impl NotificationChannelService {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str, notification_channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1073,10 +1081,10 @@ impl NotificationChannelService {
     /// use google_cloud_monitoring_v3::model::NotificationChannel;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_notification_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}"))
     ///         .set_notification_channel(
     ///             NotificationChannel::new()/* set fields */
     ///         )
@@ -1109,11 +1117,11 @@ impl NotificationChannelService {
     /// use google_cloud_monitoring_v3::model::NotificationChannel;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str, notification_channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_notification_channel()
     ///         .set_notification_channel(
-    ///             NotificationChannel::new().set_name(name)/* set fields */
+    ///             NotificationChannel::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1141,10 +1149,10 @@ impl NotificationChannelService {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, name: &str
+    ///    client: &NotificationChannelService, project_id: &str, notification_channel_id: &str
     /// ) -> Result<()> {
     ///     client.delete_notification_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1258,7 +1266,8 @@ impl NotificationChannelService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::QueryService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = QueryService::builder().build().await?;
 ///     let mut list = client.query_time_series()
 ///         /* set fields */
@@ -1266,7 +1275,8 @@ impl NotificationChannelService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1394,16 +1404,18 @@ impl QueryService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceMonitoringService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_services()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1508,10 +1520,10 @@ impl ServiceMonitoringService {
     /// use google_cloud_monitoring_v3::model::Service;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, parent: &str
+    ///    client: &ServiceMonitoringService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
@@ -1532,10 +1544,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, name: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/services/{service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1553,10 +1565,10 @@ impl ServiceMonitoringService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, parent: &str
+    ///    client: &ServiceMonitoringService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1578,11 +1590,11 @@ impl ServiceMonitoringService {
     /// use google_cloud_monitoring_v3::model::Service;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, name: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service()
     ///         .set_service(
-    ///             Service::new().set_name(name)/* set fields */
+    ///             Service::new().set_name(format!("projects/{project_id}/services/{service_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1601,10 +1613,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, name: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/services/{service_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1621,10 +1633,10 @@ impl ServiceMonitoringService {
     /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, parent: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_level_objective()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/services/{service_id}"))
     ///         .set_service_level_objective(
     ///             ServiceLevelObjective::new()/* set fields */
     ///         )
@@ -1648,10 +1660,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, name: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str, service_level_objective_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_level_objective()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/services/{service_id}/serviceLevelObjectives/{service_level_objective_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1673,10 +1685,10 @@ impl ServiceMonitoringService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, parent: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_service_level_objectives()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1702,11 +1714,11 @@ impl ServiceMonitoringService {
     /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, name: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str, service_level_objective_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_level_objective()
     ///         .set_service_level_objective(
-    ///             ServiceLevelObjective::new().set_name(name)/* set fields */
+    ///             ServiceLevelObjective::new().set_name(format!("projects/{project_id}/services/{service_id}/serviceLevelObjectives/{service_level_objective_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1729,10 +1741,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, name: &str
+    ///    client: &ServiceMonitoringService, project_id: &str, service_id: &str, service_level_objective_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_level_objective()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/services/{service_id}/serviceLevelObjectives/{service_level_objective_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1752,16 +1764,18 @@ impl ServiceMonitoringService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::SnoozeService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SnoozeService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_snoozes()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1865,10 +1879,10 @@ impl SnoozeService {
     /// use google_cloud_monitoring_v3::model::Snooze;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &SnoozeService, parent: &str
+    ///    client: &SnoozeService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_snooze()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_snooze(
     ///             Snooze::new()/* set fields */
     ///         )
@@ -1890,10 +1904,10 @@ impl SnoozeService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &SnoozeService, parent: &str
+    ///    client: &SnoozeService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_snoozes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1912,10 +1926,10 @@ impl SnoozeService {
     /// # use google_cloud_monitoring_v3::client::SnoozeService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &SnoozeService, name: &str
+    ///    client: &SnoozeService, project_id: &str, snooze_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snooze()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/snoozes/{snooze_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1936,11 +1950,11 @@ impl SnoozeService {
     /// use google_cloud_monitoring_v3::model::Snooze;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &SnoozeService, name: &str
+    ///    client: &SnoozeService, project_id: &str, snooze_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_snooze()
     ///         .set_snooze(
-    ///             Snooze::new().set_name(name)/* set fields */
+    ///             Snooze::new().set_name(format!("projects/{project_id}/snoozes/{snooze_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1959,16 +1973,18 @@ impl SnoozeService {
 /// ```
 /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = UptimeCheckService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_uptime_check_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2077,10 +2093,10 @@ impl UptimeCheckService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, parent: &str
+    ///    client: &UptimeCheckService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_uptime_check_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2101,10 +2117,10 @@ impl UptimeCheckService {
     /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, name: &str
+    ///    client: &UptimeCheckService, project_id: &str, uptime_check_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_uptime_check_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/uptimeCheckConfigs/{uptime_check_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2124,10 +2140,10 @@ impl UptimeCheckService {
     /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, parent: &str
+    ///    client: &UptimeCheckService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_uptime_check_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_uptime_check_config(
     ///             UptimeCheckConfig::new()/* set fields */
     ///         )
@@ -2155,11 +2171,11 @@ impl UptimeCheckService {
     /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, name: &str
+    ///    client: &UptimeCheckService, project_id: &str, uptime_check_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_uptime_check_config()
     ///         .set_uptime_check_config(
-    ///             UptimeCheckConfig::new().set_name(name)/* set fields */
+    ///             UptimeCheckConfig::new().set_name(format!("projects/{project_id}/uptimeCheckConfigs/{uptime_check_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2182,10 +2198,10 @@ impl UptimeCheckService {
     /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, name: &str
+    ///    client: &UptimeCheckService, project_id: &str, uptime_check_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_uptime_check_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/uptimeCheckConfigs/{uptime_check_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

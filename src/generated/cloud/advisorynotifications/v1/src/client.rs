@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AdvisoryNotificationsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_notifications()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -133,10 +136,10 @@ impl AdvisoryNotificationsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_advisorynotifications_v1::Result;
     /// async fn sample(
-    ///    client: &AdvisoryNotificationsService, parent: &str
+    ///    client: &AdvisoryNotificationsService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_notifications()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -157,10 +160,10 @@ impl AdvisoryNotificationsService {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// use google_cloud_advisorynotifications_v1::Result;
     /// async fn sample(
-    ///    client: &AdvisoryNotificationsService, name: &str
+    ///    client: &AdvisoryNotificationsService, organization_id: &str, location_id: &str, notification_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/notifications/{notification_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -179,10 +182,10 @@ impl AdvisoryNotificationsService {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// use google_cloud_advisorynotifications_v1::Result;
     /// async fn sample(
-    ///    client: &AdvisoryNotificationsService, name: &str
+    ///    client: &AdvisoryNotificationsService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/settings"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -200,11 +203,11 @@ impl AdvisoryNotificationsService {
     /// use google_cloud_advisorynotifications_v1::model::Settings;
     /// use google_cloud_advisorynotifications_v1::Result;
     /// async fn sample(
-    ///    client: &AdvisoryNotificationsService, name: &str
+    ///    client: &AdvisoryNotificationsService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_settings()
     ///         .set_settings(
-    ///             Settings::new().set_name(name)/* set fields */
+    ///             Settings::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/settings"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);

@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DashboardsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_dashboards()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -192,10 +194,10 @@ impl DashboardsService {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// use google_cloud_monitoring_dashboard_v1::Result;
     /// async fn sample(
-    ///    client: &DashboardsService, name: &str
+    ///    client: &DashboardsService, project_id: &str, dashboard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dashboard()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/dashboards/{dashboard_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -216,10 +218,10 @@ impl DashboardsService {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// use google_cloud_monitoring_dashboard_v1::Result;
     /// async fn sample(
-    ///    client: &DashboardsService, name: &str
+    ///    client: &DashboardsService, project_id: &str, dashboard_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dashboard()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/dashboards/{dashboard_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -240,11 +242,11 @@ impl DashboardsService {
     /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
     /// use google_cloud_monitoring_dashboard_v1::Result;
     /// async fn sample(
-    ///    client: &DashboardsService, name: &str
+    ///    client: &DashboardsService, project_id: &str, dashboard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dashboard()
     ///         .set_dashboard(
-    ///             Dashboard::new().set_name(name)/* set fields */
+    ///             Dashboard::new().set_name(format!("projects/{project_id}/dashboards/{dashboard_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);

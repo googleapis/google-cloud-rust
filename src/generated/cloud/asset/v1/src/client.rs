@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_asset_v1::client::AssetService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AssetService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_assets()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -250,10 +252,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, name: &str
+    ///    client: &AssetService, project_id: &str, feed_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feed()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/feeds/{feed_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -293,11 +295,11 @@ impl AssetService {
     /// use google_cloud_asset_v1::model::Feed;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, name: &str
+    ///    client: &AssetService, project_id: &str, feed_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feed()
     ///         .set_feed(
-    ///             Feed::new().set_name(name)/* set fields */
+    ///             Feed::new().set_name(format!("projects/{project_id}/feeds/{feed_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -316,10 +318,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, name: &str
+    ///    client: &AssetService, project_id: &str, feed_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feed()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/feeds/{feed_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -509,10 +511,10 @@ impl AssetService {
     /// use google_cloud_asset_v1::model::SavedQuery;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, parent: &str
+    ///    client: &AssetService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_saved_query()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_saved_query(
     ///             SavedQuery::new()/* set fields */
     ///         )
@@ -532,10 +534,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, name: &str
+    ///    client: &AssetService, project_id: &str, saved_query_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_saved_query()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/savedQueries/{saved_query_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -553,10 +555,10 @@ impl AssetService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, parent: &str
+    ///    client: &AssetService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_saved_queries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -578,11 +580,11 @@ impl AssetService {
     /// use google_cloud_asset_v1::model::SavedQuery;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, name: &str
+    ///    client: &AssetService, project_id: &str, saved_query_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_saved_query()
     ///         .set_saved_query(
-    ///             SavedQuery::new().set_name(name)/* set fields */
+    ///             SavedQuery::new().set_name(format!("projects/{project_id}/savedQueries/{saved_query_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -601,10 +603,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, name: &str
+    ///    client: &AssetService, project_id: &str, saved_query_id: &str
     /// ) -> Result<()> {
     ///     client.delete_saved_query()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/savedQueries/{saved_query_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AddressGroupService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_address_groups()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -156,10 +158,10 @@ impl AddressGroupService {
     /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &AddressGroupService, name: &str
+    ///    client: &AddressGroupService, project_id: &str, location_id: &str, address_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_address_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -188,10 +190,10 @@ impl AddressGroupService {
     /// use google_cloud_networksecurity_v1::model::AddressGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &AddressGroupService, parent: &str
+    ///    client: &AddressGroupService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_address_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_address_group(
     ///             AddressGroup::new()/* set fields */
     ///         )
@@ -227,11 +229,11 @@ impl AddressGroupService {
     /// use google_cloud_networksecurity_v1::model::AddressGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &AddressGroupService, name: &str
+    ///    client: &AddressGroupService, project_id: &str, location_id: &str, address_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_address_group()
     ///         .set_address_group(
-    ///             AddressGroup::new().set_name(name)/* set fields */
+    ///             AddressGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -362,10 +364,10 @@ impl AddressGroupService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &AddressGroupService, name: &str
+    ///    client: &AddressGroupService, project_id: &str, location_id: &str, address_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_address_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -629,16 +631,18 @@ impl AddressGroupService {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = OrganizationAddressGroupService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_address_groups()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -770,10 +774,10 @@ impl OrganizationAddressGroupService {
     /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationAddressGroupService, name: &str
+    ///    client: &OrganizationAddressGroupService, project_id: &str, location_id: &str, address_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_address_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -804,10 +808,10 @@ impl OrganizationAddressGroupService {
     /// use google_cloud_networksecurity_v1::model::AddressGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationAddressGroupService, parent: &str
+    ///    client: &OrganizationAddressGroupService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_address_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_address_group(
     ///             AddressGroup::new()/* set fields */
     ///         )
@@ -845,11 +849,11 @@ impl OrganizationAddressGroupService {
     /// use google_cloud_networksecurity_v1::model::AddressGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationAddressGroupService, name: &str
+    ///    client: &OrganizationAddressGroupService, project_id: &str, location_id: &str, address_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_address_group()
     ///         .set_address_group(
-    ///             AddressGroup::new().set_name(name)/* set fields */
+    ///             AddressGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -988,10 +992,10 @@ impl OrganizationAddressGroupService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationAddressGroupService, name: &str
+    ///    client: &OrganizationAddressGroupService, project_id: &str, location_id: &str, address_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_address_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1275,16 +1279,19 @@ impl OrganizationAddressGroupService {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DnsThreatDetectorService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_dns_threat_detectors()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1386,10 +1393,10 @@ impl DnsThreatDetectorService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &DnsThreatDetectorService, parent: &str
+    ///    client: &DnsThreatDetectorService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_dns_threat_detectors()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1410,10 +1417,10 @@ impl DnsThreatDetectorService {
     /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &DnsThreatDetectorService, name: &str
+    ///    client: &DnsThreatDetectorService, project_id: &str, location_id: &str, dns_threat_detector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_threat_detector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dnsThreatDetectors/{dns_threat_detector_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1433,10 +1440,10 @@ impl DnsThreatDetectorService {
     /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &DnsThreatDetectorService, parent: &str
+    ///    client: &DnsThreatDetectorService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dns_threat_detector()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_dns_threat_detector(
     ///             DnsThreatDetector::new()/* set fields */
     ///         )
@@ -1463,11 +1470,11 @@ impl DnsThreatDetectorService {
     /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &DnsThreatDetectorService, name: &str
+    ///    client: &DnsThreatDetectorService, project_id: &str, location_id: &str, dns_threat_detector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dns_threat_detector()
     ///         .set_dns_threat_detector(
-    ///             DnsThreatDetector::new().set_name(name)/* set fields */
+    ///             DnsThreatDetector::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsThreatDetectors/{dns_threat_detector_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1490,10 +1497,10 @@ impl DnsThreatDetectorService {
     /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &DnsThreatDetectorService, name: &str
+    ///    client: &DnsThreatDetectorService, project_id: &str, location_id: &str, dns_threat_detector_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dns_threat_detector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dnsThreatDetectors/{dns_threat_detector_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1734,16 +1741,19 @@ impl DnsThreatDetectorService {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = FirewallActivation::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_firewall_endpoints()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1844,10 +1854,10 @@ impl FirewallActivation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, parent: &str
+    ///    client: &FirewallActivation, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_firewall_endpoints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1868,10 +1878,10 @@ impl FirewallActivation {
     /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, name: &str
+    ///    client: &FirewallActivation, organization_id: &str, location_id: &str, firewall_endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_firewall_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/firewallEndpoints/{firewall_endpoint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1902,10 +1912,10 @@ impl FirewallActivation {
     /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, parent: &str
+    ///    client: &FirewallActivation, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_firewall_endpoint()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_firewall_endpoint(
     ///             FirewallEndpoint::new()/* set fields */
     ///         )
@@ -1938,10 +1948,10 @@ impl FirewallActivation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, name: &str
+    ///    client: &FirewallActivation, organization_id: &str, location_id: &str, firewall_endpoint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_firewall_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/firewallEndpoints/{firewall_endpoint_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1973,11 +1983,11 @@ impl FirewallActivation {
     /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, name: &str
+    ///    client: &FirewallActivation, organization_id: &str, location_id: &str, firewall_endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_firewall_endpoint()
     ///         .set_firewall_endpoint(
-    ///             FirewallEndpoint::new().set_name(name)/* set fields */
+    ///             FirewallEndpoint::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/firewallEndpoints/{firewall_endpoint_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1999,10 +2009,10 @@ impl FirewallActivation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, parent: &str
+    ///    client: &FirewallActivation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_firewall_endpoint_associations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2025,10 +2035,10 @@ impl FirewallActivation {
     /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, name: &str
+    ///    client: &FirewallActivation, project_id: &str, location_id: &str, firewall_endpoint_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_firewall_endpoint_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2059,10 +2069,10 @@ impl FirewallActivation {
     /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, parent: &str
+    ///    client: &FirewallActivation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_firewall_endpoint_association()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_firewall_endpoint_association(
     ///             FirewallEndpointAssociation::new()/* set fields */
     ///         )
@@ -2097,10 +2107,10 @@ impl FirewallActivation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, name: &str
+    ///    client: &FirewallActivation, project_id: &str, location_id: &str, firewall_endpoint_association_id: &str
     /// ) -> Result<()> {
     ///     client.delete_firewall_endpoint_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2134,11 +2144,11 @@ impl FirewallActivation {
     /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &FirewallActivation, name: &str
+    ///    client: &FirewallActivation, project_id: &str, location_id: &str, firewall_endpoint_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_firewall_endpoint_association()
     ///         .set_firewall_endpoint_association(
-    ///             FirewallEndpointAssociation::new().set_name(name)/* set fields */
+    ///             FirewallEndpointAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2380,16 +2390,19 @@ impl FirewallActivation {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::Intercept;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Intercept::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_intercept_endpoint_groups()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2491,10 +2504,10 @@ impl Intercept {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_intercept_endpoint_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2516,10 +2529,10 @@ impl Intercept {
     /// # use google_cloud_networksecurity_v1::client::Intercept;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_endpoint_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intercept_endpoint_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2551,10 +2564,10 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_intercept_endpoint_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_intercept_endpoint_group(
     ///             InterceptEndpointGroup::new()/* set fields */
     ///         )
@@ -2591,11 +2604,11 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_endpoint_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_intercept_endpoint_group()
     ///         .set_intercept_endpoint_group(
-    ///             InterceptEndpointGroup::new().set_name(name)/* set fields */
+    ///             InterceptEndpointGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2628,10 +2641,10 @@ impl Intercept {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_endpoint_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_intercept_endpoint_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2651,10 +2664,10 @@ impl Intercept {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_intercept_endpoint_group_associations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2676,10 +2689,10 @@ impl Intercept {
     /// # use google_cloud_networksecurity_v1::client::Intercept;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_endpoint_group_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intercept_endpoint_group_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2711,10 +2724,10 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_intercept_endpoint_group_association()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_intercept_endpoint_group_association(
     ///             InterceptEndpointGroupAssociation::new()/* set fields */
     ///         )
@@ -2751,11 +2764,11 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_endpoint_group_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_intercept_endpoint_group_association()
     ///         .set_intercept_endpoint_group_association(
-    ///             InterceptEndpointGroupAssociation::new().set_name(name)/* set fields */
+    ///             InterceptEndpointGroupAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2788,10 +2801,10 @@ impl Intercept {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_endpoint_group_association_id: &str
     /// ) -> Result<()> {
     ///     client.delete_intercept_endpoint_group_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2811,10 +2824,10 @@ impl Intercept {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_intercept_deployment_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2836,10 +2849,10 @@ impl Intercept {
     /// # use google_cloud_networksecurity_v1::client::Intercept;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intercept_deployment_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2871,10 +2884,10 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_intercept_deployment_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_intercept_deployment_group(
     ///             InterceptDeploymentGroup::new()/* set fields */
     ///         )
@@ -2911,11 +2924,11 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_intercept_deployment_group()
     ///         .set_intercept_deployment_group(
-    ///             InterceptDeploymentGroup::new().set_name(name)/* set fields */
+    ///             InterceptDeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2948,10 +2961,10 @@ impl Intercept {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_deployment_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_intercept_deployment_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2971,10 +2984,10 @@ impl Intercept {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_intercept_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2996,10 +3009,10 @@ impl Intercept {
     /// # use google_cloud_networksecurity_v1::client::Intercept;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intercept_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3029,10 +3042,10 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, parent: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_intercept_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_intercept_deployment(
     ///             InterceptDeployment::new()/* set fields */
     ///         )
@@ -3069,11 +3082,11 @@ impl Intercept {
     /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_intercept_deployment()
     ///         .set_intercept_deployment(
-    ///             InterceptDeployment::new().set_name(name)/* set fields */
+    ///             InterceptDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3106,10 +3119,10 @@ impl Intercept {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Intercept, name: &str
+    ///    client: &Intercept, project_id: &str, location_id: &str, intercept_deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_intercept_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3346,16 +3359,19 @@ impl Intercept {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::Mirroring;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Mirroring::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_mirroring_endpoint_groups()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3456,10 +3472,10 @@ impl Mirroring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mirroring_endpoint_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3481,10 +3497,10 @@ impl Mirroring {
     /// # use google_cloud_networksecurity_v1::client::Mirroring;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_endpoint_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mirroring_endpoint_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3516,10 +3532,10 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mirroring_endpoint_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_mirroring_endpoint_group(
     ///             MirroringEndpointGroup::new()/* set fields */
     ///         )
@@ -3556,11 +3572,11 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_endpoint_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_mirroring_endpoint_group()
     ///         .set_mirroring_endpoint_group(
-    ///             MirroringEndpointGroup::new().set_name(name)/* set fields */
+    ///             MirroringEndpointGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3593,10 +3609,10 @@ impl Mirroring {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_endpoint_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_mirroring_endpoint_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3616,10 +3632,10 @@ impl Mirroring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mirroring_endpoint_group_associations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3641,10 +3657,10 @@ impl Mirroring {
     /// # use google_cloud_networksecurity_v1::client::Mirroring;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_endpoint_group_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mirroring_endpoint_group_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3676,10 +3692,10 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mirroring_endpoint_group_association()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_mirroring_endpoint_group_association(
     ///             MirroringEndpointGroupAssociation::new()/* set fields */
     ///         )
@@ -3716,11 +3732,11 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_endpoint_group_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_mirroring_endpoint_group_association()
     ///         .set_mirroring_endpoint_group_association(
-    ///             MirroringEndpointGroupAssociation::new().set_name(name)/* set fields */
+    ///             MirroringEndpointGroupAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3753,10 +3769,10 @@ impl Mirroring {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_endpoint_group_association_id: &str
     /// ) -> Result<()> {
     ///     client.delete_mirroring_endpoint_group_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3776,10 +3792,10 @@ impl Mirroring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mirroring_deployment_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3801,10 +3817,10 @@ impl Mirroring {
     /// # use google_cloud_networksecurity_v1::client::Mirroring;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mirroring_deployment_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3836,10 +3852,10 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mirroring_deployment_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_mirroring_deployment_group(
     ///             MirroringDeploymentGroup::new()/* set fields */
     ///         )
@@ -3876,11 +3892,11 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_mirroring_deployment_group()
     ///         .set_mirroring_deployment_group(
-    ///             MirroringDeploymentGroup::new().set_name(name)/* set fields */
+    ///             MirroringDeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3913,10 +3929,10 @@ impl Mirroring {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_deployment_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_mirroring_deployment_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3936,10 +3952,10 @@ impl Mirroring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mirroring_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3961,10 +3977,10 @@ impl Mirroring {
     /// # use google_cloud_networksecurity_v1::client::Mirroring;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mirroring_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3994,10 +4010,10 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, parent: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mirroring_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_mirroring_deployment(
     ///             MirroringDeployment::new()/* set fields */
     ///         )
@@ -4034,11 +4050,11 @@ impl Mirroring {
     /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_mirroring_deployment()
     ///         .set_mirroring_deployment(
-    ///             MirroringDeployment::new().set_name(name)/* set fields */
+    ///             MirroringDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4071,10 +4087,10 @@ impl Mirroring {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &Mirroring, name: &str
+    ///    client: &Mirroring, project_id: &str, location_id: &str, mirroring_deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_mirroring_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4311,16 +4327,18 @@ impl Mirroring {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkSecurity::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_authorization_policies()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4446,10 +4464,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, authorization_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authorization_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/authorizationPolicies/{authorization_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4480,10 +4498,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::AuthorizationPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_authorization_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_authorization_policy(
     ///             AuthorizationPolicy::new()/* set fields */
     ///         )
@@ -4519,11 +4537,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::AuthorizationPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, authorization_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_authorization_policy()
     ///         .set_authorization_policy(
-    ///             AuthorizationPolicy::new().set_name(name)/* set fields */
+    ///             AuthorizationPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/authorizationPolicies/{authorization_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4555,10 +4573,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, authorization_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_authorization_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/authorizationPolicies/{authorization_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4602,10 +4620,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, backend_authentication_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backend_authentication_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backendAuthenticationConfigs/{backend_authentication_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4636,10 +4654,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backend_authentication_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backend_authentication_config(
     ///             BackendAuthenticationConfig::new()/* set fields */
     ///         )
@@ -4676,11 +4694,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, backend_authentication_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backend_authentication_config()
     ///         .set_backend_authentication_config(
-    ///             BackendAuthenticationConfig::new().set_name(name)/* set fields */
+    ///             BackendAuthenticationConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/backendAuthenticationConfigs/{backend_authentication_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4713,10 +4731,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, backend_authentication_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backend_authentication_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backendAuthenticationConfigs/{backend_authentication_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4759,10 +4777,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, server_tls_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_server_tls_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serverTlsPolicies/{server_tls_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4791,10 +4809,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::ServerTlsPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_server_tls_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_server_tls_policy(
     ///             ServerTlsPolicy::new()/* set fields */
     ///         )
@@ -4830,11 +4848,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::ServerTlsPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, server_tls_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_server_tls_policy()
     ///         .set_server_tls_policy(
-    ///             ServerTlsPolicy::new().set_name(name)/* set fields */
+    ///             ServerTlsPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/serverTlsPolicies/{server_tls_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4866,10 +4884,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, server_tls_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_server_tls_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serverTlsPolicies/{server_tls_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4912,10 +4930,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, client_tls_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_client_tls_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clientTlsPolicies/{client_tls_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4944,10 +4962,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::ClientTlsPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_client_tls_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_client_tls_policy(
     ///             ClientTlsPolicy::new()/* set fields */
     ///         )
@@ -4983,11 +5001,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::ClientTlsPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, client_tls_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_client_tls_policy()
     ///         .set_client_tls_policy(
-    ///             ClientTlsPolicy::new().set_name(name)/* set fields */
+    ///             ClientTlsPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientTlsPolicies/{client_tls_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5019,10 +5037,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, client_tls_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_client_tls_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clientTlsPolicies/{client_tls_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5065,10 +5083,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway_security_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5099,10 +5117,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_gateway_security_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_gateway_security_policy(
     ///             GatewaySecurityPolicy::new()/* set fields */
     ///         )
@@ -5138,11 +5156,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_gateway_security_policy()
     ///         .set_gateway_security_policy(
-    ///             GatewaySecurityPolicy::new().set_name(name)/* set fields */
+    ///             GatewaySecurityPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5174,10 +5192,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_gateway_security_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5196,10 +5214,10 @@ impl NetworkSecurity {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_gateway_security_policy_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5220,10 +5238,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway_security_policy_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}/rules/{rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5254,10 +5272,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_gateway_security_policy_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"))
     ///         .set_gateway_security_policy_rule(
     ///             GatewaySecurityPolicyRule::new()/* set fields */
     ///         )
@@ -5293,11 +5311,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_gateway_security_policy_rule()
     ///         .set_gateway_security_policy_rule(
-    ///             GatewaySecurityPolicyRule::new().set_name(name)/* set fields */
+    ///             GatewaySecurityPolicyRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}/rules/{rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5329,10 +5347,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, gateway_security_policy_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_gateway_security_policy_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}/rules/{rule_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5373,10 +5391,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, url_list_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_url_list()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/urlLists/{url_list_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5405,10 +5423,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::UrlList;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_url_list()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_url_list(
     ///             UrlList::new()/* set fields */
     ///         )
@@ -5442,11 +5460,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::UrlList;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, url_list_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_url_list()
     ///         .set_url_list(
-    ///             UrlList::new().set_name(name)/* set fields */
+    ///             UrlList::new().set_name(format!("projects/{project_id}/locations/{location_id}/urlLists/{url_list_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5476,10 +5494,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, url_list_id: &str
     /// ) -> Result<()> {
     ///     client.delete_url_list()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/urlLists/{url_list_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5520,10 +5538,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, tls_inspection_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tls_inspection_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5554,10 +5572,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tls_inspection_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_tls_inspection_policy(
     ///             TlsInspectionPolicy::new()/* set fields */
     ///         )
@@ -5593,11 +5611,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, tls_inspection_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tls_inspection_policy()
     ///         .set_tls_inspection_policy(
-    ///             TlsInspectionPolicy::new().set_name(name)/* set fields */
+    ///             TlsInspectionPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5629,10 +5647,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, tls_inspection_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tls_inspection_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5651,10 +5669,10 @@ impl NetworkSecurity {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_authz_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5673,10 +5691,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, authz_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authz_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/authzPolicies/{authz_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5705,10 +5723,10 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, parent: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_authz_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_authz_policy(
     ///             AuthzPolicy::new()/* set fields */
     ///         )
@@ -5742,11 +5760,11 @@ impl NetworkSecurity {
     /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, authz_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_authz_policy()
     ///         .set_authz_policy(
-    ///             AuthzPolicy::new().set_name(name)/* set fields */
+    ///             AuthzPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzPolicies/{authz_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5776,10 +5794,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, name: &str
+    ///    client: &NetworkSecurity, project_id: &str, location_id: &str, authz_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_authz_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/authzPolicies/{authz_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -6014,16 +6032,19 @@ impl NetworkSecurity {
 /// ```
 /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = OrganizationSecurityProfileGroupService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_security_profile_groups()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6127,10 +6148,10 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_security_profile_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6154,10 +6175,10 @@ impl OrganizationSecurityProfileGroupService {
     /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_security_profile_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6190,10 +6211,10 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_security_profile_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_security_profile_group(
     ///             SecurityProfileGroup::new()/* set fields */
     ///         )
@@ -6232,11 +6253,11 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_security_profile_group()
     ///         .set_security_profile_group(
-    ///             SecurityProfileGroup::new().set_name(name)/* set fields */
+    ///             SecurityProfileGroup::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -6271,10 +6292,10 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_security_profile_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -6296,10 +6317,10 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_security_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6322,10 +6343,10 @@ impl OrganizationSecurityProfileGroupService {
     /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_security_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6358,10 +6379,10 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_networksecurity_v1::model::SecurityProfile;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_security_profile()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_security_profile(
     ///             SecurityProfile::new()/* set fields */
     ///         )
@@ -6399,11 +6420,11 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_networksecurity_v1::model::SecurityProfile;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_security_profile()
     ///         .set_security_profile(
-    ///             SecurityProfile::new().set_name(name)/* set fields */
+    ///             SecurityProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -6437,10 +6458,10 @@ impl OrganizationSecurityProfileGroupService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    ///    client: &OrganizationSecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_security_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

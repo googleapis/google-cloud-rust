@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataCatalog::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_entry_groups()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -199,10 +202,10 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::EntryGroup;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_entry_group(
     ///             EntryGroup::new()/* set fields */
     ///         )
@@ -223,10 +226,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,11 +255,11 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::EntryGroup;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entry_group()
     ///         .set_entry_group(
-    ///             EntryGroup::new().set_name(name)/* set fields */
+    ///             EntryGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -281,10 +284,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entry_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -302,10 +305,10 @@ impl DataCatalog {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entry_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -336,10 +339,10 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::Entry;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .set_entry_id("entry_id_value")
     ///         .set_entry(
     ///             Entry::new()/* set fields */
@@ -369,11 +372,11 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::Entry;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entry()
     ///         .set_entry(
-    ///             Entry::new().set_name(name)/* set fields */
+    ///             Entry::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -404,10 +407,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -424,10 +427,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -475,10 +478,10 @@ impl DataCatalog {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -558,10 +561,10 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::TagTemplate;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tag_template()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_tag_template(
     ///             TagTemplate::new()/* set fields */
     ///         )
@@ -582,10 +585,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, tag_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tag_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -614,11 +617,11 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::TagTemplate;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, tag_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tag_template()
     ///         .set_tag_template(
-    ///             TagTemplate::new().set_name(name)/* set fields */
+    ///             TagTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -642,10 +645,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, tag_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -667,10 +670,10 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::TagTemplateField;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, tag_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tag_template_field()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"))
     ///         .set_tag_template_field(
     ///             TagTemplateField::new()/* set fields */
     ///         )
@@ -703,11 +706,11 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::TagTemplateField;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, tag_template_id: &str, field_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tag_template_field()
     ///         .set_tag_template_field(
-    ///             TagTemplateField::new().set_name(name)/* set fields */
+    ///             TagTemplateField::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}/fields/{field_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -786,10 +789,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, tag_template_id: &str, field_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_template_field()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}/fields/{field_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -823,10 +826,10 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::Tag;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tag()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))
     ///         .set_tag(
     ///             Tag::new()/* set fields */
     ///         )
@@ -850,11 +853,11 @@ impl DataCatalog {
     /// use google_cloud_datacatalog_v1::model::Tag;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, name: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str, tag_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tag()
     ///         .set_tag(
-    ///             Tag::new().set_name(name)/* set fields */
+    ///             Tag::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}/tags/{tag_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -900,10 +903,10 @@ impl DataCatalog {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, parent: &str
+    ///    client: &DataCatalog, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tags()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1343,16 +1346,19 @@ impl DataCatalog {
 /// ```
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PolicyTagManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_taxonomies()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1460,10 +1466,10 @@ impl PolicyTagManager {
     /// use google_cloud_datacatalog_v1::model::Taxonomy;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, parent: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_taxonomy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_taxonomy(
     ///             Taxonomy::new()/* set fields */
     ///         )
@@ -1485,10 +1491,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, name: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_taxonomy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1508,11 +1514,11 @@ impl PolicyTagManager {
     /// use google_cloud_datacatalog_v1::model::Taxonomy;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, name: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_taxonomy()
     ///         .set_taxonomy(
-    ///             Taxonomy::new().set_name(name)/* set fields */
+    ///             Taxonomy::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1533,10 +1539,10 @@ impl PolicyTagManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, parent: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_taxonomies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1555,10 +1561,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, name: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_taxonomy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1576,10 +1582,10 @@ impl PolicyTagManager {
     /// use google_cloud_datacatalog_v1::model::PolicyTag;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, parent: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_policy_tag()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"))
     ///         .set_policy_tag(
     ///             PolicyTag::new()/* set fields */
     ///         )
@@ -1604,10 +1610,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, name: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str, policy_tag_id: &str
     /// ) -> Result<()> {
     ///     client.delete_policy_tag()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policy_tag_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1627,11 +1633,11 @@ impl PolicyTagManager {
     /// use google_cloud_datacatalog_v1::model::PolicyTag;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, name: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str, policy_tag_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_policy_tag()
     ///         .set_policy_tag(
-    ///             PolicyTag::new().set_name(name)/* set fields */
+    ///             PolicyTag::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policy_tag_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1651,10 +1657,10 @@ impl PolicyTagManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, parent: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_policy_tags()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1673,10 +1679,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, name: &str
+    ///    client: &PolicyTagManager, project_id: &str, location_id: &str, taxonomy_id: &str, policy_tag_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy_tag()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policy_tag_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1842,13 +1848,15 @@ impl PolicyTagManager {
 /// # Example
 /// ```
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PolicyTagManagerSerialization::builder().build().await?;
 ///     let response = client.replace_taxonomy()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

@@ -556,10 +556,19 @@ impl Builder {
 
     /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// The universe domain is the default service domain for a given Cloud universe.
+    /// If not set, the default will be used.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// # fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -999,6 +1008,21 @@ pub(crate) mod tests {
             fn throttle_retry_attempt(&self) -> bool;
             fn on_retry_failure(&mut self, error: &RetryResult);
             fn on_success(&mut self);
+        }
+    }
+
+    // Used by tests in other modules.
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Credentials {}
+
+        impl crate::credentials::CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: http::Extensions) -> std::result::Result<crate::credentials::CacheableResource<http::HeaderMap>, crate::errors::CredentialsError>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+
+        impl crate::credentials::AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> std::result::Result<crate::credentials::AccessToken, crate::errors::CredentialsError>;
         }
     }
 

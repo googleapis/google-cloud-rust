@@ -36,13 +36,13 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-visionai-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-visionai-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[HealthCheckService]: https://docs.rs/google-cloud-visionai-v1/1.0.0/google_cloud_visionai_v1/client/struct.HealthCheckService.html
-[LiveVideoAnalytics]: https://docs.rs/google-cloud-visionai-v1/1.0.0/google_cloud_visionai_v1/client/struct.LiveVideoAnalytics.html
-[AppPlatform]: https://docs.rs/google-cloud-visionai-v1/1.0.0/google_cloud_visionai_v1/client/struct.AppPlatform.html
-[StreamingService]: https://docs.rs/google-cloud-visionai-v1/1.0.0/google_cloud_visionai_v1/client/struct.StreamingService.html
-[StreamsService]: https://docs.rs/google-cloud-visionai-v1/1.0.0/google_cloud_visionai_v1/client/struct.StreamsService.html
-[Warehouse]: https://docs.rs/google-cloud-visionai-v1/1.0.0/google_cloud_visionai_v1/client/struct.Warehouse.html
+[HealthCheckService]: https://docs.rs/google-cloud-visionai-v1/1.1.0/google_cloud_visionai_v1/client/struct.HealthCheckService.html
+[LiveVideoAnalytics]: https://docs.rs/google-cloud-visionai-v1/1.1.0/google_cloud_visionai_v1/client/struct.LiveVideoAnalytics.html
+[AppPlatform]: https://docs.rs/google-cloud-visionai-v1/1.1.0/google_cloud_visionai_v1/client/struct.AppPlatform.html
+[StreamingService]: https://docs.rs/google-cloud-visionai-v1/1.1.0/google_cloud_visionai_v1/client/struct.StreamingService.html
+[StreamsService]: https://docs.rs/google-cloud-visionai-v1/1.1.0/google_cloud_visionai_v1/client/struct.StreamsService.html
+[Warehouse]: https://docs.rs/google-cloud-visionai-v1/1.1.0/google_cloud_visionai_v1/client/struct.Warehouse.html

@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+///    customer_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudControlsPartnerCore::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_workloads()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +136,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -153,10 +157,10 @@ impl CloudControlsPartnerCore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, parent: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workloads()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -175,10 +179,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_customer()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -196,10 +200,10 @@ impl CloudControlsPartnerCore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, parent: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_customers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -218,10 +222,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_ekm_connections()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/ekmConnections"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -240,10 +244,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_partner_permissions()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/partnerPermissions"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -264,10 +268,10 @@ impl CloudControlsPartnerCore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, parent: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_access_approval_requests()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -291,10 +295,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_partner()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/partner"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -312,10 +316,10 @@ impl CloudControlsPartnerCore {
     /// use google_cloud_cloudcontrolspartner_v1::model::Customer;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, parent: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_customer()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_customer_id("customer_id_value")
     ///         .set_customer(
     ///             Customer::new()/* set fields */
@@ -339,11 +343,11 @@ impl CloudControlsPartnerCore {
     /// use google_cloud_cloudcontrolspartner_v1::model::Customer;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_customer()
     ///         .set_customer(
-    ///             Customer::new().set_name(name)/* set fields */
+    ///             Customer::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -362,10 +366,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, name: &str
+    ///    client: &CloudControlsPartnerCore, organization_id: &str, location_id: &str, customer_id: &str
     /// ) -> Result<()> {
     ///     client.delete_customer()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -381,16 +385,21 @@ impl CloudControlsPartnerCore {
 /// ```
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+///    customer_id: &str,
+///    workload_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudControlsPartnerMonitoring::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_violations()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -500,10 +509,10 @@ impl CloudControlsPartnerMonitoring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerMonitoring, parent: &str
+    ///    client: &CloudControlsPartnerMonitoring, organization_id: &str, location_id: &str, customer_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_violations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -524,10 +533,10 @@ impl CloudControlsPartnerMonitoring {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerMonitoring, name: &str
+    ///    client: &CloudControlsPartnerMonitoring, organization_id: &str, location_id: &str, customer_id: &str, workload_id: &str, violation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_violation()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/violations/{violation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = OrgPolicy::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_constraints()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -150,10 +152,10 @@ impl OrgPolicy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, parent: &str
+    ///    client: &OrgPolicy, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_constraints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -173,10 +175,10 @@ impl OrgPolicy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, parent: &str
+    ///    client: &OrgPolicy, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -199,10 +201,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, project_id: &str, policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/policies/{policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,10 +226,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, project_id: &str, policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_effective_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/policies/{policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -250,10 +252,10 @@ impl OrgPolicy {
     /// use google_cloud_orgpolicy_v2::model::Policy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, parent: &str
+    ///    client: &OrgPolicy, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_policy(
     ///             Policy::new()/* set fields */
     ///         )
@@ -284,11 +286,11 @@ impl OrgPolicy {
     /// use google_cloud_orgpolicy_v2::model::Policy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, project_id: &str, policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_policy()
     ///         .set_policy(
-    ///             Policy::new().set_name(name)/* set fields */
+    ///             Policy::new().set_name(format!("projects/{project_id}/policies/{policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -310,10 +312,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, project_id: &str, policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/policies/{policy_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -335,10 +337,10 @@ impl OrgPolicy {
     /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, parent: &str
+    ///    client: &OrgPolicy, organization_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_custom_constraint()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .set_custom_constraint(
     ///             CustomConstraint::new()/* set fields */
     ///         )
@@ -365,11 +367,11 @@ impl OrgPolicy {
     /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, organization_id: &str, custom_constraint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_custom_constraint()
     ///         .set_custom_constraint(
-    ///             CustomConstraint::new().set_name(name)/* set fields */
+    ///             CustomConstraint::new().set_name(format!("organizations/{organization_id}/customConstraints/{custom_constraint_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -390,10 +392,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, organization_id: &str, custom_constraint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_custom_constraint()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/customConstraints/{custom_constraint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -412,10 +414,10 @@ impl OrgPolicy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, parent: &str
+    ///    client: &OrgPolicy, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_custom_constraints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -437,10 +439,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, name: &str
+    ///    client: &OrgPolicy, organization_id: &str, custom_constraint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_custom_constraint()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/customConstraints/{custom_constraint_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

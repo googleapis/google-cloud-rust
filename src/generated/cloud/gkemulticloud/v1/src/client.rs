@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AttachedClusters::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_attached_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -154,10 +157,10 @@ impl AttachedClusters {
     /// use google_cloud_gkemulticloud_v1::model::AttachedCluster;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, parent: &str
+    ///    client: &AttachedClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attached_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_attached_cluster(
     ///             AttachedCluster::new()/* set fields */
     ///         )
@@ -196,11 +199,11 @@ impl AttachedClusters {
     /// use google_cloud_gkemulticloud_v1::model::AttachedCluster;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, name: &str
+    ///    client: &AttachedClusters, project_id: &str, location_id: &str, attached_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_attached_cluster()
     ///         .set_attached_cluster(
-    ///             AttachedCluster::new().set_name(name)/* set fields */
+    ///             AttachedCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -269,10 +272,10 @@ impl AttachedClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, name: &str
+    ///    client: &AttachedClusters, project_id: &str, location_id: &str, attached_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attached_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -293,10 +296,10 @@ impl AttachedClusters {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, parent: &str
+    ///    client: &AttachedClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_attached_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -336,10 +339,10 @@ impl AttachedClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, name: &str
+    ///    client: &AttachedClusters, project_id: &str, location_id: &str, attached_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_attached_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -358,10 +361,10 @@ impl AttachedClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, name: &str
+    ///    client: &AttachedClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attached_server_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/attachedServerConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -517,16 +520,19 @@ impl AttachedClusters {
 /// ```
 /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AwsClusters::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_aws_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -647,10 +653,10 @@ impl AwsClusters {
     /// use google_cloud_gkemulticloud_v1::model::AwsCluster;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, parent: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_aws_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_aws_cluster(
     ///             AwsCluster::new()/* set fields */
     ///         )
@@ -687,11 +693,11 @@ impl AwsClusters {
     /// use google_cloud_gkemulticloud_v1::model::AwsCluster;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_aws_cluster()
     ///         .set_aws_cluster(
-    ///             AwsCluster::new().set_name(name)/* set fields */
+    ///             AwsCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -714,10 +720,10 @@ impl AwsClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aws_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -739,10 +745,10 @@ impl AwsClusters {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, parent: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_aws_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -785,10 +791,10 @@ impl AwsClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_aws_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -875,10 +881,10 @@ impl AwsClusters {
     /// use google_cloud_gkemulticloud_v1::model::AwsNodePool;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, parent: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_aws_node_pool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"))
     ///         .set_aws_node_pool(
     ///             AwsNodePool::new()/* set fields */
     ///         )
@@ -915,11 +921,11 @@ impl AwsClusters {
     /// use google_cloud_gkemulticloud_v1::model::AwsNodePool;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str, aws_node_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_aws_node_pool()
     ///         .set_aws_node_pool(
-    ///             AwsNodePool::new().set_name(name)/* set fields */
+    ///             AwsNodePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -983,10 +989,10 @@ impl AwsClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str, aws_node_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aws_node_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1010,10 +1016,10 @@ impl AwsClusters {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, parent: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_aws_node_pools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1052,10 +1058,10 @@ impl AwsClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str, aws_cluster_id: &str, aws_node_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_aws_node_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1120,10 +1126,10 @@ impl AwsClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, name: &str
+    ///    client: &AwsClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aws_server_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/awsServerConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1230,16 +1236,19 @@ impl AwsClusters {
 /// ```
 /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AzureClusters::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_azure_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1364,10 +1373,10 @@ impl AzureClusters {
     /// use google_cloud_gkemulticloud_v1::model::AzureClient;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, parent: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_azure_client()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_azure_client(
     ///             AzureClient::new()/* set fields */
     ///         )
@@ -1391,10 +1400,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_client_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_client()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureClients/{azure_client_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1416,10 +1425,10 @@ impl AzureClusters {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, parent: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_azure_clients()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1461,10 +1470,10 @@ impl AzureClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_client_id: &str
     /// ) -> Result<()> {
     ///     client.delete_azure_client()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureClients/{azure_client_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1501,10 +1510,10 @@ impl AzureClusters {
     /// use google_cloud_gkemulticloud_v1::model::AzureCluster;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, parent: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_azure_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_azure_cluster(
     ///             AzureCluster::new()/* set fields */
     ///         )
@@ -1541,11 +1550,11 @@ impl AzureClusters {
     /// use google_cloud_gkemulticloud_v1::model::AzureCluster;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_azure_cluster()
     ///         .set_azure_cluster(
-    ///             AzureCluster::new().set_name(name)/* set fields */
+    ///             AzureCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1568,10 +1577,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1593,10 +1602,10 @@ impl AzureClusters {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, parent: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_azure_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1639,10 +1648,10 @@ impl AzureClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_azure_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1730,10 +1739,10 @@ impl AzureClusters {
     /// use google_cloud_gkemulticloud_v1::model::AzureNodePool;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, parent: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_azure_node_pool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"))
     ///         .set_azure_node_pool(
     ///             AzureNodePool::new()/* set fields */
     ///         )
@@ -1770,11 +1779,11 @@ impl AzureClusters {
     /// use google_cloud_gkemulticloud_v1::model::AzureNodePool;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str, azure_node_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_azure_node_pool()
     ///         .set_azure_node_pool(
-    ///             AzureNodePool::new().set_name(name)/* set fields */
+    ///             AzureNodePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}/azureNodePools/{azure_node_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1797,10 +1806,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str, azure_node_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_node_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}/azureNodePools/{azure_node_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1824,10 +1833,10 @@ impl AzureClusters {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, parent: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_azure_node_pools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1866,10 +1875,10 @@ impl AzureClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str, azure_cluster_id: &str, azure_node_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_azure_node_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}/azureNodePools/{azure_node_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1934,10 +1943,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, name: &str
+    ///    client: &AzureClusters, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_server_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/azureServerConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

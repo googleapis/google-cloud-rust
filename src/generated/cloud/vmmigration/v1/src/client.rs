@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_vmmigration_v1::client::VmMigration;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VmMigration::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_sources()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -185,10 +188,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::Source;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_source()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_source_id("source_id_value")
     ///         .set_source(
     ///             Source::new()/* set fields */
@@ -223,11 +226,11 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::Source;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_source()
     ///         .set_source(
-    ///             Source::new().set_name(name)/* set fields */
+    ///             Source::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -257,10 +260,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     client.delete_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -329,10 +332,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_utilization_reports()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -351,10 +354,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, utilization_report_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_utilization_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/utilizationReports/{utilization_report_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -383,10 +386,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::UtilizationReport;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_utilization_report()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .set_utilization_report(
     ///             UtilizationReport::new()/* set fields */
     ///         )
@@ -419,10 +422,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, utilization_report_id: &str
     /// ) -> Result<()> {
     ///     client.delete_utilization_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/utilizationReports/{utilization_report_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -441,10 +444,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_datacenter_connectors()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -465,10 +468,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, datacenter_connector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_datacenter_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/datacenterConnectors/{datacenter_connector_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -497,10 +500,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::DatacenterConnector;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_datacenter_connector()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .set_datacenter_connector(
     ///             DatacenterConnector::new()/* set fields */
     ///         )
@@ -533,10 +536,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, datacenter_connector_id: &str
     /// ) -> Result<()> {
     ///     client.delete_datacenter_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/datacenterConnectors/{datacenter_connector_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -598,10 +601,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::MigratingVm;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_migrating_vm()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .set_migrating_vm(
     ///             MigratingVm::new()/* set fields */
     ///         )
@@ -622,10 +625,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_migrating_vms()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -644,10 +647,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migrating_vm()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -678,11 +681,11 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::MigratingVm;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_migrating_vm()
     ///         .set_migrating_vm(
-    ///             MigratingVm::new().set_name(name)/* set fields */
+    ///             MigratingVm::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -712,10 +715,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     client.delete_migrating_vm()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -905,10 +908,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::CloneJob;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_clone_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .set_clone_job(
     ///             CloneJob::new()/* set fields */
     ///         )
@@ -961,10 +964,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_clone_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -983,10 +986,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str, clone_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_clone_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}/cloneJobs/{clone_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1017,10 +1020,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::CutoverJob;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cutover_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .set_cutover_job(
     ///             CutoverJob::new()/* set fields */
     ///         )
@@ -1073,10 +1076,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cutover_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1095,10 +1098,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str, cutover_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cutover_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}/cutoverJobs/{cutover_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1116,10 +1119,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1138,10 +1141,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1170,10 +1173,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::Group;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_group_id("group_id_value")
     ///         .set_group(
     ///             Group::new()/* set fields */
@@ -1208,11 +1211,11 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::Group;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_group()
     ///         .set_group(
-    ///             Group::new().set_name(name)/* set fields */
+    ///             Group::new().set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1242,10 +1245,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1327,10 +1330,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_target_projects()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1352,10 +1355,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, target_project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_target_project()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/targetProjects/{target_project_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1387,10 +1390,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::TargetProject;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_target_project()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_target_project(
     ///             TargetProject::new()/* set fields */
     ///         )
@@ -1427,11 +1430,11 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::TargetProject;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, target_project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_target_project()
     ///         .set_target_project(
-    ///             TargetProject::new().set_name(name)/* set fields */
+    ///             TargetProject::new().set_name(format!("projects/{project_id}/locations/{location_id}/targetProjects/{target_project_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1464,10 +1467,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, target_project_id: &str
     /// ) -> Result<()> {
     ///     client.delete_target_project()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/targetProjects/{target_project_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1484,10 +1487,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_replication_cycles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1506,10 +1509,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, migrating_vm_id: &str, replication_cycle_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_replication_cycle()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/migratingVms/{migrating_vm_id}/replicationCycles/{replication_cycle_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1527,10 +1530,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_image_imports()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1549,10 +1552,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_image_import()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/imageImports/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1581,10 +1584,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::ImageImport;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_image_import()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_image_import(
     ///             ImageImport::new()/* set fields */
     ///         )
@@ -1615,10 +1618,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_image_import()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/imageImports/{job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1635,10 +1638,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_image_import_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/imageImports/{job_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1657,10 +1660,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, job_id: &str, result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_image_import_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/imageImports/{job_id}/imageImportJobs/{result_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1720,10 +1723,10 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_disk_migration_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .set_disk_migration_job(
     ///             DiskMigrationJob::new()/* set fields */
     ///         )
@@ -1746,10 +1749,10 @@ impl VmMigration {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, parent: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_disk_migration_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1768,10 +1771,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, disk_migration_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_disk_migration_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/diskMigrationJobs/{disk_migration_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1802,11 +1805,11 @@ impl VmMigration {
     /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, disk_migration_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_disk_migration_job()
     ///         .set_disk_migration_job(
-    ///             DiskMigrationJob::new().set_name(name)/* set fields */
+    ///             DiskMigrationJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/diskMigrationJobs/{disk_migration_job_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1838,10 +1841,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, name: &str
+    ///    client: &VmMigration, project_id: &str, location_id: &str, source_id: &str, disk_migration_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_disk_migration_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/diskMigrationJobs/{disk_migration_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

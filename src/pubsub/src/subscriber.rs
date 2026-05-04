@@ -21,6 +21,7 @@ pub use shutdown_token::ShutdownToken;
 pub(super) mod builder;
 pub(super) mod client;
 mod client_builder;
+mod exactly_once_retry;
 mod keepalive;
 mod lease_loop;
 mod lease_state;

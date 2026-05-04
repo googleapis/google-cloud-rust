@@ -62,13 +62,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = IcebergCatalogService::builder().build().await?;
 ///     let response = client.get_iceberg_catalog_config()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

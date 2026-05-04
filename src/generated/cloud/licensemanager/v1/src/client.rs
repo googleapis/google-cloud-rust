@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_licensemanager_v1::client::LicenseManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = LicenseManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_configurations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl LicenseManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, parent: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_configurations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl LicenseManager {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, name: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str, configuration_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_configuration()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -185,10 +188,10 @@ impl LicenseManager {
     /// use google_cloud_licensemanager_v1::model::Configuration;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, parent: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_configuration()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_configuration_id("configuration_id_value")
     ///         .set_configuration(
     ///             Configuration::new()/* set fields */
@@ -223,11 +226,11 @@ impl LicenseManager {
     /// use google_cloud_licensemanager_v1::model::Configuration;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, name: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str, configuration_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_configuration()
     ///         .set_configuration(
-    ///             Configuration::new().set_name(name)/* set fields */
+    ///             Configuration::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -257,10 +260,10 @@ impl LicenseManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, name: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str, configuration_id: &str
     /// ) -> Result<()> {
     ///     client.delete_configuration()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -277,10 +280,10 @@ impl LicenseManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, parent: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -299,10 +302,10 @@ impl LicenseManager {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, name: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -431,10 +434,10 @@ impl LicenseManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, parent: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_products()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -453,10 +456,10 @@ impl LicenseManager {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, name: &str
+    ///    client: &LicenseManager, project_id: &str, location_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
