@@ -627,9 +627,10 @@ pub(crate) mod tests {
     use crate::client::Statement;
     use crate::key::KeySet;
     use crate::read::ReadRequest;
-    use gaxi::grpc::tonic::{Code as GrpcCode, Response};
+    use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Value;
@@ -637,7 +638,7 @@ pub(crate) mod tests {
     use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
     use spanner_grpc_mock::google::spanner::v1::struct_type::Field;
     use spanner_grpc_mock::google::spanner::v1::{
-        PartialResultSet, ResultSetMetadata, Session, StructType,
+        MultiplexedSessionPrecommitToken, PartialResultSet, ResultSetMetadata, Session, StructType,
     };
     use spanner_grpc_mock::start;
     use std::time::Duration;
@@ -939,11 +940,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_retry_read_stream() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -1018,15 +1014,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_custom_retry_policy() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
-        use google_cloud_gax::retry_policy::Aip194Strict;
-        use google_cloud_gax::retry_policy::RetryPolicyExt;
-
         // Extend the default retry policy to also retry on ResourceExhausted.
         let retry_policy = Aip194Strict.continue_on_too_many_requests();
 
@@ -1453,12 +1440,10 @@ pub(crate) mod tests {
     async fn test_result_set_precommit_token_tracked() {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(1),
-            precommit_token: Some(
-                spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
-                    precommit_token: b"test_token".to_vec(),
-                    seq_num: 99,
-                },
-            ),
+            precommit_token: Some(MultiplexedSessionPrecommitToken {
+                precommit_token: b"test_token".to_vec(),
+                seq_num: 99,
+            }),
             ..Default::default()
         }])
         .await;
@@ -1483,10 +1468,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_retry_simple() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -1560,11 +1541,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_retry_non_retriable_error() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         mock.expect_execute_streaming_sql()
             .times(1)
@@ -1620,11 +1596,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_buffer_overflow() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         mock.expect_execute_streaming_sql()
             // Should only be called once, as it is not retried due to missing resume tokens.
@@ -1697,11 +1668,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_retry_missing_resume_token_safe() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -1770,11 +1736,6 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn test_result_set_retry_under_limit_no_resume_token() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -1860,11 +1821,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_result_set_retry_limit_exceeded() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
 
         mock.expect_execute_streaming_sql()
@@ -1919,12 +1875,6 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn result_set_inline_begin_stream_error_fallback() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -1943,7 +1893,7 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_| {
-                Ok(Response::new(mock_v1::Transaction {
+                Ok(Response::new(spanner_v1::Transaction {
                     id: vec![7, 8, 9],
                     read_timestamp: Some(prost_types::Timestamp {
                         seconds: 123456789,
@@ -1961,7 +1911,7 @@ pub(crate) mod tests {
                 let req = req.into_inner();
                 // Ensure the explicitly yielded ID is routed into the new stream transaction selector
                 match req.transaction.unwrap().selector.unwrap() {
-                    mock_v1::transaction_selector::Selector::Id(id) => {
+                    spanner_v1::transaction_selector::Selector::Id(id) => {
                         assert_eq!(id, vec![7, 8, 9]);
                     }
                     _ => panic!("Expected Selector::Id"),
@@ -2014,12 +1964,6 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn result_set_retry_inline_begin_transient_error() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -2040,12 +1984,12 @@ pub(crate) mod tests {
             .returning(|req| {
                 let req = req.into_inner();
                 match req.transaction.unwrap().selector.unwrap() {
-                    mock_v1::transaction_selector::Selector::Begin(_) => {}
+                    spanner_v1::transaction_selector::Selector::Begin(_) => {}
                     _ => panic!("Expected Selector::Begin on stream retry"),
                 }
 
                 let mut meta = metadata(1).unwrap();
-                meta.transaction = Some(mock_v1::Transaction {
+                meta.transaction = Some(spanner_v1::Transaction {
                     id: vec![7, 8, 9],
                     read_timestamp: None,
                     ..Default::default()
@@ -2099,12 +2043,6 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn result_set_retry_inline_begin_id_recovered() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use gaxi::grpc::tonic::Status;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -2114,7 +2052,7 @@ pub(crate) mod tests {
             .in_sequence(&mut seq)
             .returning(|_request| {
                 let mut meta = metadata(1).unwrap();
-                meta.transaction = Some(mock_v1::Transaction {
+                meta.transaction = Some(spanner_v1::Transaction {
                     id: vec![7, 8, 9],
                     read_timestamp: None,
                     ..Default::default()
@@ -2138,7 +2076,7 @@ pub(crate) mod tests {
             .returning(|req| {
                 let req = req.into_inner();
                 match req.transaction.unwrap().selector.unwrap() {
-                    mock_v1::transaction_selector::Selector::Id(id) => {
+                    spanner_v1::transaction_selector::Selector::Id(id) => {
                         assert_eq!(id, vec![7, 8, 9]);
                     }
                     _ => panic!("Expected Selector::Id on stream retry"),
@@ -2200,10 +2138,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn result_set_inline_begin_metadata_missing_transaction_fails() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use spanner_grpc_mock::MockSpanner;
-        use spanner_grpc_mock::start;
-
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
