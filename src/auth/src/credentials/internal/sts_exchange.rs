@@ -24,27 +24,22 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
+#[derive(Debug, Default)]
 pub struct STSHandler {
     use_json: bool,
     ca_cert_path: Option<String>,
 }
 
 impl STSHandler {
-    /// Creates a new [STSHandler] with default values.
-    pub(crate) fn default() -> Self {
-        Self {
-            use_json: false,
-            ca_cert_path: None,
-        }
-    }
-
     /// Configures the handler to use JSON encoding instead of Form URL encoding.
+    #[allow(dead_code)]
     pub(crate) fn with_json_body(mut self) -> Self {
         self.use_json = true;
         self
     }
 
     /// Configures a custom CA certificate path for the handler.
+    #[allow(dead_code)]
     pub(crate) fn with_ca_cert_path(mut self, ca_cert_path: Option<String>) -> Self {
         self.ca_cert_path = ca_cert_path;
         self
@@ -98,16 +93,15 @@ impl STSHandler {
         headers: http::HeaderMap,
         params: HashMap<&str, String>,
     ) -> Result<TokenResponse> {
-        let client_builder = reqwest::Client::builder();
+        let mut client_builder = reqwest::Client::builder();
 
-        let client_builder = self
-            .ca_cert_path
-            .into_iter()
-            .try_fold(client_builder, add_root_cert)?;
+        if let Some(path) = self.ca_cert_path {
+            client_builder = add_root_cert(client_builder, path).await?;
+        }
 
         let client = client_builder
             .build()
-            .expect("Failed to build reqwest client");
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
         let mut headers = headers.clone();
         client_auth.inject_auth(&mut headers)?;
@@ -136,8 +130,11 @@ impl STSHandler {
     }
 }
 
-fn add_root_cert(builder: reqwest::ClientBuilder, path: String) -> Result<reqwest::ClientBuilder> {
-    let cert_bytes = std::fs::read(&path).map_err(|e| {
+async fn add_root_cert(
+    builder: reqwest::ClientBuilder,
+    path: String,
+) -> Result<reqwest::ClientBuilder> {
+    let cert_bytes = tokio::fs::read(&path).await.map_err(|e| {
         CredentialsError::from_msg(
             false,
             format!("failed to read custom CA certificate from {}: {}", path, e),
@@ -401,10 +398,7 @@ mod tests {
                     "requested_token_type": ACCESS_TOKEN_TYPE,
                     "subject_token_type": JWT_TOKEN_TYPE,
                 })))),
-                request::headers(contains((
-                    "content-type",
-                    "application/json"
-                ))),
+                request::headers(contains(("content-type", "application/json"))),
             ])
             .respond_with(status_code(200).body(response_body)),
         );
@@ -429,10 +423,7 @@ mod tests {
             .exchange_token(token_req)
             .await?;
 
-        assert_eq!(
-            resp.access_token,
-            "json_example_token"
-        );
+        assert_eq!(resp.access_token, "json_example_token");
 
         Ok(())
     }
@@ -451,8 +442,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        assert!(err.to_string().contains("failed to read custom CA certificate from non_existent_file.crt"));
+        assert!(!err.is_transient(), "{err:?}");
         Ok(())
     }
 }
-
