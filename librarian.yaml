@@ -552,7 +552,7 @@ libraries:
     version: 1.5.0
     copyright_year: "2025"
   - name: google-cloud-compute-v1
-    version: 2.5.0
+    version: 3.0.0
     copyright_year: "2025"
     keep:
       - src/errors.rs
@@ -560,7 +560,6 @@ libraries:
     roots:
       - discovery
       - googleapis
-    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:

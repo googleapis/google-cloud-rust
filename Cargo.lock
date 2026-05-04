@@ -2244,7 +2244,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-compute-v1"
-version = "2.5.0"
+version = "3.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
