@@ -14,10 +14,10 @@
 
 //! [Google Distributed Cloud] service identity authentication.
 //!
-//! This module provides support for authenticating using Google Distributed Cloud service identities.
-//! Clients authenticate by signing a JWT with a private key (ES256) and exchanging
-//! it for a security token at a specific endpoint. This allows for operations in
-//! private cloud environments where standard Google Cloud endpoints are not reachable.
+//! A [Google Distributed Cloud] (GDC) service identity credential allows applications to
+//! authenticate and access services securely within private or hybrid cloud environments.
+//! Workloads authenticate using service identity keys to obtain short-lived access tokens
+//! from a dedicated token exchange endpoint.
 //!
 //! ## Example: Creating credentials from a JSON object
 //!
@@ -117,20 +117,20 @@ impl std::fmt::Debug for GdchServiceAccountKey {
 /// A token provider for Google Distributed Cloud service accounts.
 #[derive(Debug)]
 struct GdchServiceAccountTokenProvider {
-    key: GdchServiceAccountKey,
     audience: String,
+    key: GdchServiceAccountKey,
 }
 
 impl GdchServiceAccountTokenProvider {
     /// Creates a new token provider with the given key and audience.
-    pub(crate) fn new(key: GdchServiceAccountKey, audience: String) -> Self {
-        Self { key, audience }
+    pub(crate) fn new(audience: String, key: GdchServiceAccountKey) -> Self {
+        Self { audience, key }
     }
 
-    fn generate_jwt(&self) -> Result<String> {
+    fn generate_subject_token(&self) -> Result<String> {
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
-            .unwrap()
+            .map_err(|e| CredentialsError::from_source(false, e))?
             .as_secs();
         let exp = now + 3600; // 1 hour
 
@@ -169,11 +169,11 @@ impl GdchServiceAccountTokenProvider {
 #[async_trait]
 impl TokenProvider for GdchServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let jwt = self.generate_jwt()?;
+        let subject_token = self.generate_subject_token()?;
 
         let req = ExchangeTokenRequest {
             url: self.key.token_uri.clone(),
-            subject_token: jwt,
+            subject_token,
             subject_token_type: GDCH_SERVICEACCOUNT_TOKEN_TYPE.to_string(),
             audience: Some(self.audience.clone()),
             grant_type: Some(TOKEN_EXCHANGE_TOKEN_TYPE.to_string()),
@@ -242,8 +242,8 @@ impl Builder {
 
         let creds = GdchServiceAccountCredentials {
             token_provider: TokenCache::new(GdchServiceAccountTokenProvider::new(
-                key,
                 self.audience,
+                key,
             )),
             quota_project_id: self.quota_project_id,
         };
@@ -299,7 +299,7 @@ pub(crate) mod tests {
         }
     }
     #[test]
-    fn test_debug_gdch_service_account_key() {
+    fn debug_gdch_service_account_key() {
         let key = get_mock_key();
         let fmt = format!("{key:?}");
         assert!(fmt.contains("GdchServiceAccountKey"));
@@ -311,7 +311,7 @@ pub(crate) mod tests {
     }
 
     #[test]
-    fn test_parse_valid_json() {
+    fn parse_valid_json() {
         let json = json!({
             "type": "gdch_service_account",
             "format_version": "1",
@@ -328,10 +328,10 @@ pub(crate) mod tests {
     }
 
     #[test]
-    fn test_generate_jwt() {
+    fn generate_subject_token() {
         let key = get_mock_key();
-        let provider = GdchServiceAccountTokenProvider::new(key, "test-audience".to_string());
-        let jwt = provider.generate_jwt().unwrap();
+        let provider = GdchServiceAccountTokenProvider::new("test-audience".to_string(), key);
+        let jwt = provider.generate_subject_token().unwrap();
 
         let parts: Vec<&str> = jwt.split('.').collect();
         assert_eq!(parts.len(), 3);
@@ -358,13 +358,13 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    async fn test_token_exchange() {
+    async fn token_exchange() {
         let server = Server::run();
 
         let mut key = get_mock_key();
         key.token_uri = server.url("/token").to_string();
 
-        let provider = GdchServiceAccountTokenProvider::new(key, "test-audience".to_string());
+        let provider = GdchServiceAccountTokenProvider::new("test-audience".to_string(), key);
 
         let response_body = json!({
             "access_token": "sts-token",
@@ -393,7 +393,7 @@ pub(crate) mod tests {
     }
 
     #[test]
-    fn test_invalid_version() {
+    fn invalid_version() {
         let json = json!({
             "type": "gdch_service_account",
             "format_version": "2", // Invalid
