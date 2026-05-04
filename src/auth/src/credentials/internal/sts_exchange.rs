@@ -103,7 +103,7 @@ impl STSHandler {
         let client_builder = self
             .ca_cert_path
             .into_iter()
-            .try_fold(client_builder, |builder, path| add_root_cert(builder, path))?;
+            .try_fold(client_builder, add_root_cert)?;
 
         let client = client_builder
             .build()

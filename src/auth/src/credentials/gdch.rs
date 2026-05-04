@@ -89,6 +89,16 @@ struct GdchServiceAccountKey {
     token_uri: String,
 }
 
+impl GdchServiceAccountKey {
+    pub(crate) fn signer(&self) -> std::result::Result<SigningKey, CredentialsError> {
+        let secret_key =
+            p256::SecretKey::from_sec1_pem(self.private_key.as_str()).map_err(|e| {
+                CredentialsError::from_msg(false, format!("failed to parse EC private key: {}", e))
+            })?;
+        Ok(SigningKey::from(secret_key))
+    }
+}
+
 impl std::fmt::Debug for GdchServiceAccountKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("GdchServiceAccountKey")
@@ -147,14 +157,9 @@ impl GdchServiceAccountTokenProvider {
 
         let to_sign = format!("{}.{}", encoded_header, encoded_claims);
 
-        // Load EC private key
-        let secret_key =
-            p256::SecretKey::from_sec1_pem(self.key.private_key.as_str()).map_err(|e| {
-                CredentialsError::from_msg(false, format!("failed to parse EC private key: {}", e))
-            })?;
-        let signing_key = SigningKey::from(secret_key);
+        let signer = self.key.signer()?;
 
-        let sig: Signature = signing_key.sign(to_sign.as_bytes());
+        let sig: Signature = signer.sign(to_sign.as_bytes());
         let encoded_sig = BASE64_URL_SAFE_NO_PAD.encode(sig.to_bytes());
 
         Ok(format!("{}.{}", to_sign, encoded_sig))

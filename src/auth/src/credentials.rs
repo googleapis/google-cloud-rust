@@ -830,10 +830,9 @@ fn build_signer(
                 "external_account" => Err(BuilderError::not_supported(
                     "external_account signer is not supported",
                 )),
-                "gdch_service_account" => {
-                    // TODO: Implement signer support for gdch_service_account
-                    Err(BuilderError::not_supported(cred_type))
-                }
+                "gdch_service_account" => Err(BuilderError::not_supported(
+                    "gdch_service_account signer is not supported",
+                )),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
