@@ -30,11 +30,11 @@ pub(crate) const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 pub(crate) const SAML2_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:saml2";
 /// ID Token OAuth Token Type
 pub(crate) const ID_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:id_token";
-#[allow(dead_code)]
+#[cfg(feature = "__gdch")]
 /// Token Exchange Token Type
 pub(crate) const TOKEN_EXCHANGE_TOKEN_TYPE: &str =
     "urn:ietf:params:oauth:token-type:token-exchange";
-#[allow(dead_code)]
+#[cfg(feature = "__gdch")]
 /// GDCH ServiceAccount OAuth Token Type
 pub(crate) const GDCH_SERVICEACCOUNT_TOKEN_TYPE: &str =
     "urn:k8s:params:oauth:token-type:serviceaccount";

@@ -215,6 +215,8 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
+    type TestResult = anyhow::Result<()>;
+
     fn get_mock_key() -> GdchServiceAccountKey {
         GdchServiceAccountKey {
             cred_type: "gdch_service_account".to_string(),
@@ -241,7 +243,7 @@ mod tests {
     }
 
     #[test]
-    fn parse_valid_json() {
+    fn parse_valid_json() -> TestResult {
         let json = json!({
             "type": "gdch_service_account",
             "format_version": "1",
@@ -252,25 +254,26 @@ mod tests {
             "token_uri": "http://localhost/token"
         });
 
-        let key: GdchServiceAccountKey = serde_json::from_value(json).unwrap();
+        let key: GdchServiceAccountKey = serde_json::from_value(json)?;
         assert_eq!(key.cred_type, "gdch_service_account");
         assert_eq!(key.project, "test-project");
+        Ok(())
     }
 
     #[test]
-    fn generate_subject_token() {
+    fn generate_subject_token() -> TestResult {
         let key = get_mock_key();
         let provider = GdchServiceAccountTokenProvider::new("test-audience".to_string(), key);
-        let jwt = provider.generate_subject_token().unwrap();
+        let jwt = provider.generate_subject_token()?;
 
         let parts: Vec<&str> = jwt.split('.').collect();
         assert_eq!(parts.len(), 3);
 
-        let header = String::from_utf8(BASE64_URL_SAFE_NO_PAD.decode(parts[0]).unwrap()).unwrap();
-        let claims = String::from_utf8(BASE64_URL_SAFE_NO_PAD.decode(parts[1]).unwrap()).unwrap();
+        let header = String::from_utf8(BASE64_URL_SAFE_NO_PAD.decode(parts[0])?)?;
+        let claims = String::from_utf8(BASE64_URL_SAFE_NO_PAD.decode(parts[1])?)?;
 
-        let header_json: serde_json::Value = serde_json::from_str(&header).unwrap();
-        let claims_json: serde_json::Value = serde_json::from_str(&claims).unwrap();
+        let header_json: serde_json::Value = serde_json::from_str(&header)?;
+        let claims_json: serde_json::Value = serde_json::from_str(&claims)?;
 
         assert_eq!(header_json["alg"], "ES256");
         assert_eq!(header_json["typ"], "JWT");
@@ -285,10 +288,11 @@ mod tests {
             "system:serviceaccount:test-project:test-name"
         );
         assert_eq!(claims_json["aud"], "http://localhost/token");
+        Ok(())
     }
 
     #[tokio::test]
-    async fn token_exchange() {
+    async fn token_exchange() -> TestResult {
         let server = Server::run();
 
         let mut key = get_mock_key();
@@ -316,16 +320,17 @@ mod tests {
             .respond_with(status_code(200).body(response_body)),
         );
 
-        let token = provider.token().await.unwrap();
+        let token = provider.token().await?;
         assert_eq!(token.token, "sts-token");
         assert_eq!(token.token_type, "Bearer");
         assert!(token.expires_at.is_some(), "{token:?}");
+        Ok(())
     }
 
     #[test_case::test_case(None, 1; "without quota project")]
     #[test_case::test_case(Some("test-quota-project"), 2; "with quota project")]
     #[tokio::test]
-    async fn headers_success(quota_project: Option<&str>, expected_len: usize) {
+    async fn headers_success(quota_project: Option<&str>, expected_len: usize) -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -341,9 +346,11 @@ mod tests {
             quota_project_id: quota_project.map(|s| s.to_string()),
         };
 
-        let cached_headers = credentials.headers(Extensions::new()).await.unwrap();
-        let headers = crate::credentials::tests::get_headers_from_cache(cached_headers).unwrap();
-        let token_val = headers.get(http::header::AUTHORIZATION).unwrap();
+        let cached_headers = credentials.headers(Extensions::new()).await?;
+        let headers = crate::credentials::tests::get_headers_from_cache(cached_headers)?;
+        let token_val = headers
+            .get(http::header::AUTHORIZATION)
+            .ok_or_else(|| anyhow::anyhow!("missing auth header"))?;
 
         assert_eq!(headers.len(), expected_len);
         assert_eq!(
@@ -353,15 +360,13 @@ mod tests {
 
         if let Some(qp) = quota_project {
             let quota_project_header = headers.get(crate::credentials::QUOTA_PROJECT_KEY).unwrap();
-            assert_eq!(
-                quota_project_header,
-                http::HeaderValue::from_str(qp).unwrap()
-            );
+            assert_eq!(quota_project_header, http::HeaderValue::from_str(qp)?);
         }
+        Ok(())
     }
 
     #[tokio::test]
-    async fn headers_failure() {
+    async fn headers_failure() -> TestResult {
         let mut mock = crate::token::tests::MockTokenProvider::new();
         mock.expect_token()
             .times(1)
@@ -374,10 +379,11 @@ mod tests {
 
         let res = credentials.headers(Extensions::new()).await;
         assert!(res.is_err(), "{res:?}");
+        Ok(())
     }
 
     #[tokio::test]
-    async fn access_token_success() {
+    async fn access_token_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -393,7 +399,8 @@ mod tests {
             quota_project_id: None,
         };
 
-        let access_token = credentials.access_token().await.unwrap();
+        let access_token = credentials.access_token().await?;
         assert_eq!(access_token.token, "test-token");
+        Ok(())
     }
 }
