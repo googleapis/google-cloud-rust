@@ -31,6 +31,7 @@ pub mod api_key_credentials;
 pub(crate) mod crypto_provider;
 pub mod external_account;
 pub(crate) mod external_account_sources;
+#[cfg(feature = "gdch")]
 pub(crate) mod gdch;
 #[cfg(feature = "idtoken")]
 pub mod idtoken;
