@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Benchmarks for measuring the throughput of the Pub/Sub client.
+
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 mod args;
