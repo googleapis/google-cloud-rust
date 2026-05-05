@@ -65,6 +65,7 @@ httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem", "sha2"] }
+p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true
@@ -73,7 +74,6 @@ tokio                 = { workspace = true, features = ["macros", "rt-multi-thre
 url.workspace         = true
 mutants.workspace     = true
 static_assertions     = { workspace = true }
-p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 
 [features]
 default = ["default-idtoken-backend", "default-rustls-provider"]
