@@ -346,11 +346,17 @@ mod tests {
         let token_val = headers.get(http::header::AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), expected_len);
-        assert_eq!(token_val, http::HeaderValue::from_static("Bearer test-token"));
+        assert_eq!(
+            token_val,
+            http::HeaderValue::from_static("Bearer test-token")
+        );
 
         if let Some(qp) = quota_project {
             let quota_project_header = headers.get(crate::credentials::QUOTA_PROJECT_KEY).unwrap();
-            assert_eq!(quota_project_header, http::HeaderValue::from_str(qp).unwrap());
+            assert_eq!(
+                quota_project_header,
+                http::HeaderValue::from_str(qp).unwrap()
+            );
         }
     }
 
@@ -391,4 +397,3 @@ mod tests {
         assert_eq!(access_token.token, "test-token");
     }
 }
-
