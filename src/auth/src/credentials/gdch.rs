@@ -14,14 +14,24 @@
 
 //! [Google Distributed Cloud] service identity authentication.
 
+use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
+use crate::constants::{GDCH_SERVICEACCOUNT_TOKEN_TYPE, TOKEN_EXCHANGE_TOKEN_TYPE};
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::errors::CredentialsError;
 use crate::credentials::service_account::jws::{JwsClaims, JwsHeader};
+use crate::credentials::{AccessToken, CacheableResource};
+use crate::headers_util::AuthHeadersBuilder;
+use crate::token::{CachedTokenProvider, Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use crate::{Result, errors};
+use async_trait::async_trait;
 use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
+use http::{Extensions, HeaderMap};
 use rustls::sign::Signer;
 use rustls_pki_types::PrivateKeyDer;
 use rustls_pki_types::pem::PemObject;
 use serde::Deserialize;
+use tokio::time::Instant;
 
 /// Represents a Google Distributed Cloud service account key.
 #[derive(Deserialize, Clone)]
@@ -46,7 +56,6 @@ struct GdchServiceAccountKey {
 }
 
 impl GdchServiceAccountKey {
-    #[allow(dead_code)]
     fn signer(&self) -> std::result::Result<Box<dyn Signer>, CredentialsError> {
         let private_key = self.private_key.clone();
         let key_provider = crate::credentials::crypto_provider::get_key_provider();
@@ -89,7 +98,6 @@ impl std::fmt::Debug for GdchServiceAccountKey {
 #[derive(Debug)]
 #[allow(dead_code)]
 struct GdchServiceAccountTokenProvider {
-    #[allow(dead_code)]
     audience: String,
     key: GdchServiceAccountKey,
 }
@@ -101,7 +109,6 @@ impl GdchServiceAccountTokenProvider {
         Self { audience, key }
     }
 
-    #[allow(dead_code)]
     fn generate_subject_token(&self) -> Result<String> {
         let current_time = time::OffsetDateTime::now_utc();
 
@@ -145,9 +152,67 @@ impl GdchServiceAccountTokenProvider {
     }
 }
 
+#[async_trait]
+impl TokenProvider for GdchServiceAccountTokenProvider {
+    async fn token(&self) -> Result<Token> {
+        let subject_token = self.generate_subject_token()?;
+
+        let req = ExchangeTokenRequest {
+            url: self.key.token_uri.clone(),
+            subject_token,
+            subject_token_type: GDCH_SERVICEACCOUNT_TOKEN_TYPE.to_string(),
+            audience: Some(self.audience.clone()),
+            grant_type: Some(TOKEN_EXCHANGE_TOKEN_TYPE.to_string()),
+            ..ExchangeTokenRequest::default()
+        };
+
+        let resp = STSHandler::default()
+            .with_body_encoding(super::internal::sts_exchange::BodyEncoding::Json)
+            .with_ca_cert_path(self.key.ca_cert_path.clone())
+            .exchange_token(req)
+            .await?;
+
+        let expires_at = Instant::now() + tokio::time::Duration::from_secs(resp.expires_in);
+
+        Ok(Token {
+            token: resp.access_token,
+            token_type: resp.token_type,
+            expires_at: Some(expires_at),
+            metadata: None,
+        })
+    }
+}
+
+/// Credentials backed by a Google Distributed Cloud service account.
+#[derive(Debug)]
+#[allow(dead_code)]
+struct GdchServiceAccountCredentials {
+    token_provider: TokenCache,
+    quota_project_id: Option<String>,
+}
+
+#[async_trait]
+impl CredentialsProvider for GdchServiceAccountCredentials {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        let token = self.token_provider.token(extensions).await?;
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
+    }
+}
+
+#[async_trait]
+impl AccessTokenCredentialsProvider for GdchServiceAccountCredentials {
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
     fn get_mock_key() -> GdchServiceAccountKey {
@@ -221,4 +286,109 @@ mod tests {
         );
         assert_eq!(claims_json["aud"], "http://localhost/token");
     }
+
+    #[tokio::test]
+    async fn token_exchange() {
+        let server = Server::run();
+
+        let mut key = get_mock_key();
+        key.token_uri = server.url("/token").to_string();
+
+        let provider = GdchServiceAccountTokenProvider::new("test-audience".to_string(), key);
+
+        let response_body = json!({
+            "access_token": "sts-token",
+            "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+            "token_type": "Bearer",
+            "expires_in": 3600
+        })
+        .to_string();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(json_decoded(|body: &serde_json::Value| {
+                    body["grant_type"] == TOKEN_EXCHANGE_TOKEN_TYPE
+                        && body["subject_token_type"] == GDCH_SERVICEACCOUNT_TOKEN_TYPE
+                        && body["audience"] == "test-audience"
+                })),
+            ])
+            .respond_with(status_code(200).body(response_body)),
+        );
+
+        let token = provider.token().await.unwrap();
+        assert_eq!(token.token, "sts-token");
+        assert_eq!(token.token_type, "Bearer");
+        assert!(token.expires_at.is_some(), "{token:?}");
+    }
+
+    #[test_case::test_case(None, 1; "without quota project")]
+    #[test_case::test_case(Some("test-quota-project"), 2; "with quota project")]
+    #[tokio::test]
+    async fn headers_success(quota_project: Option<&str>, expected_len: usize) {
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut mock = crate::token::tests::MockTokenProvider::new();
+        mock.expect_token().times(1).return_once(|| Ok(token));
+
+        let credentials = GdchServiceAccountCredentials {
+            token_provider: TokenCache::new(mock),
+            quota_project_id: quota_project.map(|s| s.to_string()),
+        };
+
+        let cached_headers = credentials.headers(Extensions::new()).await.unwrap();
+        let headers = crate::credentials::tests::get_headers_from_cache(cached_headers).unwrap();
+        let token_val = headers.get(http::header::AUTHORIZATION).unwrap();
+
+        assert_eq!(headers.len(), expected_len);
+        assert_eq!(token_val, http::HeaderValue::from_static("Bearer test-token"));
+
+        if let Some(qp) = quota_project {
+            let quota_project_header = headers.get(crate::credentials::QUOTA_PROJECT_KEY).unwrap();
+            assert_eq!(quota_project_header, http::HeaderValue::from_str(qp).unwrap());
+        }
+    }
+
+    #[tokio::test]
+    async fn headers_failure() {
+        let mut mock = crate::token::tests::MockTokenProvider::new();
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
+
+        let credentials = GdchServiceAccountCredentials {
+            token_provider: TokenCache::new(mock),
+            quota_project_id: None,
+        };
+
+        let res = credentials.headers(Extensions::new()).await;
+        assert!(res.is_err(), "{res:?}");
+    }
+
+    #[tokio::test]
+    async fn access_token_success() {
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut mock = crate::token::tests::MockTokenProvider::new();
+        mock.expect_token().times(1).return_once(|| Ok(token));
+
+        let credentials = GdchServiceAccountCredentials {
+            token_provider: TokenCache::new(mock),
+            quota_project_id: None,
+        };
+
+        let access_token = credentials.access_token().await.unwrap();
+        assert_eq!(access_token.token, "test-token");
+    }
 }
+
