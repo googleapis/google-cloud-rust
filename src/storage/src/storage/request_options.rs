@@ -46,6 +46,7 @@ pub struct RequestOptions {
     pub(crate) common_options: CommonOptions,
     pub(crate) bidi_attempt_timeout: Duration,
     pub(crate) user_agent: Option<String>,
+    pub(crate) quota_project: Option<String>,
 }
 
 impl RequestOptions {
@@ -122,6 +123,11 @@ impl RequestOptions {
         self.user_agent = Some(v.into());
     }
 
+    /// Sets the project that will be billed for this request.
+    pub fn set_quota_project(&mut self, v: impl Into<String>) {
+        self.quota_project = Some(v.into());
+    }
+
     fn new_with_policies(
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
@@ -141,6 +147,7 @@ impl RequestOptions {
             automatic_decompression: false,
             bidi_attempt_timeout: DEFAULT_BIDI_ATTEMPT_TIMEOUT,
             user_agent: None,
+            quota_project: None,
         }
     }
 
@@ -154,6 +161,9 @@ impl RequestOptions {
         }
         if let Some(s) = &self.user_agent {
             options.set_user_agent(s);
+        }
+        if let Some(up) = &self.quota_project {
+            options.set_quota_project(up.clone());
         }
         options
     }
@@ -198,5 +208,14 @@ mod tests {
         options.with_user_agent(user_agent);
         let got = options.gax();
         assert_eq!(got.user_agent().as_deref(), Some(user_agent));
+    }
+
+    #[test]
+    fn gax_quota_project() {
+        const PROJECT_NAME: &str = "project_lazy_dog";
+        let mut options = RequestOptions::new();
+        options.set_quota_project(PROJECT_NAME);
+        let got = options.gax();
+        assert_eq!(got.quota_project().as_deref(), Some(PROJECT_NAME));
     }
 }
