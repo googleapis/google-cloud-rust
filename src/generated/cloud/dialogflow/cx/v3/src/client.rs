@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Agents;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Agents::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_agents()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -136,10 +139,10 @@ impl Agents {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, parent: &str
+    ///    client: &Agents, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_agents()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -158,10 +161,10 @@ impl Agents {
     /// # use google_cloud_dialogflow_cx_v3::client::Agents;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, name: &str
+    ///    client: &Agents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_agent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -183,10 +186,10 @@ impl Agents {
     /// use google_cloud_dialogflow_cx_v3::model::Agent;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, parent: &str
+    ///    client: &Agents, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_agent()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_agent(
     ///             Agent::new()/* set fields */
     ///         )
@@ -213,11 +216,11 @@ impl Agents {
     /// use google_cloud_dialogflow_cx_v3::model::Agent;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, name: &str
+    ///    client: &Agents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_agent()
     ///         .set_agent(
-    ///             Agent::new().set_name(name)/* set fields */
+    ///             Agent::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -236,10 +239,10 @@ impl Agents {
     /// # use google_cloud_dialogflow_cx_v3::client::Agents;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, name: &str
+    ///    client: &Agents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     client.delete_agent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -366,10 +369,10 @@ impl Agents {
     /// # use google_cloud_dialogflow_cx_v3::client::Agents;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, name: &str
+    ///    client: &Agents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_agent_validation_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/validationResult"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -386,10 +389,10 @@ impl Agents {
     /// # use google_cloud_dialogflow_cx_v3::client::Agents;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, name: &str
+    ///    client: &Agents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_generative_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generativeSettings"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -409,11 +412,11 @@ impl Agents {
     /// use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Agents, name: &str
+    ///    client: &Agents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_generative_settings()
     ///         .set_generative_settings(
-    ///             GenerativeSettings::new().set_name(name)/* set fields */
+    ///             GenerativeSettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generativeSettings"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -559,16 +562,20 @@ impl Agents {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Changelogs::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_changelogs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -673,10 +680,10 @@ impl Changelogs {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Changelogs, parent: &str
+    ///    client: &Changelogs, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_changelogs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -695,10 +702,10 @@ impl Changelogs {
     /// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Changelogs, name: &str
+    ///    client: &Changelogs, project_id: &str, location_id: &str, agent_id: &str, changelog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_changelog()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/changelogs/{changelog_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -842,16 +849,21 @@ impl Changelogs {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Deployments;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    environment_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Deployments::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_deployments()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -959,10 +971,10 @@ impl Deployments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Deployments, parent: &str
+    ///    client: &Deployments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -984,10 +996,10 @@ impl Deployments {
     /// # use google_cloud_dialogflow_cx_v3::client::Deployments;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Deployments, name: &str
+    ///    client: &Deployments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1131,16 +1143,20 @@ impl Deployments {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EntityTypes::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_entity_types()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1244,10 +1260,10 @@ impl EntityTypes {
     /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, name: &str
+    ///    client: &EntityTypes, project_id: &str, location_id: &str, agent_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1269,10 +1285,10 @@ impl EntityTypes {
     /// use google_cloud_dialogflow_cx_v3::model::EntityType;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, parent: &str
+    ///    client: &EntityTypes, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entity_type()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_entity_type(
     ///             EntityType::new()/* set fields */
     ///         )
@@ -1299,11 +1315,11 @@ impl EntityTypes {
     /// use google_cloud_dialogflow_cx_v3::model::EntityType;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, name: &str
+    ///    client: &EntityTypes, project_id: &str, location_id: &str, agent_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entity_type()
     ///         .set_entity_type(
-    ///             EntityType::new().set_name(name)/* set fields */
+    ///             EntityType::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1326,10 +1342,10 @@ impl EntityTypes {
     /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, name: &str
+    ///    client: &EntityTypes, project_id: &str, location_id: &str, agent_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1346,10 +1362,10 @@ impl EntityTypes {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, parent: &str
+    ///    client: &EntityTypes, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entity_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1557,16 +1573,20 @@ impl EntityTypes {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Environments;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Environments::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_environments()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1675,10 +1695,10 @@ impl Environments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_environments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1700,10 +1720,10 @@ impl Environments {
     /// # use google_cloud_dialogflow_cx_v3::client::Environments;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_environment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1744,10 +1764,10 @@ impl Environments {
     /// use google_cloud_dialogflow_cx_v3::model::Environment;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_environment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_environment(
     ///             Environment::new()/* set fields */
     ///         )
@@ -1792,11 +1812,11 @@ impl Environments {
     /// use google_cloud_dialogflow_cx_v3::model::Environment;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_environment()
     ///         .set_environment(
-    ///             Environment::new().set_name(name)/* set fields */
+    ///             Environment::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1818,10 +1838,10 @@ impl Environments {
     /// # use google_cloud_dialogflow_cx_v3::client::Environments;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_environment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1911,10 +1931,10 @@ impl Environments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_continuous_test_results()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2107,16 +2127,21 @@ impl Environments {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Examples;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    playbook_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Examples::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_examples()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2221,10 +2246,10 @@ impl Examples {
     /// use google_cloud_dialogflow_cx_v3::model::Example;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Examples, parent: &str
+    ///    client: &Examples, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_example()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
     ///         .set_example(
     ///             Example::new()/* set fields */
     ///         )
@@ -2244,10 +2269,10 @@ impl Examples {
     /// # use google_cloud_dialogflow_cx_v3::client::Examples;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Examples, name: &str
+    ///    client: &Examples, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str, example_id: &str
     /// ) -> Result<()> {
     ///     client.delete_example()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/examples/{example_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2264,10 +2289,10 @@ impl Examples {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Examples, parent: &str
+    ///    client: &Examples, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_examples()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2286,10 +2311,10 @@ impl Examples {
     /// # use google_cloud_dialogflow_cx_v3::client::Examples;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Examples, name: &str
+    ///    client: &Examples, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str, example_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_example()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/examples/{example_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2309,11 +2334,11 @@ impl Examples {
     /// use google_cloud_dialogflow_cx_v3::model::Example;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Examples, name: &str
+    ///    client: &Examples, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str, example_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_example()
     ///         .set_example(
-    ///             Example::new().set_name(name)/* set fields */
+    ///             Example::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/examples/{example_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2459,16 +2484,21 @@ impl Examples {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    environment_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Experiments::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_experiments()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2576,10 +2606,10 @@ impl Experiments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Experiments, parent: &str
+    ///    client: &Experiments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_experiments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2601,10 +2631,10 @@ impl Experiments {
     /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Experiments, name: &str
+    ///    client: &Experiments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_experiment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2626,10 +2656,10 @@ impl Experiments {
     /// use google_cloud_dialogflow_cx_v3::model::Experiment;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Experiments, parent: &str
+    ///    client: &Experiments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_experiment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"))
     ///         .set_experiment(
     ///             Experiment::new()/* set fields */
     ///         )
@@ -2655,11 +2685,11 @@ impl Experiments {
     /// use google_cloud_dialogflow_cx_v3::model::Experiment;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Experiments, name: &str
+    ///    client: &Experiments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_experiment()
     ///         .set_experiment(
-    ///             Experiment::new().set_name(name)/* set fields */
+    ///             Experiment::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2681,10 +2711,10 @@ impl Experiments {
     /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Experiments, name: &str
+    ///    client: &Experiments, project_id: &str, location_id: &str, agent_id: &str, environment_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_experiment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2874,16 +2904,20 @@ impl Experiments {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Flows;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Flows::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_flows()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2992,10 +3026,10 @@ impl Flows {
     /// use google_cloud_dialogflow_cx_v3::model::Flow;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Flows, parent: &str
+    ///    client: &Flows, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_flow()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_flow(
     ///             Flow::new()/* set fields */
     ///         )
@@ -3015,10 +3049,10 @@ impl Flows {
     /// # use google_cloud_dialogflow_cx_v3::client::Flows;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Flows, name: &str
+    ///    client: &Flows, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     client.delete_flow()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3035,10 +3069,10 @@ impl Flows {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Flows, parent: &str
+    ///    client: &Flows, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_flows()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3057,10 +3091,10 @@ impl Flows {
     /// # use google_cloud_dialogflow_cx_v3::client::Flows;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Flows, name: &str
+    ///    client: &Flows, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_flow()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3084,11 +3118,11 @@ impl Flows {
     /// use google_cloud_dialogflow_cx_v3::model::Flow;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Flows, name: &str
+    ///    client: &Flows, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_flow()
     ///         .set_flow(
-    ///             Flow::new().set_name(name)/* set fields */
+    ///             Flow::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3174,10 +3208,10 @@ impl Flows {
     /// # use google_cloud_dialogflow_cx_v3::client::Flows;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Flows, name: &str
+    ///    client: &Flows, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_flow_validation_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/validationResult"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3412,16 +3446,20 @@ impl Flows {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Generators;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Generators::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_generators()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3526,10 +3564,10 @@ impl Generators {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Generators, parent: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_generators()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3548,10 +3586,10 @@ impl Generators {
     /// # use google_cloud_dialogflow_cx_v3::client::Generators;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Generators, name: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, agent_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_generator()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3569,10 +3607,10 @@ impl Generators {
     /// use google_cloud_dialogflow_cx_v3::model::Generator;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Generators, parent: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_generator()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_generator(
     ///             Generator::new()/* set fields */
     ///         )
@@ -3595,11 +3633,11 @@ impl Generators {
     /// use google_cloud_dialogflow_cx_v3::model::Generator;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Generators, name: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, agent_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_generator()
     ///         .set_generator(
-    ///             Generator::new().set_name(name)/* set fields */
+    ///             Generator::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3618,10 +3656,10 @@ impl Generators {
     /// # use google_cloud_dialogflow_cx_v3::client::Generators;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Generators, name: &str
+    ///    client: &Generators, project_id: &str, location_id: &str, agent_id: &str, generator_id: &str
     /// ) -> Result<()> {
     ///     client.delete_generator()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3764,16 +3802,20 @@ impl Generators {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Intents;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Intents::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_intents()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3878,10 +3920,10 @@ impl Intents {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Intents, parent: &str
+    ///    client: &Intents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_intents()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3900,10 +3942,10 @@ impl Intents {
     /// # use google_cloud_dialogflow_cx_v3::client::Intents;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Intents, name: &str
+    ///    client: &Intents, project_id: &str, location_id: &str, agent_id: &str, intent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3925,10 +3967,10 @@ impl Intents {
     /// use google_cloud_dialogflow_cx_v3::model::Intent;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Intents, parent: &str
+    ///    client: &Intents, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_intent()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_intent(
     ///             Intent::new()/* set fields */
     ///         )
@@ -3955,11 +3997,11 @@ impl Intents {
     /// use google_cloud_dialogflow_cx_v3::model::Intent;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Intents, name: &str
+    ///    client: &Intents, project_id: &str, location_id: &str, agent_id: &str, intent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_intent()
     ///         .set_intent(
-    ///             Intent::new().set_name(name)/* set fields */
+    ///             Intent::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3982,10 +4024,10 @@ impl Intents {
     /// # use google_cloud_dialogflow_cx_v3::client::Intents;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Intents, name: &str
+    ///    client: &Intents, project_id: &str, location_id: &str, agent_id: &str, intent_id: &str
     /// ) -> Result<()> {
     ///     client.delete_intent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4214,16 +4256,21 @@ impl Intents {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Pages;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    flow_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Pages::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_pages()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4328,10 +4375,10 @@ impl Pages {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Pages, parent: &str
+    ///    client: &Pages, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_pages()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4350,10 +4397,10 @@ impl Pages {
     /// # use google_cloud_dialogflow_cx_v3::client::Pages;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Pages, name: &str
+    ///    client: &Pages, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, page_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_page()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4375,10 +4422,10 @@ impl Pages {
     /// use google_cloud_dialogflow_cx_v3::model::Page;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Pages, parent: &str
+    ///    client: &Pages, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_page()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .set_page(
     ///             Page::new()/* set fields */
     ///         )
@@ -4405,11 +4452,11 @@ impl Pages {
     /// use google_cloud_dialogflow_cx_v3::model::Page;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Pages, name: &str
+    ///    client: &Pages, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, page_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_page()
     ///         .set_page(
-    ///             Page::new().set_name(name)/* set fields */
+    ///             Page::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4432,10 +4479,10 @@ impl Pages {
     /// # use google_cloud_dialogflow_cx_v3::client::Pages;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Pages, name: &str
+    ///    client: &Pages, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, page_id: &str
     /// ) -> Result<()> {
     ///     client.delete_page()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4578,16 +4625,20 @@ impl Pages {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Playbooks::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_playbooks()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4692,10 +4743,10 @@ impl Playbooks {
     /// use google_cloud_dialogflow_cx_v3::model::Playbook;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, parent: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_playbook()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_playbook(
     ///             Playbook::new()/* set fields */
     ///         )
@@ -4715,10 +4766,10 @@ impl Playbooks {
     /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, name: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     client.delete_playbook()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4735,10 +4786,10 @@ impl Playbooks {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, parent: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_playbooks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4757,10 +4808,10 @@ impl Playbooks {
     /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, name: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_playbook()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4845,11 +4896,11 @@ impl Playbooks {
     /// use google_cloud_dialogflow_cx_v3::model::Playbook;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, name: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_playbook()
     ///         .set_playbook(
-    ///             Playbook::new().set_name(name)/* set fields */
+    ///             Playbook::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4869,10 +4920,10 @@ impl Playbooks {
     /// use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, parent: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_playbook_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
     ///         .set_playbook_version(
     ///             PlaybookVersion::new()/* set fields */
     ///         )
@@ -4892,10 +4943,10 @@ impl Playbooks {
     /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, name: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_playbook_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4934,10 +4985,10 @@ impl Playbooks {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, parent: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_playbook_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4956,10 +5007,10 @@ impl Playbooks {
     /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Playbooks, name: &str
+    ///    client: &Playbooks, project_id: &str, location_id: &str, agent_id: &str, playbook_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_playbook_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5102,16 +5153,19 @@ impl Playbooks {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SecuritySettingsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_security_settings()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5215,10 +5269,10 @@ impl SecuritySettingsService {
     /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SecuritySettingsService, parent: &str
+    ///    client: &SecuritySettingsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_security_settings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_security_settings(
     ///             SecuritySettings::new()/* set fields */
     ///         )
@@ -5244,10 +5298,10 @@ impl SecuritySettingsService {
     /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SecuritySettingsService, name: &str
+    ///    client: &SecuritySettingsService, project_id: &str, location_id: &str, security_settings_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_security_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5272,11 +5326,11 @@ impl SecuritySettingsService {
     /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SecuritySettingsService, name: &str
+    ///    client: &SecuritySettingsService, project_id: &str, location_id: &str, security_settings_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_security_settings()
     ///         .set_security_settings(
-    ///             SecuritySettings::new().set_name(name)/* set fields */
+    ///             SecuritySettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -5298,10 +5352,10 @@ impl SecuritySettingsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SecuritySettingsService, parent: &str
+    ///    client: &SecuritySettingsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_security_settings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5325,10 +5379,10 @@ impl SecuritySettingsService {
     /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SecuritySettingsService, name: &str
+    ///    client: &SecuritySettingsService, project_id: &str, location_id: &str, security_settings_id: &str
     /// ) -> Result<()> {
     ///     client.delete_security_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5472,13 +5526,15 @@ impl SecuritySettingsService {
 /// # Example
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Sessions::builder().build().await?;
 ///     let response = client.detect_intent()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5810,16 +5866,21 @@ impl Sessions {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    session_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionEntityTypes::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_session_entity_types()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5926,10 +5987,10 @@ impl SessionEntityTypes {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, parent: &str
+    ///    client: &SessionEntityTypes, project_id: &str, location_id: &str, agent_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_session_entity_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5950,10 +6011,10 @@ impl SessionEntityTypes {
     /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, name: &str
+    ///    client: &SessionEntityTypes, project_id: &str, location_id: &str, agent_id: &str, session_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5973,10 +6034,10 @@ impl SessionEntityTypes {
     /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, parent: &str
+    ///    client: &SessionEntityTypes, project_id: &str, location_id: &str, agent_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session_entity_type()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}"))
     ///         .set_session_entity_type(
     ///             SessionEntityType::new()/* set fields */
     ///         )
@@ -6001,11 +6062,11 @@ impl SessionEntityTypes {
     /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, name: &str
+    ///    client: &SessionEntityTypes, project_id: &str, location_id: &str, agent_id: &str, session_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_session_entity_type()
     ///         .set_session_entity_type(
-    ///             SessionEntityType::new().set_name(name)/* set fields */
+    ///             SessionEntityType::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}/entityTypes/{entity_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -6026,10 +6087,10 @@ impl SessionEntityTypes {
     /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, name: &str
+    ///    client: &SessionEntityTypes, project_id: &str, location_id: &str, agent_id: &str, session_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6174,16 +6235,20 @@ impl SessionEntityTypes {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TestCases::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_test_cases()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6290,10 +6355,10 @@ impl TestCases {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TestCases, parent: &str
+    ///    client: &TestCases, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_test_cases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6331,10 +6396,10 @@ impl TestCases {
     /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TestCases, name: &str
+    ///    client: &TestCases, project_id: &str, location_id: &str, agent_id: &str, test_case_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_test_case()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6352,10 +6417,10 @@ impl TestCases {
     /// use google_cloud_dialogflow_cx_v3::model::TestCase;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TestCases, parent: &str
+    ///    client: &TestCases, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_test_case()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_test_case(
     ///             TestCase::new()/* set fields */
     ///         )
@@ -6378,11 +6443,11 @@ impl TestCases {
     /// use google_cloud_dialogflow_cx_v3::model::TestCase;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TestCases, name: &str
+    ///    client: &TestCases, project_id: &str, location_id: &str, agent_id: &str, test_case_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_test_case()
     ///         .set_test_case(
-    ///             TestCase::new().set_name(name)/* set fields */
+    ///             TestCase::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -6598,10 +6663,10 @@ impl TestCases {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TestCases, parent: &str
+    ///    client: &TestCases, project_id: &str, location_id: &str, agent_id: &str, test_case_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_test_case_results()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6620,10 +6685,10 @@ impl TestCases {
     /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TestCases, name: &str
+    ///    client: &TestCases, project_id: &str, location_id: &str, agent_id: &str, test_case_id: &str, result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_test_case_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}/results/{result_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6767,16 +6832,20 @@ impl TestCases {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Tools;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Tools::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tools()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6884,10 +6953,10 @@ impl Tools {
     /// use google_cloud_dialogflow_cx_v3::model::Tool;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, parent: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_tool(
     ///             Tool::new()/* set fields */
     ///         )
@@ -6911,10 +6980,10 @@ impl Tools {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, parent: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6935,10 +7004,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_cx_v3::client::Tools;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6960,11 +7029,11 @@ impl Tools {
     /// use google_cloud_dialogflow_cx_v3::model::Tool;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tool()
     ///         .set_tool(
-    ///             Tool::new().set_name(name)/* set fields */
+    ///             Tool::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -6985,10 +7054,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_cx_v3::client::Tools;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -7007,10 +7076,10 @@ impl Tools {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, parent: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tool_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -7033,10 +7102,10 @@ impl Tools {
     /// use google_cloud_dialogflow_cx_v3::model::ToolVersion;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, parent: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tool_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"))
     ///         .set_tool_version(
     ///             ToolVersion::new()/* set fields */
     ///         )
@@ -7059,10 +7128,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_cx_v3::client::Tools;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tool_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7082,10 +7151,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_cx_v3::client::Tools;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Tools, name: &str
+    ///    client: &Tools, project_id: &str, location_id: &str, agent_id: &str, tool_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tool_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -7249,16 +7318,21 @@ impl Tools {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    flow_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TransitionRouteGroups::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_transition_route_groups()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7365,10 +7439,10 @@ impl TransitionRouteGroups {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TransitionRouteGroups, parent: &str
+    ///    client: &TransitionRouteGroups, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_transition_route_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -7392,10 +7466,10 @@ impl TransitionRouteGroups {
     /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TransitionRouteGroups, name: &str
+    ///    client: &TransitionRouteGroups, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, transition_route_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_transition_route_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/transitionRouteGroups/{transition_route_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7423,10 +7497,10 @@ impl TransitionRouteGroups {
     /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TransitionRouteGroups, parent: &str
+    ///    client: &TransitionRouteGroups, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_transition_route_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .set_transition_route_group(
     ///             TransitionRouteGroup::new()/* set fields */
     ///         )
@@ -7458,11 +7532,11 @@ impl TransitionRouteGroups {
     /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TransitionRouteGroups, name: &str
+    ///    client: &TransitionRouteGroups, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, transition_route_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_transition_route_group()
     ///         .set_transition_route_group(
-    ///             TransitionRouteGroup::new().set_name(name)/* set fields */
+    ///             TransitionRouteGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/transitionRouteGroups/{transition_route_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -7490,10 +7564,10 @@ impl TransitionRouteGroups {
     /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &TransitionRouteGroups, name: &str
+    ///    client: &TransitionRouteGroups, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, transition_route_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_transition_route_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/transitionRouteGroups/{transition_route_group_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -7638,16 +7712,21 @@ impl TransitionRouteGroups {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Versions;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+///    flow_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Versions::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_versions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7755,10 +7834,10 @@ impl Versions {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Versions, parent: &str
+    ///    client: &Versions, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -7779,10 +7858,10 @@ impl Versions {
     /// # use google_cloud_dialogflow_cx_v3::client::Versions;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Versions, name: &str
+    ///    client: &Versions, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7824,10 +7903,10 @@ impl Versions {
     /// use google_cloud_dialogflow_cx_v3::model::Version;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Versions, parent: &str
+    ///    client: &Versions, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"))
     ///         .set_version(
     ///             Version::new()/* set fields */
     ///         )
@@ -7852,11 +7931,11 @@ impl Versions {
     /// use google_cloud_dialogflow_cx_v3::model::Version;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Versions, name: &str
+    ///    client: &Versions, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_version()
     ///         .set_version(
-    ///             Version::new().set_name(name)/* set fields */
+    ///             Version::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -7877,10 +7956,10 @@ impl Versions {
     /// # use google_cloud_dialogflow_cx_v3::client::Versions;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Versions, name: &str
+    ///    client: &Versions, project_id: &str, location_id: &str, agent_id: &str, flow_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -8082,16 +8161,20 @@ impl Versions {
 /// ```
 /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    agent_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Webhooks::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_webhooks()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8196,10 +8279,10 @@ impl Webhooks {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Webhooks, parent: &str
+    ///    client: &Webhooks, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_webhooks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -8218,10 +8301,10 @@ impl Webhooks {
     /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Webhooks, name: &str
+    ///    client: &Webhooks, project_id: &str, location_id: &str, agent_id: &str, webhook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_webhook()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8239,10 +8322,10 @@ impl Webhooks {
     /// use google_cloud_dialogflow_cx_v3::model::Webhook;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Webhooks, parent: &str
+    ///    client: &Webhooks, project_id: &str, location_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_webhook()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"))
     ///         .set_webhook(
     ///             Webhook::new()/* set fields */
     ///         )
@@ -8265,11 +8348,11 @@ impl Webhooks {
     /// use google_cloud_dialogflow_cx_v3::model::Webhook;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Webhooks, name: &str
+    ///    client: &Webhooks, project_id: &str, location_id: &str, agent_id: &str, webhook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_webhook()
     ///         .set_webhook(
-    ///             Webhook::new().set_name(name)/* set fields */
+    ///             Webhook::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -8288,10 +8371,10 @@ impl Webhooks {
     /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
     /// use google_cloud_dialogflow_cx_v3::Result;
     /// async fn sample(
-    ///    client: &Webhooks, name: &str
+    ///    client: &Webhooks, project_id: &str, location_id: &str, agent_id: &str, webhook_id: &str
     /// ) -> Result<()> {
     ///     client.delete_webhook()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

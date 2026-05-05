@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ManagedIdentitiesService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_domains()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -176,10 +179,10 @@ impl ManagedIdentitiesService {
     /// use google_cloud_managedidentities_v1::model::Domain;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, parent: &str
+    ///    client: &ManagedIdentitiesService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_microsoft_ad_domain()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_domain(
     ///             Domain::new()/* set fields */
     ///         )
@@ -224,10 +227,10 @@ impl ManagedIdentitiesService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, parent: &str
+    ///    client: &ManagedIdentitiesService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_domains()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -246,10 +249,10 @@ impl ManagedIdentitiesService {
     /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, name: &str
+    ///    client: &ManagedIdentitiesService, project_id: &str, location_id: &str, domain_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_domain()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -280,11 +283,11 @@ impl ManagedIdentitiesService {
     /// use google_cloud_managedidentities_v1::model::Domain;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, name: &str
+    ///    client: &ManagedIdentitiesService, project_id: &str, location_id: &str, domain_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_domain()
     ///         .set_domain(
-    ///             Domain::new().set_name(name)/* set fields */
+    ///             Domain::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -314,10 +317,10 @@ impl ManagedIdentitiesService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, name: &str
+    ///    client: &ManagedIdentitiesService, project_id: &str, location_id: &str, domain_id: &str
     /// ) -> Result<()> {
     ///     client.delete_domain()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -24,16 +24,18 @@
 /// ```
 /// # use google_cloud_workflows_v1::client::Workflows;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Workflows::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_workflows()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -158,10 +160,10 @@ impl Workflows {
     /// # use google_cloud_workflows_v1::client::Workflows;
     /// use google_cloud_workflows_v1::Result;
     /// async fn sample(
-    ///    client: &Workflows, name: &str
+    ///    client: &Workflows, project_id: &str, location_id: &str, workflow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -229,10 +231,10 @@ impl Workflows {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workflows_v1::Result;
     /// async fn sample(
-    ///    client: &Workflows, name: &str
+    ///    client: &Workflows, project_id: &str, location_id: &str, workflow_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -266,11 +268,11 @@ impl Workflows {
     /// use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::Result;
     /// async fn sample(
-    ///    client: &Workflows, name: &str
+    ///    client: &Workflows, project_id: &str, location_id: &str, workflow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workflow()
     ///         .set_workflow(
-    ///             Workflow::new().set_name(name)/* set fields */
+    ///             Workflow::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;

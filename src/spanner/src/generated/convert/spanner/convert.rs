@@ -394,6 +394,8 @@ impl gaxi::prost::ToProto<CommitResponse> for crate::generated::gapic_dataplane:
             commit_stats: self.commit_stats.map(|v| v.to_proto()).transpose()?,
             snapshot_timestamp: self.snapshot_timestamp.map(|v| v.to_proto()).transpose()?,
             cache_update: self.cache_update.map(|v| v.to_proto()).transpose()?,
+            isolation_level: self.isolation_level.to_proto()?,
+            read_lock_mode: self.read_lock_mode.to_proto()?,
             multiplexed_session_retry: self.multiplexed_session_retry.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -407,6 +409,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CommitResp
                 .set_or_clear_commit_stats(self.commit_stats.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_snapshot_timestamp(self.snapshot_timestamp.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
+                .set_isolation_level(self.isolation_level)
+                .set_read_lock_mode(self.read_lock_mode)
                 .set_multiplexed_session_retry(self.multiplexed_session_retry.map(|v| v.cnv()).transpose()?)
         )
     }

@@ -56,17 +56,20 @@ pub mod stub;
 /// ```
 /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
 /// use google_cloud_security_publicca_v1::model::ExternalAccountKey;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PublicCertificateAuthorityService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let response = client.create_external_account_key()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .set_external_account_key(
 ///             ExternalAccountKey::new()/* set fields */
 ///         )
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

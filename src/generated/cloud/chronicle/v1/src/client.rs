@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataAccessControlService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_access_labels()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -139,10 +143,10 @@ impl DataAccessControlService {
     /// use google_cloud_chronicle_v1::model::DataAccessLabel;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, parent: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_access_label()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_data_access_label(
     ///             DataAccessLabel::new()/* set fields */
     ///         )
@@ -164,10 +168,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, name: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str, data_access_label_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_access_label()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessLabels/{data_access_label_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -187,10 +191,10 @@ impl DataAccessControlService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, parent: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_access_labels()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -214,11 +218,11 @@ impl DataAccessControlService {
     /// use google_cloud_chronicle_v1::model::DataAccessLabel;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, name: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str, data_access_label_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_access_label()
     ///         .set_data_access_label(
-    ///             DataAccessLabel::new().set_name(name)/* set fields */
+    ///             DataAccessLabel::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessLabels/{data_access_label_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -241,10 +245,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, name: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str, data_access_label_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_access_label()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessLabels/{data_access_label_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -268,10 +272,10 @@ impl DataAccessControlService {
     /// use google_cloud_chronicle_v1::model::DataAccessScope;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, parent: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_access_scope()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_data_access_scope(
     ///             DataAccessScope::new()/* set fields */
     ///         )
@@ -293,10 +297,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, name: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str, data_access_scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_access_scope()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -316,10 +320,10 @@ impl DataAccessControlService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, parent: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_access_scopes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -343,11 +347,11 @@ impl DataAccessControlService {
     /// use google_cloud_chronicle_v1::model::DataAccessScope;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, name: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str, data_access_scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_access_scope()
     ///         .set_data_access_scope(
-    ///             DataAccessScope::new().set_name(name)/* set fields */
+    ///             DataAccessScope::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -368,10 +372,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, name: &str
+    ///    client: &DataAccessControlService, project_id: &str, location_id: &str, instance_id: &str, data_access_scope_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_access_scope()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -478,16 +482,20 @@ impl DataAccessControlService {
 /// ```
 /// # use google_cloud_chronicle_v1::client::DataTableService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataTableService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_tables()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -588,10 +596,10 @@ impl DataTableService {
     /// use google_cloud_chronicle_v1::model::DataTable;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, parent: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_table()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_data_table(
     ///             DataTable::new()/* set fields */
     ///         )
@@ -612,10 +620,10 @@ impl DataTableService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, parent: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_tables()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -634,10 +642,10 @@ impl DataTableService {
     /// # use google_cloud_chronicle_v1::client::DataTableService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_table()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -657,11 +665,11 @@ impl DataTableService {
     /// use google_cloud_chronicle_v1::model::DataTable;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_table()
     ///         .set_data_table(
-    ///             DataTable::new().set_name(name)/* set fields */
+    ///             DataTable::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -680,10 +688,10 @@ impl DataTableService {
     /// # use google_cloud_chronicle_v1::client::DataTableService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_table()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -700,10 +708,10 @@ impl DataTableService {
     /// use google_cloud_chronicle_v1::model::DataTableRow;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, parent: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_table_row()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"))
     ///         .set_data_table_row(
     ///             DataTableRow::new()/* set fields */
     ///         )
@@ -726,11 +734,11 @@ impl DataTableService {
     /// use google_cloud_chronicle_v1::model::DataTableRow;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str, data_table_row_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_table_row()
     ///         .set_data_table_row(
-    ///             DataTableRow::new().set_name(name)/* set fields */
+    ///             DataTableRow::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}/dataTableRows/{data_table_row_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -750,10 +758,10 @@ impl DataTableService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, parent: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_table_rows()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -772,10 +780,10 @@ impl DataTableService {
     /// # use google_cloud_chronicle_v1::client::DataTableService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str, data_table_row_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_table_row()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}/dataTableRows/{data_table_row_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -792,10 +800,10 @@ impl DataTableService {
     /// # use google_cloud_chronicle_v1::client::DataTableService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_id: &str, data_table_row_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_table_row()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}/dataTableRows/{data_table_row_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -899,10 +907,10 @@ impl DataTableService {
     /// # use google_cloud_chronicle_v1::client::DataTableService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataTableService, name: &str
+    ///    client: &DataTableService, project_id: &str, location_id: &str, instance_id: &str, data_table_operation_errors_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_table_operation_errors()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTableOperationErrors/{data_table_operation_errors_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1010,16 +1018,20 @@ impl DataTableService {
 /// ```
 /// # use google_cloud_chronicle_v1::client::EntityService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EntityService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_watchlists()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1118,10 +1130,10 @@ impl EntityService {
     /// # use google_cloud_chronicle_v1::client::EntityService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, name: &str
+    ///    client: &EntityService, project_id: &str, location_id: &str, instance_id: &str, watchlist_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_watchlist()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/watchlists/{watchlist_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1139,10 +1151,10 @@ impl EntityService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, parent: &str
+    ///    client: &EntityService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_watchlists()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1163,10 +1175,10 @@ impl EntityService {
     /// use google_cloud_chronicle_v1::model::Watchlist;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, parent: &str
+    ///    client: &EntityService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_watchlist()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_watchlist_id("watchlist_id_value")
     ///         .set_watchlist(
     ///             Watchlist::new()/* set fields */
@@ -1190,11 +1202,11 @@ impl EntityService {
     /// use google_cloud_chronicle_v1::model::Watchlist;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, name: &str
+    ///    client: &EntityService, project_id: &str, location_id: &str, instance_id: &str, watchlist_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_watchlist()
     ///         .set_watchlist(
-    ///             Watchlist::new().set_name(name)/* set fields */
+    ///             Watchlist::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/watchlists/{watchlist_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1213,10 +1225,10 @@ impl EntityService {
     /// # use google_cloud_chronicle_v1::client::EntityService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, name: &str
+    ///    client: &EntityService, project_id: &str, location_id: &str, instance_id: &str, watchlist_id: &str
     /// ) -> Result<()> {
     ///     client.delete_watchlist()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/watchlists/{watchlist_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1320,14 +1332,18 @@ impl EntityService {
 /// # Example
 /// ```
 /// # use google_cloud_chronicle_v1::client::InstanceService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_instance()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1426,10 +1442,10 @@ impl InstanceService {
     /// # use google_cloud_chronicle_v1::client::InstanceService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceService, name: &str
+    ///    client: &InstanceService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1535,16 +1551,20 @@ impl InstanceService {
 /// ```
 /// # use google_cloud_chronicle_v1::client::ReferenceListService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ReferenceListService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_reference_lists()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1644,10 +1664,10 @@ impl ReferenceListService {
     /// # use google_cloud_chronicle_v1::client::ReferenceListService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &ReferenceListService, name: &str
+    ///    client: &ReferenceListService, project_id: &str, location_id: &str, instance_id: &str, reference_list_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reference_list()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/referenceLists/{reference_list_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1665,10 +1685,10 @@ impl ReferenceListService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &ReferenceListService, parent: &str
+    ///    client: &ReferenceListService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_reference_lists()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1690,10 +1710,10 @@ impl ReferenceListService {
     /// use google_cloud_chronicle_v1::model::ReferenceList;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &ReferenceListService, parent: &str
+    ///    client: &ReferenceListService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_reference_list()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_reference_list(
     ///             ReferenceList::new()/* set fields */
     ///         )
@@ -1718,11 +1738,11 @@ impl ReferenceListService {
     /// use google_cloud_chronicle_v1::model::ReferenceList;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &ReferenceListService, name: &str
+    ///    client: &ReferenceListService, project_id: &str, location_id: &str, instance_id: &str, reference_list_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_reference_list()
     ///         .set_reference_list(
-    ///             ReferenceList::new().set_name(name)/* set fields */
+    ///             ReferenceList::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/referenceLists/{reference_list_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1832,16 +1852,20 @@ impl ReferenceListService {
 /// ```
 /// # use google_cloud_chronicle_v1::client::RuleService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = RuleService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_rules()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1941,10 +1965,10 @@ impl RuleService {
     /// use google_cloud_chronicle_v1::model::Rule;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, parent: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_rule(
     ///             Rule::new()/* set fields */
     ///         )
@@ -1964,10 +1988,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, name: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1985,10 +2009,10 @@ impl RuleService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, parent: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2010,11 +2034,11 @@ impl RuleService {
     /// use google_cloud_chronicle_v1::model::Rule;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, name: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_rule()
     ///         .set_rule(
-    ///             Rule::new().set_name(name)/* set fields */
+    ///             Rule::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2033,10 +2057,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, name: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2087,10 +2111,10 @@ impl RuleService {
     /// use google_cloud_chronicle_v1::model::Retrohunt;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, parent: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_retrohunt()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"))
     ///         .set_retrohunt(
     ///             Retrohunt::new()/* set fields */
     ///         )
@@ -2110,10 +2134,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, name: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str, retrohunt_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_retrohunt()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/retrohunts/{retrohunt_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2131,10 +2155,10 @@ impl RuleService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, parent: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_retrohunts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2153,10 +2177,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, name: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rule_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/deployment"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2174,10 +2198,10 @@ impl RuleService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, parent: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_rule_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2202,11 +2226,11 @@ impl RuleService {
     /// use google_cloud_chronicle_v1::model::RuleDeployment;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, name: &str
+    ///    client: &RuleService, project_id: &str, location_id: &str, instance_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_rule_deployment()
     ///         .set_rule_deployment(
-    ///             RuleDeployment::new().set_name(name)/* set fields */
+    ///             RuleDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/deployment"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

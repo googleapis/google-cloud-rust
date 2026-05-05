@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConfigDelivery::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_resource_bundles()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl ConfigDelivery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_resource_bundles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_bundle()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::ResourceBundle;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_resource_bundle()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_resource_bundle(
     ///             ResourceBundle::new()/* set fields */
     ///         )
@@ -223,11 +226,11 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::ResourceBundle;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_resource_bundle()
     ///         .set_resource_bundle(
-    ///             ResourceBundle::new().set_name(name)/* set fields */
+    ///             ResourceBundle::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -257,10 +260,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str
     /// ) -> Result<()> {
     ///     client.delete_resource_bundle()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -277,10 +280,10 @@ impl ConfigDelivery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_fleet_packages()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -299,10 +302,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, fleet_package_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_fleet_package()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -331,10 +334,10 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::FleetPackage;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_fleet_package()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_fleet_package(
     ///             FleetPackage::new()/* set fields */
     ///         )
@@ -368,11 +371,11 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::FleetPackage;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, fleet_package_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_fleet_package()
     ///         .set_fleet_package(
-    ///             FleetPackage::new().set_name(name)/* set fields */
+    ///             FleetPackage::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -402,10 +405,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, fleet_package_id: &str
     /// ) -> Result<()> {
     ///     client.delete_fleet_package()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -422,10 +425,10 @@ impl ConfigDelivery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_releases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -444,10 +447,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_release()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -476,10 +479,10 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::Release;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_release()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"))
     ///         .set_release_id("release_id_value")
     ///         .set_release(
     ///             Release::new()/* set fields */
@@ -514,11 +517,11 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::Release;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_release()
     ///         .set_release(
-    ///             Release::new().set_name(name)/* set fields */
+    ///             Release::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -548,10 +551,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     client.delete_release()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -568,10 +571,10 @@ impl ConfigDelivery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_variants()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -590,10 +593,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str, variant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_variant()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}/variants/{variant_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -623,10 +626,10 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::Variant;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_variant()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"))
     ///         .set_variant_id("variant_id_value")
     ///         .set_variant(
     ///             Variant::new()/* set fields */
@@ -661,11 +664,11 @@ impl ConfigDelivery {
     /// use google_cloud_configdelivery_v1::model::Variant;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str, variant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_variant()
     ///         .set_variant(
-    ///             Variant::new().set_name(name)/* set fields */
+    ///             Variant::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}/variants/{variant_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -695,10 +698,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, resource_bundle_id: &str, release_id: &str, variant_id: &str
     /// ) -> Result<()> {
     ///     client.delete_variant()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}/variants/{variant_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -715,10 +718,10 @@ impl ConfigDelivery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, parent: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, fleet_package_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_rollouts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -737,10 +740,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, name: &str
+    ///    client: &ConfigDelivery, project_id: &str, location_id: &str, fleet_package_id: &str, rollout_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rollout()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

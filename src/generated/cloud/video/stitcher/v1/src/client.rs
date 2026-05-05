@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VideoStitcherService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_cdn_keys()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -147,10 +150,10 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::CdnKey;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cdn_key()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cdn_key(
     ///             CdnKey::new()/* set fields */
     ///         )
@@ -171,10 +174,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cdn_keys()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -193,10 +196,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, cdn_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cdn_key()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cdnKeys/{cdn_key_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,10 +227,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, cdn_key_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cdn_key()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cdnKeys/{cdn_key_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -258,11 +261,11 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::CdnKey;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, cdn_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cdn_key()
     ///         .set_cdn_key(
-    ///             CdnKey::new().set_name(name)/* set fields */
+    ///             CdnKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/cdnKeys/{cdn_key_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -283,10 +286,10 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::VodSession;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_vod_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_vod_session(
     ///             VodSession::new()/* set fields */
     ///         )
@@ -307,10 +310,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -329,10 +332,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_vod_stitch_details()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -353,10 +356,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_session_id: &str, vod_stitch_detail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_stitch_detail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}/vodStitchDetails/{vod_stitch_detail_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -376,10 +379,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_vod_ad_tag_details()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -400,10 +403,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_session_id: &str, vod_ad_tag_detail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_ad_tag_detail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}/vodAdTagDetails/{vod_ad_tag_detail_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -423,10 +426,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, live_session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_live_ad_tag_details()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -447,10 +450,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, live_session_id: &str, live_ad_tag_detail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_live_ad_tag_detail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}/liveAdTagDetails/{live_ad_tag_detail_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -481,10 +484,10 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::Slate;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_slate()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_slate_id("slate_id_value")
     ///         .set_slate(
     ///             Slate::new()/* set fields */
@@ -506,10 +509,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_slates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -528,10 +531,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, slate_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_slate()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -562,11 +565,11 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::Slate;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, slate_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_slate()
     ///         .set_slate(
-    ///             Slate::new().set_name(name)/* set fields */
+    ///             Slate::new().set_name(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -596,10 +599,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, slate_id: &str
     /// ) -> Result<()> {
     ///     client.delete_slate()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -616,10 +619,10 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::LiveSession;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_live_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_live_session(
     ///             LiveSession::new()/* set fields */
     ///         )
@@ -639,10 +642,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, live_session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_live_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -672,10 +675,10 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::LiveConfig;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_live_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_live_config(
     ///             LiveConfig::new()/* set fields */
     ///         )
@@ -697,10 +700,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_live_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -720,10 +723,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, live_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_live_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -751,10 +754,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, live_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_live_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -785,11 +788,11 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::LiveConfig;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, live_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_live_config()
     ///         .set_live_config(
-    ///             LiveConfig::new().set_name(name)/* set fields */
+    ///             LiveConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -821,10 +824,10 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::VodConfig;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_vod_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_vod_config(
     ///             VodConfig::new()/* set fields */
     ///         )
@@ -846,10 +849,10 @@ impl VideoStitcherService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, parent: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_vod_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -869,10 +872,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -900,10 +903,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_vod_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -934,11 +937,11 @@ impl VideoStitcherService {
     /// use google_cloud_video_stitcher_v1::model::VodConfig;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, name: &str
+    ///    client: &VideoStitcherService, project_id: &str, location_id: &str, vod_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_vod_config()
     ///         .set_vod_config(
-    ///             VodConfig::new().set_name(name)/* set fields */
+    ///             VodConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;

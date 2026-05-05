@@ -15,6 +15,7 @@
 use crate::model::DirectedReadOptions;
 use crate::model::execute_sql_request::QueryMode;
 use crate::model::execute_sql_request::QueryOptions;
+use crate::model::request_options::Priority;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
@@ -102,6 +103,23 @@ impl StatementBuilder {
         self.request_options
             .get_or_insert_with(crate::model::RequestOptions::default)
             .request_tag = tag.into();
+        self
+    }
+
+    /// Sets the RPC priority to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_priority(Priority::Low)
+    ///     .build();
+    /// ```
+    pub fn with_priority(mut self, priority: Priority) -> Self {
+        self.request_options
+            .get_or_insert_with(crate::model::RequestOptions::default)
+            .priority = priority;
         self
     }
 
@@ -446,6 +464,19 @@ mod tests {
                 .expect("request options missing")
                 .request_tag,
             "tag1"
+        );
+    }
+
+    #[test]
+    fn with_priority() {
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_priority(Priority::High)
+            .build();
+        assert_eq!(
+            stmt.request_options
+                .expect("request options missing")
+                .priority,
+            Priority::High
         );
     }
 

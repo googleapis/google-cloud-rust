@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EdgeContainer::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl EdgeContainer {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl EdgeContainer {
     /// use google_cloud_edgecontainer_v1::model::Cluster;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
@@ -224,11 +227,11 @@ impl EdgeContainer {
     /// use google_cloud_edgecontainer_v1::model::Cluster;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cluster()
     ///         .set_cluster(
-    ///             Cluster::new().set_name(name)/* set fields */
+    ///             Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -289,10 +292,10 @@ impl EdgeContainer {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -351,10 +354,10 @@ impl EdgeContainer {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_node_pools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -373,10 +376,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str, node_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/nodePools/{node_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -405,10 +408,10 @@ impl EdgeContainer {
     /// use google_cloud_edgecontainer_v1::model::NodePool;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_node_pool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_node_pool(
     ///             NodePool::new()/* set fields */
     ///         )
@@ -442,11 +445,11 @@ impl EdgeContainer {
     /// use google_cloud_edgecontainer_v1::model::NodePool;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str, node_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_node_pool()
     ///         .set_node_pool(
-    ///             NodePool::new().set_name(name)/* set fields */
+    ///             NodePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/nodePools/{node_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -476,10 +479,10 @@ impl EdgeContainer {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, cluster_id: &str, node_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_node_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/nodePools/{node_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -496,10 +499,10 @@ impl EdgeContainer {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_machines()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -518,10 +521,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, machine_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_machine()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/machines/{machine_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -539,10 +542,10 @@ impl EdgeContainer {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_vpn_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -561,10 +564,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, vpn_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpn_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpnConnections/{vpn_connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -593,10 +596,10 @@ impl EdgeContainer {
     /// use google_cloud_edgecontainer_v1::model::VpnConnection;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, parent: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_vpn_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_vpn_connection(
     ///             VpnConnection::new()/* set fields */
     ///         )
@@ -627,10 +630,10 @@ impl EdgeContainer {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, name: &str
+    ///    client: &EdgeContainer, project_id: &str, location_id: &str, vpn_connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_vpn_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpnConnections/{vpn_connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

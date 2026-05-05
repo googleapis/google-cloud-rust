@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TelcoAutomation::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_orchestration_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -135,10 +138,10 @@ impl TelcoAutomation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_orchestration_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -159,10 +162,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_orchestration_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -193,10 +196,10 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_orchestration_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_orchestration_cluster(
     ///             OrchestrationCluster::new()/* set fields */
     ///         )
@@ -229,10 +232,10 @@ impl TelcoAutomation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_orchestration_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -251,10 +254,10 @@ impl TelcoAutomation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_edge_slms()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -273,10 +276,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, edge_slm_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_edge_slm()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/edgeSlms/{edge_slm_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -305,10 +308,10 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::EdgeSlm;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_edge_slm()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_edge_slm(
     ///             EdgeSlm::new()/* set fields */
     ///         )
@@ -339,10 +342,10 @@ impl TelcoAutomation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, edge_slm_id: &str
     /// ) -> Result<()> {
     ///     client.delete_edge_slm()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/edgeSlms/{edge_slm_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -359,10 +362,10 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::Blueprint;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_blueprint()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"))
     ///         .set_blueprint_id("blueprint_id_value")
     ///         .set_blueprint(
     ///             Blueprint::new()/* set fields */
@@ -386,11 +389,11 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::Blueprint;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, blueprint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_blueprint()
     ///         .set_blueprint(
-    ///             Blueprint::new().set_name(name)/* set fields */
+    ///             Blueprint::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -409,10 +412,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, blueprint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_blueprint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -429,10 +432,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, blueprint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_blueprint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -449,10 +452,10 @@ impl TelcoAutomation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_blueprints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -632,10 +635,10 @@ impl TelcoAutomation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_public_blueprints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -654,10 +657,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, public_lueprint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_public_blueprint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/publicBlueprints/{public_lueprint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -675,10 +678,10 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::Deployment;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"))
     ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
@@ -702,11 +705,11 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::Deployment;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deployment()
     ///         .set_deployment(
-    ///             Deployment::new().set_name(name)/* set fields */
+    ///             Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -725,10 +728,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -766,10 +769,10 @@ impl TelcoAutomation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -900,10 +903,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, deployment_id: &str, hydrated_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hydrated_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}/hydratedDeployments/{hydrated_deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -923,10 +926,10 @@ impl TelcoAutomation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, parent: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_hydrated_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -950,11 +953,11 @@ impl TelcoAutomation {
     /// use google_cloud_telcoautomation_v1::model::HydratedDeployment;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, name: &str
+    ///    client: &TelcoAutomation, project_id: &str, location_id: &str, orchestration_cluster_id: &str, deployment_id: &str, hydrated_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_hydrated_deployment()
     ///         .set_hydrated_deployment(
-    ///             HydratedDeployment::new().set_name(name)/* set fields */
+    ///             HydratedDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}/hydratedDeployments/{hydrated_deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

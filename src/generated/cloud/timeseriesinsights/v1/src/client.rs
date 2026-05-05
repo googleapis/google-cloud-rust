@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TimeseriesInsightsController::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_sets()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -196,10 +198,10 @@ impl TimeseriesInsightsController {
     /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
     /// use google_cloud_timeseriesinsights_v1::Result;
     /// async fn sample(
-    ///    client: &TimeseriesInsightsController, name: &str
+    ///    client: &TimeseriesInsightsController, project_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_set()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/datasets/{dataset_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

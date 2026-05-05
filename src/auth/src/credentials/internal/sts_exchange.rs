@@ -24,23 +24,26 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
+#[derive(Debug, Default)]
 pub struct STSHandler {
-    use_json: bool,
+    body_encoding: BodyEncoding,
     ca_cert_path: Option<String>,
 }
 
-impl STSHandler {
-    /// Creates a new [STSHandler] with default values.
-    pub(crate) fn default() -> Self {
-        Self {
-            use_json: false,
-            ca_cert_path: None,
-        }
-    }
+/// Defines the type of body serialization to use for requests to the STS endpoint.
+#[derive(Debug, Default)]
+pub(crate) enum BodyEncoding {
+    /// Default: Form URL encoding (application/x-www-form-urlencoded).
+    #[default]
+    UrlEncoded,
+    /// JSON encoding (application/json).
+    Json,
+}
 
-    /// Configures the handler to use JSON encoding instead of Form URL encoding.
-    pub(crate) fn with_json_body(mut self) -> Self {
-        self.use_json = true;
+impl STSHandler {
+    /// Configures the handler to use the specified request type for token exchange.
+    pub(crate) fn with_body_encoding(mut self, body_encoding: BodyEncoding) -> Self {
+        self.body_encoding = body_encoding;
         self
     }
 
@@ -98,25 +101,23 @@ impl STSHandler {
         headers: http::HeaderMap,
         params: HashMap<&str, String>,
     ) -> Result<TokenResponse> {
-        let client_builder = reqwest::Client::builder();
+        let mut client_builder = reqwest::Client::builder();
 
-        let client_builder = self
-            .ca_cert_path
-            .into_iter()
-            .try_fold(client_builder, add_root_cert)?;
+        if let Some(path) = self.ca_cert_path {
+            client_builder = add_root_cert(client_builder, path).await?;
+        }
 
         let client = client_builder
             .build()
-            .expect("Failed to build reqwest client");
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
         let mut headers = headers.clone();
         client_auth.inject_auth(&mut headers)?;
 
         let builder = client.post(url).headers(headers);
-        let builder = if self.use_json {
-            builder.json(&params)
-        } else {
-            builder.form(&params)
+        let builder = match self.body_encoding {
+            BodyEncoding::Json => builder.json(&params),
+            BodyEncoding::UrlEncoded => builder.form(&params),
         };
         let res = builder
             .send()
@@ -136,19 +137,19 @@ impl STSHandler {
     }
 }
 
-fn add_root_cert(builder: reqwest::ClientBuilder, path: String) -> Result<reqwest::ClientBuilder> {
-    let cert_bytes = std::fs::read(&path).map_err(|e| {
-        CredentialsError::from_msg(
+async fn add_root_cert(
+    builder: reqwest::ClientBuilder,
+    path: String,
+) -> Result<reqwest::ClientBuilder> {
+    let cert_bytes = tokio::fs::read(&path).await.map_err(|e| {
+        CredentialsError::new(
             false,
-            format!("failed to read custom CA certificate from {}: {}", path, e),
+            format!("failed to read custom CA certificate from {}", path),
+            e,
         )
     })?;
-    let cert = reqwest::Certificate::from_pem(&cert_bytes).map_err(|e| {
-        CredentialsError::from_msg(
-            false,
-            format!("failed to parse custom CA certificate: {}", e),
-        )
-    })?;
+    let cert = reqwest::Certificate::from_pem(&cert_bytes)
+        .map_err(|e| CredentialsError::new(false, "failed to parse custom CA certificate", e))?;
     Ok(builder.add_root_certificate(cert))
 }
 
@@ -377,6 +378,75 @@ mod tests {
             "{err:?}"
         );
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn exchange_token_json_and_custom_grant() -> TestResult {
+        let authentication = ClientAuthentication::default();
+        let response_body = json!({
+            "access_token":"json_example_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/sts-json"),
+                request::body(json_decoded(eq(json!({
+                    "grant_type": "urn:ietf:params:oauth:grant-type:custom",
+                    "subject_token": "an_example_token",
+                    "requested_token_type": ACCESS_TOKEN_TYPE,
+                    "subject_token_type": JWT_TOKEN_TYPE,
+                })))),
+                request::headers(contains(("content-type", "application/json"))),
+            ])
+            .respond_with(status_code(200).body(response_body)),
+        );
+
+        let url = server.url("/sts-json").to_string();
+        let mut headers = http::HeaderMap::new();
+        headers.insert(
+            http::header::CONTENT_TYPE,
+            http::HeaderValue::from_static("application/json"),
+        );
+        let token_req = ExchangeTokenRequest {
+            url,
+            headers,
+            authentication,
+            subject_token: "an_example_token".to_string(),
+            subject_token_type: JWT_TOKEN_TYPE.to_string(),
+            grant_type: Some("urn:ietf:params:oauth:grant-type:custom".to_string()),
+            ..ExchangeTokenRequest::default()
+        };
+        let resp = STSHandler::default()
+            .with_body_encoding(BodyEncoding::Json)
+            .exchange_token(token_req)
+            .await?;
+
+        assert_eq!(resp.access_token, "json_example_token");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn exchange_token_custom_ca_invalid_file() -> TestResult {
+        let token_req = ExchangeTokenRequest {
+            url: "http://localhost/sts".to_string(),
+            subject_token: "token".to_string(),
+            subject_token_type: JWT_TOKEN_TYPE.to_string(),
+            ..ExchangeTokenRequest::default()
+        };
+        let err = STSHandler::default()
+            .with_ca_cert_path(Some("non_existent_file.crt".to_string()))
+            .exchange_token(token_req)
+            .await
+            .unwrap_err();
+
+        assert!(!err.is_transient(), "{err:?}");
         Ok(())
     }
 }

@@ -21,14 +21,18 @@
 /// # Example
 /// ```
 /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    schema_registry_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ManagedSchemaRegistry::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_schema_registry()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -177,10 +181,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema_registry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -243,10 +247,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str
     /// ) -> Result<()> {
     ///     client.delete_schema_registry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -264,10 +268,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_context()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/contexts/{context_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -304,10 +308,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/schemas/ids/{schema_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -435,10 +439,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str, subject_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_subject()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -475,10 +479,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str, subject_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -560,10 +564,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, name: &str
+    ///    client: &ManagedSchemaRegistry, project_id: &str, location_id: &str, schema_registry_id: &str, subject_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

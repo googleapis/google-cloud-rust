@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_webrisk_v1::client::WebRiskService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = WebRiskService::builder().build().await?;
 ///     let response = client.compute_threat_list_diff()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

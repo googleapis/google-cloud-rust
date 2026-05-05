@@ -21,14 +21,17 @@
 /// # Example
 /// ```
 /// # use google_cloud_pubsub::client::TopicAdmin;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    topic_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TopicAdmin::builder().build().await?;
-///     let topic = "topic_value";
 ///     let response = client.get_topic()
-///         .set_topic(topic)
+///         .set_topic(format!("projects/{project_id}/topics/{topic_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -152,11 +155,11 @@ impl TopicAdmin {
     /// use google_cloud_pubsub::model::Topic;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &TopicAdmin, name: &str
+    ///    client: &TopicAdmin, project_id: &str, topic_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_topic()
     ///         .set_topic(
-    ///             Topic::new().set_name(name)/* set fields */
+    ///             Topic::new().set_name(format!("projects/{project_id}/topics/{topic_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -175,10 +178,10 @@ impl TopicAdmin {
     /// # use google_cloud_pubsub::client::TopicAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &TopicAdmin, topic: &str
+    ///    client: &TopicAdmin, project_id: &str, topic_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_topic()
-    ///         .set_topic(topic)
+    ///         .set_topic(format!("projects/{project_id}/topics/{topic_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -269,10 +272,10 @@ impl TopicAdmin {
     /// # use google_cloud_pubsub::client::TopicAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &TopicAdmin, topic: &str
+    ///    client: &TopicAdmin, project_id: &str, topic_id: &str
     /// ) -> Result<()> {
     ///     client.delete_topic()
-    ///         .set_topic(topic)
+    ///         .set_topic(format!("projects/{project_id}/topics/{topic_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -310,14 +313,17 @@ impl TopicAdmin {
 /// # Example
 /// ```
 /// # use google_cloud_pubsub::client::SubscriptionAdmin;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    subscription_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SubscriptionAdmin::builder().build().await?;
-///     let subscription = "subscription_value";
 ///     let response = client.get_subscription()
-///         .set_subscription(subscription)
+///         .set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -447,10 +453,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, subscription: &str
+    ///    client: &SubscriptionAdmin, project_id: &str, subscription_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subscription()
-    ///         .set_subscription(subscription)
+    ///         .set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -472,11 +478,11 @@ impl SubscriptionAdmin {
     /// use google_cloud_pubsub::model::Subscription;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, name: &str
+    ///    client: &SubscriptionAdmin, project_id: &str, subscription_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_subscription()
     ///         .set_subscription(
-    ///             Subscription::new().set_name(name)/* set fields */
+    ///             Subscription::new().set_name(format!("projects/{project_id}/subscriptions/{subscription_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -522,10 +528,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, subscription: &str
+    ///    client: &SubscriptionAdmin, project_id: &str, subscription_id: &str
     /// ) -> Result<()> {
     ///     client.delete_subscription()
-    ///         .set_subscription(subscription)
+    ///         .set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -569,10 +575,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, snapshot: &str
+    ///    client: &SubscriptionAdmin, project_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_snapshot(snapshot)
+    ///         .set_snapshot(format!("projects/{project_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -659,11 +665,11 @@ impl SubscriptionAdmin {
     /// use google_cloud_pubsub::model::Snapshot;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, name: &str
+    ///    client: &SubscriptionAdmin, project_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_snapshot()
     ///         .set_snapshot(
-    ///             Snapshot::new().set_name(name)/* set fields */
+    ///             Snapshot::new().set_name(format!("projects/{project_id}/snapshots/{snapshot_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -690,10 +696,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, snapshot: &str
+    ///    client: &SubscriptionAdmin, project_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_snapshot(snapshot)
+    ///         .set_snapshot(format!("projects/{project_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -735,16 +741,18 @@ impl SubscriptionAdmin {
 /// ```
 /// # use google_cloud_pubsub::client::SchemaService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SchemaService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_schemas()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -844,10 +852,10 @@ impl SchemaService {
     /// use google_cloud_pubsub::model::Schema;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, parent: &str
+    ///    client: &SchemaService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_schema_id("schema_id_value")
     ///         .set_schema(
     ///             Schema::new()/* set fields */
@@ -868,10 +876,10 @@ impl SchemaService {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, name: &str
+    ///    client: &SchemaService, project_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/schemas/{schema_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -974,10 +982,10 @@ impl SchemaService {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, name: &str
+    ///    client: &SchemaService, project_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_schema_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/schemas/{schema_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -994,10 +1002,10 @@ impl SchemaService {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, name: &str
+    ///    client: &SchemaService, project_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     client.delete_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/schemas/{schema_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    zone_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EdgeNetwork::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_networks()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -155,10 +159,10 @@ impl EdgeNetwork {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_zones()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -179,10 +183,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_zone()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -201,10 +205,10 @@ impl EdgeNetwork {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_networks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -223,10 +227,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -275,10 +279,10 @@ impl EdgeNetwork {
     /// use google_cloud_edgenetwork_v1::model::Network;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_network()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .set_network_id("network_id_value")
     ///         .set_network(
     ///             Network::new()/* set fields */
@@ -310,10 +314,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, network_id: &str
     /// ) -> Result<()> {
     ///     client.delete_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -330,10 +334,10 @@ impl EdgeNetwork {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_subnets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -352,10 +356,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, subnet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subnet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/subnets/{subnet_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -384,10 +388,10 @@ impl EdgeNetwork {
     /// use google_cloud_edgenetwork_v1::model::Subnet;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_subnet()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .set_subnet_id("subnet_id_value")
     ///         .set_subnet(
     ///             Subnet::new()/* set fields */
@@ -422,11 +426,11 @@ impl EdgeNetwork {
     /// use google_cloud_edgenetwork_v1::model::Subnet;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, subnet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_subnet()
     ///         .set_subnet(
-    ///             Subnet::new().set_name(name)/* set fields */
+    ///             Subnet::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/subnets/{subnet_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -456,10 +460,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, subnet_id: &str
     /// ) -> Result<()> {
     ///     client.delete_subnet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/subnets/{subnet_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -476,10 +480,10 @@ impl EdgeNetwork {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_interconnects()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -498,10 +502,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, interconnect_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_interconnect()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnects/{interconnect_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -539,10 +543,10 @@ impl EdgeNetwork {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_interconnect_attachments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -563,10 +567,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, interconnect_attachment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_interconnect_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnectAttachments/{interconnect_attachment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -597,10 +601,10 @@ impl EdgeNetwork {
     /// use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_interconnect_attachment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .set_interconnect_attachment(
     ///             InterconnectAttachment::new()/* set fields */
     ///         )
@@ -633,10 +637,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, interconnect_attachment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_interconnect_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnectAttachments/{interconnect_attachment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -655,10 +659,10 @@ impl EdgeNetwork {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_routers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -677,10 +681,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, router_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_router()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -729,10 +733,10 @@ impl EdgeNetwork {
     /// use google_cloud_edgenetwork_v1::model::Router;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, parent: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_router()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"))
     ///         .set_router_id("router_id_value")
     ///         .set_router(
     ///             Router::new()/* set fields */
@@ -767,11 +771,11 @@ impl EdgeNetwork {
     /// use google_cloud_edgenetwork_v1::model::Router;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, router_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_router()
     ///         .set_router(
-    ///             Router::new().set_name(name)/* set fields */
+    ///             Router::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -801,10 +805,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, name: &str
+    ///    client: &EdgeNetwork, project_id: &str, location_id: &str, zone_id: &str, router_id: &str
     /// ) -> Result<()> {
     ///     client.delete_router()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

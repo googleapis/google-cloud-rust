@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::DatasetService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DatasetService::builder().build().await?;
 ///     let response = client.get_dataset()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -278,13 +280,15 @@ impl DatasetService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::JobService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = JobService::builder().build().await?;
 ///     let response = client.cancel_job()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -543,13 +547,15 @@ impl JobService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::ModelService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ModelService::builder().build().await?;
 ///     let response = client.get_model()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -731,13 +737,15 @@ impl ModelService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::ProjectService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ProjectService::builder().build().await?;
 ///     let response = client.get_service_account()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -856,13 +864,15 @@ impl ProjectService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::RoutineService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RoutineService::builder().build().await?;
 ///     let response = client.get_routine()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1064,13 +1074,15 @@ impl RoutineService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RowAccessPolicyService::builder().build().await?;
 ///     let response = client.get_row_access_policy()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1304,13 +1316,15 @@ impl RowAccessPolicyService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::TableService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TableService::builder().build().await?;
 ///     let response = client.get_table()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

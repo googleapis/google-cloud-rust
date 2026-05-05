@@ -1406,6 +1406,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitResponse {
             __precommit_token,
             __snapshot_timestamp,
             __cache_update,
+            __isolation_level,
+            __read_lock_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1436,6 +1438,10 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitResponse {
                             "snapshot_timestamp" => Ok(__FieldTag::__snapshot_timestamp),
                             "cacheUpdate" => Ok(__FieldTag::__cache_update),
                             "cache_update" => Ok(__FieldTag::__cache_update),
+                            "isolationLevel" => Ok(__FieldTag::__isolation_level),
+                            "isolation_level" => Ok(__FieldTag::__isolation_level),
+                            "readLockMode" => Ok(__FieldTag::__read_lock_mode),
+                            "read_lock_mode" => Ok(__FieldTag::__read_lock_mode),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1513,6 +1519,30 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitResponse {
                             }
                             result.cache_update =
                                 map.next_value::<std::option::Option<crate::model::CacheUpdate>>()?;
+                        }
+                        __FieldTag::__isolation_level => {
+                            if !fields.insert(__FieldTag::__isolation_level) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for isolation_level",
+                                ));
+                            }
+                            result.isolation_level = map
+                                .next_value::<std::option::Option<
+                                    crate::model::transaction_options::IsolationLevel,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__read_lock_mode => {
+                            if !fields.insert(__FieldTag::__read_lock_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for read_lock_mode",
+                                ));
+                            }
+                            result.read_lock_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::transaction_options::read_write::ReadLockMode,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_metastore_v1::client::DataprocMetastore;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataprocMetastore::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_services()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -152,10 +155,10 @@ impl DataprocMetastore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, parent: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -174,10 +177,10 @@ impl DataprocMetastore {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -206,10 +209,10 @@ impl DataprocMetastore {
     /// use google_cloud_metastore_v1::model::Service;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, parent: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
@@ -244,11 +247,11 @@ impl DataprocMetastore {
     /// use google_cloud_metastore_v1::model::Service;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service()
     ///         .set_service(
-    ///             Service::new().set_name(name)/* set fields */
+    ///             Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -278,10 +281,10 @@ impl DataprocMetastore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -298,10 +301,10 @@ impl DataprocMetastore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, parent: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_metadata_imports()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -320,10 +323,10 @@ impl DataprocMetastore {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str, metadata_import_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_import()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/metadataImports/{metadata_import_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -352,10 +355,10 @@ impl DataprocMetastore {
     /// use google_cloud_metastore_v1::model::MetadataImport;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, parent: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_metadata_import()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .set_metadata_import(
     ///             MetadataImport::new()/* set fields */
     ///         )
@@ -392,11 +395,11 @@ impl DataprocMetastore {
     /// use google_cloud_metastore_v1::model::MetadataImport;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str, metadata_import_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_metadata_import()
     ///         .set_metadata_import(
-    ///             MetadataImport::new().set_name(name)/* set fields */
+    ///             MetadataImport::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/metadataImports/{metadata_import_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -480,10 +483,10 @@ impl DataprocMetastore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, parent: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -502,10 +505,10 @@ impl DataprocMetastore {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -534,10 +537,10 @@ impl DataprocMetastore {
     /// use google_cloud_metastore_v1::model::Backup;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, parent: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
@@ -569,10 +572,10 @@ impl DataprocMetastore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, name: &str
+    ///    client: &DataprocMetastore, project_id: &str, location_id: &str, service_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -891,16 +894,19 @@ impl DataprocMetastore {
 /// ```
 /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataprocMetastoreFederation::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_federations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1015,10 +1021,10 @@ impl DataprocMetastoreFederation {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, parent: &str
+    ///    client: &DataprocMetastoreFederation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_federations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1039,10 +1045,10 @@ impl DataprocMetastoreFederation {
     /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, name: &str
+    ///    client: &DataprocMetastoreFederation, project_id: &str, location_id: &str, federation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_federation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/federations/{federation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1071,10 +1077,10 @@ impl DataprocMetastoreFederation {
     /// use google_cloud_metastore_v1::model::Federation;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, parent: &str
+    ///    client: &DataprocMetastoreFederation, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_federation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_federation_id("federation_id_value")
     ///         .set_federation(
     ///             Federation::new()/* set fields */
@@ -1111,11 +1117,11 @@ impl DataprocMetastoreFederation {
     /// use google_cloud_metastore_v1::model::Federation;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, name: &str
+    ///    client: &DataprocMetastoreFederation, project_id: &str, location_id: &str, federation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_federation()
     ///         .set_federation(
-    ///             Federation::new().set_name(name)/* set fields */
+    ///             Federation::new().set_name(format!("projects/{project_id}/locations/{location_id}/federations/{federation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1147,10 +1153,10 @@ impl DataprocMetastoreFederation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, name: &str
+    ///    client: &DataprocMetastoreFederation, project_id: &str, location_id: &str, federation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_federation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/federations/{federation_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -624,9 +624,27 @@ impl Builder {
     /// Sets the Google Cloud universe domain for these credentials.
     ///
     /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::Builder;
+    /// # use serde_json::json;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let config = json!({
+    /// #     "type": "external_account",
+    /// #     "audience": "audience",
+    /// #     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+    /// #     "token_url": "https://sts.googleapis.com/v1beta/token",
+    /// #     "credential_source": { "url": "url" }
+    /// # });
+    /// let credentials = Builder::new(config)
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -997,9 +1015,28 @@ impl ProgrammaticBuilder {
     /// Sets the Google Cloud universe domain for these credentials.
     ///
     /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::sync::Arc;
+    /// # #[derive(Debug)] struct MyProvider;
+    /// # #[derive(Debug)] struct MyError;
+    /// # impl std::fmt::Display for MyError { fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result { write!(f, "err") } }
+    /// # impl std::error::Error for MyError {}
+    /// # impl SubjectTokenProviderError for MyError { fn is_transient(&self) -> bool { false } }
+    /// # impl SubjectTokenProvider for MyProvider { type Error = MyError; async fn subject_token(&self) -> Result<SubjectToken, Self::Error> { Ok(SubjectTokenBuilder::new("token".to_string()).build()) } }
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let provider = Arc::new(MyProvider);
+    /// let credentials = ProgrammaticBuilder::new(provider)
+    ///     .with_universe_domain("googleapis.com");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.config = self.config.with_universe_domain(universe_domain);
         self
     }

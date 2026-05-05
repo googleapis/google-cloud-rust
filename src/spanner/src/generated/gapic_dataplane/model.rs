@@ -1609,6 +1609,12 @@ pub struct CommitResponse {
     /// future.
     pub cache_update: std::option::Option<crate::model::CacheUpdate>,
 
+    /// The isolation level used for the read-write transaction.
+    pub isolation_level: crate::model::transaction_options::IsolationLevel,
+
+    /// The read lock mode used for the read-write transaction.
+    pub read_lock_mode: crate::model::transaction_options::read_write::ReadLockMode,
+
     /// You must examine and retry the commit if the following is populated.
     pub multiplexed_session_retry:
         std::option::Option<crate::model::commit_response::MultiplexedSessionRetry>,
@@ -1691,6 +1697,28 @@ impl CommitResponse {
         T: std::convert::Into<crate::model::CacheUpdate>,
     {
         self.cache_update = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [isolation_level][crate::model::CommitResponse::isolation_level].
+    pub fn set_isolation_level<
+        T: std::convert::Into<crate::model::transaction_options::IsolationLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.isolation_level = v.into();
+        self
+    }
+
+    /// Sets the value of [read_lock_mode][crate::model::CommitResponse::read_lock_mode].
+    pub fn set_read_lock_mode<
+        T: std::convert::Into<crate::model::transaction_options::read_write::ReadLockMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_lock_mode = v.into();
         self
     }
 

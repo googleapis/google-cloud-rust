@@ -117,6 +117,7 @@ pub async fn run_schema_samples(schema_names: &mut Vec<String>) -> anyhow::Resul
     schema_names.push(format!("projects/{project}/schemas/{id}"));
     schema::create_avro_schema::sample(&client, &project, &id).await?;
     schema::list_schemas::sample(&client, &project).await?;
+    schema::get_schema::sample(&client, &project, &id).await?;
     schema::list_schema_revisions::sample(&client, &project, &id).await?;
     schema::delete_schema::sample(&client, &project, &id).await?;
 

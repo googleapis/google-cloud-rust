@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AutoscalingPolicyService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_autoscaling_policies()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -134,10 +137,10 @@ impl AutoscalingPolicyService {
     /// use google_cloud_dataproc_v1::model::AutoscalingPolicy;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, parent: &str
+    ///    client: &AutoscalingPolicyService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_autoscaling_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_policy(
     ///             AutoscalingPolicy::new()/* set fields */
     ///         )
@@ -163,11 +166,11 @@ impl AutoscalingPolicyService {
     /// use google_cloud_dataproc_v1::model::AutoscalingPolicy;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, name: &str
+    ///    client: &AutoscalingPolicyService, project_id: &str, location_id: &str, autoscaling_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_autoscaling_policy()
     ///         .set_policy(
-    ///             AutoscalingPolicy::new().set_name(name)/* set fields */
+    ///             AutoscalingPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoscalingPolicies/{autoscaling_policy_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -187,10 +190,10 @@ impl AutoscalingPolicyService {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, name: &str
+    ///    client: &AutoscalingPolicyService, project_id: &str, location_id: &str, autoscaling_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_autoscaling_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autoscalingPolicies/{autoscaling_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -210,10 +213,10 @@ impl AutoscalingPolicyService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, parent: &str
+    ///    client: &AutoscalingPolicyService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_autoscaling_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -235,10 +238,10 @@ impl AutoscalingPolicyService {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, name: &str
+    ///    client: &AutoscalingPolicyService, project_id: &str, location_id: &str, autoscaling_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_autoscaling_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autoscalingPolicies/{autoscaling_policy_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -418,16 +421,19 @@ impl AutoscalingPolicyService {
 /// ```
 /// # use google_cloud_dataproc_v1::client::BatchController;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BatchController::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_batches()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -538,10 +544,10 @@ impl BatchController {
     /// use google_cloud_dataproc_v1::model::Batch;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &BatchController, parent: &str
+    ///    client: &BatchController, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_batch()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_batch_id("batch_id_value")
     ///         .set_batch(
     ///             Batch::new()/* set fields */
@@ -562,10 +568,10 @@ impl BatchController {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &BatchController, name: &str
+    ///    client: &BatchController, project_id: &str, location_id: &str, batch_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_batch()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/batches/{batch_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -583,10 +589,10 @@ impl BatchController {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &BatchController, parent: &str
+    ///    client: &BatchController, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_batches()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -606,10 +612,10 @@ impl BatchController {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &BatchController, name: &str
+    ///    client: &BatchController, project_id: &str, location_id: &str, batch_id: &str
     /// ) -> Result<()> {
     ///     client.delete_batch()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/batches/{batch_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -785,13 +791,15 @@ impl BatchController {
 /// ```
 /// # use google_cloud_dataproc_v1::client::ClusterController;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ClusterController::builder().build().await?;
 ///     let response = client.create_cluster()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1304,13 +1312,15 @@ impl ClusterController {
 /// # Example
 /// ```
 /// # use google_cloud_dataproc_v1::client::JobController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = JobController::builder().build().await?;
 ///     let response = client.submit_job()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1726,14 +1736,19 @@ impl JobController {
 /// # Example
 /// ```
 /// # use google_cloud_dataproc_v1::client::NodeGroupController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    region_id: &str,
+///    cluster_id: &str,
+///    node_group_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeGroupController::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_node_group()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/regions/{region_id}/clusters/{cluster_id}/nodeGroups/{node_group_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1850,10 +1865,10 @@ impl NodeGroupController {
     /// use google_cloud_dataproc_v1::model::NodeGroup;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &NodeGroupController, parent: &str
+    ///    client: &NodeGroupController, project_id: &str, region_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_node_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/regions/{region_id}/clusters/{cluster_id}"))
     ///         .set_node_group(
     ///             NodeGroup::new()/* set fields */
     ///         )
@@ -1909,10 +1924,10 @@ impl NodeGroupController {
     /// # use google_cloud_dataproc_v1::client::NodeGroupController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &NodeGroupController, name: &str
+    ///    client: &NodeGroupController, project_id: &str, region_id: &str, cluster_id: &str, node_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/regions/{region_id}/clusters/{cluster_id}/nodeGroups/{node_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2091,16 +2106,19 @@ impl NodeGroupController {
 /// ```
 /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionTemplateController::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_session_templates()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2202,10 +2220,10 @@ impl SessionTemplateController {
     /// use google_cloud_dataproc_v1::model::SessionTemplate;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, parent: &str
+    ///    client: &SessionTemplateController, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session_template()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_session_template(
     ///             SessionTemplate::new()/* set fields */
     ///         )
@@ -2228,11 +2246,11 @@ impl SessionTemplateController {
     /// use google_cloud_dataproc_v1::model::SessionTemplate;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, name: &str
+    ///    client: &SessionTemplateController, project_id: &str, location_id: &str, template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_session_template()
     ///         .set_session_template(
-    ///             SessionTemplate::new().set_name(name)/* set fields */
+    ///             SessionTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -2252,10 +2270,10 @@ impl SessionTemplateController {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, name: &str
+    ///    client: &SessionTemplateController, project_id: &str, location_id: &str, template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2275,10 +2293,10 @@ impl SessionTemplateController {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, parent: &str
+    ///    client: &SessionTemplateController, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_session_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2299,10 +2317,10 @@ impl SessionTemplateController {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, name: &str
+    ///    client: &SessionTemplateController, project_id: &str, location_id: &str, template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2482,16 +2500,19 @@ impl SessionTemplateController {
 /// ```
 /// # use google_cloud_dataproc_v1::client::SessionController;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionController::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_sessions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2603,10 +2624,10 @@ impl SessionController {
     /// use google_cloud_dataproc_v1::model::Session;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionController, parent: &str
+    ///    client: &SessionController, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
@@ -2627,10 +2648,10 @@ impl SessionController {
     /// # use google_cloud_dataproc_v1::client::SessionController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionController, name: &str
+    ///    client: &SessionController, project_id: &str, location_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2648,10 +2669,10 @@ impl SessionController {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionController, parent: &str
+    ///    client: &SessionController, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sessions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2713,10 +2734,10 @@ impl SessionController {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionController, name: &str
+    ///    client: &SessionController, project_id: &str, location_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2893,16 +2914,19 @@ impl SessionController {
 /// ```
 /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    region_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = WorkflowTemplateService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_workflow_templates()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/regions/{region_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3004,10 +3028,10 @@ impl WorkflowTemplateService {
     /// use google_cloud_dataproc_v1::model::WorkflowTemplate;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, parent: &str
+    ///    client: &WorkflowTemplateService, project_id: &str, region_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workflow_template()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/regions/{region_id}"))
     ///         .set_template(
     ///             WorkflowTemplate::new()/* set fields */
     ///         )
@@ -3032,10 +3056,10 @@ impl WorkflowTemplateService {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, name: &str
+    ///    client: &WorkflowTemplateService, project_id: &str, region_id: &str, workflow_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3178,11 +3202,11 @@ impl WorkflowTemplateService {
     /// use google_cloud_dataproc_v1::model::WorkflowTemplate;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, name: &str
+    ///    client: &WorkflowTemplateService, project_id: &str, region_id: &str, workflow_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workflow_template()
     ///         .set_template(
-    ///             WorkflowTemplate::new().set_name(name)/* set fields */
+    ///             WorkflowTemplate::new().set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -3203,10 +3227,10 @@ impl WorkflowTemplateService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, parent: &str
+    ///    client: &WorkflowTemplateService, project_id: &str, region_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workflow_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/regions/{region_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3227,10 +3251,10 @@ impl WorkflowTemplateService {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, name: &str
+    ///    client: &WorkflowTemplateService, project_id: &str, region_id: &str, workflow_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

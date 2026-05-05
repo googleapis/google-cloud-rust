@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_visionai_v1::client::HealthCheckService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HealthCheckService::builder().build().await?;
 ///     let response = client.health_check()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -280,16 +282,18 @@ impl HealthCheckService {
 /// ```
 /// # use google_cloud_visionai_v1::client::LiveVideoAnalytics;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = LiveVideoAnalytics::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_public_operators()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -460,10 +464,10 @@ impl LiveVideoAnalytics {
     /// # use google_cloud_visionai_v1::client::LiveVideoAnalytics;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, operator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_operator()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/operators/{operator_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -530,11 +534,11 @@ impl LiveVideoAnalytics {
     /// use google_cloud_visionai_v1::model::Operator;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, operator_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_operator()
     ///         .set_operator(
-    ///             Operator::new().set_name(name)/* set fields */
+    ///             Operator::new().set_name(format!("projects/{project_id}/locations/{location_id}/operators/{operator_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -564,10 +568,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, operator_id: &str
     /// ) -> Result<()> {
     ///     client.delete_operator()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/operators/{operator_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -584,10 +588,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, parent: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_analyses()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -606,10 +610,10 @@ impl LiveVideoAnalytics {
     /// # use google_cloud_visionai_v1::client::LiveVideoAnalytics;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str, analysis_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_analysis()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -638,10 +642,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_visionai_v1::model::Analysis;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, parent: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_analysis()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_analysis_id("analysis_id_value")
     ///         .set_analysis(
     ///             Analysis::new()/* set fields */
@@ -676,11 +680,11 @@ impl LiveVideoAnalytics {
     /// use google_cloud_visionai_v1::model::Analysis;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str, analysis_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_analysis()
     ///         .set_analysis(
-    ///             Analysis::new().set_name(name)/* set fields */
+    ///             Analysis::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -710,10 +714,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str, analysis_id: &str
     /// ) -> Result<()> {
     ///     client.delete_analysis()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -730,10 +734,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, parent: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_processes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -752,10 +756,10 @@ impl LiveVideoAnalytics {
     /// # use google_cloud_visionai_v1::client::LiveVideoAnalytics;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_process()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/processes/{process_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -784,10 +788,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_visionai_v1::model::Process;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, parent: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_process()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_process_id("process_id_value")
     ///         .set_process(
     ///             Process::new()/* set fields */
@@ -822,11 +826,11 @@ impl LiveVideoAnalytics {
     /// use google_cloud_visionai_v1::model::Process;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_process()
     ///         .set_process(
-    ///             Process::new().set_name(name)/* set fields */
+    ///             Process::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/processes/{process_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -856,10 +860,10 @@ impl LiveVideoAnalytics {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &LiveVideoAnalytics, name: &str
+    ///    client: &LiveVideoAnalytics, project_id: &str, location_id: &str, cluster_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     client.delete_process()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/processes/{process_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1039,16 +1043,19 @@ impl LiveVideoAnalytics {
 /// ```
 /// # use google_cloud_visionai_v1::client::AppPlatform;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AppPlatform::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_applications()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1148,10 +1155,10 @@ impl AppPlatform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_applications()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1170,10 +1177,10 @@ impl AppPlatform {
     /// # use google_cloud_visionai_v1::client::AppPlatform;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_application()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1202,10 +1209,10 @@ impl AppPlatform {
     /// use google_cloud_visionai_v1::model::Application;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_application()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_application_id("application_id_value")
     ///         .set_application(
     ///             Application::new()/* set fields */
@@ -1240,11 +1247,11 @@ impl AppPlatform {
     /// use google_cloud_visionai_v1::model::Application;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_application()
     ///         .set_application(
-    ///             Application::new().set_name(name)/* set fields */
+    ///             Application::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1274,10 +1281,10 @@ impl AppPlatform {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     client.delete_application()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1462,10 +1469,10 @@ impl AppPlatform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1484,10 +1491,10 @@ impl AppPlatform {
     /// # use google_cloud_visionai_v1::client::AppPlatform;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1553,10 +1560,10 @@ impl AppPlatform {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_application_instances()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1612,10 +1619,10 @@ impl AppPlatform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_drafts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1634,10 +1641,10 @@ impl AppPlatform {
     /// # use google_cloud_visionai_v1::client::AppPlatform;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str, draft_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_draft()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/drafts/{draft_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1666,10 +1673,10 @@ impl AppPlatform {
     /// use google_cloud_visionai_v1::model::Draft;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_draft()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"))
     ///         .set_draft_id("draft_id_value")
     ///         .set_draft(
     ///             Draft::new()/* set fields */
@@ -1704,11 +1711,11 @@ impl AppPlatform {
     /// use google_cloud_visionai_v1::model::Draft;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str, draft_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_draft()
     ///         .set_draft(
-    ///             Draft::new().set_name(name)/* set fields */
+    ///             Draft::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/drafts/{draft_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1738,10 +1745,10 @@ impl AppPlatform {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, application_id: &str, draft_id: &str
     /// ) -> Result<()> {
     ///     client.delete_draft()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/drafts/{draft_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1758,10 +1765,10 @@ impl AppPlatform {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_processors()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1801,10 +1808,10 @@ impl AppPlatform {
     /// # use google_cloud_visionai_v1::client::AppPlatform;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, processor_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1833,10 +1840,10 @@ impl AppPlatform {
     /// use google_cloud_visionai_v1::model::Processor;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, parent: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_processor()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_processor_id("processor_id_value")
     ///         .set_processor(
     ///             Processor::new()/* set fields */
@@ -1871,11 +1878,11 @@ impl AppPlatform {
     /// use google_cloud_visionai_v1::model::Processor;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, processor_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_processor()
     ///         .set_processor(
-    ///             Processor::new().set_name(name)/* set fields */
+    ///             Processor::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1905,10 +1912,10 @@ impl AppPlatform {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &AppPlatform, name: &str
+    ///    client: &AppPlatform, project_id: &str, location_id: &str, processor_id: &str
     /// ) -> Result<()> {
     ///     client.delete_processor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2055,13 +2062,15 @@ impl AppPlatform {
 /// # Example
 /// ```
 /// # use google_cloud_visionai_v1::client::StreamingService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = StreamingService::builder().build().await?;
 ///     let response = client.acquire_lease()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2353,16 +2362,20 @@ impl StreamingService {
 /// ```
 /// # use google_cloud_visionai_v1::client::StreamsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    cluster_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = StreamsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_streams()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2487,10 +2500,10 @@ impl StreamsService {
     /// # use google_cloud_visionai_v1::client::StreamsService;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2519,10 +2532,10 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Cluster;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
@@ -2557,11 +2570,11 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Cluster;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cluster()
     ///         .set_cluster(
-    ///             Cluster::new().set_name(name)/* set fields */
+    ///             Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2591,10 +2604,10 @@ impl StreamsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2611,10 +2624,10 @@ impl StreamsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_streams()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2633,10 +2646,10 @@ impl StreamsService {
     /// # use google_cloud_visionai_v1::client::StreamsService;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stream()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2665,10 +2678,10 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Stream;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_stream()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_stream_id("stream_id_value")
     ///         .set_stream(
     ///             Stream::new()/* set fields */
@@ -2703,11 +2716,11 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Stream;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_stream()
     ///         .set_stream(
-    ///             Stream::new().set_name(name)/* set fields */
+    ///             Stream::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2737,10 +2750,10 @@ impl StreamsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     client.delete_stream()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2810,10 +2823,10 @@ impl StreamsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2832,10 +2845,10 @@ impl StreamsService {
     /// # use google_cloud_visionai_v1::client::StreamsService;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2864,10 +2877,10 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Event;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_event()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_event_id("event_id_value")
     ///         .set_event(
     ///             Event::new()/* set fields */
@@ -2902,11 +2915,11 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Event;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_event()
     ///         .set_event(
-    ///             Event::new().set_name(name)/* set fields */
+    ///             Event::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2936,10 +2949,10 @@ impl StreamsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     client.delete_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2956,10 +2969,10 @@ impl StreamsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_series()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2978,10 +2991,10 @@ impl StreamsService {
     /// # use google_cloud_visionai_v1::client::StreamsService;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, series_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_series()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3010,10 +3023,10 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Series;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, parent: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_series()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_series_id("series_id_value")
     ///         .set_series(
     ///             Series::new()/* set fields */
@@ -3048,11 +3061,11 @@ impl StreamsService {
     /// use google_cloud_visionai_v1::model::Series;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, series_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_series()
     ///         .set_series(
-    ///             Series::new().set_name(name)/* set fields */
+    ///             Series::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3082,10 +3095,10 @@ impl StreamsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &StreamsService, name: &str
+    ///    client: &StreamsService, project_id: &str, location_id: &str, cluster_id: &str, series_id: &str
     /// ) -> Result<()> {
     ///     client.delete_series()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3264,16 +3277,20 @@ impl StreamsService {
 /// ```
 /// # use google_cloud_visionai_v1::client::Warehouse;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_number_id: &str,
+///    location_id: &str,
+///    corpus_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Warehouse::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_assets()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3373,10 +3390,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Asset;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_asset()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .set_asset_id("asset_id_value")
     ///         .set_asset(
     ///             Asset::new()/* set fields */
@@ -3400,11 +3417,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Asset;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_asset()
     ///         .set_asset(
-    ///             Asset::new().set_name(name)/* set fields */
+    ///             Asset::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3423,10 +3440,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3444,10 +3461,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_assets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3477,10 +3494,10 @@ impl Warehouse {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3688,10 +3705,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Index;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_index()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .set_index_id("index_id_value")
     ///         .set_index(
     ///             Index::new()/* set fields */
@@ -3728,11 +3745,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Index;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_index()
     ///         .set_index(
-    ///             Index::new().set_name(name)/* set fields */
+    ///             Index::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3751,10 +3768,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3772,10 +3789,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_indexes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3806,10 +3823,10 @@ impl Warehouse {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     client.delete_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3860,10 +3877,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_corpus()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3883,11 +3900,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Corpus;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_corpus()
     ///         .set_corpus(
-    ///             Corpus::new().set_name(name)/* set fields */
+    ///             Corpus::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3930,10 +3947,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     client.delete_corpus()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3981,10 +3998,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::DataSchema;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_schema()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .set_data_schema(
     ///             DataSchema::new()/* set fields */
     ///         )
@@ -4007,11 +4024,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::DataSchema;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, data_schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_schema()
     ///         .set_data_schema(
-    ///             DataSchema::new().set_name(name)/* set fields */
+    ///             DataSchema::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/dataSchemas/{data_schema_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4030,10 +4047,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, data_schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/dataSchemas/{data_schema_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4050,10 +4067,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, data_schema_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/dataSchemas/{data_schema_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4070,10 +4087,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_schemas()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4093,10 +4110,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Annotation;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_annotation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"))
     ///         .set_annotation_id("annotation_id_value")
     ///         .set_annotation(
     ///             Annotation::new()/* set fields */
@@ -4117,10 +4134,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str, annotation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_annotation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}/annotations/{annotation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4138,10 +4155,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_annotations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4163,11 +4180,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Annotation;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str, annotation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_annotation()
     ///         .set_annotation(
-    ///             Annotation::new().set_name(name)/* set fields */
+    ///             Annotation::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}/annotations/{annotation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4186,10 +4203,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, asset_id: &str, annotation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_annotation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}/annotations/{annotation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4301,10 +4318,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::SearchConfig;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_search_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .set_search_config(
     ///             SearchConfig::new()/* set fields */
     ///         )
@@ -4341,11 +4358,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::SearchConfig;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, search_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_search_config()
     ///         .set_search_config(
-    ///             SearchConfig::new().set_name(name)/* set fields */
+    ///             SearchConfig::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchConfigs/{search_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4364,10 +4381,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, search_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_search_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchConfigs/{search_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4387,10 +4404,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, search_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_search_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchConfigs/{search_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4407,10 +4424,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_search_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4430,10 +4447,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::SearchHypernym;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_search_hypernym()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .set_search_hypernym(
     ///             SearchHypernym::new()/* set fields */
     ///         )
@@ -4456,11 +4473,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::SearchHypernym;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, search_hypernym_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_search_hypernym()
     ///         .set_search_hypernym(
-    ///             SearchHypernym::new().set_name(name)/* set fields */
+    ///             SearchHypernym::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchHypernyms/{search_hypernym_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4479,10 +4496,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, search_hypernym_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_search_hypernym()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchHypernyms/{search_hypernym_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4499,10 +4516,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, search_hypernym_id: &str
     /// ) -> Result<()> {
     ///     client.delete_search_hypernym()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchHypernyms/{search_hypernym_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4519,10 +4536,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_search_hypernyms()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4622,10 +4639,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_id: &str, location_id: &str, index_endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4679,11 +4696,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::IndexEndpoint;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_id: &str, location_id: &str, index_endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_index_endpoint()
     ///         .set_index_endpoint(
-    ///             IndexEndpoint::new().set_name(name)/* set fields */
+    ///             IndexEndpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4713,10 +4730,10 @@ impl Warehouse {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_id: &str, location_id: &str, index_endpoint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_index_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4806,10 +4823,10 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Collection;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_collection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .set_collection_id("collection_id_value")
     ///         .set_collection(
     ///             Collection::new()/* set fields */
@@ -4841,10 +4858,10 @@ impl Warehouse {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_collection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4860,10 +4877,10 @@ impl Warehouse {
     /// # use google_cloud_visionai_v1::client::Warehouse;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_collection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4883,11 +4900,11 @@ impl Warehouse {
     /// use google_cloud_visionai_v1::model::Collection;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, name: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_collection()
     ///         .set_collection(
-    ///             Collection::new().set_name(name)/* set fields */
+    ///             Collection::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4907,10 +4924,10 @@ impl Warehouse {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_visionai_v1::Result;
     /// async fn sample(
-    ///    client: &Warehouse, parent: &str
+    ///    client: &Warehouse, project_number_id: &str, location_id: &str, corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_collections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

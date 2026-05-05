@@ -55,13 +55,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = IAMCredentials::builder().build().await?;
 ///     let response = client.generate_access_token()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

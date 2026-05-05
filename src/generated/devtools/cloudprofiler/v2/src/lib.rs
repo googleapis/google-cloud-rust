@@ -57,9 +57,10 @@ pub mod stub;
 /// ```
 /// # use google_cloud_profiler_v2::client::ProfilerService;
 /// use google_cloud_profiler_v2::model::Profile;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ProfilerService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let response = client.create_offline_profile()
 ///         .set_parent(parent)
 ///         .set_profile(
@@ -67,7 +68,8 @@ pub mod stub;
 ///         )
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

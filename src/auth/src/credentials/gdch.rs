@@ -47,20 +47,19 @@
 //! [Google Distributed Cloud]: https://docs.cloud.google.com/distributed-cloud/docs
 
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
-use crate::credentials::service_account::jws::{JwsClaims, JwsHeader};
-use crate::Result;
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::constants::{GDCH_SERVICEACCOUNT_TOKEN_TYPE, TOKEN_EXCHANGE_TOKEN_TYPE};
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::errors::CredentialsError;
+use crate::credentials::service_account::jws::{JwsClaims, JwsHeader};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::headers_util::AuthHeadersBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::{Result, errors};
 use async_trait::async_trait;
 use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
 use http::{Extensions, HeaderMap};
-use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pki_types::PrivateKeyDer;
 use rustls_pki_types::pem::PemObject;
@@ -72,7 +71,6 @@ use tokio::time::Instant;
 struct GdchServiceAccountKey {
     /// The credential type, must be "gdch_service_account".
     #[serde(rename = "type")]
-    #[allow(dead_code)]
     cred_type: String,
     /// The format version of the JSON file.
     format_version: String,
@@ -85,31 +83,21 @@ struct GdchServiceAccountKey {
     /// The name of the service identity.
     name: String,
     /// Optional path to custom CA certificate for TLS verification.
-    #[allow(dead_code)]
     ca_cert_path: Option<String>,
     /// The URI to exchange the JWT for a token.
     token_uri: String,
 }
 
 impl GdchServiceAccountKey {
-    pub(crate) fn signer(&self) -> std::result::Result<Box<dyn Signer>, CredentialsError> {
+    fn signer(&self) -> std::result::Result<Box<dyn Signer>, CredentialsError> {
         let private_key = self.private_key.clone();
-        let key_provider = CryptoProvider::get_default().map(|p| p.key_provider);
-        #[cfg(feature = "default-rustls-provider")]
-        let key_provider = key_provider
-            .unwrap_or_else(|| rustls::crypto::aws_lc_rs::default_provider().key_provider);
-        #[cfg(not(feature = "default-rustls-provider"))]
-        let key_provider = key_provider
-            .expect("The default rustls::CryptoProvider should be configured by the application.");
+        let key_provider = crate::credentials::crypto_provider::get_key_provider();
 
         let key_der = PrivateKeyDer::from_pem_slice(private_key.as_bytes()).map_err(|e| {
-            CredentialsError::from_msg(
-                false,
-                format!(
-                    "Failed to parse GDCH service account private key PEM: {}",
-                    e
-                ),
-            )
+            errors::non_retryable_from_str(format!(
+                "failed to parse GDCH service account private key PEM: {}",
+                e,
+            ))
         })?;
 
         let pk = key_provider
@@ -117,15 +105,13 @@ impl GdchServiceAccountKey {
             .map_err(|e| CredentialsError::from_source(false, e))?;
 
         pk.choose_scheme(&[rustls::SignatureScheme::ECDSA_NISTP256_SHA256])
-            .ok_or_else(|| {
-                CredentialsError::from_msg(
-                    false,
-                    "Unable to choose ECDSA_NISTP256_SHA256 signing scheme as it is not supported by current signer",
-                )
-            })
+            .ok_or_else(|| errors::non_retryable_from_str(
+                "unable to choose ECDSA_NISTP256_SHA256 signing scheme as it is not supported by current signer",
+            ))
     }
 }
 
+// Implements `Debug` for `GdchServiceAccountKey` to avoid printing the private key.
 impl std::fmt::Debug for GdchServiceAccountKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("GdchServiceAccountKey")
@@ -150,7 +136,7 @@ struct GdchServiceAccountTokenProvider {
 
 impl GdchServiceAccountTokenProvider {
     /// Creates a new token provider with the given key and audience.
-    pub(crate) fn new(audience: String, key: GdchServiceAccountKey) -> Self {
+    fn new(audience: String, key: GdchServiceAccountKey) -> Self {
         Self { audience, key }
     }
 
@@ -187,9 +173,10 @@ impl GdchServiceAccountTokenProvider {
 
         let sig_der = signer
             .sign(to_sign.as_bytes())
-            .map_err(|e| CredentialsError::from_source(false, e))?;
+            .map_err(errors::non_retryable)?;
+
         let sig = p256::ecdsa::Signature::from_der(&sig_der).map_err(|e| {
-            CredentialsError::from_msg(false, format!("failed to parse ecdsa DER signature: {}", e))
+            errors::non_retryable_from_str(format!("failed to parse ecdsa DER signature: {}", e))
         })?;
         let encoded_sig = BASE64_URL_SAFE_NO_PAD.encode(&sig.to_bytes()[..]);
 
@@ -212,7 +199,7 @@ impl TokenProvider for GdchServiceAccountTokenProvider {
         };
 
         let resp = STSHandler::default()
-            .with_json_body()
+            .with_body_encoding(super::internal::sts_exchange::BodyEncoding::Json)
             .with_ca_cert_path(self.key.ca_cert_path.clone())
             .exchange_token(req)
             .await?;
@@ -312,7 +299,7 @@ impl AccessTokenCredentialsProvider for GdchServiceAccountCredentials {
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
+mod tests {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
@@ -329,6 +316,7 @@ pub(crate) mod tests {
             token_uri: "http://localhost/token".to_string(),
         }
     }
+
     #[test]
     fn debug_gdch_service_account_key() {
         let key = get_mock_key();

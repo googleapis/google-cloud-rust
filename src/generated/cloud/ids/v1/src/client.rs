@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_ids_v1::client::Ids;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Ids::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_endpoints()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl Ids {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ids_v1::Result;
     /// async fn sample(
-    ///    client: &Ids, parent: &str
+    ///    client: &Ids, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_endpoints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl Ids {
     /// # use google_cloud_ids_v1::client::Ids;
     /// use google_cloud_ids_v1::Result;
     /// async fn sample(
-    ///    client: &Ids, name: &str
+    ///    client: &Ids, project_id: &str, location_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -185,10 +188,10 @@ impl Ids {
     /// use google_cloud_ids_v1::model::Endpoint;
     /// use google_cloud_ids_v1::Result;
     /// async fn sample(
-    ///    client: &Ids, parent: &str
+    ///    client: &Ids, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_endpoint()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_endpoint_id("endpoint_id_value")
     ///         .set_endpoint(
     ///             Endpoint::new()/* set fields */
@@ -220,10 +223,10 @@ impl Ids {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_ids_v1::Result;
     /// async fn sample(
-    ///    client: &Ids, name: &str
+    ///    client: &Ids, project_id: &str, location_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

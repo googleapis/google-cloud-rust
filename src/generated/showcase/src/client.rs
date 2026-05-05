@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::Compliance;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Compliance::builder().build().await?;
 ///     let response = client.repeat_data_body()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -547,13 +549,15 @@ impl Compliance {
 /// # Example
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::Echo;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Echo::builder().build().await?;
 ///     let response = client.echo()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1062,14 +1066,16 @@ impl Echo {
 /// # Example
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::Identity;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    user_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Identity::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_user()
-///         .set_name(name)
+///         .set_name(format!("users/{user_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1188,10 +1194,10 @@ impl Identity {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Identity, name: &str
+    ///    client: &Identity, user_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user()
-    ///         .set_name(name)
+    ///         .set_name(format!("users/{user_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1211,11 +1217,11 @@ impl Identity {
     /// use google_cloud_showcase_v1beta1::model::User;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Identity, name: &str
+    ///    client: &Identity, user_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_user()
     ///         .set_user(
-    ///             User::new().set_name(name)/* set fields */
+    ///             User::new().set_name(format!("users/{user_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1234,10 +1240,10 @@ impl Identity {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Identity, name: &str
+    ///    client: &Identity, user_id: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(name)
+    ///         .set_name(format!("users/{user_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1478,16 +1484,18 @@ impl Identity {
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::Messaging;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Messaging::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_blurbs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1609,10 +1617,10 @@ impl Messaging {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, name: &str
+    ///    client: &Messaging, room_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_room()
-    ///         .set_name(name)
+    ///         .set_name(format!("rooms/{room_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1632,11 +1640,11 @@ impl Messaging {
     /// use google_cloud_showcase_v1beta1::model::Room;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, name: &str
+    ///    client: &Messaging, room_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_room()
     ///         .set_room(
-    ///             Room::new().set_name(name)/* set fields */
+    ///             Room::new().set_name(format!("rooms/{room_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1655,10 +1663,10 @@ impl Messaging {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, name: &str
+    ///    client: &Messaging, room_id: &str
     /// ) -> Result<()> {
     ///     client.delete_room()
-    ///         .set_name(name)
+    ///         .set_name(format!("rooms/{room_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2046,14 +2054,16 @@ impl Messaging {
 /// # Example
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::SequenceService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    sequence_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SequenceService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_sequence_report()
-///         .set_name(name)
+///         .set_name(format!("sequences/{sequence_id}/sequenceReport"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2196,10 +2206,10 @@ impl SequenceService {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &SequenceService, name: &str
+    ///    client: &SequenceService, sequence_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_sequence_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("sequences/{sequence_id}/sequenceReport"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2217,10 +2227,10 @@ impl SequenceService {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &SequenceService, name: &str
+    ///    client: &SequenceService, streaming_sequence_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_streaming_sequence_report()
-    ///         .set_name(name)
+    ///         .set_name(format!("streamingSequences/{streaming_sequence_id}/streamingSequenceReport"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2460,16 +2470,18 @@ impl SequenceService {
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::Testing;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    session_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Testing::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tests()
-///         .set_parent(parent)
+///         .set_parent(format!("sessions/{session_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2599,10 +2611,10 @@ impl Testing {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, name: &str
+    ///    client: &Testing, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("sessions/{session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2642,10 +2654,10 @@ impl Testing {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, name: &str
+    ///    client: &Testing, session_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("sessions/{session_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2684,10 +2696,10 @@ impl Testing {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, parent: &str
+    ///    client: &Testing, session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tests()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("sessions/{session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2711,10 +2723,10 @@ impl Testing {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, name: &str
+    ///    client: &Testing, session_id: &str, test_id: &str
     /// ) -> Result<()> {
     ///     client.delete_test()
-    ///         .set_name(name)
+    ///         .set_name(format!("sessions/{session_id}/tests/{test_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

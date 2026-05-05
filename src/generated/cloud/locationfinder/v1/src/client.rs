@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudLocationFinder::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_cloud_locations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl CloudLocationFinder {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_locationfinder_v1::Result;
     /// async fn sample(
-    ///    client: &CloudLocationFinder, parent: &str
+    ///    client: &CloudLocationFinder, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cloud_locations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -156,10 +159,10 @@ impl CloudLocationFinder {
     /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
     /// use google_cloud_locationfinder_v1::Result;
     /// async fn sample(
-    ///    client: &CloudLocationFinder, name: &str
+    ///    client: &CloudLocationFinder, project_id: &str, location_id: &str, cloud_location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_location()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cloudLocations/{cloud_location_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

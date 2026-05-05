@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = RecaptchaEnterpriseService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_keys()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -254,10 +256,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_key()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/keys/{key_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -277,11 +279,11 @@ impl RecaptchaEnterpriseService {
     /// use google_cloud_recaptchaenterprise_v1::model::Key;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_key()
     ///         .set_key(
-    ///             Key::new().set_name(name)/* set fields */
+    ///             Key::new().set_name(format!("projects/{project_id}/keys/{key_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -300,10 +302,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, key_id: &str
     /// ) -> Result<()> {
     ///     client.delete_key()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/keys/{key_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -421,10 +423,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metrics()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/keys/{key_id}/metrics"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -494,10 +496,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, firewallpolicy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_firewall_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/firewallpolicies/{firewallpolicy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -519,11 +521,11 @@ impl RecaptchaEnterpriseService {
     /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, firewallpolicy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_firewall_policy()
     ///         .set_firewall_policy(
-    ///             FirewallPolicy::new().set_name(name)/* set fields */
+    ///             FirewallPolicy::new().set_name(format!("projects/{project_id}/firewallpolicies/{firewallpolicy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -544,10 +546,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, name: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, firewallpolicy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_firewall_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/firewallpolicies/{firewallpolicy_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -590,10 +592,10 @@ impl RecaptchaEnterpriseService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, parent: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_related_account_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -617,10 +619,10 @@ impl RecaptchaEnterpriseService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, parent: &str
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, relatedaccountgroup_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_related_account_group_memberships()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/relatedaccountgroups/{relatedaccountgroup_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

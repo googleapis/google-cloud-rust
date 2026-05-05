@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BusinessGlossaryService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_glossaries()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -187,11 +189,11 @@ impl BusinessGlossaryService {
     /// use google_cloud_dataplex_v1::model::Glossary;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, name: &str
+    ///    client: &BusinessGlossaryService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_glossary()
     ///         .set_glossary(
-    ///             Glossary::new().set_name(name)/* set fields */
+    ///             Glossary::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -222,10 +224,10 @@ impl BusinessGlossaryService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, name: &str
+    ///    client: &BusinessGlossaryService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     client.delete_glossary()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -241,10 +243,10 @@ impl BusinessGlossaryService {
     /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, name: &str
+    ///    client: &BusinessGlossaryService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_glossary()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -374,10 +376,10 @@ impl BusinessGlossaryService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, parent: &str
+    ///    client: &BusinessGlossaryService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_glossary_categories()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -484,10 +486,10 @@ impl BusinessGlossaryService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, parent: &str
+    ///    client: &BusinessGlossaryService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_glossary_terms()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -720,16 +722,18 @@ impl BusinessGlossaryService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::CatalogService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CatalogService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_entry_types()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -881,11 +885,11 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::EntryType;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entry_type()
     ///         .set_entry_type(
-    ///             EntryType::new().set_name(name)/* set fields */
+    ///             EntryType::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryTypes/{entry_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -915,10 +919,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entry_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryTypes/{entry_type_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -957,10 +961,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryTypes/{entry_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1026,11 +1030,11 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::AspectType;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, aspect_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_aspect_type()
     ///         .set_aspect_type(
-    ///             AspectType::new().set_name(name)/* set fields */
+    ///             AspectType::new().set_name(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1060,10 +1064,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, aspect_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_aspect_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1102,10 +1106,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, aspect_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aspect_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1171,11 +1175,11 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::EntryGroup;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entry_group()
     ///         .set_entry_group(
-    ///             EntryGroup::new().set_name(name)/* set fields */
+    ///             EntryGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1205,10 +1209,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entry_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1247,10 +1251,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1268,10 +1272,10 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::Entry;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, parent: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .set_entry_id("entry_id_value")
     ///         .set_entry(
     ///             Entry::new()/* set fields */
@@ -1295,11 +1299,11 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::Entry;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entry()
     ///         .set_entry(
-    ///             Entry::new().set_name(name)/* set fields */
+    ///             Entry::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1318,10 +1322,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1339,10 +1343,10 @@ impl CatalogService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, parent: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1361,10 +1365,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str, entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1460,10 +1464,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, metadata_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataJobs/{metadata_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1528,10 +1532,10 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::EntryLink;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, parent: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry_link()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"))
     ///         .set_entry_link(
     ///             EntryLink::new()/* set fields */
     ///         )
@@ -1552,11 +1556,11 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::EntryLink;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str, entry_link_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entry_link()
     ///         .set_entry_link(
-    ///             EntryLink::new().set_name(name)/* set fields */
+    ///             EntryLink::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -1574,10 +1578,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str, entry_link_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_entry_link()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1637,10 +1641,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, entry_group_id: &str, entry_link_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_link()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1692,10 +1696,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, metadata_feed_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_feed()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataFeeds/{metadata_feed_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1746,10 +1750,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, metadata_feed_id: &str
     /// ) -> Result<()> {
     ///     client.delete_metadata_feed()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataFeeds/{metadata_feed_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1779,11 +1783,11 @@ impl CatalogService {
     /// use google_cloud_dataplex_v1::model::MetadataFeed;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, metadata_feed_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_metadata_feed()
     ///         .set_metadata_feed(
-    ///             MetadataFeed::new().set_name(name)/* set fields */
+    ///             MetadataFeed::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataFeeds/{metadata_feed_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2012,16 +2016,19 @@ impl CatalogService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::CmekService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CmekService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_encryption_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2169,11 +2176,11 @@ impl CmekService {
     /// use google_cloud_dataplex_v1::model::EncryptionConfig;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CmekService, name: &str
+    ///    client: &CmekService, organization_id: &str, location_id: &str, encryption_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_encryption_config()
     ///         .set_encryption_config(
-    ///             EncryptionConfig::new().set_name(name)/* set fields */
+    ///             EncryptionConfig::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/encryptionConfigs/{encryption_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2203,10 +2210,10 @@ impl CmekService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CmekService, name: &str
+    ///    client: &CmekService, organization_id: &str, location_id: &str, encryption_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_encryption_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/encryptionConfigs/{encryption_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2223,10 +2230,10 @@ impl CmekService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CmekService, parent: &str
+    ///    client: &CmekService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_encryption_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2245,10 +2252,10 @@ impl CmekService {
     /// # use google_cloud_dataplex_v1::client::CmekService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CmekService, name: &str
+    ///    client: &CmekService, organization_id: &str, location_id: &str, encryption_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_encryption_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/encryptionConfigs/{encryption_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2475,7 +2482,8 @@ impl CmekService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::ContentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ContentService::builder().build().await?;
 ///     let mut list = client.list_locations()
 ///         /* set fields */
@@ -2483,7 +2491,8 @@ impl CmekService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2793,16 +2802,18 @@ impl ContentService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::DataProductService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataProductService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_products()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2950,10 +2961,10 @@ impl DataProductService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, name: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2969,10 +2980,10 @@ impl DataProductService {
     /// # use google_cloud_dataplex_v1::client::DataProductService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, name: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3026,11 +3037,11 @@ impl DataProductService {
     /// use google_cloud_dataplex_v1::model::DataProduct;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, name: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_product()
     ///         .set_data_product(
-    ///             DataProduct::new().set_name(name)/* set fields */
+    ///             DataProduct::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3061,10 +3072,10 @@ impl DataProductService {
     /// use google_cloud_dataplex_v1::model::DataAsset;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, parent: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_asset()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"))
     ///         .set_data_asset(
     ///             DataAsset::new()/* set fields */
     ///         )
@@ -3098,11 +3109,11 @@ impl DataProductService {
     /// use google_cloud_dataplex_v1::model::DataAsset;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, name: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str, data_asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_asset()
     ///         .set_data_asset(
-    ///             DataAsset::new().set_name(name)/* set fields */
+    ///             DataAsset::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}/dataAssets/{data_asset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3132,10 +3143,10 @@ impl DataProductService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, name: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str, data_asset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}/dataAssets/{data_asset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3151,10 +3162,10 @@ impl DataProductService {
     /// # use google_cloud_dataplex_v1::client::DataProductService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, name: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str, data_asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}/dataAssets/{data_asset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3172,10 +3183,10 @@ impl DataProductService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataProductService, parent: &str
+    ///    client: &DataProductService, project_id: &str, location_id: &str, data_product_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_assets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3404,16 +3415,18 @@ impl DataProductService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataTaxonomyService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_taxonomies()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3567,11 +3580,11 @@ impl DataTaxonomyService {
     /// use google_cloud_dataplex_v1::model::DataTaxonomy;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_taxonomy()
     ///         .set_data_taxonomy(
-    ///             DataTaxonomy::new().set_name(name)/* set fields */
+    ///             DataTaxonomy::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3605,10 +3618,10 @@ impl DataTaxonomyService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_taxonomy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3653,10 +3666,10 @@ impl DataTaxonomyService {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_taxonomy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3726,11 +3739,11 @@ impl DataTaxonomyService {
     /// use google_cloud_dataplex_v1::model::DataAttributeBinding;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_attribute_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_attribute_binding()
     ///         .set_data_attribute_binding(
-    ///             DataAttributeBinding::new().set_name(name)/* set fields */
+    ///             DataAttributeBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAttributeBindings/{data_attribute_binding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3765,10 +3778,10 @@ impl DataTaxonomyService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_attribute_binding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_attribute_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataAttributeBindings/{data_attribute_binding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3813,10 +3826,10 @@ impl DataTaxonomyService {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_attribute_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_attribute_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataAttributeBindings/{data_attribute_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3848,10 +3861,10 @@ impl DataTaxonomyService {
     /// use google_cloud_dataplex_v1::model::DataAttribute;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, parent: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_attribute()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"))
     ///         .set_data_attribute(
     ///             DataAttribute::new()/* set fields */
     ///         )
@@ -3888,11 +3901,11 @@ impl DataTaxonomyService {
     /// use google_cloud_dataplex_v1::model::DataAttribute;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str, data_attribute_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_attribute()
     ///         .set_data_attribute(
-    ///             DataAttribute::new().set_name(name)/* set fields */
+    ///             DataAttribute::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3925,10 +3938,10 @@ impl DataTaxonomyService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str, data_attribute_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_attribute()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3948,10 +3961,10 @@ impl DataTaxonomyService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, parent: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_attributes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3973,10 +3986,10 @@ impl DataTaxonomyService {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, name: &str
+    ///    client: &DataTaxonomyService, project_id: &str, location_id: &str, data_taxonomy_id: &str, data_attribute_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_attribute()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4206,16 +4219,18 @@ impl DataTaxonomyService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::DataScanService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataScanService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_scans()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4365,11 +4380,11 @@ impl DataScanService {
     /// use google_cloud_dataplex_v1::model::DataScan;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, name: &str
+    ///    client: &DataScanService, project_id: &str, location_id: &str, data_scan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_scan()
     ///         .set_data_scan(
-    ///             DataScan::new().set_name(name)/* set fields */
+    ///             DataScan::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4399,10 +4414,10 @@ impl DataScanService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, name: &str
+    ///    client: &DataScanService, project_id: &str, location_id: &str, data_scan_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_scan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4418,10 +4433,10 @@ impl DataScanService {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, name: &str
+    ///    client: &DataScanService, project_id: &str, location_id: &str, data_scan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_scan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4481,10 +4496,10 @@ impl DataScanService {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, name: &str
+    ///    client: &DataScanService, project_id: &str, location_id: &str, data_scan_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_scan_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4502,10 +4517,10 @@ impl DataScanService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, parent: &str
+    ///    client: &DataScanService, project_id: &str, location_id: &str, data_scan_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_scan_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4759,16 +4774,21 @@ impl DataScanService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::MetadataService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    lake_id: &str,
+///    zone_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = MetadataService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_entities()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4869,10 +4889,10 @@ impl MetadataService {
     /// use google_cloud_dataplex_v1::model::Entity;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entity()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
     ///         .set_entity(
     ///             Entity::new()/* set fields */
     ///         )
@@ -4893,11 +4913,11 @@ impl MetadataService {
     /// use google_cloud_dataplex_v1::model::Entity;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entity()
     ///         .set_entity(
-    ///             Entity::new().set_name(name)/* set fields */
+    ///             Entity::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -4915,10 +4935,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entity()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4934,10 +4954,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entity()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4955,10 +4975,10 @@ impl MetadataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entities()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4978,10 +4998,10 @@ impl MetadataService {
     /// use google_cloud_dataplex_v1::model::Partition;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_partition()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"))
     ///         .set_partition(
     ///             Partition::new()/* set fields */
     ///         )
@@ -5001,10 +5021,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str, partition_id: &str
     /// ) -> Result<()> {
     ///     client.delete_partition()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}/partitions/{partition_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5020,10 +5040,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str, partition_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_partition()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}/partitions/{partition_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5041,10 +5061,10 @@ impl MetadataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, entity_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_partitions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5273,16 +5293,18 @@ impl MetadataService {
 /// ```
 /// # use google_cloud_dataplex_v1::client::DataplexService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataplexService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_lakes()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5435,11 +5457,11 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Lake;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_lake()
     ///         .set_lake(
-    ///             Lake::new().set_name(name)/* set fields */
+    ///             Lake::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5470,10 +5492,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     client.delete_lake()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5512,10 +5534,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lake()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5567,10 +5589,10 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Zone;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_zone()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))
     ///         .set_zone_id("zone_id_value")
     ///         .set_zone(
     ///             Zone::new()/* set fields */
@@ -5605,11 +5627,11 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Zone;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_zone()
     ///         .set_zone(
-    ///             Zone::new().set_name(name)/* set fields */
+    ///             Zone::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5640,10 +5662,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     client.delete_zone()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5660,10 +5682,10 @@ impl DataplexService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_zones()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5682,10 +5704,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_zone()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5737,10 +5759,10 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Asset;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_asset()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
     ///         .set_asset_id("asset_id_value")
     ///         .set_asset(
     ///             Asset::new()/* set fields */
@@ -5775,11 +5797,11 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Asset;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_asset()
     ///         .set_asset(
-    ///             Asset::new().set_name(name)/* set fields */
+    ///             Asset::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5810,10 +5832,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5830,10 +5852,10 @@ impl DataplexService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_assets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5852,10 +5874,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, zone_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5907,10 +5929,10 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Task;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_task()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))
     ///         .set_task_id("task_id_value")
     ///         .set_task(
     ///             Task::new()/* set fields */
@@ -5945,11 +5967,11 @@ impl DataplexService {
     /// use google_cloud_dataplex_v1::model::Task;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, task_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_task()
     ///         .set_task(
-    ///             Task::new().set_name(name)/* set fields */
+    ///             Task::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5979,10 +6001,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, task_id: &str
     /// ) -> Result<()> {
     ///     client.delete_task()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5999,10 +6021,10 @@ impl DataplexService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tasks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6021,10 +6043,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, task_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_task()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6042,10 +6064,10 @@ impl DataplexService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, parent: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, task_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6084,10 +6106,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, name: &str
+    ///    client: &DataplexService, project_id: &str, location_id: &str, lake_id: &str, task_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

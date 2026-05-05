@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_gkehub_v1::client::GkeHub;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = GkeHub::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_memberships()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -150,10 +153,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_memberships()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -197,10 +200,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_features()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -219,10 +222,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_membership()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -239,10 +242,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -275,10 +278,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Membership;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_membership()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_membership_id("membership_id_value")
     ///         .set_resource(
     ///             Membership::new()/* set fields */
@@ -311,10 +314,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Feature;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_feature_id("feature_id_value")
     ///         .set_resource(
     ///             Feature::new()/* set fields */
@@ -350,10 +353,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str
     /// ) -> Result<()> {
     ///     client.delete_membership()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -380,10 +383,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feature()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -413,11 +416,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Membership;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_membership()
     ///         .set_resource(
-    ///             Membership::new().set_name(name)/* set fields */
+    ///             Membership::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -450,11 +453,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Feature;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feature()
     ///         .set_resource(
-    ///             Feature::new().set_name(name)/* set fields */
+    ///             Feature::new().set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -531,10 +534,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, fleet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_fleet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/fleets/{fleet_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -565,11 +568,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Fleet;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, fleet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_fleet()
     ///         .set_fleet(
-    ///             Fleet::new().set_name(name)/* set fields */
+    ///             Fleet::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleets/{fleet_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -599,10 +602,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, fleet_id: &str
     /// ) -> Result<()> {
     ///     client.delete_fleet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/fleets/{fleet_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -642,10 +645,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_scope_namespace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/namespaces/{namespace_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -674,10 +677,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Namespace;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_scope_namespace()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .set_scope_namespace(
     ///             Namespace::new()/* set fields */
     ///         )
@@ -711,11 +714,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Namespace;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_scope_namespace()
     ///         .set_scope_namespace(
-    ///             Namespace::new().set_name(name)/* set fields */
+    ///             Namespace::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/namespaces/{namespace_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -745,10 +748,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     client.delete_scope_namespace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/namespaces/{namespace_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -765,10 +768,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_scope_namespaces()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -787,10 +790,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, rbacrolebinding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_scope_rbac_role_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -819,10 +822,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_scope_rbac_role_binding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .set_rbacrolebinding(
     ///             RBACRoleBinding::new()/* set fields */
     ///         )
@@ -858,11 +861,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, rbacrolebinding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_scope_rbac_role_binding()
     ///         .set_rbacrolebinding(
-    ///             RBACRoleBinding::new().set_name(name)/* set fields */
+    ///             RBACRoleBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -894,10 +897,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, rbacrolebinding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_scope_rbac_role_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -916,10 +919,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_scope_rbac_role_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -940,10 +943,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_scope()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -972,10 +975,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Scope;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_scope()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_scope_id("scope_id_value")
     ///         .set_scope(
     ///             Scope::new()/* set fields */
@@ -1010,11 +1013,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::Scope;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_scope()
     ///         .set_scope(
-    ///             Scope::new().set_name(name)/* set fields */
+    ///             Scope::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1044,10 +1047,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     client.delete_scope()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1064,10 +1067,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_scopes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1087,10 +1090,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_permitted_scopes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1109,10 +1112,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str, membershipbinding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_membership_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}/bindings/{membershipbinding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1141,10 +1144,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::MembershipBinding;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_membership_binding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"))
     ///         .set_membership_binding(
     ///             MembershipBinding::new()/* set fields */
     ///         )
@@ -1178,11 +1181,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::MembershipBinding;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str, membershipbinding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_membership_binding()
     ///         .set_membership_binding(
-    ///             MembershipBinding::new().set_name(name)/* set fields */
+    ///             MembershipBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}/bindings/{membershipbinding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1212,10 +1215,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str, membershipbinding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_membership_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}/bindings/{membershipbinding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1232,10 +1235,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, membership_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_membership_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1254,10 +1257,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, rbacrolebinding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_membership_rbac_role_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1288,10 +1291,10 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_membership_rbac_role_binding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .set_rbacrolebinding(
     ///             RBACRoleBinding::new()/* set fields */
     ///         )
@@ -1327,11 +1330,11 @@ impl GkeHub {
     /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, rbacrolebinding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_membership_rbac_role_binding()
     ///         .set_rbacrolebinding(
-    ///             RBACRoleBinding::new().set_name(name)/* set fields */
+    ///             RBACRoleBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1363,10 +1366,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, name: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str, rbacrolebinding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_membership_rbac_role_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1385,10 +1388,10 @@ impl GkeHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, parent: &str
+    ///    client: &GkeHub, project_id: &str, location_id: &str, scope_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_membership_rbac_role_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

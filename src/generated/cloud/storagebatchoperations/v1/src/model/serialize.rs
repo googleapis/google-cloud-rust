@@ -908,6 +908,57 @@ impl serde::ser::Serialize for super::Counters {
             }
             state.serialize_entry("totalBytesFound", &__With(&self.total_bytes_found))?;
         }
+        if self.object_custom_contexts_created.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "objectCustomContextsCreated",
+                &__With(&self.object_custom_contexts_created),
+            )?;
+        }
+        if self.object_custom_contexts_deleted.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "objectCustomContextsDeleted",
+                &__With(&self.object_custom_contexts_deleted),
+            )?;
+        }
+        if self.object_custom_contexts_updated.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "objectCustomContextsUpdated",
+                &__With(&self.object_custom_contexts_updated),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

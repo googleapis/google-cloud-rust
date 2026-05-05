@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EssentialContactsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_contacts()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -133,10 +135,10 @@ impl EssentialContactsService {
     /// use google_cloud_essentialcontacts_v1::model::Contact;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, parent: &str
+    ///    client: &EssentialContactsService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_contact()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_contact(
     ///             Contact::new()/* set fields */
     ///         )
@@ -160,11 +162,11 @@ impl EssentialContactsService {
     /// use google_cloud_essentialcontacts_v1::model::Contact;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, name: &str
+    ///    client: &EssentialContactsService, project_id: &str, contact_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_contact()
     ///         .set_contact(
-    ///             Contact::new().set_name(name)/* set fields */
+    ///             Contact::new().set_name(format!("projects/{project_id}/contacts/{contact_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -184,10 +186,10 @@ impl EssentialContactsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, parent: &str
+    ///    client: &EssentialContactsService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_contacts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -206,10 +208,10 @@ impl EssentialContactsService {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, name: &str
+    ///    client: &EssentialContactsService, project_id: &str, contact_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_contact()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/contacts/{contact_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -226,10 +228,10 @@ impl EssentialContactsService {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, name: &str
+    ///    client: &EssentialContactsService, project_id: &str, contact_id: &str
     /// ) -> Result<()> {
     ///     client.delete_contact()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/contacts/{contact_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

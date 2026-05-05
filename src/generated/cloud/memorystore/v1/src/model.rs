@@ -2414,6 +2414,18 @@ pub mod instance {
         HighmemXlarge,
         /// Standard small.
         StandardSmall,
+        /// Custom micro.
+        CustomMicro,
+        /// Custom mini.
+        CustomMini,
+        /// High cpu medium.
+        HighcpuMedium,
+        /// Standard large.
+        StandardLarge,
+        /// High memory 2x large.
+        Highmem2Xlarge,
+        /// Custom pico.
+        CustomPico,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [NodeType::value] or
@@ -2441,6 +2453,12 @@ pub mod instance {
                 Self::HighmemMedium => std::option::Option::Some(2),
                 Self::HighmemXlarge => std::option::Option::Some(3),
                 Self::StandardSmall => std::option::Option::Some(4),
+                Self::CustomMicro => std::option::Option::Some(5),
+                Self::CustomMini => std::option::Option::Some(6),
+                Self::HighcpuMedium => std::option::Option::Some(7),
+                Self::StandardLarge => std::option::Option::Some(8),
+                Self::Highmem2Xlarge => std::option::Option::Some(9),
+                Self::CustomPico => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2456,6 +2474,12 @@ pub mod instance {
                 Self::HighmemMedium => std::option::Option::Some("HIGHMEM_MEDIUM"),
                 Self::HighmemXlarge => std::option::Option::Some("HIGHMEM_XLARGE"),
                 Self::StandardSmall => std::option::Option::Some("STANDARD_SMALL"),
+                Self::CustomMicro => std::option::Option::Some("CUSTOM_MICRO"),
+                Self::CustomMini => std::option::Option::Some("CUSTOM_MINI"),
+                Self::HighcpuMedium => std::option::Option::Some("HIGHCPU_MEDIUM"),
+                Self::StandardLarge => std::option::Option::Some("STANDARD_LARGE"),
+                Self::Highmem2Xlarge => std::option::Option::Some("HIGHMEM_2XLARGE"),
+                Self::CustomPico => std::option::Option::Some("CUSTOM_PICO"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2482,6 +2506,12 @@ pub mod instance {
                 2 => Self::HighmemMedium,
                 3 => Self::HighmemXlarge,
                 4 => Self::StandardSmall,
+                5 => Self::CustomMicro,
+                6 => Self::CustomMini,
+                7 => Self::HighcpuMedium,
+                8 => Self::StandardLarge,
+                9 => Self::Highmem2Xlarge,
+                10 => Self::CustomPico,
                 _ => Self::UnknownValue(node_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2498,6 +2528,12 @@ pub mod instance {
                 "HIGHMEM_MEDIUM" => Self::HighmemMedium,
                 "HIGHMEM_XLARGE" => Self::HighmemXlarge,
                 "STANDARD_SMALL" => Self::StandardSmall,
+                "CUSTOM_MICRO" => Self::CustomMicro,
+                "CUSTOM_MINI" => Self::CustomMini,
+                "HIGHCPU_MEDIUM" => Self::HighcpuMedium,
+                "STANDARD_LARGE" => Self::StandardLarge,
+                "HIGHMEM_2XLARGE" => Self::Highmem2Xlarge,
+                "CUSTOM_PICO" => Self::CustomPico,
                 _ => Self::UnknownValue(node_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2516,6 +2552,12 @@ pub mod instance {
                 Self::HighmemMedium => serializer.serialize_i32(2),
                 Self::HighmemXlarge => serializer.serialize_i32(3),
                 Self::StandardSmall => serializer.serialize_i32(4),
+                Self::CustomMicro => serializer.serialize_i32(5),
+                Self::CustomMini => serializer.serialize_i32(6),
+                Self::HighcpuMedium => serializer.serialize_i32(7),
+                Self::StandardLarge => serializer.serialize_i32(8),
+                Self::Highmem2Xlarge => serializer.serialize_i32(9),
+                Self::CustomPico => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
