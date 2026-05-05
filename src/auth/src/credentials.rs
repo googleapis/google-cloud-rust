@@ -28,6 +28,7 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 pub mod anonymous;
 pub mod api_key_credentials;
+pub(crate) mod crypto_provider;
 pub mod external_account;
 pub(crate) mod external_account_sources;
 pub(crate) mod gdch;
