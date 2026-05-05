@@ -1053,7 +1053,8 @@ mod tests {
     #[cfg(all(test, feature = "gdch"))]
     #[tokio::test]
     #[serial]
-    async fn create_access_token_credentials_adc_gdch_service_account_not_supported() -> TestResult {
+    async fn create_access_token_credentials_adc_gdch_service_account_not_supported() -> TestResult
+    {
         let contents = json!({
             "type": "gdch_service_account",
             "format_version": "1",
@@ -1062,14 +1063,18 @@ mod tests {
             "private_key": "",
             "name": "test-service-identity",
             "token_uri": "https://service-accounts.my-domain.com/authenticate"
-        }).to_string();
+        })
+        .to_string();
 
         let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
         assert!(err.is_not_supported());
-        assert!(err.to_string().contains("gdch_service_account, use gdch::Builder directly."));
+        assert!(
+            err.to_string()
+                .contains("gdch_service_account, use gdch::Builder directly.")
+        );
 
         Ok(())
     }
@@ -1086,7 +1091,8 @@ mod tests {
             "private_key": "",
             "name": "test-service-identity",
             "token_uri": "https://service-accounts.my-domain.com/authenticate"
-        }).to_string();
+        })
+        .to_string();
 
         let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
@@ -1095,7 +1101,10 @@ mod tests {
             .build_signer()
             .unwrap_err();
         assert!(err.is_not_supported());
-        assert!(err.to_string().contains("gdch_service_account signer is not supported"));
+        assert!(
+            err.to_string()
+                .contains("gdch_service_account signer is not supported")
+        );
 
         Ok(())
     }
@@ -1112,7 +1121,8 @@ mod tests {
             "private_key": "",
             "name": "test-service-identity",
             "token_uri": "https://service-accounts.my-domain.com/authenticate"
-        }).to_string();
+        })
+        .to_string();
 
         let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
