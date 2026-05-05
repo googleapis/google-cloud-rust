@@ -53,9 +53,9 @@ where
     /// Sends the request, returning a new object descriptor.
     ///
     /// Example:
-    /// ```ignore
-    /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// ```
+    /// # #[cfg(feature = "run_all_samples")]
+    /// # async fn sample(client: &google_cloud_storage::client::Storage) -> anyhow::Result<()> {
     /// let open = client
     ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -71,13 +71,13 @@ where
     /// Sends the request, returning a new object descriptor and reader.
     ///
     /// Example:
-    /// ```ignore
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::model_ext::ReadRange;
+    /// ```
+    /// # #[cfg(feature = "run_all_samples")]
+    /// # async fn sample(client: &google_cloud_storage::client::Storage) -> anyhow::Result<()> {
+    /// # use futures::StreamExt;
     /// let (descriptor, mut reader) = client
     ///     .open_object("projects/_/buckets/my-bucket", "my-object.parquet")
-    ///     .send_and_read(ReadRange::tail(32))
+    ///     .send_and_read(google_cloud_storage::model_ext::ReadRange::tail(32))
     ///     .await?;
     /// println!("object metadata={:?}", descriptor.object());
     /// let data = reader.next().await.transpose()?;

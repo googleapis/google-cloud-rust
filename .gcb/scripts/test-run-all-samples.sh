@@ -26,10 +26,10 @@ rustup component add clippy
 cargo version
 rustup show active-toolchain -v
 
-echo "RUSTFLAGS in test-ignored-samples: ${RUSTFLAGS:-}"
-echo "RUSTDOCFLAGS in test-ignored-samples: ${RUSTDOCFLAGS:-}"
+echo "RUSTFLAGS in test-run-all-samples: ${RUSTFLAGS:-}"
+echo "RUSTDOCFLAGS in test-run-all-samples: ${RUSTDOCFLAGS:-}"
 
-cargo test --workspace --doc --all-features -- --ignored --show-output
+cargo test --workspace --doc --all-features -- --show-output
 
 echo "==== DONE ===="
 

@@ -162,11 +162,11 @@ locals {
       script = "workspace-minimal-versions"
     }
 
-    # Runs doctest for samples marked ignore.
+    # Runs doctest for feature-gated samples.
     # These are mostly generated samples which are many and take a long time to build.
-    ignored-samples = {
+    run-all-samples = {
       config = "complex.yaml"
-      script = "test-ignored-samples"
+      script = "test-run-all-samples"
       included_files = [
         "**/generated/**",
       ]

@@ -61,29 +61,43 @@ attempting to compile and run the block as a doc test.
 /// ```
 ````
 
+### Feature-gated samples (`run_all_samples`)
+
+For Rust samples that should be skipped in presubmit but still compile in a
+dedicated job, prefer a feature-gated snippet over `ignore`:
+
+````rust
+/// ```
+/// # #[cfg(feature = "run_all_samples")]
+/// # async fn sample() -> anyhow::Result<()> {
+/// // sample code
+/// # Ok(())
+/// # }
+/// ```
+````
+
+Then run those snippets with `cargo test --doc --all-features` (or
+`--features run_all_samples`) for the crate.
+
 ### `ignore`
 
-Use the `ignore` tag for valid Rust code blocks that should not be run on
-presubmit.
+Use `ignore` sparingly for valid Rust code blocks that are intentionally
+excluded from doc-test compilation.
 
 > [!NOTE]
-> This project uses the `ignore` tag in a non-standard way. In standard Rust
-> practice, `ignore` often means the test is broken or should not be run. In
-> this repository, we use `ignore` as a filter to separate tests run on
-> presubmit from the large volume of tests run in post-submit (to keep presubmit
-> times reasonable).
+> In standard Rust practice, `ignore` often means the test is broken or should
+> not be run. In this repository, prefer feature-gated snippets for scalable
+> sample testing; reserve `ignore` for rare cases that must remain excluded from
+> doc-test compilation.
 
 **When to use**:
 
-- When the volume of tests is too large to be included in presubmit (to keep
-  presubmit times reasonable). Particularly in generated code.
+- When a snippet is intentionally excluded from doc-test compilation.
 
 **Implications**:
 
 - The code block will be syntax-highlighted as Rust code.
 - `rustdoc` will not run it during normal `cargo test` (presubmit).
-- It **is** run in post-submit or periodic jobs using
-  `cargo test --doc -- --ignored`.
 - It will be marked as "not tested" on docs.rs.
 
 ### `no_run`
@@ -117,8 +131,9 @@ remain valid.
   `cargo test` on the workspace on presubmit. This automatically executes all
   compilable doc tests in library crates that are not marked with `ignore` or
   `no_rust`.
-- **Ignored Doc Tests**: A separate CI job runs `cargo test --doc -- --ignored`
-  (typically in post-submit) to execute tests marked with `ignore`.
+- **Feature-Gated Samples**: Crates may define `run_all_samples`; these snippets
+  are compiled by running `cargo test --doc --all-features` (or
+  `--features run_all_samples`) for that crate.
 
 ### Tag Selection Summary
 
@@ -126,8 +141,9 @@ remain valid.
   expected to compile.
 - Use `no_run` for code that should be checked for compilation but cannot be
   executed (e.g., requires network or side effects).
-- Use `ignore` for valid Rust code that should not be run on presubmit (e.g., to
-  manage the volume of tests and keep presubmit times reasonable) but should be
-  tested in post-submit.
+- Prefer feature-gated snippets (`#[cfg(feature = "run_all_samples")]`) for
+  runnable Rust samples that should be skipped in presubmit.
+- Use `ignore` only when a snippet must remain excluded from doc-test
+  compilation.
 
 [developer documentation style guide]: https://developers.google.com/style/

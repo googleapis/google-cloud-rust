@@ -52,6 +52,7 @@ uuid.workspace         = true
 wkt.workspace          = true
 
 [features]
+run_all_samples = []
 default = ["default-rustls-provider"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for

@@ -35,6 +35,7 @@ rust-version.workspace = true
 features = ["chrono", "time"]
 
 [features]
+run_all_samples = []
 chrono = ["dep:chrono"]
 time   = []
 # DO NOT USE: this allows us to detect semver changes in types used in the
