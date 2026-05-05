@@ -37,7 +37,7 @@
 //!     "token_uri": "https://service-accounts.my-domain.com/authenticate"
 //! });
 //!
-//! let credentials = gdch::Builder::new("my-target-service-audience", gdch_key)
+//! let credentials = gdch::Builder::new("https://my-target-service-audience.com", gdch_key)
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
@@ -47,7 +47,6 @@
 //! [Google Distributed Cloud]: https://docs.cloud.google.com/distributed-cloud/docs
 
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
-use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::constants::{GDCH_SERVICEACCOUNT_TOKEN_TYPE, TOKEN_EXCHANGE_TOKEN_TYPE};
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::errors::CredentialsError;
@@ -64,6 +63,7 @@ use rustls::sign::Signer;
 use rustls_pki_types::PrivateKeyDer;
 use rustls_pki_types::pem::PemObject;
 use serde::Deserialize;
+use std::sync::Arc;
 use tokio::time::Instant;
 
 /// Represents a Google Distributed Cloud service account key.
@@ -229,8 +229,35 @@ pub struct Builder {
     audience: String,
 }
 
+/// A builder for constructing Google Distributed Cloud (GDC) service account
+/// [Credentials] instances.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::gdch;
+/// # use serde_json::json;
+/// # use http::Extensions;
+///
+/// # async fn sample() -> anyhow::Result<()> {
+/// let gdch_key = json!({
+///     "type": "gdch_service_account",
+///     "format_version": "1",
+///     "project": "my-project",
+///     "private_key_id": "my-key-id",
+///     "private_key": "-----BEGIN EC PRIVATE KEY-----\n...key bytes...\n-----END EC PRIVATE KEY-----\n",
+///     "name": "my-service-identity",
+///     "token_uri": "https://service-accounts.my-domain.com/authenticate"
+/// });
+///
+/// let credentials = gdch::Builder::new("https://my-target-service-audience.com", gdch_key).build()?;
+/// # Ok(()) }
+/// ```
 impl Builder {
-    /// Creates a new builder with the given key and audience.
+    /// Creates a new builder using [Google Distributed Cloud service account key] JSON value and the
+    /// `audience`. The `audience` specifies the service that the token is intended for.
+    ///
+    /// [cloud-platform]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
+    /// [Google Distributed Cloud service account key]: https://docs.cloud.google.com/distributed-cloud/hosted/docs/latest/gdcag/platform/pa-user/service-identity#auth-and-use-sa
     pub fn new<S: Into<String>>(audience: S, key: serde_json::Value) -> Self {
         Self {
             key,
@@ -239,44 +266,75 @@ impl Builder {
         }
     }
 
-    /// Sets the quota project ID.
+    /// Sets the [quota project] for this credentials.
+    ///
+    /// In some services, you can use a service account in
+    /// one project for authentication and authorization, and charge
+    /// the usage to a different project. This requires that the
+    /// service account has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
-    fn build_credentials(
-        self,
-    ) -> crate::BuildResult<CredentialsWithAccessBoundary<GdchServiceAccountCredentials>> {
+    fn build_credentials(self) -> crate::BuildResult<GdchServiceAccountCredentials> {
         let key = serde_json::from_value::<GdchServiceAccountKey>(self.key)
             .map_err(crate::build_errors::Error::parsing)?;
 
         if key.format_version != "1" {
-            return Err(crate::build_errors::Error::parsing(format!(
+            return Err(crate::build_errors::Error::not_supported(format!(
                 "unsupported format_version: {}. Expected '1'",
                 key.format_version
             )));
         }
 
-        let creds = GdchServiceAccountCredentials {
+        Ok(GdchServiceAccountCredentials {
             token_provider: TokenCache::new(GdchServiceAccountTokenProvider::new(
                 self.audience,
                 key,
             )),
             quota_project_id: self.quota_project_id,
-        };
-
-        Ok(CredentialsWithAccessBoundary::new_no_op(creds))
+        })
     }
 
-    /// Builds the credentials.
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the `key` provided to [`Builder::new`]
+    /// cannot be successfully deserialized into the expected format for a
+    /// Google Distributed Cloud service account key. This typically happens if
+    /// the JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format for a Google Distributed Cloud
+    /// service account key, see the [Google Distributed Cloud service account identity] page.
+    ///
+    /// [Google Distributed Cloud service account identity]: https://docs.cloud.google.com/distributed-cloud/hosted/docs/latest/gdcag/platform/pa-user/service-identity#auth-and-use-sa
     pub fn build(self) -> crate::BuildResult<Credentials> {
-        Ok(self.build_credentials()?.into())
+        Ok(Credentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 
-    /// Builds the access token credentials.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the `key` provided to [`Builder::new`]
+    /// cannot be successfully deserialized into the expected format for a
+    /// Google Distributed Cloud service account key. This typically happens if
+    /// the JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format for a Google Distributed Cloud
+    /// service account key, see the [Google Distributed Cloud service account identity] page.
+    ///
+    /// [Google Distributed Cloud service account identity]: https://docs.cloud.google.com/distributed-cloud/hosted/docs/latest/gdcag/platform/pa-user/service-identity#auth-and-use-sa
     pub fn build_access_token_credentials(self) -> crate::BuildResult<AccessTokenCredentials> {
-        Ok(self.build_credentials()?.into())
+        Ok(AccessTokenCredentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 }
 
@@ -425,7 +483,6 @@ mod tests {
 
         let builder = Builder::new("test-audience", json);
         let err = builder.build().unwrap_err();
-        assert!(err.is_parsing());
-        assert!(err.to_string().contains("unsupported format_version: 2"));
+        assert!(err.is_not_supported());
     }
 }
