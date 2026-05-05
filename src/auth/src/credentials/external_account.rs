@@ -501,7 +501,7 @@ where
             ..ExchangeTokenRequest::default()
         };
 
-        let token_res = STSHandler::exchange_token(req).await?;
+        let token_res = STSHandler::default().exchange_token(req).await?;
 
         if let Some(impersonation_url) = &self.config.service_account_impersonation_url {
             let mut headers = HeaderMap::new();
