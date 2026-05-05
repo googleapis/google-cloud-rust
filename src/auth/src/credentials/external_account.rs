@@ -106,7 +106,9 @@
 //! [Obtain short-lived tokens for Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-obtaining-short-lived-credentials#use_configuration_files_for_sign-in
 
 use super::dynamic::CredentialsProvider;
-use super::external_account_sources::aws_sourced::AwsSourcedCredentials;
+use super::external_account_sources::aws_sourced::{
+    AwsSourcedCredentials, AwsSupplierSourcedCredentials,
+};
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::file_sourced::FileSourcedCredentials;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
@@ -137,6 +139,63 @@ use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
 const IAM_SCOPE: &str = "https://www.googleapis.com/auth/iam";
+const AWS_SUBJECT_TOKEN_TYPE: &str = "urn:ietf:params:aws:token-type:aws4_request";
+
+/// AWS security credentials used to sign a Workload Identity Federation subject token.
+#[derive(Clone, PartialEq, Eq)]
+pub struct AwsSecurityCredentials {
+    /// The AWS access key ID.
+    pub access_key_id: String,
+    /// The AWS secret access key.
+    pub secret_access_key: String,
+    /// The optional AWS session token for temporary credentials.
+    pub session_token: Option<String>,
+}
+
+impl std::fmt::Debug for AwsSecurityCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("AwsSecurityCredentials")
+            .field("access_key_id", &self.access_key_id)
+            .field("secret_access_key", &"[censored]")
+            .field(
+                "session_token",
+                &self.session_token.as_ref().map(|_| "[censored]"),
+            )
+            .finish()
+    }
+}
+
+/// Options passed to an [`AwsSecurityCredentialsSupplier`] call.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SupplierOptions {
+    /// The target audience for the Google STS token exchange.
+    pub audience: String,
+    /// The subject token type configured for the external account.
+    pub subject_token_type: String,
+}
+
+/// Supplies AWS region and security credentials for AWS Workload Identity Federation.
+///
+/// The supplier is responsible for resolving AWS credentials, for example by using
+/// the AWS SDK default provider chain. The authentication library uses the supplied
+/// values to build the signed AWS `GetCallerIdentity` subject token and exchange it
+/// with Google STS. Exchanged Google tokens are cached by this crate, but supplier
+/// results are not cached independently; suppliers should cache AWS lookups when
+/// that is useful for their environment.
+#[async_trait::async_trait]
+pub trait AwsSecurityCredentialsSupplier: std::fmt::Debug + Send + Sync {
+    /// Returns the AWS region used to sign the AWS STS request.
+    async fn aws_region(
+        &self,
+        options: SupplierOptions,
+    ) -> std::result::Result<String, crate::errors::CredentialsError>;
+
+    /// Returns the AWS security credentials used to sign the AWS STS request.
+    async fn aws_security_credentials(
+        &self,
+        options: SupplierOptions,
+    ) -> std::result::Result<AwsSecurityCredentials, crate::errors::CredentialsError>;
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
@@ -289,6 +348,7 @@ struct ExternalAccountConfigBuilder {
     subject_token_type: Option<String>,
     token_url: Option<String>,
     service_account_impersonation_url: Option<String>,
+    target_principal: Option<String>,
     client_id: Option<String>,
     client_secret: Option<String>,
     scopes: Option<Vec<String>>,
@@ -315,6 +375,11 @@ impl ExternalAccountConfigBuilder {
 
     fn with_service_account_impersonation_url<S: Into<String>>(mut self, url: S) -> Self {
         self.service_account_impersonation_url = Some(url.into());
+        self
+    }
+
+    fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
+        self.target_principal = Some(target_principal.into());
         self
     }
 
@@ -362,6 +427,14 @@ impl ExternalAccountConfigBuilder {
             ));
         }
 
+        let universe_domain = self.universe_domain;
+        let service_account_impersonation_url =
+            self.service_account_impersonation_url.or_else(|| {
+                self.target_principal.map(|principal| {
+                    service_account_impersonation_url(&principal, universe_domain.as_deref())
+                })
+            });
+
         Ok(ExternalAccountConfig {
             audience,
             subject_token_type: self
@@ -374,11 +447,11 @@ impl ExternalAccountConfigBuilder {
             credential_source: self
                 .credential_source
                 .ok_or(BuilderError::missing_field("credential_source"))?,
-            service_account_impersonation_url: self.service_account_impersonation_url,
+            service_account_impersonation_url,
             client_id: self.client_id,
             client_secret: self.client_secret,
             workforce_pool_user_project: self.workforce_pool_user_project,
-            universe_domain: self.universe_domain,
+            universe_domain,
         })
     }
 }
@@ -389,6 +462,7 @@ enum CredentialSource {
     Executable(ExecutableSourcedCredentials),
     File(FileSourcedCredentials),
     Aws(AwsSourcedCredentials),
+    AwsSupplier(AwsSupplierSourcedCredentials),
     Programmatic(ProgrammaticSourcedCredentials),
 }
 
@@ -413,6 +487,9 @@ impl ExternalAccountConfig {
                 Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
             }
             CredentialSource::Aws(source) => {
+                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
+            }
+            CredentialSource::AwsSupplier(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
             }
         }
@@ -809,16 +886,287 @@ impl Builder {
         }
 
         let config: ExternalAccountConfig = file.into();
-
-        let access_boundary_url =
-            external_account_lookup_url(&config.audience, self.iam_endpoint_override.as_deref());
-
-        let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
-
-        Ok(CredentialsWithAccessBoundary::new(
-            creds,
-            access_boundary_url,
+        Ok(make_credentials_with_access_boundary(
+            config,
+            self.quota_project_id,
+            self.retry_builder,
+            self.iam_endpoint_override.as_deref(),
         ))
+    }
+}
+
+fn service_account_impersonation_url(
+    target_principal: &str,
+    universe_domain: Option<&str>,
+) -> String {
+    let universe_domain = universe_domain.unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
+    format!(
+        "https://iamcredentials.{universe_domain}/v1/projects/-/serviceAccounts/{target_principal}:generateAccessToken"
+    )
+}
+
+fn make_credentials_with_access_boundary(
+    config: ExternalAccountConfig,
+    quota_project_id: Option<String>,
+    retry_builder: RetryTokenProviderBuilder,
+    iam_endpoint_override: Option<&str>,
+) -> CredentialsWithAccessBoundary<ExternalAccountCredentials<TokenCache>> {
+    let access_boundary_url = external_account_lookup_url(&config.audience, iam_endpoint_override);
+    let creds = config.make_credentials(quota_project_id, retry_builder);
+    CredentialsWithAccessBoundary::new(creds, access_boundary_url)
+}
+
+fn fill_programmatic_defaults(
+    mut config_builder: ExternalAccountConfigBuilder,
+) -> ExternalAccountConfigBuilder {
+    if config_builder.scopes.is_none() {
+        config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
+    }
+    if config_builder.token_url.is_none() {
+        let mut token_url = STS_TOKEN_URL.to_string();
+        if let Some(ref ud) = config_builder.universe_domain {
+            if ud != DEFAULT_UNIVERSE_DOMAIN {
+                token_url = token_url.replace(DEFAULT_UNIVERSE_DOMAIN, ud);
+            }
+        }
+        config_builder = config_builder.with_token_url(token_url);
+    }
+    config_builder
+}
+
+/// A builder for AWS external account [Credentials] using caller-provided AWS credentials.
+///
+/// Use this builder when the application wants to resolve AWS credentials itself,
+/// for example through the AWS SDK default provider chain, while this crate still
+/// builds the AWS SigV4 subject token and performs the Google STS token exchange.
+///
+/// The supplier is called when this crate needs a fresh AWS subject token. It
+/// may cache AWS SDK lookups internally, but it should return credentials that
+/// are valid for signing an AWS STS `GetCallerIdentity` request.
+///
+/// # Example
+///
+/// ```no_run
+/// # use google_cloud_auth::credentials::external_account::{
+/// #     AwsExternalAccountBuilder, AwsSecurityCredentials, AwsSecurityCredentialsSupplier,
+/// #     SupplierOptions,
+/// # };
+/// # use google_cloud_auth::errors::CredentialsError;
+/// # use std::sync::Arc;
+/// #[derive(Debug)]
+/// struct AwsSdkSupplier {
+///     fallback_region: String,
+/// }
+///
+/// #[async_trait::async_trait]
+/// impl AwsSecurityCredentialsSupplier for AwsSdkSupplier {
+///     async fn aws_region(
+///         &self,
+///         _options: SupplierOptions,
+///     ) -> Result<String, CredentialsError> {
+///         // Resolve this from AWS SDK config in a real implementation.
+///         Ok(self.fallback_region.clone())
+///     }
+///
+///     async fn aws_security_credentials(
+///         &self,
+///         _options: SupplierOptions,
+///     ) -> Result<AwsSecurityCredentials, CredentialsError> {
+///         // Retrieve these from the AWS SDK default credentials chain.
+///         Ok(AwsSecurityCredentials {
+///             access_key_id: "AWS_ACCESS_KEY_ID".to_string(),
+///             secret_access_key: "AWS_SECRET_ACCESS_KEY".to_string(),
+///             session_token: Some("AWS_SESSION_TOKEN".to_string()),
+///         })
+///     }
+/// }
+///
+/// # async fn sample() -> anyhow::Result<()> {
+/// let supplier = Arc::new(AwsSdkSupplier {
+///     fallback_region: "us-east-1".to_string(),
+/// });
+///
+/// let credentials = AwsExternalAccountBuilder::new(supplier)
+///     .with_audience("//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/pool/providers/provider")
+///     .with_target_principal("service-account@project.iam.gserviceaccount.com")
+///     .with_scopes(["https://www.googleapis.com/auth/cloud-platform"])
+///     .build()?;
+///
+/// # let _ = credentials;
+/// # Ok(()) }
+/// ```
+#[derive(Debug)]
+pub struct AwsExternalAccountBuilder {
+    quota_project_id: Option<String>,
+    config: ExternalAccountConfigBuilder,
+    retry_builder: RetryTokenProviderBuilder,
+    supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
+    regional_cred_verification_url: Option<String>,
+}
+
+impl AwsExternalAccountBuilder {
+    /// Creates a new builder using the provided AWS security credentials supplier.
+    pub fn new(supplier: Arc<dyn AwsSecurityCredentialsSupplier>) -> Self {
+        Self {
+            quota_project_id: None,
+            config: ExternalAccountConfigBuilder::default(),
+            retry_builder: RetryTokenProviderBuilder::default(),
+            supplier,
+            regional_cred_verification_url: None,
+        }
+    }
+
+    /// Sets the optional quota project for these credentials.
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Overrides the optional scopes for these credentials.
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.config = self.config.with_scopes(
+            scopes
+                .into_iter()
+                .map(|s| s.into())
+                .collect::<Vec<String>>(),
+        );
+        self
+    }
+
+    /// Sets the Google Cloud universe domain for these credentials.
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.config = self.config.with_universe_domain(universe_domain);
+        self
+    }
+
+    /// Sets the required audience for the token exchange.
+    pub fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
+        self.config = self.config.with_audience(audience);
+        self
+    }
+
+    /// Sets the subject token type. Defaults to the AWS SigV4 request token type.
+    pub fn with_subject_token_type<S: Into<String>>(mut self, subject_token_type: S) -> Self {
+        self.config = self.config.with_subject_token_type(subject_token_type);
+        self
+    }
+
+    /// Sets the STS token URL. Defaults to `https://sts.googleapis.com/v1/token`.
+    pub fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
+        self.config = self.config.with_token_url(token_url);
+        self
+    }
+
+    /// Sets the optional client ID for client authentication.
+    pub fn with_client_id<S: Into<String>>(mut self, client_id: S) -> Self {
+        self.config = self.config.with_client_id(client_id.into());
+        self
+    }
+
+    /// Sets the optional client secret for client authentication.
+    pub fn with_client_secret<S: Into<String>>(mut self, client_secret: S) -> Self {
+        self.config = self.config.with_client_secret(client_secret.into());
+        self
+    }
+
+    /// Sets the service account email to impersonate after the STS token exchange.
+    pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
+        self.config = self.config.with_target_principal(target_principal);
+        self
+    }
+
+    /// Sets the workforce pool user project for workforce identity federation.
+    pub fn with_workforce_pool_user_project<S: Into<String>>(mut self, project: S) -> Self {
+        self.config = self.config.with_workforce_pool_user_project(project);
+        self
+    }
+
+    /// Sets the AWS STS regional credential verification URL template.
+    ///
+    /// The template may contain `{region}`, which is replaced with the supplier-provided
+    /// AWS region. The URL should be an AWS STS `GetCallerIdentity` endpoint,
+    /// such as
+    /// `https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15`.
+    pub fn with_regional_cred_verification_url<S: Into<String>>(mut self, url: S) -> Self {
+        self.regional_cred_verification_url = Some(url.into());
+        self
+    }
+
+    /// Configure the retry policy for fetching tokens.
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
+        self
+    }
+
+    /// Configure the retry throttler.
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] if any required field, such as `audience`, is missing.
+    pub fn build(self) -> BuildResult<Credentials> {
+        let (config, quota_project_id, retry_builder) = self.build_components()?;
+        Ok(
+            make_credentials_with_access_boundary(config, quota_project_id, retry_builder, None)
+                .into(),
+        )
+    }
+
+    fn build_components(
+        self,
+    ) -> BuildResult<(
+        ExternalAccountConfig,
+        Option<String>,
+        RetryTokenProviderBuilder,
+    )> {
+        let Self {
+            quota_project_id,
+            config,
+            retry_builder,
+            supplier,
+            regional_cred_verification_url,
+        } = self;
+
+        let mut config_builder = fill_programmatic_defaults(config);
+        if config_builder.subject_token_type.is_none() {
+            config_builder = config_builder.with_subject_token_type(AWS_SUBJECT_TOKEN_TYPE);
+        }
+
+        let audience = config_builder
+            .audience
+            .clone()
+            .ok_or(BuilderError::missing_field("audience"))?;
+        let subject_token_type = config_builder
+            .subject_token_type
+            .clone()
+            .ok_or(BuilderError::missing_field("subject_token_type"))?;
+
+        let source = AwsSupplierSourcedCredentials::new(
+            supplier,
+            audience,
+            subject_token_type,
+            regional_cred_verification_url,
+        );
+        let final_config = config_builder
+            .with_credential_source(CredentialSource::AwsSupplier(source))
+            .build()?;
+
+        Ok((final_config, quota_project_id, retry_builder))
     }
 }
 
@@ -1473,19 +1821,7 @@ impl ProgrammaticBuilder {
             retry_builder,
         } = self;
 
-        let mut config_builder = config;
-        if config_builder.scopes.is_none() {
-            config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
-        }
-        if config_builder.token_url.is_none() {
-            let mut token_url = STS_TOKEN_URL.to_string();
-            if let Some(ref ud) = config_builder.universe_domain {
-                if ud != DEFAULT_UNIVERSE_DOMAIN {
-                    token_url = token_url.replace(DEFAULT_UNIVERSE_DOMAIN, ud);
-                }
-            }
-            config_builder = config_builder.with_token_url(token_url);
-        }
+        let config_builder = fill_programmatic_defaults(config);
         let final_config = config_builder.build()?;
 
         Ok((final_config, quota_project_id, retry_builder))
@@ -1568,6 +1904,49 @@ mod tests {
         async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
             Ok(SubjectTokenBuilder::new("test-subject-token".to_string()).build())
         }
+    }
+
+    #[derive(Debug)]
+    struct TestAwsSupplier;
+
+    #[async_trait::async_trait]
+    impl AwsSecurityCredentialsSupplier for TestAwsSupplier {
+        async fn aws_region(
+            &self,
+            _options: SupplierOptions,
+        ) -> std::result::Result<String, CredentialsError> {
+            Ok("us-east-1".to_string())
+        }
+
+        async fn aws_security_credentials(
+            &self,
+            _options: SupplierOptions,
+        ) -> std::result::Result<AwsSecurityCredentials, CredentialsError> {
+            Ok(AwsSecurityCredentials {
+                access_key_id: "test-access-key".to_string(),
+                secret_access_key: "test-secret".to_string(),
+                session_token: None,
+            })
+        }
+    }
+
+    #[test]
+    fn aws_security_credentials_debug_censors_secrets() {
+        let creds = AwsSecurityCredentials {
+            access_key_id: "test-access-key".to_string(),
+            secret_access_key: "secret-access-key-should-not-appear".to_string(),
+            session_token: Some("session-token-should-not-appear".to_string()),
+        };
+
+        let got = format!("{creds:?}");
+
+        assert!(got.contains("test-access-key"), "{got}");
+        assert!(
+            !got.contains("secret-access-key-should-not-appear"),
+            "{got}"
+        );
+        assert!(!got.contains("session-token-should-not-appear"), "{got}");
+        assert!(got.contains("[censored]"), "{got}");
     }
 
     #[tokio::test]
@@ -1680,6 +2059,94 @@ mod tests {
         assert_eq!(
             config.token_url,
             "https://sts.my-custom-universe.com/v1/token"
+        );
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_impersonation_url_preserves_default_universe() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let builder = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_target_principal("test-principal")
+            .with_universe_domain("my-custom-universe.com");
+
+        let (config, _, _) = builder.build_components().unwrap();
+
+        assert_eq!(
+            config.service_account_impersonation_url,
+            Some("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string())
+        );
+    }
+
+    #[tokio::test]
+    async fn create_aws_external_account_builder() {
+        let supplier = Arc::new(TestAwsSupplier);
+        let builder = AwsExternalAccountBuilder::new(supplier)
+            .with_audience("test-audience")
+            .with_scopes(["scope1", "scope2"])
+            .with_token_url("http://custom.com/token")
+            .with_target_principal("test-principal")
+            .with_regional_cred_verification_url(
+                "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15",
+            );
+
+        let (config, _, _) = builder.build_components().unwrap();
+
+        assert_eq!(config.audience, "test-audience");
+        assert_eq!(config.subject_token_type, AWS_SUBJECT_TOKEN_TYPE);
+        assert_eq!(config.scopes, vec!["scope1", "scope2"]);
+        assert_eq!(config.token_url, "http://custom.com/token");
+        assert_eq!(
+            config.service_account_impersonation_url,
+            Some("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string())
+        );
+        match config.credential_source {
+            CredentialSource::AwsSupplier(_) => {}
+            _ => unreachable!("expected AWS supplier sourced credential"),
+        }
+    }
+
+    #[tokio::test]
+    async fn aws_external_account_builder_wraps_with_access_boundary() {
+        let supplier = Arc::new(TestAwsSupplier);
+        let creds = AwsExternalAccountBuilder::new(supplier)
+            .with_audience("test-audience")
+            .build()
+            .unwrap();
+
+        let fmt = format!("{creds:?}");
+        assert!(fmt.contains("CredentialsWithAccessBoundary"), "{fmt}");
+    }
+
+    #[tokio::test]
+    async fn aws_external_account_builder_sts_url_updates_with_universe_domain() {
+        let supplier = Arc::new(TestAwsSupplier);
+        let builder = AwsExternalAccountBuilder::new(supplier)
+            .with_audience("test-audience")
+            .with_universe_domain("my-custom-universe.com");
+
+        let (config, _, _) = builder.build_components().unwrap();
+
+        assert_eq!(
+            config.token_url,
+            "https://sts.my-custom-universe.com/v1/token"
+        );
+    }
+
+    #[tokio::test]
+    async fn aws_external_account_builder_impersonation_url_updates_with_universe_domain() {
+        let supplier = Arc::new(TestAwsSupplier);
+        let builder = AwsExternalAccountBuilder::new(supplier)
+            .with_audience("test-audience")
+            .with_target_principal("test-principal")
+            .with_universe_domain("my-custom-universe.com");
+
+        let (config, _, _) = builder.build_components().unwrap();
+
+        assert_eq!(
+            config.service_account_impersonation_url,
+            Some("https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string())
         );
     }
 

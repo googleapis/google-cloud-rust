@@ -14,6 +14,9 @@
 
 use crate::{
     Result,
+    credentials::external_account::{
+        AwsSecurityCredentials, AwsSecurityCredentialsSupplier, SupplierOptions,
+    },
     credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     },
@@ -26,6 +29,7 @@ use reqwest::{Client, Response};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
+use std::sync::Arc;
 
 const AWS_REGION: &str = "AWS_REGION";
 const AWS_DEFAULT_REGION: &str = "AWS_DEFAULT_REGION";
@@ -89,13 +93,23 @@ impl AwsSourcedCredentials {
 }
 
 #[derive(Debug, Deserialize)]
-struct AwsSecurityCredentials {
+struct AwsMetadataSecurityCredentials {
     #[serde(rename = "AccessKeyId")]
     access_key_id: String,
     #[serde(rename = "SecretAccessKey")]
     secret_access_key: String,
     #[serde(rename = "Token")]
     token: Option<String>,
+}
+
+impl From<AwsMetadataSecurityCredentials> for AwsSecurityCredentials {
+    fn from(value: AwsMetadataSecurityCredentials) -> Self {
+        Self {
+            access_key_id: value.access_key_id,
+            secret_access_key: value.secret_access_key,
+            session_token: value.token,
+        }
+    }
 }
 
 #[derive(Serialize)]
@@ -127,95 +141,154 @@ impl SubjectTokenProvider for AwsSourcedCredentials {
             .resolve_credentials(&client, imdsv2_token.as_deref())
             .await?;
 
-        let now = Utc::now();
-        let amz_date = now.format("%Y%m%dT%H%M%SZ").to_string();
-        let date_stamp = now.format("%Y%m%d").to_string();
-
-        let url = resolve_sts_url(self.regional_cred_verification_url.as_deref(), &region)?;
-        let host = url.host_str().unwrap(); // unwrap is safe because resolve_sts_url checks for a host
-        let sts_url = url.to_string();
-
-        let method = "POST";
-        let body = "";
-        let canonical_uri = "/";
-
-        let query_params: BTreeMap<_, _> = url.query_pairs().collect();
-        let canonical_query = url::form_urlencoded::Serializer::new(String::new())
-            .extend_pairs(query_params)
-            .finish();
-
-        let mut headers = BTreeMap::new();
-        headers.insert("host".to_string(), host.to_string());
-        headers.insert(X_AMZ_DATE.to_string(), amz_date.clone());
-        if let Some(token) = &creds.token {
-            headers.insert(X_AMZ_SECURITY_TOKEN.to_string(), token.clone());
-        }
-        headers.insert(
-            X_GOOG_CLOUD_TARGET_RESOURCE.to_string(),
-            self.audience.clone(),
-        );
-
-        let signed_headers = headers.keys().cloned().collect::<Vec<_>>().join(";");
-        let canonical_headers = headers.iter().fold(String::new(), |mut acc, (k, v)| {
-            acc.push_str(&format!("{}:{}\n", k, v.trim()));
-            acc
-        });
-
-        let payload_hash = hash_sha256(body);
-
-        let canonical_request = format!(
-            "{}\n{}\n{}\n{}\n{}\n{}",
-            method, canonical_uri, canonical_query, canonical_headers, signed_headers, payload_hash
-        );
-
-        let credential_scope = format!(
-            "{}/{}/{}/{}",
-            date_stamp, region, AWS_STS_SERVICE, AWS4_REQUEST
-        );
-        let string_to_sign = format!(
-            "{}\n{}\n{}\n{}",
-            AWS4_HMAC_SHA256,
-            amz_date,
-            credential_scope,
-            hash_sha256(&canonical_request)
-        );
-
-        let signing_key = get_signing_key(
-            &creds.secret_access_key,
-            &date_stamp,
+        build_aws_subject_token(
+            &self.audience,
             &region,
-            AWS_STS_SERVICE,
-        )?;
-        let signature = hex::encode(hmac_sha256(&signing_key, &string_to_sign)?);
+            &creds,
+            self.regional_cred_verification_url.as_deref(),
+        )
+    }
+}
 
-        let authorization_header = format!(
-            "{} Credential={}/{}, SignedHeaders={}, Signature={}",
-            AWS4_HMAC_SHA256, creds.access_key_id, credential_scope, signed_headers, signature
-        );
+pub(crate) fn build_aws_subject_token(
+    audience: &str,
+    region: &str,
+    creds: &AwsSecurityCredentials,
+    regional_cred_verification_url: Option<&str>,
+) -> Result<SubjectToken> {
+    let now = Utc::now();
+    let amz_date = now.format("%Y%m%dT%H%M%SZ").to_string();
+    let date_stamp = now.format("%Y%m%d").to_string();
 
-        let final_headers: Vec<_> = headers
-            .into_iter()
-            .map(|(key, value)| AwsHeader { key, value })
-            .chain(std::iter::once(AwsHeader {
-                key: "Authorization".to_string(),
-                value: authorization_header,
-            }))
-            .collect();
+    let url = resolve_sts_url(regional_cred_verification_url, region)?;
+    let host = url.host_str().unwrap(); // unwrap is safe because resolve_sts_url checks for a host
+    let sts_url = url.to_string();
 
-        let aws_sts_request = AwsStsRequest {
-            url: sts_url,
-            method: method.to_string(),
-            headers: final_headers,
-            body: body.to_string(),
+    let method = "POST";
+    let body = "";
+    let canonical_uri = "/";
+
+    let query_params: BTreeMap<_, _> = url.query_pairs().collect();
+    let canonical_query = url::form_urlencoded::Serializer::new(String::new())
+        .extend_pairs(query_params)
+        .finish();
+
+    let mut headers = BTreeMap::new();
+    headers.insert("host".to_string(), host.to_string());
+    headers.insert(X_AMZ_DATE.to_string(), amz_date.clone());
+    if let Some(token) = &creds.session_token {
+        headers.insert(X_AMZ_SECURITY_TOKEN.to_string(), token.clone());
+    }
+    headers.insert(
+        X_GOOG_CLOUD_TARGET_RESOURCE.to_string(),
+        audience.to_string(),
+    );
+
+    let signed_headers = headers.keys().cloned().collect::<Vec<_>>().join(";");
+    let canonical_headers = headers.iter().fold(String::new(), |mut acc, (k, v)| {
+        acc.push_str(&format!("{}:{}\n", k, v.trim()));
+        acc
+    });
+
+    let payload_hash = hash_sha256(body);
+
+    let canonical_request = format!(
+        "{}\n{}\n{}\n{}\n{}\n{}",
+        method, canonical_uri, canonical_query, canonical_headers, signed_headers, payload_hash
+    );
+
+    let credential_scope = format!(
+        "{}/{}/{}/{}",
+        date_stamp, region, AWS_STS_SERVICE, AWS4_REQUEST
+    );
+    let string_to_sign = format!(
+        "{}\n{}\n{}\n{}",
+        AWS4_HMAC_SHA256,
+        amz_date,
+        credential_scope,
+        hash_sha256(&canonical_request)
+    );
+
+    let signing_key = get_signing_key(
+        &creds.secret_access_key,
+        &date_stamp,
+        region,
+        AWS_STS_SERVICE,
+    )?;
+    let signature = hex::encode(hmac_sha256(&signing_key, &string_to_sign)?);
+
+    let authorization_header = format!(
+        "{} Credential={}/{}, SignedHeaders={}, Signature={}",
+        AWS4_HMAC_SHA256, creds.access_key_id, credential_scope, signed_headers, signature
+    );
+
+    let final_headers: Vec<_> = headers
+        .into_iter()
+        .map(|(key, value)| AwsHeader { key, value })
+        .chain(std::iter::once(AwsHeader {
+            key: "Authorization".to_string(),
+            value: authorization_header,
+        }))
+        .collect();
+
+    let aws_sts_request = AwsStsRequest {
+        url: sts_url,
+        method: method.to_string(),
+        headers: final_headers,
+        body: body.to_string(),
+    };
+
+    let json_token = serde_json::to_string(&aws_sts_request)
+        .map_err(|e| CredentialsError::from_source(false, e))?;
+
+    let subject_token: String =
+        url::form_urlencoded::byte_serialize(json_token.as_bytes()).collect();
+
+    Ok(SubjectTokenBuilder::new(subject_token).build())
+}
+
+/// Credential source for AWS workloads using caller-provided security credentials.
+#[derive(Debug, Clone)]
+pub(crate) struct AwsSupplierSourcedCredentials {
+    supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
+    audience: String,
+    subject_token_type: String,
+    regional_cred_verification_url: Option<String>,
+}
+
+impl AwsSupplierSourcedCredentials {
+    pub(crate) fn new(
+        supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
+        audience: String,
+        subject_token_type: String,
+        regional_cred_verification_url: Option<String>,
+    ) -> Self {
+        Self {
+            supplier,
+            audience,
+            subject_token_type,
+            regional_cred_verification_url,
+        }
+    }
+}
+
+impl SubjectTokenProvider for AwsSupplierSourcedCredentials {
+    type Error = CredentialsError;
+
+    async fn subject_token(&self) -> Result<SubjectToken> {
+        let options = SupplierOptions {
+            audience: self.audience.clone(),
+            subject_token_type: self.subject_token_type.clone(),
         };
+        let region = self.supplier.aws_region(options.clone()).await?;
+        let creds = self.supplier.aws_security_credentials(options).await?;
 
-        let json_token = serde_json::to_string(&aws_sts_request)
-            .map_err(|e| CredentialsError::from_source(false, e))?;
-
-        let subject_token: String =
-            url::form_urlencoded::byte_serialize(json_token.as_bytes()).collect();
-
-        Ok(SubjectTokenBuilder::new(subject_token).build())
+        build_aws_subject_token(
+            &self.audience,
+            &region,
+            &creds,
+            self.regional_cred_verification_url.as_deref(),
+        )
     }
 }
 
@@ -402,11 +475,11 @@ impl AwsSourcedCredentials {
                 )
                 .await?;
 
-            let creds = response
+            let creds: AwsMetadataSecurityCredentials = response
                 .json()
                 .await
                 .map_err(|e| errors::from_http_error(e, "failed to parse AWS credentials JSON"))?;
-            return Ok(creds);
+            return Ok(creds.into());
         }
         Err(CredentialsError::from_msg(
             false,
@@ -426,7 +499,7 @@ impl AwsSourcedCredentials {
             return Ok(AwsSecurityCredentials {
                 access_key_id: ak,
                 secret_access_key: sk,
-                token: std::env::var(AWS_SESSION_TOKEN).ok(),
+                session_token: std::env::var(AWS_SESSION_TOKEN).ok(),
             });
         }
 
@@ -450,6 +523,67 @@ mod tests {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
+    const TEST_AWS_SUBJECT_TOKEN_TYPE: &str = "urn:ietf:params:aws:token-type:aws4_request";
+
+    fn decode_subject_token_json(
+        subject_token: SubjectToken,
+    ) -> std::result::Result<serde_json::Value, Box<dyn std::error::Error>> {
+        let decoded_json: String = url::form_urlencoded::parse(subject_token.token.as_bytes())
+            .map(|(k, _)| k)
+            .collect();
+        Ok(serde_json::from_str(&decoded_json)?)
+    }
+
+    #[derive(Debug)]
+    struct StaticAwsSupplier {
+        region: String,
+        credentials: AwsSecurityCredentials,
+    }
+
+    #[async_trait::async_trait]
+    impl AwsSecurityCredentialsSupplier for StaticAwsSupplier {
+        async fn aws_region(
+            &self,
+            options: SupplierOptions,
+        ) -> std::result::Result<String, CredentialsError> {
+            assert_eq!(options.audience, "supplier-audience");
+            assert_eq!(options.subject_token_type, TEST_AWS_SUBJECT_TOKEN_TYPE);
+            Ok(self.region.clone())
+        }
+
+        async fn aws_security_credentials(
+            &self,
+            options: SupplierOptions,
+        ) -> std::result::Result<AwsSecurityCredentials, CredentialsError> {
+            assert_eq!(options.audience, "supplier-audience");
+            assert_eq!(options.subject_token_type, TEST_AWS_SUBJECT_TOKEN_TYPE);
+            Ok(self.credentials.clone())
+        }
+    }
+
+    #[derive(Debug)]
+    struct FailingCredentialsSupplier;
+
+    #[async_trait::async_trait]
+    impl AwsSecurityCredentialsSupplier for FailingCredentialsSupplier {
+        async fn aws_region(
+            &self,
+            _options: SupplierOptions,
+        ) -> std::result::Result<String, CredentialsError> {
+            Ok("us-east-1".to_string())
+        }
+
+        async fn aws_security_credentials(
+            &self,
+            _options: SupplierOptions,
+        ) -> std::result::Result<AwsSecurityCredentials, CredentialsError> {
+            Err(CredentialsError::from_msg(
+                false,
+                "supplier credentials failed",
+            ))
+        }
+    }
+
     #[test_case("us-east-1a", Some("us-east-1"); "zone_to_region")]
     #[test_case("us-east-1", Some("us-east-1"); "already_region")]
     #[test_case("us-gov-west-1a", Some("us-gov-west-1"); "gov_zone_to_region")]
@@ -464,6 +598,7 @@ mod tests {
 
     #[test_case(None, "us-east-1", "https://sts.us-east-1.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15"; "default_template")]
     #[test_case(Some("http://custom.sts.url/{region}"), "us-west-2", "http://custom.sts.url/us-west-2"; "custom_template_with_region")]
+    #[test_case(Some("http://custom.sts.url/{region}?Action=GetCallerIdentity&Version=2011-06-15"), "us-west-2", "http://custom.sts.url/us-west-2?Action=GetCallerIdentity&Version=2011-06-15"; "custom_template_get_caller_identity_with_region")]
     #[test_case(Some("sts.amazonaws.com"), "us-east-1", "https://sts.amazonaws.com/"; "no_scheme")]
     #[test_case(Some("https://sts.amazonaws.com"), "us-east-1", "https://sts.amazonaws.com/"; "with_scheme")]
     fn test_resolve_sts_url(template: Option<&str>, region: &str, expected: &str) {
@@ -475,6 +610,125 @@ mod tests {
     fn test_resolve_sts_url_invalid() {
         let result = resolve_sts_url(Some("not a url"), "region");
         assert!(result.is_err());
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_supplier_subject_token_success() -> TestResult {
+        let supplier = Arc::new(StaticAwsSupplier {
+            region: "eu-west-1".to_string(),
+            credentials: AwsSecurityCredentials {
+                access_key_id: "SUPPLIER_ACCESS_KEY".to_string(),
+                secret_access_key: "SUPPLIER_SECRET".to_string(),
+                session_token: Some("SUPPLIER_SESSION_TOKEN".to_string()),
+            },
+        });
+        let creds = AwsSupplierSourcedCredentials::new(
+            supplier,
+            "supplier-audience".to_string(),
+            TEST_AWS_SUBJECT_TOKEN_TYPE.to_string(),
+            Some(
+                "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15"
+                    .to_string(),
+            ),
+        );
+
+        let val = decode_subject_token_json(creds.subject_token().await?)?;
+
+        assert_eq!(
+            val["url"],
+            "https://sts.eu-west-1.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15",
+            "{val:?}"
+        );
+        let headers = val["headers"]
+            .as_array()
+            .ok_or("headers should be an array")?;
+
+        let session_token = headers
+            .iter()
+            .find(|h| h["key"] == X_AMZ_SECURITY_TOKEN)
+            .ok_or("missing session token header")?;
+        assert_eq!(session_token["value"], "SUPPLIER_SESSION_TOKEN", "{val:?}");
+
+        let target_resource = headers
+            .iter()
+            .find(|h| h["key"] == X_GOOG_CLOUD_TARGET_RESOURCE)
+            .ok_or("missing target resource header")?;
+        assert_eq!(target_resource["value"], "supplier-audience", "{val:?}");
+
+        let auth = headers
+            .iter()
+            .find(|h| h["key"] == "Authorization")
+            .ok_or("missing auth header")?;
+        let auth_value = auth["value"].as_str().ok_or("auth should be a string")?;
+        assert!(auth_value.contains("SUPPLIER_ACCESS_KEY"), "{auth:?}");
+        assert!(
+            auth_value.contains("/eu-west-1/sts/aws4_request"),
+            "{auth:?}"
+        );
+        assert!(
+            auth_value.contains(
+                "SignedHeaders=host;x-amz-date;x-amz-security-token;x-goog-cloud-target-resource"
+            ),
+            "{auth:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_supplier_subject_token_without_session_token() -> TestResult {
+        let supplier = Arc::new(StaticAwsSupplier {
+            region: "eu-west-1".to_string(),
+            credentials: AwsSecurityCredentials {
+                access_key_id: "SUPPLIER_ACCESS_KEY".to_string(),
+                secret_access_key: "SUPPLIER_SECRET".to_string(),
+                session_token: None,
+            },
+        });
+        let creds = AwsSupplierSourcedCredentials::new(
+            supplier,
+            "supplier-audience".to_string(),
+            TEST_AWS_SUBJECT_TOKEN_TYPE.to_string(),
+            None,
+        );
+
+        let val = decode_subject_token_json(creds.subject_token().await?)?;
+        let headers = val["headers"]
+            .as_array()
+            .ok_or("headers should be an array")?;
+
+        assert!(
+            headers.iter().all(|h| h["key"] != X_AMZ_SECURITY_TOKEN),
+            "{headers:?}"
+        );
+        let auth = headers
+            .iter()
+            .find(|h| h["key"] == "Authorization")
+            .ok_or("missing auth header")?;
+        let auth_value = auth["value"].as_str().ok_or("auth should be a string")?;
+        assert!(
+            auth_value.contains("SignedHeaders=host;x-amz-date;x-goog-cloud-target-resource"),
+            "{auth:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_supplier_error_propagates() {
+        let creds = AwsSupplierSourcedCredentials::new(
+            Arc::new(FailingCredentialsSupplier),
+            "supplier-audience".to_string(),
+            TEST_AWS_SUBJECT_TOKEN_TYPE.to_string(),
+            None,
+        );
+
+        let err = creds.subject_token().await.unwrap_err();
+        assert!(err.to_string().contains("supplier credentials failed"));
+        assert!(!err.is_transient());
     }
 
     #[tokio::test]
@@ -576,7 +830,7 @@ mod tests {
         assert_eq!(resolved.access_key_id, "ACCESS_KEY_ID_IMDS", "{resolved:?}");
         assert_eq!(resolved.secret_access_key, "SECRET_IMDS", "{resolved:?}");
         assert_eq!(
-            resolved.token,
+            resolved.session_token,
             Some("TOKEN_IMDS".to_string()),
             "{resolved:?}"
         );
