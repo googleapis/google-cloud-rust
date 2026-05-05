@@ -15,9 +15,9 @@
 #[cfg(test)]
 mod tests {
     use gaxi::grpc::tonic::Response;
-    use gcs::builder_ext::QuotaProjectExt;
     use gcs::client::StorageControl;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::options::RequestOptionsBuilder;
     use google_cloud_storage as gcs;
     use storage_grpc_mock::{MockStorage, google, start};
 

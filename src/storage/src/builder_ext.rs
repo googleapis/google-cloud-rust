@@ -71,44 +71,6 @@ impl RewriteObjectExt for crate::builder::storage_control::RewriteObject {
     }
 }
 
-/// Adds `.with_quota_project(...)` to every [StorageControl] request
-/// builder.
-///
-/// Required for [Requester Pays] buckets. The value overrides any
-/// `quota_project_id` configured on the credentials; the credential-level
-/// header is suppressed for this RPC.
-///
-/// # Example
-/// ```
-/// # use google_cloud_storage::client::StorageControl;
-/// # use google_cloud_storage::builder_ext::QuotaProjectExt;
-/// # async fn sample(client: &StorageControl) -> anyhow::Result<()> {
-/// let bucket = client
-///     .get_bucket()
-///     .set_name("projects/_/buckets/my-bucket")
-///     .with_quota_project("my-billing-project")
-///     .send()
-///     .await?;
-/// # Ok(()) }
-/// ```
-///
-/// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
-/// [StorageControl]: crate::client::StorageControl
-pub trait QuotaProjectExt: Sized {
-    /// Sets the project that will be billed for this request.
-    fn with_quota_project(self, project: impl Into<String>) -> Self;
-}
-
-impl<T> QuotaProjectExt for T
-where
-    T: google_cloud_gax::options::internal::RequestBuilder,
-{
-    fn with_quota_project(mut self, project: impl Into<String>) -> Self {
-        self.request_options().set_quota_project(project);
-        self
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -116,7 +78,6 @@ mod tests {
     use crate::model::{Object, RewriteObjectRequest, RewriteResponse};
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::RequestBuilder;
     use google_cloud_gax::response::Response;
 
     mockall::mock! {
@@ -125,17 +86,6 @@ mod tests {
         impl crate::stub::StorageControl for StorageControl {
             async fn rewrite_object( &self, _req: RewriteObjectRequest, _options: RequestOptions) -> crate::Result<Response<RewriteResponse>>;
         }
-    }
-
-    #[test]
-    fn with_quota_project_sets_extensions() {
-        const PROJECT_NAME: &str = "project_lazy_dog";
-        let client = StorageControl::from_stub(MockStorageControl::new());
-        let mut builder = client.get_bucket();
-        builder = builder.with_quota_project(PROJECT_NAME);
-
-        let opts = builder.request_options();
-        assert_eq!(opts.quota_project().as_deref(), Some(PROJECT_NAME));
     }
 
     #[tokio::test]
