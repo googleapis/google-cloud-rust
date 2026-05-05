@@ -47,7 +47,6 @@ pub(super) trait Leaser {
     /// Negatively acknowledge a batch of messages and confirm the result.
     async fn confirmed_nack(&self, ack_ids: Vec<String>);
     /// Extend lease deadlines for a batch of messages with exactly-once semantics.
-    #[allow(dead_code)]
     async fn eo_extend(&self, ack_ids: Vec<String>);
 }
 
@@ -226,7 +225,6 @@ where
         .await;
     }
 
-    #[allow(dead_code)]
     async fn eo_extend(&self, ack_ids: Vec<String>) {
         let leaser = self.clone();
         let options = self.options.clone();
