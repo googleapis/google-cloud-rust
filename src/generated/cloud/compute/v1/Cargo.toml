@@ -76,6 +76,8 @@ global-operations = []
 global-organization-operations = []
 # Enables `client::GlobalPublicDelegatedPrefixes` and all the types it depends on.
 global-public-delegated-prefixes = []
+# Enables `client::GlobalVmExtensionPolicies` and all the types it depends on.
+global-vm-extension-policies = []
 # Enables `client::HealthChecks` and all the types it depends on.
 health-checks = []
 # Enables `client::HttpHealthChecks` and all the types it depends on.
@@ -228,6 +230,10 @@ reservation-sub-blocks = []
 reservations = []
 # Enables `client::ResourcePolicies` and all the types it depends on.
 resource-policies = []
+# Enables `client::RolloutPlans` and all the types it depends on.
+rollout-plans = []
+# Enables `client::Rollouts` and all the types it depends on.
+rollouts = []
 # Enables `client::Routers` and all the types it depends on.
 routers = []
 # Enables `client::Routes` and all the types it depends on.
