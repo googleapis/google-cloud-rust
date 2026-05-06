@@ -278,6 +278,70 @@ impl Builder {
         self
     }
 
+    /// Configure the retry policy for fetching tokens.
+    ///
+    /// The retry policy controls how to handle retries, and sets limits on
+    /// the number of attempts or the total time spent retrying.
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::gdch::Builder;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// let credentials = Builder::default()
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::gdch::Builder;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let policy = ExponentialBackoff::default();
+    /// let credentials = Builder::default()
+    ///     .with_backoff_policy(policy)
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The authentication library throttles its retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throttler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::gdch::Builder;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
+    /// let credentials = Builder::default()
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
+        self
+    }
+
     fn build_credentials(self) -> crate::BuildResult<GdchServiceAccountCredentials> {
         let key = serde_json::from_value::<GdchServiceAccountKey>(self.key)
             .map_err(crate::build_errors::Error::parsing)?;
