@@ -45,7 +45,7 @@ wkt.workspace              = true
 gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 
 [dev-dependencies]
-anyhow.workspace = true
+anyhow.workspace            = true
 google-cloud-auth.workspace = true
 bigquery-grpc-mock          = { path = "grpc-mock" }
 

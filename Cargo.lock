@@ -1842,7 +1842,9 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
+ "bigquery-grpc-mock",
  "bytes",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-rpc",
@@ -1854,6 +1856,8 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "tokio",
+ "tokio-stream",
  "tracing",
 ]
 
