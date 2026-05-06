@@ -57,12 +57,18 @@ where
     )
 }
 
+/// Details for tracing a poller.
+#[derive(Clone, Debug, Default)]
+#[non_exhaustive]
+pub struct TracingDetails {
+    pub method_name: &'static str,
+}
+
 /// Options for creating a new poller.
 #[derive(Default)]
 #[non_exhaustive]
 pub struct PollerOptions {
-    pub method_name: &'static str,
-    pub enable_tracing: bool,
+    pub tracing: Option<TracingDetails>,
 }
 
 /// Creates a new `impl Poller<R, M>` with options.
@@ -89,20 +95,17 @@ where
         + 'static,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    let lro_span = if options.enable_tracing {
-        Some(tracing::info_span!(
+    let lro_span = options.tracing.map(|t| {
+        tracing::info_span!(
             "LRO Wait",
-            "gcp.rpc.method" = options.method_name,
+            "gcp.rpc.method" = t.method_name,
             "gcp.lro.operation_name" = tracing::field::Empty
-        ))
-    } else {
-        None
-    };
+        )
+    });
 
     #[cfg(not(google_cloud_unstable_tracing))]
     {
-        let _ = options.method_name;
-        let _ = options.enable_tracing;
+        let _ = options.tracing;
     }
 
     PollerImpl::new(
@@ -497,8 +500,9 @@ mod tests {
             start,
             query,
             PollerOptions {
-                method_name: "test_method",
-                enable_tracing: true,
+                tracing: Some(TracingDetails {
+                    method_name: "test_method",
+                }),
             },
         );
     }
@@ -515,8 +519,9 @@ mod tests {
             start,
             query,
             PollerOptions {
-                method_name: "test_method",
-                enable_tracing: true,
+                tracing: Some(TracingDetails {
+                    method_name: "test_method",
+                }),
             },
         );
     }
