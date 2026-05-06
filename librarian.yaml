@@ -749,6 +749,7 @@ libraries:
     roots:
       - discovery
       - googleapis
+    skip_generate: true
     specification_format: discovery
     rust:
       package_dependencies:
