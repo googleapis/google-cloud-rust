@@ -847,6 +847,10 @@ libraries:
         - output: src/gax-internal/src/generated/protos/rpc
           api_path: google/rpc
           template: prost
+  - name: google-cloud-geminidataanalytics-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-gkebackup-v1
     version: 1.10.0
     copyright_year: "2025"
