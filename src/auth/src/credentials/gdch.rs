@@ -278,6 +278,13 @@ impl Builder {
         let key = serde_json::from_value::<GdchServiceAccountKey>(self.key)
             .map_err(crate::build_errors::Error::parsing)?;
 
+        if key.cred_type != "gdch_service_account" {
+            return Err(crate::build_errors::Error::not_supported(format!(
+                "unsupported credential type: {}. Expected 'gdch_service_account'",
+                key.cred_type
+            )));
+        }
+
         if key.format_version != "1" {
             return Err(crate::build_errors::Error::not_supported(format!(
                 "unsupported format_version: {}. Expected '1'",
@@ -386,10 +393,21 @@ mod tests {
     }
 
     #[test]
-    fn builder_invalid_json() {
+    fn invalid_type() {
+        let mut json = get_mock_key_json();
+        json["type"] = json!("invalid_credential_type");
+
+        let builder = Builder::new("test-audience", json);
+        let err = builder.build().unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
+    }
+
+    #[test]
+    fn builder_missing_required_fields() {
         let json = json!({
             "type": "gdch_service_account",
-            // missing format_version and other required fields
+            "format_version": "1"
+            // missing project, private_key, name, token_uri
         });
 
         let builder = Builder::new("test-audience", json);
@@ -578,7 +596,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_gdch_retries_on_transient_failures() -> TestResult {
+    async fn gdch_applies_retry_settings_for_transient_failures() -> TestResult {
         let server = Server::run();
 
         let mut key_json = get_mock_key_json();
@@ -615,7 +633,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_gdch_does_not_retry_on_non_transient_failures() -> TestResult {
+    async fn gdch_applies_retry_settings_for_non_transient_failures() -> TestResult {
         let server = Server::run();
 
         let mut key_json = get_mock_key_json();
