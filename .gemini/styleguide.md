@@ -75,7 +75,7 @@ When reviewing or generating code, apply rigorous scrutiny:
 - **Conventional Commits:** Follow the conventions in
   [CONTRIBUTING.md](../CONTRIBUTING.md#commit-messages).
 - **Format:** `<type>(<scope>): <description>`
-- **Types:** `feat`, `fix`, `docs`, `impl`, `refactor`, `cleanup`, `test`, `ci`.
+- **Types:** `feat`, `fix`, `docs`, `impl`, `refactor`, `cleanup`, `test`, `ci`, `chore`.
 - **Scope:** Crate name without the `google-cloud-` prefix.
 - **Description:** Short one-line summary completing the sentence "This change
   modifies the crate to ...".
