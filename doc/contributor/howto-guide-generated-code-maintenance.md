@@ -304,6 +304,13 @@ Then finish your PR in `google-cloud-rust`.
    go run github.com/googleapis/librarian/cmd/librarian@latest update version
    ```
 
+   Note: if you want to use the version of librarian at HEAD, you can run:
+
+   ```bash
+   V=$(GOPROXY=direct go list -m -f '{{.Version}}' github.com/googleapis/librarian@main)
+   sed -i.bak "s;^version: .*;version: ${V};" librarian.yaml && rm librarian.yaml.bak
+   ```
+
 1. Update the generated code:
 
    ```bash
