@@ -26,6 +26,9 @@ use crate::token_cache::TokenCache;
 use crate::{Result, errors};
 use async_trait::async_trait;
 use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use rustls::sign::Signer;
 use rustls_pki_types::PrivateKeyDer;
@@ -191,6 +194,107 @@ struct GdchServiceAccountCredentials {
     quota_project_id: Option<String>,
 }
 
+/// A builder for [`GdchServiceAccountCredentials`].
+#[allow(dead_code)]
+pub(crate) struct Builder {
+    key: serde_json::Value,
+    quota_project_id: Option<String>,
+    audience: String,
+    retry_builder: crate::retry::Builder,
+}
+
+#[allow(dead_code)]
+impl Builder {
+    /// Creates a new builder using [Google Distributed Cloud service account key] JSON value and the
+    /// `audience`. The `audience` specifies the service that the token is intended for.
+    ///
+    /// [Google Distributed Cloud service account key]: https://docs.cloud.google.com/distributed-cloud/hosted/docs/latest/gdcag/platform/pa-user/service-identity#auth-and-use-sa
+    pub fn new<S: Into<String>>(audience: S, key: serde_json::Value) -> Self {
+        Self {
+            key,
+            quota_project_id: None,
+            audience: audience.into(),
+            retry_builder: crate::retry::Builder::default(),
+        }
+    }
+
+    /// Sets the [quota project] for this credentials.
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Configure the retry policy for fetching tokens.
+    ///
+    /// The retry policy controls how to handle retries, and sets limits on
+    /// the number of attempts or the total time spent retrying.
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The backoff policy controls how long to wait in between retry attempts.
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The authentication library throttles its retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throttler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
+        self
+    }
+
+    /// Returns a [crate::credentials::Credentials] instance with the configured settings.
+    pub fn build(self) -> crate::BuildResult<crate::credentials::Credentials> {
+        Ok(crate::credentials::Credentials {
+            inner: std::sync::Arc::new(self.build_credentials()?),
+        })
+    }
+
+    /// Returns an [crate::credentials::AccessTokenCredentials] instance with the configured settings.
+    pub fn build_access_token_credentials(
+        self,
+    ) -> crate::BuildResult<crate::credentials::AccessTokenCredentials> {
+        Ok(crate::credentials::AccessTokenCredentials {
+            inner: std::sync::Arc::new(self.build_credentials()?),
+        })
+    }
+
+    fn build_credentials(self) -> crate::BuildResult<GdchServiceAccountCredentials> {
+        let key = serde_json::from_value::<GdchServiceAccountKey>(self.key)
+            .map_err(crate::build_errors::Error::parsing)?;
+
+        if key.format_version != "1" {
+            return Err(crate::build_errors::Error::not_supported(format!(
+                "unsupported format_version: {}. Expected '1'",
+                key.format_version
+            )));
+        }
+
+        let token_provider = GdchServiceAccountTokenProvider::new(self.audience, key);
+        let token_provider_with_retry = self.retry_builder.build(token_provider);
+
+        Ok(GdchServiceAccountCredentials {
+            token_provider: TokenCache::new(token_provider_with_retry),
+            quota_project_id: self.quota_project_id,
+        })
+    }
+}
+
 #[async_trait]
 impl CredentialsProvider for GdchServiceAccountCredentials {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
@@ -217,17 +321,21 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    fn get_mock_key_json() -> serde_json::Value {
+        json!({
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project",
+            "private_key_id": "test-key-id",
+            "private_key": crate::credentials::tests::ES256_PEM.as_str(),
+            "name": "test-name",
+            "token_uri": "http://localhost/token"
+        })
+    }
+
     fn get_mock_key() -> GdchServiceAccountKey {
-        GdchServiceAccountKey {
-            cred_type: "gdch_service_account".to_string(),
-            format_version: "1".to_string(),
-            project: "test-project".to_string(),
-            private_key_id: "test-key-id".to_string(),
-            private_key: (*crate::credentials::tests::ES256_PEM).clone(),
-            name: "test-name".to_string(),
-            ca_cert_path: None,
-            token_uri: "http://localhost/token".to_string(),
-        }
+        let json = get_mock_key_json();
+        serde_json::from_value(json).expect("failed to deserialize mock key")
     }
 
     #[test]
@@ -258,6 +366,35 @@ mod tests {
         assert_eq!(key.cred_type, "gdch_service_account");
         assert_eq!(key.project, "test-project");
         Ok(())
+    }
+
+    #[test]
+    fn invalid_version() {
+        let json = json!({
+            "type": "gdch_service_account",
+            "format_version": "2", // Invalid
+            "project": "test-project",
+            "private_key_id": "test-key-id",
+            "private_key": crate::credentials::tests::ES256_PEM.as_str(),
+            "name": "test-name",
+            "token_uri": "http://localhost/token"
+        });
+
+        let builder = Builder::new("test-audience", json);
+        let err = builder.build().unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
+    }
+
+    #[test]
+    fn builder_invalid_json() {
+        let json = json!({
+            "type": "gdch_service_account",
+            // missing format_version and other required fields
+        });
+
+        let builder = Builder::new("test-audience", json);
+        let err = builder.build().unwrap_err();
+        assert!(err.is_parsing(), "{err:?}");
     }
 
     #[test]
@@ -295,10 +432,13 @@ mod tests {
     async fn token_exchange() -> TestResult {
         let server = Server::run();
 
+        let mut key_json = get_mock_key_json();
+        key_json["token_uri"] = json!(server.url("/token").to_string());
+
         let mut key = get_mock_key();
         key.token_uri = server.url("/token").to_string();
 
-        let provider = GdchServiceAccountTokenProvider::new("test-audience".to_string(), key);
+        let creds = Builder::new("test-audience", key_json).build()?;
 
         let response_body = json!({
             "access_token": "sts-token",
@@ -320,10 +460,46 @@ mod tests {
             .respond_with(status_code(200).body(response_body)),
         );
 
-        let token = provider.token().await?;
-        assert_eq!(token.token, "sts-token");
-        assert_eq!(token.token_type, "Bearer");
-        assert!(token.expires_at.is_some(), "{token:?}");
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let headers = crate::credentials::tests::get_headers_from_cache(cached_headers)?;
+        let token = headers
+            .get(http::header::AUTHORIZATION)
+            .ok_or_else(|| anyhow::anyhow!("missing auth header"))?;
+        assert_eq!(token, http::HeaderValue::from_static("Bearer sts-token"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn token_caching() -> TestResult {
+        let server = Server::run();
+
+        let mut key_json = get_mock_key_json();
+        key_json["token_uri"] = json!(server.url("/token").to_string());
+
+        let creds = Builder::new("test-audience", key_json).build()?;
+
+        let response_body = json!({
+            "access_token": "sts-token",
+            "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+            "token_type": "Bearer",
+            "expires_in": 3600
+        })
+        .to_string();
+
+        server.expect(
+            Expectation::matching(all_of![request::method_path("POST", "/token"),])
+                .times(1) // should on be called once
+                .respond_with(status_code(200).body(response_body)),
+        );
+
+        // first call should create a new cache entry
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        assert!(matches!(cached_headers, CacheableResource::New { .. }));
+
+        // subsequent call should return cached headers
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        assert!(matches!(cached_headers, CacheableResource::New { .. }));
+
         Ok(())
     }
 
@@ -401,6 +577,68 @@ mod tests {
 
         let access_token = credentials.access_token().await?;
         assert_eq!(access_token.token, "test-token");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_gdch_retries_on_transient_failures() -> TestResult {
+        let server = Server::run();
+
+        let mut key_json = get_mock_key_json();
+        key_json["token_uri"] = json!(server.url("/token").to_string());
+
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(3)
+                .respond_with(httptest::cycle![
+                    status_code(503).body("try-again"),
+                    status_code(503).body("try-again"),
+                    status_code(200).body(
+                        json!({
+                            "access_token": "sts-token-retry-success",
+                            "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                            "token_type": "Bearer",
+                            "expires_in": 3600
+                        })
+                        .to_string()
+                    ),
+                ]),
+        );
+
+        let creds = Builder::new("test-audience", key_json)
+            .with_retry_policy(crate::credentials::tests::get_mock_auth_retry_policy(3))
+            .with_backoff_policy(crate::credentials::tests::get_mock_backoff_policy())
+            .with_retry_throttler(crate::credentials::tests::get_mock_retry_throttler())
+            .build_access_token_credentials()?;
+
+        let token = creds.access_token().await?;
+        assert_eq!(token.token, "sts-token-retry-success");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_gdch_does_not_retry_on_non_transient_failures() -> TestResult {
+        let server = Server::run();
+
+        let mut key_json = get_mock_key_json();
+        key_json["token_uri"] = json!(server.url("/token").to_string());
+
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(1)
+                .respond_with(status_code(401)),
+        );
+
+        let creds = Builder::new("test-audience", key_json)
+            .with_retry_policy(crate::credentials::tests::get_mock_auth_retry_policy(3))
+            .with_backoff_policy(crate::credentials::tests::get_mock_backoff_policy())
+            .with_retry_throttler(crate::credentials::tests::get_mock_retry_throttler())
+            .build_access_token_credentials()?;
+
+        let err = creds.access_token().await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+
         Ok(())
     }
 }
