@@ -20,8 +20,10 @@
 
 mod aip151;
 mod discovery;
+#[allow(deprecated)]
 pub use aip151::{
-    Operation, new_poller, new_unit_metadata_poller, new_unit_poller, new_unit_response_poller,
+    Operation, PollerOptions, new_poller, new_poller_with_options, new_unit_metadata_poller,
+    new_unit_poller, new_unit_response_poller,
 };
 
 pub use discovery::{DiscoveryOperation, new_discovery_poller};
