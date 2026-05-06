@@ -298,7 +298,8 @@ Wait for the PR to be approved and merged.
 
 Then finish your PR in `google-cloud-rust`.
 
-1. Update the librarian version in `librarian.yaml` to the `latest` published tag on github:
+1. Update the librarian version in `librarian.yaml` to the `latest` published
+   tag on github:
 
    ```bash
    go run github.com/googleapis/librarian/cmd/librarian@latest update version
