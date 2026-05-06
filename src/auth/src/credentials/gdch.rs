@@ -435,9 +435,6 @@ mod tests {
         let mut key_json = get_mock_key_json();
         key_json["token_uri"] = json!(server.url("/token").to_string());
 
-        let mut key = get_mock_key();
-        key.token_uri = server.url("/token").to_string();
-
         let creds = Builder::new("test-audience", key_json).build()?;
 
         let response_body = json!({
@@ -488,7 +485,7 @@ mod tests {
 
         server.expect(
             Expectation::matching(all_of![request::method_path("POST", "/token"),])
-                .times(1) // should on be called once
+                .times(1) // should only be called once
                 .respond_with(status_code(200).body(response_body)),
         );
 
