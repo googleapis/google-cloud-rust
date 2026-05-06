@@ -174,7 +174,6 @@ impl GdchServiceAccountTokenProvider {
         let sig_der = signer
             .sign(to_sign.as_bytes())
             .map_err(errors::non_retryable)?;
-
         let sig = p256::ecdsa::Signature::from_der(&sig_der).map_err(|e| {
             errors::non_retryable_from_str(format!("failed to parse ecdsa DER signature: {}", e))
         })?;
