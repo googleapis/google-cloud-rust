@@ -17,6 +17,969 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::BigQueryExport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryExport");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("provisioned", &self.provisioned);
+        debug_struct.field("big_query_export_package", &self.big_query_export_package);
+        debug_struct.field("entity_graph_settings", &self.entity_graph_settings);
+        debug_struct.field("ioc_matches_settings", &self.ioc_matches_settings);
+        debug_struct.field("rule_detections_settings", &self.rule_detections_settings);
+        debug_struct.field(
+            "udm_events_aggregates_settings",
+            &self.udm_events_aggregates_settings,
+        );
+        debug_struct.field("udm_events_settings", &self.udm_events_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataSourceExportSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceExportSettings");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("retention_days", &self.retention_days);
+        debug_struct.field("latest_export_job_state", &self.latest_export_job_state);
+        debug_struct.field("data_freshness_time", &self.data_freshness_time);
+        debug_struct.field("data_volume", &self.data_volume);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBigQueryExportRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBigQueryExportRequest");
+        debug_struct.field("big_query_export", &self.big_query_export);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ProvisionBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProvisionBigQueryExportRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DashboardChart {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DashboardChart");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        debug_struct.field("tile_type", &self.tile_type);
+        debug_struct.field("chart_datasource", &self.chart_datasource);
+        debug_struct.field("visualization", &self.visualization);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("drill_down_config", &self.drill_down_config);
+        debug_struct.field("tokens", &self.tokens);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::ChartDatasource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChartDatasource");
+        debug_struct.field("dashboard_query", &self.dashboard_query);
+        debug_struct.field("data_sources", &self.data_sources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::Visualization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Visualization");
+        debug_struct.field("x_axes", &self.x_axes);
+        debug_struct.field("y_axes", &self.y_axes);
+        debug_struct.field("series", &self.series);
+        debug_struct.field("tooltip", &self.tooltip);
+        debug_struct.field("legends", &self.legends);
+        debug_struct.field("column_defs", &self.column_defs);
+        debug_struct.field("table_config", &self.table_config);
+        debug_struct.field("button", &self.button);
+        debug_struct.field("markdown", &self.markdown);
+        debug_struct.field("series_column", &self.series_column);
+        debug_struct.field("grouping_type", &self.grouping_type);
+        debug_struct.field("google_maps_config", &self.google_maps_config);
+        debug_struct.field(
+            "threshold_coloring_enabled",
+            &self.threshold_coloring_enabled,
+        );
+        debug_struct.field("visual_maps", &self.visual_maps);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::Axis {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Axis");
+        debug_struct.field("axis_type", &self.axis_type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("min", &self.min);
+        debug_struct.field("max", &self.max);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::Series {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Series");
+        debug_struct.field("series_type", &self.series_type);
+        debug_struct.field("series_name", &self.series_name);
+        debug_struct.field("show_symbol", &self.show_symbol);
+        debug_struct.field("show_background", &self.show_background);
+        debug_struct.field("stack", &self.stack);
+        debug_struct.field("series_stack_strategy", &self.series_stack_strategy);
+        debug_struct.field("encode", &self.encode);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("field", &self.field);
+        debug_struct.field("data_label", &self.data_label);
+        debug_struct.field("radius", &self.radius);
+        debug_struct.field("item_style", &self.item_style);
+        debug_struct.field("series_unique_value", &self.series_unique_value);
+        debug_struct.field("area_style", &self.area_style);
+        debug_struct.field("item_colors", &self.item_colors);
+        debug_struct.field("gauge_config", &self.gauge_config);
+        debug_struct.field("metric_trend_config", &self.metric_trend_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::Encode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Encode");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("item_name", &self.item_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::DataLabel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataLabel");
+        debug_struct.field("show", &self.show);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::ItemStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ItemStyle");
+        debug_struct.field("border_width", &self.border_width);
+        debug_struct.field("border_color", &self.border_color);
+        debug_struct.field("color", &self.color);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::AreaStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AreaStyle");
+        debug_struct.field("color", &self.color);
+        debug_struct.field("origin", &self.origin);
+        debug_struct.field("shadow_blur", &self.shadow_blur);
+        debug_struct.field("shadow_color", &self.shadow_color);
+        debug_struct.field("shadow_offset_x", &self.shadow_offset_x);
+        debug_struct.field("shadow_offset_y", &self.shadow_offset_y);
+        debug_struct.field("opacity", &self.opacity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::UserSelectedValues {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserSelectedValues");
+        debug_struct.field("color", &self.color);
+        debug_struct.field("label", &self.label);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::ChartSliceColor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChartSliceColor");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::ItemColors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ItemColors");
+        debug_struct.field("colors", &self.colors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::GaugeValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GaugeValue");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("color", &self.color);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::GaugeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GaugeConfig");
+        debug_struct.field("base_value", &self.base_value);
+        debug_struct.field("limit_value", &self.limit_value);
+        debug_struct.field("threshold_values", &self.threshold_values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::series::MetricTrendConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricTrendConfig");
+        debug_struct.field("metric_format", &self.metric_format);
+        debug_struct.field("show_metric_trend", &self.show_metric_trend);
+        debug_struct.field("metric_display_trend", &self.metric_display_trend);
+        debug_struct.field("metric_trend_type", &self.metric_trend_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::Tooltip {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tooltip");
+        debug_struct.field("show", &self.show);
+        debug_struct.field("tooltip_trigger", &self.tooltip_trigger);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::Legend {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Legend");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("show", &self.show);
+        debug_struct.field("z_level", &self.z_level);
+        debug_struct.field("z", &self.z);
+        debug_struct.field("left", &self.left);
+        debug_struct.field("top", &self.top);
+        debug_struct.field("right", &self.right);
+        debug_struct.field("bottom", &self.bottom);
+        debug_struct.field("legend_orient", &self.legend_orient);
+        debug_struct.field("legend_align", &self.legend_align);
+        debug_struct.field("padding", &self.padding);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::ColumnDef {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnDef");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("header", &self.header);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::ColumnRenderTypeSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnRenderTypeSettings");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("column_render_type", &self.column_render_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::ColumnTooltipSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnTooltipSettings");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("header_tooltip_text", &self.header_tooltip_text);
+        debug_struct.field("cell_tooltip_text", &self.cell_tooltip_text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::TableConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableConfig");
+        debug_struct.field("enable_text_wrap", &self.enable_text_wrap);
+        debug_struct.field(
+            "column_render_type_settings",
+            &self.column_render_type_settings,
+        );
+        debug_struct.field("column_tooltip_settings", &self.column_tooltip_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::GoogleMapsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleMapsConfig");
+        debug_struct.field("data_settings", &self.data_settings);
+        debug_struct.field("plot_mode", &self.plot_mode);
+        debug_struct.field("map_position", &self.map_position);
+        debug_struct.field("point_settings", &self.point_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::google_maps_config::DataSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSettings");
+        debug_struct.field("latitude_column", &self.latitude_column);
+        debug_struct.field("longitude_column", &self.longitude_column);
+        debug_struct.field("count_column", &self.count_column);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::google_maps_config::MapPosition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MapPosition");
+        debug_struct.field("fit_data", &self.fit_data);
+        debug_struct.field("latitude_value", &self.latitude_value);
+        debug_struct.field("longitude_value", &self.longitude_value);
+        debug_struct.field("zoom_scale_value", &self.zoom_scale_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::google_maps_config::PointSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PointSettings");
+        debug_struct.field("point_size_type", &self.point_size_type);
+        debug_struct.field("color", &self.color);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::VisualMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VisualMap");
+        debug_struct.field("visual_map_type", &self.visual_map_type);
+        debug_struct.field("pieces", &self.pieces);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::visualization::visual_map::VisualMapPiece {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VisualMapPiece");
+        debug_struct.field("min", &self.min);
+        debug_struct.field("max", &self.max);
+        debug_struct.field("color", &self.color);
+        debug_struct.field("label", &self.label);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::DrillDownConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DrillDownConfig");
+        debug_struct.field("left_drill_downs", &self.left_drill_downs);
+        debug_struct.field("right_drill_downs", &self.right_drill_downs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::drill_down_config::DrillDown {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DrillDown");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("settings", &self.settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DefaultDrillDownSettings");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomDrillDownSettings");
+        debug_struct.field("new_tab", &self.new_tab);
+        debug_struct.field("left_click_column", &self.left_click_column);
+        debug_struct.field("action", &self.action);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DrillDownQuery");
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DrillDownFilter");
+        debug_struct.field("dashboard_filters", &self.dashboard_filters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DrillDownDashboardFilter");
+        debug_struct.field("dashboard_filter_id", &self.dashboard_filter_id);
+        debug_struct.field("filter_operator_and_values", &self.filter_operator_and_values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DrillDownExternalLink");
+        debug_struct.field("link", &self.link);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Button {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Button");
+        debug_struct.field("label", &self.label);
+        debug_struct.field("hyperlink", &self.hyperlink);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("new_tab", &self.new_tab);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::button::Properties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Properties");
+        debug_struct.field("color", &self.color);
+        debug_struct.field("button_style", &self.button_style);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Markdown {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Markdown");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::markdown::MarkdownProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MarkdownProperties");
+        debug_struct.field("background_color", &self.background_color);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDashboardChartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDashboardChartRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchGetDashboardChartsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetDashboardChartsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchGetDashboardChartsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetDashboardChartsResponse");
+        debug_struct.field("dashboard_charts", &self.dashboard_charts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DashboardQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DashboardQuery");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("input", &self.input);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_query::Input {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Input");
+        debug_struct.field("time_input", &self.time_input);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_query::input::RelativeTime {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelativeTime");
+        debug_struct.field("time_unit", &self.time_unit);
+        debug_struct.field("start_time_val", &self.start_time_val);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDashboardQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDashboardQueryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteDashboardQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteDashboardQueryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("filters", &self.filters);
+        debug_struct.field("clear_cache", &self.clear_cache);
+        debug_struct.field("use_previous_time_range", &self.use_previous_time_range);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::QueryRuntimeError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryRuntimeError");
+        debug_struct.field("error_title", &self.error_title);
+        debug_struct.field("error_description", &self.error_description);
+        debug_struct.field("error_severity", &self.error_severity);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("warning_reason", &self.warning_reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::query_runtime_error::QueryRuntimeErrorMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryRuntimeErrorMetadata");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteDashboardQueryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteDashboardQueryResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("data_sources", &self.data_sources);
+        debug_struct.field(
+            "last_backend_cache_refreshed_time",
+            &self.last_backend_cache_refreshed_time,
+        );
+        debug_struct.field("time_window", &self.time_window);
+        debug_struct.field("query_runtime_errors", &self.query_runtime_errors);
+        debug_struct.field("language_features", &self.language_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::execute_dashboard_query_response::ColumnValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnValue");
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::execute_dashboard_query_response::column_value::ValueMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueMetadata");
+        debug_struct.field("links", &self.links);
+        debug_struct.field("field_paths", &self.field_paths);
+        debug_struct.field("timestamp_val", &self.timestamp_val);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::execute_dashboard_query_response::ColumnType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnType");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::execute_dashboard_query_response::column_type::List {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("List");
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::execute_dashboard_query_response::ColumnData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnData");
+        debug_struct.field("column", &self.column);
+        debug_struct.field("values", &self.values);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DashboardFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DashboardFilter");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("field_path", &self.field_path);
+        debug_struct.field(
+            "filter_operator_and_field_values",
+            &self.filter_operator_and_field_values,
+        );
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("chart_ids", &self.chart_ids);
+        debug_struct.field(
+            "is_standard_time_range_filter",
+            &self.is_standard_time_range_filter,
+        );
+        debug_struct.field("is_mandatory", &self.is_mandatory);
+        debug_struct.field(
+            "is_standard_time_range_filter_enabled",
+            &self.is_standard_time_range_filter_enabled,
+        );
+        debug_struct.field("advanced_filter_config", &self.advanced_filter_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FilterOperatorAndValues {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterOperatorAndValues");
+        debug_struct.field("filter_operator", &self.filter_operator);
+        debug_struct.field("field_values", &self.field_values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AdvancedFilterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdvancedFilterConfig");
+        debug_struct.field("token", &self.token);
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("suffix", &self.suffix);
+        debug_struct.field("separator", &self.separator);
+        debug_struct.field("multiple_allowed", &self.multiple_allowed);
+        debug_struct.field("default_values", &self.default_values);
+        debug_struct.field("skip_default_affixes", &self.skip_default_affixes);
+        debug_struct.field("value_source", &self.value_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::advanced_filter_config::ValueSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueSource");
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::advanced_filter_config::ManualOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManualOptions");
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::advanced_filter_config::QueryOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryOptions");
+        debug_struct.field("query", &self.query);
+        debug_struct.field("column", &self.column);
+        debug_struct.field(
+            "global_time_filter_enabled",
+            &self.global_time_filter_enabled,
+        );
+        debug_struct.field("input", &self.input);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InAppLink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InAppLink");
+        debug_struct.field("url", &self.url);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("icon_url", &self.icon_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ColumnMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnMetadata");
+        debug_struct.field("column", &self.column);
+        debug_struct.field("field_path", &self.field_path);
+        debug_struct.field("function_name", &self.function_name);
+        debug_struct.field("function_module", &self.function_module);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("timestamp_metadata", &self.timestamp_metadata);
+        debug_struct.field("longitude", &self.longitude);
+        debug_struct.field("latitude", &self.latitude);
+        debug_struct.field("selected", &self.selected);
+        debug_struct.field("unselected", &self.unselected);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TimestampMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimestampMetadata");
+        debug_struct.field("time_format", &self.time_format);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("time_granularity", &self.time_granularity);
+        debug_struct.field("is_sortable", &self.is_sortable);
+        debug_struct.field("is_interpolable", &self.is_interpolable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CreateDataAccessLabelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDataAccessLabelRequest");
@@ -705,6 +1668,106 @@ impl std::fmt::Debug for super::DeleteWatchlistRequest {
     }
 }
 
+impl std::fmt::Debug for super::FeaturedContentMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeaturedContentMetadata");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("author", &self.author);
+        debug_struct.field("certified", &self.certified);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("verified", &self.verified);
+        debug_struct.field("source_type", &self.source_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FeaturedContentNativeDashboard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeaturedContentNativeDashboard");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("content_metadata", &self.content_metadata);
+        debug_struct.field("dashboard_content", &self.dashboard_content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetFeaturedContentNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFeaturedContentNativeDashboardRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListFeaturedContentNativeDashboardsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFeaturedContentNativeDashboardsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListFeaturedContentNativeDashboardsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFeaturedContentNativeDashboardsResponse");
+        debug_struct.field(
+            "featured_content_native_dashboards",
+            &self.featured_content_native_dashboards,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InstallFeaturedContentNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallFeaturedContentNativeDashboardRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "featured_content_native_dashboard",
+            &self.featured_content_native_dashboard,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InstallFeaturedContentNativeDashboardResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallFeaturedContentNativeDashboardResponse");
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Instance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Instance");
@@ -720,6 +1783,347 @@ impl std::fmt::Debug for super::GetInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInstanceRequest");
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExportNativeDashboardsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportNativeDashboardsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExportNativeDashboardsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportNativeDashboardsResponse");
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InlineDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineDestination");
+        debug_struct.field("dashboards", &self.dashboards);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NativeDashboardWithChartsAndQueries {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NativeDashboardWithChartsAndQueries");
+        debug_struct.field("dashboard", &self.dashboard);
+        debug_struct.field("dashboard_charts", &self.dashboard_charts);
+        debug_struct.field("dashboard_queries", &self.dashboard_queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ImportNativeDashboardsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportNativeDashboardsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ImportNativeDashboardsInlineSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportNativeDashboardsInlineSource");
+        debug_struct.field("dashboards", &self.dashboards);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ImportNativeDashboardsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportNativeDashboardsResponse");
+        debug_struct.field("results", &self.results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ImportExportStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportExportStatus");
+        debug_struct.field("dashboard", &self.dashboard);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NativeDashboard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NativeDashboard");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("definition", &self.definition);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("create_user_id", &self.create_user_id);
+        debug_struct.field("update_user_id", &self.update_user_id);
+        debug_struct.field("dashboard_user_data", &self.dashboard_user_data);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("access", &self.access);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNativeDashboardRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNativeDashboardRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListNativeDashboardsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNativeDashboardsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListNativeDashboardsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNativeDashboardsResponse");
+        debug_struct.field("native_dashboards", &self.native_dashboards);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNativeDashboardRequest");
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DuplicateNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateNativeDashboardRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteNativeDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNativeDashboardRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AddChartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddChartRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("dashboard_query", &self.dashboard_query);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        debug_struct.field("chart_layout", &self.chart_layout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AddChartResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddChartResponse");
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EditChartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EditChartRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("dashboard_query", &self.dashboard_query);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        debug_struct.field("edit_mask", &self.edit_mask);
+        debug_struct.field("language_features", &self.language_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EditChartResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EditChartResponse");
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoveChartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveChartRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DuplicateChartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateChartRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DuplicateChartResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateChartResponse");
+        debug_struct.field("native_dashboard", &self.native_dashboard);
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DashboardUserData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DashboardUserData");
+        debug_struct.field("last_viewed_time", &self.last_viewed_time);
+        debug_struct.field("is_pinned", &self.is_pinned);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DashboardDefinition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DashboardDefinition");
+        debug_struct.field("filters", &self.filters);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("charts", &self.charts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_definition::ChartConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChartConfig");
+        debug_struct.field("dashboard_chart", &self.dashboard_chart);
+        debug_struct.field("chart_layout", &self.chart_layout);
+        debug_struct.field("filters_ids", &self.filters_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::dashboard_definition::chart_config::ChartLayout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChartLayout");
+        debug_struct.field("start_x", &self.start_x);
+        debug_struct.field("span_x", &self.span_x);
+        debug_struct.field("start_y", &self.start_y);
+        debug_struct.field("span_y", &self.span_y);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

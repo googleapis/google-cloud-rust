@@ -2151,6 +2151,28 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchWrite
     }
 }
 
+impl gaxi::prost::ToProto<FetchCacheUpdateRequest> for crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest {
+    type Output = FetchCacheUpdateRequest;
+    fn to_proto(self) -> std::result::Result<FetchCacheUpdateRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            database: self.database.to_proto()?,
+            max_recipe_count: self.max_recipe_count.to_proto()?,
+            max_range_count: self.max_range_count.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest> for FetchCacheUpdateRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest::new()
+                .set_database(self.database)
+                .set_max_recipe_count(self.max_recipe_count)
+                .set_max_range_count(self.max_range_count)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<transaction_options::read_write::ReadLockMode> for crate::generated::gapic_dataplane::model::transaction_options::read_write::ReadLockMode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {

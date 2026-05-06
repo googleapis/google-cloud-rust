@@ -3229,6 +3229,158 @@ impl GlobalPublicDelegatedPrefixes {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::GlobalVmExtensionPolicies;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = GlobalVmExtensionPolicies::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `globalVmExtensionPolicies` resource.
+///
+/// # Configuration
+///
+/// To configure `GlobalVmExtensionPolicies` use the `with_*` methods in the type returned
+/// by [builder()][GlobalVmExtensionPolicies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::global_vm_extension_policies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::global_vm_extension_policies::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GlobalVmExtensionPolicies` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `GlobalVmExtensionPolicies` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "global-vm-extension-policies")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-vm-extension-policies")))]
+#[derive(Clone, Debug)]
+pub struct GlobalVmExtensionPolicies {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GlobalVmExtensionPolicies>,
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl GlobalVmExtensionPolicies {
+    /// Returns a builder for [GlobalVmExtensionPolicies].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::GlobalVmExtensionPolicies;
+    /// let client = GlobalVmExtensionPolicies::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::global_vm_extension_policies::ClientBuilder {
+        crate::new_client_builder(super::builder::global_vm_extension_policies::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::GlobalVmExtensionPolicies + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::GlobalVmExtensionPolicies>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalVmExtensionPolicies> {
+        super::transport::GlobalVmExtensionPolicies::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalVmExtensionPolicies> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GlobalVmExtensionPolicies::new)
+    }
+
+    /// Retrieves the list of all VM Extension Policy resources
+    /// available to the specified project.
+    ///
+    /// To prevent failure, it's recommended that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::global_vm_extension_policies::AggregatedList {
+        super::builder::global_vm_extension_policies::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Purge scoped resources (zonal policies) from a global VM extension
+    /// policy, and then delete the global VM extension policy. Purge of the scoped
+    /// resources is a pre-condition of the global VM extension policy deletion.
+    /// The deletion of the global VM extension policy happens after the purge
+    /// rollout is done, so it's not a part of the LRO. It's an automatic process
+    /// that triggers in the backend.
+    pub fn delete(&self) -> super::builder::global_vm_extension_policies::Delete {
+        super::builder::global_vm_extension_policies::Delete::new(self.inner.clone())
+    }
+
+    /// Gets details of a global VM extension policy.
+    pub fn get(&self) -> super::builder::global_vm_extension_policies::Get {
+        super::builder::global_vm_extension_policies::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new project level GlobalVmExtensionPolicy.
+    pub fn insert(&self) -> super::builder::global_vm_extension_policies::Insert {
+        super::builder::global_vm_extension_policies::Insert::new(self.inner.clone())
+    }
+
+    /// Lists global VM extension policies.
+    pub fn list(&self) -> super::builder::global_vm_extension_policies::List {
+        super::builder::global_vm_extension_policies::List::new(self.inner.clone())
+    }
+
+    /// Updates a global VM extension policy.
+    pub fn update(&self) -> super::builder::global_vm_extension_policies::Update {
+        super::builder::global_vm_extension_policies::Update::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::global_vm_extension_policies::GetOperation {
+        super::builder::global_vm_extension_policies::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::HealthChecks;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -6863,6 +7015,24 @@ impl LicenseCodes {
         super::builder::license_codes::Get::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    /// *Caution* This resource is intended
+    /// for use only by third-party partners who are creatingCloud Marketplace
+    /// images.
+    pub fn get_iam_policy(&self) -> super::builder::license_codes::GetIamPolicy {
+        super::builder::license_codes::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    /// *Caution* This resource is intended
+    /// for use only by third-party partners who are creatingCloud Marketplace
+    /// images.
+    pub fn set_iam_policy(&self) -> super::builder::license_codes::SetIamPolicy {
+        super::builder::license_codes::SetIamPolicy::new(self.inner.clone())
+    }
+
     /// Returns permissions that a caller has on the specified resource.
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
@@ -8300,6 +8470,15 @@ impl Networks {
     /// Adds a peering to the specified network.
     pub fn add_peering(&self) -> super::builder::networks::AddPeering {
         super::builder::networks::AddPeering::new(self.inner.clone())
+    }
+
+    /// Cancel requests to remove a peering from the specified network. Applicable
+    /// only for PeeringConnection with update_strategy=CONSENSUS.  Cancels a
+    /// request to remove a peering from the specified network.
+    pub fn cancel_request_remove_peering(
+        &self,
+    ) -> super::builder::networks::CancelRequestRemovePeering {
+        super::builder::networks::CancelRequestRemovePeering::new(self.inner.clone())
     }
 
     /// Deletes the specified network.
@@ -16120,6 +16299,268 @@ impl ResourcePolicies {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::RolloutPlans;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = RolloutPlans::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `rolloutPlans` resource.
+///
+/// # Configuration
+///
+/// To configure `RolloutPlans` use the `with_*` methods in the type returned
+/// by [builder()][RolloutPlans::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::rollout_plans::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::rollout_plans::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RolloutPlans` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RolloutPlans` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "rollout-plans")]
+#[cfg_attr(docsrs, doc(cfg(feature = "rollout-plans")))]
+#[derive(Clone, Debug)]
+pub struct RolloutPlans {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RolloutPlans>,
+}
+
+#[cfg(feature = "rollout-plans")]
+impl RolloutPlans {
+    /// Returns a builder for [RolloutPlans].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RolloutPlans;
+    /// let client = RolloutPlans::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::rollout_plans::ClientBuilder {
+        crate::new_client_builder(super::builder::rollout_plans::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::RolloutPlans + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RolloutPlans>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RolloutPlans> {
+        super::transport::RolloutPlans::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RolloutPlans> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RolloutPlans::new)
+    }
+
+    /// Deletes a RolloutPlan.
+    pub fn delete(&self) -> super::builder::rollout_plans::Delete {
+        super::builder::rollout_plans::Delete::new(self.inner.clone())
+    }
+
+    /// Gets details of a single project-scoped RolloutPlan.
+    pub fn get(&self) -> super::builder::rollout_plans::Get {
+        super::builder::rollout_plans::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new RolloutPlan in a given project and location.
+    pub fn insert(&self) -> super::builder::rollout_plans::Insert {
+        super::builder::rollout_plans::Insert::new(self.inner.clone())
+    }
+
+    /// Lists RolloutPlans in a given project and location.
+    pub fn list(&self) -> super::builder::rollout_plans::List {
+        super::builder::rollout_plans::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::rollout_plans::GetOperation {
+        super::builder::rollout_plans::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::Rollouts;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Rollouts::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `rollouts` resource.
+///
+/// # Configuration
+///
+/// To configure `Rollouts` use the `with_*` methods in the type returned
+/// by [builder()][Rollouts::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::rollouts::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::rollouts::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Rollouts` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Rollouts` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "rollouts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "rollouts")))]
+#[derive(Clone, Debug)]
+pub struct Rollouts {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Rollouts>,
+}
+
+#[cfg(feature = "rollouts")]
+impl Rollouts {
+    /// Returns a builder for [Rollouts].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::Rollouts;
+    /// let client = Rollouts::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::rollouts::ClientBuilder {
+        crate::new_client_builder(super::builder::rollouts::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Rollouts + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Rollouts>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Rollouts> {
+        super::transport::Rollouts::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Rollouts> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Rollouts::new)
+    }
+
+    /// Cancels a Rollout.
+    pub fn cancel(&self) -> super::builder::rollouts::Cancel {
+        super::builder::rollouts::Cancel::new(self.inner.clone())
+    }
+
+    /// Deletes a Rollout.
+    pub fn delete(&self) -> super::builder::rollouts::Delete {
+        super::builder::rollouts::Delete::new(self.inner.clone())
+    }
+
+    /// Gets details of a single project-scoped Rollout.
+    pub fn get(&self) -> super::builder::rollouts::Get {
+        super::builder::rollouts::Get::new(self.inner.clone())
+    }
+
+    /// Lists Rollouts in a given project and location.
+    pub fn list(&self) -> super::builder::rollouts::List {
+        super::builder::rollouts::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::rollouts::GetOperation {
+        super::builder::rollouts::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::Routers;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -20049,12 +20490,12 @@ impl ZoneVmExtensionPolicies {
             .map(super::tracing::ZoneVmExtensionPolicies::new)
     }
 
-    /// Deletes a specified zone VM extension policy.
+    /// Deletes a specified zone VM extension policy within a project.
     pub fn delete(&self) -> super::builder::zone_vm_extension_policies::Delete {
         super::builder::zone_vm_extension_policies::Delete::new(self.inner.clone())
     }
 
-    /// Retrieves details of a specific zone VM extension policy.
+    /// Retrieves details of a specific zone VM extension policy within a project.
     pub fn get(&self) -> super::builder::zone_vm_extension_policies::Get {
         super::builder::zone_vm_extension_policies::Get::new(self.inner.clone())
     }
@@ -20069,7 +20510,7 @@ impl ZoneVmExtensionPolicies {
         super::builder::zone_vm_extension_policies::List::new(self.inner.clone())
     }
 
-    /// Modifies an existing zone VM extension policy.
+    /// Modifies an existing zone VM extension policy within a project.
     pub fn update(&self) -> super::builder::zone_vm_extension_policies::Update {
         super::builder::zone_vm_extension_policies::Update::new(self.inner.clone())
     }

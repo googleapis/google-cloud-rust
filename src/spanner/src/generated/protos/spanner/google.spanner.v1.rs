@@ -2460,3 +2460,22 @@ impl ::prost::Name for BatchWriteResponse {
         "type.googleapis.com/google.spanner.v1.BatchWriteResponse".into()
     }
 }
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct FetchCacheUpdateRequest {
+    #[prost(string, tag = "1")]
+    pub database: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub max_recipe_count: i32,
+    #[prost(int32, tag = "3")]
+    pub max_range_count: i32,
+}
+impl ::prost::Name for FetchCacheUpdateRequest {
+    const NAME: &'static str = "FetchCacheUpdateRequest";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.FetchCacheUpdateRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.FetchCacheUpdateRequest".into()
+    }
+}

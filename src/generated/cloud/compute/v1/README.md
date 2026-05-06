@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20260410" revision of the API.
+This client library was generated from the "20260422" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -36,6 +36,7 @@ The main types to work with this crate are the clients:
 - [GlobalOperations]: enabled by the `global-operations` feature.
 - [GlobalOrganizationOperations]: enabled by the `global-organization-operations` feature.
 - [GlobalPublicDelegatedPrefixes]: enabled by the `global-public-delegated-prefixes` feature.
+- [GlobalVmExtensionPolicies]: enabled by the `global-vm-extension-policies` feature.
 - [HealthChecks]: enabled by the `health-checks` feature.
 - [HttpHealthChecks]: enabled by the `http-health-checks` feature.
 - [HttpsHealthChecks]: enabled by the `https-health-checks` feature.
@@ -112,6 +113,8 @@ The main types to work with this crate are the clients:
 - [ReservationSubBlocks]: enabled by the `reservation-sub-blocks` feature.
 - [Reservations]: enabled by the `reservations` feature.
 - [ResourcePolicies]: enabled by the `resource-policies` feature.
+- [RolloutPlans]: enabled by the `rollout-plans` feature.
+- [Rollouts]: enabled by the `rollouts` feature.
 - [Routers]: enabled by the `routers` feature.
 - [Routes]: enabled by the `routes` feature.
 - [SecurityPolicies]: enabled by the `security-policies` feature.
@@ -175,6 +178,7 @@ The main types to work with this crate are the clients:
 [GlobalOperations]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.GlobalOperations.html
 [GlobalOrganizationOperations]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.GlobalOrganizationOperations.html
 [GlobalPublicDelegatedPrefixes]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.GlobalPublicDelegatedPrefixes.html
+[GlobalVmExtensionPolicies]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.GlobalVmExtensionPolicies.html
 [HealthChecks]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.HealthChecks.html
 [HttpHealthChecks]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.HttpHealthChecks.html
 [HttpsHealthChecks]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.HttpsHealthChecks.html
@@ -251,6 +255,8 @@ The main types to work with this crate are the clients:
 [ReservationSubBlocks]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.ReservationSubBlocks.html
 [Reservations]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.Reservations.html
 [ResourcePolicies]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.ResourcePolicies.html
+[RolloutPlans]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.RolloutPlans.html
+[Rollouts]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.Rollouts.html
 [Routers]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.Routers.html
 [Routes]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.Routes.html
 [SecurityPolicies]: https://docs.rs/google-cloud-compute-v1/3.0.0/google_cloud_compute_v1/client/struct.SecurityPolicies.html
