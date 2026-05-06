@@ -58,6 +58,10 @@ where
     )
 }
 
+/// Creates a new `impl Poller<R, M>` with tracing support enabled.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to use this function directly.
 pub fn new_poller_with_tracing<ResponseType, MetadataType, S, SF, Q, QF>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -90,9 +94,10 @@ where
     };
 
     #[cfg(not(feature = "google-cloud-rust-unstable-tracing"))]
-    let _ = method_name;
-    #[cfg(not(feature = "google-cloud-rust-unstable-tracing"))]
-    let _ = enable_tracing;
+    {
+        let _ = method_name;
+        let _ = enable_tracing;
+    }
 
     PollerImpl::new(
         polling_error_policy,
@@ -263,7 +268,7 @@ struct PollerImpl<S, Q> {
     operation: Option<String>,
     state: PollingState,
     #[cfg(feature = "google-cloud-rust-unstable-tracing")]
-    #[allow(dead_code)]
+    #[expect(dead_code)]
     lro_span: Option<tracing::Span>,
 }
 
