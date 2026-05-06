@@ -82,7 +82,7 @@ where
         + Send
         + 'static,
 {
-    #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+    #[cfg(google_cloud_unstable_tracing)]
     let lro_span = if enable_tracing {
         Some(tracing::info_span!(
             "LRO Wait",
@@ -93,7 +93,7 @@ where
         None
     };
 
-    #[cfg(not(feature = "google-cloud-rust-unstable-tracing"))]
+    #[cfg(not(google_cloud_unstable_tracing))]
     {
         let _ = method_name;
         let _ = enable_tracing;
@@ -104,7 +104,7 @@ where
         polling_backoff_policy,
         start,
         query,
-        #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+        #[cfg(google_cloud_unstable_tracing)]
         lro_span,
     )
 }
@@ -267,7 +267,7 @@ struct PollerImpl<S, Q> {
     query: Q,
     operation: Option<String>,
     state: PollingState,
-    #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+    #[cfg(google_cloud_unstable_tracing)]
     #[expect(dead_code)]
     lro_span: Option<tracing::Span>,
 }
@@ -278,7 +278,7 @@ impl<S, Q> PollerImpl<S, Q> {
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
         start: S,
         query: Q,
-        #[cfg(feature = "google-cloud-rust-unstable-tracing")] lro_span: Option<tracing::Span>,
+        #[cfg(google_cloud_unstable_tracing)] lro_span: Option<tracing::Span>,
     ) -> Self {
         Self {
             error_policy,
@@ -287,7 +287,7 @@ impl<S, Q> PollerImpl<S, Q> {
             query,
             operation: None,
             state: PollingState::default(),
-            #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+            #[cfg(google_cloud_unstable_tracing)]
             lro_span,
         }
     }
@@ -427,7 +427,7 @@ mod tests {
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
-            #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+            #[cfg(google_cloud_unstable_tracing)]
             None,
         );
         let p0 = poller.poll().await;
@@ -455,11 +455,17 @@ mod tests {
         assert!(p2.is_none(), "{p2:?}");
     }
 
-    #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+    #[cfg(google_cloud_unstable_tracing)]
     #[test]
     fn test_poller_initialization_with_tracing() {
-        let start = || async { panic!() };
-        let query = |_: String| async { panic!() };
+        let start = || async {
+            let op = google_cloud_longrunning::model::Operation::default();
+            Ok(TestOperation::new(op))
+        };
+        let query = |_: String| async {
+            let op = google_cloud_longrunning::model::Operation::default();
+            Ok(TestOperation::new(op))
+        };
 
         let _poller = new_poller_with_tracing::<Duration, Timestamp, _, _, _, _>(
             Arc::new(AlwaysContinue),
@@ -471,7 +477,7 @@ mod tests {
         );
     }
 
-    #[cfg(not(feature = "google-cloud-rust-unstable-tracing"))]
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[test]
     fn test_poller_initialization_no_tracing() {
         let start = || async { panic!() };
@@ -573,7 +579,7 @@ mod tests {
             ),
             start,
             query,
-            #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+            #[cfg(google_cloud_unstable_tracing)]
             None,
         );
         let response = poller.until_done().await?;
@@ -990,7 +996,7 @@ mod tests {
             ),
             start,
             query,
-            #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+            #[cfg(google_cloud_unstable_tracing)]
             None,
         );
         let response = poller.until_done().await?;
@@ -1022,7 +1028,7 @@ mod tests {
             ),
             start,
             query,
-            #[cfg(feature = "google-cloud-rust-unstable-tracing")]
+            #[cfg(google_cloud_unstable_tracing)]
             None,
         );
         let response = poller.until_done().await;
