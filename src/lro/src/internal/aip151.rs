@@ -48,27 +48,33 @@ where
         + Send
         + 'static,
 {
-    new_poller_with_tracing(
+    new_poller_with_options(
         polling_error_policy,
         polling_backoff_policy,
         start,
         query,
-        "",
-        false,
+        PollerOptions::default(),
     )
 }
 
-/// Creates a new `impl Poller<R, M>` with tracing support enabled.
+/// Options for creating a new poller.
+#[derive(Default)]
+#[non_exhaustive]
+pub struct PollerOptions {
+    pub method_name: &'static str,
+    pub enable_tracing: bool,
+}
+
+/// Creates a new `impl Poller<R, M>` with options.
 ///
 /// This is intended as an implementation detail of the generated clients.
 /// Applications should have no need to use this function directly.
-pub fn new_poller_with_tracing<ResponseType, MetadataType, S, SF, Q, QF>(
+pub fn new_poller_with_options<ResponseType, MetadataType, S, SF, Q, QF>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: S,
     query: Q,
-    method_name: &'static str,
-    enable_tracing: bool,
+    options: PollerOptions,
 ) -> impl Poller<ResponseType, MetadataType>
 where
     ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
@@ -83,10 +89,10 @@ where
         + 'static,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    let lro_span = if enable_tracing {
+    let lro_span = if options.enable_tracing {
         Some(tracing::info_span!(
             "LRO Wait",
-            "gcp.rpc.method" = method_name,
+            "gcp.rpc.method" = options.method_name,
             "gcp.lro.operation_name" = tracing::field::Empty
         ))
     } else {
@@ -95,8 +101,8 @@ where
 
     #[cfg(not(google_cloud_unstable_tracing))]
     {
-        let _ = method_name;
-        let _ = enable_tracing;
+        let _ = options.method_name;
+        let _ = options.enable_tracing;
     }
 
     PollerImpl::new(
@@ -126,7 +132,13 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
 {
-    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
+    let poller = new_poller_with_options(
+        polling_error_policy,
+        polling_backoff_policy,
+        start,
+        query,
+        PollerOptions::default(),
+    );
     UnitResponsePoller::new(poller)
 }
 
@@ -147,7 +159,13 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
 {
-    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
+    let poller = new_poller_with_options(
+        polling_error_policy,
+        polling_backoff_policy,
+        start,
+        query,
+        PollerOptions::default(),
+    );
     UnitMetadataPoller::new(poller)
 }
 
@@ -167,7 +185,13 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
 {
-    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
+    let poller = new_poller_with_options(
+        polling_error_policy,
+        polling_backoff_policy,
+        start,
+        query,
+        PollerOptions::default(),
+    );
     UnitResponsePoller::new(UnitMetadataPoller::new(poller))
 }
 
@@ -467,13 +491,15 @@ mod tests {
             Ok(TestOperation::new(op))
         };
 
-        let _poller = new_poller_with_tracing::<Duration, Timestamp, _, _, _, _>(
+        let _poller = new_poller_with_options::<Duration, Timestamp, _, _, _, _>(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
-            "test_method",
-            true,
+            PollerOptions {
+                method_name: "test_method",
+                enable_tracing: true,
+            },
         );
     }
 
@@ -483,13 +509,15 @@ mod tests {
         let start = || async { panic!() };
         let query = |_: String| async { panic!() };
 
-        let _poller = new_poller_with_tracing::<Duration, Timestamp, _, _, _, _>(
+        let _poller = new_poller_with_options::<Duration, Timestamp, _, _, _, _>(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
-            "test_method",
-            true,
+            PollerOptions {
+                method_name: "test_method",
+                enable_tracing: true,
+            },
         );
     }
 
@@ -516,11 +544,12 @@ mod tests {
         };
 
         use futures::StreamExt;
-        let mut stream = new_poller(
+        let mut stream = new_poller_with_options(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
+            PollerOptions::default(),
         )
         .into_stream();
         let p0 = stream.next().await;
