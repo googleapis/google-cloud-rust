@@ -2988,6 +2988,180 @@ impl wkt::message::Message for GoogleIamV1TestIamPermissionsResponse {
     }
 }
 
+/// This resource represents a long-running operation that is the result of a network API call.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GoogleLongrunningOperation {
+    /// If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
+    pub done: std::option::Option<bool>,
+
+    /// The error result of the operation in case of failure or cancellation.
+    pub error: std::option::Option<crate::model::Status>,
+
+    /// Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
+    pub metadata: std::collections::HashMap<std::string::String, wkt::Any>,
+
+    /// The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.
+    pub name: std::option::Option<std::string::String>,
+
+    /// The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
+    pub response: std::collections::HashMap<std::string::String, wkt::Any>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GoogleLongrunningOperation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [done][crate::model::GoogleLongrunningOperation::done].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// let x = GoogleLongrunningOperation::new().set_done(true);
+    /// ```
+    pub fn set_done<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.done = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done][crate::model::GoogleLongrunningOperation::done].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// let x = GoogleLongrunningOperation::new().set_or_clear_done(Some(false));
+    /// let x = GoogleLongrunningOperation::new().set_or_clear_done(None::<bool>);
+    /// ```
+    pub fn set_or_clear_done<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.done = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error][crate::model::GoogleLongrunningOperation::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// use google_cloud_dns_v1::model::Status;
+    /// let x = GoogleLongrunningOperation::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::GoogleLongrunningOperation::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// use google_cloud_dns_v1::model::Status;
+    /// let x = GoogleLongrunningOperation::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = GoogleLongrunningOperation::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::GoogleLongrunningOperation::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// use wkt::Any;
+    /// let x = GoogleLongrunningOperation::new().set_metadata([
+    ///     ("key0", Any::default()/* use setters */),
+    ///     ("key1", Any::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::GoogleLongrunningOperation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// let x = GoogleLongrunningOperation::new().set_name("example");
+    /// ```
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::GoogleLongrunningOperation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// let x = GoogleLongrunningOperation::new().set_or_clear_name(Some("example"));
+    /// let x = GoogleLongrunningOperation::new().set_or_clear_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [response][crate::model::GoogleLongrunningOperation::response].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::GoogleLongrunningOperation;
+    /// use wkt::Any;
+    /// let x = GoogleLongrunningOperation::new().set_response([
+    ///     ("key0", Any::default()/* use setters */),
+    ///     ("key1", Any::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_response<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.response = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GoogleLongrunningOperation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/.GoogleLongrunningOperation"
+    }
+}
+
 /// A zone is a subtree of the DNS namespace under one administrative responsibility. A ManagedZone is a resource that represents a DNS zone hosted by the Cloud DNS service.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -11616,6 +11790,119 @@ impl ResponsePolicyRulesUpdateResponse {
 impl wkt::message::Message for ResponsePolicyRulesUpdateResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/.ResponsePolicyRulesUpdateResponse"
+    }
+}
+
+/// The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Status {
+    /// The status code, which should be an enum value of google.rpc.Code.
+    pub code: std::option::Option<i32>,
+
+    /// A list of messages that carry the error details. There is a common set of message types for APIs to use.
+    pub details: std::vec::Vec<wkt::Any>,
+
+    /// A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
+    pub message: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Status {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::Status::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::Status;
+    /// let x = Status::new().set_code(42);
+    /// ```
+    pub fn set_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [code][crate::model::Status::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::Status;
+    /// let x = Status::new().set_or_clear_code(Some(42));
+    /// let x = Status::new().set_or_clear_code(None::<i32>);
+    /// ```
+    pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.code = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [details][crate::model::Status::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::Status;
+    /// use wkt::Any;
+    /// let x = Status::new()
+    ///     .set_details([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::Status::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::Status;
+    /// let x = Status::new().set_message("example");
+    /// ```
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::Status::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dns_v1::model::Status;
+    /// let x = Status::new().set_or_clear_message(Some("example"));
+    /// let x = Status::new().set_or_clear_message(None::<String>);
+    /// ```
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for Status {
+    fn typename() -> &'static str {
+        "type.googleapis.com/.Status"
     }
 }
 
