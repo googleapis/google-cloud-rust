@@ -159,6 +159,7 @@ members = [
   "src/generated/cloud/filestore/v1",
   "src/generated/cloud/financialservices/v1",
   "src/generated/cloud/functions/v2",
+  "src/generated/cloud/geminidataanalytics/v1",
   "src/generated/cloud/gkebackup/v1",
   "src/generated/cloud/gkeconnect/gateway/v1",
   "src/generated/cloud/gkehub/configmanagement/v1",
@@ -537,6 +538,7 @@ storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',
+  'cfg(google_cloud_unstable_tracing)',
   'cfg(google_cloud_unstable_trusted_boundaries)',
   # Enables re-generation of protos. Only needed on major version updates to
   # Prost and/or Tonic.

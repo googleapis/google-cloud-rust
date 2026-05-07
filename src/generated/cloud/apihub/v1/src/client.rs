@@ -50,7 +50,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1395,7 +1395,7 @@ impl ApiHub {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1761,7 +1761,7 @@ impl ApiHubDependencies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2036,7 +2036,7 @@ impl ApiHubCollect {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2408,7 +2408,7 @@ impl ApiHubCurate {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2748,7 +2748,7 @@ impl ApiHubDiscovery {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3084,7 +3084,7 @@ impl HostProjectRegistrationService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3416,7 +3416,7 @@ impl LintingService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4056,7 +4056,7 @@ impl ApiHubPlugin {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4405,7 +4405,7 @@ impl Provisioning {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://apihub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

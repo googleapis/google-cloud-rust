@@ -20,6 +20,767 @@
 ///
 /// # Example
 /// ```
+/// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = BigQueryExportService::builder().build().await?;
+///     let response = client.get_big_query_export()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/bigQueryExport"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing BigQuery export configurations for Chronicle instances.
+///
+/// # Configuration
+///
+/// To configure `BigQueryExportService` use the `with_*` methods in the type returned
+/// by [builder()][BigQueryExportService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::big_query_export_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::big_query_export_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `BigQueryExportService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `BigQueryExportService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct BigQueryExportService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::BigQueryExportService>,
+}
+
+impl BigQueryExportService {
+    /// Returns a builder for [BigQueryExportService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// let client = BigQueryExportService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::big_query_export_service::ClientBuilder {
+        crate::new_client_builder(super::builder::big_query_export_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::BigQueryExportService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::BigQueryExportService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::BigQueryExportService> {
+        super::transport::BigQueryExportService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::BigQueryExportService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BigQueryExportService::new)
+    }
+
+    /// Get the BigQuery export configuration for a Chronicle instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_big_query_export()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/bigQueryExport"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_big_query_export(
+        &self,
+    ) -> super::builder::big_query_export_service::GetBigQueryExport {
+        super::builder::big_query_export_service::GetBigQueryExport::new(self.inner.clone())
+    }
+
+    /// Update the BigQuery export configuration for a Chronicle instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_big_query_export()
+    ///         .set_big_query_export(
+    ///             BigQueryExport::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/bigQueryExport"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_big_query_export(
+        &self,
+    ) -> super::builder::big_query_export_service::UpdateBigQueryExport {
+        super::builder::big_query_export_service::UpdateBigQueryExport::new(self.inner.clone())
+    }
+
+    /// Provision the BigQuery export for a Chronicle instance. This will create
+    /// {{gcp_name}} resources like {{storage_name}} buckets, BigQuery datasets
+    /// and set default export settings for each data source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService
+    /// ) -> Result<()> {
+    ///     let response = client.provision_big_query_export()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn provision_big_query_export(
+        &self,
+    ) -> super::builder::big_query_export_service::ProvisionBigQueryExport {
+        super::builder::big_query_export_service::ProvisionBigQueryExport::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::big_query_export_service::ListOperations {
+        super::builder::big_query_export_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::big_query_export_service::GetOperation {
+        super::builder::big_query_export_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::big_query_export_service::DeleteOperation {
+        super::builder::big_query_export_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &BigQueryExportService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::big_query_export_service::CancelOperation {
+        super::builder::big_query_export_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_chronicle_v1::client::DashboardChartService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+///    chart_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = DashboardChartService::builder().build().await?;
+///     let response = client.get_dashboard_chart()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// A service providing functionality for managing dashboards' charts.
+///
+/// # Configuration
+///
+/// To configure `DashboardChartService` use the `with_*` methods in the type returned
+/// by [builder()][DashboardChartService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::dashboard_chart_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::dashboard_chart_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DashboardChartService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `DashboardChartService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct DashboardChartService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DashboardChartService>,
+}
+
+impl DashboardChartService {
+    /// Returns a builder for [DashboardChartService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// let client = DashboardChartService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::dashboard_chart_service::ClientBuilder {
+        crate::new_client_builder(super::builder::dashboard_chart_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::DashboardChartService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DashboardChartService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DashboardChartService> {
+        super::transport::DashboardChartService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DashboardChartService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DashboardChartService::new)
+    }
+
+    /// Get a dashboard chart.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardChartService, project_id: &str, location_id: &str, instance_id: &str, chart_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dashboard_chart()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_dashboard_chart(
+        &self,
+    ) -> super::builder::dashboard_chart_service::GetDashboardChart {
+        super::builder::dashboard_chart_service::GetDashboardChart::new(self.inner.clone())
+    }
+
+    /// Get dashboard charts in batches.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardChartService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_get_dashboard_charts()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn batch_get_dashboard_charts(
+        &self,
+    ) -> super::builder::dashboard_chart_service::BatchGetDashboardCharts {
+        super::builder::dashboard_chart_service::BatchGetDashboardCharts::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardChartService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::dashboard_chart_service::ListOperations {
+        super::builder::dashboard_chart_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardChartService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::dashboard_chart_service::GetOperation {
+        super::builder::dashboard_chart_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardChartService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::dashboard_chart_service::DeleteOperation {
+        super::builder::dashboard_chart_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardChartService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardChartService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::dashboard_chart_service::CancelOperation {
+        super::builder::dashboard_chart_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+///    query_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = DashboardQueryService::builder().build().await?;
+///     let response = client.get_dashboard_query()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardQueries/{query_id}"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// A service providing functionality for managing dashboards' queries.
+///
+/// # Configuration
+///
+/// To configure `DashboardQueryService` use the `with_*` methods in the type returned
+/// by [builder()][DashboardQueryService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::dashboard_query_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::dashboard_query_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DashboardQueryService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `DashboardQueryService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct DashboardQueryService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DashboardQueryService>,
+}
+
+impl DashboardQueryService {
+    /// Returns a builder for [DashboardQueryService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// let client = DashboardQueryService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::dashboard_query_service::ClientBuilder {
+        crate::new_client_builder(super::builder::dashboard_query_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::DashboardQueryService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DashboardQueryService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DashboardQueryService> {
+        super::transport::DashboardQueryService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DashboardQueryService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DashboardQueryService::new)
+    }
+
+    /// Get a dashboard query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardQueryService, project_id: &str, location_id: &str, instance_id: &str, query_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dashboard_query()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardQueries/{query_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_dashboard_query(
+        &self,
+    ) -> super::builder::dashboard_query_service::GetDashboardQuery {
+        super::builder::dashboard_query_service::GetDashboardQuery::new(self.inner.clone())
+    }
+
+    /// Execute a query and return the data.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardQueryService
+    /// ) -> Result<()> {
+    ///     let response = client.execute_dashboard_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_dashboard_query(
+        &self,
+    ) -> super::builder::dashboard_query_service::ExecuteDashboardQuery {
+        super::builder::dashboard_query_service::ExecuteDashboardQuery::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardQueryService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::dashboard_query_service::ListOperations {
+        super::builder::dashboard_query_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardQueryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::dashboard_query_service::GetOperation {
+        super::builder::dashboard_query_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardQueryService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::dashboard_query_service::DeleteOperation {
+        super::builder::dashboard_query_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DashboardQueryService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardQueryService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::dashboard_query_service::CancelOperation {
+        super::builder::dashboard_query_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
@@ -52,7 +813,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://chronicle.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -511,7 +1272,7 @@ impl DataAccessControlService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://chronicle.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1047,7 +1808,7 @@ impl DataTableService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://chronicle.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1331,6 +2092,296 @@ impl EntityService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = FeaturedContentNativeDashboardService::builder().build().await?;
+///     let mut list = client.list_featured_content_native_dashboards()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// This service provides functionality for managing
+/// FeaturedContentNativeDashboard.
+///
+/// # Configuration
+///
+/// To configure `FeaturedContentNativeDashboardService` use the `with_*` methods in the type returned
+/// by [builder()][FeaturedContentNativeDashboardService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::featured_content_native_dashboard_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::featured_content_native_dashboard_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `FeaturedContentNativeDashboardService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `FeaturedContentNativeDashboardService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct FeaturedContentNativeDashboardService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeaturedContentNativeDashboardService>,
+}
+
+impl FeaturedContentNativeDashboardService {
+    /// Returns a builder for [FeaturedContentNativeDashboardService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// let client = FeaturedContentNativeDashboardService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::featured_content_native_dashboard_service::ClientBuilder {
+        crate::new_client_builder(
+            super::builder::featured_content_native_dashboard_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::FeaturedContentNativeDashboardService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::FeaturedContentNativeDashboardService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FeaturedContentNativeDashboardService> {
+        super::transport::FeaturedContentNativeDashboardService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FeaturedContentNativeDashboardService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::FeaturedContentNativeDashboardService::new)
+    }
+
+    /// Get a native dashboard featured content.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService, project_id: &str, location_id: &str, instance_id: &str, featured_content_native_dashboard_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_featured_content_native_dashboard()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_featured_content_native_dashboard(
+        &self,
+    ) -> super::builder::featured_content_native_dashboard_service::GetFeaturedContentNativeDashboard
+    {
+        super::builder::featured_content_native_dashboard_service::GetFeaturedContentNativeDashboard::new(self.inner.clone())
+    }
+
+    /// List all native dashboards featured content.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_featured_content_native_dashboards()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_featured_content_native_dashboards(&self) -> super::builder::featured_content_native_dashboard_service::ListFeaturedContentNativeDashboards
+    {
+        super::builder::featured_content_native_dashboard_service::ListFeaturedContentNativeDashboards::new(self.inner.clone())
+    }
+
+    /// Install a native dashboard featured content.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.install_featured_content_native_dashboard()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn install_featured_content_native_dashboard(&self) -> super::builder::featured_content_native_dashboard_service::InstallFeaturedContentNativeDashboard
+    {
+        super::builder::featured_content_native_dashboard_service::InstallFeaturedContentNativeDashboard::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::featured_content_native_dashboard_service::ListOperations {
+        super::builder::featured_content_native_dashboard_service::ListOperations::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::featured_content_native_dashboard_service::GetOperation {
+        super::builder::featured_content_native_dashboard_service::GetOperation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::featured_content_native_dashboard_service::DeleteOperation {
+        super::builder::featured_content_native_dashboard_service::DeleteOperation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeaturedContentNativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturedContentNativeDashboardService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::featured_content_native_dashboard_service::CancelOperation {
+        super::builder::featured_content_native_dashboard_service::CancelOperation::new(
+            self.inner.clone(),
+        )
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_chronicle_v1::client::InstanceService;
 /// async fn sample(
 ///    project_id: &str,
@@ -1359,7 +2410,7 @@ impl EntityService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://chronicle.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1549,6 +2600,476 @@ impl InstanceService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = NativeDashboardService::builder().build().await?;
+///     let mut list = client.list_native_dashboards()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// A service providing functionality for managing native dashboards.
+///
+/// # Configuration
+///
+/// To configure `NativeDashboardService` use the `with_*` methods in the type returned
+/// by [builder()][NativeDashboardService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::native_dashboard_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::native_dashboard_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `NativeDashboardService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `NativeDashboardService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct NativeDashboardService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::NativeDashboardService>,
+}
+
+impl NativeDashboardService {
+    /// Returns a builder for [NativeDashboardService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// let client = NativeDashboardService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::native_dashboard_service::ClientBuilder {
+        crate::new_client_builder(super::builder::native_dashboard_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::NativeDashboardService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::NativeDashboardService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::NativeDashboardService> {
+        super::transport::NativeDashboardService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::NativeDashboardService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::NativeDashboardService::new)
+    }
+
+    /// Create a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_native_dashboard()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .set_native_dashboard(
+    ///             NativeDashboard::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_native_dashboard(
+        &self,
+    ) -> super::builder::native_dashboard_service::CreateNativeDashboard {
+        super::builder::native_dashboard_service::CreateNativeDashboard::new(self.inner.clone())
+    }
+
+    /// Get a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService, project_id: &str, location_id: &str, instance_id: &str, dashboard_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_native_dashboard()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_native_dashboard(
+        &self,
+    ) -> super::builder::native_dashboard_service::GetNativeDashboard {
+        super::builder::native_dashboard_service::GetNativeDashboard::new(self.inner.clone())
+    }
+
+    /// List all dashboards.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_native_dashboards()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_native_dashboards(
+        &self,
+    ) -> super::builder::native_dashboard_service::ListNativeDashboards {
+        super::builder::native_dashboard_service::ListNativeDashboards::new(self.inner.clone())
+    }
+
+    /// Update a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService, project_id: &str, location_id: &str, instance_id: &str, dashboard_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_native_dashboard()
+    ///         .set_native_dashboard(
+    ///             NativeDashboard::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_native_dashboard(
+        &self,
+    ) -> super::builder::native_dashboard_service::UpdateNativeDashboard {
+        super::builder::native_dashboard_service::UpdateNativeDashboard::new(self.inner.clone())
+    }
+
+    /// Duplicate a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.duplicate_native_dashboard()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn duplicate_native_dashboard(
+        &self,
+    ) -> super::builder::native_dashboard_service::DuplicateNativeDashboard {
+        super::builder::native_dashboard_service::DuplicateNativeDashboard::new(self.inner.clone())
+    }
+
+    /// Delete a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService, project_id: &str, location_id: &str, instance_id: &str, dashboard_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_native_dashboard()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_native_dashboard(
+        &self,
+    ) -> super::builder::native_dashboard_service::DeleteNativeDashboard {
+        super::builder::native_dashboard_service::DeleteNativeDashboard::new(self.inner.clone())
+    }
+
+    /// Add chart in a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.add_chart()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_chart(&self) -> super::builder::native_dashboard_service::AddChart {
+        super::builder::native_dashboard_service::AddChart::new(self.inner.clone())
+    }
+
+    /// Remove chart from a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_chart()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn remove_chart(&self) -> super::builder::native_dashboard_service::RemoveChart {
+        super::builder::native_dashboard_service::RemoveChart::new(self.inner.clone())
+    }
+
+    /// Edit chart in a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.edit_chart()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn edit_chart(&self) -> super::builder::native_dashboard_service::EditChart {
+        super::builder::native_dashboard_service::EditChart::new(self.inner.clone())
+    }
+
+    /// Duplicate chart in a dashboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.duplicate_chart()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn duplicate_chart(&self) -> super::builder::native_dashboard_service::DuplicateChart {
+        super::builder::native_dashboard_service::DuplicateChart::new(self.inner.clone())
+    }
+
+    /// Exports the dashboards.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.export_native_dashboards()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn export_native_dashboards(
+        &self,
+    ) -> super::builder::native_dashboard_service::ExportNativeDashboards {
+        super::builder::native_dashboard_service::ExportNativeDashboards::new(self.inner.clone())
+    }
+
+    /// Imports the dashboards.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.import_native_dashboards()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn import_native_dashboards(
+        &self,
+    ) -> super::builder::native_dashboard_service::ImportNativeDashboards {
+        super::builder::native_dashboard_service::ImportNativeDashboards::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::native_dashboard_service::ListOperations {
+        super::builder::native_dashboard_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::native_dashboard_service::GetOperation {
+        super::builder::native_dashboard_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::native_dashboard_service::DeleteOperation {
+        super::builder::native_dashboard_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::NativeDashboardService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &NativeDashboardService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::native_dashboard_service::CancelOperation {
+        super::builder::native_dashboard_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_chronicle_v1::client::ReferenceListService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
@@ -1580,7 +3101,7 @@ impl InstanceService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://chronicle.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1881,7 +3402,7 @@ impl ReferenceListService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://chronicle.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

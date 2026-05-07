@@ -9338,6 +9338,56 @@ impl wkt::message::Message for BatchWriteResponse {
     }
 }
 
+/// The request for
+/// [FetchCacheUpdate][google.spanner.v1.Spanner.FetchCacheUpdate].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchCacheUpdateRequest {
+    /// Required. The database for which to retrieve the cache update.
+    pub database: std::string::String,
+
+    /// Optional. The maximum number of key recipes to return in the response.
+    /// If not set, a default limit of 100 will be used.
+    pub max_recipe_count: i32,
+
+    /// Optional. The maximum number of ranges to return in the response.
+    /// If not set, a default limit of 10000 will be used.
+    pub max_range_count: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchCacheUpdateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::FetchCacheUpdateRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [max_recipe_count][crate::model::FetchCacheUpdateRequest::max_recipe_count].
+    pub fn set_max_recipe_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_recipe_count = v.into();
+        self
+    }
+
+    /// Sets the value of [max_range_count][crate::model::FetchCacheUpdateRequest::max_range_count].
+    pub fn set_max_range_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_range_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchCacheUpdateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.FetchCacheUpdateRequest"
+    }
+}
+
 /// Options to use for transactions.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]

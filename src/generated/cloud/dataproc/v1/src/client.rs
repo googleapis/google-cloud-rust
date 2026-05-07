@@ -51,7 +51,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -449,7 +449,7 @@ impl AutoscalingPolicyService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -816,7 +816,7 @@ impl BatchController {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1336,7 +1336,7 @@ impl ClusterController {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1765,7 +1765,7 @@ impl JobController {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2134,7 +2134,7 @@ impl NodeGroupController {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2528,7 +2528,7 @@ impl SessionTemplateController {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2943,7 +2943,7 @@ impl SessionController {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataproc.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

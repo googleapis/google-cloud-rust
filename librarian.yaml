@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.11.1-0.20260501172357-df069b47c27a
+version: v0.12.2-0.20260507004757-aeab2bfba70a
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 786b7688ba3709c664aa54b6796f3c67f9fe9ebf
-    sha256: 919448393c00a3a52c9dff67cd9e5af08a0c9428a27539f21558536d517b67c0
+    commit: 319591cff379e07cbac712153d76b542449b247f
+    sha256: 88e3712b926f467a4bb85ae04def2afb4c950dfce5808f523700a329bfeb2440
   googleapis:
-    commit: 7edd1a451462607fc38c08dfeed1a6219d0db327
-    sha256: c2b0dbd1acc248f2deba3bba4d0f4c05cf793baa0d50b92a91be69acb08aa7e8
+    commit: 3593126e6061404b0817241a014d98b25fa584d3
+    sha256: 2477a3515ec3a94ac43d7b2540df31f20737935cc9353265db1f5a9eb1cf130d
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -749,6 +749,7 @@ libraries:
     roots:
       - discovery
       - googleapis
+    skip_generate: true
     specification_format: discovery
     rust:
       package_dependencies:
@@ -846,6 +847,10 @@ libraries:
         - output: src/gax-internal/src/generated/protos/rpc
           api_path: google/rpc
           template: prost
+  - name: google-cloud-geminidataanalytics-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-gkebackup-v1
     version: 1.10.0
     copyright_year: "2025"

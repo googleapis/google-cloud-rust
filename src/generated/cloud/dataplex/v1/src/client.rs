@@ -55,7 +55,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -753,7 +753,7 @@ impl BusinessGlossaryService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2044,7 +2044,7 @@ impl CatalogService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2509,7 +2509,7 @@ impl CmekService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2830,7 +2830,7 @@ impl ContentService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3443,7 +3443,7 @@ impl DataProductService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4248,7 +4248,7 @@ impl DataTaxonomyService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4805,7 +4805,7 @@ impl DataScanService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5324,7 +5324,7 @@ impl MetadataService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://dataplex.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
