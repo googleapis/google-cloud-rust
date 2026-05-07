@@ -612,6 +612,12 @@ mod tests {
             .filter(|s| s.name == "read_range")
             .collect::<Vec<_>>();
 
+        let span_reader0 = range_spans
+            .iter()
+            .copied()
+            .find(|s| s.attributes.get("read_range.start").and_then(|v| v.as_i64()) == Some(0))
+            .expect("missing `read_range` span for ReadRange::all()");
+
         let span_reader1 = range_spans
             .clone()
             .into_iter()
@@ -655,44 +661,108 @@ mod tests {
                 panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
             });
 
-        // Verify instrumentation attributes on read_range spans
-        let instrumentation_attributes = [
-            "gcp.client.service",
-            "gcp.client.version",
-            "gcp.client.repo",
-            "gcp.client.artifact",
-        ];
-        for span in [&span_reader1, &span_reader2, &span_reader3] {
-            for attr in &instrumentation_attributes {
-                assert!(
-                    span.attributes.contains_key(*attr),
-                    "missing instrumentation attribute '{}' in read_range span: {:#?}",
-                    attr,
-                    span
-                );
-            }
-            // Verify specific expected values
-            assert_eq!(
-                span.attributes.get("gcp.client.service").and_then(|v| v.as_string()),
-                Some("storage".to_string()),
-                "expected gcp.client.service='storage' in read_range span"
-            );
-            assert_eq!(
-                span.attributes.get("gcp.client.repo").and_then(|v| v.as_string()),
-                Some("googleapis/google-cloud-rust".to_string()),
-                "expected gcp.client.repo='googleapis/google-cloud-rust' in read_range span"
-            );
-            assert_eq!(
-                span.attributes.get("gcp.client.artifact").and_then(|v| v.as_string()),
-                Some("google-cloud-storage".to_string()),
-                "expected gcp.client.artifact='google-cloud-storage' in read_range span"
-            );
-            // Verify that gcp.client.version is present (value may vary)
-            assert!(
-                span.attributes.get("gcp.client.version").is_some(),
-                "missing gcp.client.version in read_range span"
-            );
-        }
+        // Verify instrumentation attributes on read_range span for ReadRange::all()
+        assert_eq!(
+            span_reader0.attributes.get("gcp.client.service").and_then(|v| v.as_string()),
+            Some("storage".into()),
+            "expected gcp.client.service='storage' in ReadRange::all() span"
+        );
+        assert_eq!(
+            span_reader0.attributes.get("gcp.client.version").and_then(|v| v.as_string()),
+            span_reader0.attributes.get("gcp.client.version").and_then(|v| v.as_string()),
+            "gcp.client.version should be present in ReadRange::all() span"
+        );
+        assert_eq!(
+            span_reader0.attributes.get("gcp.client.repo").and_then(|v| v.as_string()),
+            Some("googleapis/google-cloud-rust".into()),
+            "expected gcp.client.repo='googleapis/google-cloud-rust' in ReadRange::all() span"
+        );
+        assert_eq!(
+            span_reader0.attributes.get("gcp.client.artifact").and_then(|v| v.as_string()),
+            Some("google-cloud-storage".into()),
+            "expected gcp.client.artifact='google-cloud-storage' in ReadRange::all() span"
+        );
+        assert_eq!(
+            span_reader0.attributes.get("gcp.schema.url").and_then(|v| v.as_string()),
+            Some("https://opentelemetry.io/schemas/1.6.1".into()),
+            "expected gcp.schema.url in ReadRange::all() span"
+        );
+        assert_eq!(
+            span_reader0.attributes.get("otel.kind").and_then(|v| v.as_string()),
+            Some("client".into()),
+            "expected otel.kind='client' in ReadRange::all() span"
+        );
+        assert_eq!(
+            span_reader0.attributes.get("rpc.system.name").and_then(|v| v.as_string()),
+            Some("gcs".into()),
+            "expected rpc.system.name='gcs' in ReadRange::all() span"
+        );
+
+        // Verify instrumentation attributes on read_range span for ReadRange::offset(5)
+        assert_eq!(
+            span_reader1.attributes.get("gcp.client.service").and_then(|v| v.as_string()),
+            Some("storage".into()),
+            "expected gcp.client.service='storage' in ReadRange::offset(5) span"
+        );
+        assert_eq!(
+            span_reader1.attributes.get("gcp.schema.url").and_then(|v| v.as_string()),
+            Some("https://opentelemetry.io/schemas/1.6.1".into()),
+            "expected gcp.schema.url in ReadRange::offset(5) span"
+        );
+        assert_eq!(
+            span_reader1.attributes.get("otel.kind").and_then(|v| v.as_string()),
+            Some("client".into()),
+            "expected otel.kind='client' in ReadRange::offset(5) span"
+        );
+        assert_eq!(
+            span_reader1.attributes.get("rpc.system.name").and_then(|v| v.as_string()),
+            Some("gcs".into()),
+            "expected rpc.system.name='gcs' in ReadRange::offset(5) span"
+        );
+
+        // Verify instrumentation attributes on read_range span for ReadRange::segment(10, 10)
+        assert_eq!(
+            span_reader2.attributes.get("gcp.client.service").and_then(|v| v.as_string()),
+            Some("storage".into()),
+            "expected gcp.client.service='storage' in ReadRange::segment(10, 10) span"
+        );
+        assert_eq!(
+            span_reader2.attributes.get("gcp.schema.url").and_then(|v| v.as_string()),
+            Some("https://opentelemetry.io/schemas/1.6.1".into()),
+            "expected gcp.schema.url in ReadRange::segment(10, 10) span"
+        );
+        assert_eq!(
+            span_reader2.attributes.get("otel.kind").and_then(|v| v.as_string()),
+            Some("client".into()),
+            "expected otel.kind='client' in ReadRange::segment(10, 10) span"
+        );
+        assert_eq!(
+            span_reader2.attributes.get("rpc.system.name").and_then(|v| v.as_string()),
+            Some("gcs".into()),
+            "expected rpc.system.name='gcs' in ReadRange::segment(10, 10) span"
+        );
+
+        // Verify instrumentation attributes on read_range span for ReadRange::tail(15)
+        assert_eq!(
+            span_reader3.attributes.get("gcp.client.service").and_then(|v| v.as_string()),
+            Some("storage".into()),
+            "expected gcp.client.service='storage' in ReadRange::tail(15) span"
+        );
+        assert_eq!(
+            span_reader3.attributes.get("gcp.schema.url").and_then(|v| v.as_string()),
+            Some("https://opentelemetry.io/schemas/1.6.1".into()),
+            "expected gcp.schema.url in ReadRange::tail(15) span"
+        );
+        assert_eq!(
+            span_reader3.attributes.get("otel.kind").and_then(|v| v.as_string()),
+            Some("client".into()),
+            "expected otel.kind='client' in ReadRange::tail(15) span"
+        );
+        assert_eq!(
+            span_reader3.attributes.get("rpc.system.name").and_then(|v| v.as_string()),
+            Some("gcs".into()),
+            "expected rpc.system.name='gcs' in ReadRange::tail(15) span"
+        );
         Ok(())
     }
 
