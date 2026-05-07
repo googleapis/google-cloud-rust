@@ -43,7 +43,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -169,7 +169,7 @@ impl AcceleratorTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -326,7 +326,7 @@ impl Addresses {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -440,7 +440,7 @@ impl Advice {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -600,7 +600,7 @@ impl Autoscalers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -797,7 +797,7 @@ impl BackendBuckets {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1023,7 +1023,7 @@ impl BackendServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1164,7 +1164,7 @@ impl CrossSiteNetworks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1289,7 +1289,7 @@ impl DiskTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1528,7 +1528,7 @@ impl Disks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1677,7 +1677,7 @@ impl ExternalVpnGateways {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1884,7 +1884,7 @@ impl FirewallPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2038,7 +2038,7 @@ impl Firewalls {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2201,7 +2201,7 @@ impl ForwardingRules {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2352,7 +2352,7 @@ impl FutureReservations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2500,7 +2500,7 @@ impl GlobalAddresses {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2657,7 +2657,7 @@ impl GlobalForwardingRules {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2831,7 +2831,7 @@ impl GlobalNetworkEndpointGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2984,7 +2984,7 @@ impl GlobalOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3109,7 +3109,7 @@ impl GlobalOrganizationOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3251,7 +3251,7 @@ impl GlobalPublicDelegatedPrefixes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3403,7 +3403,7 @@ impl GlobalVmExtensionPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3564,7 +3564,7 @@ impl HealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3717,7 +3717,7 @@ impl HttpHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3870,7 +3870,7 @@ impl HttpsHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3983,7 +3983,7 @@ impl ImageFamilyViews {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4165,7 +4165,7 @@ impl Images {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4316,7 +4316,7 @@ impl InstanceGroupManagerResizeRequests {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4760,7 +4760,7 @@ impl InstanceGroupManagers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4950,7 +4950,7 @@ impl InstanceGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5072,7 +5072,7 @@ impl InstanceSettings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5237,7 +5237,7 @@ impl InstanceTemplates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5695,7 +5695,7 @@ impl Instances {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5847,7 +5847,7 @@ impl InstantSnapshotGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6019,7 +6019,7 @@ impl InstantSnapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6191,7 +6191,7 @@ impl InterconnectAttachmentGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6348,7 +6348,7 @@ impl InterconnectAttachments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6520,7 +6520,7 @@ impl InterconnectGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6639,7 +6639,7 @@ impl InterconnectLocations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6759,7 +6759,7 @@ impl InterconnectRemoteLocations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6927,7 +6927,7 @@ impl Interconnects {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7068,7 +7068,7 @@ impl LicenseCodes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7250,7 +7250,7 @@ impl Licenses {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7410,7 +7410,7 @@ impl MachineImages {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7535,7 +7535,7 @@ impl MachineTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7702,7 +7702,7 @@ impl NetworkAttachments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7847,7 +7847,7 @@ impl NetworkEdgeSecurityServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8032,7 +8032,7 @@ impl NetworkEndpointGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8271,7 +8271,7 @@ impl NetworkFirewallPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8388,7 +8388,7 @@ impl NetworkProfiles {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8573,7 +8573,7 @@ impl Networks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8772,7 +8772,7 @@ impl NodeGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8930,7 +8930,7 @@ impl NodeTemplates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9055,7 +9055,7 @@ impl NodeTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9335,7 +9335,7 @@ impl OrganizationSecurityPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9490,7 +9490,7 @@ impl PacketMirrorings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9617,7 +9617,7 @@ impl PreviewFeatures {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9842,7 +9842,7 @@ impl Projects {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9994,7 +9994,7 @@ impl PublicAdvertisedPrefixes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10154,7 +10154,7 @@ impl PublicDelegatedPrefixes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10307,7 +10307,7 @@ impl RegionAutoscalers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10474,7 +10474,7 @@ impl RegionBackendBuckets {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10666,7 +10666,7 @@ impl RegionBackendServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10810,7 +10810,7 @@ impl RegionCommitments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10976,7 +10976,7 @@ impl RegionCompositeHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11092,7 +11092,7 @@ impl RegionDiskTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11313,7 +11313,7 @@ impl RegionDisks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11479,7 +11479,7 @@ impl RegionHealthAggregationPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11638,7 +11638,7 @@ impl RegionHealthCheckServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11791,7 +11791,7 @@ impl RegionHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11954,7 +11954,7 @@ impl RegionHealthSources {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12117,7 +12117,7 @@ impl RegionInstanceGroupManagerResizeRequests {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12560,7 +12560,7 @@ impl RegionInstanceGroupManagers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12703,7 +12703,7 @@ impl RegionInstanceGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12838,7 +12838,7 @@ impl RegionInstanceTemplates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12955,7 +12955,7 @@ impl RegionInstances {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13109,7 +13109,7 @@ impl RegionInstantSnapshotGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13275,7 +13275,7 @@ impl RegionInstantSnapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13449,7 +13449,7 @@ impl RegionNetworkEndpointGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13664,7 +13664,7 @@ impl RegionNetworkFirewallPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13811,7 +13811,7 @@ impl RegionNotificationEndpoints {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13956,7 +13956,7 @@ impl RegionOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14127,7 +14127,7 @@ impl RegionSecurityPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14249,7 +14249,7 @@ impl RegionSnapshotSettings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14419,7 +14419,7 @@ impl RegionSnapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14555,7 +14555,7 @@ impl RegionSslCertificates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14704,7 +14704,7 @@ impl RegionSslPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14843,7 +14843,7 @@ impl RegionTargetHttpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14998,7 +14998,7 @@ impl RegionTargetHttpsProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15132,7 +15132,7 @@ impl RegionTargetTcpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15286,7 +15286,7 @@ impl RegionUrlMaps {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15398,7 +15398,7 @@ impl RegionZones {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15549,7 +15549,7 @@ impl Regions {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15693,7 +15693,7 @@ impl ReservationBlocks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15825,7 +15825,7 @@ impl ReservationSlots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15983,7 +15983,7 @@ impl ReservationSubBlocks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16158,7 +16158,7 @@ impl Reservations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16321,7 +16321,7 @@ impl ResourcePolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16452,7 +16452,7 @@ impl RolloutPlans {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16583,7 +16583,7 @@ impl Rollouts {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16791,7 +16791,7 @@ impl Routers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16928,7 +16928,7 @@ impl Routes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17115,7 +17115,7 @@ impl SecurityPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17282,7 +17282,7 @@ impl ServiceAttachments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17404,7 +17404,7 @@ impl SnapshotSettings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17576,7 +17576,7 @@ impl Snapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17718,7 +17718,7 @@ impl SslCertificates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17872,7 +17872,7 @@ impl SslPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17998,7 +17998,7 @@ impl StoragePoolTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18175,7 +18175,7 @@ impl StoragePools {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18360,7 +18360,7 @@ impl Subnetworks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18501,7 +18501,7 @@ impl TargetGrpcProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18657,7 +18657,7 @@ impl TargetHttpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18836,7 +18836,7 @@ impl TargetHttpsProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18989,7 +18989,7 @@ impl TargetInstances {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19173,7 +19173,7 @@ impl TargetPools {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19340,7 +19340,7 @@ impl TargetSslProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19498,7 +19498,7 @@ impl TargetTcpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19646,7 +19646,7 @@ impl TargetVpnGateways {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19823,7 +19823,7 @@ impl UrlMaps {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19980,7 +19980,7 @@ impl VpnGateways {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -20127,7 +20127,7 @@ impl VpnTunnels {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -20267,7 +20267,7 @@ impl WireGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -20410,7 +20410,7 @@ impl ZoneOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -20547,7 +20547,7 @@ impl ZoneVmExtensionPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

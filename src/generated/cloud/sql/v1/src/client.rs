@@ -45,7 +45,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -240,7 +240,7 @@ impl SqlBackupRunsService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -452,7 +452,7 @@ impl SqlBackupsService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -604,7 +604,7 @@ impl SqlConnectService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -837,7 +837,7 @@ impl SqlDatabasesService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -962,7 +962,7 @@ impl SqlFlagsService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2013,7 +2013,7 @@ impl SqlInstancesService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2183,7 +2183,7 @@ impl SqlOperationsService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2375,7 +2375,7 @@ impl SqlSslCertsService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2503,7 +2503,7 @@ impl SqlTiersService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://sqladmin.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

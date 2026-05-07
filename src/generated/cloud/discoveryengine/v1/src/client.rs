@@ -48,7 +48,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -228,7 +228,7 @@ impl AssistantService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -519,7 +519,7 @@ impl CmekConfigService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -874,7 +874,7 @@ impl CompletionService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1191,7 +1191,7 @@ impl ControlService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1714,7 +1714,7 @@ impl ConversationalSearchService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2052,7 +2052,7 @@ impl DataStoreService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2475,7 +2475,7 @@ impl DocumentService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2798,7 +2798,7 @@ impl EngineService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3025,7 +3025,7 @@ impl GroundedGenerationService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3422,7 +3422,7 @@ impl IdentityMappingStoreService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3635,7 +3635,7 @@ impl ProjectService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3832,7 +3832,7 @@ impl RankService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4038,7 +4038,7 @@ impl RecommendationService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4371,7 +4371,7 @@ impl SchemaService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4609,7 +4609,7 @@ impl SearchService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4851,7 +4851,7 @@ impl SearchTuningService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5065,7 +5065,7 @@ impl ServingConfigService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5379,7 +5379,7 @@ impl SessionService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6034,7 +6034,7 @@ impl SiteSearchEngineService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6330,7 +6330,7 @@ impl UserEventService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://discoveryengine.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
