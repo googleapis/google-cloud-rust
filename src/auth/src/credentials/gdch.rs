@@ -26,6 +26,8 @@ use crate::token_cache::TokenCache;
 use crate::{Result, errors};
 use async_trait::async_trait;
 use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
+use der::asn1::UintRef;
+use der::{Reader, SliceReader};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
@@ -146,13 +148,61 @@ impl GdchServiceAccountTokenProvider {
         let sig_der = signer
             .sign(to_sign.as_bytes())
             .map_err(errors::non_retryable)?;
-        let sig = p256::ecdsa::Signature::from_der(&sig_der).map_err(|e| {
-            errors::non_retryable_from_str(format!("failed to parse ecdsa DER signature: {}", e))
-        })?;
-        let encoded_sig = BASE64_URL_SAFE_NO_PAD.encode(&sig.to_bytes()[..]);
+        let sig_bytes = ecdsa_der_to_jose(&sig_der)?;
+        let encoded_sig = BASE64_URL_SAFE_NO_PAD.encode(&sig_bytes[..]);
 
         Ok(format!("{}.{}", to_sign, encoded_sig))
     }
+}
+
+/// Converts an ASN.1 DER-encoded ECDSA signature (`SEQUENCE { r INTEGER, s INTEGER }`)
+/// into the fixed-size 64-byte raw concatenation (`r || s`) required by the JWS/JWT specification.
+///
+/// This implementation is zero-copy during parsing and avoids heap allocations entirely by writing
+/// directly to a stack-allocated 64-byte array.
+fn ecdsa_der_to_jose(der: &[u8]) -> Result<[u8; 64]> {
+    let mut reader = SliceReader::new(der).map_err(errors::non_retryable)?;
+    let (r_ref, s_ref) = reader
+        .sequence(|nested| {
+            let r = nested.decode::<UintRef<'_>>()?;
+            let s = nested.decode::<UintRef<'_>>()?;
+            Ok((r, s))
+        })
+        .and_then(|res| reader.finish(res))
+        .map_err(errors::non_retryable)?;
+
+    let mut jose = [0u8; 64];
+    copy_jose_integer(&mut jose[..32], r_ref.as_bytes())?;
+    copy_jose_integer(&mut jose[32..], s_ref.as_bytes())?;
+    Ok(jose)
+}
+
+/// Copies a variable-length canonical ASN.1 DER integer into a fixed 32-byte big-endian buffer.
+///
+/// ASN.1 DER canonical unsigned integers enforce the minimum number of bytes. Critically:
+/// - If the integer's most significant bit is set (`>= 0x80`), DER canonicalization prepends a `0x00`
+///   byte to prevent negative interpretation in two's complement, resulting in a 33-byte slice. This
+///   function securely strips that leading zero byte.
+/// - If the integer is shorter than 32 bytes, it is prepended with leading zero padding to fill the
+///   destination buffer precisely.
+fn copy_jose_integer(dest: &mut [u8], bytes: &[u8]) -> Result<()> {
+    if bytes.len() > 33 {
+        return Err(errors::non_retryable_from_str(format!(
+            "invalid GDCH ECDSA signature integer length: {} bytes",
+            bytes.len()
+        )));
+    } else if bytes.len() == 33 {
+        if bytes[0] != 0 {
+            return Err(errors::non_retryable_from_str(
+                "invalid 33-byte GDCH ECDSA signature integer: leading byte is not zero",
+            ));
+        }
+        dest.copy_from_slice(&bytes[1..]);
+    } else {
+        let offset = 32 - bytes.len();
+        dest[offset..].copy_from_slice(bytes);
+    }
+    Ok(())
 }
 
 #[async_trait]
@@ -324,6 +374,7 @@ impl AccessTokenCredentialsProvider for GdchServiceAccountCredentials {
 mod tests {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use p256::ecdsa::signature::Verifier;
     use serde_json::json;
 
     type TestResult = anyhow::Result<()>;
@@ -443,6 +494,17 @@ mod tests {
             "system:serviceaccount:test-project:test-name"
         );
         assert_eq!(claims_json["aud"], "http://localhost/token");
+
+        let public_key = crate::credentials::tests::ES256_PRIVATE_KEY.public_key();
+        let verifying_key = p256::ecdsa::VerifyingKey::from(&public_key);
+        let sig_bytes = BASE64_URL_SAFE_NO_PAD.decode(parts[2])?;
+        let signature = p256::ecdsa::Signature::from_slice(&sig_bytes)
+            .map_err(|e| anyhow::anyhow!("invalid signature: {:?}", e))?;
+        let signed_data = format!("{}.{}", parts[0], parts[1]);
+        verifying_key
+            .verify(signed_data.as_bytes(), &signature)
+            .map_err(|e| anyhow::anyhow!("verification failed: {:?}", e))?;
+
         Ok(())
     }
 
