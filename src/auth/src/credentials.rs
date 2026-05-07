@@ -31,8 +31,8 @@ pub mod api_key_credentials;
 pub(crate) mod crypto_provider;
 pub mod external_account;
 pub(crate) mod external_account_sources;
-#[cfg(feature = "__gdch")]
-pub(crate) mod gdch;
+#[cfg(feature = "gdch")]
+pub mod gdch;
 #[cfg(feature = "idtoken")]
 pub mod idtoken;
 pub mod impersonated;
@@ -792,6 +792,9 @@ fn build_credentials(
                     universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
+                "gdch_service_account" => Err(BuilderError::not_supported(format!(
+                    "{cred_type}, use gdch::Builder directly."
+                ))),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
@@ -837,6 +840,9 @@ fn build_signer(
                 }
                 "external_account" => Err(BuilderError::not_supported(
                     "external_account signer is not supported",
+                )),
+                "gdch_service_account" => Err(BuilderError::not_supported(
+                    "gdch_service_account signer is not supported",
                 )),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
@@ -1129,7 +1135,7 @@ pub(crate) mod tests {
             .expect("Failed to create RsaPrivateKey from primes")
     });
 
-    #[cfg(any(feature = "idtoken", feature = "__gdch"))]
+    #[cfg(any(feature = "idtoken", feature = "gdch"))]
     pub static ES256_PRIVATE_KEY: LazyLock<p256::SecretKey> = LazyLock::new(|| {
         let secret_key_bytes = [
             0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
@@ -1139,7 +1145,7 @@ pub(crate) mod tests {
         p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
     });
 
-    #[cfg(feature = "__gdch")]
+    #[cfg(feature = "gdch")]
     pub static ES256_PEM: LazyLock<String> = LazyLock::new(|| {
         (*ES256_PRIVATE_KEY)
             .to_sec1_pem(LineEnding::LF)

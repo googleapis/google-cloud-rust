@@ -1003,4 +1003,136 @@ mod tests {
 
         Ok(())
     }
+
+    #[cfg(all(test, feature = "gdch"))]
+    #[tokio::test]
+    #[parallel]
+    async fn get_gdch_credentials_from_builder() -> Result<()> {
+        let test_quota_project = "test-quota-project";
+        let gdch_key = json!({
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "name": "test-service-identity",
+            "token_uri": "https://service-accounts.my-domain.com/authenticate"
+        });
+        let creds = google_cloud_auth::credentials::gdch::Builder::new("test-audience", gdch_key)
+            .with_quota_project_id(test_quota_project)
+            .build()?;
+        let fmt = format!("{creds:?}");
+        assert!(fmt.contains("GdchServiceAccountCredentials"));
+        assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[cfg(all(test, feature = "gdch"))]
+    #[tokio::test]
+    #[parallel]
+    async fn get_gdch_access_token_credentials_from_builder() -> Result<()> {
+        let test_quota_project = "test-quota-project";
+        let gdch_key = json!({
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "name": "test-service-identity",
+            "token_uri": "https://service-accounts.my-domain.com/authenticate"
+        });
+        let creds = google_cloud_auth::credentials::gdch::Builder::new("test-audience", gdch_key)
+            .with_quota_project_id(test_quota_project)
+            .build_access_token_credentials()?;
+        let fmt = format!("{creds:?}");
+        assert!(fmt.contains("GdchServiceAccountCredentials"));
+        assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[cfg(all(test, feature = "gdch"))]
+    #[tokio::test]
+    #[serial]
+    async fn create_access_token_credentials_adc_gdch_service_account_not_supported() -> TestResult
+    {
+        let contents = json!({
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "name": "test-service-identity",
+            "token_uri": "https://service-accounts.my-domain.com/authenticate"
+        })
+        .to_string();
+
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(
+            err.to_string()
+                .contains("gdch_service_account, use gdch::Builder directly.")
+        );
+
+        Ok(())
+    }
+
+    #[cfg(all(test, feature = "gdch"))]
+    #[tokio::test]
+    #[serial]
+    async fn create_signer_credentials_adc_gdch_service_account_not_supported() -> TestResult {
+        let contents = json!({
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "name": "test-service-identity",
+            "token_uri": "https://service-accounts.my-domain.com/authenticate"
+        })
+        .to_string();
+
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = google_cloud_auth::credentials::Builder::default()
+            .build_signer()
+            .unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(
+            err.to_string()
+                .contains("gdch_service_account signer is not supported")
+        );
+
+        Ok(())
+    }
+
+    #[cfg(all(test, feature = "idtoken", feature = "gdch"))]
+    #[tokio::test]
+    #[serial]
+    async fn create_id_token_credentials_adc_gdch_service_account_not_supported() -> TestResult {
+        let contents = json!({
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "name": "test-service-identity",
+            "token_uri": "https://service-accounts.my-domain.com/authenticate"
+        })
+        .to_string();
+
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = google_cloud_auth::credentials::idtoken::Builder::new("test-audience")
+            .build()
+            .unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(err.to_string().contains("gdch_service_account"));
+
+        Ok(())
+    }
 }
