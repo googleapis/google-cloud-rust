@@ -1,7 +1,8 @@
 # How to Contribute
 
-We'd love to accept your patches and contributions to this project. There are
-just a few small guidelines you need to follow.
+We appreciate your interest in contributing to this project. We prioritize work
+that aligns with our active roadmap or fixes confirmed bugs. Please read these
+guidelines carefully before proposing or submitting changes.
 
 ## Contributor License Agreement
 
@@ -21,6 +22,48 @@ All submissions, including submissions by project members, require review. We
 use GitHub pull requests for this purpose. Consult
 [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests.
+
+### Multi-Approvers Check
+
+Each pull request must be approved by two Googlers. This is enforced by an
+automated multi-approvers check. This check may not automatically re-run after
+the second approval is added. If it remains in a failed state, you can manually
+re-trigger it by:
+
+1. Clicking "View details" on the failed workflow to bring you to the "Actions"
+   page.
+1. Clicking "Re-run failed jobs".
+
+For more information, see [Re-running failed jobs in a workflow][rerunning].
+
+## Before contributing code
+
+Before doing any significant work, open an issue to propose your idea and ensure
+alignment. You can either
+[file a new issue](https://github.com/googleapis/google-cloud-rust/issues/new/choose),
+or comment on an
+[existing one](https://github.com/googleapis/google-cloud-rust/issues).
+
+A pull request (PR) that does not go through this coordination process may be
+closed to avoid wasted effort.
+
+## Using the issue tracker
+
+We use GitHub issues to track tasks, bugs, and discussions. Use the issue
+tracker as your source of truth.
+
+## Filing a new issue
+
+All changes, except trivial ones, should start with a GitHub issue.
+
+This process gives everyone a chance to validate the design, helps prevent
+duplication of effort, and ensures that the idea fits inside the goals for the
+language and tools. It also checks that the design is sound before code is
+written; the code review tool is not the place for high-level discussions.
+
+Always include a clear description in the body of the issue. The description
+should provide enough context for any team member to understand the problem or
+request without needing to contact you directly for clarification.
 
 ## Contributor Guides
 
@@ -138,3 +181,5 @@ instead of Fixes.
 
 This project follows
 [Google's Open Source Community Guidelines](https://opensource.google/conduct/).
+
+[rerunning]: https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-workflow-runs/re-running-workflows-and-jobs#re-running-failed-jobs-in-a-workflow
