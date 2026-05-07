@@ -749,8 +749,7 @@ pub async fn cleanup_stale_buckets(
         .list_buckets()
         .set_parent(format!("projects/{project_id}"))
         .by_item();
-    let mut pending = Vec::new();
-    let mut names = Vec::new();
+    let mut buckets_to_cleanup = Vec::new();
     while let Some(bucket) = buckets.next().await {
         let bucket = bucket?;
         if bucket
@@ -759,20 +758,20 @@ pub async fn cleanup_stale_buckets(
             .is_some_and(|v| v == "true")
             && bucket.create_time.is_some_and(|v| v < stale_deadline)
         {
-            let client = client.clone();
-            let name = bucket.name.clone();
-            pending.push(tokio::spawn(
-                async move { cleanup_bucket(client, name).await },
-            ));
-            names.push(bucket.name);
+            buckets_to_cleanup.push(bucket.name);
         }
     }
 
-    println!("cleaning up {} buckets", pending.len());
-    let results = futures::future::join_all(pending).await;
-    let errors = results.into_iter().zip(names).filter(|(r, _)| r.is_err());
-    for (r, name) in errors {
-        println!("error deleting bucket {name}: {r:?}");
+    println!("cleaning up {} buckets", buckets_to_cleanup.len());
+    // Serialize bucket deletion to respect GCP rate limit (~1 deletion every 2 seconds)
+    for (idx, name) in buckets_to_cleanup.iter().enumerate() {
+        if let Err(e) = cleanup_bucket(client.clone(), name.clone()).await {
+            println!("error deleting bucket {name}: {e:?}");
+        }
+        // Add delay between deletions, but not after the last one
+        if idx < buckets_to_cleanup.len() - 1 {
+            tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+        }
     }
 
     Ok(())
