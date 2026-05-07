@@ -612,7 +612,7 @@ mod tests {
             .filter(|s| s.name == "read_range")
             .collect::<Vec<_>>();
 
-        let _span_reader1 = range_spans
+        let span_reader1 = range_spans
             .clone()
             .into_iter()
             .find(|s| {
@@ -625,7 +625,7 @@ mod tests {
                 panic!("missing `read_range` span for ReadRange::offset(5): {range_spans:#?}")
             });
 
-        let _span_reader2 = range_spans
+        let span_reader2 = range_spans
             .clone()
             .into_iter()
             .find(|s| {
@@ -642,7 +642,7 @@ mod tests {
                 panic!("missing `read_range` span for ReadRange::segment(10, 10): {range_spans:#?}")
             });
 
-        let _span_reader3 = range_spans
+        let span_reader3 = range_spans
             .clone()
             .into_iter()
             .find(|s| {
@@ -654,6 +654,45 @@ mod tests {
             .unwrap_or_else(|| {
                 panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
             });
+
+        // Verify instrumentation attributes on read_range spans
+        let instrumentation_attributes = [
+            "gcp.client.service",
+            "gcp.client.version",
+            "gcp.client.repo",
+            "gcp.client.artifact",
+        ];
+        for span in [&span_reader1, &span_reader2, &span_reader3] {
+            for attr in &instrumentation_attributes {
+                assert!(
+                    span.attributes.contains_key(*attr),
+                    "missing instrumentation attribute '{}' in read_range span: {:#?}",
+                    attr,
+                    span
+                );
+            }
+            // Verify specific expected values
+            assert_eq!(
+                span.attributes.get("gcp.client.service").and_then(|v| v.as_string()),
+                Some("storage".to_string()),
+                "expected gcp.client.service='storage' in read_range span"
+            );
+            assert_eq!(
+                span.attributes.get("gcp.client.repo").and_then(|v| v.as_string()),
+                Some("googleapis/google-cloud-rust".to_string()),
+                "expected gcp.client.repo='googleapis/google-cloud-rust' in read_range span"
+            );
+            assert_eq!(
+                span.attributes.get("gcp.client.artifact").and_then(|v| v.as_string()),
+                Some("google-cloud-storage".to_string()),
+                "expected gcp.client.artifact='google-cloud-storage' in read_range span"
+            );
+            // Verify that gcp.client.version is present (value may vary)
+            assert!(
+                span.attributes.get("gcp.client.version").is_some(),
+                "missing gcp.client.version in read_range span"
+            );
+        }
         Ok(())
     }
 
