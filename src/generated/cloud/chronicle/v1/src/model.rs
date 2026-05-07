@@ -36,6 +36,8323 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// This resource represents the BigQuery export configuration for a Chronicle
+/// instance which includes Google Cloud Platform resources like Cloud Storage
+/// buckets, BigQuery datasets etc and the export settings for each data source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigQueryExport {
+    /// Identifier. The resource name of the BigQueryExport.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/bigQueryExport
+    pub name: std::string::String,
+
+    /// Output only. Whether the BigQueryExport has been provisioned for the
+    /// Chronicle instance.
+    pub provisioned: bool,
+
+    /// Output only. The BigQueryExportPackage entitled for the Chronicle instance.
+    pub big_query_export_package: crate::model::BigQueryExportPackage,
+
+    /// Optional. The export settings for the Entity Graph data source.
+    pub entity_graph_settings: std::option::Option<crate::model::DataSourceExportSettings>,
+
+    /// Optional. The export settings for the IOC Matches data source.
+    pub ioc_matches_settings: std::option::Option<crate::model::DataSourceExportSettings>,
+
+    /// Optional. The export settings for the Rule Detections data source.
+    pub rule_detections_settings: std::option::Option<crate::model::DataSourceExportSettings>,
+
+    /// Optional. The export settings for the UDM Events Aggregates data source.
+    pub udm_events_aggregates_settings: std::option::Option<crate::model::DataSourceExportSettings>,
+
+    /// Optional. The export settings for the UDM Events data source.
+    pub udm_events_settings: std::option::Option<crate::model::DataSourceExportSettings>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigQueryExport {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BigQueryExport::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [provisioned][crate::model::BigQueryExport::provisioned].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_provisioned(true);
+    /// ```
+    pub fn set_provisioned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.provisioned = v.into();
+        self
+    }
+
+    /// Sets the value of [big_query_export_package][crate::model::BigQueryExport::big_query_export_package].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::BigQueryExportPackage;
+    /// let x0 = BigQueryExport::new().set_big_query_export_package(BigQueryExportPackage::Byobq);
+    /// let x1 = BigQueryExport::new().set_big_query_export_package(BigQueryExportPackage::Advanced);
+    /// ```
+    pub fn set_big_query_export_package<
+        T: std::convert::Into<crate::model::BigQueryExportPackage>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.big_query_export_package = v.into();
+        self
+    }
+
+    /// Sets the value of [entity_graph_settings][crate::model::BigQueryExport::entity_graph_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_entity_graph_settings(DataSourceExportSettings::default()/* use setters */);
+    /// ```
+    pub fn set_entity_graph_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.entity_graph_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entity_graph_settings][crate::model::BigQueryExport::entity_graph_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_or_clear_entity_graph_settings(Some(DataSourceExportSettings::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_entity_graph_settings(None::<DataSourceExportSettings>);
+    /// ```
+    pub fn set_or_clear_entity_graph_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.entity_graph_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ioc_matches_settings][crate::model::BigQueryExport::ioc_matches_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_ioc_matches_settings(DataSourceExportSettings::default()/* use setters */);
+    /// ```
+    pub fn set_ioc_matches_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.ioc_matches_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ioc_matches_settings][crate::model::BigQueryExport::ioc_matches_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_or_clear_ioc_matches_settings(Some(DataSourceExportSettings::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_ioc_matches_settings(None::<DataSourceExportSettings>);
+    /// ```
+    pub fn set_or_clear_ioc_matches_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.ioc_matches_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rule_detections_settings][crate::model::BigQueryExport::rule_detections_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_rule_detections_settings(DataSourceExportSettings::default()/* use setters */);
+    /// ```
+    pub fn set_rule_detections_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.rule_detections_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rule_detections_settings][crate::model::BigQueryExport::rule_detections_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_or_clear_rule_detections_settings(Some(DataSourceExportSettings::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_rule_detections_settings(None::<DataSourceExportSettings>);
+    /// ```
+    pub fn set_or_clear_rule_detections_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.rule_detections_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [udm_events_aggregates_settings][crate::model::BigQueryExport::udm_events_aggregates_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_udm_events_aggregates_settings(DataSourceExportSettings::default()/* use setters */);
+    /// ```
+    pub fn set_udm_events_aggregates_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.udm_events_aggregates_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [udm_events_aggregates_settings][crate::model::BigQueryExport::udm_events_aggregates_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_or_clear_udm_events_aggregates_settings(Some(DataSourceExportSettings::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_udm_events_aggregates_settings(None::<DataSourceExportSettings>);
+    /// ```
+    pub fn set_or_clear_udm_events_aggregates_settings<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.udm_events_aggregates_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [udm_events_settings][crate::model::BigQueryExport::udm_events_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_udm_events_settings(DataSourceExportSettings::default()/* use setters */);
+    /// ```
+    pub fn set_udm_events_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.udm_events_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [udm_events_settings][crate::model::BigQueryExport::udm_events_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = BigQueryExport::new().set_or_clear_udm_events_settings(Some(DataSourceExportSettings::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_udm_events_settings(None::<DataSourceExportSettings>);
+    /// ```
+    pub fn set_or_clear_udm_events_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceExportSettings>,
+    {
+        self.udm_events_settings = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BigQueryExport {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BigQueryExport"
+    }
+}
+
+/// The export settings for a data source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataSourceExportSettings {
+    /// Required. Whether the data source is enabled for export.
+    pub enabled: bool,
+
+    /// Required. The retention period for the data source in days.
+    pub retention_days: i32,
+
+    /// Output only. The state of the latest data source export job.
+    pub latest_export_job_state: crate::model::LatestExportJobState,
+
+    /// Output only. The data freshness of the given export which represents the
+    /// time bucket at which the latest event was exported.
+    pub data_freshness_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The stored data volume of all the exports.
+    pub data_volume: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataSourceExportSettings {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::DataSourceExportSettings::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = DataSourceExportSettings::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [retention_days][crate::model::DataSourceExportSettings::retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = DataSourceExportSettings::new().set_retention_days(42);
+    /// ```
+    pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.retention_days = v.into();
+        self
+    }
+
+    /// Sets the value of [latest_export_job_state][crate::model::DataSourceExportSettings::latest_export_job_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// use google_cloud_chronicle_v1::model::LatestExportJobState;
+    /// let x0 = DataSourceExportSettings::new().set_latest_export_job_state(LatestExportJobState::Success);
+    /// let x1 = DataSourceExportSettings::new().set_latest_export_job_state(LatestExportJobState::Failed);
+    /// ```
+    pub fn set_latest_export_job_state<
+        T: std::convert::Into<crate::model::LatestExportJobState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.latest_export_job_state = v.into();
+        self
+    }
+
+    /// Sets the value of [data_freshness_time][crate::model::DataSourceExportSettings::data_freshness_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// use wkt::Timestamp;
+    /// let x = DataSourceExportSettings::new().set_data_freshness_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_data_freshness_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.data_freshness_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_freshness_time][crate::model::DataSourceExportSettings::data_freshness_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// use wkt::Timestamp;
+    /// let x = DataSourceExportSettings::new().set_or_clear_data_freshness_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataSourceExportSettings::new().set_or_clear_data_freshness_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_data_freshness_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.data_freshness_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [data_volume][crate::model::DataSourceExportSettings::data_volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataSourceExportSettings;
+    /// let x = DataSourceExportSettings::new().set_data_volume(42);
+    /// ```
+    pub fn set_data_volume<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.data_volume = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataSourceExportSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataSourceExportSettings"
+    }
+}
+
+/// The request message to fetch BigQuery Export configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetBigQueryExportRequest {
+    /// Required. The resource name of the BigqueryExport to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/bigQueryExport
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBigQueryExportRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBigQueryExportRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetBigQueryExportRequest;
+    /// let x = GetBigQueryExportRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBigQueryExportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetBigQueryExportRequest"
+    }
+}
+
+/// The request message to update BigQuery Export configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateBigQueryExportRequest {
+    /// Required. The BigQueryExport settings to update.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/bigQueryExport
+    pub big_query_export: std::option::Option<crate::model::BigQueryExport>,
+
+    /// Optional. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBigQueryExportRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateBigQueryExportRequest;
+    /// use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// let x = UpdateBigQueryExportRequest::new().set_big_query_export(BigQueryExport::default()/* use setters */);
+    /// ```
+    pub fn set_big_query_export<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryExport>,
+    {
+        self.big_query_export = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateBigQueryExportRequest;
+    /// use google_cloud_chronicle_v1::model::BigQueryExport;
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_big_query_export(Some(BigQueryExport::default()/* use setters */));
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_big_query_export(None::<BigQueryExport>);
+    /// ```
+    pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryExport>,
+    {
+        self.big_query_export = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateBigQueryExportRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBigQueryExportRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateBigQueryExportRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBigQueryExportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.UpdateBigQueryExportRequest"
+    }
+}
+
+/// The request message to provision BigQuery Export configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProvisionBigQueryExportRequest {
+    /// Required. The instance for which BigQuery export is being provisioned.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ProvisionBigQueryExportRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ProvisionBigQueryExportRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ProvisionBigQueryExportRequest;
+    /// let x = ProvisionBigQueryExportRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ProvisionBigQueryExportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ProvisionBigQueryExportRequest"
+    }
+}
+
+/// DashboardChart resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DashboardChart {
+    /// Output only. Name of the dashboardChart.
+    pub name: std::string::String,
+
+    /// Required. Display name/Title of the dashboardChart visible to users.
+    pub display_name: std::string::String,
+
+    /// Optional. Description of the dashboardChart.
+    pub description: std::string::String,
+
+    /// Output only. NativeDashboard this chart belongs to.
+    pub native_dashboard: std::string::String,
+
+    /// Optional. Type of tile i.e., visualization, button or text.
+    pub tile_type: crate::model::TileType,
+
+    /// Optional. Query and datasource used in the chart. Should be empty for
+    /// Button Tiles.
+    pub chart_datasource: std::option::Option<crate::model::dashboard_chart::ChartDatasource>,
+
+    /// Required. Depending on tile_type one of below fields will be required.
+    pub visualization: std::option::Option<crate::model::dashboard_chart::Visualization>,
+
+    /// Optional. This checksum is computed by the server based on the value of
+    /// other fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    pub etag: std::string::String,
+
+    /// Optional. Drill down configuration.
+    pub drill_down_config: std::option::Option<crate::model::dashboard_chart::DrillDownConfig>,
+
+    /// Optional. List of Advanced Filter tokens used in this chart's query (e.g.,
+    /// "hostname", "ip"). This allows the UI to identify dependencies without
+    /// parsing the query text. The tokens are stored without the wrapping '$'
+    /// characters.
+    /// The number of tokens are not expected to be more than 10.
+    pub tokens: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DashboardChart {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DashboardChart::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DashboardChart::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::DashboardChart::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DashboardChart::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DashboardChart::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DashboardChart::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::DashboardChart::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DashboardChart::new().set_native_dashboard("example");
+    /// ```
+    pub fn set_native_dashboard<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.native_dashboard = v.into();
+        self
+    }
+
+    /// Sets the value of [tile_type][crate::model::DashboardChart::tile_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::TileType;
+    /// let x0 = DashboardChart::new().set_tile_type(TileType::Visualization);
+    /// let x1 = DashboardChart::new().set_tile_type(TileType::Button);
+    /// let x2 = DashboardChart::new().set_tile_type(TileType::Markdown);
+    /// ```
+    pub fn set_tile_type<T: std::convert::Into<crate::model::TileType>>(mut self, v: T) -> Self {
+        self.tile_type = v.into();
+        self
+    }
+
+    /// Sets the value of [chart_datasource][crate::model::DashboardChart::chart_datasource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::dashboard_chart::ChartDatasource;
+    /// let x = DashboardChart::new().set_chart_datasource(ChartDatasource::default()/* use setters */);
+    /// ```
+    pub fn set_chart_datasource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_chart::ChartDatasource>,
+    {
+        self.chart_datasource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [chart_datasource][crate::model::DashboardChart::chart_datasource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::dashboard_chart::ChartDatasource;
+    /// let x = DashboardChart::new().set_or_clear_chart_datasource(Some(ChartDatasource::default()/* use setters */));
+    /// let x = DashboardChart::new().set_or_clear_chart_datasource(None::<ChartDatasource>);
+    /// ```
+    pub fn set_or_clear_chart_datasource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_chart::ChartDatasource>,
+    {
+        self.chart_datasource = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [visualization][crate::model::DashboardChart::visualization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+    /// let x = DashboardChart::new().set_visualization(Visualization::default()/* use setters */);
+    /// ```
+    pub fn set_visualization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_chart::Visualization>,
+    {
+        self.visualization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [visualization][crate::model::DashboardChart::visualization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+    /// let x = DashboardChart::new().set_or_clear_visualization(Some(Visualization::default()/* use setters */));
+    /// let x = DashboardChart::new().set_or_clear_visualization(None::<Visualization>);
+    /// ```
+    pub fn set_or_clear_visualization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_chart::Visualization>,
+    {
+        self.visualization = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DashboardChart::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DashboardChart::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [drill_down_config][crate::model::DashboardChart::drill_down_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::dashboard_chart::DrillDownConfig;
+    /// let x = DashboardChart::new().set_drill_down_config(DrillDownConfig::default()/* use setters */);
+    /// ```
+    pub fn set_drill_down_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_chart::DrillDownConfig>,
+    {
+        self.drill_down_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [drill_down_config][crate::model::DashboardChart::drill_down_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// use google_cloud_chronicle_v1::model::dashboard_chart::DrillDownConfig;
+    /// let x = DashboardChart::new().set_or_clear_drill_down_config(Some(DrillDownConfig::default()/* use setters */));
+    /// let x = DashboardChart::new().set_or_clear_drill_down_config(None::<DrillDownConfig>);
+    /// ```
+    pub fn set_or_clear_drill_down_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_chart::DrillDownConfig>,
+    {
+        self.drill_down_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tokens][crate::model::DashboardChart::tokens].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DashboardChart::new().set_tokens(["a", "b", "c"]);
+    /// ```
+    pub fn set_tokens<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tokens = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DashboardChart {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart"
+    }
+}
+
+/// Defines additional types related to [DashboardChart].
+pub mod dashboard_chart {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Datasource of the chart including the query reference and source name.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ChartDatasource {
+        /// Reference to dashboard query resource used in the chart.
+        pub dashboard_query: std::string::String,
+
+        /// Name of the datasource used in the chart.
+        pub data_sources: std::vec::Vec<crate::model::DataSource>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ChartDatasource {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dashboard_query][crate::model::dashboard_chart::ChartDatasource::dashboard_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::ChartDatasource;
+        /// let x = ChartDatasource::new().set_dashboard_query("example");
+        /// ```
+        pub fn set_dashboard_query<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.dashboard_query = v.into();
+            self
+        }
+
+        /// Sets the value of [data_sources][crate::model::dashboard_chart::ChartDatasource::data_sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::ChartDatasource;
+        /// use google_cloud_chronicle_v1::model::DataSource;
+        /// let x = ChartDatasource::new().set_data_sources([
+        ///     DataSource::Udm,
+        ///     DataSource::Entity,
+        ///     DataSource::IngestionMetrics,
+        /// ]);
+        /// ```
+        pub fn set_data_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::DataSource>,
+        {
+            use std::iter::Iterator;
+            self.data_sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ChartDatasource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.ChartDatasource"
+        }
+    }
+
+    /// Visualization config for a chart.
+    /// <https://echarts.apache.org/en/option.html#series>
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Visualization {
+        #[allow(missing_docs)]
+        pub x_axes: std::vec::Vec<crate::model::dashboard_chart::visualization::Axis>,
+
+        #[allow(missing_docs)]
+        pub y_axes: std::vec::Vec<crate::model::dashboard_chart::visualization::Axis>,
+
+        #[allow(missing_docs)]
+        pub series: std::vec::Vec<crate::model::dashboard_chart::visualization::Series>,
+
+        #[allow(missing_docs)]
+        pub tooltip: std::option::Option<crate::model::dashboard_chart::visualization::Tooltip>,
+
+        #[allow(missing_docs)]
+        pub legends: std::vec::Vec<crate::model::dashboard_chart::visualization::Legend>,
+
+        /// Column Definition to represent chart as a table.
+        pub column_defs: std::vec::Vec<crate::model::dashboard_chart::visualization::ColumnDef>,
+
+        /// Optional. Configuration for table appearance.
+        pub table_config:
+            std::option::Option<crate::model::dashboard_chart::visualization::TableConfig>,
+
+        /// Button config for a chart if tileType is TILE_TYPE_BUTTON.
+        pub button: std::option::Option<crate::model::Button>,
+
+        /// Optional. Markdown config for a chart if tileType is TILE_TYPE_MARKDOWN.
+        pub markdown: std::option::Option<crate::model::Markdown>,
+
+        /// Optional. Selected column for series
+        pub series_column: std::vec::Vec<std::string::String>,
+
+        /// Optional. Selected grouping type for series
+        pub grouping_type: std::string::String,
+
+        /// Optional. Google Maps config for a chart if type is GOOGLE MAPS.
+        pub google_maps_config:
+            std::option::Option<crate::model::dashboard_chart::visualization::GoogleMapsConfig>,
+
+        /// Optional. Whether threshold coloring is enabled for the chart. If it's
+        /// enabled, the chart will be colored based on the values stored in
+        /// VisualMap below.
+        pub threshold_coloring_enabled: bool,
+
+        /// Optional. Visual maps for the chart.
+        pub visual_maps: std::vec::Vec<crate::model::dashboard_chart::visualization::VisualMap>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Visualization {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [x_axes][crate::model::dashboard_chart::Visualization::x_axes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+        /// let x = Visualization::new()
+        ///     .set_x_axes([
+        ///         Axis::default()/* use setters */,
+        ///         Axis::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_x_axes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::visualization::Axis>,
+        {
+            use std::iter::Iterator;
+            self.x_axes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [y_axes][crate::model::dashboard_chart::Visualization::y_axes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+        /// let x = Visualization::new()
+        ///     .set_y_axes([
+        ///         Axis::default()/* use setters */,
+        ///         Axis::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_y_axes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::visualization::Axis>,
+        {
+            use std::iter::Iterator;
+            self.y_axes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [series][crate::model::dashboard_chart::Visualization::series].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+        /// let x = Visualization::new()
+        ///     .set_series([
+        ///         Series::default()/* use setters */,
+        ///         Series::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_series<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::visualization::Series>,
+        {
+            use std::iter::Iterator;
+            self.series = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [tooltip][crate::model::dashboard_chart::Visualization::tooltip].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Tooltip;
+        /// let x = Visualization::new().set_tooltip(Tooltip::default()/* use setters */);
+        /// ```
+        pub fn set_tooltip<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_chart::visualization::Tooltip>,
+        {
+            self.tooltip = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tooltip][crate::model::dashboard_chart::Visualization::tooltip].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Tooltip;
+        /// let x = Visualization::new().set_or_clear_tooltip(Some(Tooltip::default()/* use setters */));
+        /// let x = Visualization::new().set_or_clear_tooltip(None::<Tooltip>);
+        /// ```
+        pub fn set_or_clear_tooltip<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_chart::visualization::Tooltip>,
+        {
+            self.tooltip = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [legends][crate::model::dashboard_chart::Visualization::legends].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+        /// let x = Visualization::new()
+        ///     .set_legends([
+        ///         Legend::default()/* use setters */,
+        ///         Legend::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_legends<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::visualization::Legend>,
+        {
+            use std::iter::Iterator;
+            self.legends = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [column_defs][crate::model::dashboard_chart::Visualization::column_defs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnDef;
+        /// let x = Visualization::new()
+        ///     .set_column_defs([
+        ///         ColumnDef::default()/* use setters */,
+        ///         ColumnDef::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_column_defs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::visualization::ColumnDef>,
+        {
+            use std::iter::Iterator;
+            self.column_defs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [table_config][crate::model::dashboard_chart::Visualization::table_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::TableConfig;
+        /// let x = Visualization::new().set_table_config(TableConfig::default()/* use setters */);
+        /// ```
+        pub fn set_table_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_chart::visualization::TableConfig>,
+        {
+            self.table_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table_config][crate::model::dashboard_chart::Visualization::table_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::TableConfig;
+        /// let x = Visualization::new().set_or_clear_table_config(Some(TableConfig::default()/* use setters */));
+        /// let x = Visualization::new().set_or_clear_table_config(None::<TableConfig>);
+        /// ```
+        pub fn set_or_clear_table_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_chart::visualization::TableConfig>,
+        {
+            self.table_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [button][crate::model::dashboard_chart::Visualization::button].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::Button;
+        /// let x = Visualization::new().set_button(Button::default()/* use setters */);
+        /// ```
+        pub fn set_button<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Button>,
+        {
+            self.button = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [button][crate::model::dashboard_chart::Visualization::button].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::Button;
+        /// let x = Visualization::new().set_or_clear_button(Some(Button::default()/* use setters */));
+        /// let x = Visualization::new().set_or_clear_button(None::<Button>);
+        /// ```
+        pub fn set_or_clear_button<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Button>,
+        {
+            self.button = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [markdown][crate::model::dashboard_chart::Visualization::markdown].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::Markdown;
+        /// let x = Visualization::new().set_markdown(Markdown::default()/* use setters */);
+        /// ```
+        pub fn set_markdown<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Markdown>,
+        {
+            self.markdown = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [markdown][crate::model::dashboard_chart::Visualization::markdown].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::Markdown;
+        /// let x = Visualization::new().set_or_clear_markdown(Some(Markdown::default()/* use setters */));
+        /// let x = Visualization::new().set_or_clear_markdown(None::<Markdown>);
+        /// ```
+        pub fn set_or_clear_markdown<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Markdown>,
+        {
+            self.markdown = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [series_column][crate::model::dashboard_chart::Visualization::series_column].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// let x = Visualization::new().set_series_column(["a", "b", "c"]);
+        /// ```
+        pub fn set_series_column<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.series_column = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [grouping_type][crate::model::dashboard_chart::Visualization::grouping_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// let x = Visualization::new().set_grouping_type("example");
+        /// ```
+        pub fn set_grouping_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.grouping_type = v.into();
+            self
+        }
+
+        /// Sets the value of [google_maps_config][crate::model::dashboard_chart::Visualization::google_maps_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+        /// let x = Visualization::new().set_google_maps_config(GoogleMapsConfig::default()/* use setters */);
+        /// ```
+        pub fn set_google_maps_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_chart::visualization::GoogleMapsConfig>,
+        {
+            self.google_maps_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_maps_config][crate::model::dashboard_chart::Visualization::google_maps_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+        /// let x = Visualization::new().set_or_clear_google_maps_config(Some(GoogleMapsConfig::default()/* use setters */));
+        /// let x = Visualization::new().set_or_clear_google_maps_config(None::<GoogleMapsConfig>);
+        /// ```
+        pub fn set_or_clear_google_maps_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_chart::visualization::GoogleMapsConfig>,
+        {
+            self.google_maps_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [threshold_coloring_enabled][crate::model::dashboard_chart::Visualization::threshold_coloring_enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// let x = Visualization::new().set_threshold_coloring_enabled(true);
+        /// ```
+        pub fn set_threshold_coloring_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.threshold_coloring_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [visual_maps][crate::model::dashboard_chart::Visualization::visual_maps].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::Visualization;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::VisualMap;
+        /// let x = Visualization::new()
+        ///     .set_visual_maps([
+        ///         VisualMap::default()/* use setters */,
+        ///         VisualMap::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_visual_maps<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::visualization::VisualMap>,
+        {
+            use std::iter::Iterator;
+            self.visual_maps = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Visualization {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization"
+        }
+    }
+
+    /// Defines additional types related to [Visualization].
+    pub mod visualization {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Axis {
+            #[allow(missing_docs)]
+            pub axis_type: crate::model::AxisType,
+
+            #[allow(missing_docs)]
+            pub display_name: std::string::String,
+
+            /// Minimum value to be rendered in ECharts as per
+            /// <https://echarts.apache.org/en/option.html#xAxis.min>
+            pub min: std::option::Option<i32>,
+
+            /// Maximum value to be rendered in ECharts as per
+            /// <https://echarts.apache.org/en/option.html#xAxis.max>
+            pub max: std::option::Option<i32>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Axis {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [axis_type][crate::model::dashboard_chart::visualization::Axis::axis_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+            /// use google_cloud_chronicle_v1::model::AxisType;
+            /// let x0 = Axis::new().set_axis_type(AxisType::Value);
+            /// let x1 = Axis::new().set_axis_type(AxisType::Category);
+            /// let x2 = Axis::new().set_axis_type(AxisType::Time);
+            /// ```
+            pub fn set_axis_type<T: std::convert::Into<crate::model::AxisType>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.axis_type = v.into();
+                self
+            }
+
+            /// Sets the value of [display_name][crate::model::dashboard_chart::visualization::Axis::display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+            /// let x = Axis::new().set_display_name("example");
+            /// ```
+            pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [min][crate::model::dashboard_chart::visualization::Axis::min].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+            /// let x = Axis::new().set_min(42);
+            /// ```
+            pub fn set_min<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.min = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [min][crate::model::dashboard_chart::visualization::Axis::min].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+            /// let x = Axis::new().set_or_clear_min(Some(42));
+            /// let x = Axis::new().set_or_clear_min(None::<i32>);
+            /// ```
+            pub fn set_or_clear_min<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.min = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [max][crate::model::dashboard_chart::visualization::Axis::max].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+            /// let x = Axis::new().set_max(42);
+            /// ```
+            pub fn set_max<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.max = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [max][crate::model::dashboard_chart::visualization::Axis::max].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Axis;
+            /// let x = Axis::new().set_or_clear_max(Some(42));
+            /// let x = Axis::new().set_or_clear_max(None::<i32>);
+            /// ```
+            pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.max = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for Axis {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Axis"
+            }
+        }
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Series {
+            #[allow(missing_docs)]
+            pub series_type: crate::model::SeriesType,
+
+            /// user specified series label
+            pub series_name: std::string::String,
+
+            #[allow(missing_docs)]
+            pub show_symbol: bool,
+
+            #[allow(missing_docs)]
+            pub show_background: bool,
+
+            #[allow(missing_docs)]
+            pub stack: std::string::String,
+
+            #[allow(missing_docs)]
+            pub series_stack_strategy: crate::model::SeriesStackStrategy,
+
+            #[allow(missing_docs)]
+            pub encode:
+                std::option::Option<crate::model::dashboard_chart::visualization::series::Encode>,
+
+            #[allow(missing_docs)]
+            pub label: std::string::String,
+
+            #[allow(missing_docs)]
+            pub field: std::string::String,
+
+            /// Optional. Data label config for a series.
+            /// Displays data vaule in the chart
+            pub data_label: std::option::Option<
+                crate::model::dashboard_chart::visualization::series::DataLabel,
+            >,
+
+            /// Optional. Used to make a pie chart into a douhnut chart
+            pub radius: std::vec::Vec<std::string::String>,
+
+            /// Optional. Custom styling for chart
+            pub item_style: std::option::Option<
+                crate::model::dashboard_chart::visualization::series::ItemStyle,
+            >,
+
+            /// Optional. Series unique value from the query result
+            pub series_unique_value: std::string::String,
+
+            /// Optional. Custom styling for area chart
+            pub area_style: std::option::Option<
+                crate::model::dashboard_chart::visualization::series::AreaStyle,
+            >,
+
+            /// Optional. Field to be saved for retrieving slice colors for the chart
+            pub item_colors: std::option::Option<
+                crate::model::dashboard_chart::visualization::series::ItemColors,
+            >,
+
+            /// Optional. Field to be saved for retrieving gauge config for gauge chart
+            pub gauge_config: std::option::Option<
+                crate::model::dashboard_chart::visualization::series::GaugeConfig,
+            >,
+
+            /// Optional. Fields to capture trend config for metric charts
+            pub metric_trend_config: std::option::Option<
+                crate::model::dashboard_chart::visualization::series::MetricTrendConfig,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Series {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [series_type][crate::model::dashboard_chart::visualization::Series::series_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::SeriesType;
+            /// let x0 = Series::new().set_series_type(SeriesType::Line);
+            /// let x1 = Series::new().set_series_type(SeriesType::Bar);
+            /// let x2 = Series::new().set_series_type(SeriesType::Pie);
+            /// ```
+            pub fn set_series_type<T: std::convert::Into<crate::model::SeriesType>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.series_type = v.into();
+                self
+            }
+
+            /// Sets the value of [series_name][crate::model::dashboard_chart::visualization::Series::series_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_series_name("example");
+            /// ```
+            pub fn set_series_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.series_name = v.into();
+                self
+            }
+
+            /// Sets the value of [show_symbol][crate::model::dashboard_chart::visualization::Series::show_symbol].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_show_symbol(true);
+            /// ```
+            pub fn set_show_symbol<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.show_symbol = v.into();
+                self
+            }
+
+            /// Sets the value of [show_background][crate::model::dashboard_chart::visualization::Series::show_background].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_show_background(true);
+            /// ```
+            pub fn set_show_background<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.show_background = v.into();
+                self
+            }
+
+            /// Sets the value of [stack][crate::model::dashboard_chart::visualization::Series::stack].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_stack("example");
+            /// ```
+            pub fn set_stack<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.stack = v.into();
+                self
+            }
+
+            /// Sets the value of [series_stack_strategy][crate::model::dashboard_chart::visualization::Series::series_stack_strategy].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::SeriesStackStrategy;
+            /// let x0 = Series::new().set_series_stack_strategy(SeriesStackStrategy::Samesign);
+            /// let x1 = Series::new().set_series_stack_strategy(SeriesStackStrategy::All);
+            /// let x2 = Series::new().set_series_stack_strategy(SeriesStackStrategy::Positive);
+            /// ```
+            pub fn set_series_stack_strategy<
+                T: std::convert::Into<crate::model::SeriesStackStrategy>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.series_stack_strategy = v.into();
+                self
+            }
+
+            /// Sets the value of [encode][crate::model::dashboard_chart::visualization::Series::encode].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::Encode;
+            /// let x = Series::new().set_encode(Encode::default()/* use setters */);
+            /// ```
+            pub fn set_encode<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::dashboard_chart::visualization::series::Encode>,
+            {
+                self.encode = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [encode][crate::model::dashboard_chart::visualization::Series::encode].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::Encode;
+            /// let x = Series::new().set_or_clear_encode(Some(Encode::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_encode(None::<Encode>);
+            /// ```
+            pub fn set_or_clear_encode<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::dashboard_chart::visualization::series::Encode>,
+            {
+                self.encode = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [label][crate::model::dashboard_chart::visualization::Series::label].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_label("example");
+            /// ```
+            pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.label = v.into();
+                self
+            }
+
+            /// Sets the value of [field][crate::model::dashboard_chart::visualization::Series::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_field("example");
+            /// ```
+            pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.field = v.into();
+                self
+            }
+
+            /// Sets the value of [data_label][crate::model::dashboard_chart::visualization::Series::data_label].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::DataLabel;
+            /// let x = Series::new().set_data_label(DataLabel::default()/* use setters */);
+            /// ```
+            pub fn set_data_label<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::DataLabel,
+                    >,
+            {
+                self.data_label = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [data_label][crate::model::dashboard_chart::visualization::Series::data_label].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::DataLabel;
+            /// let x = Series::new().set_or_clear_data_label(Some(DataLabel::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_data_label(None::<DataLabel>);
+            /// ```
+            pub fn set_or_clear_data_label<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::DataLabel,
+                    >,
+            {
+                self.data_label = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [radius][crate::model::dashboard_chart::visualization::Series::radius].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_radius(["a", "b", "c"]);
+            /// ```
+            pub fn set_radius<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.radius = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [item_style][crate::model::dashboard_chart::visualization::Series::item_style].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemStyle;
+            /// let x = Series::new().set_item_style(ItemStyle::default()/* use setters */);
+            /// ```
+            pub fn set_item_style<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::ItemStyle,
+                    >,
+            {
+                self.item_style = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [item_style][crate::model::dashboard_chart::visualization::Series::item_style].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemStyle;
+            /// let x = Series::new().set_or_clear_item_style(Some(ItemStyle::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_item_style(None::<ItemStyle>);
+            /// ```
+            pub fn set_or_clear_item_style<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::ItemStyle,
+                    >,
+            {
+                self.item_style = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [series_unique_value][crate::model::dashboard_chart::visualization::Series::series_unique_value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// let x = Series::new().set_series_unique_value("example");
+            /// ```
+            pub fn set_series_unique_value<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.series_unique_value = v.into();
+                self
+            }
+
+            /// Sets the value of [area_style][crate::model::dashboard_chart::visualization::Series::area_style].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+            /// let x = Series::new().set_area_style(AreaStyle::default()/* use setters */);
+            /// ```
+            pub fn set_area_style<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::AreaStyle,
+                    >,
+            {
+                self.area_style = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [area_style][crate::model::dashboard_chart::visualization::Series::area_style].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+            /// let x = Series::new().set_or_clear_area_style(Some(AreaStyle::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_area_style(None::<AreaStyle>);
+            /// ```
+            pub fn set_or_clear_area_style<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::AreaStyle,
+                    >,
+            {
+                self.area_style = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [item_colors][crate::model::dashboard_chart::visualization::Series::item_colors].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemColors;
+            /// let x = Series::new().set_item_colors(ItemColors::default()/* use setters */);
+            /// ```
+            pub fn set_item_colors<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::ItemColors,
+                    >,
+            {
+                self.item_colors = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [item_colors][crate::model::dashboard_chart::visualization::Series::item_colors].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemColors;
+            /// let x = Series::new().set_or_clear_item_colors(Some(ItemColors::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_item_colors(None::<ItemColors>);
+            /// ```
+            pub fn set_or_clear_item_colors<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::ItemColors,
+                    >,
+            {
+                self.item_colors = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [gauge_config][crate::model::dashboard_chart::visualization::Series::gauge_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+            /// let x = Series::new().set_gauge_config(GaugeConfig::default()/* use setters */);
+            /// ```
+            pub fn set_gauge_config<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::GaugeConfig,
+                    >,
+            {
+                self.gauge_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [gauge_config][crate::model::dashboard_chart::visualization::Series::gauge_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+            /// let x = Series::new().set_or_clear_gauge_config(Some(GaugeConfig::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_gauge_config(None::<GaugeConfig>);
+            /// ```
+            pub fn set_or_clear_gauge_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::GaugeConfig,
+                    >,
+            {
+                self.gauge_config = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [metric_trend_config][crate::model::dashboard_chart::visualization::Series::metric_trend_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::MetricTrendConfig;
+            /// let x = Series::new().set_metric_trend_config(MetricTrendConfig::default()/* use setters */);
+            /// ```
+            pub fn set_metric_trend_config<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::MetricTrendConfig,
+                    >,
+            {
+                self.metric_trend_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [metric_trend_config][crate::model::dashboard_chart::visualization::Series::metric_trend_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Series;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::MetricTrendConfig;
+            /// let x = Series::new().set_or_clear_metric_trend_config(Some(MetricTrendConfig::default()/* use setters */));
+            /// let x = Series::new().set_or_clear_metric_trend_config(None::<MetricTrendConfig>);
+            /// ```
+            pub fn set_or_clear_metric_trend_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::series::MetricTrendConfig,
+                    >,
+            {
+                self.metric_trend_config = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for Series {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series"
+            }
+        }
+
+        /// Defines additional types related to [Series].
+        pub mod series {
+            #[allow(unused_imports)]
+            use super::*;
+
+            #[allow(missing_docs)]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Encode {
+                #[allow(missing_docs)]
+                pub x: std::string::String,
+
+                #[allow(missing_docs)]
+                pub y: std::string::String,
+
+                /// For some type of series that are not in any coordinate system, like
+                /// 'pie'
+                pub value: std::string::String,
+
+                /// This is useful in charts like 'pie', where data item name can be
+                /// displayed in legend.
+                pub item_name: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Encode {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [x][crate::model::dashboard_chart::visualization::series::Encode::x].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::Encode;
+                /// let x = Encode::new().set_x("example");
+                /// ```
+                pub fn set_x<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                    self.x = v.into();
+                    self
+                }
+
+                /// Sets the value of [y][crate::model::dashboard_chart::visualization::series::Encode::y].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::Encode;
+                /// let x = Encode::new().set_y("example");
+                /// ```
+                pub fn set_y<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                    self.y = v.into();
+                    self
+                }
+
+                /// Sets the value of [value][crate::model::dashboard_chart::visualization::series::Encode::value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::Encode;
+                /// let x = Encode::new().set_value("example");
+                /// ```
+                pub fn set_value<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.value = v.into();
+                    self
+                }
+
+                /// Sets the value of [item_name][crate::model::dashboard_chart::visualization::series::Encode::item_name].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::Encode;
+                /// let x = Encode::new().set_item_name("example");
+                /// ```
+                pub fn set_item_name<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.item_name = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Encode {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.Encode"
+                }
+            }
+
+            /// Data label config for a series.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct DataLabel {
+                /// Optional. Whether to show data label.
+                pub show: bool,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl DataLabel {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [show][crate::model::dashboard_chart::visualization::series::DataLabel::show].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::DataLabel;
+                /// let x = DataLabel::new().set_show(true);
+                /// ```
+                pub fn set_show<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                    self.show = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for DataLabel {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.DataLabel"
+                }
+            }
+
+            /// Custom styling for chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct ItemStyle {
+                /// Optional. Used to add border width
+                pub border_width: i32,
+
+                /// Optional. Used to add border color
+                pub border_color: std::string::String,
+
+                /// Optional. Used to add color
+                pub color: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl ItemStyle {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [border_width][crate::model::dashboard_chart::visualization::series::ItemStyle::border_width].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemStyle;
+                /// let x = ItemStyle::new().set_border_width(42);
+                /// ```
+                pub fn set_border_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.border_width = v.into();
+                    self
+                }
+
+                /// Sets the value of [border_color][crate::model::dashboard_chart::visualization::series::ItemStyle::border_color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemStyle;
+                /// let x = ItemStyle::new().set_border_color("example");
+                /// ```
+                pub fn set_border_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.border_color = v.into();
+                    self
+                }
+
+                /// Sets the value of [color][crate::model::dashboard_chart::visualization::series::ItemStyle::color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemStyle;
+                /// let x = ItemStyle::new().set_color("example");
+                /// ```
+                pub fn set_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.color = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ItemStyle {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.ItemStyle"
+                }
+            }
+
+            /// Custom styling for area chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct AreaStyle {
+                /// Optional. Used to add color
+                pub color: std::string::String,
+
+                /// Optional. Used to add origin
+                pub origin: std::string::String,
+
+                /// Optional. Used to add shadow blur
+                pub shadow_blur: i32,
+
+                /// Optional. Used to add shadow color
+                pub shadow_color: std::string::String,
+
+                /// Optional. Used to add shadow offsetX
+                pub shadow_offset_x: i32,
+
+                /// Optional. Used to add shadow offsetY
+                pub shadow_offset_y: i32,
+
+                /// Optional. Used to add opacity
+                pub opacity: i32,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl AreaStyle {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [color][crate::model::dashboard_chart::visualization::series::AreaStyle::color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_color("example");
+                /// ```
+                pub fn set_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.color = v.into();
+                    self
+                }
+
+                /// Sets the value of [origin][crate::model::dashboard_chart::visualization::series::AreaStyle::origin].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_origin("example");
+                /// ```
+                pub fn set_origin<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.origin = v.into();
+                    self
+                }
+
+                /// Sets the value of [shadow_blur][crate::model::dashboard_chart::visualization::series::AreaStyle::shadow_blur].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_shadow_blur(42);
+                /// ```
+                pub fn set_shadow_blur<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.shadow_blur = v.into();
+                    self
+                }
+
+                /// Sets the value of [shadow_color][crate::model::dashboard_chart::visualization::series::AreaStyle::shadow_color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_shadow_color("example");
+                /// ```
+                pub fn set_shadow_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.shadow_color = v.into();
+                    self
+                }
+
+                /// Sets the value of [shadow_offset_x][crate::model::dashboard_chart::visualization::series::AreaStyle::shadow_offset_x].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_shadow_offset_x(42);
+                /// ```
+                pub fn set_shadow_offset_x<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.shadow_offset_x = v.into();
+                    self
+                }
+
+                /// Sets the value of [shadow_offset_y][crate::model::dashboard_chart::visualization::series::AreaStyle::shadow_offset_y].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_shadow_offset_y(42);
+                /// ```
+                pub fn set_shadow_offset_y<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.shadow_offset_y = v.into();
+                    self
+                }
+
+                /// Sets the value of [opacity][crate::model::dashboard_chart::visualization::series::AreaStyle::opacity].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::AreaStyle;
+                /// let x = AreaStyle::new().set_opacity(42);
+                /// ```
+                pub fn set_opacity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.opacity = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for AreaStyle {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.AreaStyle"
+                }
+            }
+
+            /// User selected color and label for the slice of the chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct UserSelectedValues {
+                /// Optional. User specified color of a pie slice
+                pub color: std::string::String,
+
+                /// Optional. User specified label for a pie slice
+                pub label: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl UserSelectedValues {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [color][crate::model::dashboard_chart::visualization::series::UserSelectedValues::color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::UserSelectedValues;
+                /// let x = UserSelectedValues::new().set_color("example");
+                /// ```
+                pub fn set_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.color = v.into();
+                    self
+                }
+
+                /// Sets the value of [label][crate::model::dashboard_chart::visualization::series::UserSelectedValues::label].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::UserSelectedValues;
+                /// let x = UserSelectedValues::new().set_label("example");
+                /// ```
+                pub fn set_label<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.label = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for UserSelectedValues {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.UserSelectedValues"
+                }
+            }
+
+            /// Slice containing the key and value for a slice in the chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct ChartSliceColor {
+                /// Optional. Key for the slice
+                pub key: std::string::String,
+
+                /// Optional. Value for the slice
+                pub value: std::option::Option<
+                    crate::model::dashboard_chart::visualization::series::UserSelectedValues,
+                >,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl ChartSliceColor {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [key][crate::model::dashboard_chart::visualization::series::ChartSliceColor::key].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ChartSliceColor;
+                /// let x = ChartSliceColor::new().set_key("example");
+                /// ```
+                pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                    self.key = v.into();
+                    self
+                }
+
+                /// Sets the value of [value][crate::model::dashboard_chart::visualization::series::ChartSliceColor::value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ChartSliceColor;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::UserSelectedValues;
+                /// let x = ChartSliceColor::new().set_value(UserSelectedValues::default()/* use setters */);
+                /// ```
+                pub fn set_value<T>(mut self, v: T) -> Self
+                where T: std::convert::Into<crate::model::dashboard_chart::visualization::series::UserSelectedValues>
+                {
+                    self.value = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [value][crate::model::dashboard_chart::visualization::series::ChartSliceColor::value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ChartSliceColor;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::UserSelectedValues;
+                /// let x = ChartSliceColor::new().set_or_clear_value(Some(UserSelectedValues::default()/* use setters */));
+                /// let x = ChartSliceColor::new().set_or_clear_value(None::<UserSelectedValues>);
+                /// ```
+                pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<crate::model::dashboard_chart::visualization::series::UserSelectedValues>
+                {
+                    self.value = v.map(|x| x.into());
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ChartSliceColor {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.ChartSliceColor"
+                }
+            }
+
+            /// Field to be saved for retrieving slice colors for the chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct ItemColors {
+                /// Optional. Slice colors array
+                pub colors: std::vec::Vec<
+                    crate::model::dashboard_chart::visualization::series::ChartSliceColor,
+                >,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl ItemColors {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [colors][crate::model::dashboard_chart::visualization::series::ItemColors::colors].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ItemColors;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::ChartSliceColor;
+                /// let x = ItemColors::new()
+                ///     .set_colors([
+                ///         ChartSliceColor::default()/* use setters */,
+                ///         ChartSliceColor::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_colors<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<
+                            crate::model::dashboard_chart::visualization::series::ChartSliceColor,
+                        >,
+                {
+                    use std::iter::Iterator;
+                    self.colors = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ItemColors {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.ItemColors"
+                }
+            }
+
+            /// Field to be saved for retrieving value and color for gauge chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct GaugeValue {
+                /// Optional. Value for gauge chart
+                pub value: i32,
+
+                /// Optional. Color for gauge chart
+                pub color: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl GaugeValue {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [value][crate::model::dashboard_chart::visualization::series::GaugeValue::value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeValue::new().set_value(42);
+                /// ```
+                pub fn set_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.value = v.into();
+                    self
+                }
+
+                /// Sets the value of [color][crate::model::dashboard_chart::visualization::series::GaugeValue::color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeValue::new().set_color("example");
+                /// ```
+                pub fn set_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.color = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for GaugeValue {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.GaugeValue"
+                }
+            }
+
+            /// Field to be saved for retrieving value and color for gauge chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct GaugeConfig {
+                /// Optional. Base value for gauge chart
+                pub base_value: std::option::Option<
+                    crate::model::dashboard_chart::visualization::series::GaugeValue,
+                >,
+
+                /// Optional. Limit value for gauge chart
+                pub limit_value: std::option::Option<
+                    crate::model::dashboard_chart::visualization::series::GaugeValue,
+                >,
+
+                /// Optional. Threshold values for gauge chart
+                pub threshold_values:
+                    std::vec::Vec<crate::model::dashboard_chart::visualization::series::GaugeValue>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl GaugeConfig {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [base_value][crate::model::dashboard_chart::visualization::series::GaugeConfig::base_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeConfig::new().set_base_value(GaugeValue::default()/* use setters */);
+                /// ```
+                pub fn set_base_value<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::dashboard_chart::visualization::series::GaugeValue,
+                        >,
+                {
+                    self.base_value = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [base_value][crate::model::dashboard_chart::visualization::series::GaugeConfig::base_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeConfig::new().set_or_clear_base_value(Some(GaugeValue::default()/* use setters */));
+                /// let x = GaugeConfig::new().set_or_clear_base_value(None::<GaugeValue>);
+                /// ```
+                pub fn set_or_clear_base_value<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::dashboard_chart::visualization::series::GaugeValue,
+                        >,
+                {
+                    self.base_value = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [limit_value][crate::model::dashboard_chart::visualization::series::GaugeConfig::limit_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeConfig::new().set_limit_value(GaugeValue::default()/* use setters */);
+                /// ```
+                pub fn set_limit_value<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::dashboard_chart::visualization::series::GaugeValue,
+                        >,
+                {
+                    self.limit_value = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [limit_value][crate::model::dashboard_chart::visualization::series::GaugeConfig::limit_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeConfig::new().set_or_clear_limit_value(Some(GaugeValue::default()/* use setters */));
+                /// let x = GaugeConfig::new().set_or_clear_limit_value(None::<GaugeValue>);
+                /// ```
+                pub fn set_or_clear_limit_value<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::dashboard_chart::visualization::series::GaugeValue,
+                        >,
+                {
+                    self.limit_value = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [threshold_values][crate::model::dashboard_chart::visualization::series::GaugeConfig::threshold_values].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeConfig;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::GaugeValue;
+                /// let x = GaugeConfig::new()
+                ///     .set_threshold_values([
+                ///         GaugeValue::default()/* use setters */,
+                ///         GaugeValue::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_threshold_values<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<
+                            crate::model::dashboard_chart::visualization::series::GaugeValue,
+                        >,
+                {
+                    use std::iter::Iterator;
+                    self.threshold_values = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for GaugeConfig {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.GaugeConfig"
+                }
+            }
+
+            /// Metric trend config for displaying trend value in Metrics chart
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct MetricTrendConfig {
+                /// Optional. Metric chart configuration to display metric trend
+                pub metric_format: crate::model::MetricFormat,
+
+                /// Optional. Metric chart configuration to toggle the trend value
+                /// display
+                pub show_metric_trend: bool,
+
+                /// Optional. Metric chart configuration to display the trend value
+                pub metric_display_trend: crate::model::MetricDisplayTrend,
+
+                /// Optional. Metric chart configuration to display trend type whether
+                /// regular or inverse
+                pub metric_trend_type: crate::model::MetricTrendType,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl MetricTrendConfig {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [metric_format][crate::model::dashboard_chart::visualization::series::MetricTrendConfig::metric_format].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::MetricTrendConfig;
+                /// use google_cloud_chronicle_v1::model::MetricFormat;
+                /// let x0 = MetricTrendConfig::new().set_metric_format(MetricFormat::Number);
+                /// let x1 = MetricTrendConfig::new().set_metric_format(MetricFormat::PlainText);
+                /// ```
+                pub fn set_metric_format<T: std::convert::Into<crate::model::MetricFormat>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.metric_format = v.into();
+                    self
+                }
+
+                /// Sets the value of [show_metric_trend][crate::model::dashboard_chart::visualization::series::MetricTrendConfig::show_metric_trend].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::MetricTrendConfig;
+                /// let x = MetricTrendConfig::new().set_show_metric_trend(true);
+                /// ```
+                pub fn set_show_metric_trend<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                    self.show_metric_trend = v.into();
+                    self
+                }
+
+                /// Sets the value of [metric_display_trend][crate::model::dashboard_chart::visualization::series::MetricTrendConfig::metric_display_trend].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::MetricTrendConfig;
+                /// use google_cloud_chronicle_v1::model::MetricDisplayTrend;
+                /// let x0 = MetricTrendConfig::new().set_metric_display_trend(MetricDisplayTrend::AbsoluteValue);
+                /// let x1 = MetricTrendConfig::new().set_metric_display_trend(MetricDisplayTrend::Percentage);
+                /// let x2 = MetricTrendConfig::new().set_metric_display_trend(MetricDisplayTrend::AbsoluteValueAndPercentage);
+                /// ```
+                pub fn set_metric_display_trend<
+                    T: std::convert::Into<crate::model::MetricDisplayTrend>,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.metric_display_trend = v.into();
+                    self
+                }
+
+                /// Sets the value of [metric_trend_type][crate::model::dashboard_chart::visualization::series::MetricTrendConfig::metric_trend_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::series::MetricTrendConfig;
+                /// use google_cloud_chronicle_v1::model::MetricTrendType;
+                /// let x0 = MetricTrendConfig::new().set_metric_trend_type(MetricTrendType::Regular);
+                /// let x1 = MetricTrendConfig::new().set_metric_trend_type(MetricTrendType::Inverse);
+                /// ```
+                pub fn set_metric_trend_type<
+                    T: std::convert::Into<crate::model::MetricTrendType>,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.metric_trend_type = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for MetricTrendConfig {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Series.MetricTrendConfig"
+                }
+            }
+        }
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Tooltip {
+            #[allow(missing_docs)]
+            pub show: bool,
+
+            #[allow(missing_docs)]
+            pub tooltip_trigger: crate::model::ToolTipTrigger,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Tooltip {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [show][crate::model::dashboard_chart::visualization::Tooltip::show].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Tooltip;
+            /// let x = Tooltip::new().set_show(true);
+            /// ```
+            pub fn set_show<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.show = v.into();
+                self
+            }
+
+            /// Sets the value of [tooltip_trigger][crate::model::dashboard_chart::visualization::Tooltip::tooltip_trigger].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Tooltip;
+            /// use google_cloud_chronicle_v1::model::ToolTipTrigger;
+            /// let x0 = Tooltip::new().set_tooltip_trigger(ToolTipTrigger::TooltipTriggerNone);
+            /// let x1 = Tooltip::new().set_tooltip_trigger(ToolTipTrigger::TooltipTriggerItem);
+            /// let x2 = Tooltip::new().set_tooltip_trigger(ToolTipTrigger::TooltipTriggerAxis);
+            /// ```
+            pub fn set_tooltip_trigger<T: std::convert::Into<crate::model::ToolTipTrigger>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.tooltip_trigger = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Tooltip {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Tooltip"
+            }
+        }
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Legend {
+            #[allow(missing_docs)]
+            pub id: std::string::String,
+
+            #[allow(missing_docs)]
+            pub show: bool,
+
+            #[allow(missing_docs)]
+            pub z_level: i32,
+
+            #[allow(missing_docs)]
+            pub z: i32,
+
+            #[allow(missing_docs)]
+            pub left: i32,
+
+            #[allow(missing_docs)]
+            pub top: i32,
+
+            #[allow(missing_docs)]
+            pub right: i32,
+
+            #[allow(missing_docs)]
+            pub bottom: i32,
+
+            #[allow(missing_docs)]
+            pub legend_orient: crate::model::LegendOrient,
+
+            #[allow(missing_docs)]
+            pub legend_align: crate::model::LegendAlign,
+
+            #[allow(missing_docs)]
+            pub padding: std::vec::Vec<i32>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Legend {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [id][crate::model::dashboard_chart::visualization::Legend::id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_id("example");
+            /// ```
+            pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.id = v.into();
+                self
+            }
+
+            /// Sets the value of [show][crate::model::dashboard_chart::visualization::Legend::show].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_show(true);
+            /// ```
+            pub fn set_show<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.show = v.into();
+                self
+            }
+
+            /// Sets the value of [z_level][crate::model::dashboard_chart::visualization::Legend::z_level].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_z_level(42);
+            /// ```
+            pub fn set_z_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.z_level = v.into();
+                self
+            }
+
+            /// Sets the value of [z][crate::model::dashboard_chart::visualization::Legend::z].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_z(42);
+            /// ```
+            pub fn set_z<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.z = v.into();
+                self
+            }
+
+            /// Sets the value of [left][crate::model::dashboard_chart::visualization::Legend::left].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_left(42);
+            /// ```
+            pub fn set_left<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.left = v.into();
+                self
+            }
+
+            /// Sets the value of [top][crate::model::dashboard_chart::visualization::Legend::top].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_top(42);
+            /// ```
+            pub fn set_top<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.top = v.into();
+                self
+            }
+
+            /// Sets the value of [right][crate::model::dashboard_chart::visualization::Legend::right].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_right(42);
+            /// ```
+            pub fn set_right<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.right = v.into();
+                self
+            }
+
+            /// Sets the value of [bottom][crate::model::dashboard_chart::visualization::Legend::bottom].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_bottom(42);
+            /// ```
+            pub fn set_bottom<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.bottom = v.into();
+                self
+            }
+
+            /// Sets the value of [legend_orient][crate::model::dashboard_chart::visualization::Legend::legend_orient].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// use google_cloud_chronicle_v1::model::LegendOrient;
+            /// let x0 = Legend::new().set_legend_orient(LegendOrient::Vertical);
+            /// let x1 = Legend::new().set_legend_orient(LegendOrient::Horizontal);
+            /// ```
+            pub fn set_legend_orient<T: std::convert::Into<crate::model::LegendOrient>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.legend_orient = v.into();
+                self
+            }
+
+            /// Sets the value of [legend_align][crate::model::dashboard_chart::visualization::Legend::legend_align].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// use google_cloud_chronicle_v1::model::LegendAlign;
+            /// let x0 = Legend::new().set_legend_align(LegendAlign::Auto);
+            /// let x1 = Legend::new().set_legend_align(LegendAlign::Left);
+            /// let x2 = Legend::new().set_legend_align(LegendAlign::Right);
+            /// ```
+            pub fn set_legend_align<T: std::convert::Into<crate::model::LegendAlign>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.legend_align = v.into();
+                self
+            }
+
+            /// Sets the value of [padding][crate::model::dashboard_chart::visualization::Legend::padding].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::Legend;
+            /// let x = Legend::new().set_padding([1, 2, 3]);
+            /// ```
+            pub fn set_padding<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<i32>,
+            {
+                use std::iter::Iterator;
+                self.padding = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Legend {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.Legend"
+            }
+        }
+
+        /// Column Definition.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ColumnDef {
+            /// Field key in data.
+            pub field: std::string::String,
+
+            /// Header name for column.
+            pub header: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ColumnDef {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [field][crate::model::dashboard_chart::visualization::ColumnDef::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnDef;
+            /// let x = ColumnDef::new().set_field("example");
+            /// ```
+            pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.field = v.into();
+                self
+            }
+
+            /// Sets the value of [header][crate::model::dashboard_chart::visualization::ColumnDef::header].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnDef;
+            /// let x = ColumnDef::new().set_header("example");
+            /// ```
+            pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.header = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ColumnDef {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.ColumnDef"
+            }
+        }
+
+        /// Column render type settings. This is used to determine the data render
+        /// type of the column in the table.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ColumnRenderTypeSettings {
+            /// Optional. Field key in data.
+            pub field: std::string::String,
+
+            /// Optional. Column render type.
+            pub column_render_type: crate::model::RenderType,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ColumnRenderTypeSettings {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [field][crate::model::dashboard_chart::visualization::ColumnRenderTypeSettings::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnRenderTypeSettings;
+            /// let x = ColumnRenderTypeSettings::new().set_field("example");
+            /// ```
+            pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.field = v.into();
+                self
+            }
+
+            /// Sets the value of [column_render_type][crate::model::dashboard_chart::visualization::ColumnRenderTypeSettings::column_render_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnRenderTypeSettings;
+            /// use google_cloud_chronicle_v1::model::RenderType;
+            /// let x0 = ColumnRenderTypeSettings::new().set_column_render_type(RenderType::Text);
+            /// let x1 = ColumnRenderTypeSettings::new().set_column_render_type(RenderType::Icon);
+            /// let x2 = ColumnRenderTypeSettings::new().set_column_render_type(RenderType::IconAndText);
+            /// ```
+            pub fn set_column_render_type<T: std::convert::Into<crate::model::RenderType>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.column_render_type = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ColumnRenderTypeSettings {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.ColumnRenderTypeSettings"
+            }
+        }
+
+        /// Settings for tooltip for column header and cell.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ColumnTooltipSettings {
+            /// Required. Field key in data.
+            pub field: std::string::String,
+
+            /// Optional. Column header tooltip text.
+            pub header_tooltip_text: std::string::String,
+
+            /// Optional. Column cell tooltip text.
+            pub cell_tooltip_text: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ColumnTooltipSettings {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [field][crate::model::dashboard_chart::visualization::ColumnTooltipSettings::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnTooltipSettings;
+            /// let x = ColumnTooltipSettings::new().set_field("example");
+            /// ```
+            pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.field = v.into();
+                self
+            }
+
+            /// Sets the value of [header_tooltip_text][crate::model::dashboard_chart::visualization::ColumnTooltipSettings::header_tooltip_text].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnTooltipSettings;
+            /// let x = ColumnTooltipSettings::new().set_header_tooltip_text("example");
+            /// ```
+            pub fn set_header_tooltip_text<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.header_tooltip_text = v.into();
+                self
+            }
+
+            /// Sets the value of [cell_tooltip_text][crate::model::dashboard_chart::visualization::ColumnTooltipSettings::cell_tooltip_text].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnTooltipSettings;
+            /// let x = ColumnTooltipSettings::new().set_cell_tooltip_text("example");
+            /// ```
+            pub fn set_cell_tooltip_text<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.cell_tooltip_text = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ColumnTooltipSettings {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.ColumnTooltipSettings"
+            }
+        }
+
+        /// Configuration for table appearance.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct TableConfig {
+            /// Optional. Whether to show the table.
+            pub enable_text_wrap: bool,
+
+            /// Optional. Column render type settings.
+            pub column_render_type_settings: std::vec::Vec<
+                crate::model::dashboard_chart::visualization::ColumnRenderTypeSettings,
+            >,
+
+            /// Optional. Settings for tooltip for column header and cell.
+            pub column_tooltip_settings:
+                std::vec::Vec<crate::model::dashboard_chart::visualization::ColumnTooltipSettings>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl TableConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [enable_text_wrap][crate::model::dashboard_chart::visualization::TableConfig::enable_text_wrap].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::TableConfig;
+            /// let x = TableConfig::new().set_enable_text_wrap(true);
+            /// ```
+            pub fn set_enable_text_wrap<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.enable_text_wrap = v.into();
+                self
+            }
+
+            /// Sets the value of [column_render_type_settings][crate::model::dashboard_chart::visualization::TableConfig::column_render_type_settings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::TableConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnRenderTypeSettings;
+            /// let x = TableConfig::new()
+            ///     .set_column_render_type_settings([
+            ///         ColumnRenderTypeSettings::default()/* use setters */,
+            ///         ColumnRenderTypeSettings::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_column_render_type_settings<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::ColumnRenderTypeSettings,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.column_render_type_settings = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [column_tooltip_settings][crate::model::dashboard_chart::visualization::TableConfig::column_tooltip_settings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::TableConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::ColumnTooltipSettings;
+            /// let x = TableConfig::new()
+            ///     .set_column_tooltip_settings([
+            ///         ColumnTooltipSettings::default()/* use setters */,
+            ///         ColumnTooltipSettings::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_column_tooltip_settings<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::ColumnTooltipSettings,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.column_tooltip_settings = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for TableConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.TableConfig"
+            }
+        }
+
+        /// Google Maps config for a chart if chart type is map.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct GoogleMapsConfig {
+            /// Optional. Data settings for the map.
+            pub data_settings: std::option::Option<
+                crate::model::dashboard_chart::visualization::google_maps_config::DataSettings,
+            >,
+
+            /// Optional. Plot mode for the map. This is used to determine whether to
+            /// show points, heatmap or both.
+            pub plot_mode: crate::model::PlotMode,
+
+            /// Optional. Map position settings for the map.
+            pub map_position: std::option::Option<
+                crate::model::dashboard_chart::visualization::google_maps_config::MapPosition,
+            >,
+
+            /// Optional. Point settings for the map.
+            pub point_settings: std::option::Option<
+                crate::model::dashboard_chart::visualization::google_maps_config::PointSettings,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GoogleMapsConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [data_settings][crate::model::dashboard_chart::visualization::GoogleMapsConfig::data_settings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::DataSettings;
+            /// let x = GoogleMapsConfig::new().set_data_settings(DataSettings::default()/* use setters */);
+            /// ```
+            pub fn set_data_settings<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::DataSettings>
+            {
+                self.data_settings = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [data_settings][crate::model::dashboard_chart::visualization::GoogleMapsConfig::data_settings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::DataSettings;
+            /// let x = GoogleMapsConfig::new().set_or_clear_data_settings(Some(DataSettings::default()/* use setters */));
+            /// let x = GoogleMapsConfig::new().set_or_clear_data_settings(None::<DataSettings>);
+            /// ```
+            pub fn set_or_clear_data_settings<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::DataSettings>
+            {
+                self.data_settings = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [plot_mode][crate::model::dashboard_chart::visualization::GoogleMapsConfig::plot_mode].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::PlotMode;
+            /// let x0 = GoogleMapsConfig::new().set_plot_mode(PlotMode::Points);
+            /// let x1 = GoogleMapsConfig::new().set_plot_mode(PlotMode::Heatmap);
+            /// let x2 = GoogleMapsConfig::new().set_plot_mode(PlotMode::Both);
+            /// ```
+            pub fn set_plot_mode<T: std::convert::Into<crate::model::PlotMode>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.plot_mode = v.into();
+                self
+            }
+
+            /// Sets the value of [map_position][crate::model::dashboard_chart::visualization::GoogleMapsConfig::map_position].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::MapPosition;
+            /// let x = GoogleMapsConfig::new().set_map_position(MapPosition::default()/* use setters */);
+            /// ```
+            pub fn set_map_position<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::MapPosition>
+            {
+                self.map_position = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [map_position][crate::model::dashboard_chart::visualization::GoogleMapsConfig::map_position].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::MapPosition;
+            /// let x = GoogleMapsConfig::new().set_or_clear_map_position(Some(MapPosition::default()/* use setters */));
+            /// let x = GoogleMapsConfig::new().set_or_clear_map_position(None::<MapPosition>);
+            /// ```
+            pub fn set_or_clear_map_position<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::MapPosition>
+            {
+                self.map_position = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [point_settings][crate::model::dashboard_chart::visualization::GoogleMapsConfig::point_settings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::PointSettings;
+            /// let x = GoogleMapsConfig::new().set_point_settings(PointSettings::default()/* use setters */);
+            /// ```
+            pub fn set_point_settings<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::PointSettings>
+            {
+                self.point_settings = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [point_settings][crate::model::dashboard_chart::visualization::GoogleMapsConfig::point_settings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::GoogleMapsConfig;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::PointSettings;
+            /// let x = GoogleMapsConfig::new().set_or_clear_point_settings(Some(PointSettings::default()/* use setters */));
+            /// let x = GoogleMapsConfig::new().set_or_clear_point_settings(None::<PointSettings>);
+            /// ```
+            pub fn set_or_clear_point_settings<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::PointSettings>
+            {
+                self.point_settings = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for GoogleMapsConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.GoogleMapsConfig"
+            }
+        }
+
+        /// Defines additional types related to [GoogleMapsConfig].
+        pub mod google_maps_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Data settings for the map.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct DataSettings {
+                /// Optional. Latitude column.
+                pub latitude_column: std::string::String,
+
+                /// Optional. Longitude column.
+                pub longitude_column: std::string::String,
+
+                /// Optional. Field to count.
+                pub count_column: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl DataSettings {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [latitude_column][crate::model::dashboard_chart::visualization::google_maps_config::DataSettings::latitude_column].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::DataSettings;
+                /// let x = DataSettings::new().set_latitude_column("example");
+                /// ```
+                pub fn set_latitude_column<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.latitude_column = v.into();
+                    self
+                }
+
+                /// Sets the value of [longitude_column][crate::model::dashboard_chart::visualization::google_maps_config::DataSettings::longitude_column].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::DataSettings;
+                /// let x = DataSettings::new().set_longitude_column("example");
+                /// ```
+                pub fn set_longitude_column<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.longitude_column = v.into();
+                    self
+                }
+
+                /// Sets the value of [count_column][crate::model::dashboard_chart::visualization::google_maps_config::DataSettings::count_column].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::DataSettings;
+                /// let x = DataSettings::new().set_count_column("example");
+                /// ```
+                pub fn set_count_column<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.count_column = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for DataSettings {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.GoogleMapsConfig.DataSettings"
+                }
+            }
+
+            /// Map position settings for the map.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct MapPosition {
+                /// Optional. Whether to fit the map to the data.
+                /// If true, the map will be resized to fit the data.
+                /// If false, langitude and longitude will be used to set the map size.
+                pub fit_data: bool,
+
+                /// Optional. Latitude of the map.
+                pub latitude_value: f64,
+
+                /// Optional. Longitude of the map.
+                pub longitude_value: f64,
+
+                /// Optional. Scale of the map.
+                pub zoom_scale_value: f64,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl MapPosition {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [fit_data][crate::model::dashboard_chart::visualization::google_maps_config::MapPosition::fit_data].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::MapPosition;
+                /// let x = MapPosition::new().set_fit_data(true);
+                /// ```
+                pub fn set_fit_data<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                    self.fit_data = v.into();
+                    self
+                }
+
+                /// Sets the value of [latitude_value][crate::model::dashboard_chart::visualization::google_maps_config::MapPosition::latitude_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::MapPosition;
+                /// let x = MapPosition::new().set_latitude_value(42.0);
+                /// ```
+                pub fn set_latitude_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                    self.latitude_value = v.into();
+                    self
+                }
+
+                /// Sets the value of [longitude_value][crate::model::dashboard_chart::visualization::google_maps_config::MapPosition::longitude_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::MapPosition;
+                /// let x = MapPosition::new().set_longitude_value(42.0);
+                /// ```
+                pub fn set_longitude_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                    self.longitude_value = v.into();
+                    self
+                }
+
+                /// Sets the value of [zoom_scale_value][crate::model::dashboard_chart::visualization::google_maps_config::MapPosition::zoom_scale_value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::MapPosition;
+                /// let x = MapPosition::new().set_zoom_scale_value(42.0);
+                /// ```
+                pub fn set_zoom_scale_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                    self.zoom_scale_value = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for MapPosition {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.GoogleMapsConfig.MapPosition"
+                }
+            }
+
+            /// Point settings for the map.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct PointSettings {
+                /// Optional. Point size type for the map. This is used to
+                /// determine the size of the points on the map.
+                pub point_size_type: crate::model::PointSizeType,
+
+                /// Optional. Color for the point on the map.
+                pub color: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl PointSettings {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [point_size_type][crate::model::dashboard_chart::visualization::google_maps_config::PointSettings::point_size_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::PointSettings;
+                /// use google_cloud_chronicle_v1::model::PointSizeType;
+                /// let x0 = PointSettings::new().set_point_size_type(PointSizeType::Fixed);
+                /// let x1 = PointSettings::new().set_point_size_type(PointSizeType::ProportionalToSize);
+                /// ```
+                pub fn set_point_size_type<T: std::convert::Into<crate::model::PointSizeType>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.point_size_type = v.into();
+                    self
+                }
+
+                /// Sets the value of [color][crate::model::dashboard_chart::visualization::google_maps_config::PointSettings::color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::google_maps_config::PointSettings;
+                /// let x = PointSettings::new().set_color("example");
+                /// ```
+                pub fn set_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.color = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for PointSettings {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.GoogleMapsConfig.PointSettings"
+                }
+            }
+        }
+
+        /// Conveys what range of values should be rendered in what color. This field
+        /// is used when threshold_coloring_enabled is true.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct VisualMap {
+            /// Optional. Contains one of the valid visual map types such as
+            /// 'continuous' or 'piecewise'.
+            pub visual_map_type: crate::model::VisualMapType,
+
+            /// Optional. Pieces of the visual map.
+            pub pieces: std::vec::Vec<
+                crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl VisualMap {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [visual_map_type][crate::model::dashboard_chart::visualization::VisualMap::visual_map_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::VisualMap;
+            /// use google_cloud_chronicle_v1::model::VisualMapType;
+            /// let x0 = VisualMap::new().set_visual_map_type(VisualMapType::Continuous);
+            /// let x1 = VisualMap::new().set_visual_map_type(VisualMapType::Piecewise);
+            /// ```
+            pub fn set_visual_map_type<T: std::convert::Into<crate::model::VisualMapType>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.visual_map_type = v.into();
+                self
+            }
+
+            /// Sets the value of [pieces][crate::model::dashboard_chart::visualization::VisualMap::pieces].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::VisualMap;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+            /// let x = VisualMap::new()
+            ///     .set_pieces([
+            ///         VisualMapPiece::default()/* use setters */,
+            ///         VisualMapPiece::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_pieces<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.pieces = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for VisualMap {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.VisualMap"
+            }
+        }
+
+        /// Defines additional types related to [VisualMap].
+        pub mod visual_map {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// An ECharts visual map of type 'piecewise' contain many pieces. Each
+            /// piece has a min, max, and color with which it's rendered.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct VisualMapPiece {
+                /// Optional. Minimum value for the piece.
+                pub min: std::option::Option<i64>,
+
+                /// Optional. Minimum value for the piece.
+                pub max: std::option::Option<i64>,
+
+                /// Optional. Color to render the piece in when the value is between min
+                /// and max.
+                pub color: std::string::String,
+
+                /// Optional. Label used in visual map controller.
+                pub label: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl VisualMapPiece {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [min][crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece::min].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+                /// let x = VisualMapPiece::new().set_min(42);
+                /// ```
+                pub fn set_min<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<i64>,
+                {
+                    self.min = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [min][crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece::min].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+                /// let x = VisualMapPiece::new().set_or_clear_min(Some(42));
+                /// let x = VisualMapPiece::new().set_or_clear_min(None::<i32>);
+                /// ```
+                pub fn set_or_clear_min<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<i64>,
+                {
+                    self.min = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [max][crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece::max].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+                /// let x = VisualMapPiece::new().set_max(42);
+                /// ```
+                pub fn set_max<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<i64>,
+                {
+                    self.max = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [max][crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece::max].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+                /// let x = VisualMapPiece::new().set_or_clear_max(Some(42));
+                /// let x = VisualMapPiece::new().set_or_clear_max(None::<i32>);
+                /// ```
+                pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<i64>,
+                {
+                    self.max = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [color][crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece::color].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+                /// let x = VisualMapPiece::new().set_color("example");
+                /// ```
+                pub fn set_color<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.color = v.into();
+                    self
+                }
+
+                /// Sets the value of [label][crate::model::dashboard_chart::visualization::visual_map::VisualMapPiece::label].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::visualization::visual_map::VisualMapPiece;
+                /// let x = VisualMapPiece::new().set_label("example");
+                /// ```
+                pub fn set_label<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.label = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for VisualMapPiece {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.Visualization.VisualMap.VisualMapPiece"
+                }
+            }
+        }
+    }
+
+    /// Drill down configuration.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DrillDownConfig {
+        /// Required. Left click drill downs.
+        pub left_drill_downs:
+            std::vec::Vec<crate::model::dashboard_chart::drill_down_config::DrillDown>,
+
+        /// Required. Right click drill downs.
+        pub right_drill_downs:
+            std::vec::Vec<crate::model::dashboard_chart::drill_down_config::DrillDown>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DrillDownConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [left_drill_downs][crate::model::dashboard_chart::DrillDownConfig::left_drill_downs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::DrillDownConfig;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+        /// let x = DrillDownConfig::new()
+        ///     .set_left_drill_downs([
+        ///         DrillDown::default()/* use setters */,
+        ///         DrillDown::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_left_drill_downs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::drill_down_config::DrillDown>,
+        {
+            use std::iter::Iterator;
+            self.left_drill_downs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [right_drill_downs][crate::model::dashboard_chart::DrillDownConfig::right_drill_downs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_chart::DrillDownConfig;
+        /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+        /// let x = DrillDownConfig::new()
+        ///     .set_right_drill_downs([
+        ///         DrillDown::default()/* use setters */,
+        ///         DrillDown::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_right_drill_downs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::dashboard_chart::drill_down_config::DrillDown>,
+        {
+            use std::iter::Iterator;
+            self.right_drill_downs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DrillDownConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig"
+        }
+    }
+
+    /// Defines additional types related to [DrillDownConfig].
+    pub mod drill_down_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Drill down config.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DrillDown {
+            /// Required. ID of the drill down.
+            pub id: std::string::String,
+
+            /// Required. Display name of the drill down.
+            pub display_name: std::string::String,
+
+            /// Drill down settings.
+            pub settings: std::option::Option<
+                crate::model::dashboard_chart::drill_down_config::drill_down::Settings,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl DrillDown {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [id][crate::model::dashboard_chart::drill_down_config::DrillDown::id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+            /// let x = DrillDown::new().set_id("example");
+            /// ```
+            pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.id = v.into();
+                self
+            }
+
+            /// Sets the value of [display_name][crate::model::dashboard_chart::drill_down_config::DrillDown::display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+            /// let x = DrillDown::new().set_display_name("example");
+            /// ```
+            pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [settings][crate::model::dashboard_chart::drill_down_config::DrillDown::settings].
+            ///
+            /// Note that all the setters affecting `settings` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings;
+            /// let x = DrillDown::new().set_settings(Some(
+            ///     google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::Settings::DefaultSettings(DefaultDrillDownSettings::default().into())));
+            /// ```
+            pub fn set_settings<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::dashboard_chart::drill_down_config::drill_down::Settings,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.settings = v.into();
+                self
+            }
+
+            /// The value of [settings][crate::model::dashboard_chart::drill_down_config::DrillDown::settings]
+            /// if it holds a `DefaultSettings`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn default_settings(&self) -> std::option::Option<&std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings>>{
+                #[allow(unreachable_patterns)]
+                self.settings.as_ref().and_then(|v| match v {
+                    crate::model::dashboard_chart::drill_down_config::drill_down::Settings::DefaultSettings(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [settings][crate::model::dashboard_chart::drill_down_config::DrillDown::settings]
+            /// to hold a `DefaultSettings`.
+            ///
+            /// Note that all the setters affecting `settings` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings;
+            /// let x = DrillDown::new().set_default_settings(DefaultDrillDownSettings::default()/* use setters */);
+            /// assert!(x.default_settings().is_some());
+            /// assert!(x.custom_settings().is_none());
+            /// ```
+            pub fn set_default_settings<T: std::convert::Into<std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings>>>(mut self, v: T) -> Self{
+                self.settings = std::option::Option::Some(
+                    crate::model::dashboard_chart::drill_down_config::drill_down::Settings::DefaultSettings(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [settings][crate::model::dashboard_chart::drill_down_config::DrillDown::settings]
+            /// if it holds a `CustomSettings`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn custom_settings(&self) -> std::option::Option<&std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings>>{
+                #[allow(unreachable_patterns)]
+                self.settings.as_ref().and_then(|v| match v {
+                    crate::model::dashboard_chart::drill_down_config::drill_down::Settings::CustomSettings(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [settings][crate::model::dashboard_chart::drill_down_config::DrillDown::settings]
+            /// to hold a `CustomSettings`.
+            ///
+            /// Note that all the setters affecting `settings` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::DrillDown;
+            /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+            /// let x = DrillDown::new().set_custom_settings(CustomDrillDownSettings::default()/* use setters */);
+            /// assert!(x.custom_settings().is_some());
+            /// assert!(x.default_settings().is_none());
+            /// ```
+            pub fn set_custom_settings<T: std::convert::Into<std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings>>>(mut self, v: T) -> Self{
+                self.settings = std::option::Option::Some(
+                    crate::model::dashboard_chart::drill_down_config::drill_down::Settings::CustomSettings(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for DrillDown {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown"
+            }
+        }
+
+        /// Defines additional types related to [DrillDown].
+        pub mod drill_down {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Default drill down settings.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct DefaultDrillDownSettings {
+                /// Required. Whether the default drill down is enabled.
+                pub enabled: bool,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl DefaultDrillDownSettings {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [enabled][crate::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings::enabled].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings;
+                /// let x = DefaultDrillDownSettings::new().set_enabled(true);
+                /// ```
+                pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                    self.enabled = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for DefaultDrillDownSettings {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown.DefaultDrillDownSettings"
+                }
+            }
+
+            /// Custom drill down settings.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct CustomDrillDownSettings {
+
+                /// Required. Whether to open the drill down action in a new tab.
+                pub new_tab: bool,
+
+                /// Optional. Table chart column name to associate the custom drill down
+                /// action on left click.
+                pub left_click_column: std::string::String,
+
+                /// Action to be performed on drill down.
+                pub action: std::option::Option<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl CustomDrillDownSettings {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [new_tab][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::new_tab].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+                /// let x = CustomDrillDownSettings::new().set_new_tab(true);
+                /// ```
+                pub fn set_new_tab<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                    self.new_tab = v.into();
+                    self
+                }
+
+                /// Sets the value of [left_click_column][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::left_click_column].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+                /// let x = CustomDrillDownSettings::new().set_left_click_column("example");
+                /// ```
+                pub fn set_left_click_column<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.left_click_column = v.into();
+                    self
+                }
+
+                /// Sets the value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action].
+                ///
+                /// Note that all the setters affecting `action` are mutually
+                /// exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery;
+                /// let x = CustomDrillDownSettings::new().set_action(Some(
+                ///     google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::Query(DrillDownQuery::default().into())));
+                /// ```
+                pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action>>>(mut self, v: T) -> Self
+                {
+                    self.action = v.into();
+                    self
+                }
+
+                /// The value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action]
+                /// if it holds a `Query`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn query(&self) -> std::option::Option<&std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery>>{
+                    #[allow(unreachable_patterns)]
+                    self.action.as_ref().and_then(|v| match v {
+                        crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::Query(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action]
+                /// to hold a `Query`.
+                ///
+                /// Note that all the setters affecting `action` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery;
+                /// let x = CustomDrillDownSettings::new().set_query(DrillDownQuery::default()/* use setters */);
+                /// assert!(x.query().is_some());
+                /// assert!(x.filter().is_none());
+                /// assert!(x.external_link().is_none());
+                /// ```
+                pub fn set_query<T: std::convert::Into<std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery>>>(mut self, v: T) -> Self{
+                    self.action = std::option::Option::Some(
+                        crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::Query(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action]
+                /// if it holds a `Filter`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter>>{
+                    #[allow(unreachable_patterns)]
+                    self.action.as_ref().and_then(|v| match v {
+                        crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::Filter(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action]
+                /// to hold a `Filter`.
+                ///
+                /// Note that all the setters affecting `action` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter;
+                /// let x = CustomDrillDownSettings::new().set_filter(DrillDownFilter::default()/* use setters */);
+                /// assert!(x.filter().is_some());
+                /// assert!(x.query().is_none());
+                /// assert!(x.external_link().is_none());
+                /// ```
+                pub fn set_filter<T: std::convert::Into<std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter>>>(mut self, v: T) -> Self{
+                    self.action = std::option::Option::Some(
+                        crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::Filter(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action]
+                /// if it holds a `ExternalLink`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn external_link(&self) -> std::option::Option<&std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink>>{
+                    #[allow(unreachable_patterns)]
+                    self.action.as_ref().and_then(|v| match v {
+                        crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::ExternalLink(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [action][crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings::action]
+                /// to hold a `ExternalLink`.
+                ///
+                /// Note that all the setters affecting `action` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings;
+                /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink;
+                /// let x = CustomDrillDownSettings::new().set_external_link(DrillDownExternalLink::default()/* use setters */);
+                /// assert!(x.external_link().is_some());
+                /// assert!(x.query().is_none());
+                /// assert!(x.filter().is_none());
+                /// ```
+                pub fn set_external_link<T: std::convert::Into<std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink>>>(mut self, v: T) -> Self{
+                    self.action = std::option::Option::Some(
+                        crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::ExternalLink(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+            }
+
+            impl wkt::message::Message for CustomDrillDownSettings {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown.CustomDrillDownSettings"
+                }
+            }
+
+            /// Defines additional types related to [CustomDrillDownSettings].
+            pub mod custom_drill_down_settings {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Drill down query config.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct DrillDownQuery {
+                    /// Required. Search query to be executed on drill down.
+                    pub query: std::string::String,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl DrillDownQuery {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [query][crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery::query].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery;
+                    /// let x = DrillDownQuery::new().set_query("example");
+                    /// ```
+                    pub fn set_query<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.query = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for DrillDownQuery {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown.CustomDrillDownSettings.DrillDownQuery"
+                    }
+                }
+
+                /// Drill down filter config.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct DrillDownFilter {
+
+                    /// Required. Dashboard filters to be applied on drill down.
+                    pub dashboard_filters: std::vec::Vec<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter>,
+
+                    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl DrillDownFilter {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [dashboard_filters][crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter::dashboard_filters].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter;
+                    /// use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter;
+                    /// let x = DrillDownFilter::new()
+                    ///     .set_dashboard_filters([
+                    ///         DrillDownDashboardFilter::default()/* use setters */,
+                    ///         DrillDownDashboardFilter::default()/* use (different) setters */,
+                    ///     ]);
+                    /// ```
+                    pub fn set_dashboard_filters<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter>
+                    {
+                        use std::iter::Iterator;
+                        self.dashboard_filters = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for DrillDownFilter {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown.CustomDrillDownSettings.DrillDownFilter"
+                    }
+                }
+
+                /// Defines additional types related to [DrillDownFilter].
+                pub mod drill_down_filter {
+                    #[allow(unused_imports)]
+                    use super::*;
+
+                    /// Drill down dashboard filter config.
+                    #[derive(Clone, Default, PartialEq)]
+                    #[non_exhaustive]
+                    pub struct DrillDownDashboardFilter {
+                        /// Required. ID of the dashboard filter.
+                        pub dashboard_filter_id: std::string::String,
+
+                        /// Required. Filter operator and field values for the dashboard
+                        /// filter.
+                        pub filter_operator_and_values:
+                            std::vec::Vec<crate::model::FilterOperatorAndValues>,
+
+                        pub(crate) _unknown_fields:
+                            serde_json::Map<std::string::String, serde_json::Value>,
+                    }
+
+                    impl DrillDownDashboardFilter {
+                        /// Creates a new default instance.
+                        pub fn new() -> Self {
+                            std::default::Default::default()
+                        }
+
+                        /// Sets the value of [dashboard_filter_id][crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter::dashboard_filter_id].
+                        ///
+                        /// # Example
+                        /// ```ignore,no_run
+                        /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter;
+                        /// let x = DrillDownDashboardFilter::new().set_dashboard_filter_id("example");
+                        /// ```
+                        pub fn set_dashboard_filter_id<
+                            T: std::convert::Into<std::string::String>,
+                        >(
+                            mut self,
+                            v: T,
+                        ) -> Self {
+                            self.dashboard_filter_id = v.into();
+                            self
+                        }
+
+                        /// Sets the value of [filter_operator_and_values][crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter::filter_operator_and_values].
+                        ///
+                        /// # Example
+                        /// ```ignore,no_run
+                        /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter;
+                        /// use google_cloud_chronicle_v1::model::FilterOperatorAndValues;
+                        /// let x = DrillDownDashboardFilter::new()
+                        ///     .set_filter_operator_and_values([
+                        ///         FilterOperatorAndValues::default()/* use setters */,
+                        ///         FilterOperatorAndValues::default()/* use (different) setters */,
+                        ///     ]);
+                        /// ```
+                        pub fn set_filter_operator_and_values<T, V>(mut self, v: T) -> Self
+                        where
+                            T: std::iter::IntoIterator<Item = V>,
+                            V: std::convert::Into<crate::model::FilterOperatorAndValues>,
+                        {
+                            use std::iter::Iterator;
+                            self.filter_operator_and_values =
+                                v.into_iter().map(|i| i.into()).collect();
+                            self
+                        }
+                    }
+
+                    impl wkt::message::Message for DrillDownDashboardFilter {
+                        fn typename() -> &'static str {
+                            "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown.CustomDrillDownSettings.DrillDownFilter.DrillDownDashboardFilter"
+                        }
+                    }
+                }
+
+                /// Drill down external link config.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct DrillDownExternalLink {
+                    /// Required. External link the drill down action should redirect to.
+                    pub link: std::string::String,
+
+                    /// Optional. Description of the external link.
+                    pub description: std::string::String,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl DrillDownExternalLink {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [link][crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink::link].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink;
+                    /// let x = DrillDownExternalLink::new().set_link("example");
+                    /// ```
+                    pub fn set_link<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.link = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [description][crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink::description].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink;
+                    /// let x = DrillDownExternalLink::new().set_description("example");
+                    /// ```
+                    pub fn set_description<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.description = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for DrillDownExternalLink {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.chronicle.v1.DashboardChart.DrillDownConfig.DrillDown.CustomDrillDownSettings.DrillDownExternalLink"
+                    }
+                }
+
+                /// Action to be performed on drill down.
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum Action {
+                    /// Drill down query action config.
+                    Query(std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownQuery>),
+                    /// Drill down filter action config.
+                    Filter(std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownFilter>),
+                    /// Drill down external link action config.
+                    ExternalLink(std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::DrillDownExternalLink>),
+                }
+            }
+
+            /// Drill down settings.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Settings {
+                /// Default drill down settings.
+                DefaultSettings(std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::DefaultDrillDownSettings>),
+                /// Custom drill down settings.
+                CustomSettings(std::boxed::Box<crate::model::dashboard_chart::drill_down_config::drill_down::CustomDrillDownSettings>),
+            }
+        }
+    }
+}
+
+/// Button config for a chart.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Button {
+    #[allow(missing_docs)]
+    pub label: std::string::String,
+
+    #[allow(missing_docs)]
+    pub hyperlink: std::string::String,
+
+    #[allow(missing_docs)]
+    pub description: std::string::String,
+
+    /// Optional. Whether to open the link in a new tab.
+    pub new_tab: bool,
+
+    #[allow(missing_docs)]
+    pub properties: std::option::Option<crate::model::button::Properties>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Button {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [label][crate::model::Button::label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Button;
+    /// let x = Button::new().set_label("example");
+    /// ```
+    pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.label = v.into();
+        self
+    }
+
+    /// Sets the value of [hyperlink][crate::model::Button::hyperlink].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Button;
+    /// let x = Button::new().set_hyperlink("example");
+    /// ```
+    pub fn set_hyperlink<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.hyperlink = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Button::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Button;
+    /// let x = Button::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [new_tab][crate::model::Button::new_tab].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Button;
+    /// let x = Button::new().set_new_tab(true);
+    /// ```
+    pub fn set_new_tab<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.new_tab = v.into();
+        self
+    }
+
+    /// Sets the value of [properties][crate::model::Button::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Button;
+    /// use google_cloud_chronicle_v1::model::button::Properties;
+    /// let x = Button::new().set_properties(Properties::default()/* use setters */);
+    /// ```
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::button::Properties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [properties][crate::model::Button::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Button;
+    /// use google_cloud_chronicle_v1::model::button::Properties;
+    /// let x = Button::new().set_or_clear_properties(Some(Properties::default()/* use setters */));
+    /// let x = Button::new().set_or_clear_properties(None::<Properties>);
+    /// ```
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::button::Properties>,
+    {
+        self.properties = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for Button {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.Button"
+    }
+}
+
+/// Defines additional types related to [Button].
+pub mod button {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[allow(missing_docs)]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Properties {
+        #[allow(missing_docs)]
+        pub color: std::string::String,
+
+        #[allow(missing_docs)]
+        pub button_style: crate::model::ButtonStyle,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Properties {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [color][crate::model::button::Properties::color].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::button::Properties;
+        /// let x = Properties::new().set_color("example");
+        /// ```
+        pub fn set_color<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.color = v.into();
+            self
+        }
+
+        /// Sets the value of [button_style][crate::model::button::Properties::button_style].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::button::Properties;
+        /// use google_cloud_chronicle_v1::model::ButtonStyle;
+        /// let x0 = Properties::new().set_button_style(ButtonStyle::Filled);
+        /// let x1 = Properties::new().set_button_style(ButtonStyle::Outlined);
+        /// let x2 = Properties::new().set_button_style(ButtonStyle::Transparent);
+        /// ```
+        pub fn set_button_style<T: std::convert::Into<crate::model::ButtonStyle>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.button_style = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Properties {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.Button.Properties"
+        }
+    }
+}
+
+/// Markdown config for a dashboard tile.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Markdown {
+    /// Required. Markdown content.
+    pub content: std::string::String,
+
+    /// Optional. Properties for the markdown.
+    pub properties: std::option::Option<crate::model::markdown::MarkdownProperties>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Markdown {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [content][crate::model::Markdown::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Markdown;
+    /// let x = Markdown::new().set_content("example");
+    /// ```
+    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.content = v.into();
+        self
+    }
+
+    /// Sets the value of [properties][crate::model::Markdown::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Markdown;
+    /// use google_cloud_chronicle_v1::model::markdown::MarkdownProperties;
+    /// let x = Markdown::new().set_properties(MarkdownProperties::default()/* use setters */);
+    /// ```
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::markdown::MarkdownProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [properties][crate::model::Markdown::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Markdown;
+    /// use google_cloud_chronicle_v1::model::markdown::MarkdownProperties;
+    /// let x = Markdown::new().set_or_clear_properties(Some(MarkdownProperties::default()/* use setters */));
+    /// let x = Markdown::new().set_or_clear_properties(None::<MarkdownProperties>);
+    /// ```
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::markdown::MarkdownProperties>,
+    {
+        self.properties = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for Markdown {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.Markdown"
+    }
+}
+
+/// Defines additional types related to [Markdown].
+pub mod markdown {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Properties for the markdown.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MarkdownProperties {
+        /// Optional. Background color of the markdown.
+        pub background_color: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MarkdownProperties {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [background_color][crate::model::markdown::MarkdownProperties::background_color].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::markdown::MarkdownProperties;
+        /// let x = MarkdownProperties::new().set_background_color("example");
+        /// ```
+        pub fn set_background_color<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.background_color = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MarkdownProperties {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.Markdown.MarkdownProperties"
+        }
+    }
+}
+
+/// Request message to get a dashboard chart.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDashboardChartRequest {
+    /// Required. The name of the dashboardChart to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dashboardCharts/{chart}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDashboardChartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDashboardChartRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetDashboardChartRequest;
+    /// let x = GetDashboardChartRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDashboardChartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetDashboardChartRequest"
+    }
+}
+
+/// Request message to get dashboard charts in batch.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchGetDashboardChartsRequest {
+    /// Required. The parent resource shared by all dashboard charts being
+    /// retrieved. Format:
+    /// projects/{project}/locations/{location}/instances/{instance} If this is
+    /// set, the parent of all of the dashboard charts specified in `names` must
+    /// match this field.
+    pub parent: std::string::String,
+
+    /// Required. The names of the dashboard charts to get.
+    pub names: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchGetDashboardChartsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BatchGetDashboardChartsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BatchGetDashboardChartsRequest;
+    /// let x = BatchGetDashboardChartsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [names][crate::model::BatchGetDashboardChartsRequest::names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BatchGetDashboardChartsRequest;
+    /// let x = BatchGetDashboardChartsRequest::new().set_names(["a", "b", "c"]);
+    /// ```
+    pub fn set_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchGetDashboardChartsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BatchGetDashboardChartsRequest"
+    }
+}
+
+/// Response message for getting dashboard charts in batch.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchGetDashboardChartsResponse {
+    /// The dashboardCharts from the specified chronicle instance.
+    pub dashboard_charts: std::vec::Vec<crate::model::DashboardChart>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchGetDashboardChartsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dashboard_charts][crate::model::BatchGetDashboardChartsResponse::dashboard_charts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BatchGetDashboardChartsResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = BatchGetDashboardChartsResponse::new()
+    ///     .set_dashboard_charts([
+    ///         DashboardChart::default()/* use setters */,
+    ///         DashboardChart::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dashboard_charts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DashboardChart>,
+    {
+        use std::iter::Iterator;
+        self.dashboard_charts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchGetDashboardChartsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BatchGetDashboardChartsResponse"
+    }
+}
+
+/// DashboardQuery resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DashboardQuery {
+    /// Output only. Name of the dashboardQuery.
+    pub name: std::string::String,
+
+    /// Required. Search query string.
+    pub query: std::string::String,
+
+    /// Required. Inputs to the query.
+    pub input: std::option::Option<crate::model::dashboard_query::Input>,
+
+    /// Output only. DashboardChart this query belongs to.
+    pub dashboard_chart: std::string::String,
+
+    /// Optional. This checksum is computed by the server based on the value of
+    /// other fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DashboardQuery {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DashboardQuery::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = DashboardQuery::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::DashboardQuery::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = DashboardQuery::new().set_query("example");
+    /// ```
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [input][crate::model::DashboardQuery::input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// use google_cloud_chronicle_v1::model::dashboard_query::Input;
+    /// let x = DashboardQuery::new().set_input(Input::default()/* use setters */);
+    /// ```
+    pub fn set_input<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_query::Input>,
+    {
+        self.input = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input][crate::model::DashboardQuery::input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// use google_cloud_chronicle_v1::model::dashboard_query::Input;
+    /// let x = DashboardQuery::new().set_or_clear_input(Some(Input::default()/* use setters */));
+    /// let x = DashboardQuery::new().set_or_clear_input(None::<Input>);
+    /// ```
+    pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_query::Input>,
+    {
+        self.input = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::DashboardQuery::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = DashboardQuery::new().set_dashboard_chart("example");
+    /// ```
+    pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dashboard_chart = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DashboardQuery::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = DashboardQuery::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DashboardQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DashboardQuery"
+    }
+}
+
+/// Defines additional types related to [DashboardQuery].
+pub mod dashboard_query {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Input to the query like time window.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Input {
+        #[allow(missing_docs)]
+        pub time_input: std::option::Option<crate::model::dashboard_query::input::TimeInput>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Input {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [time_input][crate::model::dashboard_query::Input::time_input].
+        ///
+        /// Note that all the setters affecting `time_input` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_query::Input;
+        /// use google_cloud_type::model::Interval;
+        /// let x = Input::new().set_time_input(Some(
+        ///     google_cloud_chronicle_v1::model::dashboard_query::input::TimeInput::TimeWindow(Interval::default().into())));
+        /// ```
+        pub fn set_time_input<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::dashboard_query::input::TimeInput>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.time_input = v.into();
+            self
+        }
+
+        /// The value of [time_input][crate::model::dashboard_query::Input::time_input]
+        /// if it holds a `TimeWindow`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn time_window(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Interval>> {
+            #[allow(unreachable_patterns)]
+            self.time_input.as_ref().and_then(|v| match v {
+                crate::model::dashboard_query::input::TimeInput::TimeWindow(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [time_input][crate::model::dashboard_query::Input::time_input]
+        /// to hold a `TimeWindow`.
+        ///
+        /// Note that all the setters affecting `time_input` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_query::Input;
+        /// use google_cloud_type::model::Interval;
+        /// let x = Input::new().set_time_window(Interval::default()/* use setters */);
+        /// assert!(x.time_window().is_some());
+        /// assert!(x.relative_time().is_none());
+        /// ```
+        pub fn set_time_window<
+            T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Interval>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.time_input = std::option::Option::Some(
+                crate::model::dashboard_query::input::TimeInput::TimeWindow(v.into()),
+            );
+            self
+        }
+
+        /// The value of [time_input][crate::model::dashboard_query::Input::time_input]
+        /// if it holds a `RelativeTime`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn relative_time(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::dashboard_query::input::RelativeTime>>
+        {
+            #[allow(unreachable_patterns)]
+            self.time_input.as_ref().and_then(|v| match v {
+                crate::model::dashboard_query::input::TimeInput::RelativeTime(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [time_input][crate::model::dashboard_query::Input::time_input]
+        /// to hold a `RelativeTime`.
+        ///
+        /// Note that all the setters affecting `time_input` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_query::Input;
+        /// use google_cloud_chronicle_v1::model::dashboard_query::input::RelativeTime;
+        /// let x = Input::new().set_relative_time(RelativeTime::default()/* use setters */);
+        /// assert!(x.relative_time().is_some());
+        /// assert!(x.time_window().is_none());
+        /// ```
+        pub fn set_relative_time<
+            T: std::convert::Into<std::boxed::Box<crate::model::dashboard_query::input::RelativeTime>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.time_input = std::option::Option::Some(
+                crate::model::dashboard_query::input::TimeInput::RelativeTime(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for Input {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DashboardQuery.Input"
+        }
+    }
+
+    /// Defines additional types related to [Input].
+    pub mod input {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// time representation for last x units.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RelativeTime {
+            #[allow(missing_docs)]
+            pub time_unit: crate::model::TimeUnit,
+
+            #[allow(missing_docs)]
+            pub start_time_val: i64,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RelativeTime {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [time_unit][crate::model::dashboard_query::input::RelativeTime::time_unit].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_query::input::RelativeTime;
+            /// use google_cloud_chronicle_v1::model::TimeUnit;
+            /// let x0 = RelativeTime::new().set_time_unit(TimeUnit::Second);
+            /// let x1 = RelativeTime::new().set_time_unit(TimeUnit::Minute);
+            /// let x2 = RelativeTime::new().set_time_unit(TimeUnit::Hour);
+            /// ```
+            pub fn set_time_unit<T: std::convert::Into<crate::model::TimeUnit>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.time_unit = v.into();
+                self
+            }
+
+            /// Sets the value of [start_time_val][crate::model::dashboard_query::input::RelativeTime::start_time_val].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_query::input::RelativeTime;
+            /// let x = RelativeTime::new().set_start_time_val(42);
+            /// ```
+            pub fn set_start_time_val<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.start_time_val = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RelativeTime {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardQuery.Input.RelativeTime"
+            }
+        }
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum TimeInput {
+            /// time range to fetch the data for.
+            TimeWindow(std::boxed::Box<google_cloud_type::model::Interval>),
+            /// time range for last x units.
+            RelativeTime(std::boxed::Box<crate::model::dashboard_query::input::RelativeTime>),
+        }
+    }
+}
+
+/// Request message to get a dashboard query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDashboardQueryRequest {
+    /// Required. The name of the dashboardQuery to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dashboardQueries/{query}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDashboardQueryRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDashboardQueryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetDashboardQueryRequest;
+    /// let x = GetDashboardQueryRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDashboardQueryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetDashboardQueryRequest"
+    }
+}
+
+/// Request message to execute a dashboard query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteDashboardQueryRequest {
+    /// Required. The parent, under which to run this dashboardQuery.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The query to execute and get results back for.
+    /// QueryID or 'query', 'input.time_window' fields will be used. Use
+    /// 'native_dashboard' and 'dashboard_chart' fields if it is an in-dashboard
+    /// query.
+    pub query: std::option::Option<crate::model::DashboardQuery>,
+
+    /// Optional. Dashboard level filters other than query string.
+    pub filters: std::vec::Vec<crate::model::DashboardFilter>,
+
+    /// Optional. When true, the backend would read from the database, rather than
+    /// fetching data directly from the cache.
+    pub clear_cache: bool,
+
+    /// Optional. When true, the backend will execute the query against the
+    /// previous time range of the query.
+    pub use_previous_time_range: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteDashboardQueryRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ExecuteDashboardQueryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
+    /// let x = ExecuteDashboardQueryRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::ExecuteDashboardQueryRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = ExecuteDashboardQueryRequest::new().set_query(DashboardQuery::default()/* use setters */);
+    /// ```
+    pub fn set_query<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        self.query = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query][crate::model::ExecuteDashboardQueryRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = ExecuteDashboardQueryRequest::new().set_or_clear_query(Some(DashboardQuery::default()/* use setters */));
+    /// let x = ExecuteDashboardQueryRequest::new().set_or_clear_query(None::<DashboardQuery>);
+    /// ```
+    pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        self.query = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [filters][crate::model::ExecuteDashboardQueryRequest::filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = ExecuteDashboardQueryRequest::new()
+    ///     .set_filters([
+    ///         DashboardFilter::default()/* use setters */,
+    ///         DashboardFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DashboardFilter>,
+    {
+        use std::iter::Iterator;
+        self.filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [clear_cache][crate::model::ExecuteDashboardQueryRequest::clear_cache].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
+    /// let x = ExecuteDashboardQueryRequest::new().set_clear_cache(true);
+    /// ```
+    pub fn set_clear_cache<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.clear_cache = v.into();
+        self
+    }
+
+    /// Sets the value of [use_previous_time_range][crate::model::ExecuteDashboardQueryRequest::use_previous_time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
+    /// let x = ExecuteDashboardQueryRequest::new().set_use_previous_time_range(true);
+    /// ```
+    pub fn set_use_previous_time_range<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_previous_time_range = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteDashboardQueryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryRequest"
+    }
+}
+
+/// Runtime error for a dashboard query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryRuntimeError {
+    /// Short Description of the error.
+    pub error_title: std::string::String,
+
+    /// Error message
+    pub error_description: std::string::String,
+
+    /// Severity of the error.
+    pub error_severity: crate::model::query_runtime_error::ErrorSeverity,
+
+    /// Metadata for the error.
+    pub metadata: std::vec::Vec<crate::model::query_runtime_error::QueryRuntimeErrorMetadata>,
+
+    /// Reason for the error.
+    pub warning_reason: crate::model::query_runtime_error::WarningReason,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryRuntimeError {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error_title][crate::model::QueryRuntimeError::error_title].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::QueryRuntimeError;
+    /// let x = QueryRuntimeError::new().set_error_title("example");
+    /// ```
+    pub fn set_error_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_title = v.into();
+        self
+    }
+
+    /// Sets the value of [error_description][crate::model::QueryRuntimeError::error_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::QueryRuntimeError;
+    /// let x = QueryRuntimeError::new().set_error_description("example");
+    /// ```
+    pub fn set_error_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error_description = v.into();
+        self
+    }
+
+    /// Sets the value of [error_severity][crate::model::QueryRuntimeError::error_severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::QueryRuntimeError;
+    /// use google_cloud_chronicle_v1::model::query_runtime_error::ErrorSeverity;
+    /// let x0 = QueryRuntimeError::new().set_error_severity(ErrorSeverity::Warning);
+    /// let x1 = QueryRuntimeError::new().set_error_severity(ErrorSeverity::Severe);
+    /// ```
+    pub fn set_error_severity<
+        T: std::convert::Into<crate::model::query_runtime_error::ErrorSeverity>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error_severity = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::QueryRuntimeError::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::QueryRuntimeError;
+    /// use google_cloud_chronicle_v1::model::query_runtime_error::QueryRuntimeErrorMetadata;
+    /// let x = QueryRuntimeError::new()
+    ///     .set_metadata([
+    ///         QueryRuntimeErrorMetadata::default()/* use setters */,
+    ///         QueryRuntimeErrorMetadata::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_metadata<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::query_runtime_error::QueryRuntimeErrorMetadata>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [warning_reason][crate::model::QueryRuntimeError::warning_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::QueryRuntimeError;
+    /// use google_cloud_chronicle_v1::model::query_runtime_error::WarningReason;
+    /// let x0 = QueryRuntimeError::new().set_warning_reason(WarningReason::RowLimitExceeded);
+    /// let x1 = QueryRuntimeError::new().set_warning_reason(WarningReason::DefaultRowLimitExceeded);
+    /// let x2 = QueryRuntimeError::new().set_warning_reason(WarningReason::CuratedQueryDefaultRowLimitExceeded);
+    /// ```
+    pub fn set_warning_reason<
+        T: std::convert::Into<crate::model::query_runtime_error::WarningReason>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.warning_reason = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryRuntimeError {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.QueryRuntimeError"
+    }
+}
+
+/// Defines additional types related to [QueryRuntimeError].
+pub mod query_runtime_error {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Metadata for the error.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QueryRuntimeErrorMetadata {
+        /// Metadata key.
+        pub key: crate::model::query_runtime_error::MetadataKey,
+
+        /// Metadata value.
+        pub value: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl QueryRuntimeErrorMetadata {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [key][crate::model::query_runtime_error::QueryRuntimeErrorMetadata::key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::query_runtime_error::QueryRuntimeErrorMetadata;
+        /// use google_cloud_chronicle_v1::model::query_runtime_error::MetadataKey;
+        /// let x0 = QueryRuntimeErrorMetadata::new().set_key(MetadataKey::RowLimit);
+        /// ```
+        pub fn set_key<T: std::convert::Into<crate::model::query_runtime_error::MetadataKey>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.key = v.into();
+            self
+        }
+
+        /// Sets the value of [value][crate::model::query_runtime_error::QueryRuntimeErrorMetadata::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::query_runtime_error::QueryRuntimeErrorMetadata;
+        /// let x = QueryRuntimeErrorMetadata::new().set_value("example");
+        /// ```
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for QueryRuntimeErrorMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.QueryRuntimeError.QueryRuntimeErrorMetadata"
+        }
+    }
+
+    /// Based on ErrorSeverity, UI will choose to format the error differently.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ErrorSeverity {
+        /// Severity is unknown.
+        Unspecified,
+        /// Severity is warning.
+        Warning,
+        /// Error is severe.
+        Severe,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ErrorSeverity::value] or
+        /// [ErrorSeverity::name].
+        UnknownValue(error_severity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod error_severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ErrorSeverity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Warning => std::option::Option::Some(1),
+                Self::Severe => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ERROR_SEVERITY_UNSPECIFIED"),
+                Self::Warning => std::option::Option::Some("WARNING"),
+                Self::Severe => std::option::Option::Some("SEVERE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ErrorSeverity {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ErrorSeverity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ErrorSeverity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Warning,
+                2 => Self::Severe,
+                _ => Self::UnknownValue(error_severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ErrorSeverity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ERROR_SEVERITY_UNSPECIFIED" => Self::Unspecified,
+                "WARNING" => Self::Warning,
+                "SEVERE" => Self::Severe,
+                _ => Self::UnknownValue(error_severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ErrorSeverity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Warning => serializer.serialize_i32(1),
+                Self::Severe => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ErrorSeverity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ErrorSeverity>::new(
+                ".google.cloud.chronicle.v1.QueryRuntimeError.ErrorSeverity",
+            ))
+        }
+    }
+
+    /// Metadata enum to identify the metadata key.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MetadataKey {
+        /// Key is unknown.
+        Unspecified,
+        /// Key is row limit.
+        RowLimit,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MetadataKey::value] or
+        /// [MetadataKey::name].
+        UnknownValue(metadata_key::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod metadata_key {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl MetadataKey {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RowLimit => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METADATA_KEY_UNSPECIFIED"),
+                Self::RowLimit => std::option::Option::Some("ROW_LIMIT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for MetadataKey {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MetadataKey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MetadataKey {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RowLimit,
+                _ => Self::UnknownValue(metadata_key::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MetadataKey {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METADATA_KEY_UNSPECIFIED" => Self::Unspecified,
+                "ROW_LIMIT" => Self::RowLimit,
+                _ => Self::UnknownValue(metadata_key::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MetadataKey {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RowLimit => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MetadataKey {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetadataKey>::new(
+                ".google.cloud.chronicle.v1.QueryRuntimeError.MetadataKey",
+            ))
+        }
+    }
+
+    /// Warning reason.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WarningReason {
+        /// Reason is unknown.
+        Unspecified,
+        /// Reason is row limit exceeded.
+        RowLimitExceeded,
+        /// Reason is default row limit exceeded.
+        DefaultRowLimitExceeded,
+        /// Reason is curated query default row limit exceeded.
+        CuratedQueryDefaultRowLimitExceeded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WarningReason::value] or
+        /// [WarningReason::name].
+        UnknownValue(warning_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod warning_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl WarningReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RowLimitExceeded => std::option::Option::Some(1),
+                Self::DefaultRowLimitExceeded => std::option::Option::Some(2),
+                Self::CuratedQueryDefaultRowLimitExceeded => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WARNING_REASON_UNSPECIFIED"),
+                Self::RowLimitExceeded => std::option::Option::Some("ROW_LIMIT_EXCEEDED"),
+                Self::DefaultRowLimitExceeded => {
+                    std::option::Option::Some("DEFAULT_ROW_LIMIT_EXCEEDED")
+                }
+                Self::CuratedQueryDefaultRowLimitExceeded => {
+                    std::option::Option::Some("CURATED_QUERY_DEFAULT_ROW_LIMIT_EXCEEDED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for WarningReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WarningReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WarningReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RowLimitExceeded,
+                2 => Self::DefaultRowLimitExceeded,
+                3 => Self::CuratedQueryDefaultRowLimitExceeded,
+                _ => Self::UnknownValue(warning_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WarningReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WARNING_REASON_UNSPECIFIED" => Self::Unspecified,
+                "ROW_LIMIT_EXCEEDED" => Self::RowLimitExceeded,
+                "DEFAULT_ROW_LIMIT_EXCEEDED" => Self::DefaultRowLimitExceeded,
+                "CURATED_QUERY_DEFAULT_ROW_LIMIT_EXCEEDED" => {
+                    Self::CuratedQueryDefaultRowLimitExceeded
+                }
+                _ => Self::UnknownValue(warning_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WarningReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RowLimitExceeded => serializer.serialize_i32(1),
+                Self::DefaultRowLimitExceeded => serializer.serialize_i32(2),
+                Self::CuratedQueryDefaultRowLimitExceeded => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WarningReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WarningReason>::new(
+                ".google.cloud.chronicle.v1.QueryRuntimeError.WarningReason",
+            ))
+        }
+    }
+}
+
+/// Response message for executing a dashboard query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteDashboardQueryResponse {
+    /// Result rows that are queried.
+    pub results: std::vec::Vec<crate::model::execute_dashboard_query_response::ColumnData>,
+
+    /// Datasource of the query and results.
+    pub data_sources: std::vec::Vec<crate::model::DataSource>,
+
+    /// Optional. Last time the cache was refreshed. This would be used by the UI
+    /// to show the last updated time.
+    pub last_backend_cache_refreshed_time: std::option::Option<wkt::Timestamp>,
+
+    /// Time window against which query was executed.
+    pub time_window: std::option::Option<google_cloud_type::model::Interval>,
+
+    /// Runtime errors
+    pub query_runtime_errors: std::vec::Vec<crate::model::QueryRuntimeError>,
+
+    /// Optional. Language features found in the query.
+    pub language_features: std::vec::Vec<crate::model::LanguageFeature>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteDashboardQueryResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [results][crate::model::ExecuteDashboardQueryResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnData;
+    /// let x = ExecuteDashboardQueryResponse::new()
+    ///     .set_results([
+    ///         ColumnData::default()/* use setters */,
+    ///         ColumnData::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::execute_dashboard_query_response::ColumnData>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_sources][crate::model::ExecuteDashboardQueryResponse::data_sources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use google_cloud_chronicle_v1::model::DataSource;
+    /// let x = ExecuteDashboardQueryResponse::new().set_data_sources([
+    ///     DataSource::Udm,
+    ///     DataSource::Entity,
+    ///     DataSource::IngestionMetrics,
+    /// ]);
+    /// ```
+    pub fn set_data_sources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataSource>,
+    {
+        use std::iter::Iterator;
+        self.data_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [last_backend_cache_refreshed_time][crate::model::ExecuteDashboardQueryResponse::last_backend_cache_refreshed_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use wkt::Timestamp;
+    /// let x = ExecuteDashboardQueryResponse::new().set_last_backend_cache_refreshed_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_backend_cache_refreshed_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_backend_cache_refreshed_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_backend_cache_refreshed_time][crate::model::ExecuteDashboardQueryResponse::last_backend_cache_refreshed_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use wkt::Timestamp;
+    /// let x = ExecuteDashboardQueryResponse::new().set_or_clear_last_backend_cache_refreshed_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExecuteDashboardQueryResponse::new().set_or_clear_last_backend_cache_refreshed_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_backend_cache_refreshed_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_backend_cache_refreshed_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [time_window][crate::model::ExecuteDashboardQueryResponse::time_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use google_cloud_type::model::Interval;
+    /// let x = ExecuteDashboardQueryResponse::new().set_time_window(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_time_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [time_window][crate::model::ExecuteDashboardQueryResponse::time_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use google_cloud_type::model::Interval;
+    /// let x = ExecuteDashboardQueryResponse::new().set_or_clear_time_window(Some(Interval::default()/* use setters */));
+    /// let x = ExecuteDashboardQueryResponse::new().set_or_clear_time_window(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_time_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_window = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [query_runtime_errors][crate::model::ExecuteDashboardQueryResponse::query_runtime_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use google_cloud_chronicle_v1::model::QueryRuntimeError;
+    /// let x = ExecuteDashboardQueryResponse::new()
+    ///     .set_query_runtime_errors([
+    ///         QueryRuntimeError::default()/* use setters */,
+    ///         QueryRuntimeError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_query_runtime_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryRuntimeError>,
+    {
+        use std::iter::Iterator;
+        self.query_runtime_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_features][crate::model::ExecuteDashboardQueryResponse::language_features].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryResponse;
+    /// use google_cloud_chronicle_v1::model::LanguageFeature;
+    /// let x = ExecuteDashboardQueryResponse::new().set_language_features([
+    ///     LanguageFeature::Joins,
+    ///     LanguageFeature::Stages,
+    ///     LanguageFeature::DataTables,
+    /// ]);
+    /// ```
+    pub fn set_language_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LanguageFeature>,
+    {
+        use std::iter::Iterator;
+        self.language_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteDashboardQueryResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryResponse"
+    }
+}
+
+/// Defines additional types related to [ExecuteDashboardQueryResponse].
+pub mod execute_dashboard_query_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// LINT.IfChange(stats_data)
+    /// Value of the column based on data type.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColumnValue {
+        #[allow(missing_docs)]
+        pub metadata: std::option::Option<
+            crate::model::execute_dashboard_query_response::column_value::ValueMetadata,
+        >,
+
+        #[allow(missing_docs)]
+        pub value: std::option::Option<
+            crate::model::execute_dashboard_query_response::column_value::Value,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColumnValue {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [metadata][crate::model::execute_dashboard_query_response::ColumnValue::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::ValueMetadata;
+        /// let x = ColumnValue::new().set_metadata(ValueMetadata::default()/* use setters */);
+        /// ```
+        pub fn set_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::execute_dashboard_query_response::column_value::ValueMetadata,
+                >,
+        {
+            self.metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata][crate::model::execute_dashboard_query_response::ColumnValue::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::ValueMetadata;
+        /// let x = ColumnValue::new().set_or_clear_metadata(Some(ValueMetadata::default()/* use setters */));
+        /// let x = ColumnValue::new().set_or_clear_metadata(None::<ValueMetadata>);
+        /// ```
+        pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::execute_dashboard_query_response::column_value::ValueMetadata,
+                >,
+        {
+            self.metadata = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::Value;
+        /// let x = ColumnValue::new().set_value(Some(Value::NullVal(true)));
+        /// ```
+        pub fn set_value<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::execute_dashboard_query_response::column_value::Value,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = v.into();
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `NullVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn null_val(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::NullVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `NullVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_null_val(true);
+        /// assert!(x.null_val().is_some());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_null_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::NullVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `BoolVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bool_val(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::BoolVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `BoolVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_bool_val(true);
+        /// assert!(x.bool_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_bool_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::BoolVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `BytesVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bytes_val(&self) -> std::option::Option<&::bytes::Bytes> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::BytesVal(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `BytesVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_bytes_val(bytes::Bytes::from_static(b"example"));
+        /// assert!(x.bytes_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_bytes_val<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::BytesVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `DoubleVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn double_val(&self) -> std::option::Option<&f64> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::DoubleVal(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `DoubleVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_double_val(42.0);
+        /// assert!(x.double_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_double_val<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::DoubleVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `Int64Val`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn int64_val(&self) -> std::option::Option<&i64> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::Int64Val(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `Int64Val`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_int64_val(42);
+        /// assert!(x.int64_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_int64_val<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::Int64Val(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `Uint64Val`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn uint64_val(&self) -> std::option::Option<&u64> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::Uint64Val(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `Uint64Val`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_uint64_val(42_u32);
+        /// assert!(x.uint64_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_uint64_val<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::Uint64Val(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `StringVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn string_val(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::StringVal(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `StringVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnValue::new().set_string_val("example");
+        /// assert!(x.string_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_string_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::StringVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `TimestampVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn timestamp_val(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::TimestampVal(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `TimestampVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// use wkt::Timestamp;
+        /// let x = ColumnValue::new().set_timestamp_val(Timestamp::default()/* use setters */);
+        /// assert!(x.timestamp_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_timestamp_val<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::TimestampVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `DateVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn date_val(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::DateVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `DateVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// use google_cloud_type::model::Date;
+        /// let x = ColumnValue::new().set_date_val(Date::default()/* use setters */);
+        /// assert!(x.date_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_date_val<
+            T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::DateVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// if it holds a `ProtoVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn proto_val(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_value::Value::ProtoVal(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::execute_dashboard_query_response::ColumnValue::value]
+        /// to hold a `ProtoVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// use wkt::Any;
+        /// let x = ColumnValue::new().set_proto_val(Any::default()/* use setters */);
+        /// assert!(x.proto_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// ```
+        pub fn set_proto_val<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_value::Value::ProtoVal(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColumnValue {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryResponse.ColumnValue"
+        }
+    }
+
+    /// Defines additional types related to [ColumnValue].
+    pub mod column_value {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ValueMetadata {
+            /// "Auto" generated In-app links.
+            pub links: std::vec::Vec<crate::model::InAppLink>,
+
+            #[allow(missing_docs)]
+            pub field_paths: std::vec::Vec<std::string::String>,
+
+            /// Timestamp value to store the timestamp for the case of the date and
+            /// time data type.
+            pub timestamp_val: std::option::Option<wkt::Timestamp>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ValueMetadata {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [links][crate::model::execute_dashboard_query_response::column_value::ValueMetadata::links].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::ValueMetadata;
+            /// use google_cloud_chronicle_v1::model::InAppLink;
+            /// let x = ValueMetadata::new()
+            ///     .set_links([
+            ///         InAppLink::default()/* use setters */,
+            ///         InAppLink::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_links<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::InAppLink>,
+            {
+                use std::iter::Iterator;
+                self.links = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [field_paths][crate::model::execute_dashboard_query_response::column_value::ValueMetadata::field_paths].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::ValueMetadata;
+            /// let x = ValueMetadata::new().set_field_paths(["a", "b", "c"]);
+            /// ```
+            pub fn set_field_paths<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.field_paths = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [timestamp_val][crate::model::execute_dashboard_query_response::column_value::ValueMetadata::timestamp_val].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::ValueMetadata;
+            /// use wkt::Timestamp;
+            /// let x = ValueMetadata::new().set_timestamp_val(Timestamp::default()/* use setters */);
+            /// ```
+            pub fn set_timestamp_val<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.timestamp_val = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [timestamp_val][crate::model::execute_dashboard_query_response::column_value::ValueMetadata::timestamp_val].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_value::ValueMetadata;
+            /// use wkt::Timestamp;
+            /// let x = ValueMetadata::new().set_or_clear_timestamp_val(Some(Timestamp::default()/* use setters */));
+            /// let x = ValueMetadata::new().set_or_clear_timestamp_val(None::<Timestamp>);
+            /// ```
+            pub fn set_or_clear_timestamp_val<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.timestamp_val = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for ValueMetadata {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryResponse.ColumnValue.ValueMetadata"
+            }
+        }
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Value {
+            /// True if the value is NULL.
+            NullVal(bool),
+            /// Boolean value.
+            BoolVal(bool),
+            /// Bytes value.
+            BytesVal(::bytes::Bytes),
+            /// Double value.
+            DoubleVal(f64),
+            /// Integer value (signed).
+            Int64Val(i64),
+            /// Un-signed integer value.
+            Uint64Val(u64),
+            /// String value. Enum values are returned as strings.
+            StringVal(std::string::String),
+            /// Timestamp values. Does not handle `interval`.
+            TimestampVal(std::boxed::Box<wkt::Timestamp>),
+            /// Date values.
+            DateVal(std::boxed::Box<google_cloud_type::model::Date>),
+            /// For any proto values that are not any of the above.
+            ProtoVal(std::boxed::Box<wkt::Any>),
+        }
+    }
+
+    /// Singular vs list of values in a column.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColumnType {
+        #[allow(missing_docs)]
+        pub r#type:
+            std::option::Option<crate::model::execute_dashboard_query_response::column_type::Type>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColumnType {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::execute_dashboard_query_response::ColumnType::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnType;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnType::new().set_type(Some(
+        ///     google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_type::Type::Value(ColumnValue::default().into())));
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::execute_dashboard_query_response::column_type::Type,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// The value of [r#type][crate::model::execute_dashboard_query_response::ColumnType::r#type]
+        /// if it holds a `Value`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn value(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::execute_dashboard_query_response::ColumnValue>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_type::Type::Value(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [r#type][crate::model::execute_dashboard_query_response::ColumnType::r#type]
+        /// to hold a `Value`.
+        ///
+        /// Note that all the setters affecting `r#type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnType;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+        /// let x = ColumnType::new().set_value(ColumnValue::default()/* use setters */);
+        /// assert!(x.value().is_some());
+        /// assert!(x.list().is_none());
+        /// ```
+        pub fn set_value<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::execute_dashboard_query_response::ColumnValue>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_type::Type::Value(v.into()),
+            );
+            self
+        }
+
+        /// The value of [r#type][crate::model::execute_dashboard_query_response::ColumnType::r#type]
+        /// if it holds a `List`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn list(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::execute_dashboard_query_response::column_type::List>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::execute_dashboard_query_response::column_type::Type::List(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [r#type][crate::model::execute_dashboard_query_response::ColumnType::r#type]
+        /// to hold a `List`.
+        ///
+        /// Note that all the setters affecting `r#type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnType;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_type::List;
+        /// let x = ColumnType::new().set_list(List::default()/* use setters */);
+        /// assert!(x.list().is_some());
+        /// assert!(x.value().is_none());
+        /// ```
+        pub fn set_list<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::execute_dashboard_query_response::column_type::List,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = std::option::Option::Some(
+                crate::model::execute_dashboard_query_response::column_type::Type::List(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColumnType {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryResponse.ColumnType"
+        }
+    }
+
+    /// Defines additional types related to [ColumnType].
+    pub mod column_type {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Store list of values in a column.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct List {
+            #[allow(missing_docs)]
+            pub values: std::vec::Vec<crate::model::execute_dashboard_query_response::ColumnValue>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl List {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [values][crate::model::execute_dashboard_query_response::column_type::List::values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::column_type::List;
+            /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnValue;
+            /// let x = List::new()
+            ///     .set_values([
+            ///         ColumnValue::default()/* use setters */,
+            ///         ColumnValue::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_values<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::execute_dashboard_query_response::ColumnValue>,
+            {
+                use std::iter::Iterator;
+                self.values = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for List {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryResponse.ColumnType.List"
+            }
+        }
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// Single value in a column.
+            Value(std::boxed::Box<crate::model::execute_dashboard_query_response::ColumnValue>),
+            /// List of values in a column e.g. IPs
+            List(
+                std::boxed::Box<crate::model::execute_dashboard_query_response::column_type::List>,
+            ),
+        }
+    }
+
+    #[allow(missing_docs)]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColumnData {
+        /// Used to store column names.
+        pub column: std::string::String,
+
+        /// To store column data.
+        pub values: std::vec::Vec<crate::model::execute_dashboard_query_response::ColumnType>,
+
+        /// To store column metadata.
+        pub metadata: std::option::Option<crate::model::ColumnMetadata>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColumnData {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [column][crate::model::execute_dashboard_query_response::ColumnData::column].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnData;
+        /// let x = ColumnData::new().set_column("example");
+        /// ```
+        pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.column = v.into();
+            self
+        }
+
+        /// Sets the value of [values][crate::model::execute_dashboard_query_response::ColumnData::values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnData;
+        /// use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnType;
+        /// let x = ColumnData::new()
+        ///     .set_values([
+        ///         ColumnType::default()/* use setters */,
+        ///         ColumnType::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::execute_dashboard_query_response::ColumnType>,
+        {
+            use std::iter::Iterator;
+            self.values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [metadata][crate::model::execute_dashboard_query_response::ColumnData::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnData;
+        /// use google_cloud_chronicle_v1::model::ColumnMetadata;
+        /// let x = ColumnData::new().set_metadata(ColumnMetadata::default()/* use setters */);
+        /// ```
+        pub fn set_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ColumnMetadata>,
+        {
+            self.metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata][crate::model::execute_dashboard_query_response::ColumnData::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::execute_dashboard_query_response::ColumnData;
+        /// use google_cloud_chronicle_v1::model::ColumnMetadata;
+        /// let x = ColumnData::new().set_or_clear_metadata(Some(ColumnMetadata::default()/* use setters */));
+        /// let x = ColumnData::new().set_or_clear_metadata(None::<ColumnMetadata>);
+        /// ```
+        pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ColumnMetadata>,
+        {
+            self.metadata = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColumnData {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.ExecuteDashboardQueryResponse.ColumnData"
+        }
+    }
+}
+
+/// Dashboard level filter that can be used in native dashboards as well as
+/// inputs to execute query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DashboardFilter {
+    /// ID of the filter.
+    pub id: std::string::String,
+
+    /// Datasource the filter is applicable for.
+    pub data_source: crate::model::DataSource,
+
+    /// Filter field path.
+    pub field_path: std::string::String,
+
+    /// Operator and values. Can include multiple modifiers.
+    pub filter_operator_and_field_values: std::vec::Vec<crate::model::FilterOperatorAndValues>,
+
+    /// Display name of the filter.
+    pub display_name: std::string::String,
+
+    /// Chart IDs the filter is applicable for.
+    pub chart_ids: std::vec::Vec<std::string::String>,
+
+    /// Optional. Whether the filter is a standard time range filter,
+    /// meaning that it has to be used as the query time range,
+    /// and not as a predicate in the query.
+    /// A chart can have at most one standard time range filter applied.
+    pub is_standard_time_range_filter: bool,
+
+    /// Optional. Whether this filter is required to be populated by the
+    /// dashboard consumer prior to the dashboard loading.
+    pub is_mandatory: bool,
+
+    /// Optional. Whether this standard time range filter is enabled.
+    pub is_standard_time_range_filter_enabled: std::option::Option<bool>,
+
+    /// Optional. Advanced filter configuration for the filter widget.
+    pub advanced_filter_config: std::option::Option<crate::model::AdvancedFilterConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DashboardFilter {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::DashboardFilter::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::DashboardFilter::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// use google_cloud_chronicle_v1::model::DataSource;
+    /// let x0 = DashboardFilter::new().set_data_source(DataSource::Udm);
+    /// let x1 = DashboardFilter::new().set_data_source(DataSource::Entity);
+    /// let x2 = DashboardFilter::new().set_data_source(DataSource::IngestionMetrics);
+    /// ```
+    pub fn set_data_source<T: std::convert::Into<crate::model::DataSource>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [field_path][crate::model::DashboardFilter::field_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_field_path("example");
+    /// ```
+    pub fn set_field_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.field_path = v.into();
+        self
+    }
+
+    /// Sets the value of [filter_operator_and_field_values][crate::model::DashboardFilter::filter_operator_and_field_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// use google_cloud_chronicle_v1::model::FilterOperatorAndValues;
+    /// let x = DashboardFilter::new()
+    ///     .set_filter_operator_and_field_values([
+    ///         FilterOperatorAndValues::default()/* use setters */,
+    ///         FilterOperatorAndValues::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_filter_operator_and_field_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FilterOperatorAndValues>,
+    {
+        use std::iter::Iterator;
+        self.filter_operator_and_field_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::DashboardFilter::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [chart_ids][crate::model::DashboardFilter::chart_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_chart_ids(["a", "b", "c"]);
+    /// ```
+    pub fn set_chart_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.chart_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [is_standard_time_range_filter][crate::model::DashboardFilter::is_standard_time_range_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_is_standard_time_range_filter(true);
+    /// ```
+    pub fn set_is_standard_time_range_filter<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_standard_time_range_filter = v.into();
+        self
+    }
+
+    /// Sets the value of [is_mandatory][crate::model::DashboardFilter::is_mandatory].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_is_mandatory(true);
+    /// ```
+    pub fn set_is_mandatory<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_mandatory = v.into();
+        self
+    }
+
+    /// Sets the value of [is_standard_time_range_filter_enabled][crate::model::DashboardFilter::is_standard_time_range_filter_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_is_standard_time_range_filter_enabled(true);
+    /// ```
+    pub fn set_is_standard_time_range_filter_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_standard_time_range_filter_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [is_standard_time_range_filter_enabled][crate::model::DashboardFilter::is_standard_time_range_filter_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_or_clear_is_standard_time_range_filter_enabled(Some(false));
+    /// let x = DashboardFilter::new().set_or_clear_is_standard_time_range_filter_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_is_standard_time_range_filter_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_standard_time_range_filter_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [advanced_filter_config][crate::model::DashboardFilter::advanced_filter_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = DashboardFilter::new().set_advanced_filter_config(AdvancedFilterConfig::default()/* use setters */);
+    /// ```
+    pub fn set_advanced_filter_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedFilterConfig>,
+    {
+        self.advanced_filter_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advanced_filter_config][crate::model::DashboardFilter::advanced_filter_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = DashboardFilter::new().set_or_clear_advanced_filter_config(Some(AdvancedFilterConfig::default()/* use setters */));
+    /// let x = DashboardFilter::new().set_or_clear_advanced_filter_config(None::<AdvancedFilterConfig>);
+    /// ```
+    pub fn set_or_clear_advanced_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedFilterConfig>,
+    {
+        self.advanced_filter_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DashboardFilter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DashboardFilter"
+    }
+}
+
+#[allow(missing_docs)]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilterOperatorAndValues {
+    /// Operator for a single filter modifier.
+    pub filter_operator: crate::model::FilterOperator,
+
+    /// Values for the modifier. All operators should have a single value other
+    /// than 'IN' and 'BETWEEN'. 'PAST' will have negative seconds
+    /// like -86400 is past 1 day.
+    pub field_values: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilterOperatorAndValues {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filter_operator][crate::model::FilterOperatorAndValues::filter_operator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FilterOperatorAndValues;
+    /// use google_cloud_chronicle_v1::model::FilterOperator;
+    /// let x0 = FilterOperatorAndValues::new().set_filter_operator(FilterOperator::Equal);
+    /// let x1 = FilterOperatorAndValues::new().set_filter_operator(FilterOperator::NotEqual);
+    /// let x2 = FilterOperatorAndValues::new().set_filter_operator(FilterOperator::In);
+    /// ```
+    pub fn set_filter_operator<T: std::convert::Into<crate::model::FilterOperator>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter_operator = v.into();
+        self
+    }
+
+    /// Sets the value of [field_values][crate::model::FilterOperatorAndValues::field_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FilterOperatorAndValues;
+    /// let x = FilterOperatorAndValues::new().set_field_values(["a", "b", "c"]);
+    /// ```
+    pub fn set_field_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.field_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FilterOperatorAndValues {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.FilterOperatorAndValues"
+    }
+}
+
+/// Advanced filter configuration for the filter widget.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AdvancedFilterConfig {
+    /// Required. The token name to look for in the query (e.g., "hostname").
+    /// The system will automatically wrap this in '$' (e.g., "$hostname$").
+    pub token: std::string::String,
+
+    /// Optional. String to prepend to the final replaced value (e.g., "/", "^(",
+    /// "\"").
+    pub prefix: std::string::String,
+
+    /// Optional. String to append to the final replaced value (e.g., "/", ")$",
+    /// "\"").
+    pub suffix: std::string::String,
+
+    /// Optional. Delimiter to join multiple selected values (e.g., "|", " OR field
+    /// = ").
+    pub separator: std::string::String,
+
+    /// Optional. Whether to allow selection of multiple values.
+    pub multiple_allowed: bool,
+
+    /// Optional. Default values to use if no value is selected/provided.
+    pub default_values: std::vec::Vec<std::string::String>,
+
+    /// Optional. Whether to skip the configured prefix and suffix when using
+    /// default values. If true, default values are inserted raw (joined by the
+    /// separator).
+    pub skip_default_affixes: bool,
+
+    /// Required. Source of the values for the filter.
+    pub value_source: std::option::Option<crate::model::advanced_filter_config::ValueSource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AdvancedFilterConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [token][crate::model::AdvancedFilterConfig::token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_token("example");
+    /// ```
+    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token = v.into();
+        self
+    }
+
+    /// Sets the value of [prefix][crate::model::AdvancedFilterConfig::prefix].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_prefix("example");
+    /// ```
+    pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.prefix = v.into();
+        self
+    }
+
+    /// Sets the value of [suffix][crate::model::AdvancedFilterConfig::suffix].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_suffix("example");
+    /// ```
+    pub fn set_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.suffix = v.into();
+        self
+    }
+
+    /// Sets the value of [separator][crate::model::AdvancedFilterConfig::separator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_separator("example");
+    /// ```
+    pub fn set_separator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.separator = v.into();
+        self
+    }
+
+    /// Sets the value of [multiple_allowed][crate::model::AdvancedFilterConfig::multiple_allowed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_multiple_allowed(true);
+    /// ```
+    pub fn set_multiple_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.multiple_allowed = v.into();
+        self
+    }
+
+    /// Sets the value of [default_values][crate::model::AdvancedFilterConfig::default_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_default_values(["a", "b", "c"]);
+    /// ```
+    pub fn set_default_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.default_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [skip_default_affixes][crate::model::AdvancedFilterConfig::skip_default_affixes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// let x = AdvancedFilterConfig::new().set_skip_default_affixes(true);
+    /// ```
+    pub fn set_skip_default_affixes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.skip_default_affixes = v.into();
+        self
+    }
+
+    /// Sets the value of [value_source][crate::model::AdvancedFilterConfig::value_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// use google_cloud_chronicle_v1::model::advanced_filter_config::ValueSource;
+    /// let x = AdvancedFilterConfig::new().set_value_source(ValueSource::default()/* use setters */);
+    /// ```
+    pub fn set_value_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_filter_config::ValueSource>,
+    {
+        self.value_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [value_source][crate::model::AdvancedFilterConfig::value_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AdvancedFilterConfig;
+    /// use google_cloud_chronicle_v1::model::advanced_filter_config::ValueSource;
+    /// let x = AdvancedFilterConfig::new().set_or_clear_value_source(Some(ValueSource::default()/* use setters */));
+    /// let x = AdvancedFilterConfig::new().set_or_clear_value_source(None::<ValueSource>);
+    /// ```
+    pub fn set_or_clear_value_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_filter_config::ValueSource>,
+    {
+        self.value_source = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AdvancedFilterConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.AdvancedFilterConfig"
+    }
+}
+
+/// Defines additional types related to [AdvancedFilterConfig].
+pub mod advanced_filter_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Source of the values for the filter.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ValueSource {
+        /// Source of the values for the filter.
+        pub source: std::option::Option<crate::model::advanced_filter_config::value_source::Source>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ValueSource {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [source][crate::model::advanced_filter_config::ValueSource::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::ValueSource;
+        /// use google_cloud_chronicle_v1::model::advanced_filter_config::ManualOptions;
+        /// let x = ValueSource::new().set_source(Some(
+        ///     google_cloud_chronicle_v1::model::advanced_filter_config::value_source::Source::ManualOptions(ManualOptions::default().into())));
+        /// ```
+        pub fn set_source<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::advanced_filter_config::value_source::Source>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source = v.into();
+            self
+        }
+
+        /// The value of [source][crate::model::advanced_filter_config::ValueSource::source]
+        /// if it holds a `ManualOptions`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn manual_options(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::advanced_filter_config::ManualOptions>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::advanced_filter_config::value_source::Source::ManualOptions(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [source][crate::model::advanced_filter_config::ValueSource::source]
+        /// to hold a `ManualOptions`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::ValueSource;
+        /// use google_cloud_chronicle_v1::model::advanced_filter_config::ManualOptions;
+        /// let x = ValueSource::new().set_manual_options(ManualOptions::default()/* use setters */);
+        /// assert!(x.manual_options().is_some());
+        /// assert!(x.query_options().is_none());
+        /// ```
+        pub fn set_manual_options<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::advanced_filter_config::ManualOptions>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source = std::option::Option::Some(
+                crate::model::advanced_filter_config::value_source::Source::ManualOptions(v.into()),
+            );
+            self
+        }
+
+        /// The value of [source][crate::model::advanced_filter_config::ValueSource::source]
+        /// if it holds a `QueryOptions`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn query_options(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::advanced_filter_config::QueryOptions>>
+        {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::advanced_filter_config::value_source::Source::QueryOptions(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [source][crate::model::advanced_filter_config::ValueSource::source]
+        /// to hold a `QueryOptions`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::ValueSource;
+        /// use google_cloud_chronicle_v1::model::advanced_filter_config::QueryOptions;
+        /// let x = ValueSource::new().set_query_options(QueryOptions::default()/* use setters */);
+        /// assert!(x.query_options().is_some());
+        /// assert!(x.manual_options().is_none());
+        /// ```
+        pub fn set_query_options<
+            T: std::convert::Into<std::boxed::Box<crate::model::advanced_filter_config::QueryOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source = std::option::Option::Some(
+                crate::model::advanced_filter_config::value_source::Source::QueryOptions(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ValueSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.AdvancedFilterConfig.ValueSource"
+        }
+    }
+
+    /// Defines additional types related to [ValueSource].
+    pub mod value_source {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Source of the values for the filter.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Source {
+            /// Optional. Manual options provided by the user.
+            ManualOptions(std::boxed::Box<crate::model::advanced_filter_config::ManualOptions>),
+            /// Optional. Query options to fetch the values from the query engine.
+            /// This is used for the filter's population query.
+            QueryOptions(std::boxed::Box<crate::model::advanced_filter_config::QueryOptions>),
+        }
+    }
+
+    /// Manual options provided by the user.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ManualOptions {
+        /// Optional. The options provided by the user.
+        /// The max number of options is limited to 10000.
+        pub options: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ManualOptions {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [options][crate::model::advanced_filter_config::ManualOptions::options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::ManualOptions;
+        /// let x = ManualOptions::new().set_options(["a", "b", "c"]);
+        /// ```
+        pub fn set_options<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.options = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ManualOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.AdvancedFilterConfig.ManualOptions"
+        }
+    }
+
+    /// Query options to fetch the values from the query engine.
+    /// This is used for the filter's population query.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QueryOptions {
+        /// Required. The query to execute to fetch the values.
+        pub query: std::string::String,
+
+        /// Required. The column name to use for the values.
+        pub column: std::string::String,
+
+        /// Optional. Enable global time filter
+        pub global_time_filter_enabled: bool,
+
+        /// Optional. Time range input specifically for the filter's population
+        /// query.
+        pub input: std::option::Option<crate::model::dashboard_query::Input>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl QueryOptions {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [query][crate::model::advanced_filter_config::QueryOptions::query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::QueryOptions;
+        /// let x = QueryOptions::new().set_query("example");
+        /// ```
+        pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.query = v.into();
+            self
+        }
+
+        /// Sets the value of [column][crate::model::advanced_filter_config::QueryOptions::column].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::QueryOptions;
+        /// let x = QueryOptions::new().set_column("example");
+        /// ```
+        pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.column = v.into();
+            self
+        }
+
+        /// Sets the value of [global_time_filter_enabled][crate::model::advanced_filter_config::QueryOptions::global_time_filter_enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::QueryOptions;
+        /// let x = QueryOptions::new().set_global_time_filter_enabled(true);
+        /// ```
+        pub fn set_global_time_filter_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.global_time_filter_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [input][crate::model::advanced_filter_config::QueryOptions::input].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::QueryOptions;
+        /// use google_cloud_chronicle_v1::model::dashboard_query::Input;
+        /// let x = QueryOptions::new().set_input(Input::default()/* use setters */);
+        /// ```
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_query::Input>,
+        {
+            self.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::advanced_filter_config::QueryOptions::input].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::advanced_filter_config::QueryOptions;
+        /// use google_cloud_chronicle_v1::model::dashboard_query::Input;
+        /// let x = QueryOptions::new().set_or_clear_input(Some(Input::default()/* use setters */));
+        /// let x = QueryOptions::new().set_or_clear_input(None::<Input>);
+        /// ```
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_query::Input>,
+        {
+            self.input = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for QueryOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.AdvancedFilterConfig.QueryOptions"
+        }
+    }
+}
+
+/// In app linking start
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InAppLink {
+    /// URL to redirect to.
+    pub url: std::string::String,
+
+    /// Label for the link.
+    pub label: std::string::String,
+
+    /// Icon url for the link.
+    pub icon_url: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InAppLink {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [url][crate::model::InAppLink::url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InAppLink;
+    /// let x = InAppLink::new().set_url("example");
+    /// ```
+    pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.url = v.into();
+        self
+    }
+
+    /// Sets the value of [label][crate::model::InAppLink::label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InAppLink;
+    /// let x = InAppLink::new().set_label("example");
+    /// ```
+    pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.label = v.into();
+        self
+    }
+
+    /// Sets the value of [icon_url][crate::model::InAppLink::icon_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InAppLink;
+    /// let x = InAppLink::new().set_icon_url("example");
+    /// ```
+    pub fn set_icon_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.icon_url = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InAppLink {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.InAppLink"
+    }
+}
+
+/// Metadata of the column.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ColumnMetadata {
+    /// Name of the column.
+    pub column: std::string::String,
+
+    /// Field path of the queried field, if any.
+    pub field_path: std::string::String,
+
+    /// Name of the function used to query the field, if any.
+    pub function_name: std::string::String,
+
+    /// Module of the function used to query the field, if any.
+    pub function_module: std::string::String,
+
+    /// Data source queried.
+    pub data_source: crate::model::DataSource,
+
+    /// Timestamp Metadata
+    pub timestamp_metadata: std::option::Option<crate::model::TimestampMetadata>,
+
+    /// Whether the column is a longitude field.
+    pub longitude: bool,
+
+    /// Whether the column is a latitude field.
+    pub latitude: bool,
+
+    /// Whether the column is selected in the final response.
+    pub selected: bool,
+
+    /// Whether the column is unselected in the final response.
+    pub unselected: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ColumnMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column][crate::model::ColumnMetadata::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_column("example");
+    /// ```
+    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.column = v.into();
+        self
+    }
+
+    /// Sets the value of [field_path][crate::model::ColumnMetadata::field_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_field_path("example");
+    /// ```
+    pub fn set_field_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.field_path = v.into();
+        self
+    }
+
+    /// Sets the value of [function_name][crate::model::ColumnMetadata::function_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_function_name("example");
+    /// ```
+    pub fn set_function_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.function_name = v.into();
+        self
+    }
+
+    /// Sets the value of [function_module][crate::model::ColumnMetadata::function_module].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_function_module("example");
+    /// ```
+    pub fn set_function_module<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.function_module = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::ColumnMetadata::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// use google_cloud_chronicle_v1::model::DataSource;
+    /// let x0 = ColumnMetadata::new().set_data_source(DataSource::Udm);
+    /// let x1 = ColumnMetadata::new().set_data_source(DataSource::Entity);
+    /// let x2 = ColumnMetadata::new().set_data_source(DataSource::IngestionMetrics);
+    /// ```
+    pub fn set_data_source<T: std::convert::Into<crate::model::DataSource>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_metadata][crate::model::ColumnMetadata::timestamp_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = ColumnMetadata::new().set_timestamp_metadata(TimestampMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_timestamp_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TimestampMetadata>,
+    {
+        self.timestamp_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timestamp_metadata][crate::model::ColumnMetadata::timestamp_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = ColumnMetadata::new().set_or_clear_timestamp_metadata(Some(TimestampMetadata::default()/* use setters */));
+    /// let x = ColumnMetadata::new().set_or_clear_timestamp_metadata(None::<TimestampMetadata>);
+    /// ```
+    pub fn set_or_clear_timestamp_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TimestampMetadata>,
+    {
+        self.timestamp_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [longitude][crate::model::ColumnMetadata::longitude].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_longitude(true);
+    /// ```
+    pub fn set_longitude<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.longitude = v.into();
+        self
+    }
+
+    /// Sets the value of [latitude][crate::model::ColumnMetadata::latitude].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_latitude(true);
+    /// ```
+    pub fn set_latitude<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.latitude = v.into();
+        self
+    }
+
+    /// Sets the value of [selected][crate::model::ColumnMetadata::selected].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_selected(true);
+    /// ```
+    pub fn set_selected<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.selected = v.into();
+        self
+    }
+
+    /// Sets the value of [unselected][crate::model::ColumnMetadata::unselected].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnMetadata;
+    /// let x = ColumnMetadata::new().set_unselected(true);
+    /// ```
+    pub fn set_unselected<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.unselected = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ColumnMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ColumnMetadata"
+    }
+}
+
+/// Metadata of the timestamp column.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TimestampMetadata {
+    /// Time format of the timestamp column.
+    pub time_format: std::string::String,
+
+    /// Time zone of the timestamp column.
+    pub time_zone: std::string::String,
+
+    /// Time granularity of the timestamp column.
+    pub time_granularity: std::string::String,
+
+    /// Whether the timestamp column is sortable in UI.
+    pub is_sortable: bool,
+
+    /// Whether the timestamp column is interpolable in UI.
+    pub is_interpolable: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TimestampMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [time_format][crate::model::TimestampMetadata::time_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = TimestampMetadata::new().set_time_format("example");
+    /// ```
+    pub fn set_time_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.time_format = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::TimestampMetadata::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = TimestampMetadata::new().set_time_zone("example");
+    /// ```
+    pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.time_zone = v.into();
+        self
+    }
+
+    /// Sets the value of [time_granularity][crate::model::TimestampMetadata::time_granularity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = TimestampMetadata::new().set_time_granularity("example");
+    /// ```
+    pub fn set_time_granularity<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_granularity = v.into();
+        self
+    }
+
+    /// Sets the value of [is_sortable][crate::model::TimestampMetadata::is_sortable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = TimestampMetadata::new().set_is_sortable(true);
+    /// ```
+    pub fn set_is_sortable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_sortable = v.into();
+        self
+    }
+
+    /// Sets the value of [is_interpolable][crate::model::TimestampMetadata::is_interpolable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TimestampMetadata;
+    /// let x = TimestampMetadata::new().set_is_interpolable(true);
+    /// ```
+    pub fn set_is_interpolable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_interpolable = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TimestampMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.TimestampMetadata"
+    }
+}
+
 /// Request message for CreateDataAccessLabel.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -57,6 +8374,7 @@ pub struct CreateDataAccessLabelRequest {
 }
 
 impl CreateDataAccessLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -141,6 +8459,7 @@ pub struct GetDataAccessLabelRequest {
 }
 
 impl GetDataAccessLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -193,6 +8512,7 @@ pub struct ListDataAccessLabelsRequest {
 }
 
 impl ListDataAccessLabelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -267,6 +8587,7 @@ pub struct ListDataAccessLabelsResponse {
 }
 
 impl ListDataAccessLabelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -347,6 +8668,7 @@ pub struct UpdateDataAccessLabelRequest {
 }
 
 impl UpdateDataAccessLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -437,6 +8759,7 @@ pub struct DeleteDataAccessLabelRequest {
 }
 
 impl DeleteDataAccessLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -480,6 +8803,7 @@ pub struct CreateDataAccessScopeRequest {
 }
 
 impl CreateDataAccessScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -564,6 +8888,7 @@ pub struct GetDataAccessScopeRequest {
 }
 
 impl GetDataAccessScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -616,6 +8941,7 @@ pub struct ListDataAccessScopesRequest {
 }
 
 impl ListDataAccessScopesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -693,6 +9019,7 @@ pub struct ListDataAccessScopesResponse {
 }
 
 impl ListDataAccessScopesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -808,6 +9135,7 @@ pub struct UpdateDataAccessScopeRequest {
 }
 
 impl UpdateDataAccessScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -898,6 +9226,7 @@ pub struct DeleteDataAccessScopeRequest {
 }
 
 impl DeleteDataAccessScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -956,6 +9285,7 @@ pub struct DataAccessLabel {
 }
 
 impl DataAccessLabel {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1220,6 +9550,7 @@ pub struct DataAccessScope {
 }
 
 impl DataAccessScope {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1431,6 +9762,7 @@ pub struct DataAccessLabelReference {
 }
 
 impl DataAccessLabelReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1663,6 +9995,7 @@ pub struct IngestionLabel {
 }
 
 impl IngestionLabel {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1727,6 +10060,7 @@ pub struct CreateDataTableRequest {
 }
 
 impl CreateDataTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1808,6 +10142,7 @@ pub struct GetDataTableRequest {
 }
 
 impl GetDataTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1850,6 +10185,7 @@ pub struct UpdateDataTableRequest {
 }
 
 impl UpdateDataTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1956,6 +10292,7 @@ pub struct ListDataTablesRequest {
 }
 
 impl ListDataTablesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2033,6 +10370,7 @@ pub struct DeleteDataTableRequest {
 }
 
 impl DeleteDataTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2083,6 +10421,7 @@ pub struct ListDataTablesResponse {
 }
 
 impl ListDataTablesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2158,6 +10497,7 @@ pub struct CreateDataTableRowRequest {
 }
 
 impl CreateDataTableRowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2232,6 +10572,7 @@ pub struct UpdateDataTableRowRequest {
 }
 
 impl UpdateDataTableRowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2339,6 +10680,7 @@ pub struct ListDataTableRowsRequest {
 }
 
 impl ListDataTableRowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2425,6 +10767,7 @@ pub struct ListDataTableRowsResponse {
 }
 
 impl ListDataTableRowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2497,6 +10840,7 @@ pub struct GetDataTableRowRequest {
 }
 
 impl GetDataTableRowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2533,6 +10877,7 @@ pub struct DeleteDataTableRowRequest {
 }
 
 impl DeleteDataTableRowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2574,6 +10919,7 @@ pub struct BulkCreateDataTableRowsRequest {
 }
 
 impl BulkCreateDataTableRowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2630,6 +10976,7 @@ pub struct BulkCreateDataTableRowsResponse {
 }
 
 impl BulkCreateDataTableRowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2680,6 +11027,7 @@ pub struct BulkGetDataTableRowsRequest {
 }
 
 impl BulkGetDataTableRowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2736,6 +11084,7 @@ pub struct BulkGetDataTableRowsResponse {
 }
 
 impl BulkGetDataTableRowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2788,6 +11137,7 @@ pub struct BulkReplaceDataTableRowsRequest {
 }
 
 impl BulkReplaceDataTableRowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2844,6 +11194,7 @@ pub struct BulkReplaceDataTableRowsResponse {
 }
 
 impl BulkReplaceDataTableRowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2894,6 +11245,7 @@ pub struct BulkUpdateDataTableRowsRequest {
 }
 
 impl BulkUpdateDataTableRowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2950,6 +11302,7 @@ pub struct BulkUpdateDataTableRowsResponse {
 }
 
 impl BulkUpdateDataTableRowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2997,6 +11350,7 @@ pub struct DataTableScopeInfo {
 }
 
 impl DataTableScopeInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3084,6 +11438,7 @@ pub struct DataTable {
 }
 
 impl DataTable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3397,6 +11752,7 @@ pub struct DataTableRow {
 }
 
 impl DataTableRow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3544,12 +11900,14 @@ pub struct DataTableColumnInfo {
     /// Optional. Whether the column is a repeated values column.
     pub repeated_values: bool,
 
+    #[allow(missing_docs)]
     pub path_or_type: std::option::Option<crate::model::data_table_column_info::PathOrType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataTableColumnInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3867,6 +12225,7 @@ pub mod data_table_column_info {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PathOrType {
@@ -3890,6 +12249,7 @@ pub struct GetDataTableOperationErrorsRequest {
 }
 
 impl GetDataTableOperationErrorsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3930,6 +12290,7 @@ pub struct DataTableOperationErrors {
 }
 
 impl DataTableOperationErrors {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4018,6 +12379,7 @@ pub struct Watchlist {
 }
 
 impl Watchlist {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4260,6 +12622,7 @@ pub mod watchlist {
     }
 
     impl EntityPopulationMechanism {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4354,6 +12717,7 @@ pub mod watchlist {
         }
 
         impl Manual {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4389,6 +12753,7 @@ pub mod watchlist {
     }
 
     impl EntityCount {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4436,6 +12801,7 @@ pub struct WatchlistUserPreferences {
 }
 
 impl WatchlistUserPreferences {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4473,6 +12839,7 @@ pub struct GetWatchlistRequest {
 }
 
 impl GetWatchlistRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4530,6 +12897,7 @@ pub struct ListWatchlistsRequest {
 }
 
 impl ListWatchlistsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4604,6 +12972,7 @@ pub struct ListWatchlistsResponse {
 }
 
 impl ListWatchlistsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4685,6 +13054,7 @@ pub struct CreateWatchlistRequest {
 }
 
 impl CreateWatchlistRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4771,6 +13141,7 @@ pub struct UpdateWatchlistRequest {
 }
 
 impl UpdateWatchlistRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4866,6 +13237,7 @@ pub struct DeleteWatchlistRequest {
 }
 
 impl DeleteWatchlistRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4901,6 +13273,864 @@ impl wkt::message::Message for DeleteWatchlistRequest {
     }
 }
 
+/// FeaturedContentMetadata holds metadata about the Featured Content.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FeaturedContentMetadata {
+    /// Required. Unique identifier of the featured content.
+    pub id: std::string::String,
+
+    /// Output only. The display name of the featured content.
+    pub display_name: std::string::String,
+
+    /// Output only. Timestamp indicating when the item was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp indicating when the item was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Content item author full name.
+    pub author: std::string::String,
+
+    /// Output only. Determine if this content item is officially certified by
+    /// Google or created by the community.
+    pub certified: bool,
+
+    /// Output only. The description of the content item.
+    pub description: std::string::String,
+
+    /// Output only. Categories the content is associated with.
+    pub categories: std::vec::Vec<std::string::String>,
+
+    /// Output only. Featured content version (Major.Minor.Patch).
+    pub version: std::string::String,
+
+    /// Output only. Whether the content is verified by Google (applicable for 3rd
+    /// party content).
+    pub verified: std::option::Option<bool>,
+
+    /// Output only. The source type of the content.
+    pub source_type: crate::model::featured_content_metadata::ContentSourceType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FeaturedContentMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::FeaturedContentMetadata::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::FeaturedContentMetadata::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::FeaturedContentMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FeaturedContentMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::FeaturedContentMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FeaturedContentMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FeaturedContentMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FeaturedContentMetadata::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FeaturedContentMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FeaturedContentMetadata::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FeaturedContentMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FeaturedContentMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [author][crate::model::FeaturedContentMetadata::author].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_author("example");
+    /// ```
+    pub fn set_author<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.author = v.into();
+        self
+    }
+
+    /// Sets the value of [certified][crate::model::FeaturedContentMetadata::certified].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_certified(true);
+    /// ```
+    pub fn set_certified<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.certified = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::FeaturedContentMetadata::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [categories][crate::model::FeaturedContentMetadata::categories].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_categories(["a", "b", "c"]);
+    /// ```
+    pub fn set_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::FeaturedContentMetadata::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_version("example");
+    /// ```
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [verified][crate::model::FeaturedContentMetadata::verified].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_verified(true);
+    /// ```
+    pub fn set_verified<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.verified = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [verified][crate::model::FeaturedContentMetadata::verified].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentMetadata::new().set_or_clear_verified(Some(false));
+    /// let x = FeaturedContentMetadata::new().set_or_clear_verified(None::<bool>);
+    /// ```
+    pub fn set_or_clear_verified<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.verified = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_type][crate::model::FeaturedContentMetadata::source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// use google_cloud_chronicle_v1::model::featured_content_metadata::ContentSourceType;
+    /// let x0 = FeaturedContentMetadata::new().set_source_type(ContentSourceType::Google);
+    /// let x1 = FeaturedContentMetadata::new().set_source_type(ContentSourceType::Community);
+    /// let x2 = FeaturedContentMetadata::new().set_source_type(ContentSourceType::Partner);
+    /// ```
+    pub fn set_source_type<
+        T: std::convert::Into<crate::model::featured_content_metadata::ContentSourceType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FeaturedContentMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.FeaturedContentMetadata"
+    }
+}
+
+/// Defines additional types related to [FeaturedContentMetadata].
+pub mod featured_content_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// ContentSourceType specifying the content source of origin
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ContentSourceType {
+        /// Unspecified content source type
+        Unspecified,
+        /// Certified Google content source type
+        Google,
+        /// Community content source type
+        Community,
+        /// Partner content source type
+        Partner,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ContentSourceType::value] or
+        /// [ContentSourceType::name].
+        UnknownValue(content_source_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod content_source_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ContentSourceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Google => std::option::Option::Some(1),
+                Self::Community => std::option::Option::Some(2),
+                Self::Partner => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONTENT_SOURCE_TYPE_UNSPECIFIED"),
+                Self::Google => std::option::Option::Some("GOOGLE"),
+                Self::Community => std::option::Option::Some("COMMUNITY"),
+                Self::Partner => std::option::Option::Some("PARTNER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ContentSourceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ContentSourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ContentSourceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Google,
+                2 => Self::Community,
+                3 => Self::Partner,
+                _ => Self::UnknownValue(content_source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ContentSourceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONTENT_SOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GOOGLE" => Self::Google,
+                "COMMUNITY" => Self::Community,
+                "PARTNER" => Self::Partner,
+                _ => Self::UnknownValue(content_source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ContentSourceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Google => serializer.serialize_i32(1),
+                Self::Community => serializer.serialize_i32(2),
+                Self::Partner => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ContentSourceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContentSourceType>::new(
+                ".google.cloud.chronicle.v1.FeaturedContentMetadata.ContentSourceType",
+            ))
+        }
+    }
+}
+
+/// FeaturedContentNativeDashboard resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FeaturedContentNativeDashboard {
+    /// Identifier. The resource name of the FeaturedContentNativeDashboard.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard}
+    pub name: std::string::String,
+
+    /// Output only. Metadata about the FeaturedContentNativeDashboard.
+    pub content_metadata: std::option::Option<crate::model::FeaturedContentMetadata>,
+
+    /// Optional. The dashboard content.
+    pub dashboard_content: std::option::Option<crate::model::NativeDashboardWithChartsAndQueries>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FeaturedContentNativeDashboard {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FeaturedContentNativeDashboard::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// let x = FeaturedContentNativeDashboard::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [content_metadata][crate::model::FeaturedContentNativeDashboard::content_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentNativeDashboard::new().set_content_metadata(FeaturedContentMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_content_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FeaturedContentMetadata>,
+    {
+        self.content_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content_metadata][crate::model::FeaturedContentNativeDashboard::content_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// use google_cloud_chronicle_v1::model::FeaturedContentMetadata;
+    /// let x = FeaturedContentNativeDashboard::new().set_or_clear_content_metadata(Some(FeaturedContentMetadata::default()/* use setters */));
+    /// let x = FeaturedContentNativeDashboard::new().set_or_clear_content_metadata(None::<FeaturedContentMetadata>);
+    /// ```
+    pub fn set_or_clear_content_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FeaturedContentMetadata>,
+    {
+        self.content_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_content][crate::model::FeaturedContentNativeDashboard::dashboard_content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// let x = FeaturedContentNativeDashboard::new().set_dashboard_content(NativeDashboardWithChartsAndQueries::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_content<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboardWithChartsAndQueries>,
+    {
+        self.dashboard_content = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_content][crate::model::FeaturedContentNativeDashboard::dashboard_content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// let x = FeaturedContentNativeDashboard::new().set_or_clear_dashboard_content(Some(NativeDashboardWithChartsAndQueries::default()/* use setters */));
+    /// let x = FeaturedContentNativeDashboard::new().set_or_clear_dashboard_content(None::<NativeDashboardWithChartsAndQueries>);
+    /// ```
+    pub fn set_or_clear_dashboard_content<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboardWithChartsAndQueries>,
+    {
+        self.dashboard_content = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FeaturedContentNativeDashboard {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.FeaturedContentNativeDashboard"
+    }
+}
+
+/// Request message to get a FeaturedContentNativeDashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFeaturedContentNativeDashboardRequest {
+    /// Required. The resource name of the FeaturedContentNativeDashboard to
+    /// retrieve. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFeaturedContentNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFeaturedContentNativeDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetFeaturedContentNativeDashboardRequest;
+    /// let x = GetFeaturedContentNativeDashboardRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFeaturedContentNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetFeaturedContentNativeDashboardRequest"
+    }
+}
+
+/// Request message to list FeaturedContentNativeDashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFeaturedContentNativeDashboardsRequest {
+    /// Required. The parent, which owns this collection of
+    /// FeaturedContentNativeDashboards. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/contentHub
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of FeaturedContentNativeDashboards to return.
+    /// The service may return fewer than this value. If unspecified, at most 100
+    /// FeaturedContentNativeDashboards will be returned. The maximum value is 100;
+    /// values above 100 will be coerced to 100.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListFeaturedContentNativeDashboards` call. Provide this to retrieve the
+    /// subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListFeaturedContentNativeDashboards` must match the call that provided the
+    /// page token.
+    pub page_token: std::string::String,
+
+    /// Optional. The filter to apply to list the FeaturedContentNativeDashboards.
+    ///
+    /// The filter syntax follows Google Cloud syntax: <https://google.aip.dev/160>.
+    ///
+    /// Supported fields for filtering:
+    ///
+    /// * `name`: The resource name of the featured content.
+    /// * `content_metadata.description`: The description of the featured
+    ///   content.
+    ///
+    /// When a literal value is provided without a field, it will perform a
+    /// substring search across both `name` and `content_metadata.description`.
+    ///
+    /// Examples:
+    ///
+    /// * `"test"`: Matches featured content where either the name or description
+    ///   contains "test" as a substring.
+    /// * `name="test"`: Matches featured content where the name contains "test".
+    /// * `content_metadata.description="test"`: Matches featured content where
+    ///   the description contains "test".
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFeaturedContentNativeDashboardsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFeaturedContentNativeDashboardsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsRequest;
+    /// let x = ListFeaturedContentNativeDashboardsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFeaturedContentNativeDashboardsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsRequest;
+    /// let x = ListFeaturedContentNativeDashboardsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFeaturedContentNativeDashboardsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsRequest;
+    /// let x = ListFeaturedContentNativeDashboardsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFeaturedContentNativeDashboardsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsRequest;
+    /// let x = ListFeaturedContentNativeDashboardsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFeaturedContentNativeDashboardsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListFeaturedContentNativeDashboardsRequest"
+    }
+}
+
+/// Response message for listing FeaturedContentNativeDashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFeaturedContentNativeDashboardsResponse {
+    /// The list of FeaturedContentNativeDashboards.
+    /// Ordered by name by default.
+    pub featured_content_native_dashboards:
+        std::vec::Vec<crate::model::FeaturedContentNativeDashboard>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFeaturedContentNativeDashboardsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [featured_content_native_dashboards][crate::model::ListFeaturedContentNativeDashboardsResponse::featured_content_native_dashboards].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsResponse;
+    /// use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// let x = ListFeaturedContentNativeDashboardsResponse::new()
+    ///     .set_featured_content_native_dashboards([
+    ///         FeaturedContentNativeDashboard::default()/* use setters */,
+    ///         FeaturedContentNativeDashboard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_featured_content_native_dashboards<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FeaturedContentNativeDashboard>,
+    {
+        use std::iter::Iterator;
+        self.featured_content_native_dashboards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFeaturedContentNativeDashboardsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsResponse;
+    /// let x = ListFeaturedContentNativeDashboardsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFeaturedContentNativeDashboardsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListFeaturedContentNativeDashboardsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListFeaturedContentNativeDashboardsResponse
+{
+    type PageItem = crate::model::FeaturedContentNativeDashboard;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.featured_content_native_dashboards
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message to install a FeaturedContentNativeDashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstallFeaturedContentNativeDashboardRequest {
+    /// Required. The resource name of the FeaturedContentNativeDashboard to
+    /// install. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard}
+    pub name: std::string::String,
+
+    /// Optional. The FeaturedContentNativeDashboard to install.
+    pub featured_content_native_dashboard:
+        std::option::Option<crate::model::FeaturedContentNativeDashboard>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InstallFeaturedContentNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InstallFeaturedContentNativeDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InstallFeaturedContentNativeDashboardRequest;
+    /// let x = InstallFeaturedContentNativeDashboardRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [featured_content_native_dashboard][crate::model::InstallFeaturedContentNativeDashboardRequest::featured_content_native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InstallFeaturedContentNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// let x = InstallFeaturedContentNativeDashboardRequest::new().set_featured_content_native_dashboard(FeaturedContentNativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_featured_content_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FeaturedContentNativeDashboard>,
+    {
+        self.featured_content_native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [featured_content_native_dashboard][crate::model::InstallFeaturedContentNativeDashboardRequest::featured_content_native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InstallFeaturedContentNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
+    /// let x = InstallFeaturedContentNativeDashboardRequest::new().set_or_clear_featured_content_native_dashboard(Some(FeaturedContentNativeDashboard::default()/* use setters */));
+    /// let x = InstallFeaturedContentNativeDashboardRequest::new().set_or_clear_featured_content_native_dashboard(None::<FeaturedContentNativeDashboard>);
+    /// ```
+    pub fn set_or_clear_featured_content_native_dashboard<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::FeaturedContentNativeDashboard>,
+    {
+        self.featured_content_native_dashboard = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for InstallFeaturedContentNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.InstallFeaturedContentNativeDashboardRequest"
+    }
+}
+
+/// Response message for installing a FeaturedContentNativeDashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstallFeaturedContentNativeDashboardResponse {
+    /// Optional. The resource name of the NativeDashboard created.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{native_dashboard_id}
+    pub native_dashboard: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InstallFeaturedContentNativeDashboardResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::InstallFeaturedContentNativeDashboardResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InstallFeaturedContentNativeDashboardResponse;
+    /// let x = InstallFeaturedContentNativeDashboardResponse::new().set_native_dashboard("example");
+    /// ```
+    pub fn set_native_dashboard<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.native_dashboard = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InstallFeaturedContentNativeDashboardResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.InstallFeaturedContentNativeDashboardResponse"
+    }
+}
+
 /// A Instance represents an instantiation of the Instance product.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4913,6 +14143,7 @@ pub struct Instance {
 }
 
 impl Instance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4949,6 +14180,7 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4972,6 +14204,2453 @@ impl wkt::message::Message for GetInstanceRequest {
     }
 }
 
+/// Request message to export list of dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportNativeDashboardsRequest {
+    /// Required. The parent resource that the dashboards to be exported belong to.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The resource names of the dashboards to export.
+    pub names: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportNativeDashboardsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ExportNativeDashboardsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExportNativeDashboardsRequest;
+    /// let x = ExportNativeDashboardsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [names][crate::model::ExportNativeDashboardsRequest::names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExportNativeDashboardsRequest;
+    /// let x = ExportNativeDashboardsRequest::new().set_names(["a", "b", "c"]);
+    /// ```
+    pub fn set_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExportNativeDashboardsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ExportNativeDashboardsRequest"
+    }
+}
+
+/// Response message for exporting a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportNativeDashboardsResponse {
+    /// Destination for the exported data.
+    pub destination:
+        std::option::Option<crate::model::export_native_dashboards_response::Destination>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportNativeDashboardsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destination][crate::model::ExportNativeDashboardsResponse::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExportNativeDashboardsResponse;
+    /// use google_cloud_chronicle_v1::model::InlineDestination;
+    /// let x = ExportNativeDashboardsResponse::new().set_destination(Some(
+    ///     google_cloud_chronicle_v1::model::export_native_dashboards_response::Destination::InlineDestination(InlineDestination::default().into())));
+    /// ```
+    pub fn set_destination<
+        T: std::convert::Into<
+                std::option::Option<crate::model::export_native_dashboards_response::Destination>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportNativeDashboardsResponse::destination]
+    /// if it holds a `InlineDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inline_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InlineDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_native_dashboards_response::Destination::InlineDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportNativeDashboardsResponse::destination]
+    /// to hold a `InlineDestination`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ExportNativeDashboardsResponse;
+    /// use google_cloud_chronicle_v1::model::InlineDestination;
+    /// let x = ExportNativeDashboardsResponse::new().set_inline_destination(InlineDestination::default()/* use setters */);
+    /// assert!(x.inline_destination().is_some());
+    /// ```
+    pub fn set_inline_destination<
+        T: std::convert::Into<std::boxed::Box<crate::model::InlineDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_native_dashboards_response::Destination::InlineDestination(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportNativeDashboardsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ExportNativeDashboardsResponse"
+    }
+}
+
+/// Defines additional types related to [ExportNativeDashboardsResponse].
+pub mod export_native_dashboards_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Destination for the exported data.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// The data for the exported dashboards included directly in the response.
+        InlineDestination(std::boxed::Box<crate::model::InlineDestination>),
+    }
+}
+
+/// InlineDestination for exporting a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InlineDestination {
+    /// Dashboards with charts and queries.
+    pub dashboards: std::vec::Vec<crate::model::NativeDashboardWithChartsAndQueries>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InlineDestination {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dashboards][crate::model::InlineDestination::dashboards].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::InlineDestination;
+    /// use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// let x = InlineDestination::new()
+    ///     .set_dashboards([
+    ///         NativeDashboardWithChartsAndQueries::default()/* use setters */,
+    ///         NativeDashboardWithChartsAndQueries::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dashboards<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NativeDashboardWithChartsAndQueries>,
+    {
+        use std::iter::Iterator;
+        self.dashboards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for InlineDestination {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.InlineDestination"
+    }
+}
+
+/// NativeDashboardWithChartsAndQueries for exporting a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NativeDashboardWithChartsAndQueries {
+    /// Optional. Native dashboard.
+    pub dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    /// Optional. Charts in the dashboard.
+    pub dashboard_charts: std::vec::Vec<crate::model::DashboardChart>,
+
+    /// Optional. Queries in the dashboard.
+    pub dashboard_queries: std::vec::Vec<crate::model::DashboardQuery>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NativeDashboardWithChartsAndQueries {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dashboard][crate::model::NativeDashboardWithChartsAndQueries::dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboardWithChartsAndQueries::new().set_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard][crate::model::NativeDashboardWithChartsAndQueries::dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboardWithChartsAndQueries::new().set_or_clear_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = NativeDashboardWithChartsAndQueries::new().set_or_clear_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.dashboard = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_charts][crate::model::NativeDashboardWithChartsAndQueries::dashboard_charts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = NativeDashboardWithChartsAndQueries::new()
+    ///     .set_dashboard_charts([
+    ///         DashboardChart::default()/* use setters */,
+    ///         DashboardChart::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dashboard_charts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DashboardChart>,
+    {
+        use std::iter::Iterator;
+        self.dashboard_charts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dashboard_queries][crate::model::NativeDashboardWithChartsAndQueries::dashboard_queries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = NativeDashboardWithChartsAndQueries::new()
+    ///     .set_dashboard_queries([
+    ///         DashboardQuery::default()/* use setters */,
+    ///         DashboardQuery::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dashboard_queries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        use std::iter::Iterator;
+        self.dashboard_queries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for NativeDashboardWithChartsAndQueries {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.NativeDashboardWithChartsAndQueries"
+    }
+}
+
+/// Request message to import dashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportNativeDashboardsRequest {
+    /// Required. The parent resource where this dashboard will be created.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The data will imported from this proto.
+    pub source: std::option::Option<crate::model::ImportNativeDashboardsInlineSource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportNativeDashboardsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ImportNativeDashboardsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportNativeDashboardsRequest;
+    /// let x = ImportNativeDashboardsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::ImportNativeDashboardsRequest::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportNativeDashboardsRequest;
+    /// use google_cloud_chronicle_v1::model::ImportNativeDashboardsInlineSource;
+    /// let x = ImportNativeDashboardsRequest::new().set_source(ImportNativeDashboardsInlineSource::default()/* use setters */);
+    /// ```
+    pub fn set_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImportNativeDashboardsInlineSource>,
+    {
+        self.source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source][crate::model::ImportNativeDashboardsRequest::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportNativeDashboardsRequest;
+    /// use google_cloud_chronicle_v1::model::ImportNativeDashboardsInlineSource;
+    /// let x = ImportNativeDashboardsRequest::new().set_or_clear_source(Some(ImportNativeDashboardsInlineSource::default()/* use setters */));
+    /// let x = ImportNativeDashboardsRequest::new().set_or_clear_source(None::<ImportNativeDashboardsInlineSource>);
+    /// ```
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImportNativeDashboardsInlineSource>,
+    {
+        self.source = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ImportNativeDashboardsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ImportNativeDashboardsRequest"
+    }
+}
+
+/// Inline source for importing dashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportNativeDashboardsInlineSource {
+    /// Required. Dashboards with charts and queries.
+    pub dashboards: std::vec::Vec<crate::model::NativeDashboardWithChartsAndQueries>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportNativeDashboardsInlineSource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dashboards][crate::model::ImportNativeDashboardsInlineSource::dashboards].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportNativeDashboardsInlineSource;
+    /// use google_cloud_chronicle_v1::model::NativeDashboardWithChartsAndQueries;
+    /// let x = ImportNativeDashboardsInlineSource::new()
+    ///     .set_dashboards([
+    ///         NativeDashboardWithChartsAndQueries::default()/* use setters */,
+    ///         NativeDashboardWithChartsAndQueries::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dashboards<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NativeDashboardWithChartsAndQueries>,
+    {
+        use std::iter::Iterator;
+        self.dashboards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ImportNativeDashboardsInlineSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ImportNativeDashboardsInlineSource"
+    }
+}
+
+/// Response message for importing dashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportNativeDashboardsResponse {
+    /// Output only. Represents the status of an import operation for multiple
+    /// dashboards. Each dashboard's import status is tracked. A status of OK
+    /// indicates the dashboard was ready for import. Otherwise, an appropriate
+    /// error code and message are provided. Importantly, the import process is
+    /// all-or-nothing: if even one dashboard fails to import, the entire import
+    /// operation is aborted, and none of the dashboards are imported. The order of
+    /// the statuses will be the same as in the import request.
+    pub results: std::vec::Vec<crate::model::ImportExportStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportNativeDashboardsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [results][crate::model::ImportNativeDashboardsResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportNativeDashboardsResponse;
+    /// use google_cloud_chronicle_v1::model::ImportExportStatus;
+    /// let x = ImportNativeDashboardsResponse::new()
+    ///     .set_results([
+    ///         ImportExportStatus::default()/* use setters */,
+    ///         ImportExportStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ImportExportStatus>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ImportNativeDashboardsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ImportNativeDashboardsResponse"
+    }
+}
+
+/// ImportExportStatus is a wrapper for dashboard name and status.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportExportStatus {
+    /// The resource name of the dashboard if it was supplied in the request.
+    pub dashboard: std::string::String,
+
+    /// Output only. Status of the import/export operation.
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportExportStatus {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dashboard][crate::model::ImportExportStatus::dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportExportStatus;
+    /// let x = ImportExportStatus::new().set_dashboard("example");
+    /// ```
+    pub fn set_dashboard<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dashboard = v.into();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::ImportExportStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportExportStatus;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = ImportExportStatus::new().set_status(Status::default()/* use setters */);
+    /// ```
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::ImportExportStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ImportExportStatus;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = ImportExportStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = ImportExportStatus::new().set_or_clear_status(None::<Status>);
+    /// ```
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ImportExportStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ImportExportStatus"
+    }
+}
+
+/// NativeDashboard resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NativeDashboard {
+    /// Output only. Name of the dashboard.
+    pub name: std::string::String,
+
+    /// Required. Dashboard display name/title visible to users.
+    pub display_name: std::string::String,
+
+    /// Optional. Description of the dashboard.
+    pub description: std::string::String,
+
+    /// Optional. Definition of the dashboard like metadata, visualization and
+    /// datasource configuration etc.
+    pub definition: std::option::Option<crate::model::DashboardDefinition>,
+
+    /// Output only. Whether it's an out of the box or custom created dashboard.
+    pub r#type: crate::model::DashboardType,
+
+    /// Output only. Creation time of dashboard.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time the dashboard was last edited.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. User who created the dashboard.
+    pub create_user_id: std::string::String,
+
+    /// Output only. User who last edited the dashboard.
+    pub update_user_id: std::string::String,
+
+    /// Output only. User Preferences for a dashboard
+    pub dashboard_user_data: std::option::Option<crate::model::DashboardUserData>,
+
+    /// Optional. This checksum is computed by the server based on the value of
+    /// other fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    pub etag: std::string::String,
+
+    /// Output only. Access of the dashboard
+    pub access: crate::model::DashboardAccess,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NativeDashboard {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::NativeDashboard::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboard::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::NativeDashboard::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboard::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::NativeDashboard::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboard::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [definition][crate::model::NativeDashboard::definition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::model::DashboardDefinition;
+    /// let x = NativeDashboard::new().set_definition(DashboardDefinition::default()/* use setters */);
+    /// ```
+    pub fn set_definition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardDefinition>,
+    {
+        self.definition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [definition][crate::model::NativeDashboard::definition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::model::DashboardDefinition;
+    /// let x = NativeDashboard::new().set_or_clear_definition(Some(DashboardDefinition::default()/* use setters */));
+    /// let x = NativeDashboard::new().set_or_clear_definition(None::<DashboardDefinition>);
+    /// ```
+    pub fn set_or_clear_definition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardDefinition>,
+    {
+        self.definition = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::NativeDashboard::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::model::DashboardType;
+    /// let x0 = NativeDashboard::new().set_type(DashboardType::Curated);
+    /// let x1 = NativeDashboard::new().set_type(DashboardType::Private);
+    /// let x2 = NativeDashboard::new().set_type(DashboardType::Public);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::DashboardType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::NativeDashboard::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use wkt::Timestamp;
+    /// let x = NativeDashboard::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::NativeDashboard::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use wkt::Timestamp;
+    /// let x = NativeDashboard::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NativeDashboard::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::NativeDashboard::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use wkt::Timestamp;
+    /// let x = NativeDashboard::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::NativeDashboard::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use wkt::Timestamp;
+    /// let x = NativeDashboard::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NativeDashboard::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_user_id][crate::model::NativeDashboard::create_user_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboard::new().set_create_user_id("example");
+    /// ```
+    pub fn set_create_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.create_user_id = v.into();
+        self
+    }
+
+    /// Sets the value of [update_user_id][crate::model::NativeDashboard::update_user_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboard::new().set_update_user_id("example");
+    /// ```
+    pub fn set_update_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.update_user_id = v.into();
+        self
+    }
+
+    /// Sets the value of [dashboard_user_data][crate::model::NativeDashboard::dashboard_user_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::model::DashboardUserData;
+    /// let x = NativeDashboard::new().set_dashboard_user_data(DashboardUserData::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_user_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardUserData>,
+    {
+        self.dashboard_user_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_user_data][crate::model::NativeDashboard::dashboard_user_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::model::DashboardUserData;
+    /// let x = NativeDashboard::new().set_or_clear_dashboard_user_data(Some(DashboardUserData::default()/* use setters */));
+    /// let x = NativeDashboard::new().set_or_clear_dashboard_user_data(None::<DashboardUserData>);
+    /// ```
+    pub fn set_or_clear_dashboard_user_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardUserData>,
+    {
+        self.dashboard_user_data = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::NativeDashboard::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = NativeDashboard::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [access][crate::model::NativeDashboard::access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// use google_cloud_chronicle_v1::model::DashboardAccess;
+    /// let x0 = NativeDashboard::new().set_access(DashboardAccess::DashboardPrivate);
+    /// let x1 = NativeDashboard::new().set_access(DashboardAccess::DashboardPublic);
+    /// ```
+    pub fn set_access<T: std::convert::Into<crate::model::DashboardAccess>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.access = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for NativeDashboard {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.NativeDashboard"
+    }
+}
+
+/// Request message to create a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateNativeDashboardRequest {
+    /// Required. The parent resource where this dashboard will be created.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The dashboard to create.
+    pub native_dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateNativeDashboardRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateNativeDashboardRequest;
+    /// let x = CreateNativeDashboardRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::CreateNativeDashboardRequest::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = CreateNativeDashboardRequest::new().set_native_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [native_dashboard][crate::model::CreateNativeDashboardRequest::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = CreateNativeDashboardRequest::new().set_or_clear_native_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = CreateNativeDashboardRequest::new().set_or_clear_native_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_native_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.CreateNativeDashboardRequest"
+    }
+}
+
+/// Request message to get a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetNativeDashboardRequest {
+    /// Required. The dashboard name to fetch.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    /// Optional. View indicates the scope of fields to populate when returning the
+    /// dashboard resource. If unspecified, defaults to the basic view.
+    pub view: crate::model::NativeDashboardView,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetNativeDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetNativeDashboardRequest;
+    /// let x = GetNativeDashboardRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::GetNativeDashboardRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboardView;
+    /// let x0 = GetNativeDashboardRequest::new().set_view(NativeDashboardView::Basic);
+    /// let x1 = GetNativeDashboardRequest::new().set_view(NativeDashboardView::Full);
+    /// ```
+    pub fn set_view<T: std::convert::Into<crate::model::NativeDashboardView>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetNativeDashboardRequest"
+    }
+}
+
+/// Request message to list dashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListNativeDashboardsRequest {
+    /// Required. The parent owning this dashboard collection.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of dashboards to return. The service may
+    /// return fewer than this value.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListDashboards` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListDashboards` must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. View indicates the scope of fields to populate when returning the
+    /// dashboard resource. If unspecified, defaults to the basic view.
+    pub view: crate::model::NativeDashboardView,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListNativeDashboardsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListNativeDashboardsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsRequest;
+    /// let x = ListNativeDashboardsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListNativeDashboardsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsRequest;
+    /// let x = ListNativeDashboardsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListNativeDashboardsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsRequest;
+    /// let x = ListNativeDashboardsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::ListNativeDashboardsRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboardView;
+    /// let x0 = ListNativeDashboardsRequest::new().set_view(NativeDashboardView::Basic);
+    /// let x1 = ListNativeDashboardsRequest::new().set_view(NativeDashboardView::Full);
+    /// ```
+    pub fn set_view<T: std::convert::Into<crate::model::NativeDashboardView>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListNativeDashboardsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListNativeDashboardsRequest"
+    }
+}
+
+/// Response message for listing dashboards.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListNativeDashboardsResponse {
+    /// The dashboards from the specified chronicle instance.
+    pub native_dashboards: std::vec::Vec<crate::model::NativeDashboard>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListNativeDashboardsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [native_dashboards][crate::model::ListNativeDashboardsResponse::native_dashboards].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = ListNativeDashboardsResponse::new()
+    ///     .set_native_dashboards([
+    ///         NativeDashboard::default()/* use setters */,
+    ///         NativeDashboard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_native_dashboards<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        use std::iter::Iterator;
+        self.native_dashboards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNativeDashboardsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsResponse;
+    /// let x = ListNativeDashboardsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListNativeDashboardsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListNativeDashboardsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNativeDashboardsResponse {
+    type PageItem = crate::model::NativeDashboard;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.native_dashboards
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message to update a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateNativeDashboardRequest {
+    /// Required. The dashboard to update.
+    ///
+    /// The dashboard's `name` field is used to identify the dashboard to update.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub native_dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    /// Required. LINT.IfChange(update_mask_values)
+    /// The list of fields to update.
+    /// Supported paths are -
+    /// display_name
+    /// description
+    /// definition.filters
+    /// definition.charts
+    /// type
+    /// access
+    /// dashboard_user_data.is_pinned
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::UpdateNativeDashboardRequest::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = UpdateNativeDashboardRequest::new().set_native_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [native_dashboard][crate::model::UpdateNativeDashboardRequest::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = UpdateNativeDashboardRequest::new().set_or_clear_native_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = UpdateNativeDashboardRequest::new().set_or_clear_native_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_native_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateNativeDashboardRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateNativeDashboardRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNativeDashboardRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateNativeDashboardRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateNativeDashboardRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNativeDashboardRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNativeDashboardRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.UpdateNativeDashboardRequest"
+    }
+}
+
+/// Request message to duplicate a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DuplicateNativeDashboardRequest {
+    /// Required. The dashboard name to duplicate.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    /// Required. Any fields that need modification can be passed through this like
+    /// name, description etc.
+    pub native_dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DuplicateNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DuplicateNativeDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateNativeDashboardRequest;
+    /// let x = DuplicateNativeDashboardRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::DuplicateNativeDashboardRequest::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = DuplicateNativeDashboardRequest::new().set_native_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [native_dashboard][crate::model::DuplicateNativeDashboardRequest::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateNativeDashboardRequest;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = DuplicateNativeDashboardRequest::new().set_or_clear_native_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = DuplicateNativeDashboardRequest::new().set_or_clear_native_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_native_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DuplicateNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DuplicateNativeDashboardRequest"
+    }
+}
+
+/// Request message to delete a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteNativeDashboardRequest {
+    /// Required. The dashboard name to delete.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteNativeDashboardRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteNativeDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DeleteNativeDashboardRequest;
+    /// let x = DeleteNativeDashboardRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteNativeDashboardRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DeleteNativeDashboardRequest"
+    }
+}
+
+/// Request message to add chart in a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AddChartRequest {
+    /// Required. The dashboard name to add chart in.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    /// Optional. Query used to create the chart.
+    pub dashboard_query: std::option::Option<crate::model::DashboardQuery>,
+
+    /// Required. Chart to be added to the dashboard.
+    pub dashboard_chart: std::option::Option<crate::model::DashboardChart>,
+
+    /// Required. ChartLayout for newly added chart.
+    pub chart_layout:
+        std::option::Option<crate::model::dashboard_definition::chart_config::ChartLayout>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AddChartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AddChartRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// let x = AddChartRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [dashboard_query][crate::model::AddChartRequest::dashboard_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = AddChartRequest::new().set_dashboard_query(DashboardQuery::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_query<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        self.dashboard_query = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_query][crate::model::AddChartRequest::dashboard_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = AddChartRequest::new().set_or_clear_dashboard_query(Some(DashboardQuery::default()/* use setters */));
+    /// let x = AddChartRequest::new().set_or_clear_dashboard_query(None::<DashboardQuery>);
+    /// ```
+    pub fn set_or_clear_dashboard_query<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        self.dashboard_query = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::AddChartRequest::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = AddChartRequest::new().set_dashboard_chart(DashboardChart::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_chart<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_chart][crate::model::AddChartRequest::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = AddChartRequest::new().set_or_clear_dashboard_chart(Some(DashboardChart::default()/* use setters */));
+    /// let x = AddChartRequest::new().set_or_clear_dashboard_chart(None::<DashboardChart>);
+    /// ```
+    pub fn set_or_clear_dashboard_chart<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [chart_layout][crate::model::AddChartRequest::chart_layout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+    /// let x = AddChartRequest::new().set_chart_layout(ChartLayout::default()/* use setters */);
+    /// ```
+    pub fn set_chart_layout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_definition::chart_config::ChartLayout>,
+    {
+        self.chart_layout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [chart_layout][crate::model::AddChartRequest::chart_layout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartRequest;
+    /// use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+    /// let x = AddChartRequest::new().set_or_clear_chart_layout(Some(ChartLayout::default()/* use setters */));
+    /// let x = AddChartRequest::new().set_or_clear_chart_layout(None::<ChartLayout>);
+    /// ```
+    pub fn set_or_clear_chart_layout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dashboard_definition::chart_config::ChartLayout>,
+    {
+        self.chart_layout = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AddChartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.AddChartRequest"
+    }
+}
+
+/// Response message for adding chart in a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AddChartResponse {
+    /// Dashboard with chart added in definition.
+    pub native_dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    /// Created chart resource.
+    pub dashboard_chart: std::option::Option<crate::model::DashboardChart>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AddChartResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::AddChartResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = AddChartResponse::new().set_native_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [native_dashboard][crate::model::AddChartResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = AddChartResponse::new().set_or_clear_native_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = AddChartResponse::new().set_or_clear_native_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_native_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::AddChartResponse::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = AddChartResponse::new().set_dashboard_chart(DashboardChart::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_chart<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_chart][crate::model::AddChartResponse::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::AddChartResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = AddChartResponse::new().set_or_clear_dashboard_chart(Some(DashboardChart::default()/* use setters */));
+    /// let x = AddChartResponse::new().set_or_clear_dashboard_chart(None::<DashboardChart>);
+    /// ```
+    pub fn set_or_clear_dashboard_chart<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AddChartResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.AddChartResponse"
+    }
+}
+
+/// Request message to edit chart in a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EditChartRequest {
+    /// Required. The dashboard name to edit chart in.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    /// Optional. Query for the edited chart.
+    pub dashboard_query: std::option::Option<crate::model::DashboardQuery>,
+
+    /// Optional. Edited chart.
+    pub dashboard_chart: std::option::Option<crate::model::DashboardChart>,
+
+    /// Required. The list of fields to edit for chart and query.
+    /// Supported paths in chart are -
+    /// dashboard_chart.display_name
+    /// dashboard_chart.description
+    /// dashboard_chart.chart_datasource.data_sources
+    /// dashboard_chart.visualization
+    /// dashboard_chart.visualization.button
+    /// dashboard_chart.visualization.markdown
+    /// dashboard_chart.drill_down_config
+    /// Supported paths in query are -
+    /// dashboard_query.query
+    /// dashboard_query.input
+    pub edit_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. Language Features present in the query.
+    pub language_features: std::vec::Vec<crate::model::LanguageFeature>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EditChartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EditChartRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// let x = EditChartRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [dashboard_query][crate::model::EditChartRequest::dashboard_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = EditChartRequest::new().set_dashboard_query(DashboardQuery::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_query<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        self.dashboard_query = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_query][crate::model::EditChartRequest::dashboard_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardQuery;
+    /// let x = EditChartRequest::new().set_or_clear_dashboard_query(Some(DashboardQuery::default()/* use setters */));
+    /// let x = EditChartRequest::new().set_or_clear_dashboard_query(None::<DashboardQuery>);
+    /// ```
+    pub fn set_or_clear_dashboard_query<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardQuery>,
+    {
+        self.dashboard_query = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::EditChartRequest::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = EditChartRequest::new().set_dashboard_chart(DashboardChart::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_chart<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_chart][crate::model::EditChartRequest::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = EditChartRequest::new().set_or_clear_dashboard_chart(Some(DashboardChart::default()/* use setters */));
+    /// let x = EditChartRequest::new().set_or_clear_dashboard_chart(None::<DashboardChart>);
+    /// ```
+    pub fn set_or_clear_dashboard_chart<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [edit_mask][crate::model::EditChartRequest::edit_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use wkt::FieldMask;
+    /// let x = EditChartRequest::new().set_edit_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_edit_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.edit_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [edit_mask][crate::model::EditChartRequest::edit_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use wkt::FieldMask;
+    /// let x = EditChartRequest::new().set_or_clear_edit_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = EditChartRequest::new().set_or_clear_edit_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_edit_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.edit_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [language_features][crate::model::EditChartRequest::language_features].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartRequest;
+    /// use google_cloud_chronicle_v1::model::LanguageFeature;
+    /// let x = EditChartRequest::new().set_language_features([
+    ///     LanguageFeature::Joins,
+    ///     LanguageFeature::Stages,
+    ///     LanguageFeature::DataTables,
+    /// ]);
+    /// ```
+    pub fn set_language_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LanguageFeature>,
+    {
+        use std::iter::Iterator;
+        self.language_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for EditChartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.EditChartRequest"
+    }
+}
+
+/// Response message for editing chart in a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EditChartResponse {
+    /// Edited dashboard.
+    pub native_dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    /// Edited chart resource.
+    pub dashboard_chart: std::option::Option<crate::model::DashboardChart>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EditChartResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::EditChartResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = EditChartResponse::new().set_native_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [native_dashboard][crate::model::EditChartResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = EditChartResponse::new().set_or_clear_native_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = EditChartResponse::new().set_or_clear_native_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_native_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::EditChartResponse::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = EditChartResponse::new().set_dashboard_chart(DashboardChart::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_chart<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_chart][crate::model::EditChartResponse::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EditChartResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = EditChartResponse::new().set_or_clear_dashboard_chart(Some(DashboardChart::default()/* use setters */));
+    /// let x = EditChartResponse::new().set_or_clear_dashboard_chart(None::<DashboardChart>);
+    /// ```
+    pub fn set_or_clear_dashboard_chart<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for EditChartResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.EditChartResponse"
+    }
+}
+
+/// Request message to remove chart from a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoveChartRequest {
+    /// Required. The dashboard name to remove chart from.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    /// Required. The dashboard chart name to remove.
+    pub dashboard_chart: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoveChartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RemoveChartRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RemoveChartRequest;
+    /// let x = RemoveChartRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::RemoveChartRequest::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RemoveChartRequest;
+    /// let x = RemoveChartRequest::new().set_dashboard_chart("example");
+    /// ```
+    pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dashboard_chart = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RemoveChartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.RemoveChartRequest"
+    }
+}
+
+/// Request message to duplicate chart in a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DuplicateChartRequest {
+    /// Required. The dashboard name that involves chart duplication.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/nativeDashboards/{dashboard}
+    pub name: std::string::String,
+
+    /// Required. The dashboard chart name to duplicate.
+    pub dashboard_chart: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DuplicateChartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DuplicateChartRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateChartRequest;
+    /// let x = DuplicateChartRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::DuplicateChartRequest::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateChartRequest;
+    /// let x = DuplicateChartRequest::new().set_dashboard_chart("example");
+    /// ```
+    pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dashboard_chart = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DuplicateChartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DuplicateChartRequest"
+    }
+}
+
+/// Response message for duplicating chart in a dashboard.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DuplicateChartResponse {
+    /// Dashboard with chart added in definition.
+    pub native_dashboard: std::option::Option<crate::model::NativeDashboard>,
+
+    /// Duplicated chart resource.
+    pub dashboard_chart: std::option::Option<crate::model::DashboardChart>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DuplicateChartResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [native_dashboard][crate::model::DuplicateChartResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateChartResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = DuplicateChartResponse::new().set_native_dashboard(NativeDashboard::default()/* use setters */);
+    /// ```
+    pub fn set_native_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [native_dashboard][crate::model::DuplicateChartResponse::native_dashboard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateChartResponse;
+    /// use google_cloud_chronicle_v1::model::NativeDashboard;
+    /// let x = DuplicateChartResponse::new().set_or_clear_native_dashboard(Some(NativeDashboard::default()/* use setters */));
+    /// let x = DuplicateChartResponse::new().set_or_clear_native_dashboard(None::<NativeDashboard>);
+    /// ```
+    pub fn set_or_clear_native_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeDashboard>,
+    {
+        self.native_dashboard = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dashboard_chart][crate::model::DuplicateChartResponse::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateChartResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DuplicateChartResponse::new().set_dashboard_chart(DashboardChart::default()/* use setters */);
+    /// ```
+    pub fn set_dashboard_chart<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dashboard_chart][crate::model::DuplicateChartResponse::dashboard_chart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DuplicateChartResponse;
+    /// use google_cloud_chronicle_v1::model::DashboardChart;
+    /// let x = DuplicateChartResponse::new().set_or_clear_dashboard_chart(Some(DashboardChart::default()/* use setters */));
+    /// let x = DuplicateChartResponse::new().set_or_clear_dashboard_chart(None::<DashboardChart>);
+    /// ```
+    pub fn set_or_clear_dashboard_chart<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DashboardChart>,
+    {
+        self.dashboard_chart = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DuplicateChartResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DuplicateChartResponse"
+    }
+}
+
+/// User Data for Native Dashboard
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DashboardUserData {
+    /// time when this dashboard is last viewed
+    pub last_viewed_time: std::option::Option<wkt::Timestamp>,
+
+    /// is dashboard pinned by user
+    pub is_pinned: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DashboardUserData {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [last_viewed_time][crate::model::DashboardUserData::last_viewed_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardUserData;
+    /// use wkt::Timestamp;
+    /// let x = DashboardUserData::new().set_last_viewed_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_viewed_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_viewed_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_viewed_time][crate::model::DashboardUserData::last_viewed_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardUserData;
+    /// use wkt::Timestamp;
+    /// let x = DashboardUserData::new().set_or_clear_last_viewed_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DashboardUserData::new().set_or_clear_last_viewed_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_viewed_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_viewed_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [is_pinned][crate::model::DashboardUserData::is_pinned].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardUserData;
+    /// let x = DashboardUserData::new().set_is_pinned(true);
+    /// ```
+    pub fn set_is_pinned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_pinned = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DashboardUserData {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DashboardUserData"
+    }
+}
+
+/// Definition of the dashboard including filters, layout, charts'
+/// configurations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DashboardDefinition {
+    /// Filters for the dashboard.
+    pub filters: std::vec::Vec<crate::model::DashboardFilter>,
+
+    /// Fingerprint of the dashboard definition.
+    pub fingerprint: std::string::String,
+
+    /// Charts in the dashboard.
+    pub charts: std::vec::Vec<crate::model::dashboard_definition::ChartConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DashboardDefinition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filters][crate::model::DashboardDefinition::filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardDefinition;
+    /// use google_cloud_chronicle_v1::model::DashboardFilter;
+    /// let x = DashboardDefinition::new()
+    ///     .set_filters([
+    ///         DashboardFilter::default()/* use setters */,
+    ///         DashboardFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DashboardFilter>,
+    {
+        use std::iter::Iterator;
+        self.filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [fingerprint][crate::model::DashboardDefinition::fingerprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardDefinition;
+    /// let x = DashboardDefinition::new().set_fingerprint("example");
+    /// ```
+    pub fn set_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.fingerprint = v.into();
+        self
+    }
+
+    /// Sets the value of [charts][crate::model::DashboardDefinition::charts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DashboardDefinition;
+    /// use google_cloud_chronicle_v1::model::dashboard_definition::ChartConfig;
+    /// let x = DashboardDefinition::new()
+    ///     .set_charts([
+    ///         ChartConfig::default()/* use setters */,
+    ///         ChartConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_charts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::dashboard_definition::ChartConfig>,
+    {
+        use std::iter::Iterator;
+        self.charts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DashboardDefinition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DashboardDefinition"
+    }
+}
+
+/// Defines additional types related to [DashboardDefinition].
+pub mod dashboard_definition {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration of the chart including chart reference, layout and filters.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ChartConfig {
+        #[allow(missing_docs)]
+        pub dashboard_chart: std::string::String,
+
+        #[allow(missing_docs)]
+        pub chart_layout:
+            std::option::Option<crate::model::dashboard_definition::chart_config::ChartLayout>,
+
+        /// Dashboard filters applied to the chart.
+        pub filters_ids: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ChartConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dashboard_chart][crate::model::dashboard_definition::ChartConfig::dashboard_chart].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_definition::ChartConfig;
+        /// let x = ChartConfig::new().set_dashboard_chart("example");
+        /// ```
+        pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.dashboard_chart = v.into();
+            self
+        }
+
+        /// Sets the value of [chart_layout][crate::model::dashboard_definition::ChartConfig::chart_layout].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_definition::ChartConfig;
+        /// use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+        /// let x = ChartConfig::new().set_chart_layout(ChartLayout::default()/* use setters */);
+        /// ```
+        pub fn set_chart_layout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_definition::chart_config::ChartLayout>,
+        {
+            self.chart_layout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [chart_layout][crate::model::dashboard_definition::ChartConfig::chart_layout].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_definition::ChartConfig;
+        /// use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+        /// let x = ChartConfig::new().set_or_clear_chart_layout(Some(ChartLayout::default()/* use setters */));
+        /// let x = ChartConfig::new().set_or_clear_chart_layout(None::<ChartLayout>);
+        /// ```
+        pub fn set_or_clear_chart_layout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dashboard_definition::chart_config::ChartLayout>,
+        {
+            self.chart_layout = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [filters_ids][crate::model::dashboard_definition::ChartConfig::filters_ids].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::dashboard_definition::ChartConfig;
+        /// let x = ChartConfig::new().set_filters_ids(["a", "b", "c"]);
+        /// ```
+        pub fn set_filters_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.filters_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ChartConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DashboardDefinition.ChartConfig"
+        }
+    }
+
+    /// Defines additional types related to [ChartConfig].
+    pub mod chart_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Layout of the chart.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ChartLayout {
+            #[allow(missing_docs)]
+            pub start_x: std::option::Option<i32>,
+
+            #[allow(missing_docs)]
+            pub span_x: i32,
+
+            #[allow(missing_docs)]
+            pub start_y: std::option::Option<i32>,
+
+            #[allow(missing_docs)]
+            pub span_y: i32,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ChartLayout {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [start_x][crate::model::dashboard_definition::chart_config::ChartLayout::start_x].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+            /// let x = ChartLayout::new().set_start_x(42);
+            /// ```
+            pub fn set_start_x<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.start_x = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [start_x][crate::model::dashboard_definition::chart_config::ChartLayout::start_x].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+            /// let x = ChartLayout::new().set_or_clear_start_x(Some(42));
+            /// let x = ChartLayout::new().set_or_clear_start_x(None::<i32>);
+            /// ```
+            pub fn set_or_clear_start_x<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.start_x = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [span_x][crate::model::dashboard_definition::chart_config::ChartLayout::span_x].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+            /// let x = ChartLayout::new().set_span_x(42);
+            /// ```
+            pub fn set_span_x<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.span_x = v.into();
+                self
+            }
+
+            /// Sets the value of [start_y][crate::model::dashboard_definition::chart_config::ChartLayout::start_y].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+            /// let x = ChartLayout::new().set_start_y(42);
+            /// ```
+            pub fn set_start_y<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.start_y = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [start_y][crate::model::dashboard_definition::chart_config::ChartLayout::start_y].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+            /// let x = ChartLayout::new().set_or_clear_start_y(Some(42));
+            /// let x = ChartLayout::new().set_or_clear_start_y(None::<i32>);
+            /// ```
+            pub fn set_or_clear_start_y<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.start_y = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [span_y][crate::model::dashboard_definition::chart_config::ChartLayout::span_y].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_chronicle_v1::model::dashboard_definition::chart_config::ChartLayout;
+            /// let x = ChartLayout::new().set_span_y(42);
+            /// ```
+            pub fn set_span_y<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.span_y = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ChartLayout {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.chronicle.v1.DashboardDefinition.ChartConfig.ChartLayout"
+            }
+        }
+    }
+}
+
 /// ScopeInfo specifies the scope info of the reference list.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4984,6 +16663,7 @@ pub struct ScopeInfo {
 }
 
 impl ScopeInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5041,6 +16721,7 @@ pub struct ReferenceListScope {
 }
 
 impl ReferenceListScope {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5086,6 +16767,7 @@ pub struct GetReferenceListRequest {
 }
 
 impl GetReferenceListRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5155,6 +16837,7 @@ pub struct ListReferenceListsRequest {
 }
 
 impl ListReferenceListsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5235,6 +16918,7 @@ pub struct ListReferenceListsResponse {
 }
 
 impl ListReferenceListsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5318,6 +17002,7 @@ pub struct CreateReferenceListRequest {
 }
 
 impl CreateReferenceListRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5410,6 +17095,7 @@ pub struct UpdateReferenceListRequest {
 }
 
 impl UpdateReferenceListRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5536,6 +17222,7 @@ pub struct ReferenceList {
 }
 
 impl ReferenceList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5729,6 +17416,7 @@ pub struct ReferenceListEntry {
 }
 
 impl ReferenceListEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5846,6 +17534,7 @@ pub struct Rule {
 }
 
 impl Rule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6400,6 +18089,7 @@ pub struct RuleDeployment {
 }
 
 impl RuleDeployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6776,6 +18466,7 @@ pub struct Retrohunt {
 }
 
 impl Retrohunt {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7062,6 +18753,7 @@ pub struct CreateRuleRequest {
 }
 
 impl CreateRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7135,6 +18827,7 @@ pub struct GetRuleRequest {
 }
 
 impl GetRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7208,6 +18901,7 @@ pub struct ListRulesRequest {
 }
 
 impl ListRulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7297,6 +18991,7 @@ pub struct ListRulesResponse {
 }
 
 impl ListRulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7375,6 +19070,7 @@ pub struct UpdateRuleRequest {
 }
 
 impl UpdateRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7474,6 +19170,7 @@ pub struct DeleteRuleRequest {
 }
 
 impl DeleteRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7539,6 +19236,7 @@ pub struct ListRuleRevisionsRequest {
 }
 
 impl ListRuleRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7616,6 +19314,7 @@ pub struct ListRuleRevisionsResponse {
 }
 
 impl ListRuleRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7691,6 +19390,7 @@ pub struct CreateRetrohuntRequest {
 }
 
 impl CreateRetrohuntRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7760,6 +19460,7 @@ pub struct GetRetrohuntRequest {
 }
 
 impl GetRetrohuntRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7814,6 +19515,7 @@ pub struct ListRetrohuntsRequest {
 }
 
 impl ListRetrohuntsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7888,6 +19590,7 @@ pub struct ListRetrohuntsResponse {
 }
 
 impl ListRetrohuntsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7960,6 +19663,7 @@ pub struct GetRuleDeploymentRequest {
 }
 
 impl GetRuleDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8015,6 +19719,7 @@ pub struct ListRuleDeploymentsRequest {
 }
 
 impl ListRuleDeploymentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8089,6 +19794,7 @@ pub struct ListRuleDeploymentsResponse {
 }
 
 impl ListRuleDeploymentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8166,6 +19872,7 @@ pub struct UpdateRuleDeploymentRequest {
 }
 
 impl UpdateRuleDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8264,6 +19971,7 @@ pub struct CompilationPosition {
 }
 
 impl CompilationPosition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8348,6 +20056,7 @@ pub struct CompilationDiagnostic {
 }
 
 impl CompilationDiagnostic {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8583,6 +20292,7 @@ pub struct Severity {
 }
 
 impl Severity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8626,6 +20336,7 @@ pub struct RetrohuntMetadata {
 }
 
 impl RetrohuntMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8713,6 +20424,7 @@ pub struct InputsUsed {
 }
 
 impl InputsUsed {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8757,6 +20469,3142 @@ impl InputsUsed {
 impl wkt::message::Message for InputsUsed {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.chronicle.v1.InputsUsed"
+    }
+}
+
+/// The BigQueryExportPackage entitled for the Chronicle instance.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum BigQueryExportPackage {
+    /// The BigQueryExportPackage is unspecified.
+    Unspecified,
+    /// The BigQueryExportPackage is Bring Your Own BigQuery.
+    Byobq,
+    /// The BigQueryExportPackage is Advanced BigQuery.
+    Advanced,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [BigQueryExportPackage::value] or
+    /// [BigQueryExportPackage::name].
+    UnknownValue(big_query_export_package::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod big_query_export_package {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl BigQueryExportPackage {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Byobq => std::option::Option::Some(1),
+            Self::Advanced => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("BIG_QUERY_EXPORT_PACKAGE_UNSPECIFIED"),
+            Self::Byobq => std::option::Option::Some("BIG_QUERY_EXPORT_PACKAGE_BYOBQ"),
+            Self::Advanced => std::option::Option::Some("BIG_QUERY_EXPORT_PACKAGE_ADVANCED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for BigQueryExportPackage {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for BigQueryExportPackage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for BigQueryExportPackage {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Byobq,
+            2 => Self::Advanced,
+            _ => Self::UnknownValue(big_query_export_package::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for BigQueryExportPackage {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "BIG_QUERY_EXPORT_PACKAGE_UNSPECIFIED" => Self::Unspecified,
+            "BIG_QUERY_EXPORT_PACKAGE_BYOBQ" => Self::Byobq,
+            "BIG_QUERY_EXPORT_PACKAGE_ADVANCED" => Self::Advanced,
+            _ => Self::UnknownValue(big_query_export_package::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for BigQueryExportPackage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Byobq => serializer.serialize_i32(1),
+            Self::Advanced => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for BigQueryExportPackage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<BigQueryExportPackage>::new(
+            ".google.cloud.chronicle.v1.BigQueryExportPackage",
+        ))
+    }
+}
+
+/// The state of the latest data source export job.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LatestExportJobState {
+    /// The latest export job state is unspecified.
+    Unspecified,
+    /// The latest export job state is successful.
+    Success,
+    /// The latest export job state is failed.
+    Failed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LatestExportJobState::value] or
+    /// [LatestExportJobState::name].
+    UnknownValue(latest_export_job_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod latest_export_job_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl LatestExportJobState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Success => std::option::Option::Some(1),
+            Self::Failed => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LATEST_EXPORT_JOB_STATE_UNSPECIFIED"),
+            Self::Success => std::option::Option::Some("LATEST_EXPORT_JOB_STATE_SUCCESS"),
+            Self::Failed => std::option::Option::Some("LATEST_EXPORT_JOB_STATE_FAILED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for LatestExportJobState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LatestExportJobState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LatestExportJobState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Success,
+            2 => Self::Failed,
+            _ => Self::UnknownValue(latest_export_job_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LatestExportJobState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LATEST_EXPORT_JOB_STATE_UNSPECIFIED" => Self::Unspecified,
+            "LATEST_EXPORT_JOB_STATE_SUCCESS" => Self::Success,
+            "LATEST_EXPORT_JOB_STATE_FAILED" => Self::Failed,
+            _ => Self::UnknownValue(latest_export_job_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LatestExportJobState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Success => serializer.serialize_i32(1),
+            Self::Failed => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LatestExportJobState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LatestExportJobState>::new(
+            ".google.cloud.chronicle.v1.LatestExportJobState",
+        ))
+    }
+}
+
+/// TileType indicates what type of chart tile it is i.e., visualization chart,
+/// button or text.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TileType {
+    /// Defaults to VISUALIZATION.
+    Unspecified,
+    /// Visualization i.e., bar charts, pie charts etc.
+    Visualization,
+    /// Button with hyperlink.
+    Button,
+    /// Markdown tile.
+    Markdown,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TileType::value] or
+    /// [TileType::name].
+    UnknownValue(tile_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod tile_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl TileType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Visualization => std::option::Option::Some(1),
+            Self::Button => std::option::Option::Some(2),
+            Self::Markdown => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TILE_TYPE_UNSPECIFIED"),
+            Self::Visualization => std::option::Option::Some("TILE_TYPE_VISUALIZATION"),
+            Self::Button => std::option::Option::Some("TILE_TYPE_BUTTON"),
+            Self::Markdown => std::option::Option::Some("TILE_TYPE_MARKDOWN"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for TileType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TileType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TileType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Visualization,
+            2 => Self::Button,
+            3 => Self::Markdown,
+            _ => Self::UnknownValue(tile_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TileType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TILE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "TILE_TYPE_VISUALIZATION" => Self::Visualization,
+            "TILE_TYPE_BUTTON" => Self::Button,
+            "TILE_TYPE_MARKDOWN" => Self::Markdown,
+            _ => Self::UnknownValue(tile_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TileType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Visualization => serializer.serialize_i32(1),
+            Self::Button => serializer.serialize_i32(2),
+            Self::Markdown => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TileType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TileType>::new(
+            ".google.cloud.chronicle.v1.TileType",
+        ))
+    }
+}
+
+/// Render type of the data in the chart.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum RenderType {
+    /// Defaults to Unspecified.
+    Unspecified,
+    /// Text render type.
+    Text,
+    /// Icon render type.
+    Icon,
+    /// Icon and text render type.
+    IconAndText,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [RenderType::value] or
+    /// [RenderType::name].
+    UnknownValue(render_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod render_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl RenderType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Text => std::option::Option::Some(1),
+            Self::Icon => std::option::Option::Some(2),
+            Self::IconAndText => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("RENDER_TYPE_UNSPECIFIED"),
+            Self::Text => std::option::Option::Some("RENDER_TYPE_TEXT"),
+            Self::Icon => std::option::Option::Some("RENDER_TYPE_ICON"),
+            Self::IconAndText => std::option::Option::Some("RENDER_TYPE_ICON_AND_TEXT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for RenderType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for RenderType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for RenderType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Text,
+            2 => Self::Icon,
+            3 => Self::IconAndText,
+            _ => Self::UnknownValue(render_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for RenderType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "RENDER_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "RENDER_TYPE_TEXT" => Self::Text,
+            "RENDER_TYPE_ICON" => Self::Icon,
+            "RENDER_TYPE_ICON_AND_TEXT" => Self::IconAndText,
+            _ => Self::UnknownValue(render_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for RenderType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Text => serializer.serialize_i32(1),
+            Self::Icon => serializer.serialize_i32(2),
+            Self::IconAndText => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RenderType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RenderType>::new(
+            ".google.cloud.chronicle.v1.RenderType",
+        ))
+    }
+}
+
+/// Enum for [AxisType].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AxisType {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Value,
+    #[allow(missing_docs)]
+    Category,
+    #[allow(missing_docs)]
+    Time,
+    #[allow(missing_docs)]
+    Log,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AxisType::value] or
+    /// [AxisType::name].
+    UnknownValue(axis_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod axis_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl AxisType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Value => std::option::Option::Some(1),
+            Self::Category => std::option::Option::Some(2),
+            Self::Time => std::option::Option::Some(3),
+            Self::Log => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("AXIS_TYPE_UNSPECIFIED"),
+            Self::Value => std::option::Option::Some("VALUE"),
+            Self::Category => std::option::Option::Some("CATEGORY"),
+            Self::Time => std::option::Option::Some("TIME"),
+            Self::Log => std::option::Option::Some("LOG"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for AxisType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AxisType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AxisType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Value,
+            2 => Self::Category,
+            3 => Self::Time,
+            4 => Self::Log,
+            _ => Self::UnknownValue(axis_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AxisType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "AXIS_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "VALUE" => Self::Value,
+            "CATEGORY" => Self::Category,
+            "TIME" => Self::Time,
+            "LOG" => Self::Log,
+            _ => Self::UnknownValue(axis_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AxisType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Value => serializer.serialize_i32(1),
+            Self::Category => serializer.serialize_i32(2),
+            Self::Time => serializer.serialize_i32(3),
+            Self::Log => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AxisType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AxisType>::new(
+            ".google.cloud.chronicle.v1.AxisType",
+        ))
+    }
+}
+
+/// Enum for [SeriesType].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SeriesType {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Line,
+    #[allow(missing_docs)]
+    Bar,
+    #[allow(missing_docs)]
+    Pie,
+    #[allow(missing_docs)]
+    Text,
+    /// Represents map chart type.
+    Map,
+    /// Represents gauge chart type.
+    Gauge,
+    /// Represents scatterplot chart type.
+    Scatterplot,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SeriesType::value] or
+    /// [SeriesType::name].
+    UnknownValue(series_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod series_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SeriesType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Line => std::option::Option::Some(1),
+            Self::Bar => std::option::Option::Some(2),
+            Self::Pie => std::option::Option::Some(3),
+            Self::Text => std::option::Option::Some(4),
+            Self::Map => std::option::Option::Some(5),
+            Self::Gauge => std::option::Option::Some(6),
+            Self::Scatterplot => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SERIES_TYPE_UNSPECIFIED"),
+            Self::Line => std::option::Option::Some("LINE"),
+            Self::Bar => std::option::Option::Some("BAR"),
+            Self::Pie => std::option::Option::Some("PIE"),
+            Self::Text => std::option::Option::Some("TEXT"),
+            Self::Map => std::option::Option::Some("MAP"),
+            Self::Gauge => std::option::Option::Some("GAUGE"),
+            Self::Scatterplot => std::option::Option::Some("SCATTERPLOT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for SeriesType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SeriesType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SeriesType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Line,
+            2 => Self::Bar,
+            3 => Self::Pie,
+            4 => Self::Text,
+            5 => Self::Map,
+            6 => Self::Gauge,
+            7 => Self::Scatterplot,
+            _ => Self::UnknownValue(series_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SeriesType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SERIES_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "LINE" => Self::Line,
+            "BAR" => Self::Bar,
+            "PIE" => Self::Pie,
+            "TEXT" => Self::Text,
+            "MAP" => Self::Map,
+            "GAUGE" => Self::Gauge,
+            "SCATTERPLOT" => Self::Scatterplot,
+            _ => Self::UnknownValue(series_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SeriesType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Line => serializer.serialize_i32(1),
+            Self::Bar => serializer.serialize_i32(2),
+            Self::Pie => serializer.serialize_i32(3),
+            Self::Text => serializer.serialize_i32(4),
+            Self::Map => serializer.serialize_i32(5),
+            Self::Gauge => serializer.serialize_i32(6),
+            Self::Scatterplot => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SeriesType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SeriesType>::new(
+            ".google.cloud.chronicle.v1.SeriesType",
+        ))
+    }
+}
+
+/// Enum for [SeriesStackStrategy].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SeriesStackStrategy {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Samesign,
+    #[allow(missing_docs)]
+    All,
+    #[allow(missing_docs)]
+    Positive,
+    #[allow(missing_docs)]
+    Negative,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SeriesStackStrategy::value] or
+    /// [SeriesStackStrategy::name].
+    UnknownValue(series_stack_strategy::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod series_stack_strategy {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SeriesStackStrategy {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Samesign => std::option::Option::Some(1),
+            Self::All => std::option::Option::Some(2),
+            Self::Positive => std::option::Option::Some(3),
+            Self::Negative => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SERIES_STACK_STRATEGY_UNSPECIFIED"),
+            Self::Samesign => std::option::Option::Some("SAMESIGN"),
+            Self::All => std::option::Option::Some("ALL"),
+            Self::Positive => std::option::Option::Some("POSITIVE"),
+            Self::Negative => std::option::Option::Some("NEGATIVE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for SeriesStackStrategy {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SeriesStackStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SeriesStackStrategy {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Samesign,
+            2 => Self::All,
+            3 => Self::Positive,
+            4 => Self::Negative,
+            _ => Self::UnknownValue(series_stack_strategy::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SeriesStackStrategy {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SERIES_STACK_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+            "SAMESIGN" => Self::Samesign,
+            "ALL" => Self::All,
+            "POSITIVE" => Self::Positive,
+            "NEGATIVE" => Self::Negative,
+            _ => Self::UnknownValue(series_stack_strategy::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SeriesStackStrategy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Samesign => serializer.serialize_i32(1),
+            Self::All => serializer.serialize_i32(2),
+            Self::Positive => serializer.serialize_i32(3),
+            Self::Negative => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SeriesStackStrategy {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SeriesStackStrategy>::new(
+            ".google.cloud.chronicle.v1.SeriesStackStrategy",
+        ))
+    }
+}
+
+/// Enum for [ToolTipTrigger].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ToolTipTrigger {
+    #[allow(missing_docs)]
+    TooltipTriggerUnspecified,
+    #[allow(missing_docs)]
+    TooltipTriggerNone,
+    #[allow(missing_docs)]
+    TooltipTriggerItem,
+    #[allow(missing_docs)]
+    TooltipTriggerAxis,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ToolTipTrigger::value] or
+    /// [ToolTipTrigger::name].
+    UnknownValue(tool_tip_trigger::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod tool_tip_trigger {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ToolTipTrigger {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::TooltipTriggerUnspecified => std::option::Option::Some(0),
+            Self::TooltipTriggerNone => std::option::Option::Some(1),
+            Self::TooltipTriggerItem => std::option::Option::Some(2),
+            Self::TooltipTriggerAxis => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::TooltipTriggerUnspecified => {
+                std::option::Option::Some("TOOLTIP_TRIGGER_UNSPECIFIED")
+            }
+            Self::TooltipTriggerNone => std::option::Option::Some("TOOLTIP_TRIGGER_NONE"),
+            Self::TooltipTriggerItem => std::option::Option::Some("TOOLTIP_TRIGGER_ITEM"),
+            Self::TooltipTriggerAxis => std::option::Option::Some("TOOLTIP_TRIGGER_AXIS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ToolTipTrigger {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ToolTipTrigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ToolTipTrigger {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::TooltipTriggerUnspecified,
+            1 => Self::TooltipTriggerNone,
+            2 => Self::TooltipTriggerItem,
+            3 => Self::TooltipTriggerAxis,
+            _ => Self::UnknownValue(tool_tip_trigger::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ToolTipTrigger {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TOOLTIP_TRIGGER_UNSPECIFIED" => Self::TooltipTriggerUnspecified,
+            "TOOLTIP_TRIGGER_NONE" => Self::TooltipTriggerNone,
+            "TOOLTIP_TRIGGER_ITEM" => Self::TooltipTriggerItem,
+            "TOOLTIP_TRIGGER_AXIS" => Self::TooltipTriggerAxis,
+            _ => Self::UnknownValue(tool_tip_trigger::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ToolTipTrigger {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::TooltipTriggerUnspecified => serializer.serialize_i32(0),
+            Self::TooltipTriggerNone => serializer.serialize_i32(1),
+            Self::TooltipTriggerItem => serializer.serialize_i32(2),
+            Self::TooltipTriggerAxis => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ToolTipTrigger {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ToolTipTrigger>::new(
+            ".google.cloud.chronicle.v1.ToolTipTrigger",
+        ))
+    }
+}
+
+/// Enum for [LegendOrient].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LegendOrient {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Vertical,
+    #[allow(missing_docs)]
+    Horizontal,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LegendOrient::value] or
+    /// [LegendOrient::name].
+    UnknownValue(legend_orient::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod legend_orient {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl LegendOrient {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Vertical => std::option::Option::Some(1),
+            Self::Horizontal => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LEGEND_ORIENT_UNSPECIFIED"),
+            Self::Vertical => std::option::Option::Some("VERTICAL"),
+            Self::Horizontal => std::option::Option::Some("HORIZONTAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for LegendOrient {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LegendOrient {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LegendOrient {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Vertical,
+            2 => Self::Horizontal,
+            _ => Self::UnknownValue(legend_orient::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LegendOrient {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LEGEND_ORIENT_UNSPECIFIED" => Self::Unspecified,
+            "VERTICAL" => Self::Vertical,
+            "HORIZONTAL" => Self::Horizontal,
+            _ => Self::UnknownValue(legend_orient::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LegendOrient {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Vertical => serializer.serialize_i32(1),
+            Self::Horizontal => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LegendOrient {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LegendOrient>::new(
+            ".google.cloud.chronicle.v1.LegendOrient",
+        ))
+    }
+}
+
+/// Enum for [LegendAlign].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LegendAlign {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Auto,
+    #[allow(missing_docs)]
+    Left,
+    #[allow(missing_docs)]
+    Right,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LegendAlign::value] or
+    /// [LegendAlign::name].
+    UnknownValue(legend_align::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod legend_align {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl LegendAlign {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Auto => std::option::Option::Some(1),
+            Self::Left => std::option::Option::Some(2),
+            Self::Right => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LEGEND_ALIGN_UNSPECIFIED"),
+            Self::Auto => std::option::Option::Some("AUTO"),
+            Self::Left => std::option::Option::Some("LEFT"),
+            Self::Right => std::option::Option::Some("RIGHT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for LegendAlign {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LegendAlign {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LegendAlign {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Auto,
+            2 => Self::Left,
+            3 => Self::Right,
+            _ => Self::UnknownValue(legend_align::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LegendAlign {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LEGEND_ALIGN_UNSPECIFIED" => Self::Unspecified,
+            "AUTO" => Self::Auto,
+            "LEFT" => Self::Left,
+            "RIGHT" => Self::Right,
+            _ => Self::UnknownValue(legend_align::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LegendAlign {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Auto => serializer.serialize_i32(1),
+            Self::Left => serializer.serialize_i32(2),
+            Self::Right => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LegendAlign {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LegendAlign>::new(
+            ".google.cloud.chronicle.v1.LegendAlign",
+        ))
+    }
+}
+
+/// Enum for [ButtonStyle].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ButtonStyle {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Filled,
+    #[allow(missing_docs)]
+    Outlined,
+    #[allow(missing_docs)]
+    Transparent,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ButtonStyle::value] or
+    /// [ButtonStyle::name].
+    UnknownValue(button_style::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod button_style {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ButtonStyle {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Filled => std::option::Option::Some(1),
+            Self::Outlined => std::option::Option::Some(2),
+            Self::Transparent => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("BUTTON_STYLE_UNSPECIFIED"),
+            Self::Filled => std::option::Option::Some("BUTTON_STYLE_FILLED"),
+            Self::Outlined => std::option::Option::Some("BUTTON_STYLE_OUTLINED"),
+            Self::Transparent => std::option::Option::Some("BUTTON_STYLE_TRANSPARENT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ButtonStyle {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ButtonStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ButtonStyle {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Filled,
+            2 => Self::Outlined,
+            3 => Self::Transparent,
+            _ => Self::UnknownValue(button_style::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ButtonStyle {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "BUTTON_STYLE_UNSPECIFIED" => Self::Unspecified,
+            "BUTTON_STYLE_FILLED" => Self::Filled,
+            "BUTTON_STYLE_OUTLINED" => Self::Outlined,
+            "BUTTON_STYLE_TRANSPARENT" => Self::Transparent,
+            _ => Self::UnknownValue(button_style::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ButtonStyle {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Filled => serializer.serialize_i32(1),
+            Self::Outlined => serializer.serialize_i32(2),
+            Self::Transparent => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ButtonStyle {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ButtonStyle>::new(
+            ".google.cloud.chronicle.v1.ButtonStyle",
+        ))
+    }
+}
+
+/// Plot mode for the map.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum PlotMode {
+    /// Plot mode is not specified.
+    Unspecified,
+    /// Plot mode is points.
+    Points,
+    /// Plot mode is heatmap.
+    Heatmap,
+    /// Plot mode is both points and heatmap.
+    Both,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [PlotMode::value] or
+    /// [PlotMode::name].
+    UnknownValue(plot_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod plot_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl PlotMode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Points => std::option::Option::Some(1),
+            Self::Heatmap => std::option::Option::Some(2),
+            Self::Both => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PLOT_MODE_UNSPECIFIED"),
+            Self::Points => std::option::Option::Some("PLOT_MODE_POINTS"),
+            Self::Heatmap => std::option::Option::Some("PLOT_MODE_HEATMAP"),
+            Self::Both => std::option::Option::Some("PLOT_MODE_BOTH"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for PlotMode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for PlotMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for PlotMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Points,
+            2 => Self::Heatmap,
+            3 => Self::Both,
+            _ => Self::UnknownValue(plot_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for PlotMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PLOT_MODE_UNSPECIFIED" => Self::Unspecified,
+            "PLOT_MODE_POINTS" => Self::Points,
+            "PLOT_MODE_HEATMAP" => Self::Heatmap,
+            "PLOT_MODE_BOTH" => Self::Both,
+            _ => Self::UnknownValue(plot_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for PlotMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Points => serializer.serialize_i32(1),
+            Self::Heatmap => serializer.serialize_i32(2),
+            Self::Both => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PlotMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<PlotMode>::new(
+            ".google.cloud.chronicle.v1.PlotMode",
+        ))
+    }
+}
+
+/// Point size type for the map.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum PointSizeType {
+    /// Point size is not specified.
+    Unspecified,
+    /// Point size is fixed.
+    Fixed,
+    /// Point size is proportional to the size of the data point.
+    ProportionalToSize,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [PointSizeType::value] or
+    /// [PointSizeType::name].
+    UnknownValue(point_size_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod point_size_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl PointSizeType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Fixed => std::option::Option::Some(1),
+            Self::ProportionalToSize => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("POINT_SIZE_TYPE_UNSPECIFIED"),
+            Self::Fixed => std::option::Option::Some("POINT_SIZE_TYPE_FIXED"),
+            Self::ProportionalToSize => {
+                std::option::Option::Some("POINT_SIZE_TYPE_PROPORTIONAL_TO_SIZE")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for PointSizeType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for PointSizeType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for PointSizeType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Fixed,
+            2 => Self::ProportionalToSize,
+            _ => Self::UnknownValue(point_size_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for PointSizeType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "POINT_SIZE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "POINT_SIZE_TYPE_FIXED" => Self::Fixed,
+            "POINT_SIZE_TYPE_PROPORTIONAL_TO_SIZE" => Self::ProportionalToSize,
+            _ => Self::UnknownValue(point_size_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for PointSizeType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Fixed => serializer.serialize_i32(1),
+            Self::ProportionalToSize => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PointSizeType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<PointSizeType>::new(
+            ".google.cloud.chronicle.v1.PointSizeType",
+        ))
+    }
+}
+
+/// Metric format to be displayed for the metric charts.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum MetricFormat {
+    /// Metric format is not specified.
+    Unspecified,
+    /// Metric format in number
+    Number,
+    /// Metric format in plain text
+    PlainText,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [MetricFormat::value] or
+    /// [MetricFormat::name].
+    UnknownValue(metric_format::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod metric_format {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl MetricFormat {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Number => std::option::Option::Some(1),
+            Self::PlainText => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("METRIC_FORMAT_UNSPECIFIED"),
+            Self::Number => std::option::Option::Some("METRIC_FORMAT_NUMBER"),
+            Self::PlainText => std::option::Option::Some("METRIC_FORMAT_PLAIN_TEXT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for MetricFormat {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for MetricFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for MetricFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Number,
+            2 => Self::PlainText,
+            _ => Self::UnknownValue(metric_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for MetricFormat {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "METRIC_FORMAT_UNSPECIFIED" => Self::Unspecified,
+            "METRIC_FORMAT_NUMBER" => Self::Number,
+            "METRIC_FORMAT_PLAIN_TEXT" => Self::PlainText,
+            _ => Self::UnknownValue(metric_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for MetricFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Number => serializer.serialize_i32(1),
+            Self::PlainText => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MetricFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricFormat>::new(
+            ".google.cloud.chronicle.v1.MetricFormat",
+        ))
+    }
+}
+
+/// Trend to be displayed for the metric charts as.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum MetricDisplayTrend {
+    /// Trend is not specified.
+    Unspecified,
+    /// Trend data in absolute value
+    AbsoluteValue,
+    /// Trend data in percentage
+    Percentage,
+    /// Trend data in both absolute value and percentage
+    AbsoluteValueAndPercentage,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [MetricDisplayTrend::value] or
+    /// [MetricDisplayTrend::name].
+    UnknownValue(metric_display_trend::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod metric_display_trend {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl MetricDisplayTrend {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::AbsoluteValue => std::option::Option::Some(2),
+            Self::Percentage => std::option::Option::Some(3),
+            Self::AbsoluteValueAndPercentage => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("METRIC_DISPLAY_TREND_UNSPECIFIED"),
+            Self::AbsoluteValue => std::option::Option::Some("METRIC_DISPLAY_TREND_ABSOLUTE_VALUE"),
+            Self::Percentage => std::option::Option::Some("METRIC_DISPLAY_TREND_PERCENTAGE"),
+            Self::AbsoluteValueAndPercentage => {
+                std::option::Option::Some("METRIC_DISPLAY_TREND_ABSOLUTE_VALUE_AND_PERCENTAGE")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for MetricDisplayTrend {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for MetricDisplayTrend {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for MetricDisplayTrend {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            2 => Self::AbsoluteValue,
+            3 => Self::Percentage,
+            4 => Self::AbsoluteValueAndPercentage,
+            _ => Self::UnknownValue(metric_display_trend::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for MetricDisplayTrend {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "METRIC_DISPLAY_TREND_UNSPECIFIED" => Self::Unspecified,
+            "METRIC_DISPLAY_TREND_ABSOLUTE_VALUE" => Self::AbsoluteValue,
+            "METRIC_DISPLAY_TREND_PERCENTAGE" => Self::Percentage,
+            "METRIC_DISPLAY_TREND_ABSOLUTE_VALUE_AND_PERCENTAGE" => {
+                Self::AbsoluteValueAndPercentage
+            }
+            _ => Self::UnknownValue(metric_display_trend::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for MetricDisplayTrend {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::AbsoluteValue => serializer.serialize_i32(2),
+            Self::Percentage => serializer.serialize_i32(3),
+            Self::AbsoluteValueAndPercentage => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MetricDisplayTrend {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricDisplayTrend>::new(
+            ".google.cloud.chronicle.v1.MetricDisplayTrend",
+        ))
+    }
+}
+
+/// Trend to be displayed for the metric charts as.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum MetricTrendType {
+    /// Trend type is not specified.
+    Unspecified,
+    /// The trend type is regular(green for positive delta)
+    Regular,
+    /// The trend type is inverse(red for positive delta)
+    Inverse,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [MetricTrendType::value] or
+    /// [MetricTrendType::name].
+    UnknownValue(metric_trend_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod metric_trend_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl MetricTrendType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Regular => std::option::Option::Some(1),
+            Self::Inverse => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("METRIC_TREND_TYPE_UNSPECIFIED"),
+            Self::Regular => std::option::Option::Some("METRIC_TREND_TYPE_REGULAR"),
+            Self::Inverse => std::option::Option::Some("METRIC_TREND_TYPE_INVERSE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for MetricTrendType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for MetricTrendType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for MetricTrendType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Regular,
+            2 => Self::Inverse,
+            _ => Self::UnknownValue(metric_trend_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for MetricTrendType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "METRIC_TREND_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "METRIC_TREND_TYPE_REGULAR" => Self::Regular,
+            "METRIC_TREND_TYPE_INVERSE" => Self::Inverse,
+            _ => Self::UnknownValue(metric_trend_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for MetricTrendType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Regular => serializer.serialize_i32(1),
+            Self::Inverse => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MetricTrendType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricTrendType>::new(
+            ".google.cloud.chronicle.v1.MetricTrendType",
+        ))
+    }
+}
+
+/// Visual map for various charts. More info:
+/// <https://echarts.apache.org/en/option.html#visualMap>
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum VisualMapType {
+    /// Visual map type is not specified
+    Unspecified,
+    /// Continuous visual map
+    Continuous,
+    /// Piecewise visual map
+    Piecewise,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [VisualMapType::value] or
+    /// [VisualMapType::name].
+    UnknownValue(visual_map_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod visual_map_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl VisualMapType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Continuous => std::option::Option::Some(1),
+            Self::Piecewise => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("VISUAL_MAP_TYPE_UNSPECIFIED"),
+            Self::Continuous => std::option::Option::Some("CONTINUOUS"),
+            Self::Piecewise => std::option::Option::Some("PIECEWISE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for VisualMapType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for VisualMapType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for VisualMapType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Continuous,
+            2 => Self::Piecewise,
+            _ => Self::UnknownValue(visual_map_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for VisualMapType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "VISUAL_MAP_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "CONTINUOUS" => Self::Continuous,
+            "PIECEWISE" => Self::Piecewise,
+            _ => Self::UnknownValue(visual_map_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for VisualMapType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Continuous => serializer.serialize_i32(1),
+            Self::Piecewise => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for VisualMapType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<VisualMapType>::new(
+            ".google.cloud.chronicle.v1.VisualMapType",
+        ))
+    }
+}
+
+/// A language feature describes a specific capability or syntax of the query
+/// language used in a dashboard query, such as `JOINS`, `STAGES`, or
+/// `DATA_TABLES`.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LanguageFeature {
+    /// Language feature is unknown.
+    Unspecified,
+    /// Language feature is joins.
+    Joins,
+    /// Language feature is stages.
+    Stages,
+    /// Language feature is data table.
+    DataTables,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LanguageFeature::value] or
+    /// [LanguageFeature::name].
+    UnknownValue(language_feature::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod language_feature {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl LanguageFeature {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Joins => std::option::Option::Some(1),
+            Self::Stages => std::option::Option::Some(2),
+            Self::DataTables => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LANGUAGE_FEATURE_UNSPECIFIED"),
+            Self::Joins => std::option::Option::Some("JOINS"),
+            Self::Stages => std::option::Option::Some("STAGES"),
+            Self::DataTables => std::option::Option::Some("DATA_TABLES"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for LanguageFeature {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LanguageFeature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LanguageFeature {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Joins,
+            2 => Self::Stages,
+            3 => Self::DataTables,
+            _ => Self::UnknownValue(language_feature::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LanguageFeature {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LANGUAGE_FEATURE_UNSPECIFIED" => Self::Unspecified,
+            "JOINS" => Self::Joins,
+            "STAGES" => Self::Stages,
+            "DATA_TABLES" => Self::DataTables,
+            _ => Self::UnknownValue(language_feature::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LanguageFeature {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Joins => serializer.serialize_i32(1),
+            Self::Stages => serializer.serialize_i32(2),
+            Self::DataTables => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LanguageFeature {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LanguageFeature>::new(
+            ".google.cloud.chronicle.v1.LanguageFeature",
+        ))
+    }
+}
+
+/// Enum for [FilterOperator].
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FilterOperator {
+    /// Default unspecified.
+    Unspecified,
+    #[allow(missing_docs)]
+    Equal,
+    #[allow(missing_docs)]
+    NotEqual,
+    #[allow(missing_docs)]
+    In,
+    #[allow(missing_docs)]
+    GreaterThan,
+    #[allow(missing_docs)]
+    GreaterThanOrEqualTo,
+    #[allow(missing_docs)]
+    LessThan,
+    #[allow(missing_docs)]
+    LessThanOrEqualTo,
+    #[allow(missing_docs)]
+    Between,
+    #[allow(missing_docs)]
+    Past,
+    #[allow(missing_docs)]
+    IsNull,
+    #[allow(missing_docs)]
+    IsNotNull,
+    #[allow(missing_docs)]
+    StartsWith,
+    #[allow(missing_docs)]
+    EndsWith,
+    #[allow(missing_docs)]
+    DoesNotStartsWith,
+    #[allow(missing_docs)]
+    DoesNotEndsWith,
+    #[allow(missing_docs)]
+    NotIn,
+    /// CONTAINS is used for substring match.
+    Contains,
+    /// Used if we want to check if the field does not contain the substring.
+    DoesNotContain,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FilterOperator::value] or
+    /// [FilterOperator::name].
+    UnknownValue(filter_operator::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod filter_operator {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FilterOperator {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Equal => std::option::Option::Some(1),
+            Self::NotEqual => std::option::Option::Some(2),
+            Self::In => std::option::Option::Some(3),
+            Self::GreaterThan => std::option::Option::Some(4),
+            Self::GreaterThanOrEqualTo => std::option::Option::Some(5),
+            Self::LessThan => std::option::Option::Some(6),
+            Self::LessThanOrEqualTo => std::option::Option::Some(7),
+            Self::Between => std::option::Option::Some(8),
+            Self::Past => std::option::Option::Some(9),
+            Self::IsNull => std::option::Option::Some(10),
+            Self::IsNotNull => std::option::Option::Some(11),
+            Self::StartsWith => std::option::Option::Some(12),
+            Self::EndsWith => std::option::Option::Some(13),
+            Self::DoesNotStartsWith => std::option::Option::Some(14),
+            Self::DoesNotEndsWith => std::option::Option::Some(15),
+            Self::NotIn => std::option::Option::Some(16),
+            Self::Contains => std::option::Option::Some(17),
+            Self::DoesNotContain => std::option::Option::Some(18),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FILTER_OPERATOR_UNSPECIFIED"),
+            Self::Equal => std::option::Option::Some("EQUAL"),
+            Self::NotEqual => std::option::Option::Some("NOT_EQUAL"),
+            Self::In => std::option::Option::Some("IN"),
+            Self::GreaterThan => std::option::Option::Some("GREATER_THAN"),
+            Self::GreaterThanOrEqualTo => std::option::Option::Some("GREATER_THAN_OR_EQUAL_TO"),
+            Self::LessThan => std::option::Option::Some("LESS_THAN"),
+            Self::LessThanOrEqualTo => std::option::Option::Some("LESS_THAN_OR_EQUAL_TO"),
+            Self::Between => std::option::Option::Some("BETWEEN"),
+            Self::Past => std::option::Option::Some("PAST"),
+            Self::IsNull => std::option::Option::Some("IS_NULL"),
+            Self::IsNotNull => std::option::Option::Some("IS_NOT_NULL"),
+            Self::StartsWith => std::option::Option::Some("STARTS_WITH"),
+            Self::EndsWith => std::option::Option::Some("ENDS_WITH"),
+            Self::DoesNotStartsWith => std::option::Option::Some("DOES_NOT_STARTS_WITH"),
+            Self::DoesNotEndsWith => std::option::Option::Some("DOES_NOT_ENDS_WITH"),
+            Self::NotIn => std::option::Option::Some("NOT_IN"),
+            Self::Contains => std::option::Option::Some("CONTAINS"),
+            Self::DoesNotContain => std::option::Option::Some("DOES_NOT_CONTAIN"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FilterOperator {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FilterOperator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FilterOperator {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Equal,
+            2 => Self::NotEqual,
+            3 => Self::In,
+            4 => Self::GreaterThan,
+            5 => Self::GreaterThanOrEqualTo,
+            6 => Self::LessThan,
+            7 => Self::LessThanOrEqualTo,
+            8 => Self::Between,
+            9 => Self::Past,
+            10 => Self::IsNull,
+            11 => Self::IsNotNull,
+            12 => Self::StartsWith,
+            13 => Self::EndsWith,
+            14 => Self::DoesNotStartsWith,
+            15 => Self::DoesNotEndsWith,
+            16 => Self::NotIn,
+            17 => Self::Contains,
+            18 => Self::DoesNotContain,
+            _ => Self::UnknownValue(filter_operator::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FilterOperator {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FILTER_OPERATOR_UNSPECIFIED" => Self::Unspecified,
+            "EQUAL" => Self::Equal,
+            "NOT_EQUAL" => Self::NotEqual,
+            "IN" => Self::In,
+            "GREATER_THAN" => Self::GreaterThan,
+            "GREATER_THAN_OR_EQUAL_TO" => Self::GreaterThanOrEqualTo,
+            "LESS_THAN" => Self::LessThan,
+            "LESS_THAN_OR_EQUAL_TO" => Self::LessThanOrEqualTo,
+            "BETWEEN" => Self::Between,
+            "PAST" => Self::Past,
+            "IS_NULL" => Self::IsNull,
+            "IS_NOT_NULL" => Self::IsNotNull,
+            "STARTS_WITH" => Self::StartsWith,
+            "ENDS_WITH" => Self::EndsWith,
+            "DOES_NOT_STARTS_WITH" => Self::DoesNotStartsWith,
+            "DOES_NOT_ENDS_WITH" => Self::DoesNotEndsWith,
+            "NOT_IN" => Self::NotIn,
+            "CONTAINS" => Self::Contains,
+            "DOES_NOT_CONTAIN" => Self::DoesNotContain,
+            _ => Self::UnknownValue(filter_operator::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FilterOperator {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Equal => serializer.serialize_i32(1),
+            Self::NotEqual => serializer.serialize_i32(2),
+            Self::In => serializer.serialize_i32(3),
+            Self::GreaterThan => serializer.serialize_i32(4),
+            Self::GreaterThanOrEqualTo => serializer.serialize_i32(5),
+            Self::LessThan => serializer.serialize_i32(6),
+            Self::LessThanOrEqualTo => serializer.serialize_i32(7),
+            Self::Between => serializer.serialize_i32(8),
+            Self::Past => serializer.serialize_i32(9),
+            Self::IsNull => serializer.serialize_i32(10),
+            Self::IsNotNull => serializer.serialize_i32(11),
+            Self::StartsWith => serializer.serialize_i32(12),
+            Self::EndsWith => serializer.serialize_i32(13),
+            Self::DoesNotStartsWith => serializer.serialize_i32(14),
+            Self::DoesNotEndsWith => serializer.serialize_i32(15),
+            Self::NotIn => serializer.serialize_i32(16),
+            Self::Contains => serializer.serialize_i32(17),
+            Self::DoesNotContain => serializer.serialize_i32(18),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FilterOperator {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterOperator>::new(
+            ".google.cloud.chronicle.v1.FilterOperator",
+        ))
+    }
+}
+
+/// LINT.IfChange(data_sources)
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DataSource {
+    #[allow(missing_docs)]
+    Unspecified,
+    #[allow(missing_docs)]
+    Udm,
+    #[allow(missing_docs)]
+    Entity,
+    #[allow(missing_docs)]
+    IngestionMetrics,
+    /// RULE_DETECTIONS is used for detections datasource.
+    RuleDetections,
+    /// RULESETS is used for ruleset with detections datasource.
+    Rulesets,
+    /// GLOBAL is used for standard time range filter.
+    Global,
+    /// IOC_MATCHES is used for ioc_matches datasource.
+    IocMatches,
+    /// RULES is used for rules datasource.
+    Rules,
+    /// SOAR Cases - identified as `case`.
+    SoarCases,
+    /// SOAR Playbooks - identified as `playbook`.
+    SoarPlaybooks,
+    /// SOAR Case History - identified as `case_history`.
+    SoarCaseHistory,
+    /// DATA_TABLE is used for data tables source.
+    DataTable,
+    /// INVESTIGATION is used as the data source for triage agent investigations.
+    /// Identified as `gemini_investigation`.
+    Investigation,
+    /// INVESTIGATION_FEEDBACK is used as the data source for user feedback on
+    /// triage agent investigations. Identified as `gemini_investigation_feedback`.
+    InvestigationFeedback,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DataSource::value] or
+    /// [DataSource::name].
+    UnknownValue(data_source::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod data_source {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl DataSource {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Udm => std::option::Option::Some(1),
+            Self::Entity => std::option::Option::Some(2),
+            Self::IngestionMetrics => std::option::Option::Some(3),
+            Self::RuleDetections => std::option::Option::Some(4),
+            Self::Rulesets => std::option::Option::Some(5),
+            Self::Global => std::option::Option::Some(6),
+            Self::IocMatches => std::option::Option::Some(7),
+            Self::Rules => std::option::Option::Some(8),
+            Self::SoarCases => std::option::Option::Some(9),
+            Self::SoarPlaybooks => std::option::Option::Some(10),
+            Self::SoarCaseHistory => std::option::Option::Some(11),
+            Self::DataTable => std::option::Option::Some(12),
+            Self::Investigation => std::option::Option::Some(13),
+            Self::InvestigationFeedback => std::option::Option::Some(14),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DATA_SOURCE_UNSPECIFIED"),
+            Self::Udm => std::option::Option::Some("UDM"),
+            Self::Entity => std::option::Option::Some("ENTITY"),
+            Self::IngestionMetrics => std::option::Option::Some("INGESTION_METRICS"),
+            Self::RuleDetections => std::option::Option::Some("RULE_DETECTIONS"),
+            Self::Rulesets => std::option::Option::Some("RULESETS"),
+            Self::Global => std::option::Option::Some("GLOBAL"),
+            Self::IocMatches => std::option::Option::Some("IOC_MATCHES"),
+            Self::Rules => std::option::Option::Some("RULES"),
+            Self::SoarCases => std::option::Option::Some("SOAR_CASES"),
+            Self::SoarPlaybooks => std::option::Option::Some("SOAR_PLAYBOOKS"),
+            Self::SoarCaseHistory => std::option::Option::Some("SOAR_CASE_HISTORY"),
+            Self::DataTable => std::option::Option::Some("DATA_TABLE"),
+            Self::Investigation => std::option::Option::Some("INVESTIGATION"),
+            Self::InvestigationFeedback => std::option::Option::Some("INVESTIGATION_FEEDBACK"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for DataSource {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DataSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DataSource {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Udm,
+            2 => Self::Entity,
+            3 => Self::IngestionMetrics,
+            4 => Self::RuleDetections,
+            5 => Self::Rulesets,
+            6 => Self::Global,
+            7 => Self::IocMatches,
+            8 => Self::Rules,
+            9 => Self::SoarCases,
+            10 => Self::SoarPlaybooks,
+            11 => Self::SoarCaseHistory,
+            12 => Self::DataTable,
+            13 => Self::Investigation,
+            14 => Self::InvestigationFeedback,
+            _ => Self::UnknownValue(data_source::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DataSource {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DATA_SOURCE_UNSPECIFIED" => Self::Unspecified,
+            "UDM" => Self::Udm,
+            "ENTITY" => Self::Entity,
+            "INGESTION_METRICS" => Self::IngestionMetrics,
+            "RULE_DETECTIONS" => Self::RuleDetections,
+            "RULESETS" => Self::Rulesets,
+            "GLOBAL" => Self::Global,
+            "IOC_MATCHES" => Self::IocMatches,
+            "RULES" => Self::Rules,
+            "SOAR_CASES" => Self::SoarCases,
+            "SOAR_PLAYBOOKS" => Self::SoarPlaybooks,
+            "SOAR_CASE_HISTORY" => Self::SoarCaseHistory,
+            "DATA_TABLE" => Self::DataTable,
+            "INVESTIGATION" => Self::Investigation,
+            "INVESTIGATION_FEEDBACK" => Self::InvestigationFeedback,
+            _ => Self::UnknownValue(data_source::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DataSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Udm => serializer.serialize_i32(1),
+            Self::Entity => serializer.serialize_i32(2),
+            Self::IngestionMetrics => serializer.serialize_i32(3),
+            Self::RuleDetections => serializer.serialize_i32(4),
+            Self::Rulesets => serializer.serialize_i32(5),
+            Self::Global => serializer.serialize_i32(6),
+            Self::IocMatches => serializer.serialize_i32(7),
+            Self::Rules => serializer.serialize_i32(8),
+            Self::SoarCases => serializer.serialize_i32(9),
+            Self::SoarPlaybooks => serializer.serialize_i32(10),
+            Self::SoarCaseHistory => serializer.serialize_i32(11),
+            Self::DataTable => serializer.serialize_i32(12),
+            Self::Investigation => serializer.serialize_i32(13),
+            Self::InvestigationFeedback => serializer.serialize_i32(14),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DataSource {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataSource>::new(
+            ".google.cloud.chronicle.v1.DataSource",
+        ))
+    }
+}
+
+/// TimeUnit supported for PAST filter operator.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TimeUnit {
+    /// Default unspecified.
+    Unspecified,
+    #[allow(missing_docs)]
+    Second,
+    #[allow(missing_docs)]
+    Minute,
+    #[allow(missing_docs)]
+    Hour,
+    #[allow(missing_docs)]
+    Day,
+    #[allow(missing_docs)]
+    Week,
+    #[allow(missing_docs)]
+    Month,
+    #[allow(missing_docs)]
+    Year,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TimeUnit::value] or
+    /// [TimeUnit::name].
+    UnknownValue(time_unit::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod time_unit {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl TimeUnit {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Second => std::option::Option::Some(1),
+            Self::Minute => std::option::Option::Some(2),
+            Self::Hour => std::option::Option::Some(3),
+            Self::Day => std::option::Option::Some(4),
+            Self::Week => std::option::Option::Some(5),
+            Self::Month => std::option::Option::Some(6),
+            Self::Year => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TIME_UNIT_UNSPECIFIED"),
+            Self::Second => std::option::Option::Some("SECOND"),
+            Self::Minute => std::option::Option::Some("MINUTE"),
+            Self::Hour => std::option::Option::Some("HOUR"),
+            Self::Day => std::option::Option::Some("DAY"),
+            Self::Week => std::option::Option::Some("WEEK"),
+            Self::Month => std::option::Option::Some("MONTH"),
+            Self::Year => std::option::Option::Some("YEAR"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for TimeUnit {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TimeUnit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TimeUnit {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Second,
+            2 => Self::Minute,
+            3 => Self::Hour,
+            4 => Self::Day,
+            5 => Self::Week,
+            6 => Self::Month,
+            7 => Self::Year,
+            _ => Self::UnknownValue(time_unit::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TimeUnit {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TIME_UNIT_UNSPECIFIED" => Self::Unspecified,
+            "SECOND" => Self::Second,
+            "MINUTE" => Self::Minute,
+            "HOUR" => Self::Hour,
+            "DAY" => Self::Day,
+            "WEEK" => Self::Week,
+            "MONTH" => Self::Month,
+            "YEAR" => Self::Year,
+            _ => Self::UnknownValue(time_unit::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TimeUnit {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Second => serializer.serialize_i32(1),
+            Self::Minute => serializer.serialize_i32(2),
+            Self::Hour => serializer.serialize_i32(3),
+            Self::Day => serializer.serialize_i32(4),
+            Self::Week => serializer.serialize_i32(5),
+            Self::Month => serializer.serialize_i32(6),
+            Self::Year => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TimeUnit {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TimeUnit>::new(
+            ".google.cloud.chronicle.v1.TimeUnit",
+        ))
     }
 }
 
@@ -8895,6 +23743,424 @@ impl<'de> serde::de::Deserialize<'de> for DataTableUpdateSource {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataTableUpdateSource>::new(
             ".google.cloud.chronicle.v1.DataTableUpdateSource",
+        ))
+    }
+}
+
+/// Type of the dashboard.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DashboardType {
+    /// Default unspecified.
+    Unspecified,
+    /// Out of the box curated dashboards provided by Chronicle.
+    Curated,
+    /// Private dashboards created by users/customers.
+    Private,
+    /// Public dashboards created by users/customers.
+    Public,
+    /// Custom dashboards
+    Custom,
+    /// Marketplace dashboards
+    Marketplace,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DashboardType::value] or
+    /// [DashboardType::name].
+    UnknownValue(dashboard_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod dashboard_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl DashboardType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Curated => std::option::Option::Some(1),
+            Self::Private => std::option::Option::Some(2),
+            Self::Public => std::option::Option::Some(3),
+            Self::Custom => std::option::Option::Some(4),
+            Self::Marketplace => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DASHBOARD_TYPE_UNSPECIFIED"),
+            Self::Curated => std::option::Option::Some("CURATED"),
+            Self::Private => std::option::Option::Some("PRIVATE"),
+            Self::Public => std::option::Option::Some("PUBLIC"),
+            Self::Custom => std::option::Option::Some("CUSTOM"),
+            Self::Marketplace => std::option::Option::Some("MARKETPLACE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for DashboardType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DashboardType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DashboardType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Curated,
+            2 => Self::Private,
+            3 => Self::Public,
+            4 => Self::Custom,
+            5 => Self::Marketplace,
+            _ => Self::UnknownValue(dashboard_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DashboardType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DASHBOARD_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "CURATED" => Self::Curated,
+            "PRIVATE" => Self::Private,
+            "PUBLIC" => Self::Public,
+            "CUSTOM" => Self::Custom,
+            "MARKETPLACE" => Self::Marketplace,
+            _ => Self::UnknownValue(dashboard_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DashboardType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Curated => serializer.serialize_i32(1),
+            Self::Private => serializer.serialize_i32(2),
+            Self::Public => serializer.serialize_i32(3),
+            Self::Custom => serializer.serialize_i32(4),
+            Self::Marketplace => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DashboardType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DashboardType>::new(
+            ".google.cloud.chronicle.v1.DashboardType",
+        ))
+    }
+}
+
+/// AccessType of the dashboard.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DashboardAccess {
+    /// Default unspecified.
+    Unspecified,
+    /// Private dashboards created by users/customers.
+    DashboardPrivate,
+    /// Public dashboards created by users/customers.
+    DashboardPublic,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DashboardAccess::value] or
+    /// [DashboardAccess::name].
+    UnknownValue(dashboard_access::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod dashboard_access {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl DashboardAccess {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::DashboardPrivate => std::option::Option::Some(1),
+            Self::DashboardPublic => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DASHBOARD_ACCESS_UNSPECIFIED"),
+            Self::DashboardPrivate => std::option::Option::Some("DASHBOARD_PRIVATE"),
+            Self::DashboardPublic => std::option::Option::Some("DASHBOARD_PUBLIC"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for DashboardAccess {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DashboardAccess {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DashboardAccess {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::DashboardPrivate,
+            2 => Self::DashboardPublic,
+            _ => Self::UnknownValue(dashboard_access::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DashboardAccess {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DASHBOARD_ACCESS_UNSPECIFIED" => Self::Unspecified,
+            "DASHBOARD_PRIVATE" => Self::DashboardPrivate,
+            "DASHBOARD_PUBLIC" => Self::DashboardPublic,
+            _ => Self::UnknownValue(dashboard_access::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DashboardAccess {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::DashboardPrivate => serializer.serialize_i32(1),
+            Self::DashboardPublic => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DashboardAccess {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DashboardAccess>::new(
+            ".google.cloud.chronicle.v1.DashboardAccess",
+        ))
+    }
+}
+
+/// NativeDashboardView indicates the scope of fields to populate when returning
+/// the dashboard resource.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum NativeDashboardView {
+    /// Defaults to basic.
+    Unspecified,
+    /// Include basic metadata about the dashboard without full definition.
+    Basic,
+    /// Include everything.
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [NativeDashboardView::value] or
+    /// [NativeDashboardView::name].
+    UnknownValue(native_dashboard_view::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod native_dashboard_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl NativeDashboardView {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("NATIVE_DASHBOARD_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("NATIVE_DASHBOARD_VIEW_BASIC"),
+            Self::Full => std::option::Option::Some("NATIVE_DASHBOARD_VIEW_FULL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for NativeDashboardView {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for NativeDashboardView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for NativeDashboardView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(native_dashboard_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for NativeDashboardView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "NATIVE_DASHBOARD_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "NATIVE_DASHBOARD_VIEW_BASIC" => Self::Basic,
+            "NATIVE_DASHBOARD_VIEW_FULL" => Self::Full,
+            _ => Self::UnknownValue(native_dashboard_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for NativeDashboardView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NativeDashboardView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<NativeDashboardView>::new(
+            ".google.cloud.chronicle.v1.NativeDashboardView",
         ))
     }
 }

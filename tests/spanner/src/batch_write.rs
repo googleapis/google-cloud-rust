@@ -68,7 +68,7 @@ pub async fn batch_write(db_client: &DatabaseClient) -> Result<()> {
 
         seen_indexes.clear();
         let mut aborted = false;
-        while let Some(response) = stream.next_message().await {
+        while let Some(response) = stream.next().await {
             match response {
                 Ok(resp) => {
                     if let Some(status) = &resp.status {

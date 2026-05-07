@@ -18,7 +18,7 @@ name = "google-cloud-auth"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version     = "1.9.0"
+version     = "1.10.0"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -51,6 +51,7 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 url.workspace         = true
+p256                  = { workspace = true, features = ["ecdsa", "pem"], optional = true }
 jsonwebtoken          = { workspace = true, optional = true }
 # We do not use this directly, but without it the minimal-versions build breaks.
 # See: https://github.com/Keats/jsonwebtoken/pull/481
@@ -79,6 +80,8 @@ default = ["default-idtoken-backend", "default-rustls-provider"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
 idtoken = ["dep:jsonwebtoken", "jsonwebtoken"]
+# The `__gdch` feature enables support for GDCH service account credentials.
+__gdch = ["dep:p256"]
 # By default this crate enables the `aws_lc_rs` backend. Applications can
 # link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
 # and then directly configure the `jsonwebtoken` features to select the

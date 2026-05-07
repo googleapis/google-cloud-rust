@@ -69,6 +69,7 @@ pub struct CloudEvent {
 }
 
 impl CloudEvent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -280,6 +281,7 @@ pub mod cloud_event {
     }
 
     impl CloudEventAttributeValue {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -657,6 +659,7 @@ pub struct PublishChannelConnectionEventsRequest {
 }
 
 impl PublishChannelConnectionEventsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -730,6 +733,7 @@ pub struct PublishChannelConnectionEventsResponse {
 }
 
 impl PublishChannelConnectionEventsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -764,6 +768,7 @@ pub struct PublishEventsRequest {
 }
 
 impl PublishEventsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -834,6 +839,7 @@ pub struct PublishEventsResponse {
 }
 
 impl PublishEventsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -853,12 +859,14 @@ pub struct PublishRequest {
     /// `projects/{project}/locations/{location}/messageBuses/{messageBus}`.
     pub message_bus: std::string::String,
 
+    #[allow(missing_docs)]
     pub format: std::option::Option<crate::model::publish_request::Format>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PublishRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1006,6 +1014,7 @@ pub mod publish_request {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Format {
@@ -1032,6 +1041,7 @@ pub struct PublishResponse {
 }
 
 impl PublishResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

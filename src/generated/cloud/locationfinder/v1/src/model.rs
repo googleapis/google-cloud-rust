@@ -75,6 +75,7 @@ pub struct CloudLocation {
 }
 
 impl CloudLocation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -546,6 +547,7 @@ pub struct ListCloudLocationsRequest {
 }
 
 impl ListCloudLocationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -622,6 +624,7 @@ pub struct ListCloudLocationsResponse {
 }
 
 impl ListCloudLocationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -692,6 +695,7 @@ pub struct GetCloudLocationRequest {
 }
 
 impl GetCloudLocationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -749,6 +753,7 @@ pub struct SearchCloudLocationsRequest {
 }
 
 impl SearchCloudLocationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -840,6 +845,7 @@ pub struct SearchCloudLocationsResponse {
 }
 
 impl SearchCloudLocationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

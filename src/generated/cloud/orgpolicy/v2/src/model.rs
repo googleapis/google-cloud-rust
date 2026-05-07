@@ -95,6 +95,7 @@ pub struct Constraint {
 }
 
 impl Constraint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -332,6 +333,7 @@ pub mod constraint {
     }
 
     impl ListConstraint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -406,6 +408,7 @@ pub mod constraint {
     }
 
     impl CustomConstraintDefinition {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -548,6 +551,7 @@ pub mod constraint {
         }
 
         impl Parameter {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -705,6 +709,7 @@ pub mod constraint {
             }
 
             impl Metadata {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -1193,6 +1198,7 @@ pub mod constraint {
     }
 
     impl BooleanConstraint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1448,6 +1454,7 @@ pub struct CustomConstraint {
 }
 
 impl CustomConstraint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1938,6 +1945,7 @@ pub struct Policy {
 }
 
 impl Policy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2091,6 +2099,7 @@ pub struct AlternatePolicySpec {
 }
 
 impl AlternatePolicySpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2200,6 +2209,7 @@ pub struct PolicySpec {
 }
 
 impl PolicySpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2335,12 +2345,14 @@ pub mod policy_spec {
         /// }
         pub parameters: std::option::Option<wkt::Struct>,
 
+        #[allow(missing_docs)]
         pub kind: std::option::Option<crate::model::policy_spec::policy_rule::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PolicyRule {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2626,6 +2638,7 @@ pub mod policy_spec {
         }
 
         impl StringValues {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2671,6 +2684,7 @@ pub mod policy_spec {
             }
         }
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -2718,6 +2732,7 @@ pub struct ListConstraintsRequest {
 }
 
 impl ListConstraintsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2780,6 +2795,7 @@ pub struct ListConstraintsResponse {
 }
 
 impl ListConstraintsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2867,6 +2883,7 @@ pub struct ListPoliciesRequest {
 }
 
 impl ListPoliciesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2932,6 +2949,7 @@ pub struct ListPoliciesResponse {
 }
 
 impl ListPoliciesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3006,6 +3024,7 @@ pub struct GetPolicyRequest {
 }
 
 impl GetPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3044,6 +3063,7 @@ pub struct GetEffectivePolicyRequest {
 }
 
 impl GetEffectivePolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3088,6 +3108,7 @@ pub struct CreatePolicyRequest {
 }
 
 impl CreatePolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3161,6 +3182,7 @@ pub struct UpdatePolicyRequest {
 }
 
 impl UpdatePolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3256,6 +3278,7 @@ pub struct DeletePolicyRequest {
 }
 
 impl DeletePolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3308,6 +3331,7 @@ pub struct CreateCustomConstraintRequest {
 }
 
 impl CreateCustomConstraintRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3377,6 +3401,7 @@ pub struct GetCustomConstraintRequest {
 }
 
 impl GetCustomConstraintRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3425,6 +3450,7 @@ pub struct ListCustomConstraintsRequest {
 }
 
 impl ListCustomConstraintsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3491,6 +3517,7 @@ pub struct ListCustomConstraintsResponse {
 }
 
 impl ListCustomConstraintsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3562,6 +3589,7 @@ pub struct UpdateCustomConstraintRequest {
 }
 
 impl UpdateCustomConstraintRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3619,6 +3647,7 @@ pub struct DeleteCustomConstraintRequest {
 }
 
 impl DeleteCustomConstraintRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

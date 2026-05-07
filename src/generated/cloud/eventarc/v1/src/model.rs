@@ -87,12 +87,14 @@ pub struct Channel {
     /// Optional. Resource labels.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    #[allow(missing_docs)]
     pub transport: std::option::Option<crate::model::channel::Transport>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Channel {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -488,6 +490,7 @@ pub mod channel {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Transport {
@@ -536,6 +539,7 @@ pub struct ChannelConnection {
 }
 
 impl ChannelConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -704,6 +708,7 @@ pub struct Provider {
 }
 
 impl Provider {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -789,6 +794,7 @@ pub struct EventType {
 }
 
 impl EventType {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -884,6 +890,7 @@ pub struct FilteringAttribute {
 }
 
 impl FilteringAttribute {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -996,6 +1003,7 @@ pub struct Enrollment {
 }
 
 impl Enrollment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1210,6 +1218,7 @@ pub struct GetTriggerRequest {
 }
 
 impl GetTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1267,6 +1276,7 @@ pub struct ListTriggersRequest {
 }
 
 impl ListTriggersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1356,6 +1366,7 @@ pub struct ListTriggersResponse {
 }
 
 impl ListTriggersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1453,6 +1464,7 @@ pub struct CreateTriggerRequest {
 }
 
 impl CreateTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1557,6 +1569,7 @@ pub struct UpdateTriggerRequest {
 }
 
 impl UpdateTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1681,6 +1694,7 @@ pub struct DeleteTriggerRequest {
 }
 
 impl DeleteTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1751,6 +1765,7 @@ pub struct GetChannelRequest {
 }
 
 impl GetChannelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1803,6 +1818,7 @@ pub struct ListChannelsRequest {
 }
 
 impl ListChannelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1880,6 +1896,7 @@ pub struct ListChannelsResponse {
 }
 
 impl ListChannelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1977,6 +1994,7 @@ pub struct CreateChannelRequest {
 }
 
 impl CreateChannelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2077,6 +2095,7 @@ pub struct UpdateChannelRequest {
 }
 
 impl UpdateChannelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2181,6 +2200,7 @@ pub struct DeleteChannelRequest {
 }
 
 impl DeleteChannelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2227,6 +2247,7 @@ pub struct GetProviderRequest {
 }
 
 impl GetProviderRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2280,6 +2301,7 @@ pub struct ListProvidersRequest {
 }
 
 impl ListProvidersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2369,6 +2391,7 @@ pub struct ListProvidersResponse {
 }
 
 impl ListProvidersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2456,6 +2479,7 @@ pub struct GetChannelConnectionRequest {
 }
 
 impl GetChannelConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2502,6 +2526,7 @@ pub struct ListChannelConnectionsRequest {
 }
 
 impl ListChannelConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2569,6 +2594,7 @@ pub struct ListChannelConnectionsResponse {
 }
 
 impl ListChannelConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2662,6 +2688,7 @@ pub struct CreateChannelConnectionRequest {
 }
 
 impl CreateChannelConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2744,6 +2771,7 @@ pub struct DeleteChannelConnectionRequest {
 }
 
 impl DeleteChannelConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2783,6 +2811,7 @@ pub struct UpdateGoogleChannelConfigRequest {
 }
 
 impl UpdateGoogleChannelConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2871,6 +2900,7 @@ pub struct GetGoogleChannelConfigRequest {
 }
 
 impl GetGoogleChannelConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2905,6 +2935,7 @@ pub struct GetMessageBusRequest {
 }
 
 impl GetMessageBusRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2961,6 +2992,7 @@ pub struct ListMessageBusesRequest {
 }
 
 impl ListMessageBusesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3050,6 +3082,7 @@ pub struct ListMessageBusesResponse {
 }
 
 impl ListMessageBusesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3149,6 +3182,7 @@ pub struct ListMessageBusEnrollmentsRequest {
 }
 
 impl ListMessageBusEnrollmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3214,6 +3248,7 @@ pub struct ListMessageBusEnrollmentsResponse {
 }
 
 impl ListMessageBusEnrollmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3293,6 +3328,7 @@ pub struct CreateMessageBusRequest {
 }
 
 impl CreateMessageBusRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3397,6 +3433,7 @@ pub struct UpdateMessageBusRequest {
 }
 
 impl UpdateMessageBusRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3521,6 +3558,7 @@ pub struct DeleteMessageBusRequest {
 }
 
 impl DeleteMessageBusRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3591,6 +3629,7 @@ pub struct GetEnrollmentRequest {
 }
 
 impl GetEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3647,6 +3686,7 @@ pub struct ListEnrollmentsRequest {
 }
 
 impl ListEnrollmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3736,6 +3776,7 @@ pub struct ListEnrollmentsResponse {
 }
 
 impl ListEnrollmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3834,6 +3875,7 @@ pub struct CreateEnrollmentRequest {
 }
 
 impl CreateEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3938,6 +3980,7 @@ pub struct UpdateEnrollmentRequest {
 }
 
 impl UpdateEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4062,6 +4105,7 @@ pub struct DeleteEnrollmentRequest {
 }
 
 impl DeleteEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4132,6 +4176,7 @@ pub struct GetPipelineRequest {
 }
 
 impl GetPipelineRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4188,6 +4233,7 @@ pub struct ListPipelinesRequest {
 }
 
 impl ListPipelinesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4277,6 +4323,7 @@ pub struct ListPipelinesResponse {
 }
 
 impl ListPipelinesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4375,6 +4422,7 @@ pub struct CreatePipelineRequest {
 }
 
 impl CreatePipelineRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4479,6 +4527,7 @@ pub struct UpdatePipelineRequest {
 }
 
 impl UpdatePipelineRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4603,6 +4652,7 @@ pub struct DeletePipelineRequest {
 }
 
 impl DeletePipelineRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4673,6 +4723,7 @@ pub struct GetGoogleApiSourceRequest {
 }
 
 impl GetGoogleApiSourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4729,6 +4780,7 @@ pub struct ListGoogleApiSourcesRequest {
 }
 
 impl ListGoogleApiSourcesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4818,6 +4870,7 @@ pub struct ListGoogleApiSourcesResponse {
 }
 
 impl ListGoogleApiSourcesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4916,6 +4969,7 @@ pub struct CreateGoogleApiSourceRequest {
 }
 
 impl CreateGoogleApiSourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5024,6 +5078,7 @@ pub struct UpdateGoogleApiSourceRequest {
 }
 
 impl UpdateGoogleApiSourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5148,6 +5203,7 @@ pub struct DeleteGoogleApiSourceRequest {
 }
 
 impl DeleteGoogleApiSourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5242,6 +5298,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5439,6 +5496,7 @@ pub struct GoogleApiSource {
 }
 
 impl GoogleApiSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5797,6 +5855,7 @@ pub mod google_api_source {
     }
 
     impl ProjectSubscriptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5836,6 +5895,7 @@ pub mod google_api_source {
     }
 
     impl OrganizationSubscription {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5912,6 +5972,7 @@ pub struct GoogleChannelConfig {
 }
 
 impl GoogleChannelConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6015,6 +6076,7 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6290,6 +6352,7 @@ pub struct MessageBus {
 }
 
 impl MessageBus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6515,6 +6578,7 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6622,6 +6686,7 @@ pub struct Pipeline {
 }
 
 impl Pipeline {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6975,6 +7040,7 @@ pub mod pipeline {
     }
 
     impl MessagePayloadFormat {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7161,6 +7227,7 @@ pub mod pipeline {
         }
 
         impl JsonFormat {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7183,6 +7250,7 @@ pub mod pipeline {
         }
 
         impl ProtobufFormat {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7220,6 +7288,7 @@ pub mod pipeline {
         }
 
         impl AvroFormat {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7295,6 +7364,7 @@ pub mod pipeline {
     }
 
     impl Destination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7596,6 +7666,7 @@ pub mod pipeline {
         }
 
         impl NetworkConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7810,6 +7881,7 @@ pub mod pipeline {
         }
 
         impl HttpEndpoint {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7860,6 +7932,7 @@ pub mod pipeline {
         }
 
         impl AuthenticationConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8017,6 +8090,7 @@ pub mod pipeline {
             }
 
             impl OidcToken {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8084,6 +8158,7 @@ pub mod pipeline {
             }
 
             impl OAuthToken {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8190,6 +8265,7 @@ pub mod pipeline {
     }
 
     impl Mediation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8358,6 +8434,7 @@ pub mod pipeline {
         }
 
         impl Transformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8422,6 +8499,7 @@ pub mod pipeline {
     }
 
     impl RetryPolicy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8592,6 +8670,7 @@ pub struct Trigger {
 }
 
 impl Trigger {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8939,6 +9018,7 @@ pub mod trigger {
     }
 
     impl RetryPolicy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8989,6 +9069,7 @@ pub struct EventFilter {
 }
 
 impl EventFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9050,6 +9131,7 @@ pub struct StateCondition {
 }
 
 impl StateCondition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9097,12 +9179,14 @@ pub struct Destination {
     /// This should only be used with HttpEndpoint destination type.
     pub network_config: std::option::Option<crate::model::NetworkConfig>,
 
+    #[allow(missing_docs)]
     pub descriptor: std::option::Option<crate::model::destination::Descriptor>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Destination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9354,6 +9438,7 @@ pub mod destination {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Descriptor {
@@ -9386,12 +9471,14 @@ pub mod destination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Transport {
+    #[allow(missing_docs)]
     pub intermediary: std::option::Option<crate::model::transport::Intermediary>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Transport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9463,6 +9550,7 @@ pub mod transport {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Intermediary {
@@ -9497,6 +9585,7 @@ pub struct CloudRun {
 }
 
 impl CloudRun {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9575,6 +9664,7 @@ pub struct Gke {
 }
 
 impl Gke {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9668,6 +9758,7 @@ pub struct Pubsub {
 }
 
 impl Pubsub {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9721,6 +9812,7 @@ pub struct HttpEndpoint {
 }
 
 impl HttpEndpoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

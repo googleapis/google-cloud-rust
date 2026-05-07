@@ -21,14 +21,17 @@
 /// # Example
 /// ```
 /// # use google_cloud_shell_v1::client::CloudShellService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    user_id: &str,
+///    environment_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudShellService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_environment()
-///         .set_name(name)
+///         .set_name(format!("users/{user_id}/environments/{environment_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -50,7 +53,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudshell.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -134,10 +137,10 @@ impl CloudShellService {
     /// # use google_cloud_shell_v1::client::CloudShellService;
     /// use google_cloud_shell_v1::Result;
     /// async fn sample(
-    ///    client: &CloudShellService, name: &str
+    ///    client: &CloudShellService, user_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_environment()
-    ///         .set_name(name)
+    ///         .set_name(format!("users/{user_id}/environments/{environment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

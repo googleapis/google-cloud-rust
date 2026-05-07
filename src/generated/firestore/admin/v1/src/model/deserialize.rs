@@ -5437,6 +5437,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Index {
             __multikey,
             __shard_count,
             __unique,
+            __search_index_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5469,6 +5470,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Index {
                             "shardCount" => Ok(__FieldTag::__shard_count),
                             "shard_count" => Ok(__FieldTag::__shard_count),
                             "unique" => Ok(__FieldTag::__unique),
+                            "searchIndexOptions" => Ok(__FieldTag::__search_index_options),
+                            "search_index_options" => Ok(__FieldTag::__search_index_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5596,6 +5599,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Index {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__search_index_options => {
+                            if !fields.insert(__FieldTag::__search_index_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for search_index_options",
+                                ));
+                            }
+                            result.search_index_options = map.next_value::<std::option::Option<crate::model::index::SearchIndexOptions>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5623,6 +5635,7 @@ impl<'de> serde::de::Deserialize<'de> for super::index::IndexField {
             __order,
             __array_config,
             __vector_config,
+            __search_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5650,6 +5663,8 @@ impl<'de> serde::de::Deserialize<'de> for super::index::IndexField {
                             "array_config" => Ok(__FieldTag::__array_config),
                             "vectorConfig" => Ok(__FieldTag::__vector_config),
                             "vector_config" => Ok(__FieldTag::__vector_config),
+                            "searchConfig" => Ok(__FieldTag::__search_config),
+                            "search_config" => Ok(__FieldTag::__search_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5741,6 +5756,28 @@ impl<'de> serde::de::Deserialize<'de> for super::index::IndexField {
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<
                                             crate::model::index::index_field::VectorConfig,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__search_config => {
+                            if !fields.insert(__FieldTag::__search_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for search_config",
+                                ));
+                            }
+                            if result.value_mode.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `value_mode`, a oneof with full ID .google.firestore.admin.v1.Index.IndexField.search_config, latest field was searchConfig",
+                                ));
+                            }
+                            result.value_mode = std::option::Option::Some(
+                                crate::model::index::index_field::ValueMode::SearchConfig(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::model::index::index_field::SearchConfig,
                                         >,
                                     >>()?
                                     .unwrap_or_default(),
@@ -5920,6 +5957,462 @@ impl<'de> serde::de::Deserialize<'de> for super::index::index_field::vector_conf
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::index::index_field::SearchConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text_spec,
+            __geo_spec,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "textSpec" => Ok(__FieldTag::__text_spec),
+                            "text_spec" => Ok(__FieldTag::__text_spec),
+                            "geoSpec" => Ok(__FieldTag::__geo_spec),
+                            "geo_spec" => Ok(__FieldTag::__geo_spec),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::index::index_field::SearchConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text_spec => {
+                            if !fields.insert(__FieldTag::__text_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_spec",
+                                ));
+                            }
+                            result.text_spec = map.next_value::<std::option::Option<
+                                crate::model::index::index_field::search_config::SearchTextSpec,
+                            >>()?;
+                        }
+                        __FieldTag::__geo_spec => {
+                            if !fields.insert(__FieldTag::__geo_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for geo_spec",
+                                ));
+                            }
+                            result.geo_spec = map.next_value::<std::option::Option<
+                                crate::model::index::index_field::search_config::SearchGeoSpec,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::index::index_field::search_config::SearchTextIndexSpec
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __index_type,
+            __match_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchTextIndexSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "indexType" => Ok(__FieldTag::__index_type),
+                            "index_type" => Ok(__FieldTag::__index_type),
+                            "matchType" => Ok(__FieldTag::__match_type),
+                            "match_type" => Ok(__FieldTag::__match_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::index::index_field::search_config::SearchTextIndexSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchTextIndexSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__index_type => {
+                            if !fields.insert(__FieldTag::__index_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for index_type",
+                                ));
+                            }
+                            result.index_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::index::index_field::search_config::TextIndexType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__match_type => {
+                            if !fields.insert(__FieldTag::__match_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for match_type",
+                                ));
+                            }
+                            result.match_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::index::index_field::search_config::TextMatchType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::index::index_field::search_config::SearchTextSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __index_specs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchTextSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "indexSpecs" => Ok(__FieldTag::__index_specs),
+                            "index_specs" => Ok(__FieldTag::__index_specs),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::index::index_field::search_config::SearchTextSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchTextSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__index_specs => {
+                            if !fields.insert(__FieldTag::__index_specs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for index_specs",
+                                ));
+                            }
+                            result.index_specs = map.next_value::<std::option::Option<std::vec::Vec<crate::model::index::index_field::search_config::SearchTextIndexSpec>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::index::index_field::search_config::SearchGeoSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __geo_json_indexing_disabled,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchGeoSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "geoJsonIndexingDisabled" => {
+                                Ok(__FieldTag::__geo_json_indexing_disabled)
+                            }
+                            "geo_json_indexing_disabled" => {
+                                Ok(__FieldTag::__geo_json_indexing_disabled)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::index::index_field::search_config::SearchGeoSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchGeoSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__geo_json_indexing_disabled => {
+                            if !fields.insert(__FieldTag::__geo_json_indexing_disabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for geo_json_indexing_disabled",
+                                ));
+                            }
+                            result.geo_json_indexing_disabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::index::SearchIndexOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text_language,
+            __text_language_override_field_path,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchIndexOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "textLanguage" => Ok(__FieldTag::__text_language),
+                            "text_language" => Ok(__FieldTag::__text_language),
+                            "textLanguageOverrideFieldPath" => {
+                                Ok(__FieldTag::__text_language_override_field_path)
+                            }
+                            "text_language_override_field_path" => {
+                                Ok(__FieldTag::__text_language_override_field_path)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::index::SearchIndexOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchIndexOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text_language => {
+                            if !fields.insert(__FieldTag::__text_language) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_language",
+                                ));
+                            }
+                            result.text_language = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__text_language_override_field_path => {
+                            if !fields.insert(__FieldTag::__text_language_override_field_path) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_language_override_field_path",
+                                ));
+                            }
+                            result.text_language_override_field_path = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);

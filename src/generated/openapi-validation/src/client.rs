@@ -22,7 +22,8 @@
 /// ```
 /// # use secretmanager_openapi_v1::client::SecretManagerService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SecretManagerService::builder().build().await?;
 ///     let mut list = client.list_locations()
 ///         /* set fields */
@@ -30,7 +31,8 @@
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -47,7 +49,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://secretmanager.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

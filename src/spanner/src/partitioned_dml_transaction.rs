@@ -40,6 +40,7 @@ use crate::transaction_retry_policy::{
 pub struct PartitionedDmlTransactionBuilder {
     client: DatabaseClient,
     retry_policy: Box<dyn TransactionRetryPolicy>,
+    exclude_txn_from_change_streams: bool,
 }
 
 impl PartitionedDmlTransactionBuilder {
@@ -47,7 +48,36 @@ impl PartitionedDmlTransactionBuilder {
         Self {
             client,
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
+            exclude_txn_from_change_streams: false,
         }
+    }
+
+    /// Sets whether to exclude the transaction from change streams.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    ///     let transaction = db_client
+    ///         .partitioned_dml_transaction()
+    ///         .with_exclude_txn_from_change_streams(true)
+    ///         .build()
+    ///         .await?;
+    /// #   Ok(())
+    /// # }
+    /// ```
+    ///
+    /// When set to `true`, it prevents modifications from this transaction from being tracked in change streams.
+    /// Note that this only affects change streams that have been created with the DDL option `allow_txn_exclusion = true`.
+    /// If `allow_txn_exclusion` is not set or set to `false` for a change stream, updates made within this transaction
+    /// are recorded in that change stream regardless of this setting.
+    ///
+    /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
+    /// tracking columns modified by this transaction.
+    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+        self.exclude_txn_from_change_streams = exclude;
+        self
     }
 
     /// Sets the retry policy for the transaction.
@@ -87,6 +117,7 @@ impl PartitionedDmlTransactionBuilder {
         Ok(PartitionedDmlTransaction {
             client: self.client,
             retry_policy: self.retry_policy,
+            exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
         })
     }
 }
@@ -103,6 +134,7 @@ impl PartitionedDmlTransactionBuilder {
 pub struct PartitionedDmlTransaction {
     client: DatabaseClient,
     retry_policy: Box<dyn TransactionRetryPolicy>,
+    exclude_txn_from_change_streams: bool,
 }
 
 impl PartitionedDmlTransaction {
@@ -132,8 +164,9 @@ impl PartitionedDmlTransaction {
         let statement = statement.into();
 
         let session_name = self.client.session_name();
-        let transaction_options =
-            TransactionOptions::default().set_partitioned_dml(PartitionedDml::default());
+        let transaction_options = TransactionOptions::default()
+            .set_partitioned_dml(PartitionedDml::default())
+            .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
         let begin_request = BeginTransactionRequest {
             session: session_name.clone(),
             options: Some(transaction_options),
@@ -237,6 +270,46 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let transaction = db_client
             .partitioned_dml_transaction()
+            .build()
+            .await
+            .unwrap();
+        let statement = Statement::builder("UPDATE Users SET active = true").build();
+        let res: i64 = transaction.execute_update(statement).await.unwrap();
+        assert_eq!(res, 500);
+    }
+
+    #[tokio::test]
+    async fn execute_update_with_exclude_txn_from_change_streams() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            let options = req.options.expect("missing transaction options");
+            assert!(options.exclude_txn_from_change_streams);
+
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![0, 1, 2],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_req| {
+                let stream = adapt([Ok(v1::PartialResultSet {
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(500)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                })]);
+                Ok(tonic::Response::from(stream))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = db_client
+            .partitioned_dml_transaction()
+            .with_exclude_txn_from_change_streams(true)
             .build()
             .await
             .unwrap();

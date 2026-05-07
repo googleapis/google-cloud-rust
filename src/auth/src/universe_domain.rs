@@ -21,7 +21,7 @@ use crate::credentials::Credentials;
 /// (e.g., `googleapis.com`). For example, Regional Access Boundaries should be disabled,
 /// and User Account credentials should return an error when running outside the GDU.
 #[allow(dead_code)]
-pub(crate) fn is_default_universe_domain(universe_domain: Option<String>) -> bool {
+pub(crate) fn is_default_universe_domain(universe_domain: Option<&str>) -> bool {
     match universe_domain {
         Some(ud) => ud == DEFAULT_UNIVERSE_DOMAIN,
         None => true,
@@ -40,19 +40,9 @@ pub(crate) async fn resolve(cred: &Credentials) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::{CacheableResource, CredentialsProvider};
-    use http::{Extensions, HeaderMap};
+
+    use crate::credentials::tests::MockCredentials;
     use test_case::test_case;
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> crate::Result<CacheableResource<HeaderMap>>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-    }
 
     #[tokio::test]
     async fn test_resolve_default() {
@@ -77,9 +67,6 @@ mod tests {
     #[test_case(Some(DEFAULT_UNIVERSE_DOMAIN), true)]
     #[test_case(Some("some-universe-domain.com"), false)]
     fn test_is_default_universe_domain(universe_domain: Option<&str>, expected: bool) {
-        assert_eq!(
-            is_default_universe_domain(universe_domain.map(|s| s.to_string())),
-            expected
-        );
+        assert_eq!(is_default_universe_domain(universe_domain), expected);
     }
 }

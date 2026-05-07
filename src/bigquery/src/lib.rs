@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![warn(missing_docs)]
+
 //! Google Cloud Client Libraries for Rust - BigQuery
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
@@ -33,6 +35,9 @@ pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
 mod proto_schema;
+#[cfg_attr(not(test), expect(dead_code))]
+mod transport;
+
 // TODO(#4832) - remove handwritten code.
 mod status;
 pub(crate) mod model {

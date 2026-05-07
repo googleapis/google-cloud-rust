@@ -67,7 +67,7 @@ impl BatchWriteTransaction {
     /// let tx = db.batch_write_transaction().build();
     /// let mut stream = tx.execute_streaming(vec![group]).await?;
     ///
-    /// while let Some(response) = stream.next_message().await {
+    /// while let Some(response) = stream.next().await {
     ///     let response = response?;
     ///     if let Some(status) = response.status.as_ref().filter(|s| s.code != Code::Ok as i32) {
     ///         eprintln!("Error applying groups {:?}: {}", response.indexes, status.message);
@@ -82,6 +82,7 @@ impl BatchWriteTransaction {
     /// This method sends the mutation groups to Spanner and returns the responses as a stream.
     /// Each response includes a status code that indicates whether the mutation groups that
     /// it references were applied successfully.
+    ///
     /// The method does not handle any errors, including retryable errors like Aborted.
     /// The caller is responsible for handling any errors and for retrying the transaction in
     /// case it is aborted by Spanner.
@@ -113,7 +114,7 @@ impl BatchWriteResponseStream {
     ///
     /// Returns `Some(Ok(BatchWriteResponse))` when a message is successfully received,
     /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
-    pub async fn next_message(&mut self) -> Option<crate::Result<BatchWriteResponse>> {
+    pub async fn next(&mut self) -> Option<crate::Result<BatchWriteResponse>> {
         let proto_opt = self.inner.next_message().await?;
         match proto_opt {
             Ok(proto) => match proto.cnv() {
@@ -122,6 +123,17 @@ impl BatchWriteResponseStream {
             },
             Err(e) => Some(Err(e)),
         }
+    }
+
+    /// Converts the [`BatchWriteResponseStream`] into a [`Stream`].
+    ///
+    /// This consumes the [`BatchWriteResponseStream`] and returns a stream of responses.
+    #[cfg(feature = "unstable-stream")]
+    pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<BatchWriteResponse>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(self, |mut stream| async move {
+            stream.next().await.map(|res| (res, stream))
+        }))
     }
 }
 
@@ -197,10 +209,62 @@ mod tests {
         let mut stream = tx.execute_streaming(vec![group]).await?;
 
         let result = stream
-            .next_message()
+            .next()
             .await
             .expect("stream should have yielded a message")?;
-        assert_eq!(result.indexes, vec![0]);
+        assert_eq!(result.indexes, vec![0], "indexes should match the mocked response");
+
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn execute_streaming_into_stream() -> Result<()> {
+        use futures::StreamExt;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123",
+                "session name should match"
+            );
+            assert_eq!(req.mutation_groups.len(), 1, "should contain precisely 1 mutation group");
+
+            let response = mock_v1::BatchWriteResponse {
+                indexes: vec![0],
+                status: None,
+                commit_timestamp: None,
+            };
+
+            Ok(Response::from(adapt([Ok(response)])))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let group = MutationGroup::new(vec![mutation]);
+
+        let transaction = db_client.batch_write_transaction().build();
+        let stream = transaction.execute_streaming(vec![group]).await?;
+        let mut stream = stream.into_stream();
+
+        let result = stream
+            .next()
+            .await
+            .expect("stream should have yielded a message")?;
+        assert_eq!(result.indexes, vec![0], "indexes should match the mocked response");
 
         Ok(())
     }

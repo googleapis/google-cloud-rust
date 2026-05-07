@@ -70,6 +70,18 @@ pub async fn run_subscription_samples(
         let (project_id, id) = (project_id.clone(), id.clone());
         async move { subscriber::flow_settings::sample(&project_id, &id).await }
     });
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::concurrency_control::sample(&project_id, &id).await }
+    });
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::error_listener::sample(&project_id, &id).await }
+    });
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::dead_letter_delivery_attempt::sample(&project_id, &id).await }
+    });
 
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
@@ -105,6 +117,7 @@ pub async fn run_schema_samples(schema_names: &mut Vec<String>) -> anyhow::Resul
     schema_names.push(format!("projects/{project}/schemas/{id}"));
     schema::create_avro_schema::sample(&client, &project, &id).await?;
     schema::list_schemas::sample(&client, &project).await?;
+    schema::get_schema::sample(&client, &project, &id).await?;
     schema::list_schema_revisions::sample(&client, &project, &id).await?;
     schema::delete_schema::sample(&client, &project, &id).await?;
 

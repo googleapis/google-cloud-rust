@@ -221,7 +221,7 @@ impl DatabaseClient {
     /// let transaction = db.batch_write_transaction().build();
     /// let mut stream = transaction.execute_streaming(vec![group1, group2]).await?;
     ///
-    /// while let Some(response) = stream.next_message().await {
+    /// while let Some(response) = stream.next().await {
     ///     let response = response?;
     ///     if let Some(status) = response.status.as_ref().filter(|s| s.code != Code::Ok as i32) {
     ///         eprintln!("Error applying groups {:?}: {}", response.indexes, status.message);

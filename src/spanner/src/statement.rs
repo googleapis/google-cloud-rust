@@ -13,11 +13,17 @@
 // limitations under the License.
 
 use crate::model::DirectedReadOptions;
+use crate::model::execute_sql_request::QueryMode;
 use crate::model::execute_sql_request::QueryOptions;
+use crate::model::request_options::Priority;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::collections::BTreeMap;
+use std::time::Duration;
 
 /// A builder for [Statement].
 ///
@@ -28,7 +34,7 @@ use std::collections::BTreeMap;
 ///     .add_param("id", &42)
 ///     .build();
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct StatementBuilder {
     sql: String,
     params: BTreeMap<String, Value>,
@@ -36,6 +42,8 @@ pub struct StatementBuilder {
     request_options: Option<crate::model::RequestOptions>,
     directed_read_options: Option<DirectedReadOptions>,
     query_options: Option<QueryOptions>,
+    query_mode: Option<QueryMode>,
+    gax_options: GaxRequestOptions,
 }
 
 impl StatementBuilder {
@@ -47,6 +55,8 @@ impl StatementBuilder {
             request_options: None,
             directed_read_options: None,
             query_options: None,
+            query_mode: None,
+            gax_options: GaxRequestOptions::default(),
         }
     }
 
@@ -96,6 +106,23 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the RPC priority to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_priority(Priority::Low)
+    ///     .build();
+    /// ```
+    pub fn with_priority(mut self, priority: Priority) -> Self {
+        self.request_options
+            .get_or_insert_with(crate::model::RequestOptions::default)
+            .priority = priority;
+        self
+    }
+
     /// Sets the directed read options for this statement.
     ///
     /// ```
@@ -131,6 +158,39 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the query mode to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_query_mode(QueryMode::Plan)
+    ///     .build();
+    /// ```
+    pub fn with_query_mode(mut self, mode: QueryMode) -> Self {
+        self.query_mode = Some(mode);
+        self
+    }
+
+    /// Sets the per-attempt timeout for this statement.
+    pub fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
+        self.gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for this statement.
+    pub fn with_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for this statement.
+    pub fn with_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.gax_options.set_backoff_policy(policy);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -140,6 +200,8 @@ impl StatementBuilder {
             request_options: self.request_options,
             directed_read_options: self.directed_read_options,
             query_options: self.query_options,
+            query_mode: self.query_mode,
+            gax_options: self.gax_options,
         }
     }
 }
@@ -167,7 +229,7 @@ impl StatementBuilder {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct Statement {
     pub sql: String,
     pub(crate) params: BTreeMap<String, Value>,
@@ -175,12 +237,40 @@ pub struct Statement {
     pub(crate) request_options: Option<crate::model::RequestOptions>,
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
     pub(crate) query_options: Option<QueryOptions>,
+    pub(crate) query_mode: Option<QueryMode>,
+    gax_options: GaxRequestOptions,
 }
 
 impl Statement {
     /// Creates a new statement builder.
     pub fn builder(sql: impl Into<String>) -> StatementBuilder {
         StatementBuilder::new(sql)
+    }
+
+    pub(crate) fn gax_options(&self) -> &GaxRequestOptions {
+        &self.gax_options
+    }
+
+    /// Sets the query mode to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
+    /// # use google_cloud_spanner::client::SingleUseReadOnlyTransaction;
+    /// # async fn test_doc(tx: SingleUseReadOnlyTransaction) -> Result<(), google_cloud_spanner::Error> {
+    /// let statement = Statement::builder("SELECT * FROM users WHERE id = @id")
+    ///     .add_param("id", &42)
+    ///     .build();
+    /// let mut query_plan = tx.execute_query(statement.clone().with_query_mode(QueryMode::Plan)).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This method consumes the statement and returns a new one with the specified mode.
+    pub fn with_query_mode(mut self, mode: QueryMode) -> Self {
+        self.query_mode = Some(mode);
+        self
     }
 
     fn into_parts(
@@ -212,6 +302,7 @@ impl Statement {
         let request_options = self.request_options.clone();
         let directed_read_options = self.directed_read_options.clone();
         let query_options = self.query_options.clone();
+        let query_mode = self.query_mode.clone();
         let (sql, params, param_types) = self.into_parts();
         crate::model::ExecuteSqlRequest::default()
             .set_sql(sql)
@@ -220,6 +311,7 @@ impl Statement {
             .set_or_clear_request_options(request_options)
             .set_or_clear_directed_read_options(directed_read_options)
             .set_or_clear_query_options(query_options)
+            .set_query_mode(query_mode.unwrap_or_default())
     }
 
     pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
@@ -264,8 +356,8 @@ mod tests {
 
     #[test]
     fn test_auto_traits() {
-        static_assertions::assert_impl_all!(Statement: Clone, std::fmt::Debug, PartialEq, Send, Sync);
-        static_assertions::assert_impl_all!(StatementBuilder: Clone, std::fmt::Debug, PartialEq, Send, Sync);
+        static_assertions::assert_impl_all!(Statement: Clone, std::fmt::Debug, Send, Sync);
+        static_assertions::assert_impl_all!(StatementBuilder: Clone, std::fmt::Debug, Send, Sync);
     }
 
     #[test]
@@ -376,6 +468,19 @@ mod tests {
     }
 
     #[test]
+    fn with_priority() {
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_priority(Priority::High)
+            .build();
+        assert_eq!(
+            stmt.request_options
+                .expect("request options missing")
+                .priority,
+            Priority::High
+        );
+    }
+
+    #[test]
     fn with_directed_read_options() {
         let dro = DirectedReadOptions::default();
         let stmt = Statement::builder("SELECT * FROM users")
@@ -405,6 +510,53 @@ mod tests {
                 .optimizer_version,
             "1"
         );
+        Ok(())
+    }
+
+    #[test]
+    fn with_query_mode() -> anyhow::Result<()> {
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_query_mode(QueryMode::Plan)
+            .build();
+        assert_eq!(stmt.query_mode, Some(QueryMode::Plan));
+
+        let req = stmt.into_request();
+        assert_eq!(req.query_mode, QueryMode::Plan);
+        Ok(())
+    }
+
+    #[test]
+    fn statement_with_query_mode() -> anyhow::Result<()> {
+        let stmt = Statement::builder("SELECT * FROM users").build();
+        assert_eq!(stmt.query_mode, None);
+
+        let stmt = stmt.with_query_mode(QueryMode::Profile);
+        assert_eq!(stmt.query_mode, Some(QueryMode::Profile));
+
+        let req = stmt.into_request();
+        assert_eq!(req.query_mode, QueryMode::Profile);
+        Ok(())
+    }
+
+    #[test]
+    fn with_gax_options() -> anyhow::Result<()> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+        use google_cloud_gax::retry_policy::NeverRetry;
+        use std::time::Duration;
+
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_attempt_timeout(Duration::from_secs(10))
+            .with_retry_policy(NeverRetry)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .build();
+
+        assert_eq!(
+            stmt.gax_options.attempt_timeout(),
+            &Some(Duration::from_secs(10))
+        );
+        assert!(stmt.gax_options.retry_policy().is_some());
+        assert!(stmt.gax_options.backoff_policy().is_some());
+
         Ok(())
     }
 }

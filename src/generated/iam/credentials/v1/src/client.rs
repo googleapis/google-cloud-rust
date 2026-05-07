@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = IAMCredentials::builder().build().await?;
 ///     let response = client.generate_access_token()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -51,7 +53,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://iamcredentials.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

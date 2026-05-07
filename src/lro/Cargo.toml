@@ -19,7 +19,7 @@ name        = "google-cloud-lro"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version = "1.5.0"
+version = "1.6.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -36,11 +36,15 @@ rust-version.workspace = true
 # [futures::stream::Stream]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
 features = ["unstable-stream"]
 
+[lints]
+workspace = true
+
 [dependencies]
 futures         = { workspace = true, optional = true }
 pin-project     = { workspace = true, optional = true }
 serde.workspace = true
 tokio           = { workspace = true, features = ["time"] }
+tracing         = { workspace = true }
 # Local crates
 google-cloud-gax         = { workspace = true }
 google-cloud-longrunning = { workspace = true }
@@ -54,6 +58,7 @@ unstable-stream = ["dep:futures", "dep:pin-project"]
 # by this feature are intended for general use. We do not plan to document these
 # features and offer no guarantees on their stability.
 _internal-semver = []
+
 
 [dev-dependencies]
 anyhow.workspace     = true

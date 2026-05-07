@@ -61,6 +61,7 @@ mod tests {
         mock.expect_headers()
             .times(retry_count..)
             .returning(|_extensions| Err(CredentialsError::from_msg(true, "mock retryable error")));
+        mock.expect_universe_domain().returning(|| None);
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = echo_server::builder(endpoint)
@@ -97,6 +98,7 @@ mod tests {
         mock.expect_headers()
             .times(1)
             .returning(move |_extensions| headers_response.clone());
+        mock.expect_universe_domain().returning(|| None);
 
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))

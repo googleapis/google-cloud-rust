@@ -23,6 +23,7 @@ use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
 use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
+use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::Mode;
@@ -35,6 +36,7 @@ use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI64, Ordering};
+use wkt::Duration;
 
 /// A builder for [ReadWriteTransaction].
 #[derive(Clone, Debug)]
@@ -42,7 +44,9 @@ pub(crate) struct ReadWriteTransactionBuilder {
     client: DatabaseClient,
     options: TransactionOptions,
     transaction_tag: Option<String>,
+    max_commit_delay: Option<Duration>,
     pub(crate) session_name: String,
+    commit_priority: Priority,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -52,7 +56,9 @@ impl ReadWriteTransactionBuilder {
             client,
             options: TransactionOptions::default().set_read_write(ReadWrite::default()),
             transaction_tag: None,
+            max_commit_delay: None,
             session_name,
+            commit_priority: Priority::Unspecified,
         }
     }
 
@@ -83,6 +89,21 @@ impl ReadWriteTransactionBuilder {
 
     pub(crate) fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
+        self
+    }
+
+    pub(crate) fn with_commit_priority(mut self, priority: Priority) -> Self {
+        self.commit_priority = priority;
+        self
+    }
+
+    pub(crate) fn with_max_commit_delay(mut self, delay: Duration) -> Self {
+        self.max_commit_delay = Some(delay);
+        self
+    }
+
+    pub(crate) fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+        self.options = self.options.set_exclude_txn_from_change_streams(exclude);
         self
     }
 
@@ -118,6 +139,8 @@ impl ReadWriteTransactionBuilder {
                 transaction_tag: self.transaction_tag.clone(),
             },
             seqno: Arc::new(AtomicI64::new(1)),
+            max_commit_delay: self.max_commit_delay,
+            commit_priority: self.commit_priority.clone(),
         })
     }
 }
@@ -127,6 +150,8 @@ impl ReadWriteTransactionBuilder {
 pub struct ReadWriteTransaction {
     pub(crate) context: ReadContext,
     seqno: Arc<AtomicI64>,
+    max_commit_delay: Option<Duration>,
+    commit_priority: Priority,
 }
 
 impl ReadWriteTransaction {
@@ -149,8 +174,9 @@ impl ReadWriteTransaction {
     /// Executes an update using this transaction.
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
+        let statement = statement.into();
+        let gax_options = statement.gax_options().clone();
         let mut request = statement
-            .into()
             .into_request()
             .set_session(self.context.session_name.clone())
             .set_transaction(self.context.transaction_selector.selector())
@@ -161,7 +187,7 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_sql(request, RequestOptions::default())
+            .execute_sql(request, gax_options)
             .await?;
         self.context
             .precommit_token_tracker
@@ -265,7 +291,7 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_batch_dml(request, RequestOptions::default())
+            .execute_batch_dml(request, batch.gax_options)
             .await;
 
         match response_result {
@@ -286,6 +312,16 @@ impl ReadWriteTransaction {
         }
     }
 
+    fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
+        let mut options = self.context.amend_request_options(None);
+        if self.commit_priority != Priority::Unspecified {
+            options
+                .get_or_insert_with(crate::model::RequestOptions::default)
+                .priority = self.commit_priority.clone();
+        }
+        options
+    }
+
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<wkt::Timestamp> {
         let transaction_id = self.transaction_id()?;
@@ -294,7 +330,8 @@ impl ReadWriteTransaction {
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id.clone())
             .set_or_clear_precommit_token(precommit_token)
-            .set_or_clear_request_options(self.context.amend_request_options(None));
+            .set_or_clear_request_options(self.commit_request_options())
+            .set_or_clear_max_commit_delay(self.max_commit_delay);
 
         let response = self
             .context
@@ -309,7 +346,7 @@ impl ReadWriteTransaction {
                     .set_session(self.context.session_name.clone())
                     .set_transaction_id(transaction_id)
                     .set_precommit_token(*new_precommit_token)
-                    .set_or_clear_request_options(self.context.amend_request_options(None));
+                    .set_or_clear_request_options(self.commit_request_options());
 
                 self.context
                     .client
@@ -862,6 +899,30 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn read_write_transaction_with_exclude_txn_from_change_streams() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            let options = req.options.expect("missing transaction options");
+            assert!(options.exclude_txn_from_change_streams);
+
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![9, 9, 9],
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_exclude_txn_from_change_streams(true)
+            .begin_transaction()
+            .await
+            .expect("Failed to build transaction");
+    }
+
+    #[tokio::test]
     async fn read_write_transaction_tracks_highest_precommit_token() {
         let mut mock = create_session_mock();
 
@@ -996,5 +1057,46 @@ mod tests {
 
         let ts = tx.commit().await.expect("Failed to commit transaction");
         assert_eq!(ts.seconds(), 9999);
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_commit_with_max_commit_delay() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.max_commit_delay,
+                Some(::prost_types::Duration {
+                    seconds: 0,
+                    nanos: 200_000_000, // 200ms
+                })
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
+            .begin_transaction()
+            .await
+            .expect("Failed to build transaction");
+
+        let ts = tx.commit().await.expect("Failed to commit");
+        assert_eq!(ts.seconds(), 123456789);
     }
 }

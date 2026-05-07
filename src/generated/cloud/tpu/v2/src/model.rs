@@ -53,6 +53,7 @@ pub struct GuestAttributes {
 }
 
 impl GuestAttributes {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -120,6 +121,7 @@ pub struct GuestAttributesValue {
 }
 
 impl GuestAttributesValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -170,6 +172,7 @@ pub struct GuestAttributesEntry {
 }
 
 impl GuestAttributesEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -235,6 +238,7 @@ pub struct AttachedDisk {
 }
 
 impl AttachedDisk {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -432,6 +436,7 @@ pub struct SchedulingConfig {
 }
 
 impl SchedulingConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -496,6 +501,7 @@ pub struct NetworkEndpoint {
 }
 
 impl NetworkEndpoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -575,6 +581,7 @@ pub struct AccessConfig {
 }
 
 impl AccessConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -629,6 +636,7 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -716,6 +724,7 @@ pub struct ServiceAccount {
 }
 
 impl ServiceAccount {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -858,6 +867,7 @@ pub struct Node {
 }
 
 impl Node {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1933,6 +1943,7 @@ pub struct QueuedResource {
 }
 
 impl QueuedResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2236,6 +2247,7 @@ pub mod queued_resource {
     }
 
     impl Tpu {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2294,6 +2306,7 @@ pub mod queued_resource {
         }
 
         impl NodeSpec {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2482,6 +2495,7 @@ pub mod queued_resource {
             }
 
             impl MultisliceParams {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -2547,6 +2561,7 @@ pub mod queued_resource {
     }
 
     impl Spot {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2571,6 +2586,7 @@ pub mod queued_resource {
     }
 
     impl Guaranteed {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2628,6 +2644,7 @@ pub mod queued_resource {
     }
 
     impl QueueingPolicy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2934,6 +2951,7 @@ pub struct QueuedResourceState {
 }
 
 impl QueuedResourceState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3401,6 +3419,7 @@ pub mod queued_resource_state {
     }
 
     impl CreatingData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3420,6 +3439,7 @@ pub mod queued_resource_state {
     }
 
     impl AcceptedData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3439,6 +3459,7 @@ pub mod queued_resource_state {
     }
 
     impl ProvisioningData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3462,6 +3483,7 @@ pub mod queued_resource_state {
     }
 
     impl FailedData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3514,6 +3536,7 @@ pub mod queued_resource_state {
     }
 
     impl DeletingData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3533,6 +3556,7 @@ pub mod queued_resource_state {
     }
 
     impl ActiveData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3552,6 +3576,7 @@ pub mod queued_resource_state {
     }
 
     impl SuspendingData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3571,6 +3596,7 @@ pub mod queued_resource_state {
     }
 
     impl SuspendedData {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3956,6 +3982,7 @@ pub struct ListNodesRequest {
 }
 
 impl ListNodesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4022,6 +4049,7 @@ pub struct ListNodesResponse {
 }
 
 impl ListNodesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4111,6 +4139,7 @@ pub struct GetNodeRequest {
 }
 
 impl GetNodeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4153,6 +4182,7 @@ pub struct CreateNodeRequest {
 }
 
 impl CreateNodeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4234,6 +4264,7 @@ pub struct DeleteNodeRequest {
 }
 
 impl DeleteNodeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4270,6 +4301,7 @@ pub struct StopNodeRequest {
 }
 
 impl StopNodeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4306,6 +4338,7 @@ pub struct StartNodeRequest {
 }
 
 impl StartNodeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4347,6 +4380,7 @@ pub struct UpdateNodeRequest {
 }
 
 impl UpdateNodeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4445,6 +4479,7 @@ pub struct ListQueuedResourcesRequest {
 }
 
 impl ListQueuedResourcesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4512,6 +4547,7 @@ pub struct ListQueuedResourcesResponse {
 }
 
 impl ListQueuedResourcesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4601,6 +4637,7 @@ pub struct GetQueuedResourceRequest {
 }
 
 impl GetQueuedResourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4648,6 +4685,7 @@ pub struct CreateQueuedResourceRequest {
 }
 
 impl CreateQueuedResourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4755,6 +4793,7 @@ pub struct DeleteQueuedResourceRequest {
 }
 
 impl DeleteQueuedResourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4816,6 +4855,7 @@ pub struct ResetQueuedResourceRequest {
 }
 
 impl ResetQueuedResourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4850,6 +4890,7 @@ pub struct ServiceIdentity {
 }
 
 impl ServiceIdentity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4887,6 +4928,7 @@ pub struct GenerateServiceIdentityRequest {
 }
 
 impl GenerateServiceIdentityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4924,6 +4966,7 @@ pub struct GenerateServiceIdentityResponse {
 }
 
 impl GenerateServiceIdentityResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4985,6 +5028,7 @@ pub struct AcceleratorType {
 }
 
 impl AcceleratorType {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5055,6 +5099,7 @@ pub struct GetAcceleratorTypeRequest {
 }
 
 impl GetAcceleratorTypeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5104,6 +5149,7 @@ pub struct ListAcceleratorTypesRequest {
 }
 
 impl ListAcceleratorTypesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5195,6 +5241,7 @@ pub struct ListAcceleratorTypesResponse {
 }
 
 impl ListAcceleratorTypesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5285,6 +5332,7 @@ pub struct RuntimeVersion {
 }
 
 impl RuntimeVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5333,6 +5381,7 @@ pub struct GetRuntimeVersionRequest {
 }
 
 impl GetRuntimeVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5382,6 +5431,7 @@ pub struct ListRuntimeVersionsRequest {
 }
 
 impl ListRuntimeVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5473,6 +5523,7 @@ pub struct ListRuntimeVersionsResponse {
 }
 
 impl ListRuntimeVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5581,6 +5632,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5738,6 +5790,7 @@ pub struct Symptom {
 }
 
 impl Symptom {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6012,6 +6065,7 @@ pub struct GetGuestAttributesRequest {
 }
 
 impl GetGuestAttributesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6078,6 +6132,7 @@ pub struct GetGuestAttributesResponse {
 }
 
 impl GetGuestAttributesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6125,6 +6180,7 @@ pub struct AcceleratorConfig {
 }
 
 impl AcceleratorConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6343,6 +6399,7 @@ pub struct ShieldedInstanceConfig {
 }
 
 impl ShieldedInstanceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

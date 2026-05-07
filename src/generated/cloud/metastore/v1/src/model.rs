@@ -125,6 +125,7 @@ pub struct Service {
 }
 
 impl Service {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1237,6 +1238,7 @@ pub struct MaintenanceWindow {
 }
 
 impl MaintenanceWindow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1340,6 +1342,7 @@ pub struct HiveMetastoreConfig {
 }
 
 impl HiveMetastoreConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1618,6 +1621,7 @@ pub struct KerberosConfig {
 }
 
 impl KerberosConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1693,12 +1697,14 @@ impl wkt::message::Message for KerberosConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
+    #[allow(missing_docs)]
     pub value: std::option::Option<crate::model::secret::Value>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secret {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1762,6 +1768,7 @@ pub mod secret {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Value {
@@ -1787,6 +1794,7 @@ pub struct EncryptionConfig {
 }
 
 impl EncryptionConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1833,6 +1841,7 @@ pub struct AuxiliaryVersionConfig {
 }
 
 impl AuxiliaryVersionConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1924,6 +1933,7 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1976,12 +1986,14 @@ pub mod network_config {
         /// `projects/{project}/locations/{location}`.
         pub endpoint_location: std::string::String,
 
+        #[allow(missing_docs)]
         pub vpc_resource: std::option::Option<crate::model::network_config::consumer::VpcResource>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Consumer {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2083,6 +2095,7 @@ pub mod network_config {
         #[allow(unused_imports)]
         use super::*;
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum VpcResource {
@@ -2110,6 +2123,7 @@ pub struct TelemetryConfig {
 }
 
 impl TelemetryConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2143,6 +2157,7 @@ pub mod telemetry_config {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [LogFormat].
     ///
     /// # Working with unknown values
     ///
@@ -2289,6 +2304,7 @@ pub struct MetadataManagementActivity {
 }
 
 impl MetadataManagementActivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2375,6 +2391,7 @@ pub struct MetadataImport {
 }
 
 impl MetadataImport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2619,6 +2636,7 @@ pub mod metadata_import {
     }
 
     impl DatabaseDump {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3000,12 +3018,14 @@ pub struct MetadataExport {
     /// Output only. The type of the database dump.
     pub database_dump_type: crate::model::database_dump_spec::Type,
 
+    #[allow(missing_docs)]
     pub destination: std::option::Option<crate::model::metadata_export::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetadataExport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3325,6 +3345,7 @@ pub mod metadata_export {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
@@ -3367,6 +3388,7 @@ pub struct Backup {
 }
 
 impl Backup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3722,6 +3744,7 @@ pub struct Restore {
 }
 
 impl Restore {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4151,6 +4174,7 @@ pub struct ScalingConfig {
 }
 
 impl ScalingConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4482,6 +4506,7 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4574,6 +4599,7 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4667,6 +4693,7 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4734,6 +4761,7 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4852,6 +4880,7 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4972,6 +5001,7 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5050,6 +5080,7 @@ pub struct ListMetadataImportsRequest {
 }
 
 impl ListMetadataImportsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5142,6 +5173,7 @@ pub struct ListMetadataImportsResponse {
 }
 
 impl ListMetadataImportsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5235,6 +5267,7 @@ pub struct GetMetadataImportRequest {
 }
 
 impl GetMetadataImportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5302,6 +5335,7 @@ pub struct CreateMetadataImportRequest {
 }
 
 impl CreateMetadataImportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5423,6 +5457,7 @@ pub struct UpdateMetadataImportRequest {
 }
 
 impl UpdateMetadataImportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5555,6 +5590,7 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5647,6 +5683,7 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5740,6 +5777,7 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5806,6 +5844,7 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5917,6 +5956,7 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5990,6 +6030,7 @@ pub struct ExportMetadataRequest {
 }
 
 impl ExportMetadataRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6151,6 +6192,7 @@ pub struct RestoreServiceRequest {
 }
 
 impl RestoreServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6250,6 +6292,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6401,6 +6444,7 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6454,6 +6498,7 @@ pub mod location_metadata {
     }
 
     impl HiveMetastoreVersion {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6498,6 +6543,7 @@ pub struct DatabaseDumpSpec {
 }
 
 impl DatabaseDumpSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6668,6 +6714,7 @@ pub struct QueryMetadataRequest {
 }
 
 impl QueryMetadataRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6720,6 +6767,7 @@ pub struct QueryMetadataResponse {
 }
 
 impl QueryMetadataResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6763,6 +6811,7 @@ pub struct ErrorDetails {
 }
 
 impl ErrorDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6821,6 +6870,7 @@ pub struct MoveTableToDatabaseRequest {
 }
 
 impl MoveTableToDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6894,6 +6944,7 @@ pub struct MoveTableToDatabaseResponse {
 }
 
 impl MoveTableToDatabaseResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6934,6 +6985,7 @@ pub struct AlterMetadataResourceLocationRequest {
 }
 
 impl AlterMetadataResourceLocationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6992,6 +7044,7 @@ pub struct AlterMetadataResourceLocationResponse {
 }
 
 impl AlterMetadataResourceLocationResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7051,6 +7104,7 @@ pub struct Federation {
 }
 
 impl Federation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7431,6 +7485,7 @@ pub struct BackendMetastore {
 }
 
 impl BackendMetastore {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7648,6 +7703,7 @@ pub struct ListFederationsRequest {
 }
 
 impl ListFederationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7737,6 +7793,7 @@ pub struct ListFederationsResponse {
 }
 
 impl ListFederationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7827,6 +7884,7 @@ pub struct GetFederationRequest {
 }
 
 impl GetFederationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7891,6 +7949,7 @@ pub struct CreateFederationRequest {
 }
 
 impl CreateFederationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8006,6 +8065,7 @@ pub struct UpdateFederationRequest {
 }
 
 impl UpdateFederationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8123,6 +8183,7 @@ pub struct DeleteFederationRequest {
 }
 
 impl DeleteFederationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

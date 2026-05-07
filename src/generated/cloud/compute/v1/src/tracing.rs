@@ -34,6 +34,7 @@
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -110,6 +111,8 @@
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -3366,6 +3369,148 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::GlobalPublicDelegatedPrefixes::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [GlobalVmExtensionPolicies](super::stub::GlobalVmExtensionPolicies) decorator for logging and tracing.
+#[cfg(feature = "global-vm-extension-policies")]
+#[derive(Clone, Debug)]
+pub struct GlobalVmExtensionPolicies<T>
+where
+    T: super::stub::GlobalVmExtensionPolicies + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl<T> GlobalVmExtensionPolicies<T>
+where
+    T: super::stub::GlobalVmExtensionPolicies + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl<T> super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies<T>
+where
+    T: super::stub::GlobalVmExtensionPolicies + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::global_vm_extension_policies::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VmExtensionPolicyAggregatedListResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::aggregated_list",
+            self.inner.aggregated_list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete(
+        &self,
+        req: crate::model::global_vm_extension_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::delete",
+            self.inner.delete(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::global_vm_extension_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GlobalVmExtensionPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn insert(
+        &self,
+        req: crate::model::global_vm_extension_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::insert",
+            self.inner.insert(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::global_vm_extension_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GlobalVmExtensionPolicyList>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update(
+        &self,
+        req: crate::model::global_vm_extension_policies::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::update",
+            self.inner.update(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GlobalVmExtensionPolicies::get_operation",
             self.inner.get_operation(req, options));
         pending.await
     }
@@ -7083,6 +7228,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::license_codes::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LicenseCodes::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::license_codes::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LicenseCodes::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: crate::model::license_codes::TestIamPermissionsRequest,
@@ -8455,6 +8628,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Networks::add_peering",
             self.inner.add_peering(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_request_remove_peering(
+        &self,
+        req: crate::model::networks::CancelRequestRemovePeeringRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Networks::cancel_request_remove_peering",
+            self.inner.cancel_request_remove_peering(req, options));
         pending.await
     }
 
@@ -16159,6 +16346,234 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ResourcePolicies::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [RolloutPlans](super::stub::RolloutPlans) decorator for logging and tracing.
+#[cfg(feature = "rollout-plans")]
+#[derive(Clone, Debug)]
+pub struct RolloutPlans<T>
+where
+    T: super::stub::RolloutPlans + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "rollout-plans")]
+impl<T> RolloutPlans<T>
+where
+    T: super::stub::RolloutPlans + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl<T> super::stub::RolloutPlans for RolloutPlans<T>
+where
+    T: super::stub::RolloutPlans + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete(
+        &self,
+        req: crate::model::rollout_plans::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RolloutPlans::delete",
+            self.inner.delete(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::rollout_plans::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RolloutPlan>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RolloutPlans::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn insert(
+        &self,
+        req: crate::model::rollout_plans::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RolloutPlans::insert",
+            self.inner.insert(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::rollout_plans::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RolloutPlansListResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RolloutPlans::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RolloutPlans::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [Rollouts](super::stub::Rollouts) decorator for logging and tracing.
+#[cfg(feature = "rollouts")]
+#[derive(Clone, Debug)]
+pub struct Rollouts<T>
+where
+    T: super::stub::Rollouts + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "rollouts")]
+impl<T> Rollouts<T>
+where
+    T: super::stub::Rollouts + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl<T> super::stub::Rollouts for Rollouts<T>
+where
+    T: super::stub::Rollouts + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel(
+        &self,
+        req: crate::model::rollouts::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::cancel",
+            self.inner.cancel(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete(
+        &self,
+        req: crate::model::rollouts::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::delete",
+            self.inner.delete(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::rollouts::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Rollout>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::rollouts::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RolloutsListResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::get_operation",
             self.inner.get_operation(req, options));
         pending.await
     }

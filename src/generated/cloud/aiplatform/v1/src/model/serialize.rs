@@ -36143,6 +36143,9 @@ impl serde::ser::Serialize for super::Tool {
         if self.enterprise_web_search.is_some() {
             state.serialize_entry("enterpriseWebSearch", &self.enterprise_web_search)?;
         }
+        if self.parallel_ai_search.is_some() {
+            state.serialize_entry("parallelAiSearch", &self.parallel_ai_search)?;
+        }
         if self.code_execution.is_some() {
             state.serialize_entry("codeExecution", &self.code_execution)?;
         }
@@ -36182,6 +36185,37 @@ impl serde::ser::Serialize for super::tool::GoogleSearch {
         }
         if self.blocking_confidence.is_some() {
             state.serialize_entry("blockingConfidence", &self.blocking_confidence)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "gen-ai-cache-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::ParallelAiSearch {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.api_key.is_empty() {
+            state.serialize_entry("apiKey", &self.api_key)?;
+        }
+        if self.custom_configs.is_some() {
+            state.serialize_entry("customConfigs", &self.custom_configs)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

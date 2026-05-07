@@ -59,6 +59,7 @@ pub struct Notification {
 }
 
 impl Notification {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -205,6 +206,7 @@ pub struct Text {
 }
 
 impl Text {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -269,6 +271,7 @@ pub struct Subject {
 }
 
 impl Subject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -333,6 +336,7 @@ pub struct Message {
 }
 
 impl Message {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -481,6 +485,7 @@ pub mod message {
     }
 
     impl Body {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -540,6 +545,7 @@ pub struct Attachment {
 }
 
 impl Attachment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -645,6 +651,7 @@ pub struct Csv {
 }
 
 impl Csv {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -712,6 +719,7 @@ pub mod csv {
     }
 
     impl CsvRow {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -776,6 +784,7 @@ pub struct ListNotificationsRequest {
 }
 
 impl ListNotificationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -867,6 +876,7 @@ pub struct ListNotificationsResponse {
 }
 
 impl ListNotificationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -959,6 +969,7 @@ pub struct GetNotificationRequest {
 }
 
 impl GetNotificationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1020,6 +1031,7 @@ pub struct Settings {
 }
 
 impl Settings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1088,6 +1100,7 @@ pub struct NotificationSettings {
 }
 
 impl NotificationSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1125,6 +1138,7 @@ pub struct GetSettingsRequest {
 }
 
 impl GetSettingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1159,6 +1173,7 @@ pub struct UpdateSettingsRequest {
 }
 
 impl UpdateSettingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

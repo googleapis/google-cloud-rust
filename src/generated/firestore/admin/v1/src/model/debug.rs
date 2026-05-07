@@ -718,6 +718,7 @@ impl std::fmt::Debug for super::Index {
         debug_struct.field("multikey", &self.multikey);
         debug_struct.field("shard_count", &self.shard_count);
         debug_struct.field("unique", &self.unique);
+        debug_struct.field("search_index_options", &self.search_index_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -752,6 +753,70 @@ impl std::fmt::Debug for super::index::index_field::VectorConfig {
 impl std::fmt::Debug for super::index::index_field::vector_config::FlatIndex {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FlatIndex");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::index::index_field::SearchConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchConfig");
+        debug_struct.field("text_spec", &self.text_spec);
+        debug_struct.field("geo_spec", &self.geo_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::index::index_field::search_config::SearchTextIndexSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchTextIndexSpec");
+        debug_struct.field("index_type", &self.index_type);
+        debug_struct.field("match_type", &self.match_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::index::index_field::search_config::SearchTextSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchTextSpec");
+        debug_struct.field("index_specs", &self.index_specs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::index::index_field::search_config::SearchGeoSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchGeoSpec");
+        debug_struct.field(
+            "geo_json_indexing_disabled",
+            &self.geo_json_indexing_disabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::index::SearchIndexOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchIndexOptions");
+        debug_struct.field("text_language", &self.text_language);
+        debug_struct.field(
+            "text_language_override_field_path",
+            &self.text_language_override_field_path,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

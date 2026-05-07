@@ -14,8 +14,9 @@
 
 use crate::client::{get_database_id, get_emulator_host};
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
-use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement};
-use google_cloud_spanner::model::execute_sql_request::QueryOptions;
+use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement, TypeCode};
+use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
+use google_cloud_spanner::model::result_set_stats::RowCount;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
@@ -560,6 +561,86 @@ pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()
     let row = rs.next().await.transpose()?.expect("should yield a row");
     let val: i64 = row.get(0);
     assert_eq!(val, 1);
+
+    Ok(())
+}
+
+pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let rot = db_client.single_use().build();
+
+    let sql = "SELECT 1 as num";
+    let stmt = Statement::builder(sql)
+        .with_query_mode(QueryMode::Plan)
+        .build();
+
+    let mut rs = rot.execute_query(stmt).await?;
+    let next = rs.next().await.transpose()?;
+    assert!(next.is_none());
+
+    let metadata = rs.metadata()?;
+    assert_eq!(metadata.column_names(), &["num".to_string()]);
+
+    let stats = rs.stats();
+    assert!(stats.is_none());
+
+    Ok(())
+}
+
+pub async fn query_profile(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    if get_emulator_host().is_some() {
+        println!("Skipping query_profile test on emulator");
+        return Ok(());
+    }
+    let rot = db_client.single_use().build();
+
+    let sql = "SELECT 1 as num";
+    let stmt = Statement::builder(sql)
+        .with_query_mode(QueryMode::Profile)
+        .build();
+
+    let mut rs = rot.execute_query(stmt).await?;
+    let mut rows = Vec::new();
+    while let Some(row) = rs.next().await {
+        rows.push(row?);
+    }
+    assert_eq!(rows.len(), 1);
+
+    let stats = rs.stats().expect("Expected stats in PROFILE mode");
+    assert!(stats.query_plan.is_some());
+    assert!(stats.query_stats.is_some());
+
+    Ok(())
+}
+
+pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let runner = db_client.read_write_transaction().build().await?;
+
+    runner
+        .run(async |tx| {
+            let sql = "UPDATE AllTypes SET ColBool = TRUE WHERE Id = @id";
+            let stmt = Statement::builder(sql)
+                .with_query_mode(QueryMode::Plan)
+                .build();
+
+            let mut rs = tx.execute_query(stmt).await?;
+            let next = rs.next().await.transpose()?;
+            assert!(next.is_none());
+
+            let metadata = rs.metadata().expect("metadata should be available");
+            assert!(metadata.column_names().is_empty());
+
+            // Verify undeclared parameters
+            let undeclared = metadata.undeclared_parameters();
+            assert_eq!(undeclared.len(), 1);
+            let param_type = undeclared.get("id").expect("missing param 'id'");
+            assert_eq!(param_type.code(), TypeCode::String);
+
+            let stats = rs.stats().expect("Expected stats in PLAN mode for DML");
+            assert_eq!(stats.row_count, Some(RowCount::RowCountExact(0)));
+
+            Ok(())
+        })
+        .await?;
 
     Ok(())
 }

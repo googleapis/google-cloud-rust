@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-functions-v2"
-version                = "1.9.0"
+version                = "1.10.0"
 description            = "Google Cloud Client Libraries for Rust - Cloud Functions API"
 edition.workspace      = true
 authors.workspace      = true
@@ -55,3 +55,6 @@ serde_json.workspace               = true
 serde_with.workspace               = true
 tracing.workspace                  = true
 wkt.workspace                      = true
+
+[dev-dependencies]
+anyhow.workspace = true

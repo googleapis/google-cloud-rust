@@ -28,8 +28,11 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 pub mod anonymous;
 pub mod api_key_credentials;
+pub(crate) mod crypto_provider;
 pub mod external_account;
 pub(crate) mod external_account_sources;
+#[cfg(feature = "__gdch")]
+pub(crate) mod gdch;
 #[cfg(feature = "idtoken")]
 pub mod idtoken;
 pub mod impersonated;
@@ -556,10 +559,19 @@ impl Builder {
 
     /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// The universe domain is the default service domain for a given Cloud universe.
+    /// If not set, the default will be used.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// # fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -659,8 +671,8 @@ impl Builder {
 
 #[derive(Debug, PartialEq)]
 enum AdcPath {
-    FromEnv(String),
-    WellKnown(String),
+    FromEnv(std::path::PathBuf),
+    WellKnown(std::path::PathBuf),
 }
 
 #[derive(Debug, PartialEq)]
@@ -832,9 +844,10 @@ fn build_signer(
     }
 }
 
-fn path_not_found(path: String) -> BuilderError {
+fn path_not_found(path: std::path::PathBuf) -> BuilderError {
     BuilderError::loading(format!(
-        "{path}. {}",
+        "{}. {}",
+        path.display(),
         concat!(
             "This file name was found in the `GOOGLE_APPLICATION_CREDENTIALS` ",
             "environment variable. Verify this environment variable points to ",
@@ -851,7 +864,7 @@ fn load_adc() -> BuildResult<AdcContents> {
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
             Err(e) => Err(BuilderError::loading(e)),
         },
-        Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
+        Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
             Err(e) => Err(BuilderError::loading(e)),
@@ -863,8 +876,8 @@ fn load_adc() -> BuildResult<AdcContents> {
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 fn adc_path() -> Option<AdcPath> {
-    if let Ok(path) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
-        return Some(AdcPath::FromEnv(path));
+    if let Some(path) = std::env::var_os("GOOGLE_APPLICATION_CREDENTIALS") {
+        return Some(AdcPath::FromEnv(std::path::PathBuf::from(path)));
     }
     Some(AdcPath::WellKnown(adc_well_known_path()?))
 }
@@ -873,20 +886,20 @@ fn adc_path() -> Option<AdcPath> {
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(target_os = "windows")]
-fn adc_well_known_path() -> Option<String> {
-    std::env::var("APPDATA")
-        .ok()
-        .map(|root| root + "/gcloud/application_default_credentials.json")
+fn adc_well_known_path() -> Option<std::path::PathBuf> {
+    std::env::var_os("APPDATA").map(|root| {
+        std::path::PathBuf::from(root).join("gcloud/application_default_credentials.json")
+    })
 }
 
 /// The well-known path to ADC on Linux and Mac, as specified in [AIP-4113].
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(not(target_os = "windows"))]
-fn adc_well_known_path() -> Option<String> {
-    std::env::var("HOME")
-        .ok()
-        .map(|root| root + "/.config/gcloud/application_default_credentials.json")
+fn adc_well_known_path() -> Option<std::path::PathBuf> {
+    std::env::var_os("HOME").map(|root| {
+        std::path::PathBuf::from(root).join(".config/gcloud/application_default_credentials.json")
+    })
 }
 
 /// A module providing invalid credentials where authentication does not matter.
@@ -1001,6 +1014,21 @@ pub(crate) mod tests {
         }
     }
 
+    // Used by tests in other modules.
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Credentials {}
+
+        impl crate::credentials::CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: http::Extensions) -> std::result::Result<crate::credentials::CacheableResource<http::HeaderMap>, crate::errors::CredentialsError>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+
+        impl crate::credentials::AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> std::result::Result<crate::credentials::AccessToken, crate::errors::CredentialsError>;
+        }
+    }
+
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {
@@ -1101,7 +1129,7 @@ pub(crate) mod tests {
             .expect("Failed to create RsaPrivateKey from primes")
     });
 
-    #[cfg(feature = "idtoken")]
+    #[cfg(any(feature = "idtoken", feature = "__gdch"))]
     pub static ES256_PRIVATE_KEY: LazyLock<p256::SecretKey> = LazyLock::new(|| {
         let secret_key_bytes = [
             0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
@@ -1109,6 +1137,14 @@ pub(crate) mod tests {
             0x26, 0x6c, 0x75, 0xdf,
         ];
         p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
+    });
+
+    #[cfg(feature = "__gdch")]
+    pub static ES256_PEM: LazyLock<String> = LazyLock::new(|| {
+        (*ES256_PRIVATE_KEY)
+            .to_sec1_pem(LineEnding::LF)
+            .expect("Failed to encode EC key to PEM")
+            .to_string()
     });
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
@@ -1136,13 +1172,15 @@ pub(crate) mod tests {
         let _appdata = ScopedEnv::set("APPDATA", "C:/Users/foo");
         assert_eq!(
             adc_well_known_path(),
-            Some("C:/Users/foo/gcloud/application_default_credentials.json".to_string())
+            Some(std::path::PathBuf::from(
+                "C:/Users/foo/gcloud/application_default_credentials.json"
+            ))
         );
         assert_eq!(
             adc_path(),
-            Some(AdcPath::WellKnown(
-                "C:/Users/foo/gcloud/application_default_credentials.json".to_string()
-            ))
+            Some(AdcPath::WellKnown(std::path::PathBuf::from(
+                "C:/Users/foo/gcloud/application_default_credentials.json"
+            )))
         );
     }
 
@@ -1164,13 +1202,15 @@ pub(crate) mod tests {
         let _home = ScopedEnv::set("HOME", "/home/foo");
         assert_eq!(
             adc_well_known_path(),
-            Some("/home/foo/.config/gcloud/application_default_credentials.json".to_string())
+            Some(std::path::PathBuf::from(
+                "/home/foo/.config/gcloud/application_default_credentials.json"
+            ))
         );
         assert_eq!(
             adc_path(),
-            Some(AdcPath::WellKnown(
-                "/home/foo/.config/gcloud/application_default_credentials.json".to_string()
-            ))
+            Some(AdcPath::WellKnown(std::path::PathBuf::from(
+                "/home/foo/.config/gcloud/application_default_credentials.json"
+            )))
         );
     }
 
@@ -1193,10 +1233,119 @@ pub(crate) mod tests {
         );
         assert_eq!(
             adc_path(),
-            Some(AdcPath::FromEnv(
-                "/usr/bar/application_default_credentials.json".to_string()
-            ))
+            Some(AdcPath::FromEnv(std::path::PathBuf::from(
+                "/usr/bar/application_default_credentials.json"
+            )))
         );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    #[serial_test::serial]
+    fn adc_path_from_env_non_utf8() {
+        use std::os::unix::ffi::OsStringExt;
+        let non_utf8_bytes = vec![
+            b'/', b'u', b's', b'r', b'/', b'b', b'a', b'r', b'/', 0xff, b'.', b'j', b's', b'o',
+            b'n',
+        ];
+        let non_utf8_os_str = std::ffi::OsString::from_vec(non_utf8_bytes);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf8_os_str.as_os_str(),
+        );
+
+        assert_eq!(
+            adc_path(),
+            Some(AdcPath::FromEnv(std::path::PathBuf::from(
+                non_utf8_os_str.clone()
+            )))
+        );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_file_at_env_is_error_non_utf8() {
+        use std::os::unix::ffi::OsStringExt;
+        let non_utf8_bytes = vec![
+            b'f', b'i', b'l', b'e', b'-', 0xff, b'.', b'j', b's', b'o', b'n',
+        ];
+        let non_utf8_os_str = std::ffi::OsString::from_vec(non_utf8_bytes);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf8_os_str.as_os_str(),
+        );
+
+        let err = load_adc().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = format!("{err:?}");
+        assert!(msg.contains("file-"), "{err:?}");
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    #[serial_test::serial]
+    fn adc_path_from_env_non_utf16() {
+        use std::os::windows::ffi::OsStringExt;
+        let non_utf16_wide = vec![
+            b'C' as u16,
+            b':' as u16,
+            b'/' as u16,
+            0xD800,
+            b'.' as u16,
+            b'j' as u16,
+            b's' as u16,
+            b'o' as u16,
+            b'n' as u16,
+        ];
+        let non_utf16_os_str = std::ffi::OsString::from_wide(&non_utf16_wide);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf16_os_str.as_os_str(),
+        );
+
+        assert_eq!(
+            adc_path(),
+            Some(AdcPath::FromEnv(std::path::PathBuf::from(
+                non_utf16_os_str.clone()
+            )))
+        );
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_file_at_env_is_error_non_utf16() {
+        use std::os::windows::ffi::OsStringExt;
+        let non_utf16_wide = vec![
+            b'f' as u16,
+            b'i' as u16,
+            b'l' as u16,
+            b'e' as u16,
+            b'-' as u16,
+            0xD800,
+            b'.' as u16,
+            b'j' as u16,
+            b's' as u16,
+            b'o' as u16,
+            b'n' as u16,
+        ];
+        let non_utf16_os_str = std::ffi::OsString::from_wide(&non_utf16_wide);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf16_os_str.as_os_str(),
+        );
+
+        let err = load_adc().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = format!("{err:?}");
+        assert!(msg.contains("file-"), "{err:?}");
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
     }
 
     #[test]

@@ -90,18 +90,6 @@ impl AccessBoundary {
         let (_, rx_header) = watch::channel((None, EntityTag::new()));
         Self { rx_header }
     }
-
-    #[cfg(test)]
-    // only used for testing
-    pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
-    where
-        T: AccessBoundaryProvider + 'static,
-    {
-        let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
-        tokio::spawn(refresh_task(provider, tx_header));
-        Self { rx_header }
-    }
-
     fn is_enabled() -> bool {
         #[cfg(google_cloud_unstable_trusted_boundaries)]
         {
@@ -111,12 +99,6 @@ impl AccessBoundary {
         {
             false
         }
-    }
-
-    #[cfg(test)]
-    fn header_value(&self) -> Option<String> {
-        let (val, _) = self.latest_header_value_and_entity_tag();
-        val
     }
 
     fn latest_header_value_and_entity_tag(&self) -> (Option<String>, EntityTag) {
@@ -412,7 +394,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         let universe_domain = self.credentials.universe_domain().await;
-        if !is_default_universe_domain(universe_domain) {
+        if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
         match self.url.as_ref() {
@@ -444,7 +426,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         let universe_domain = self.credentials.universe_domain().await;
-        if !is_default_universe_domain(universe_domain) {
+        if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
 
@@ -655,8 +637,10 @@ pub(crate) fn external_account_lookup_url(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
-    use crate::credentials::{AccessToken, EntityTag};
+    use crate::credentials::EntityTag;
+    use crate::credentials::tests::{
+        MockCredentials, get_access_boundary_from_headers, get_token_from_headers,
+    };
     use crate::errors::CredentialsError;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use http::header::{AUTHORIZATION, HeaderValue};
@@ -671,26 +655,27 @@ pub(crate) mod tests {
     // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-
-        impl AccessTokenCredentialsProvider for Credentials {
-            async fn access_token(&self) -> Result<AccessToken>;
-        }
-    }
-
-    // Used by tests in other modules.
-    mockall::mock! {
-        #[derive(Debug)]
         pub AccessBoundaryProvider { }
 
         #[async_trait::async_trait]
         impl AccessBoundaryProvider for AccessBoundaryProvider {
             async fn fetch_access_boundary(&self) -> Result<Option<String>>;
+        }
+    }
+
+    impl AccessBoundary {
+        fn new_with_mock_provider<T>(provider: T) -> Self
+        where
+            T: AccessBoundaryProvider + 'static,
+        {
+            let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
+            tokio::spawn(refresh_task(provider, tx_header));
+            Self { rx_header }
+        }
+
+        fn header_value(&self) -> Option<String> {
+            let (val, _) = self.latest_header_value_and_entity_tag();
+            val
         }
     }
 

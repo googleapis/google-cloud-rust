@@ -187,9 +187,20 @@ impl Builder {
 
     /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// The universe domain is the default service domain for a given Cloud universe.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -272,18 +283,6 @@ impl Builder {
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
-        self
-    }
-
-    #[cfg(test)]
-    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
-        self.iam_endpoint_override = iam_endpoint_override;
-        self
-    }
-
-    #[cfg(test)]
-    fn without_access_boundary(mut self) -> Self {
-        self.is_access_boundary_enabled = false;
         self
     }
 
@@ -560,6 +559,18 @@ mod tests {
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
+
+    impl Builder {
+        fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+            self.iam_endpoint_override = iam_endpoint_override;
+            self
+        }
+
+        fn without_access_boundary(mut self) -> Self {
+            self.is_access_boundary_enabled = false;
+            self
+        }
+    }
 
     #[tokio::test]
     #[parallel]

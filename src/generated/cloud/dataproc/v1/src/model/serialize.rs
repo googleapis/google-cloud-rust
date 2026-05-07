@@ -546,6 +546,9 @@ impl serde::ser::Serialize for super::Batch {
         if let Some(value) = self.spark_sql_batch() {
             state.serialize_entry("sparkSqlBatch", value)?;
         }
+        if let Some(value) = self.pyspark_notebook_batch() {
+            state.serialize_entry("pysparkNotebookBatch", value)?;
+        }
         if self.runtime_info.is_some() {
             state.serialize_entry("runtimeInfo", &self.runtime_info)?;
         }
@@ -736,6 +739,43 @@ impl serde::ser::Serialize for super::SparkSqlBatch {
         }
         if !self.jar_file_uris.is_empty() {
             state.serialize_entry("jarFileUris", &self.jar_file_uris)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PySparkNotebookBatch {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.notebook_file_uri.is_empty() {
+            state.serialize_entry("notebookFileUri", &self.notebook_file_uri)?;
+        }
+        if !self.params.is_empty() {
+            state.serialize_entry("params", &self.params)?;
+        }
+        if !self.python_file_uris.is_empty() {
+            state.serialize_entry("pythonFileUris", &self.python_file_uris)?;
+        }
+        if !self.jar_file_uris.is_empty() {
+            state.serialize_entry("jarFileUris", &self.jar_file_uris)?;
+        }
+        if !self.file_uris.is_empty() {
+            state.serialize_entry("fileUris", &self.file_uris)?;
+        }
+        if !self.archive_uris.is_empty() {
+            state.serialize_entry("archiveUris", &self.archive_uris)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

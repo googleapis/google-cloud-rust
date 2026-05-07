@@ -149,7 +149,7 @@ pub(crate) enum BuilderSource {
 /// ```
 pub struct Builder {
     source: BuilderSource,
-    service_account_impersonation_url: Option<String>,
+    service_account_impersonation_url: Option<ImpersonationUrl>,
     delegates: Option<Vec<String>>,
     scopes: Option<Vec<String>>,
     quota_project_id: Option<String>,
@@ -158,6 +158,82 @@ pub struct Builder {
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
     is_access_boundary_enabled: bool,
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct ImpersonationUrl {
+    // optional endpoint override for testing
+    pub(crate) endpoint: Option<String>,
+    kind: ImpersonationUrlKind,
+}
+
+#[derive(Debug, Clone)]
+pub(crate) enum ImpersonationUrlKind {
+    TargetPrincipal(String),
+    Exact(String),
+}
+
+impl ImpersonationUrl {
+    pub(crate) fn exact(url: String) -> Self {
+        Self {
+            endpoint: None,
+            kind: ImpersonationUrlKind::Exact(url),
+        }
+    }
+
+    pub(crate) fn target_principal(principal: String) -> Self {
+        Self {
+            endpoint: None,
+            kind: ImpersonationUrlKind::TargetPrincipal(principal),
+        }
+    }
+
+    pub(crate) async fn access_token_url(&self, creds: &Credentials) -> String {
+        match &self.kind {
+            ImpersonationUrlKind::TargetPrincipal(principal) => {
+                self.impersonation_url_for_method(creds, principal, "generateAccessToken")
+                    .await
+            }
+            ImpersonationUrlKind::Exact(url) => url.clone(),
+        }
+    }
+
+    #[cfg(feature = "idtoken")]
+    pub(crate) async fn id_token_url(&self, creds: &Credentials) -> String {
+        match &self.kind {
+            ImpersonationUrlKind::TargetPrincipal(principal) => {
+                self.impersonation_url_for_method(creds, principal, "generateIdToken")
+                    .await
+            }
+            ImpersonationUrlKind::Exact(url) => {
+                url.replace("generateAccessToken", "generateIdToken")
+            }
+        }
+    }
+
+    async fn impersonation_url_for_method(
+        &self,
+        creds: &Credentials,
+        principal: &str,
+        method: &str,
+    ) -> String {
+        let universe_domain = crate::universe_domain::resolve(creds).await;
+        let endpoint = match &self.endpoint {
+            Some(endpoint) => endpoint.to_string(),
+            None => format!("https://iamcredentials.{}", universe_domain),
+        };
+        format!(
+            "{}/v1/projects/-/serviceAccounts/{}:{}",
+            endpoint, principal, method
+        )
+    }
+
+    pub(crate) fn client_email(self) -> BuildResult<String> {
+        match self.kind {
+            ImpersonationUrlKind::TargetPrincipal(client_email) => Ok(client_email),
+            ImpersonationUrlKind::Exact(url) => extract_client_email(&url),
+        }
+    }
 }
 
 impl Builder {
@@ -231,10 +307,8 @@ impl Builder {
     /// # Ok(()) }
     /// ```
     pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
-        self.service_account_impersonation_url = Some(format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken",
-            target_principal.into()
-        ));
+        self.service_account_impersonation_url =
+            Some(ImpersonationUrl::target_principal(target_principal.into()));
         self
     }
 
@@ -324,10 +398,26 @@ impl Builder {
 
     /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// The universe domain is the default service domain for a given Cloud universe.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
+    /// # use serde_json::json;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let config = json!({
+    /// #     "type": "impersonated_service_account",
+    /// #     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+    /// #     "source_credentials": { "type": "authorized_user", "client_id": "id", "client_secret": "secret", "refresh_token": "token" }
+    /// # });
+    /// let credentials = Builder::new(config)
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -443,18 +533,6 @@ impl Builder {
         Ok(self.build_credentials()?.into())
     }
 
-    #[cfg(test)]
-    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
-        self.iam_endpoint_override = iam_endpoint_override;
-        self
-    }
-
-    #[cfg(test)]
-    fn without_access_boundary(mut self) -> Self {
-        self.is_access_boundary_enabled = false;
-        self
-    }
-
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Example
@@ -503,8 +581,8 @@ impl Builder {
         self,
     ) -> BuildResult<CredentialsWithAccessBoundary<ImpersonatedServiceAccount<TokenCache>>> {
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
-        let service_account_impersonation_url = self.resolve_impersonation_url()?;
-        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let impersonation_url = self.resolve_impersonation_url()?;
+        let client_email = impersonation_url.client_email()?;
         let iam_endpoint_override = self.iam_endpoint_override.clone();
         let universe_domain_override = self.universe_domain.clone();
         let (token_provider, quota_project_id, source_credentials) = self.build_components()?;
@@ -571,8 +649,8 @@ impl Builder {
                 return Ok(signer);
             }
         }
-        let service_account_impersonation_url = self.resolve_impersonation_url()?;
-        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let impersonation_url = self.resolve_impersonation_url()?;
+        let client_email = impersonation_url.client_email()?;
         let creds = self.build()?;
         let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint);
         Ok(crate::signer::Signer {
@@ -617,11 +695,11 @@ impl Builder {
         Ok((token_provider, quota_project_id, source_credentials))
     }
 
-    fn resolve_impersonation_url(&self) -> BuildResult<String> {
+    fn resolve_impersonation_url(&self) -> BuildResult<ImpersonationUrl> {
         match self.source.clone() {
             BuilderSource::FromJson(json) => {
                 let config = config_from_json(json)?;
-                Ok(config.service_account_impersonation_url)
+                Ok(ImpersonationUrl::exact(config.service_account_impersonation_url))
             }
             BuilderSource::FromCredentials(_) => {
                 self.service_account_impersonation_url.clone().ok_or_else(|| {
@@ -636,7 +714,7 @@ impl Builder {
 
 pub(crate) struct ImpersonatedCredentialComponents {
     pub(crate) source_credentials: Credentials,
-    pub(crate) service_account_impersonation_url: String,
+    pub(crate) service_account_impersonation_url: ImpersonationUrl,
     pub(crate) delegates: Option<Vec<String>>,
     pub(crate) quota_project_id: Option<String>,
     pub(crate) scopes: Option<Vec<String>>,
@@ -669,7 +747,9 @@ pub(crate) fn build_components_from_json(
 
     Ok(ImpersonatedCredentialComponents {
         source_credentials,
-        service_account_impersonation_url: config.service_account_impersonation_url,
+        service_account_impersonation_url: ImpersonationUrl::exact(
+            config.service_account_impersonation_url,
+        ),
         delegates: config.delegates,
         quota_project_id: config.quota_project_id,
         scopes: config.scopes,
@@ -715,11 +795,11 @@ fn extract_client_email(service_account_impersonation_url: &str) -> BuildResult<
 
 pub(crate) fn build_components_from_credentials(
     source_credentials: Credentials,
-    service_account_impersonation_url: Option<String>,
+    impersonation_url: Option<ImpersonationUrl>,
 ) -> BuildResult<ImpersonatedCredentialComponents> {
-    let url = service_account_impersonation_url.ok_or_else(|| {
+    let url = impersonation_url.ok_or_else(|| {
         BuilderError::parsing(
-            "`service_account_impersonation_url` is required when building from source credentials",
+            "`target_principal` is required when building from source credentials",
         )
     })?;
     Ok(ImpersonatedCredentialComponents {
@@ -786,7 +866,7 @@ where
 
 struct ImpersonatedTokenProvider {
     source_credentials: Credentials,
-    service_account_impersonation_url: String,
+    service_account_impersonation_url: ImpersonationUrl,
     delegates: Option<Vec<String>>,
     scopes: Vec<String>,
     lifetime: Duration,
@@ -883,12 +963,23 @@ impl TokenProvider for ImpersonatedTokenProvider {
                 unreachable!("requested source credentials without a caching etag")
             }
         };
+
+        // We resolve the URL on every token call because fetching the universe domain
+        // is async and must be done here rather than in the builder.
+        // Since `token()` takes `&self`, we cannot mutate `self` to cache the URL
+        // without using a lock for inner mutability, which is worse than just
+        // building the URL string for each request.
+        let url = self
+            .service_account_impersonation_url
+            .access_token_url(&self.source_credentials)
+            .await;
+
         generate_access_token(
             source_headers,
             self.delegates.clone(),
             self.scopes.clone(),
             self.lifetime,
-            &self.service_account_impersonation_url,
+            &url,
         )
         .await
     }
@@ -906,6 +997,7 @@ struct GenerateAccessTokenResponse {
 mod tests {
     use super::*;
     use crate::credentials::service_account::ServiceAccountKey;
+    use crate::credentials::tests::MockCredentials;
     use crate::credentials::tests::PKCS8_PK;
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
@@ -922,6 +1014,32 @@ mod tests {
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
+
+    impl Builder {
+        fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+            self.iam_endpoint_override = iam_endpoint_override;
+            self
+        }
+
+        fn without_access_boundary(mut self) -> Self {
+            self.is_access_boundary_enabled = false;
+            self
+        }
+
+        fn with_impersonation_endpoint(mut self, endpoint: &str) -> Self {
+            self.service_account_impersonation_url = self
+                .service_account_impersonation_url
+                .map(|u| u.with_endpoint(endpoint));
+            self
+        }
+    }
+
+    impl ImpersonationUrl {
+        pub(crate) fn with_endpoint(mut self, endpoint: &str) -> Self {
+            self.endpoint = Some(endpoint.to_string());
+            self
+        }
+    }
 
     #[tokio::test]
     #[parallel]
@@ -1312,7 +1430,9 @@ mod tests {
 
         let expected = ImpersonatedTokenProvider {
             source_credentials,
-            service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
+            service_account_impersonation_url: ImpersonationUrl::exact(
+                "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
+            ),
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: Duration::from_secs(3600),
@@ -1382,26 +1502,16 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_impersonated_service_account_source_fail() -> TestResult {
-        #[derive(Debug)]
-        struct MockSourceCredentialsFail;
-
-        #[async_trait]
-        impl CredentialsProvider for MockSourceCredentialsFail {
-            async fn headers(
-                &self,
-                _extensions: Extensions,
-            ) -> Result<CacheableResource<HeaderMap>> {
-                Err(errors::non_retryable_from_str("source failed"))
-            }
-        }
-
-        let source_credentials = Credentials {
-            inner: Arc::new(MockSourceCredentialsFail),
-        };
+        let mut mock = MockCredentials::new();
+        mock.expect_headers()
+            .returning(|_| Err(errors::non_retryable_from_str("source failed")));
+        let source_credentials = Credentials::from(mock);
 
         let token_provider = ImpersonatedTokenProvider {
             source_credentials,
-            service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
+            service_account_impersonation_url: ImpersonationUrl::exact(
+                "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
+            ),
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: DEFAULT_LIFETIME,
@@ -1775,13 +1885,19 @@ mod tests {
         .build()
         .unwrap();
 
-        let (token_provider, _, _) = Builder::from_source_credentials(source_credentials)
+        let (token_provider, _, _) = Builder::from_source_credentials(source_credentials.clone())
             .with_target_principal("test-principal@example.iam.gserviceaccount.com")
             .build_components()
             .unwrap();
 
+        let url = token_provider
+            .inner
+            .service_account_impersonation_url
+            .access_token_url(&source_credentials)
+            .await;
+
         assert_eq!(
-            token_provider.inner.service_account_impersonation_url,
+            url,
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
         );
     }
@@ -1844,7 +1960,7 @@ mod tests {
         let creds = builder.build()?;
         let universe_domain = creds.universe_domain().await;
 
-        assert!(is_default_universe_domain(universe_domain.clone()));
+        assert!(is_default_universe_domain(universe_domain.as_deref()));
 
         Ok(())
     }
@@ -2315,9 +2431,9 @@ mod tests {
                 "signedBlob": BASE64_STANDARD.encode("signed_blob"),
             }))),
         );
-        let impersonation_url = server
-            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
-            .to_string();
+
+        let endpoint = server.url("/").to_string();
+        let endpoint = endpoint.trim_end_matches('/');
 
         // Test builder from source credentials
         let user_credential = json!({
@@ -2329,10 +2445,14 @@ mod tests {
         });
         let source_credential =
             crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
-        let mut builder_from_source = Builder::from_source_credentials(source_credential)
-            .with_target_principal("test-principal");
-        builder_from_source.service_account_impersonation_url = Some(impersonation_url.clone());
 
+        let builder_from_source = Builder::from_source_credentials(source_credential)
+            .with_target_principal("test-principal")
+            .with_impersonation_endpoint(endpoint);
+
+        let impersonation_url = server
+            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+            .to_string();
         // Test builder from JSON
         let impersonated_credential = json!({
             "type": "impersonated_service_account",
@@ -2467,9 +2587,8 @@ mod tests {
                 "encodedLocations": "0x1234"
             }))),
         );
-        let impersonation_url = server
-            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
-            .to_string();
+        let endpoint = server.url("/").to_string();
+        let endpoint = endpoint.trim_end_matches('/');
 
         // Test builder from source credentials
         let user_credential = json!({
@@ -2481,9 +2600,9 @@ mod tests {
         });
         let source_credential =
             crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
-        let mut builder_from_source = Builder::from_source_credentials(source_credential)
-            .with_target_principal("test-principal");
-        builder_from_source.service_account_impersonation_url = Some(impersonation_url.clone());
+        let builder_from_source = Builder::from_source_credentials(source_credential)
+            .with_target_principal("test-principal")
+            .with_impersonation_endpoint(endpoint);
 
         // Test builder from JSON
         let impersonated_credential = json!({
@@ -2513,6 +2632,133 @@ mod tests {
             );
         }
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_impersonated_access_token_custom_universe_domain() -> TestResult {
+        let server = Server::run();
+        let universe_domain = "my-custom-universe.com".to_string();
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-user-account-token"
+                ))),
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let universe_domain_clone = universe_domain.clone();
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(move || Some(universe_domain_clone.clone()));
+        mock.expect_headers().returning(move |_| {
+            let mut headers = HeaderMap::new();
+            headers.insert(
+                "authorization",
+                "Bearer test-user-account-token".parse().unwrap(),
+            );
+            Ok(CacheableResource::New {
+                entity_tag: Default::default(),
+                data: headers,
+            })
+        });
+        let source_credentials = Credentials::from(mock);
+
+        let builder = Builder::from_source_credentials(source_credentials.clone())
+            .with_target_principal("test-principal");
+
+        // resolve url with universe domain
+        let url = builder
+            .service_account_impersonation_url
+            .as_ref()
+            .expect("url should be set from the with_target_principal call")
+            .access_token_url(&source_credentials)
+            .await;
+
+        assert_eq!(
+            url,
+            format!(
+                "https://iamcredentials.{universe_domain}/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+            )
+        );
+
+        let endpoint = server.url("").to_string();
+        let endpoint = endpoint.trim_end_matches('/');
+
+        let creds = builder
+            .with_impersonation_endpoint(endpoint)
+            .build_access_token_credentials()?;
+
+        let token = creds.access_token().await?;
+        assert_eq!(token.token, "test-impersonated-token");
+
+        Ok(())
+    }
+
+    #[test_case(ImpersonationUrlKind::TargetPrincipal("test@example.com".to_string()), "test@example.com" ; "target principal")]
+    #[test_case(ImpersonationUrlKind::Exact("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test@example.com:generateAccessToken".to_string()), "test@example.com" ; "exact url")]
+    fn impersonation_url_client_email(kind: ImpersonationUrlKind, expected: &str) {
+        let impersonation_url = ImpersonationUrl {
+            endpoint: None,
+            kind,
+        };
+        assert_eq!(impersonation_url.client_email().unwrap(), expected);
+    }
+
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal default universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal custom universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()).with_endpoint("https://iam.example.com"), "googleapis.com", "https://iam.example.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal custom endpoint override")]
+    #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "googleapis.com", "https://iam.example.com/v1/user@example.com:generateAccessToken" ; "exact url")]
+    #[tokio::test]
+    async fn impersonation_url_access_token_url(
+        impersonation_url: ImpersonationUrl,
+        universe: &str,
+        expected_url: &str,
+    ) -> TestResult {
+        let source_creds = source_creds_with_universe_domain(universe);
+        let source_credentials = crate::credentials::service_account::Builder::new(source_creds)
+            .build()
+            .expect("Failed to build service account credentials");
+
+        let url = impersonation_url
+            .access_token_url(&source_credentials)
+            .await;
+        assert_eq!(url, expected_url);
+        Ok(())
+    }
+
+    #[cfg(feature = "idtoken")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal default universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal custom universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()).with_endpoint("https://iam.example.com"), "googleapis.com", "https://iam.example.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal custom endpoint override")]
+    #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "googleapis.com", "https://iam.example.com/v1/user@example.com:generateIdToken" ; "exact url id token")]
+    #[tokio::test]
+    async fn impersonation_url_id_token_url(
+        impersonation_url: ImpersonationUrl,
+        universe: &str,
+        expected_url: &str,
+    ) -> TestResult {
+        let source_creds = source_creds_with_universe_domain(universe);
+        let source_credentials = crate::credentials::service_account::Builder::new(source_creds)
+            .build()
+            .expect("Failed to build service account credentials");
+
+        let url = impersonation_url.id_token_url(&source_credentials).await;
+        assert_eq!(url, expected_url);
         Ok(())
     }
 }

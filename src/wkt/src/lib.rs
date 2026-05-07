@@ -19,6 +19,7 @@
 //! native or commonly used Rust types.
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![warn(missing_docs)]
 
 mod any;
 pub use crate::any::*;
@@ -32,6 +33,7 @@ pub use crate::field_mask::*;
 #[allow(deprecated)]
 mod generated;
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+#[allow(missing_docs)]
 pub mod internal;
 pub use crate::generated::*;
 mod timestamp;

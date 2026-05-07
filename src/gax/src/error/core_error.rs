@@ -26,7 +26,7 @@ type BoxError = Box<dyn StdError + Send + Sync>;
 /// necessary connection to make a request, the request may timeout before a
 /// response is received, the retry policy may be exhausted, or the library may
 /// be unable to format the request due to invalid or missing application
-/// application inputs.
+/// inputs.
 ///
 /// Most applications will just return the error or log it, without any further
 /// action. However, some applications may need to interrogate the error
