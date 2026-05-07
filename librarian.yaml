@@ -43,9 +43,6 @@ tools:
       version: 0.4.0
     - name: taplo-cli
       version: 0.10.0
-release:
-  ignored_changes:
-    - .repo-metadata.json
 default:
   output: src/generated/
   rust:
