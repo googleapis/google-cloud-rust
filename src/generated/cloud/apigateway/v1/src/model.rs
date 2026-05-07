@@ -79,7 +79,9 @@ impl Api {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::Api;
-    /// let x = Api::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// let x = Api::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -454,7 +456,10 @@ impl ApiConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ApiConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// # let api_config_id = "api_config_id";
+    /// let x = ApiConfig::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1094,7 +1099,10 @@ impl Gateway {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = Gateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1205,7 +1213,10 @@ impl Gateway {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_api_config("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// # let api_config_id = "api_config_id";
+    /// let x = Gateway::new().set_api_config(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"));
     /// ```
     pub fn set_api_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_config = v.into();
@@ -1620,7 +1631,10 @@ impl GetGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::GetGatewayRequest;
-    /// let x = GetGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = GetGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1840,7 +1854,10 @@ impl DeleteGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::DeleteGatewayRequest;
-    /// let x = DeleteGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = DeleteGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2066,7 +2083,9 @@ impl GetApiRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::GetApiRequest;
-    /// let x = GetApiRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// let x = GetApiRequest::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2286,7 +2305,9 @@ impl DeleteApiRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::DeleteApiRequest;
-    /// let x = DeleteApiRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// let x = DeleteApiRequest::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2334,7 +2355,9 @@ impl ListApiConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::ListApiConfigsRequest;
-    /// let x = ListApiConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// let x = ListApiConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/global/apis/{api_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2516,7 +2539,10 @@ impl GetApiConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::GetApiConfigRequest;
-    /// let x = GetApiConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// # let api_config_id = "api_config_id";
+    /// let x = GetApiConfigRequest::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2714,7 +2740,9 @@ impl CreateApiConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::CreateApiConfigRequest;
-    /// let x = CreateApiConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// let x = CreateApiConfigRequest::new().set_parent(format!("projects/{project_id}/locations/global/apis/{api_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2891,7 +2919,10 @@ impl DeleteApiConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apigateway_v1::model::DeleteApiConfigRequest;
-    /// let x = DeleteApiConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let api_id = "api_id";
+    /// # let api_config_id = "api_config_id";
+    /// let x = DeleteApiConfigRequest::new().set_name(format!("projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2928,8 +2959,6 @@ pub struct OperationMetadata {
     /// of the operation. Operations that have successfully been cancelled
     /// have [Operation.error][] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

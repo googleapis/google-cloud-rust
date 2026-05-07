@@ -86,7 +86,9 @@ impl ListMigrationJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ListMigrationJobsRequest;
-    /// let x = ListMigrationJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMigrationJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -264,7 +266,10 @@ impl GetMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GetMigrationJobRequest;
-    /// let x = GetMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = GetMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -317,7 +322,9 @@ impl CreateMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::CreateMigrationJobRequest;
-    /// let x = CreateMigrationJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMigrationJobRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -540,7 +547,10 @@ impl DeleteMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DeleteMigrationJobRequest;
-    /// let x = DeleteMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = DeleteMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -603,7 +613,10 @@ impl StartMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::StartMigrationJobRequest;
-    /// let x = StartMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = StartMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -650,7 +663,10 @@ impl StopMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::StopMigrationJobRequest;
-    /// let x = StopMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = StopMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -685,7 +701,10 @@ impl ResumeMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ResumeMigrationJobRequest;
-    /// let x = ResumeMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = ResumeMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -720,7 +739,10 @@ impl PromoteMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::PromoteMigrationJobRequest;
-    /// let x = PromoteMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = PromoteMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -763,7 +785,10 @@ impl VerifyMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::VerifyMigrationJobRequest;
-    /// let x = VerifyMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = VerifyMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -868,7 +893,10 @@ impl RestartMigrationJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::RestartMigrationJobRequest;
-    /// let x = RestartMigrationJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = RestartMigrationJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -924,7 +952,10 @@ impl GenerateSshScriptRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GenerateSshScriptRequest;
-    /// let x = GenerateSshScriptRequest::new().set_migration_job("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = GenerateSshScriptRequest::new().set_migration_job(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_migration_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migration_job = v.into();
@@ -1258,7 +1289,10 @@ impl GenerateTcpProxyScriptRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GenerateTcpProxyScriptRequest;
-    /// let x = GenerateTcpProxyScriptRequest::new().set_migration_job("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = GenerateTcpProxyScriptRequest::new().set_migration_job(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_migration_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migration_job = v.into();
@@ -1403,7 +1437,9 @@ impl ListConnectionProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConnectionProfilesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1581,7 +1617,10 @@ impl GetConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GetConnectionProfileRequest;
-    /// let x = GetConnectionProfileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = GetConnectionProfileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1641,7 +1680,9 @@ impl CreateConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConnectionProfileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1921,7 +1962,10 @@ impl DeleteConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DeleteConnectionProfileRequest;
-    /// let x = DeleteConnectionProfileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = DeleteConnectionProfileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1999,7 +2043,9 @@ impl CreatePrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePrivateConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2131,7 +2177,9 @@ impl ListPrivateConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPrivateConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2318,7 +2366,10 @@ impl DeletePrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DeletePrivateConnectionRequest;
-    /// let x = DeletePrivateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = DeletePrivateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2365,7 +2416,10 @@ impl GetPrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GetPrivateConnectionRequest;
-    /// let x = GetPrivateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = GetPrivateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2597,7 +2651,9 @@ impl ListConversionWorkspacesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ListConversionWorkspacesRequest;
-    /// let x = ListConversionWorkspacesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConversionWorkspacesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2763,7 +2819,10 @@ impl GetConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GetConversionWorkspaceRequest;
-    /// let x = GetConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = GetConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2814,7 +2873,9 @@ impl CreateConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::CreateConversionWorkspaceRequest;
-    /// let x = CreateConversionWorkspaceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConversionWorkspaceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3036,7 +3097,10 @@ impl DeleteConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DeleteConversionWorkspaceRequest;
-    /// let x = DeleteConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = DeleteConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3098,7 +3162,10 @@ impl CommitConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::CommitConversionWorkspaceRequest;
-    /// let x = CommitConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = CommitConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3145,7 +3212,10 @@ impl RollbackConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::RollbackConversionWorkspaceRequest;
-    /// let x = RollbackConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = RollbackConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3199,7 +3269,10 @@ impl ApplyConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ApplyConversionWorkspaceRequest;
-    /// let x = ApplyConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = ApplyConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3358,7 +3431,10 @@ impl ListMappingRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ListMappingRulesRequest;
-    /// let x = ListMappingRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = ListMappingRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3498,7 +3574,11 @@ impl GetMappingRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::GetMappingRuleRequest;
-    /// let x = GetMappingRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// # let mapping_rule_id = "mapping_rule_id";
+    /// let x = GetMappingRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}/mappingRules/{mapping_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3544,7 +3624,10 @@ impl SeedConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::SeedConversionWorkspaceRequest;
-    /// let x = SeedConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = SeedConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3721,7 +3804,10 @@ impl ConvertConversionWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ConvertConversionWorkspaceRequest;
-    /// let x = ConvertConversionWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = ConvertConversionWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3804,7 +3890,10 @@ impl ImportMappingRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ImportMappingRulesRequest;
-    /// let x = ImportMappingRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = ImportMappingRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3986,7 +4075,10 @@ impl DescribeDatabaseEntitiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DescribeDatabaseEntitiesRequest;
-    /// let x = DescribeDatabaseEntitiesRequest::new().set_conversion_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = DescribeDatabaseEntitiesRequest::new().set_conversion_workspace(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4357,7 +4449,10 @@ impl SearchBackgroundJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::SearchBackgroundJobsRequest;
-    /// let x = SearchBackgroundJobsRequest::new().set_conversion_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = SearchBackgroundJobsRequest::new().set_conversion_workspace(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4505,7 +4600,10 @@ impl DescribeConversionWorkspaceRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DescribeConversionWorkspaceRevisionsRequest;
-    /// let x = DescribeConversionWorkspaceRevisionsRequest::new().set_conversion_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = DescribeConversionWorkspaceRevisionsRequest::new().set_conversion_workspace(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4617,7 +4715,10 @@ impl CreateMappingRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::CreateMappingRuleRequest;
-    /// let x = CreateMappingRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = CreateMappingRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4718,7 +4819,10 @@ impl DeleteMappingRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::DeleteMappingRuleRequest;
-    /// let x = DeleteMappingRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = DeleteMappingRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8681,7 +8785,10 @@ impl MigrationJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::MigrationJob;
-    /// let x = MigrationJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let migration_job_id = "migration_job_id";
+    /// let x = MigrationJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/migrationJobs/{migration_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10241,7 +10348,10 @@ impl ConnectionProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = ConnectionProfile::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11339,7 +11449,10 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = PrivateConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11898,7 +12011,10 @@ impl ConversionWorkspace {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ConversionWorkspace;
-    /// let x = ConversionWorkspace::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// let x = ConversionWorkspace::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13047,7 +13163,11 @@ impl MappingRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::MappingRule;
-    /// let x = MappingRule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversion_workspace_id = "conversion_workspace_id";
+    /// # let mapping_rule_id = "mapping_rule_id";
+    /// let x = MappingRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversionWorkspaces/{conversion_workspace_id}/mappingRules/{mapping_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

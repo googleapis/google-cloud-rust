@@ -134,7 +134,9 @@ impl RestoreFromCloudSQLRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// let x = RestoreFromCloudSQLRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = RestoreFromCloudSQLRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2288,7 +2290,10 @@ impl BackupSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = BackupSource::new().set_backup_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = BackupSource::new().set_backup_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_name = v.into();
@@ -2898,7 +2903,10 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3942,7 +3950,10 @@ pub mod cluster {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::cluster::SecondaryConfig;
-        /// let x = SecondaryConfig::new().set_primary_cluster_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let cluster_id = "cluster_id";
+        /// let x = SecondaryConfig::new().set_primary_cluster_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
         /// ```
         pub fn set_primary_cluster_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -4757,7 +4768,11 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7319,7 +7334,11 @@ impl ConnectionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ConnectionInfo;
-    /// let x = ConnectionInfo::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ConnectionInfo::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}/connectionInfo"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7497,7 +7516,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7740,7 +7762,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_cluster_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Backup::new().set_cluster_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_name = v.into();
@@ -8410,7 +8435,10 @@ impl SupportedDatabaseFlag {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = SupportedDatabaseFlag::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let flag_id = "flag_id";
+    /// let x = SupportedDatabaseFlag::new().set_name(format!("projects/{project_id}/locations/{location_id}/flags/{flag_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9216,7 +9244,11 @@ impl User {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::User;
-    /// let x = User::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let user_id = "user_id";
+    /// let x = User::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9471,7 +9503,11 @@ impl Database {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let database_id = "database_id";
+    /// let x = Database::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9605,7 +9641,9 @@ impl ListClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9787,7 +9825,10 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9863,7 +9904,9 @@ impl CreateSecondaryClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// let x = CreateSecondaryClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSecondaryClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9994,7 +10037,9 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10301,7 +10346,10 @@ impl ExportClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// let x = ExportClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ExportClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10906,7 +10954,10 @@ impl ImportClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// let x = ImportClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ImportClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11301,7 +11352,10 @@ impl UpgradeClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = UpgradeClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12157,7 +12211,10 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12261,7 +12318,10 @@ impl SwitchoverClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::SwitchoverClusterRequest;
-    /// let x = SwitchoverClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = SwitchoverClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12346,7 +12406,10 @@ impl PromoteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::PromoteClusterRequest;
-    /// let x = PromoteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = PromoteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12450,7 +12513,9 @@ impl RestoreClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// let x = RestoreClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = RestoreClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12693,7 +12758,10 @@ impl ListInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12874,7 +12942,11 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12950,7 +13022,10 @@ impl CreateInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateInstanceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13081,7 +13156,10 @@ impl CreateSecondaryInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// let x = CreateSecondaryInstanceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateSecondaryInstanceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13249,7 +13327,10 @@ impl BatchCreateInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesRequest;
-    /// let x = BatchCreateInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = BatchCreateInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13940,7 +14021,11 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14032,7 +14117,11 @@ impl FailoverInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::FailoverInstanceRequest;
-    /// let x = FailoverInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = FailoverInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14131,7 +14220,11 @@ impl InjectFaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::InjectFaultRequest;
-    /// let x = InjectFaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = InjectFaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14347,7 +14440,11 @@ impl RestartInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::RestartInstanceRequest;
-    /// let x = RestartInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = RestartInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14446,7 +14543,11 @@ impl ExecuteSqlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ExecuteSqlRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -14959,7 +15060,9 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15136,7 +15239,10 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15196,7 +15302,9 @@ impl CreateBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15480,7 +15588,10 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15569,7 +15680,9 @@ impl ListSupportedDatabaseFlagsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsRequest;
-    /// let x = ListSupportedDatabaseFlagsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSupportedDatabaseFlagsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15754,7 +15867,10 @@ impl GenerateClientCertificateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// let x = GenerateClientCertificateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GenerateClientCertificateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15930,7 +16046,11 @@ impl GetConnectionInfoRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::GetConnectionInfoRequest;
-    /// let x = GetConnectionInfoRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetConnectionInfoRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16927,7 +17047,10 @@ impl ListUsersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListUsersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17105,7 +17228,11 @@ impl GetUserRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::GetUserRequest;
-    /// let x = GetUserRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let user_id = "user_id";
+    /// let x = GetUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17165,7 +17292,10 @@ impl CreateUserRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// let x = CreateUserRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateUserRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17443,7 +17573,11 @@ impl DeleteUserRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::DeleteUserRequest;
-    /// let x = DeleteUserRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let user_id = "user_id";
+    /// let x = DeleteUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17517,7 +17651,10 @@ impl ListDatabasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListDatabasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

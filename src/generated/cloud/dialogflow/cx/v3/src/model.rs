@@ -885,7 +885,10 @@ impl Agent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = Agent::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1010,7 +1013,10 @@ impl Agent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_security_settings("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let security_settings_id = "security_settings_id";
+    /// let x = Agent::new().set_security_settings(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"));
     /// ```
     pub fn set_security_settings<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1403,7 +1409,11 @@ impl Agent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_start_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = Agent::new().set_start_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// assert!(x.start_flow().is_some());
     /// assert!(x.start_playbook().is_none());
     /// ```
@@ -1436,7 +1446,11 @@ impl Agent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_start_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = Agent::new().set_start_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// assert!(x.start_playbook().is_some());
     /// assert!(x.start_flow().is_none());
     /// ```
@@ -1983,7 +1997,9 @@ impl ListAgentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListAgentsRequest;
-    /// let x = ListAgentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAgentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2132,7 +2148,10 @@ impl GetAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetAgentRequest;
-    /// let x = GetAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = GetAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2177,7 +2196,9 @@ impl CreateAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateAgentRequest;
-    /// let x = CreateAgentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAgentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2351,7 +2372,10 @@ impl DeleteAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteAgentRequest;
-    /// let x = DeleteAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = DeleteAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2420,7 +2444,10 @@ impl ExportAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// let x = ExportAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ExportAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2463,7 +2490,11 @@ impl ExportAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// let x = ExportAgentRequest::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ExportAgentRequest::new().set_environment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -2948,7 +2979,10 @@ impl RestoreAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// let x = RestoreAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = RestoreAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3354,7 +3388,10 @@ impl ValidateAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ValidateAgentRequest;
-    /// let x = ValidateAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ValidateAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3412,7 +3449,10 @@ impl GetAgentValidationResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetAgentValidationResultRequest;
-    /// let x = GetAgentValidationResultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = GetAgentValidationResultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/validationResult"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3470,7 +3510,10 @@ impl AgentValidationResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::AgentValidationResult;
-    /// let x = AgentValidationResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = AgentValidationResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/validationResult"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3538,7 +3581,10 @@ impl GetGenerativeSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetGenerativeSettingsRequest;
-    /// let x = GetGenerativeSettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = GetGenerativeSettingsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generativeSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4594,7 +4640,10 @@ impl ListChangelogsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsRequest;
-    /// let x = ListChangelogsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListChangelogsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4757,7 +4806,11 @@ impl GetChangelogRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetChangelogRequest;
-    /// let x = GetChangelogRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let changelog_id = "changelog_id";
+    /// let x = GetChangelogRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/changelogs/{changelog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4818,7 +4871,11 @@ impl Changelog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let changelog_id = "changelog_id";
+    /// let x = Changelog::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/changelogs/{changelog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6597,7 +6654,12 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// let x = Deployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6609,7 +6671,12 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// let x = Deployment::new().set_flow_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = Deployment::new().set_flow_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_flow_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow_version = v.into();
@@ -6794,7 +6861,12 @@ pub mod deployment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::deployment::Result;
-        /// let x = Result::new().set_experiment("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let environment_id = "environment_id";
+        /// # let experiment_id = "experiment_id";
+        /// let x = Result::new().set_experiment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"));
         /// ```
         pub fn set_experiment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.experiment = v.into();
@@ -6995,7 +7067,11 @@ impl ListDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListDeploymentsRequest;
-    /// let x = ListDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ListDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7149,7 +7225,12 @@ impl GetDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetDeploymentRequest;
-    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GetDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7260,7 +7341,11 @@ impl EntityType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = EntityType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = EntityType::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7957,7 +8042,10 @@ impl ExportEntityTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// let x = ExportEntityTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ExportEntityTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8517,7 +8605,10 @@ impl ImportEntityTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// let x = ImportEntityTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ImportEntityTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8549,7 +8640,11 @@ impl ImportEntityTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// let x = ImportEntityTypesRequest::new().set_target_entity_type("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = ImportEntityTypesRequest::new().set_target_entity_type(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_target_entity_type<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9094,7 +9189,10 @@ impl ListEntityTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesRequest;
-    /// let x = ListEntityTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListEntityTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9270,7 +9368,11 @@ impl GetEntityTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetEntityTypeRequest;
-    /// let x = GetEntityTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = GetEntityTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9340,7 +9442,10 @@ impl CreateEntityTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateEntityTypeRequest;
-    /// let x = CreateEntityTypeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateEntityTypeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9568,7 +9673,11 @@ impl DeleteEntityTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteEntityTypeRequest;
-    /// let x = DeleteEntityTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = DeleteEntityTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9652,7 +9761,11 @@ impl Environment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = Environment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = Environment::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9847,7 +9960,12 @@ pub mod environment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::environment::VersionConfig;
-        /// let x = VersionConfig::new().set_version("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let flow_id = "flow_id";
+        /// # let version_id = "version_id";
+        /// let x = VersionConfig::new().set_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
         /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
@@ -10038,7 +10156,10 @@ impl ListEnvironmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListEnvironmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10192,7 +10313,11 @@ impl GetEnvironmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetEnvironmentRequest;
-    /// let x = GetEnvironmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = GetEnvironmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10241,7 +10366,10 @@ impl CreateEnvironmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateEnvironmentRequest;
-    /// let x = CreateEnvironmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateEnvironmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10417,7 +10545,11 @@ impl DeleteEnvironmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteEnvironmentRequest;
-    /// let x = DeleteEnvironmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = DeleteEnvironmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10467,7 +10599,11 @@ impl LookupEnvironmentHistoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::LookupEnvironmentHistoryRequest;
-    /// let x = LookupEnvironmentHistoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = LookupEnvironmentHistoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10626,7 +10762,12 @@ impl ContinuousTestResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// let x = ContinuousTestResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let continuous_test_result_id = "continuous_test_result_id";
+    /// let x = ContinuousTestResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/continuousTestResults/{continuous_test_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10887,7 +11028,11 @@ impl RunContinuousTestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::RunContinuousTestRequest;
-    /// let x = RunContinuousTestRequest::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = RunContinuousTestRequest::new().set_environment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -11051,7 +11196,11 @@ impl ListContinuousTestResultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListContinuousTestResultsRequest;
-    /// let x = ListContinuousTestResultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ListContinuousTestResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11202,7 +11351,11 @@ impl DeployFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowRequest;
-    /// let x = DeployFlowRequest::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = DeployFlowRequest::new().set_environment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -11214,7 +11367,12 @@ impl DeployFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowRequest;
-    /// let x = DeployFlowRequest::new().set_flow_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = DeployFlowRequest::new().set_flow_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_flow_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow_version = v.into();
@@ -11393,7 +11551,11 @@ impl CreateExampleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateExampleRequest;
-    /// let x = CreateExampleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = CreateExampleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11469,7 +11631,12 @@ impl DeleteExampleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteExampleRequest;
-    /// let x = DeleteExampleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let example_id = "example_id";
+    /// let x = DeleteExampleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11525,7 +11692,11 @@ impl ListExamplesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesRequest;
-    /// let x = ListExamplesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = ListExamplesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11691,7 +11862,12 @@ impl GetExampleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetExampleRequest;
-    /// let x = GetExampleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let example_id = "example_id";
+    /// let x = GetExampleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11869,7 +12045,12 @@ impl Example {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Example;
-    /// let x = Example::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let example_id = "example_id";
+    /// let x = Example::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12182,7 +12363,12 @@ impl Experiment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = Experiment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let experiment_id = "experiment_id";
+    /// let x = Experiment::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13132,7 +13318,12 @@ pub mod experiment {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::VersionMetrics;
-            /// let x = VersionMetrics::new().set_version("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let agent_id = "agent_id";
+            /// # let flow_id = "flow_id";
+            /// # let version_id = "version_id";
+            /// let x = VersionMetrics::new().set_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
             /// ```
             pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.version = v.into();
@@ -14249,7 +14440,11 @@ impl ListExperimentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListExperimentsRequest;
-    /// let x = ListExperimentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ListExperimentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14403,7 +14598,12 @@ impl GetExperimentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetExperimentRequest;
-    /// let x = GetExperimentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let experiment_id = "experiment_id";
+    /// let x = GetExperimentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14452,7 +14652,11 @@ impl CreateExperimentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateExperimentRequest;
-    /// let x = CreateExperimentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = CreateExperimentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14628,7 +14832,12 @@ impl DeleteExperimentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteExperimentRequest;
-    /// let x = DeleteExperimentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let experiment_id = "experiment_id";
+    /// let x = DeleteExperimentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14671,7 +14880,12 @@ impl StartExperimentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::StartExperimentRequest;
-    /// let x = StartExperimentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let experiment_id = "experiment_id";
+    /// let x = StartExperimentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14714,7 +14928,12 @@ impl StopExperimentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::StopExperimentRequest;
-    /// let x = StopExperimentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// # let experiment_id = "experiment_id";
+    /// let x = StopExperimentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}/experiments/{experiment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15339,7 +15558,11 @@ impl Flow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = Flow::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = Flow::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15753,7 +15976,10 @@ impl CreateFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateFlowRequest;
-    /// let x = CreateFlowRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateFlowRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15856,7 +16082,11 @@ impl DeleteFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteFlowRequest;
-    /// let x = DeleteFlowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = DeleteFlowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15932,7 +16162,10 @@ impl ListFlowsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsRequest;
-    /// let x = ListFlowsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListFlowsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16109,7 +16342,11 @@ impl GetFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetFlowRequest;
-    /// let x = GetFlowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = GetFlowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16289,7 +16526,11 @@ impl TrainFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TrainFlowRequest;
-    /// let x = TrainFlowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = TrainFlowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16335,7 +16576,11 @@ impl ValidateFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ValidateFlowRequest;
-    /// let x = ValidateFlowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = ValidateFlowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16393,7 +16638,11 @@ impl GetFlowValidationResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetFlowValidationResultRequest;
-    /// let x = GetFlowValidationResultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = GetFlowValidationResultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/validationResult"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16454,7 +16703,11 @@ impl FlowValidationResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::FlowValidationResult;
-    /// let x = FlowValidationResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = FlowValidationResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/validationResult"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16561,7 +16814,10 @@ impl ImportFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// let x = ImportFlowRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ImportFlowRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16959,7 +17215,11 @@ impl ImportFlowResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowResponse;
-    /// let x = ImportFlowResponse::new().set_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = ImportFlowResponse::new().set_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
@@ -17017,7 +17277,11 @@ impl ExportFlowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowRequest;
-    /// let x = ExportFlowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = ExportFlowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17320,7 +17584,11 @@ impl Fulfillment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Fulfillment::new().set_webhook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let webhook_id = "webhook_id";
+    /// let x = Fulfillment::new().set_webhook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"));
     /// ```
     pub fn set_webhook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.webhook = v.into();
@@ -18025,7 +18293,11 @@ pub mod fulfillment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::GeneratorSettings;
-        /// let x = GeneratorSettings::new().set_generator("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let generator_id = "generator_id";
+        /// let x = GeneratorSettings::new().set_generator(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"));
         /// ```
         pub fn set_generator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.generator = v.into();
@@ -18189,7 +18461,10 @@ impl GenerativeSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// let x = GenerativeSettings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = GenerativeSettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generativeSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18758,7 +19033,11 @@ impl Generator {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = Generator::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let generator_id = "generator_id";
+    /// let x = Generator::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19212,7 +19491,10 @@ impl ListGeneratorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsRequest;
-    /// let x = ListGeneratorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListGeneratorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19377,7 +19659,11 @@ impl GetGeneratorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetGeneratorRequest;
-    /// let x = GetGeneratorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let generator_id = "generator_id";
+    /// let x = GetGeneratorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19440,7 +19726,10 @@ impl CreateGeneratorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateGeneratorRequest;
-    /// let x = CreateGeneratorRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateGeneratorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19652,7 +19941,11 @@ impl DeleteGeneratorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteGeneratorRequest;
-    /// let x = DeleteGeneratorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let generator_id = "generator_id";
+    /// let x = DeleteGeneratorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/generators/{generator_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19849,7 +20142,11 @@ impl Intent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = Intent::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20224,7 +20521,11 @@ pub mod intent {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::intent::Parameter;
-        /// let x = Parameter::new().set_entity_type("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let entity_type_id = "entity_type_id";
+        /// let x = Parameter::new().set_entity_type(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"));
         /// ```
         pub fn set_entity_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity_type = v.into();
@@ -20313,7 +20614,10 @@ impl ListIntentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsRequest;
-    /// let x = ListIntentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListIntentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20504,7 +20808,11 @@ impl GetIntentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetIntentRequest;
-    /// let x = GetIntentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = GetIntentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20572,7 +20880,10 @@ impl CreateIntentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateIntentRequest;
-    /// let x = CreateIntentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateIntentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20782,7 +21093,11 @@ impl DeleteIntentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteIntentRequest;
-    /// let x = DeleteIntentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = DeleteIntentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20830,7 +21145,10 @@ impl ImportIntentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsRequest;
-    /// let x = ImportIntentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ImportIntentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21389,7 +21707,10 @@ impl ExportIntentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// let x = ExportIntentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ExportIntentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22001,7 +22322,12 @@ impl Page {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = Page::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = Page::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22384,7 +22710,11 @@ pub mod form {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// let x = Parameter::new().set_entity_type("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let entity_type_id = "entity_type_id";
+        /// let x = Parameter::new().set_entity_type(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/entityTypes/{entity_type_id}"));
         /// ```
         pub fn set_entity_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity_type = v.into();
@@ -22813,7 +23143,12 @@ impl EventHandler {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_target_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = EventHandler::new().set_target_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// assert!(x.target_page().is_some());
     /// assert!(x.target_flow().is_none());
     /// assert!(x.target_playbook().is_none());
@@ -22844,7 +23179,11 @@ impl EventHandler {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_target_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = EventHandler::new().set_target_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// assert!(x.target_flow().is_some());
     /// assert!(x.target_page().is_none());
     /// assert!(x.target_playbook().is_none());
@@ -22875,7 +23214,11 @@ impl EventHandler {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_target_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = EventHandler::new().set_target_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// assert!(x.target_playbook().is_some());
     /// assert!(x.target_page().is_none());
     /// assert!(x.target_flow().is_none());
@@ -23063,7 +23406,11 @@ impl TransitionRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_intent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = TransitionRoute::new().set_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// ```
     pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.intent = v.into();
@@ -23156,7 +23503,12 @@ impl TransitionRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_target_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = TransitionRoute::new().set_target_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// assert!(x.target_page().is_some());
     /// assert!(x.target_flow().is_none());
     /// ```
@@ -23186,7 +23538,11 @@ impl TransitionRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_target_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = TransitionRoute::new().set_target_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// assert!(x.target_flow().is_some());
     /// assert!(x.target_page().is_none());
     /// ```
@@ -23309,7 +23665,11 @@ impl ListPagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListPagesRequest;
-    /// let x = ListPagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = ListPagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23496,7 +23856,12 @@ impl GetPageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetPageRequest;
-    /// let x = GetPageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = GetPageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23578,7 +23943,11 @@ impl CreatePageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreatePageRequest;
-    /// let x = CreatePageRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = CreatePageRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23816,7 +24185,12 @@ impl DeletePageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeletePageRequest;
-    /// let x = DeletePageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = DeletePageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24003,7 +24377,12 @@ impl KnowledgeConnectorSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = KnowledgeConnectorSettings::new().set_target_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = KnowledgeConnectorSettings::new().set_target_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// assert!(x.target_page().is_some());
     /// assert!(x.target_flow().is_none());
     /// ```
@@ -24036,7 +24415,11 @@ impl KnowledgeConnectorSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = KnowledgeConnectorSettings::new().set_target_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = KnowledgeConnectorSettings::new().set_target_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// assert!(x.target_flow().is_some());
     /// assert!(x.target_page().is_none());
     /// ```
@@ -24814,7 +25197,10 @@ impl CreatePlaybookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookRequest;
-    /// let x = CreatePlaybookRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreatePlaybookRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24890,7 +25276,11 @@ impl DeletePlaybookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeletePlaybookRequest;
-    /// let x = DeletePlaybookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = DeletePlaybookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24939,7 +25329,10 @@ impl ListPlaybooksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybooksRequest;
-    /// let x = ListPlaybooksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListPlaybooksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25089,7 +25482,11 @@ impl GetPlaybookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetPlaybookRequest;
-    /// let x = GetPlaybookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = GetPlaybookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25295,7 +25692,11 @@ impl Playbook {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
-    /// let x = Playbook::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = Playbook::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26024,7 +26425,11 @@ impl CreatePlaybookVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookVersionRequest;
-    /// let x = CreatePlaybookVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = CreatePlaybookVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26110,7 +26515,12 @@ impl PlaybookVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
-    /// let x = PlaybookVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let version_id = "version_id";
+    /// let x = PlaybookVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26253,7 +26663,12 @@ impl GetPlaybookVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetPlaybookVersionRequest;
-    /// let x = GetPlaybookVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let version_id = "version_id";
+    /// let x = GetPlaybookVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26296,7 +26711,12 @@ impl RestorePlaybookVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::RestorePlaybookVersionRequest;
-    /// let x = RestorePlaybookVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let version_id = "version_id";
+    /// let x = RestorePlaybookVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26408,7 +26828,11 @@ impl ListPlaybookVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybookVersionsRequest;
-    /// let x = ListPlaybookVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = ListPlaybookVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26558,7 +26982,12 @@ impl DeletePlaybookVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeletePlaybookVersionRequest;
-    /// let x = DeletePlaybookVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// # let version_id = "version_id";
+    /// let x = DeletePlaybookVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26617,7 +27046,11 @@ impl ExportPlaybookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookRequest;
-    /// let x = ExportPlaybookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = ExportPlaybookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26852,7 +27285,10 @@ impl ImportPlaybookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
-    /// let x = ImportPlaybookRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ImportPlaybookRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -27148,7 +27584,11 @@ impl ImportPlaybookResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookResponse;
-    /// let x = ImportPlaybookResponse::new().set_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = ImportPlaybookResponse::new().set_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.playbook = v.into();
@@ -30689,7 +31129,10 @@ impl GetSecuritySettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetSecuritySettingsRequest;
-    /// let x = GetSecuritySettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let security_settings_id = "security_settings_id";
+    /// let x = GetSecuritySettingsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -30835,7 +31278,9 @@ impl ListSecuritySettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListSecuritySettingsRequest;
-    /// let x = ListSecuritySettingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSecuritySettingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -30983,7 +31428,9 @@ impl CreateSecuritySettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateSecuritySettingsRequest;
-    /// let x = CreateSecuritySettingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSecuritySettingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -31059,7 +31506,10 @@ impl DeleteSecuritySettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteSecuritySettingsRequest;
-    /// let x = DeleteSecuritySettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let security_settings_id = "security_settings_id";
+    /// let x = DeleteSecuritySettingsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -31201,7 +31651,10 @@ impl SecuritySettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let security_settings_id = "security_settings_id";
+    /// let x = SecuritySettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings/{security_settings_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35032,7 +35485,12 @@ impl QueryParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_current_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = QueryParameters::new().set_current_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// ```
     pub fn set_current_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_page = v.into();
@@ -35106,7 +35564,11 @@ impl QueryParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_current_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = QueryParameters::new().set_current_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_current_playbook<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -37139,7 +37601,11 @@ impl QueryResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_trigger_intent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = QueryResult::new().set_trigger_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// assert!(x.trigger_intent().is_some());
     /// assert!(x.text().is_none());
     /// assert!(x.transcript().is_none());
@@ -37368,7 +37834,11 @@ impl IntentInput {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::IntentInput;
-    /// let x = IntentInput::new().set_intent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = IntentInput::new().set_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// ```
     pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.intent = v.into();
@@ -38242,7 +38712,11 @@ impl MatchIntentResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// let x = MatchIntentResponse::new().set_trigger_intent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = MatchIntentResponse::new().set_trigger_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// assert!(x.trigger_intent().is_some());
     /// assert!(x.text().is_none());
     /// assert!(x.transcript().is_none());
@@ -38747,7 +39221,12 @@ impl SessionEntityType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = SessionEntityType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let session_id = "session_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = SessionEntityType::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39002,7 +39481,11 @@ impl ListSessionEntityTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListSessionEntityTypesRequest;
-    /// let x = ListSessionEntityTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let session_id = "session_id";
+    /// let x = ListSessionEntityTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -39156,7 +39639,12 @@ impl GetSessionEntityTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetSessionEntityTypeRequest;
-    /// let x = GetSessionEntityTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let session_id = "session_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = GetSessionEntityTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39206,7 +39694,11 @@ impl CreateSessionEntityTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateSessionEntityTypeRequest;
-    /// let x = CreateSessionEntityTypeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let session_id = "session_id";
+    /// let x = CreateSessionEntityTypeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -39390,7 +39882,12 @@ impl DeleteSessionEntityTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteSessionEntityTypeRequest;
-    /// let x = DeleteSessionEntityTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let session_id = "session_id";
+    /// # let entity_type_id = "entity_type_id";
+    /// let x = DeleteSessionEntityTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/sessions/{session_id}/entityTypes/{entity_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39459,7 +39956,11 @@ impl TestCase {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCase::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// let x = TestCase::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39674,7 +40175,12 @@ impl TestCaseResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = TestCaseResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// # let result_id = "result_id";
+    /// let x = TestCaseResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}/results/{result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39686,7 +40192,11 @@ impl TestCaseResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = TestCaseResult::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = TestCaseResult::new().set_environment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -39833,7 +40343,11 @@ impl TestConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestConfig::new().set_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = TestConfig::new().set_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
@@ -39845,7 +40359,12 @@ impl TestConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestConfig::new().set_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = TestConfig::new().set_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// ```
     pub fn set_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page = v.into();
@@ -41424,7 +41943,11 @@ pub mod intent_coverage {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::intent_coverage::Intent;
-        /// let x = Intent::new().set_intent("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let intent_id = "intent_id";
+        /// let x = Intent::new().set_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
         /// ```
         pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.intent = v.into();
@@ -41482,7 +42005,10 @@ impl CalculateCoverageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageRequest;
-    /// let x = CalculateCoverageRequest::new().set_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CalculateCoverageRequest::new().set_agent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = v.into();
@@ -41702,7 +42228,10 @@ impl CalculateCoverageResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageResponse;
-    /// let x = CalculateCoverageResponse::new().set_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CalculateCoverageResponse::new().set_agent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = v.into();
@@ -41925,7 +42454,10 @@ impl ListTestCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesRequest;
-    /// let x = ListTestCasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListTestCasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -42245,7 +42777,10 @@ impl BatchDeleteTestCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::BatchDeleteTestCasesRequest;
-    /// let x = BatchDeleteTestCasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = BatchDeleteTestCasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -42307,7 +42842,10 @@ impl CreateTestCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateTestCaseRequest;
-    /// let x = CreateTestCaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateTestCaseRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -42487,7 +43025,11 @@ impl GetTestCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetTestCaseRequest;
-    /// let x = GetTestCaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// let x = GetTestCaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42534,7 +43076,11 @@ impl RunTestCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::RunTestCaseRequest;
-    /// let x = RunTestCaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// let x = RunTestCaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42546,7 +43092,11 @@ impl RunTestCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::RunTestCaseRequest;
-    /// let x = RunTestCaseRequest::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = RunTestCaseRequest::new().set_environment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -42685,7 +43235,10 @@ impl BatchRunTestCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesRequest;
-    /// let x = BatchRunTestCasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = BatchRunTestCasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -42697,7 +43250,11 @@ impl BatchRunTestCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesRequest;
-    /// let x = BatchRunTestCasesRequest::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let environment_id = "environment_id";
+    /// let x = BatchRunTestCasesRequest::new().set_environment(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -42866,7 +43423,11 @@ impl TestError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// let x = TestError::new().set_test_case("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// let x = TestError::new().set_test_case(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"));
     /// ```
     pub fn set_test_case<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.test_case = v.into();
@@ -42977,7 +43538,10 @@ impl ImportTestCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesRequest;
-    /// let x = ImportTestCasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ImportTestCasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -43346,7 +43910,10 @@ impl ExportTestCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesRequest;
-    /// let x = ExportTestCasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ExportTestCasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -43844,7 +44411,11 @@ impl ListTestCaseResultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsRequest;
-    /// let x = ListTestCaseResultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// let x = ListTestCaseResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -44005,7 +44576,12 @@ impl GetTestCaseResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetTestCaseResultRequest;
-    /// let x = GetTestCaseResultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let test_case_id = "test_case_id";
+    /// # let result_id = "result_id";
+    /// let x = GetTestCaseResultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/testCases/{test_case_id}/results/{result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -44050,7 +44626,10 @@ impl CreateToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateToolRequest;
-    /// let x = CreateToolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateToolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -44132,7 +44711,10 @@ impl ListToolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListToolsRequest;
-    /// let x = ListToolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListToolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -44282,7 +44864,11 @@ impl GetToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetToolRequest;
-    /// let x = GetToolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = GetToolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -44433,7 +45019,11 @@ impl DeleteToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteToolRequest;
-    /// let x = DeleteToolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = DeleteToolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -44502,7 +45092,11 @@ impl Tool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Tool;
-    /// let x = Tool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = Tool::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46660,7 +47254,11 @@ impl ListToolVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListToolVersionsRequest;
-    /// let x = ListToolVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ListToolVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46815,7 +47413,11 @@ impl CreateToolVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateToolVersionRequest;
-    /// let x = CreateToolVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = CreateToolVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46891,7 +47493,12 @@ impl GetToolVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetToolVersionRequest;
-    /// let x = GetToolVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// # let version_id = "version_id";
+    /// let x = GetToolVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46943,7 +47550,12 @@ impl DeleteToolVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteToolVersionRequest;
-    /// let x = DeleteToolVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// # let version_id = "version_id";
+    /// let x = DeleteToolVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46998,7 +47610,12 @@ impl RestoreToolVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::RestoreToolVersionRequest;
-    /// let x = RestoreToolVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// # let version_id = "version_id";
+    /// let x = RestoreToolVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47112,7 +47729,12 @@ impl ToolVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
-    /// let x = ToolVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// # let version_id = "version_id";
+    /// let x = ToolVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47285,7 +47907,11 @@ impl ToolCall {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ToolCall;
-    /// let x = ToolCall::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ToolCall::new().set_tool(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tool = v.into();
@@ -47385,7 +48011,11 @@ impl ToolCallResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
-    /// let x = ToolCallResult::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ToolCallResult::new().set_tool(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tool = v.into();
@@ -48013,7 +48643,11 @@ impl PlaybookTraceMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::PlaybookTraceMetadata;
-    /// let x = PlaybookTraceMetadata::new().set_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = PlaybookTraceMetadata::new().set_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.playbook = v.into();
@@ -48068,7 +48702,11 @@ impl FlowTraceMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::FlowTraceMetadata;
-    /// let x = FlowTraceMetadata::new().set_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = FlowTraceMetadata::new().set_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
@@ -48667,7 +49305,11 @@ impl ToolUse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
-    /// let x = ToolUse::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ToolUse::new().set_tool(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/tools/{tool_id}"));
     /// ```
     pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tool = v.into();
@@ -48809,7 +49451,11 @@ impl PlaybookInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
-    /// let x = PlaybookInvocation::new().set_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = PlaybookInvocation::new().set_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.playbook = v.into();
@@ -48951,7 +49597,11 @@ impl FlowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::FlowInvocation;
-    /// let x = FlowInvocation::new().set_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = FlowInvocation::new().set_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
@@ -49025,7 +49675,11 @@ impl PlaybookTransition {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::PlaybookTransition;
-    /// let x = PlaybookTransition::new().set_playbook("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let playbook_id = "playbook_id";
+    /// let x = PlaybookTransition::new().set_playbook(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/playbooks/{playbook_id}"));
     /// ```
     pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.playbook = v.into();
@@ -49081,7 +49735,11 @@ impl FlowTransition {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::FlowTransition;
-    /// let x = FlowTransition::new().set_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = FlowTransition::new().set_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
@@ -49152,7 +49810,12 @@ impl TransitionRouteGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = TransitionRouteGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let transition_route_group_id = "transition_route_group_id";
+    /// let x = TransitionRouteGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/transitionRouteGroups/{transition_route_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -49251,7 +49914,11 @@ impl ListTransitionRouteGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsRequest;
-    /// let x = ListTransitionRouteGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = ListTransitionRouteGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -49434,7 +50101,12 @@ impl GetTransitionRouteGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetTransitionRouteGroupRequest;
-    /// let x = GetTransitionRouteGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let transition_route_group_id = "transition_route_group_id";
+    /// let x = GetTransitionRouteGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/transitionRouteGroups/{transition_route_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -49510,7 +50182,11 @@ impl CreateTransitionRouteGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateTransitionRouteGroupRequest;
-    /// let x = CreateTransitionRouteGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = CreateTransitionRouteGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -49735,7 +50411,12 @@ impl DeleteTransitionRouteGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteTransitionRouteGroupRequest;
-    /// let x = DeleteTransitionRouteGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let transition_route_group_id = "transition_route_group_id";
+    /// let x = DeleteTransitionRouteGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/transitionRouteGroups/{transition_route_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -50354,7 +51035,12 @@ impl CreateVersionOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateVersionOperationMetadata;
-    /// let x = CreateVersionOperationMetadata::new().set_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = CreateVersionOperationMetadata::new().set_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -50412,7 +51098,12 @@ impl Version {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = Version::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = Version::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -50724,7 +51415,11 @@ impl ListVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = ListVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -50877,7 +51572,12 @@ impl GetVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetVersionRequest;
-    /// let x = GetVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = GetVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -50926,7 +51626,11 @@ impl CreateVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateVersionRequest;
-    /// let x = CreateVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = CreateVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -51103,7 +51807,12 @@ impl DeleteVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteVersionRequest;
-    /// let x = DeleteVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = DeleteVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -51154,7 +51863,12 @@ impl LoadVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::LoadVersionRequest;
-    /// let x = LoadVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = LoadVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -51226,7 +51940,12 @@ impl CompareVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsRequest;
-    /// let x = CompareVersionsRequest::new().set_base_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = CompareVersionsRequest::new().set_base_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_base_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_version = v.into();
@@ -51238,7 +51957,12 @@ impl CompareVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsRequest;
-    /// let x = CompareVersionsRequest::new().set_target_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let version_id = "version_id";
+    /// let x = CompareVersionsRequest::new().set_target_version(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/versions/{version_id}"));
     /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
@@ -51412,7 +52136,11 @@ impl Webhook {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = Webhook::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let webhook_id = "webhook_id";
+    /// let x = Webhook::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -52813,7 +53541,10 @@ impl ListWebhooksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::ListWebhooksRequest;
-    /// let x = ListWebhooksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = ListWebhooksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -52963,7 +53694,11 @@ impl GetWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::GetWebhookRequest;
-    /// let x = GetWebhookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let webhook_id = "webhook_id";
+    /// let x = GetWebhookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -53008,7 +53743,10 @@ impl CreateWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::CreateWebhookRequest;
-    /// let x = CreateWebhookRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// let x = CreateWebhookRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -53198,7 +53936,11 @@ impl DeleteWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::DeleteWebhookRequest;
-    /// let x = DeleteWebhookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let webhook_id = "webhook_id";
+    /// let x = DeleteWebhookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/webhooks/{webhook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -53690,7 +54432,11 @@ impl WebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_trigger_intent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let intent_id = "intent_id";
+    /// let x = WebhookRequest::new().set_trigger_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
     /// assert!(x.trigger_intent().is_some());
     /// assert!(x.text().is_none());
     /// assert!(x.transcript().is_none());
@@ -54057,7 +54803,11 @@ pub mod webhook_request {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-        /// let x = IntentInfo::new().set_last_matched_intent("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let agent_id = "agent_id";
+        /// # let intent_id = "intent_id";
+        /// let x = IntentInfo::new().set_last_matched_intent(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/intents/{intent_id}"));
         /// ```
         pub fn set_last_matched_intent<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -54723,7 +55473,12 @@ impl WebhookResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// let x = WebhookResponse::new().set_target_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = WebhookResponse::new().set_target_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// assert!(x.target_page().is_some());
     /// assert!(x.target_flow().is_none());
     /// ```
@@ -54756,7 +55511,11 @@ impl WebhookResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// let x = WebhookResponse::new().set_target_flow("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// let x = WebhookResponse::new().set_target_flow(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}"));
     /// assert!(x.target_flow().is_some());
     /// assert!(x.target_page().is_none());
     /// ```
@@ -55425,7 +56184,12 @@ impl PageInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = PageInfo::new().set_current_page("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_id = "agent_id";
+    /// # let flow_id = "flow_id";
+    /// # let page_id = "page_id";
+    /// let x = PageInfo::new().set_current_page(format!("projects/{project_id}/locations/{location_id}/agents/{agent_id}/flows/{flow_id}/pages/{page_id}"));
     /// ```
     pub fn set_current_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_page = v.into();

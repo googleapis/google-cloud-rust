@@ -110,7 +110,12 @@ impl Endpoint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::Endpoint;
-    /// let x = Endpoint::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// # let endpoint_id = "endpoint_id";
+    /// let x = Endpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}/endpoints/{endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -262,7 +267,11 @@ impl ResolveServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::ResolveServiceRequest;
-    /// let x = ResolveServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// let x = ResolveServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -394,7 +403,10 @@ impl Namespace {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::Namespace;
-    /// let x = Namespace::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = Namespace::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -775,7 +787,10 @@ impl GetNamespaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::GetNamespaceRequest;
-    /// let x = GetNamespaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = GetNamespaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -908,7 +923,10 @@ impl DeleteNamespaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::DeleteNamespaceRequest;
-    /// let x = DeleteNamespaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = DeleteNamespaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -958,7 +976,10 @@ impl CreateServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = CreateServiceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1094,7 +1115,10 @@ impl ListServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = ListServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1260,7 +1284,11 @@ impl GetServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// let x = GetServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1393,7 +1421,11 @@ impl DeleteServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// let x = DeleteServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1443,7 +1475,11 @@ impl CreateEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::CreateEndpointRequest;
-    /// let x = CreateEndpointRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// let x = CreateEndpointRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1582,7 +1618,11 @@ impl ListEndpointsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::ListEndpointsRequest;
-    /// let x = ListEndpointsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// let x = ListEndpointsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1748,7 +1788,12 @@ impl GetEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::GetEndpointRequest;
-    /// let x = GetEndpointRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// # let endpoint_id = "endpoint_id";
+    /// let x = GetEndpointRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}/endpoints/{endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1881,7 +1926,12 @@ impl DeleteEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::DeleteEndpointRequest;
-    /// let x = DeleteEndpointRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// # let endpoint_id = "endpoint_id";
+    /// let x = DeleteEndpointRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}/endpoints/{endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1957,7 +2007,11 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicedirectory_v1::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let namespace_id = "namespace_id";
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

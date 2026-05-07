@@ -277,7 +277,10 @@ impl GenerateFrameworkAuditScopeReportResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportResponse;
-    /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let generate_framework_audit_scope_report_response_id = "generate_framework_audit_scope_report_response_id";
+    /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkAuditScopeReports/{generate_framework_audit_scope_report_response_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -512,7 +515,9 @@ impl CreateFrameworkAuditRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkAuditRequest;
-    /// let x = CreateFrameworkAuditRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFrameworkAuditRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -917,7 +922,10 @@ impl FrameworkAudit {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
-    /// let x = FrameworkAudit::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_audit_id = "framework_audit_id";
+    /// let x = FrameworkAudit::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkAudits/{framework_audit_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1400,7 +1408,9 @@ impl ListFrameworkAuditsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsRequest;
-    /// let x = ListFrameworkAuditsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFrameworkAuditsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1552,7 +1562,10 @@ impl GetFrameworkAuditRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkAuditRequest;
-    /// let x = GetFrameworkAuditRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_audit_id = "framework_audit_id";
+    /// let x = GetFrameworkAuditRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkAudits/{framework_audit_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2390,7 +2403,9 @@ impl CalculateEffectiveCmEnrollmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CalculateEffectiveCmEnrollmentRequest;
-    /// let x = CalculateEffectiveCmEnrollmentRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CalculateEffectiveCmEnrollmentRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cmEnrollment"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2440,7 +2455,9 @@ impl CmEnrollment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
-    /// let x = CmEnrollment::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CmEnrollment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cmEnrollment"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2765,7 +2782,10 @@ impl Framework {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
-    /// let x = Framework::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_id = "framework_id";
+    /// let x = Framework::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3194,7 +3214,10 @@ impl FrameworkReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
-    /// let x = FrameworkReference::new().set_framework("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_id = "framework_id";
+    /// let x = FrameworkReference::new().set_framework(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"));
     /// ```
     pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework = v.into();
@@ -3392,7 +3415,10 @@ impl CloudControl {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
-    /// let x = CloudControl::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_control_id = "cloud_control_id";
+    /// let x = CloudControl::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControls/{cloud_control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5493,7 +5519,10 @@ impl Control {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
-    /// let x = Control::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let control_id = "control_id";
+    /// let x = Control::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6048,7 +6077,9 @@ impl ListFrameworksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworksRequest;
-    /// let x = ListFrameworksRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFrameworksRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6193,7 +6224,10 @@ impl GetFrameworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkRequest;
-    /// let x = GetFrameworkRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_id = "framework_id";
+    /// let x = GetFrameworkRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6252,7 +6286,9 @@ impl CreateFrameworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkRequest;
-    /// let x = CreateFrameworkRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFrameworkRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6448,7 +6484,10 @@ impl DeleteFrameworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteFrameworkRequest;
-    /// let x = DeleteFrameworkRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_id = "framework_id";
+    /// let x = DeleteFrameworkRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6506,7 +6545,9 @@ impl ListCloudControlsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlsRequest;
-    /// let x = ListCloudControlsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCloudControlsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6650,7 +6691,10 @@ impl GetCloudControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GetCloudControlRequest;
-    /// let x = GetCloudControlRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_control_id = "cloud_control_id";
+    /// let x = GetCloudControlRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControls/{cloud_control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6710,7 +6754,9 @@ impl CreateCloudControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateCloudControlRequest;
-    /// let x = CreateCloudControlRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCloudControlRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6904,7 +6950,10 @@ impl DeleteCloudControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteCloudControlRequest;
-    /// let x = DeleteCloudControlRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_control_id = "cloud_control_id";
+    /// let x = DeleteCloudControlRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControls/{cloud_control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7008,7 +7057,10 @@ impl FrameworkDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
-    /// let x = FrameworkDeployment::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_deployment_id = "framework_deployment_id";
+    /// let x = FrameworkDeployment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworkDeployments/{framework_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7343,7 +7395,10 @@ impl CloudControlDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
-    /// let x = CloudControlDeployment::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_control_deployment_id = "cloud_control_deployment_id";
+    /// let x = CloudControlDeployment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControlDeployments/{cloud_control_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8150,7 +8205,9 @@ impl CreateFrameworkDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkDeploymentRequest;
-    /// let x = CreateFrameworkDeploymentRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFrameworkDeploymentRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8248,7 +8305,10 @@ impl DeleteFrameworkDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteFrameworkDeploymentRequest;
-    /// let x = DeleteFrameworkDeploymentRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_deployment_id = "framework_deployment_id";
+    /// let x = DeleteFrameworkDeploymentRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworkDeployments/{framework_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8299,7 +8359,10 @@ impl GetFrameworkDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkDeploymentRequest;
-    /// let x = GetFrameworkDeploymentRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_deployment_id = "framework_deployment_id";
+    /// let x = GetFrameworkDeploymentRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworkDeployments/{framework_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8360,7 +8423,9 @@ impl ListFrameworkDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsRequest;
-    /// let x = ListFrameworkDeploymentsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFrameworkDeploymentsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8522,7 +8587,10 @@ impl GetCloudControlDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GetCloudControlDeploymentRequest;
-    /// let x = GetCloudControlDeploymentRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_control_deployment_id = "cloud_control_deployment_id";
+    /// let x = GetCloudControlDeploymentRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControlDeployments/{cloud_control_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8582,7 +8650,9 @@ impl ListCloudControlDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsRequest;
-    /// let x = ListCloudControlDeploymentsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCloudControlDeploymentsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8746,7 +8816,10 @@ impl CloudControlDeploymentReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeploymentReference;
-    /// let x = CloudControlDeploymentReference::new().set_cloud_control_deployment("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_control_deployment_id = "cloud_control_deployment_id";
+    /// let x = CloudControlDeploymentReference::new().set_cloud_control_deployment(format!("organizations/{organization_id}/locations/{location_id}/cloudControlDeployments/{cloud_control_deployment_id}"));
     /// ```
     pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8806,7 +8879,10 @@ impl FrameworkDeploymentReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
-    /// let x = FrameworkDeploymentReference::new().set_framework_deployment("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let framework_deployment_id = "framework_deployment_id";
+    /// let x = FrameworkDeploymentReference::new().set_framework_deployment(format!("organizations/{organization_id}/locations/{location_id}/frameworkDeployments/{framework_deployment_id}"));
     /// ```
     pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8909,7 +8985,9 @@ impl ListFrameworkComplianceSummariesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesRequest;
-    /// let x = ListFrameworkComplianceSummariesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFrameworkComplianceSummariesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9278,7 +9356,10 @@ impl FrameworkComplianceReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
-    /// let x = FrameworkComplianceReport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_compliance_report_id = "framework_compliance_report_id";
+    /// let x = FrameworkComplianceReport::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceReports/{framework_compliance_report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9365,7 +9446,10 @@ impl FetchFrameworkComplianceReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FetchFrameworkComplianceReportRequest;
-    /// let x = FetchFrameworkComplianceReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_compliance_report_id = "framework_compliance_report_id";
+    /// let x = FetchFrameworkComplianceReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceReports/{framework_compliance_report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9460,7 +9544,9 @@ impl ListFindingSummariesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
-    /// let x = ListFindingSummariesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFindingSummariesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9655,7 +9741,10 @@ impl ListControlComplianceSummariesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
-    /// let x = ListControlComplianceSummariesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_compliance_report_id = "framework_compliance_report_id";
+    /// let x = ListControlComplianceSummariesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceReports/{framework_compliance_report_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9848,7 +9937,10 @@ impl AggregateFrameworkComplianceReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
-    /// let x = AggregateFrameworkComplianceReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_compliance_report_id = "framework_compliance_report_id";
+    /// let x = AggregateFrameworkComplianceReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceReports/{framework_compliance_report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10208,7 +10300,10 @@ impl FrameworkComplianceSummary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
-    /// let x = FrameworkComplianceSummary::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_compliance_summary_id = "framework_compliance_summary_id";
+    /// let x = FrameworkComplianceSummary::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceSummaries/{framework_compliance_summary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10462,7 +10557,10 @@ impl FindingSummary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
-    /// let x = FindingSummary::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let finding_summary_id = "finding_summary_id";
+    /// let x = FindingSummary::new().set_name(format!("projects/{project_id}/locations/{location_id}/findingSummaries/{finding_summary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10687,7 +10785,11 @@ impl ControlComplianceSummary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
-    /// let x = ControlComplianceSummary::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let framework_compliance_report_id = "framework_compliance_report_id";
+    /// # let control_compliance_summary_id = "control_compliance_summary_id";
+    /// let x = ControlComplianceSummary::new().set_name(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceReports/{framework_compliance_report_id}/controlComplianceSummaries/{control_compliance_summary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

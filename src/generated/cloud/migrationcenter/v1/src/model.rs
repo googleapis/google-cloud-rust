@@ -86,7 +86,10 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::Asset;
-    /// let x = Asset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = Asset::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -419,7 +422,10 @@ impl PreferenceSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::PreferenceSet;
-    /// let x = PreferenceSet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preference_set_id = "preference_set_id";
+    /// let x = PreferenceSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -601,7 +607,10 @@ impl ImportJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ImportJob;
-    /// let x = ImportJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = ImportJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -763,7 +772,10 @@ impl ImportJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ImportJob;
-    /// let x = ImportJob::new().set_asset_source("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// let x = ImportJob::new().set_asset_source(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"));
     /// ```
     pub fn set_asset_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_source = v.into();
@@ -1096,7 +1108,11 @@ impl ImportDataFile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ImportDataFile;
-    /// let x = ImportDataFile::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// # let import_data_file_id = "import_data_file_id";
+    /// let x = ImportDataFile::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}/importDataFiles/{import_data_file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1437,7 +1453,10 @@ impl Group {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::Group;
-    /// let x = Group::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let group_id = "group_id";
+    /// let x = Group::new().set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1592,7 +1611,11 @@ impl ErrorFrame {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ErrorFrame;
-    /// let x = ErrorFrame::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// # let error_frame_id = "error_frame_id";
+    /// let x = ErrorFrame::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/errorFrames/{error_frame_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1748,7 +1771,10 @@ impl Source {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::Source;
-    /// let x = Source::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// let x = Source::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2263,7 +2289,10 @@ impl ReportConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ReportConfig;
-    /// let x = ReportConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = ReportConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2418,7 +2447,10 @@ pub mod report_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_config::GroupPreferenceSetAssignment;
-        /// let x = GroupPreferenceSetAssignment::new().set_group("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let group_id = "group_id";
+        /// let x = GroupPreferenceSetAssignment::new().set_group(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"));
         /// ```
         pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group = v.into();
@@ -2430,7 +2462,10 @@ pub mod report_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_config::GroupPreferenceSetAssignment;
-        /// let x = GroupPreferenceSetAssignment::new().set_preference_set("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let preference_set_id = "preference_set_id";
+        /// let x = GroupPreferenceSetAssignment::new().set_preference_set(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"));
         /// ```
         pub fn set_preference_set<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -2490,7 +2525,11 @@ impl Report {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::Report;
-    /// let x = Report::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// # let report_id = "report_id";
+    /// let x = Report::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reports/{report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2949,8 +2988,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -3135,7 +3172,9 @@ impl ListAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListAssetsRequest;
-    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAssetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3329,7 +3368,10 @@ impl GetAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetAssetRequest;
-    /// let x = GetAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = GetAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3506,7 +3548,9 @@ impl BatchUpdateAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::BatchUpdateAssetsRequest;
-    /// let x = BatchUpdateAssetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = BatchUpdateAssetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3624,7 +3668,10 @@ impl DeleteAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteAssetRequest;
-    /// let x = DeleteAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = DeleteAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3681,7 +3728,9 @@ impl BatchDeleteAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::BatchDeleteAssetsRequest;
-    /// let x = BatchDeleteAssetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = BatchDeleteAssetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3796,7 +3845,10 @@ impl ReportAssetFramesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ReportAssetFramesRequest;
-    /// let x = ReportAssetFramesRequest::new().set_source("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// let x = ReportAssetFramesRequest::new().set_source(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"));
     /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
@@ -3993,7 +4045,9 @@ impl CreateImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreateImportJobRequest;
-    /// let x = CreateImportJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateImportJobRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4102,7 +4156,9 @@ impl ListImportJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListImportJobsRequest;
-    /// let x = ListImportJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListImportJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4297,7 +4353,10 @@ impl GetImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetImportJobRequest;
-    /// let x = GetImportJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = GetImportJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4366,7 +4425,10 @@ impl DeleteImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteImportJobRequest;
-    /// let x = DeleteImportJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = DeleteImportJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4564,7 +4626,10 @@ impl ValidateImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ValidateImportJobRequest;
-    /// let x = ValidateImportJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = ValidateImportJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4626,7 +4691,10 @@ impl RunImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::RunImportJobRequest;
-    /// let x = RunImportJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = RunImportJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4673,7 +4741,11 @@ impl GetImportDataFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetImportDataFileRequest;
-    /// let x = GetImportDataFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// # let import_data_file_id = "import_data_file_id";
+    /// let x = GetImportDataFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}/importDataFiles/{import_data_file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4727,7 +4799,10 @@ impl ListImportDataFilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListImportDataFilesRequest;
-    /// let x = ListImportDataFilesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = ListImportDataFilesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4926,7 +5001,10 @@ impl CreateImportDataFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreateImportDataFileRequest;
-    /// let x = CreateImportDataFileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = CreateImportDataFileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5036,7 +5114,11 @@ impl DeleteImportDataFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteImportDataFileRequest;
-    /// let x = DeleteImportDataFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let import_job_id = "import_job_id";
+    /// # let import_data_file_id = "import_data_file_id";
+    /// let x = DeleteImportDataFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/importJobs/{import_job_id}/importDataFiles/{import_data_file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5096,7 +5178,9 @@ impl ListGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListGroupsRequest;
-    /// let x = ListGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5273,7 +5357,10 @@ impl GetGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetGroupRequest;
-    /// let x = GetGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let group_id = "group_id";
+    /// let x = GetGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5333,7 +5420,9 @@ impl CreateGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreateGroupRequest;
-    /// let x = CreateGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5563,7 +5652,10 @@ impl DeleteGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteGroupRequest;
-    /// let x = DeleteGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let group_id = "group_id";
+    /// let x = DeleteGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5638,7 +5730,10 @@ impl AddAssetsToGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::AddAssetsToGroupRequest;
-    /// let x = AddAssetsToGroupRequest::new().set_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let group_id = "group_id";
+    /// let x = AddAssetsToGroupRequest::new().set_group(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"));
     /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
@@ -5757,7 +5852,10 @@ impl RemoveAssetsFromGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::RemoveAssetsFromGroupRequest;
-    /// let x = RemoveAssetsFromGroupRequest::new().set_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let group_id = "group_id";
+    /// let x = RemoveAssetsFromGroupRequest::new().set_group(format!("projects/{project_id}/locations/{location_id}/groups/{group_id}"));
     /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
@@ -5860,7 +5958,10 @@ impl ListErrorFramesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListErrorFramesRequest;
-    /// let x = ListErrorFramesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// let x = ListErrorFramesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6033,7 +6134,11 @@ impl GetErrorFrameRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetErrorFrameRequest;
-    /// let x = GetErrorFrameRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// # let error_frame_id = "error_frame_id";
+    /// let x = GetErrorFrameRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}/errorFrames/{error_frame_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6095,7 +6200,9 @@ impl ListSourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListSourcesRequest;
-    /// let x = ListSourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6272,7 +6379,10 @@ impl GetSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetSourceRequest;
-    /// let x = GetSourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// let x = GetSourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6332,7 +6442,9 @@ impl CreateSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreateSourceRequest;
-    /// let x = CreateSourceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSourceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6563,7 +6675,10 @@ impl DeleteSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteSourceRequest;
-    /// let x = DeleteSourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let source_id = "source_id";
+    /// let x = DeleteSourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sources/{source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6621,7 +6736,9 @@ impl ListPreferenceSetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListPreferenceSetsRequest;
-    /// let x = ListPreferenceSetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPreferenceSetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6786,7 +6903,10 @@ impl GetPreferenceSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetPreferenceSetRequest;
-    /// let x = GetPreferenceSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preference_set_id = "preference_set_id";
+    /// let x = GetPreferenceSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6847,7 +6967,9 @@ impl CreatePreferenceSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreatePreferenceSetRequest;
-    /// let x = CreatePreferenceSetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePreferenceSetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7081,7 +7203,10 @@ impl DeletePreferenceSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeletePreferenceSetRequest;
-    /// let x = DeletePreferenceSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preference_set_id = "preference_set_id";
+    /// let x = DeletePreferenceSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7128,7 +7253,9 @@ impl GetSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetSettingsRequest;
-    /// let x = GetSettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetSettingsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7312,7 +7439,9 @@ impl CreateReportConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreateReportConfigRequest;
-    /// let x = CreateReportConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateReportConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7427,7 +7556,10 @@ impl DeleteReportConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteReportConfigRequest;
-    /// let x = DeleteReportConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = DeleteReportConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7489,7 +7621,11 @@ impl GetReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetReportRequest;
-    /// let x = GetReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// # let report_id = "report_id";
+    /// let x = GetReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reports/{report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7555,7 +7691,10 @@ impl ListReportsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListReportsRequest;
-    /// let x = ListReportsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = ListReportsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7762,7 +7901,11 @@ impl DeleteReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DeleteReportRequest;
-    /// let x = DeleteReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// # let report_id = "report_id";
+    /// let x = DeleteReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reports/{report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7809,7 +7952,10 @@ impl GetReportConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::GetReportConfigRequest;
-    /// let x = GetReportConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = GetReportConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7857,7 +8003,9 @@ impl ListReportConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::ListReportConfigsRequest;
-    /// let x = ListReportConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListReportConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8059,7 +8207,10 @@ impl CreateReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::CreateReportRequest;
-    /// let x = CreateReportRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = CreateReportRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18841,7 +18992,9 @@ impl Settings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::Settings;
-    /// let x = Settings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Settings::new().set_name(format!("projects/{project_id}/locations/{location_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18853,7 +19006,10 @@ impl Settings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::Settings;
-    /// let x = Settings::new().set_preference_set("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preference_set_id = "preference_set_id";
+    /// let x = Settings::new().set_preference_set(format!("projects/{project_id}/locations/{location_id}/preferenceSets/{preference_set_id}"));
     /// ```
     pub fn set_preference_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.preference_set = v.into();

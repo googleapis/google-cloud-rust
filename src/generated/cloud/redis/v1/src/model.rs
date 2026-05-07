@@ -296,7 +296,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2210,7 +2213,10 @@ impl RescheduleMaintenanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::RescheduleMaintenanceRequest;
-    /// let x = RescheduleMaintenanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = RescheduleMaintenanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3035,7 +3041,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3075,7 +3084,10 @@ impl GetInstanceAuthStringRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::GetInstanceAuthStringRequest;
-    /// let x = GetInstanceAuthStringRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceAuthStringRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3357,7 +3369,10 @@ impl UpgradeInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::UpgradeInstanceRequest;
-    /// let x = UpgradeInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = UpgradeInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3409,7 +3424,10 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3864,7 +3882,10 @@ impl FailoverInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_redis_v1::model::FailoverInstanceRequest;
-    /// let x = FailoverInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = FailoverInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

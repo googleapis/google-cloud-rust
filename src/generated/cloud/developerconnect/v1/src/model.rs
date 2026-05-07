@@ -70,7 +70,10 @@ impl ListUsersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = ListUsersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -295,7 +298,10 @@ impl Connection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::Connection;
-    /// let x = Connection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = Connection::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3173,7 +3179,9 @@ impl ListConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3350,7 +3358,10 @@ impl GetConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::GetConnectionRequest;
-    /// let x = GetConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = GetConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3411,7 +3422,9 @@ impl CreateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::CreateConnectionRequest;
-    /// let x = CreateConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3695,7 +3708,10 @@ impl DeleteConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeleteConnectionRequest;
-    /// let x = DeleteConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = DeleteConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3779,7 +3795,9 @@ impl ListAccountConnectorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::ListAccountConnectorsRequest;
-    /// let x = ListAccountConnectorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAccountConnectorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3956,7 +3974,10 @@ impl GetAccountConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::GetAccountConnectorRequest;
-    /// let x = GetAccountConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = GetAccountConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4018,7 +4039,9 @@ impl CreateAccountConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::CreateAccountConnectorRequest;
-    /// let x = CreateAccountConnectorRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAccountConnectorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4306,7 +4329,10 @@ impl DeleteAccountConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeleteAccountConnectorRequest;
-    /// let x = DeleteAccountConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = DeleteAccountConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4412,7 +4438,11 @@ impl DeleteUserRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeleteUserRequest;
-    /// let x = DeleteUserRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// # let user_id = "user_id";
+    /// let x = DeleteUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}/users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4658,7 +4688,10 @@ impl FetchSelfRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchSelfRequest;
-    /// let x = FetchSelfRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = FetchSelfRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4693,7 +4726,10 @@ impl DeleteSelfRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeleteSelfRequest;
-    /// let x = DeleteSelfRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = DeleteSelfRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4729,7 +4765,10 @@ impl FetchAccessTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchAccessTokenRequest;
-    /// let x = FetchAccessTokenRequest::new().set_account_connector("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = FetchAccessTokenRequest::new().set_account_connector(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_account_connector<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4895,7 +4934,10 @@ impl StartOAuthRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::StartOAuthRequest;
-    /// let x = StartOAuthRequest::new().set_account_connector("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = StartOAuthRequest::new().set_account_connector(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_account_connector<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5139,7 +5181,10 @@ impl FinishOAuthRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FinishOAuthRequest;
-    /// let x = FinishOAuthRequest::new().set_account_connector("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = FinishOAuthRequest::new().set_account_connector(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_account_connector<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5570,7 +5615,11 @@ impl GitRepositoryLink {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::GitRepositoryLink;
-    /// let x = GitRepositoryLink::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// # let git_repository_link_id = "git_repository_link_id";
+    /// let x = GitRepositoryLink::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5845,7 +5894,10 @@ impl CreateGitRepositoryLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::CreateGitRepositoryLinkRequest;
-    /// let x = CreateGitRepositoryLinkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = CreateGitRepositoryLinkRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5975,7 +6027,11 @@ impl DeleteGitRepositoryLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeleteGitRepositoryLinkRequest;
-    /// let x = DeleteGitRepositoryLinkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// # let git_repository_link_id = "git_repository_link_id";
+    /// let x = DeleteGitRepositoryLinkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6059,7 +6115,10 @@ impl ListGitRepositoryLinksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::ListGitRepositoryLinksRequest;
-    /// let x = ListGitRepositoryLinksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = ListGitRepositoryLinksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6236,7 +6295,11 @@ impl GetGitRepositoryLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::GetGitRepositoryLinkRequest;
-    /// let x = GetGitRepositoryLinkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// # let git_repository_link_id = "git_repository_link_id";
+    /// let x = GetGitRepositoryLinkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6272,7 +6335,11 @@ impl FetchReadWriteTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchReadWriteTokenRequest;
-    /// let x = FetchReadWriteTokenRequest::new().set_git_repository_link("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// # let git_repository_link_id = "git_repository_link_id";
+    /// let x = FetchReadWriteTokenRequest::new().set_git_repository_link(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"));
     /// ```
     pub fn set_git_repository_link<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6311,7 +6378,11 @@ impl FetchReadTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchReadTokenRequest;
-    /// let x = FetchReadTokenRequest::new().set_git_repository_link("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// # let git_repository_link_id = "git_repository_link_id";
+    /// let x = FetchReadTokenRequest::new().set_git_repository_link(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"));
     /// ```
     pub fn set_git_repository_link<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6532,7 +6603,10 @@ impl FetchLinkableGitRepositoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchLinkableGitRepositoriesRequest;
-    /// let x = FetchLinkableGitRepositoriesRequest::new().set_connection("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = FetchLinkableGitRepositoriesRequest::new().set_connection(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection = v.into();
@@ -6704,7 +6778,10 @@ impl FetchGitHubInstallationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchGitHubInstallationsRequest;
-    /// let x = FetchGitHubInstallationsRequest::new().set_connection("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = FetchGitHubInstallationsRequest::new().set_connection(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection = v.into();
@@ -6867,7 +6944,11 @@ impl FetchGitRefsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::FetchGitRefsRequest;
-    /// let x = FetchGitRefsRequest::new().set_git_repository_link("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// # let git_repository_link_id = "git_repository_link_id";
+    /// let x = FetchGitRefsRequest::new().set_git_repository_link(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"));
     /// ```
     pub fn set_git_repository_link<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7167,7 +7248,10 @@ impl AccountConnector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::AccountConnector;
-    /// let x = AccountConnector::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// let x = AccountConnector::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7426,7 +7510,11 @@ impl User {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::User;
-    /// let x = User::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let account_connector_id = "account_connector_id";
+    /// # let user_id = "user_id";
+    /// let x = User::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}/users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7714,7 +7802,10 @@ impl InsightsConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::InsightsConfig;
-    /// let x = InsightsConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insights_config_id = "insights_config_id";
+    /// let x = InsightsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9219,7 +9310,11 @@ impl DeploymentEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
-    /// let x = DeploymentEvent::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insights_config_id = "insights_config_id";
+    /// # let deployment_event_id = "deployment_event_id";
+    /// let x = DeploymentEvent::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}/deploymentEvents/{deployment_event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9613,7 +9708,11 @@ impl GetDeploymentEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::GetDeploymentEventRequest;
-    /// let x = GetDeploymentEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insights_config_id = "insights_config_id";
+    /// # let deployment_event_id = "deployment_event_id";
+    /// let x = GetDeploymentEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}/deploymentEvents/{deployment_event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9667,7 +9766,10 @@ impl ListDeploymentEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsRequest;
-    /// let x = ListDeploymentEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insights_config_id = "insights_config_id";
+    /// let x = ListDeploymentEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10006,7 +10108,9 @@ impl CreateInsightsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::CreateInsightsConfigRequest;
-    /// let x = CreateInsightsConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInsightsConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10101,7 +10205,10 @@ impl GetInsightsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::GetInsightsConfigRequest;
-    /// let x = GetInsightsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insights_config_id = "insights_config_id";
+    /// let x = GetInsightsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10152,7 +10259,9 @@ impl ListInsightsConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::ListInsightsConfigsRequest;
-    /// let x = ListInsightsConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInsightsConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10352,7 +10461,10 @@ impl DeleteInsightsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::DeleteInsightsConfigRequest;
-    /// let x = DeleteInsightsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insights_config_id = "insights_config_id";
+    /// let x = DeleteInsightsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

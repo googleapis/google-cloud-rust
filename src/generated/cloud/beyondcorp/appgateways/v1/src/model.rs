@@ -79,7 +79,9 @@ impl ListAppGatewaysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysRequest;
-    /// let x = ListAppGatewaysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAppGatewaysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -258,7 +260,10 @@ impl GetAppGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appgateways_v1::model::GetAppGatewayRequest;
-    /// let x = GetAppGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_gateway_id = "app_gateway_id";
+    /// let x = GetAppGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -323,7 +328,9 @@ impl CreateAppGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
-    /// let x = CreateAppGatewayRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAppGatewayRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -447,7 +454,10 @@ impl DeleteAppGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appgateways_v1::model::DeleteAppGatewayRequest;
-    /// let x = DeleteAppGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_gateway_id = "app_gateway_id";
+    /// let x = DeleteAppGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -542,7 +552,10 @@ impl AppGateway {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
-    /// let x = AppGateway::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_gateway_id = "app_gateway_id";
+    /// let x = AppGateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1237,8 +1250,6 @@ pub struct AppGatewayOperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

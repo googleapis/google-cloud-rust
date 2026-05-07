@@ -2030,7 +2030,11 @@ impl GetExecutionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetExecutionRequest;
-    /// let x = GetExecutionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = GetExecutionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2078,7 +2082,10 @@ impl ListExecutionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListExecutionsRequest;
-    /// let x = ListExecutionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = ListExecutionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2235,7 +2242,11 @@ impl DeleteExecutionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::DeleteExecutionRequest;
-    /// let x = DeleteExecutionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = DeleteExecutionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2305,7 +2316,11 @@ impl CancelExecutionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::CancelExecutionRequest;
-    /// let x = CancelExecutionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = CancelExecutionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2488,7 +2503,11 @@ impl Execution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Execution;
-    /// let x = Execution::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = Execution::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2794,7 +2813,10 @@ impl Execution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Execution;
-    /// let x = Execution::new().set_job("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = Execution::new().set_job(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job = v.into();
@@ -3191,7 +3213,9 @@ impl CreateInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInstanceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3283,7 +3307,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3326,7 +3353,10 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3398,7 +3428,9 @@ impl ListInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3555,7 +3587,10 @@ impl StopInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::StopInstanceRequest;
-    /// let x = StopInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = StopInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3625,7 +3660,10 @@ impl StartInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::StartInstanceRequest;
-    /// let x = StartInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = StartInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3844,7 +3882,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4633,7 +4674,11 @@ impl InstanceSplit {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::InstanceSplit;
-    /// let x = InstanceSplit::new().set_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = InstanceSplit::new().set_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -4703,7 +4748,11 @@ impl InstanceSplitStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::InstanceSplitStatus;
-    /// let x = InstanceSplitStatus::new().set_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = InstanceSplitStatus::new().set_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -4763,7 +4812,9 @@ impl CreateJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::CreateJobRequest;
-    /// let x = CreateJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateJobRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4857,7 +4908,10 @@ impl GetJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = GetJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4993,7 +5047,9 @@ impl ListJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5149,7 +5205,10 @@ impl DeleteJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::DeleteJobRequest;
-    /// let x = DeleteJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = DeleteJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5222,7 +5281,10 @@ impl RunJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::RunJobRequest;
-    /// let x = RunJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = RunJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5648,7 +5710,10 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Job;
-    /// let x = Job::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6288,7 +6353,11 @@ impl ExecutionReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ExecutionReference;
-    /// let x = ExecutionReference::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = ExecutionReference::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9024,7 +9093,11 @@ impl GetRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetRevisionRequest;
-    /// let x = GetRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9072,7 +9145,10 @@ impl ListRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListRevisionsRequest;
-    /// let x = ListRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = ListRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9230,7 +9306,11 @@ impl DeleteRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::DeleteRevisionRequest;
-    /// let x = DeleteRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = DeleteRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9427,7 +9507,11 @@ impl Revision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Revision;
-    /// let x = Revision::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = Revision::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9655,7 +9739,10 @@ impl Revision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Revision;
-    /// let x = Revision::new().set_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = Revision::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -10257,7 +10344,11 @@ impl RevisionTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::RevisionTemplate;
-    /// let x = RevisionTemplate::new().set_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = RevisionTemplate::new().set_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -10726,7 +10817,9 @@ impl CreateServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateServiceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10956,7 +11049,9 @@ impl ListServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11125,7 +11220,10 @@ impl GetServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = GetServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11170,7 +11268,10 @@ impl DeleteServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = DeleteServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11422,7 +11523,10 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12019,7 +12123,11 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Service;
-    /// let x = Service::new().set_latest_ready_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = Service::new().set_latest_ready_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12034,7 +12142,11 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Service;
-    /// let x = Service::new().set_latest_created_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = Service::new().set_latest_created_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12288,7 +12400,12 @@ impl GetTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetTaskRequest;
-    /// let x = GetTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// # let task_id = "task_id";
+    /// let x = GetTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12336,7 +12453,11 @@ impl ListTasksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListTasksRequest;
-    /// let x = ListTasksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = ListTasksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12617,7 +12738,12 @@ impl Task {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Task;
-    /// let x = Task::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// # let task_id = "task_id";
+    /// let x = Task::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12926,7 +13052,10 @@ impl Task {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Task;
-    /// let x = Task::new().set_job("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = Task::new().set_job(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job = v.into();
@@ -12938,7 +13067,11 @@ impl Task {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Task;
-    /// let x = Task::new().set_execution("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let execution_id = "execution_id";
+    /// let x = Task::new().set_execution(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"));
     /// ```
     pub fn set_execution<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.execution = v.into();
@@ -13812,7 +13945,11 @@ impl TrafficTarget {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::TrafficTarget;
-    /// let x = TrafficTarget::new().set_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = TrafficTarget::new().set_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -13900,7 +14037,11 @@ impl TrafficTargetStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::TrafficTargetStatus;
-    /// let x = TrafficTargetStatus::new().set_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = TrafficTargetStatus::new().set_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -15047,7 +15188,9 @@ impl CreateWorkerPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::CreateWorkerPoolRequest;
-    /// let x = CreateWorkerPoolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateWorkerPoolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15299,7 +15442,9 @@ impl ListWorkerPoolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::ListWorkerPoolsRequest;
-    /// let x = ListWorkerPoolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListWorkerPoolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15448,7 +15593,10 @@ impl GetWorkerPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::GetWorkerPoolRequest;
-    /// let x = GetWorkerPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = GetWorkerPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15494,7 +15642,10 @@ impl DeleteWorkerPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::DeleteWorkerPoolRequest;
-    /// let x = DeleteWorkerPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = DeleteWorkerPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15726,7 +15877,10 @@ impl WorkerPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::WorkerPool;
-    /// let x = WorkerPool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = WorkerPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16202,7 +16356,11 @@ impl WorkerPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::WorkerPool;
-    /// let x = WorkerPool::new().set_latest_ready_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = WorkerPool::new().set_latest_ready_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16217,7 +16375,11 @@ impl WorkerPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::WorkerPool;
-    /// let x = WorkerPool::new().set_latest_created_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = WorkerPool::new().set_latest_created_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16410,7 +16572,11 @@ impl WorkerPoolRevisionTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
-    /// let x = WorkerPoolRevisionTemplate::new().set_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let revision_id = "revision_id";
+    /// let x = WorkerPoolRevisionTemplate::new().set_revision(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();

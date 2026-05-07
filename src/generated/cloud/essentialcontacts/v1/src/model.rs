@@ -77,7 +77,9 @@ impl Contact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::Contact;
-    /// let x = Contact::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let contact_id = "contact_id";
+    /// let x = Contact::new().set_name(format!("projects/{project_id}/contacts/{contact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -222,7 +224,8 @@ impl ListContactsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::ListContactsRequest;
-    /// let x = ListContactsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListContactsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -361,7 +364,9 @@ impl GetContactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::GetContactRequest;
-    /// let x = GetContactRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let contact_id = "contact_id";
+    /// let x = GetContactRequest::new().set_name(format!("projects/{project_id}/contacts/{contact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -399,7 +404,9 @@ impl DeleteContactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::DeleteContactRequest;
-    /// let x = DeleteContactRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let contact_id = "contact_id";
+    /// let x = DeleteContactRequest::new().set_name(format!("projects/{project_id}/contacts/{contact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -440,7 +447,8 @@ impl CreateContactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::CreateContactRequest;
-    /// let x = CreateContactRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateContactRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -622,7 +630,8 @@ impl ComputeContactsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsRequest;
-    /// let x = ComputeContactsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ComputeContactsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -813,7 +822,8 @@ impl SendTestMessageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_essentialcontacts_v1::model::SendTestMessageRequest;
-    /// let x = SendTestMessageRequest::new().set_resource("example");
+    /// # let project_id = "project_id";
+    /// let x = SendTestMessageRequest::new().set_resource(format!("projects/{project_id}"));
     /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();

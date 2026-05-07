@@ -74,7 +74,9 @@ impl SummarizeMaintenancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesRequest;
-    /// let x = SummarizeMaintenancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SummarizeMaintenancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -756,7 +758,10 @@ impl ResourceMaintenance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
-    /// let x = ResourceMaintenance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_maintenance_id = "resource_maintenance_id";
+    /// let x = ResourceMaintenance::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceMaintenances/{resource_maintenance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1763,7 +1768,9 @@ impl ListResourceMaintenancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesRequest;
-    /// let x = ListResourceMaintenancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListResourceMaintenancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1942,7 +1949,10 @@ impl GetResourceMaintenanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_maintenance_api_v1::model::GetResourceMaintenanceRequest;
-    /// let x = GetResourceMaintenanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_maintenance_id = "resource_maintenance_id";
+    /// let x = GetResourceMaintenanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceMaintenances/{resource_maintenance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

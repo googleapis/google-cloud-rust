@@ -80,7 +80,10 @@ impl ClientConnectorService {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = ClientConnectorService::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_connector_service_id = "client_connector_service_id";
+    /// let x = ClientConnectorService::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientConnectorServices/{client_connector_service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -984,7 +987,9 @@ impl ListClientConnectorServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesRequest;
-    /// let x = ListClientConnectorServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListClientConnectorServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1163,7 +1168,10 @@ impl GetClientConnectorServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::GetClientConnectorServiceRequest;
-    /// let x = GetClientConnectorServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_connector_service_id = "client_connector_service_id";
+    /// let x = GetClientConnectorServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientConnectorServices/{client_connector_service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1230,7 +1238,9 @@ impl CreateClientConnectorServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// let x = CreateClientConnectorServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClientConnectorServiceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1512,7 +1522,10 @@ impl DeleteClientConnectorServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::DeleteClientConnectorServiceRequest;
-    /// let x = DeleteClientConnectorServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_connector_service_id = "client_connector_service_id";
+    /// let x = DeleteClientConnectorServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientConnectorServices/{client_connector_service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1574,8 +1587,6 @@ pub struct ClientConnectorServiceOperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

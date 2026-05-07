@@ -3242,7 +3242,9 @@ impl AgentPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::AgentPool;
-    /// let x = AgentPool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let agent_pool_id = "agent_pool_id";
+    /// let x = AgentPool::new().set_name(format!("projects/{project_id}/agentPools/{agent_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

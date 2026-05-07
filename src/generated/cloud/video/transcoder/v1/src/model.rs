@@ -123,7 +123,10 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_transcoder_v1::model::Job;
-    /// let x = Job::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -952,7 +955,10 @@ impl JobTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_transcoder_v1::model::JobTemplate;
-    /// let x = JobTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_template_id = "job_template_id";
+    /// let x = JobTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobTemplates/{job_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8840,7 +8846,10 @@ impl GetJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_transcoder_v1::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = GetJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8880,7 +8889,10 @@ impl DeleteJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_transcoder_v1::model::DeleteJobRequest;
-    /// let x = DeleteJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = DeleteJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9213,7 +9225,10 @@ impl GetJobTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_transcoder_v1::model::GetJobTemplateRequest;
-    /// let x = GetJobTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_template_id = "job_template_id";
+    /// let x = GetJobTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobTemplates/{job_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9253,7 +9268,10 @@ impl DeleteJobTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_transcoder_v1::model::DeleteJobTemplateRequest;
-    /// let x = DeleteJobTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_template_id = "job_template_id";
+    /// let x = DeleteJobTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobTemplates/{job_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

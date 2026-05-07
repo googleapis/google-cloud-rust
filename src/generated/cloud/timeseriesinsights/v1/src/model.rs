@@ -240,7 +240,9 @@ impl DataSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
-    /// let x = DataSet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = DataSet::new().set_name(format!("projects/{project_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -955,7 +957,9 @@ impl AppendEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::AppendEventsRequest;
-    /// let x = AppendEventsRequest::new().set_dataset("example");
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = AppendEventsRequest::new().set_dataset(format!("projects/{project_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
@@ -1107,7 +1111,9 @@ impl DeleteDataSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::DeleteDataSetRequest;
-    /// let x = DeleteDataSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = DeleteDataSetRequest::new().set_name(format!("projects/{project_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2841,7 +2847,9 @@ impl QueryDataSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
-    /// let x = QueryDataSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = QueryDataSetRequest::new().set_name(format!("projects/{project_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3141,7 +3149,9 @@ impl EvaluateSliceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
-    /// let x = EvaluateSliceRequest::new().set_dataset("example");
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = EvaluateSliceRequest::new().set_dataset(format!("projects/{project_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();

@@ -5286,7 +5286,10 @@ impl ProductSearchParams {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ProductSearchParams;
-    /// let x = ProductSearchParams::new().set_product_set("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = ProductSearchParams::new().set_product_set(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_product_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_set = v.into();
@@ -5783,7 +5786,10 @@ impl Product {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::Product;
-    /// let x = Product::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = Product::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5962,7 +5968,10 @@ impl ProductSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ProductSet;
-    /// let x = ProductSet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = ProductSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6096,7 +6105,11 @@ impl ReferenceImage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = ReferenceImage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// # let reference_image_id = "reference_image_id";
+    /// let x = ReferenceImage::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}/referenceImages/{reference_image_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6403,7 +6416,10 @@ impl GetProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::GetProductRequest;
-    /// let x = GetProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = GetProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6540,7 +6556,10 @@ impl DeleteProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::DeleteProductRequest;
-    /// let x = DeleteProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = DeleteProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6811,7 +6830,10 @@ impl GetProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::GetProductSetRequest;
-    /// let x = GetProductSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = GetProductSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6946,7 +6968,10 @@ impl DeleteProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::DeleteProductSetRequest;
-    /// let x = DeleteProductSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = DeleteProductSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6995,7 +7020,10 @@ impl CreateReferenceImageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::CreateReferenceImageRequest;
-    /// let x = CreateReferenceImageRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = CreateReferenceImageRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7090,7 +7118,10 @@ impl ListReferenceImagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ListReferenceImagesRequest;
-    /// let x = ListReferenceImagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = ListReferenceImagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7241,7 +7272,11 @@ impl GetReferenceImageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::GetReferenceImageRequest;
-    /// let x = GetReferenceImageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// # let reference_image_id = "reference_image_id";
+    /// let x = GetReferenceImageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}/referenceImages/{reference_image_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7279,7 +7314,11 @@ impl DeleteReferenceImageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::DeleteReferenceImageRequest;
-    /// let x = DeleteReferenceImageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// # let reference_image_id = "reference_image_id";
+    /// let x = DeleteReferenceImageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}/referenceImages/{reference_image_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7323,7 +7362,10 @@ impl AddProductToProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::AddProductToProductSetRequest;
-    /// let x = AddProductToProductSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = AddProductToProductSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7335,7 +7377,10 @@ impl AddProductToProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::AddProductToProductSetRequest;
-    /// let x = AddProductToProductSetRequest::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = AddProductToProductSetRequest::new().set_product(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -7380,7 +7425,10 @@ impl RemoveProductFromProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::RemoveProductFromProductSetRequest;
-    /// let x = RemoveProductFromProductSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = RemoveProductFromProductSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7392,7 +7440,10 @@ impl RemoveProductFromProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::RemoveProductFromProductSetRequest;
-    /// let x = RemoveProductFromProductSetRequest::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = RemoveProductFromProductSetRequest::new().set_product(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -7436,7 +7487,10 @@ impl ListProductsInProductSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ListProductsInProductSetRequest;
-    /// let x = ListProductsInProductSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_set_id = "product_set_id";
+    /// let x = ListProductsInProductSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

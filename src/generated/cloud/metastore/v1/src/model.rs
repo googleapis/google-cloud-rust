@@ -135,7 +135,10 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2401,7 +2404,11 @@ impl MetadataImport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = MetadataImport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let metadata_import_id = "metadata_import_id";
+    /// let x = MetadataImport::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/metadataImports/{metadata_import_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3398,7 +3405,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3835,7 +3846,11 @@ impl Restore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::Restore;
-    /// let x = Restore::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Restore::new().set_backup(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -4516,7 +4531,9 @@ impl ListServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4703,7 +4720,10 @@ impl GetServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = GetServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4771,7 +4791,9 @@ impl CreateServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateServiceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5011,7 +5033,10 @@ impl DeleteServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = DeleteServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5090,7 +5115,10 @@ impl ListMetadataImportsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::ListMetadataImportsRequest;
-    /// let x = ListMetadataImportsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = ListMetadataImportsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5277,7 +5305,11 @@ impl GetMetadataImportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::GetMetadataImportRequest;
-    /// let x = GetMetadataImportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let metadata_import_id = "metadata_import_id";
+    /// let x = GetMetadataImportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/metadataImports/{metadata_import_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5345,7 +5377,10 @@ impl CreateMetadataImportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::CreateMetadataImportRequest;
-    /// let x = CreateMetadataImportRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = CreateMetadataImportRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5600,7 +5635,10 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5787,7 +5825,11 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5854,7 +5896,10 @@ impl CreateBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = CreateBackupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5966,7 +6011,11 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6040,7 +6089,10 @@ impl ExportMetadataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::ExportMetadataRequest;
-    /// let x = ExportMetadataRequest::new().set_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = ExportMetadataRequest::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -6202,7 +6254,10 @@ impl RestoreServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::RestoreServiceRequest;
-    /// let x = RestoreServiceRequest::new().set_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = RestoreServiceRequest::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -6214,7 +6269,11 @@ impl RestoreServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::RestoreServiceRequest;
-    /// let x = RestoreServiceRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreServiceRequest::new().set_backup(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -6281,8 +6340,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -6724,7 +6781,10 @@ impl QueryMetadataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::QueryMetadataRequest;
-    /// let x = QueryMetadataRequest::new().set_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = QueryMetadataRequest::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -6880,7 +6940,10 @@ impl MoveTableToDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::MoveTableToDatabaseRequest;
-    /// let x = MoveTableToDatabaseRequest::new().set_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = MoveTableToDatabaseRequest::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -6995,7 +7058,10 @@ impl AlterMetadataResourceLocationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::AlterMetadataResourceLocationRequest;
-    /// let x = AlterMetadataResourceLocationRequest::new().set_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = AlterMetadataResourceLocationRequest::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -7114,7 +7180,10 @@ impl Federation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let federation_id = "federation_id";
+    /// let x = Federation::new().set_name(format!("projects/{project_id}/locations/{location_id}/federations/{federation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7713,7 +7782,9 @@ impl ListFederationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::ListFederationsRequest;
-    /// let x = ListFederationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFederationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7894,7 +7965,10 @@ impl GetFederationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::GetFederationRequest;
-    /// let x = GetFederationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let federation_id = "federation_id";
+    /// let x = GetFederationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/federations/{federation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7959,7 +8033,9 @@ impl CreateFederationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::CreateFederationRequest;
-    /// let x = CreateFederationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFederationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8193,7 +8269,10 @@ impl DeleteFederationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::DeleteFederationRequest;
-    /// let x = DeleteFederationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let federation_id = "federation_id";
+    /// let x = DeleteFederationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/federations/{federation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

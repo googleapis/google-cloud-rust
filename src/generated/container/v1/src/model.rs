@@ -30535,8 +30535,6 @@ pub struct NetworkConfig {
     /// and this field at the same time.
     /// To update the default setting, use
     /// [ClusterUpdate.desired_default_enable_private_nodes][google.container.v1.ClusterUpdate.desired_default_enable_private_nodes]
-    ///
-    /// [google.container.v1.ClusterUpdate.desired_default_enable_private_nodes]: crate::model::ClusterUpdate::desired_default_enable_private_nodes
     pub default_enable_private_nodes: std::option::Option<bool>,
 
     /// Disable L4 load balancer VPC firewalls to enable firewall policies.

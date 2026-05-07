@@ -79,7 +79,9 @@ impl ListAppConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsRequest;
-    /// let x = ListAppConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAppConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -258,7 +260,10 @@ impl GetAppConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appconnections_v1::model::GetAppConnectionRequest;
-    /// let x = GetAppConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_connection_id = "app_connection_id";
+    /// let x = GetAppConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -323,7 +328,9 @@ impl CreateAppConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// let x = CreateAppConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAppConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -608,7 +615,10 @@ impl DeleteAppConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appconnections_v1::model::DeleteAppConnectionRequest;
-    /// let x = DeleteAppConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_connection_id = "app_connection_id";
+    /// let x = DeleteAppConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -685,7 +695,9 @@ impl ResolveAppConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsRequest;
-    /// let x = ResolveAppConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ResolveAppConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -977,7 +989,10 @@ impl AppConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = AppConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_connection_id = "app_connection_id";
+    /// let x = AppConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1801,8 +1816,6 @@ pub struct AppConnectionOperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

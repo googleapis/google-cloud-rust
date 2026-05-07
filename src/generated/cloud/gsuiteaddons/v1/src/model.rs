@@ -63,7 +63,8 @@ impl GetAuthorizationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::GetAuthorizationRequest;
-    /// let x = GetAuthorizationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetAuthorizationRequest::new().set_name(format!("projects/{project_id}/authorization"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -107,7 +108,8 @@ impl Authorization {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::Authorization;
-    /// let x = Authorization::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = Authorization::new().set_name(format!("projects/{project_id}/authorization"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -316,7 +318,9 @@ impl GetDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::GetDeploymentRequest;
-    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GetDeploymentRequest::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -506,7 +510,9 @@ impl DeleteDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::DeleteDeploymentRequest;
-    /// let x = DeleteDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeleteDeploymentRequest::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -555,7 +561,9 @@ impl InstallDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::InstallDeploymentRequest;
-    /// let x = InstallDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = InstallDeploymentRequest::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -592,7 +600,9 @@ impl UninstallDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::UninstallDeploymentRequest;
-    /// let x = UninstallDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = UninstallDeploymentRequest::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -629,7 +639,9 @@ impl GetInstallStatusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::GetInstallStatusRequest;
-    /// let x = GetInstallStatusRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GetInstallStatusRequest::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}/installStatus"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -669,7 +681,9 @@ impl InstallStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::InstallStatus;
-    /// let x = InstallStatus::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = InstallStatus::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}/installStatus"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -750,7 +764,9 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::Deployment;
-    /// let x = Deployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Deployment::new().set_name(format!("projects/{project_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -72,7 +72,8 @@ impl MetricsScope {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// let x = MetricsScope::new().set_name("example");
+    /// # let metrics_scope_id = "metrics_scope_id";
+    /// let x = MetricsScope::new().set_name(format!("locations/global/metricsScope/{metrics_scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -204,7 +205,9 @@ impl MonitoredProject {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// let x = MonitoredProject::new().set_name("example");
+    /// # let metrics_scope_id = "metrics_scope_id";
+    /// # let project_id = "project_id";
+    /// let x = MonitoredProject::new().set_name(format!("locations/global/metricsScopes/{metrics_scope_id}/projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -274,7 +277,8 @@ impl GetMetricsScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_metricsscope_v1::model::GetMetricsScopeRequest;
-    /// let x = GetMetricsScopeRequest::new().set_name("example");
+    /// # let metrics_scope_id = "metrics_scope_id";
+    /// let x = GetMetricsScopeRequest::new().set_name(format!("locations/global/metricsScope/{metrics_scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -404,7 +408,8 @@ impl CreateMonitoredProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_metricsscope_v1::model::CreateMonitoredProjectRequest;
-    /// let x = CreateMonitoredProjectRequest::new().set_parent("example");
+    /// # let metrics_scope_id = "metrics_scope_id";
+    /// let x = CreateMonitoredProjectRequest::new().set_parent(format!("locations/global/metricsScope/{metrics_scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -478,7 +483,9 @@ impl DeleteMonitoredProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_metricsscope_v1::model::DeleteMonitoredProjectRequest;
-    /// let x = DeleteMonitoredProjectRequest::new().set_name("example");
+    /// # let metrics_scope_id = "metrics_scope_id";
+    /// # let project_id = "project_id";
+    /// let x = DeleteMonitoredProjectRequest::new().set_name(format!("locations/global/metricsScopes/{metrics_scope_id}/projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

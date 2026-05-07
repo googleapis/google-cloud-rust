@@ -204,7 +204,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = Backup::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -282,7 +285,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -933,7 +939,10 @@ impl CreateBackupMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// let x = CreateBackupMetadata::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = CreateBackupMetadata::new().set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -945,7 +954,10 @@ impl CreateBackupMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// let x = CreateBackupMetadata::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = CreateBackupMetadata::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -1103,7 +1115,10 @@ impl CopyBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_source_backup("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = CopyBackupRequest::new().set_source_backup(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
@@ -1238,7 +1253,10 @@ impl CopyBackupMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// let x = CopyBackupMetadata::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = CopyBackupMetadata::new().set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1250,7 +1268,10 @@ impl CopyBackupMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// let x = CopyBackupMetadata::new().set_source_backup("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = CopyBackupMetadata::new().set_source_backup(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
@@ -1459,7 +1480,10 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1499,7 +1523,10 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2024,7 +2051,10 @@ impl BackupInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = BackupInfo::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = BackupInfo::new().set_backup(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -2102,7 +2132,10 @@ impl BackupInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = BackupInfo::new().set_source_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = BackupInfo::new().set_source_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_source_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_database = v.into();
@@ -2872,7 +2905,11 @@ impl BackupSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = BackupSchedule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// # let schedule_id = "schedule_id";
+    /// let x = BackupSchedule::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/backupSchedules/{schedule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3277,7 +3314,10 @@ impl CreateBackupScheduleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupScheduleRequest;
-    /// let x = CreateBackupScheduleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = CreateBackupScheduleRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3365,7 +3405,11 @@ impl GetBackupScheduleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::GetBackupScheduleRequest;
-    /// let x = GetBackupScheduleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// # let schedule_id = "schedule_id";
+    /// let x = GetBackupScheduleRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/backupSchedules/{schedule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3405,7 +3449,11 @@ impl DeleteBackupScheduleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::DeleteBackupScheduleRequest;
-    /// let x = DeleteBackupScheduleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// # let schedule_id = "schedule_id";
+    /// let x = DeleteBackupScheduleRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/backupSchedules/{schedule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3459,7 +3507,10 @@ impl ListBackupSchedulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::ListBackupSchedulesRequest;
-    /// let x = ListBackupSchedulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = ListBackupSchedulesRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4303,7 +4354,10 @@ impl Database {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = Database::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = Database::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5061,7 +5115,10 @@ impl CreateDatabaseMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseMetadata;
-    /// let x = CreateDatabaseMetadata::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = CreateDatabaseMetadata::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -5100,7 +5157,10 @@ impl GetDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::GetDatabaseRequest;
-    /// let x = GetDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = GetDatabaseRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5444,7 +5504,10 @@ impl UpdateDatabaseDdlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlRequest;
-    /// let x = UpdateDatabaseDdlRequest::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = UpdateDatabaseDdlRequest::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -5646,7 +5709,10 @@ impl UpdateDatabaseDdlMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// let x = UpdateDatabaseDdlMetadata::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = UpdateDatabaseDdlMetadata::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -5779,7 +5845,10 @@ impl DropDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::DropDatabaseRequest;
-    /// let x = DropDatabaseRequest::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = DropDatabaseRequest::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -5819,7 +5888,10 @@ impl GetDatabaseDdlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::GetDatabaseDdlRequest;
-    /// let x = GetDatabaseDdlRequest::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = GetDatabaseDdlRequest::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -6265,7 +6337,10 @@ impl RestoreDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// let x = RestoreDatabaseRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreDatabaseRequest::new().set_backup(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"));
     /// assert!(x.backup().is_some());
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6627,7 +6702,10 @@ impl RestoreDatabaseMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// let x = RestoreDatabaseMetadata::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = RestoreDatabaseMetadata::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6843,7 +6921,10 @@ impl OptimizeRestoredDatabaseMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::OptimizeRestoredDatabaseMetadata;
-    /// let x = OptimizeRestoredDatabaseMetadata::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = OptimizeRestoredDatabaseMetadata::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6913,7 +6994,11 @@ impl DatabaseRole {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::DatabaseRole;
-    /// let x = DatabaseRole::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// # let role_id = "role_id";
+    /// let x = DatabaseRole::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/databaseRoles/{role_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6966,7 +7051,10 @@ impl ListDatabaseRolesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseRolesRequest;
-    /// let x = ListDatabaseRolesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = ListDatabaseRolesRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7121,7 +7209,10 @@ impl AddSplitPointsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::AddSplitPointsRequest;
-    /// let x = AddSplitPointsRequest::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let database_id = "database_id";
+    /// let x = AddSplitPointsRequest::new().set_database(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();

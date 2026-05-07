@@ -205,7 +205,9 @@ impl PosixAccount {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_common::model::PosixAccount;
-    /// let x = PosixAccount::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let project_id = "project_id";
+    /// let x = PosixAccount::new().set_name(format!("users/{user_id}/projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -286,7 +288,9 @@ impl SshPublicKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_common::model::SshPublicKey;
-    /// let x = SshPublicKey::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let fingerprint_id = "fingerprint_id";
+    /// let x = SshPublicKey::new().set_name(format!("users/{user_id}/sshPublicKeys/{fingerprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

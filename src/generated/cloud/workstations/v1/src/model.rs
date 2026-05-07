@@ -125,7 +125,10 @@ impl WorkstationCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// let x = WorkstationCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -701,7 +704,11 @@ impl WorkstationConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// let x = WorkstationConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2447,7 +2454,12 @@ impl Workstation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// # let workstation_id = "workstation_id";
+    /// let x = Workstation::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2888,7 +2900,10 @@ impl GetWorkstationClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::GetWorkstationClusterRequest;
-    /// let x = GetWorkstationClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// let x = GetWorkstationClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2930,7 +2945,9 @@ impl ListWorkstationClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::ListWorkstationClustersRequest;
-    /// let x = ListWorkstationClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListWorkstationClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3094,7 +3111,9 @@ impl CreateWorkstationClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::CreateWorkstationClusterRequest;
-    /// let x = CreateWorkstationClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateWorkstationClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3328,7 +3347,10 @@ impl DeleteWorkstationClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::DeleteWorkstationClusterRequest;
-    /// let x = DeleteWorkstationClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// let x = DeleteWorkstationClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3399,7 +3421,11 @@ impl GetWorkstationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::GetWorkstationConfigRequest;
-    /// let x = GetWorkstationConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// let x = GetWorkstationConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3441,7 +3467,10 @@ impl ListWorkstationConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsRequest;
-    /// let x = ListWorkstationConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// let x = ListWorkstationConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3602,7 +3631,10 @@ impl ListUsableWorkstationConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsRequest;
-    /// let x = ListUsableWorkstationConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// let x = ListUsableWorkstationConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3768,7 +3800,10 @@ impl CreateWorkstationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::CreateWorkstationConfigRequest;
-    /// let x = CreateWorkstationConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// let x = CreateWorkstationConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4002,7 +4037,11 @@ impl DeleteWorkstationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::DeleteWorkstationConfigRequest;
-    /// let x = DeleteWorkstationConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// let x = DeleteWorkstationConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4073,7 +4112,12 @@ impl GetWorkstationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::GetWorkstationRequest;
-    /// let x = GetWorkstationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// # let workstation_id = "workstation_id";
+    /// let x = GetWorkstationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4115,7 +4159,11 @@ impl ListWorkstationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::ListWorkstationsRequest;
-    /// let x = ListWorkstationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// let x = ListWorkstationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4276,7 +4324,11 @@ impl ListUsableWorkstationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsRequest;
-    /// let x = ListUsableWorkstationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// let x = ListUsableWorkstationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4440,7 +4492,11 @@ impl CreateWorkstationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::CreateWorkstationRequest;
-    /// let x = CreateWorkstationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// let x = CreateWorkstationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4666,7 +4722,12 @@ impl DeleteWorkstationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::DeleteWorkstationRequest;
-    /// let x = DeleteWorkstationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// # let workstation_id = "workstation_id";
+    /// let x = DeleteWorkstationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4733,7 +4794,12 @@ impl StartWorkstationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::StartWorkstationRequest;
-    /// let x = StartWorkstationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// # let workstation_id = "workstation_id";
+    /// let x = StartWorkstationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4800,7 +4866,12 @@ impl StopWorkstationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::StopWorkstationRequest;
-    /// let x = StopWorkstationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// # let workstation_id = "workstation_id";
+    /// let x = StopWorkstationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4863,7 +4934,12 @@ impl GenerateAccessTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_workstation("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workstation_cluster_id = "workstation_cluster_id";
+    /// # let workstation_config_id = "workstation_config_id";
+    /// # let workstation_id = "workstation_id";
+    /// let x = GenerateAccessTokenRequest::new().set_workstation(format!("projects/{project_id}/locations/{location_id}/workstationClusters/{workstation_cluster_id}/workstationConfigs/{workstation_config_id}/workstations/{workstation_id}"));
     /// ```
     pub fn set_workstation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workstation = v.into();

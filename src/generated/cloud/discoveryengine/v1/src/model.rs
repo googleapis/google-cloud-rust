@@ -102,7 +102,12 @@ impl Answer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Answer;
-    /// let x = Answer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// # let answer_id = "answer_id";
+    /// let x = Answer::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}/answers/{answer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -933,7 +938,12 @@ pub mod answer {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_discoveryengine_v1::model::answer::reference::UnstructuredDocumentInfo;
-            /// let x = UnstructuredDocumentInfo::new().set_document("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let data_store_id = "data_store_id";
+            /// # let branch_id = "branch_id";
+            /// # let document_id = "document_id";
+            /// let x = UnstructuredDocumentInfo::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
             /// ```
             pub fn set_document<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -1173,7 +1183,13 @@ pub mod answer {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_discoveryengine_v1::model::answer::reference::ChunkInfo;
-            /// let x = ChunkInfo::new().set_chunk("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let data_store_id = "data_store_id";
+            /// # let branch_id = "branch_id";
+            /// # let document_id = "document_id";
+            /// # let chunk_id = "chunk_id";
+            /// let x = ChunkInfo::new().set_chunk(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}/chunks/{chunk_id}"));
             /// ```
             pub fn set_chunk<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.chunk = v.into();
@@ -1310,7 +1326,12 @@ pub mod answer {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_discoveryengine_v1::model::answer::reference::chunk_info::DocumentMetadata;
-                /// let x = DocumentMetadata::new().set_document("example");
+                /// # let project_id = "project_id";
+                /// # let location_id = "location_id";
+                /// # let data_store_id = "data_store_id";
+                /// # let branch_id = "branch_id";
+                /// # let document_id = "document_id";
+                /// let x = DocumentMetadata::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
                 /// ```
                 pub fn set_document<T: std::convert::Into<std::string::String>>(
                     mut self,
@@ -1436,7 +1457,12 @@ pub mod answer {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_discoveryengine_v1::model::answer::reference::StructuredDocumentInfo;
-            /// let x = StructuredDocumentInfo::new().set_document("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let data_store_id = "data_store_id";
+            /// # let branch_id = "branch_id";
+            /// # let document_id = "document_id";
+            /// let x = StructuredDocumentInfo::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
             /// ```
             pub fn set_document<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -3135,7 +3161,13 @@ impl AssistAnswer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::AssistAnswer;
-    /// let x = AssistAnswer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// # let session_id = "session_id";
+    /// # let assist_answer_id = "assist_answer_id";
+    /// let x = AssistAnswer::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}/sessions/{session_id}/assistAnswers/{assist_answer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5021,7 +5053,12 @@ pub mod assistant_grounded_content {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_discoveryengine_v1::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata;
-                /// let x = DocumentMetadata::new().set_document("example");
+                /// # let project_id = "project_id";
+                /// # let location_id = "location_id";
+                /// # let data_store_id = "data_store_id";
+                /// # let branch_id = "branch_id";
+                /// # let document_id = "document_id";
+                /// let x = DocumentMetadata::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
                 /// ```
                 pub fn set_document<T>(mut self, v: T) -> Self
                 where
@@ -5036,7 +5073,12 @@ pub mod assistant_grounded_content {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_discoveryengine_v1::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata;
-                /// let x = DocumentMetadata::new().set_or_clear_document(Some("example"));
+                /// # let project_id = "project_id";
+                /// # let location_id = "location_id";
+                /// # let data_store_id = "data_store_id";
+                /// # let branch_id = "branch_id";
+                /// # let document_id = "document_id";
+                /// let x = DocumentMetadata::new().set_or_clear_document(Some(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}")));
                 /// let x = DocumentMetadata::new().set_or_clear_document(None::<String>);
                 /// ```
                 pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5272,7 +5314,12 @@ impl Assistant {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Assistant;
-    /// let x = Assistant::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// # let assistant_id = "assistant_id";
+    /// let x = Assistant::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}/assistants/{assistant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5422,7 +5469,12 @@ impl StreamAssistRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::StreamAssistRequest;
-    /// let x = StreamAssistRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// # let assistant_id = "assistant_id";
+    /// let x = StreamAssistRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}/assistants/{assistant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5467,7 +5519,11 @@ impl StreamAssistRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::StreamAssistRequest;
-    /// let x = StreamAssistRequest::new().set_session("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// let x = StreamAssistRequest::new().set_session(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
     /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
@@ -6148,7 +6204,11 @@ pub mod stream_assist_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::stream_assist_response::SessionInfo;
-        /// let x = SessionInfo::new().set_session("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let data_store_id = "data_store_id";
+        /// # let session_id = "session_id";
+        /// let x = SessionInfo::new().set_session(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
         /// ```
         pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.session = v.into();
@@ -6235,7 +6295,13 @@ impl Chunk {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Chunk;
-    /// let x = Chunk::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let branch_id = "branch_id";
+    /// # let document_id = "document_id";
+    /// # let chunk_id = "chunk_id";
+    /// let x = Chunk::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}/chunks/{chunk_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7129,7 +7195,9 @@ impl GetCmekConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetCmekConfigRequest;
-    /// let x = GetCmekConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetCmekConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7252,7 +7320,9 @@ impl CmekConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CmekConfig;
-    /// let x = CmekConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CmekConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8032,7 +8102,9 @@ impl DeleteCmekConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteCmekConfigRequest;
-    /// let x = DeleteCmekConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = DeleteCmekConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8995,7 +9067,12 @@ impl SearchLinkPromotion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::SearchLinkPromotion;
-    /// let x = SearchLinkPromotion::new().set_document("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let branch_id = "branch_id";
+    /// # let document_id = "document_id";
+    /// let x = SearchLinkPromotion::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
     /// ```
     pub fn set_document<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.document = v.into();
@@ -9555,7 +9632,10 @@ impl CompleteQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CompleteQueryRequest;
-    /// let x = CompleteQueryRequest::new().set_data_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CompleteQueryRequest::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_store = v.into();
@@ -10096,7 +10176,11 @@ impl Control {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Control;
-    /// let x = Control::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let control_id = "control_id";
+    /// let x = Control::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10499,7 +10583,10 @@ pub mod control {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::control::BoostAction;
-        /// let x = BoostAction::new().set_data_store("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let data_store_id = "data_store_id";
+        /// let x = BoostAction::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
         /// ```
         pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.data_store = v.into();
@@ -11163,7 +11250,10 @@ pub mod control {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::control::FilterAction;
-        /// let x = FilterAction::new().set_data_store("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let data_store_id = "data_store_id";
+        /// let x = FilterAction::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
         /// ```
         pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.data_store = v.into();
@@ -11301,7 +11391,10 @@ pub mod control {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::control::PromoteAction;
-        /// let x = PromoteAction::new().set_data_store("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let data_store_id = "data_store_id";
+        /// let x = PromoteAction::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
         /// ```
         pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.data_store = v.into();
@@ -11406,7 +11499,10 @@ impl CreateControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateControlRequest;
-    /// let x = CreateControlRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CreateControlRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11596,7 +11692,11 @@ impl DeleteControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteControlRequest;
-    /// let x = DeleteControlRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let control_id = "control_id";
+    /// let x = DeleteControlRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11635,7 +11735,11 @@ impl GetControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetControlRequest;
-    /// let x = GetControlRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let control_id = "control_id";
+    /// let x = GetControlRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11693,7 +11797,10 @@ impl ListControlsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListControlsRequest;
-    /// let x = ListControlsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ListControlsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11863,7 +11970,11 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Conversation;
-    /// let x = Conversation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12603,7 +12714,11 @@ impl ConverseConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ConverseConversationRequest;
-    /// let x = ConverseConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = ConverseConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12648,7 +12763,11 @@ impl ConverseConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ConverseConversationRequest;
-    /// let x = ConverseConversationRequest::new().set_serving_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = ConverseConversationRequest::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
@@ -12958,7 +13077,10 @@ impl CreateConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateConversationRequest;
-    /// let x = CreateConversationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CreateConversationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13134,7 +13256,11 @@ impl DeleteConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteConversationRequest;
-    /// let x = DeleteConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = DeleteConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13173,7 +13299,11 @@ impl GetConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetConversationRequest;
-    /// let x = GetConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = GetConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13240,7 +13370,10 @@ impl ListConversationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListConversationsRequest;
-    /// let x = ListConversationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ListConversationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13496,7 +13629,11 @@ impl AnswerQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::AnswerQueryRequest;
-    /// let x = AnswerQueryRequest::new().set_serving_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = AnswerQueryRequest::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
@@ -13541,7 +13678,11 @@ impl AnswerQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::AnswerQueryRequest;
-    /// let x = AnswerQueryRequest::new().set_session("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// let x = AnswerQueryRequest::new().set_session(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
     /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
@@ -15316,7 +15457,12 @@ pub mod answer_query_request {
                     /// # Example
                     /// ```ignore,no_run
                     /// # use google_cloud_discoveryengine_v1::model::answer_query_request::search_spec::search_result_list::search_result::UnstructuredDocumentInfo;
-                    /// let x = UnstructuredDocumentInfo::new().set_document("example");
+                    /// # let project_id = "project_id";
+                    /// # let location_id = "location_id";
+                    /// # let data_store_id = "data_store_id";
+                    /// # let branch_id = "branch_id";
+                    /// # let document_id = "document_id";
+                    /// let x = UnstructuredDocumentInfo::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
                     /// ```
                     pub fn set_document<T: std::convert::Into<std::string::String>>(
                         mut self,
@@ -15652,7 +15798,13 @@ pub mod answer_query_request {
                     /// # Example
                     /// ```ignore,no_run
                     /// # use google_cloud_discoveryengine_v1::model::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo;
-                    /// let x = ChunkInfo::new().set_chunk("example");
+                    /// # let project_id = "project_id";
+                    /// # let location_id = "location_id";
+                    /// # let data_store_id = "data_store_id";
+                    /// # let branch_id = "branch_id";
+                    /// # let document_id = "document_id";
+                    /// # let chunk_id = "chunk_id";
+                    /// let x = ChunkInfo::new().set_chunk(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}/chunks/{chunk_id}"));
                     /// ```
                     pub fn set_chunk<T: std::convert::Into<std::string::String>>(
                         mut self,
@@ -16888,7 +17040,12 @@ impl GetAnswerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetAnswerRequest;
-    /// let x = GetAnswerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// # let answer_id = "answer_id";
+    /// let x = GetAnswerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}/answers/{answer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16930,7 +17087,10 @@ impl CreateSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateSessionRequest;
-    /// let x = CreateSessionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CreateSessionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17106,7 +17266,11 @@ impl DeleteSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteSessionRequest;
-    /// let x = DeleteSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// let x = DeleteSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17149,7 +17313,11 @@ impl GetSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetSessionRequest;
-    /// let x = GetSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// let x = GetSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17245,7 +17413,10 @@ impl ListSessionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListSessionsRequest;
-    /// let x = ListSessionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ListSessionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17437,7 +17608,11 @@ impl CustomTuningModel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CustomTuningModel;
-    /// let x = CustomTuningModel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let custom_tuning_model_id = "custom_tuning_model_id";
+    /// let x = CustomTuningModel::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/customTuningModels/{custom_tuning_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17941,7 +18116,10 @@ impl DataStore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DataStore;
-    /// let x = DataStore::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = DataStore::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18362,7 +18540,10 @@ impl DataStore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DataStore;
-    /// let x = DataStore::new().set_identity_mapping_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = DataStore::new().set_identity_mapping_store(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -19506,7 +19687,9 @@ impl CreateDataStoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateDataStoreRequest;
-    /// let x = CreateDataStoreRequest::new().set_cmek_config_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDataStoreRequest::new().set_cmek_config_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
     /// assert!(x.cmek_config_name().is_some());
     /// assert!(x.disable_cmek().is_none());
     /// ```
@@ -19620,7 +19803,10 @@ impl GetDataStoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetDataStoreRequest;
-    /// let x = GetDataStoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = GetDataStoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19977,7 +20163,10 @@ impl DeleteDataStoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteDataStoreRequest;
-    /// let x = DeleteDataStoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = DeleteDataStoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20299,7 +20488,12 @@ impl Document {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Document;
-    /// let x = Document::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let branch_id = "branch_id";
+    /// # let document_id = "document_id";
+    /// let x = Document::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21240,7 +21434,10 @@ impl DocumentProcessingConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DocumentProcessingConfig;
-    /// let x = DocumentProcessingConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = DocumentProcessingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/documentProcessingConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21993,7 +22190,12 @@ impl GetDocumentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetDocumentRequest;
-    /// let x = GetDocumentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let branch_id = "branch_id";
+    /// # let document_id = "document_id";
+    /// let x = GetDocumentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22483,7 +22685,12 @@ impl DeleteDocumentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteDocumentRequest;
-    /// let x = DeleteDocumentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let branch_id = "branch_id";
+    /// # let document_id = "document_id";
+    /// let x = DeleteDocumentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23479,7 +23686,11 @@ impl Engine {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Engine;
-    /// let x = Engine::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// let x = Engine::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25230,7 +25441,11 @@ impl DeleteEngineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteEngineRequest;
-    /// let x = DeleteEngineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// let x = DeleteEngineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25377,7 +25592,11 @@ impl GetEngineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetEngineRequest;
-    /// let x = GetEngineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// let x = GetEngineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26989,7 +27208,11 @@ pub mod generate_grounded_content_request {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_discoveryengine_v1::model::generate_grounded_content_request::grounding_source::SearchSource;
-            /// let x = SearchSource::new().set_serving_config("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let data_store_id = "data_store_id";
+            /// # let serving_config_id = "serving_config_id";
+            /// let x = SearchSource::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"));
             /// ```
             pub fn set_serving_config<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -29448,7 +29671,10 @@ impl IdentityMappingStore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::IdentityMappingStore;
-    /// let x = IdentityMappingStore::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = IdentityMappingStore::new().set_name(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -29815,7 +30041,9 @@ impl CreateIdentityMappingStoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateIdentityMappingStoreRequest;
-    /// let x = CreateIdentityMappingStoreRequest::new().set_cmek_config_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateIdentityMappingStoreRequest::new().set_cmek_config_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
     /// assert!(x.cmek_config_name().is_some());
     /// assert!(x.disable_cmek().is_none());
     /// ```
@@ -29922,7 +30150,10 @@ impl GetIdentityMappingStoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetIdentityMappingStoreRequest;
-    /// let x = GetIdentityMappingStoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = GetIdentityMappingStoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -29965,7 +30196,10 @@ impl DeleteIdentityMappingStoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteIdentityMappingStoreRequest;
-    /// let x = DeleteIdentityMappingStoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = DeleteIdentityMappingStoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -30011,7 +30245,10 @@ impl ImportIdentityMappingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportIdentityMappingsRequest;
-    /// let x = ImportIdentityMappingsRequest::new().set_identity_mapping_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = ImportIdentityMappingsRequest::new().set_identity_mapping_store(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -30270,7 +30507,10 @@ impl PurgeIdentityMappingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::PurgeIdentityMappingsRequest;
-    /// let x = PurgeIdentityMappingsRequest::new().set_identity_mapping_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = PurgeIdentityMappingsRequest::new().set_identity_mapping_store(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -30504,7 +30744,10 @@ impl ListIdentityMappingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListIdentityMappingsRequest;
-    /// let x = ListIdentityMappingsRequest::new().set_identity_mapping_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let identity_mapping_store_id = "identity_mapping_store_id";
+    /// let x = ListIdentityMappingsRequest::new().set_identity_mapping_store(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"));
     /// ```
     pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -32733,7 +32976,10 @@ impl ImportUserEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportUserEventsRequest;
-    /// let x = ImportUserEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ImportUserEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -34451,7 +34697,10 @@ impl ImportSuggestionDenyListEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportSuggestionDenyListEntriesRequest;
-    /// let x = ImportSuggestionDenyListEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ImportSuggestionDenyListEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -34871,7 +35120,10 @@ impl ImportCompletionSuggestionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportCompletionSuggestionsRequest;
-    /// let x = ImportCompletionSuggestionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ImportCompletionSuggestionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35406,7 +35658,8 @@ impl Project {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Project;
-    /// let x = Project::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = Project::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35878,7 +36131,8 @@ impl ProvisionProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ProvisionProjectRequest;
-    /// let x = ProvisionProjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ProvisionProjectRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36009,7 +36263,10 @@ impl PurgeUserEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::PurgeUserEventsRequest;
-    /// let x = PurgeUserEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = PurgeUserEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -36838,7 +37095,10 @@ impl PurgeSuggestionDenyListEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::PurgeSuggestionDenyListEntriesRequest;
-    /// let x = PurgeSuggestionDenyListEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = PurgeSuggestionDenyListEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -37047,7 +37307,10 @@ impl PurgeCompletionSuggestionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::PurgeCompletionSuggestionsRequest;
-    /// let x = PurgeCompletionSuggestionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = PurgeCompletionSuggestionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -37711,7 +37974,11 @@ impl RecommendRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::RecommendRequest;
-    /// let x = RecommendRequest::new().set_serving_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = RecommendRequest::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
@@ -38550,7 +38817,11 @@ impl Schema {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Schema;
-    /// let x = Schema::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let schema_id = "schema_id";
+    /// let x = Schema::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -38699,7 +38970,11 @@ impl GetSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetSchemaRequest;
-    /// let x = GetSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let schema_id = "schema_id";
+    /// let x = GetSchemaRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -38764,7 +39039,10 @@ impl ListSchemasRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListSchemasRequest;
-    /// let x = ListSchemasRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ListSchemasRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -38938,7 +39216,10 @@ impl CreateSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateSchemaRequest;
-    /// let x = CreateSchemaRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CreateSchemaRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -39110,7 +39391,11 @@ impl DeleteSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteSchemaRequest;
-    /// let x = DeleteSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let schema_id = "schema_id";
+    /// let x = DeleteSchemaRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39852,7 +40137,11 @@ impl SearchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
-    /// let x = SearchRequest::new().set_serving_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = SearchRequest::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
@@ -40471,7 +40760,11 @@ impl SearchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
-    /// let x = SearchRequest::new().set_session("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// let x = SearchRequest::new().set_session(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
     /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
@@ -40768,7 +41061,10 @@ pub mod search_request {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::search_request::DataStoreSpec;
-        /// let x = DataStoreSpec::new().set_data_store("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let data_store_id = "data_store_id";
+        /// let x = DataStoreSpec::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
         /// ```
         pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.data_store = v.into();
@@ -47525,7 +47821,12 @@ pub mod search_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_discoveryengine_v1::model::search_response::summary::Reference;
-            /// let x = Reference::new().set_document("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let data_store_id = "data_store_id";
+            /// # let branch_id = "branch_id";
+            /// # let document_id = "document_id";
+            /// let x = Reference::new().set_document(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
             /// ```
             pub fn set_document<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -49298,7 +49599,10 @@ impl ListCustomModelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListCustomModelsRequest;
-    /// let x = ListCustomModelsRequest::new().set_data_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ListCustomModelsRequest::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_store = v.into();
@@ -49410,7 +49714,10 @@ impl TrainCustomModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::TrainCustomModelRequest;
-    /// let x = TrainCustomModelRequest::new().set_data_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = TrainCustomModelRequest::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_store = v.into();
@@ -50129,7 +50436,11 @@ impl ServingConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ServingConfig;
-    /// let x = ServingConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = ServingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -51005,7 +51316,11 @@ impl Session {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Session;
-    /// let x = Session::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let session_id = "session_id";
+    /// let x = Session::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -51272,7 +51587,12 @@ pub mod session {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::session::Turn;
-        /// let x = Turn::new().set_answer("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let data_store_id = "data_store_id";
+        /// # let session_id = "session_id";
+        /// # let answer_id = "answer_id";
+        /// let x = Turn::new().set_answer(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}/answers/{answer_id}"));
         /// ```
         pub fn set_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.answer = v.into();
@@ -51658,7 +51978,10 @@ impl SiteSearchEngine {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::SiteSearchEngine;
-    /// let x = SiteSearchEngine::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = SiteSearchEngine::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -51732,7 +52055,11 @@ impl TargetSite {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::TargetSite;
-    /// let x = TargetSite::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let target_site_id = "target_site_id";
+    /// let x = TargetSite::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/targetSites/{target_site_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -52679,7 +53006,11 @@ impl Sitemap {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::Sitemap;
-    /// let x = Sitemap::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let sitemap_id = "sitemap_id";
+    /// let x = Sitemap::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/sitemaps/{sitemap_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -52826,7 +53157,10 @@ impl GetSiteSearchEngineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetSiteSearchEngineRequest;
-    /// let x = GetSiteSearchEngineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = GetSiteSearchEngineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -52878,7 +53212,10 @@ impl CreateTargetSiteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateTargetSiteRequest;
-    /// let x = CreateTargetSiteRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CreateTargetSiteRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -53061,7 +53398,10 @@ impl BatchCreateTargetSitesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BatchCreateTargetSitesRequest;
-    /// let x = BatchCreateTargetSitesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = BatchCreateTargetSitesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -53136,7 +53476,11 @@ impl GetTargetSiteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::GetTargetSiteRequest;
-    /// let x = GetTargetSiteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let target_site_id = "target_site_id";
+    /// let x = GetTargetSiteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/targetSites/{target_site_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -53361,7 +53705,11 @@ impl DeleteTargetSiteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteTargetSiteRequest;
-    /// let x = DeleteTargetSiteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let target_site_id = "target_site_id";
+    /// let x = DeleteTargetSiteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/targetSites/{target_site_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -53526,7 +53874,10 @@ impl ListTargetSitesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ListTargetSitesRequest;
-    /// let x = ListTargetSitesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = ListTargetSitesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -53853,7 +54204,10 @@ impl CreateSitemapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CreateSitemapRequest;
-    /// let x = CreateSitemapRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CreateSitemapRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -53939,7 +54293,11 @@ impl DeleteSitemapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DeleteSitemapRequest;
-    /// let x = DeleteSitemapRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let sitemap_id = "sitemap_id";
+    /// let x = DeleteSitemapRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/sitemaps/{sitemap_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -53994,7 +54352,10 @@ impl FetchSitemapsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::FetchSitemapsRequest;
-    /// let x = FetchSitemapsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = FetchSitemapsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -54570,7 +54931,10 @@ impl EnableAdvancedSiteSearchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::EnableAdvancedSiteSearchRequest;
-    /// let x = EnableAdvancedSiteSearchRequest::new().set_site_search_engine("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = EnableAdvancedSiteSearchRequest::new().set_site_search_engine(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_site_search_engine<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -54748,7 +55112,10 @@ impl DisableAdvancedSiteSearchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DisableAdvancedSiteSearchRequest;
-    /// let x = DisableAdvancedSiteSearchRequest::new().set_site_search_engine("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = DisableAdvancedSiteSearchRequest::new().set_site_search_engine(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_site_search_engine<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -54936,7 +55303,10 @@ impl RecrawlUrisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::RecrawlUrisRequest;
-    /// let x = RecrawlUrisRequest::new().set_site_search_engine("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = RecrawlUrisRequest::new().set_site_search_engine(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_site_search_engine<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -55645,7 +56015,10 @@ impl BatchVerifyTargetSitesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BatchVerifyTargetSitesRequest;
-    /// let x = BatchVerifyTargetSitesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = BatchVerifyTargetSitesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -55832,7 +56205,10 @@ impl FetchDomainVerificationStatusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::FetchDomainVerificationStatusRequest;
-    /// let x = FetchDomainVerificationStatusRequest::new().set_site_search_engine("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = FetchDomainVerificationStatusRequest::new().set_site_search_engine(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"));
     /// ```
     pub fn set_site_search_engine<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -56307,7 +56683,11 @@ impl UserEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::UserEvent;
-    /// let x = UserEvent::new().set_engine("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let engine_id = "engine_id";
+    /// let x = UserEvent::new().set_engine(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"));
     /// ```
     pub fn set_engine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine = v.into();
@@ -56319,7 +56699,10 @@ impl UserEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::UserEvent;
-    /// let x = UserEvent::new().set_data_store("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = UserEvent::new().set_data_store(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_store = v.into();
@@ -57507,7 +57890,12 @@ impl DocumentInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::DocumentInfo;
-    /// let x = DocumentInfo::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// # let branch_id = "branch_id";
+    /// # let document_id = "document_id";
+    /// let x = DocumentInfo::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"));
     /// assert!(x.name().is_some());
     /// assert!(x.id().is_none());
     /// assert!(x.uri().is_none());
@@ -57911,7 +58299,10 @@ impl WriteUserEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::WriteUserEventRequest;
-    /// let x = WriteUserEventRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = WriteUserEventRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -58022,7 +58413,10 @@ impl CollectUserEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::CollectUserEventRequest;
-    /// let x = CollectUserEventRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_store_id = "data_store_id";
+    /// let x = CollectUserEventRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
