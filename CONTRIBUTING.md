@@ -34,13 +34,7 @@ re-trigger it by:
    page.
 1. Clicking "Re-run failed jobs".
 
-For more information, see
-[Re-running failed jobs in a workflow](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-workflow-runs/re-running-workflows-and-jobs#re-running-failed-jobs-in-a-workflow).
-
-## Community Guidelines
-
-This project follows
-[Google's Open Source Community Guidelines](https://opensource.google/conduct/).
+For more information, see [Re-running failed jobs in a workflow][rerunning].
 
 ## Before contributing code
 
@@ -187,3 +181,5 @@ instead of Fixes.
 
 This project follows
 [Google's Open Source Community Guidelines](https://opensource.google/conduct/).
+
+[rerunning]: https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-workflow-runs/re-running-workflows-and-jobs#re-running-failed-jobs-in-a-workflow
