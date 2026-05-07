@@ -43,14 +43,14 @@ pub(crate) enum BodyEncoding {
 
 impl STSHandler {
     /// Configures the handler to use the specified request type for token exchange.
-    #[cfg(feature = "gdch")]
+    #[allow(dead_code)]
     pub(crate) fn with_body_encoding(mut self, body_encoding: BodyEncoding) -> Self {
         self.body_encoding = body_encoding;
         self
     }
 
     /// Configures a custom CA certificate path for the handler.
-    #[cfg(feature = "gdch")]
+    #[allow(dead_code)]
     pub(crate) fn with_ca_cert_path(mut self, ca_cert_path: Option<String>) -> Self {
         self.ca_cert_path = ca_cert_path;
         self
