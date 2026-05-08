@@ -310,6 +310,32 @@ pub struct WriteObjectRequest {
     pub params: Option<crate::model::CommonObjectRequestParams>,
 }
 
+#[cfg(google_cloud_unstable_storage_appendable_upload)]
+/// The first message sent in an appendable upload stream.
+#[derive(Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AppendObjectFirstMessage {
+    /// Create a new appendable object.
+    Create(Box<crate::model::WriteObjectSpec>),
+    /// Take over an existing appendable object.
+    Takeover(crate::google::storage::v2::AppendObjectSpec),
+}
+
+#[cfg(google_cloud_unstable_storage_appendable_upload)]
+/// Represents the parameters of an [AppendObject] request.
+///
+/// This type is only used in mocks of the `Storage` client.
+///
+/// [AppendObject]: crate::builder::storage::AppendObject
+#[derive(Debug, PartialEq)]
+#[non_exhaustive]
+pub struct AppendObjectRequest {
+    /// The first message sent in the stream, which determines whether this is a create or takeover operation.
+    pub first_message: AppendObjectFirstMessage,
+    /// Additional request parameters that are not part of the object attributes.
+    pub params: Option<crate::model::CommonObjectRequestParams>,
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;

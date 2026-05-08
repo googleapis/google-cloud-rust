@@ -538,6 +538,7 @@ storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
+  'cfg(google_cloud_unstable_storage_appendable_upload)',
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',
