@@ -447,7 +447,7 @@ where
 
 #[derive(serde::Serialize, serde::Deserialize)]
 struct AllowedLocationsResponse {
-    
+    #[allow(dead_code)]
     locations: Vec<String>,
     #[serde(rename = "encodedLocations")]
     encoded_locations: String,
