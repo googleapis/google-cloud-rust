@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use futures::future::BoxFuture;
-use http::{HeaderValue, Request, Response, StatusCode};
+use http::{Request, Response, StatusCode};
 use spanner_grpc_mock::to_uri;
 use std::convert::Infallible;
 use tokio::net::TcpListener;
@@ -96,14 +96,9 @@ where
                     let status = Status::from_error(Box::new(e));
                     let mut resp = Response::new(Body::empty());
                     *resp.status_mut() = StatusCode::OK;
-                    resp.headers_mut().insert(
-                        "grpc-status",
-                        HeaderValue::from_str(&format!("{}", status.code() as i32)).unwrap(),
-                    );
-                    resp.headers_mut().insert(
-                        "grpc-message",
-                        HeaderValue::from_str(status.message()).unwrap(),
-                    );
+                    status
+                        .add_header(resp.headers_mut())
+                        .expect("Failed to add gRPC status header");
                     resp
                 }
             };
