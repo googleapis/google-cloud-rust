@@ -43,6 +43,22 @@ pub fn tracing_enabled(config: &ClientConfig) -> bool {
         .unwrap_or(false)
 }
 
+/// Resolve the effective per-attempt timeout for a request, taking into
+/// account a per-request attempt timeout and an optional client-level default.
+pub(crate) fn resolve_effective_timeout(
+    options: &google_cloud_gax::options::RequestOptions,
+    client_attempt_timeout: Option<std::time::Duration>,
+    remaining_time: Option<std::time::Duration>,
+) -> Option<std::time::Duration> {
+    let attempt = options.attempt_timeout().as_ref().copied().or(client_attempt_timeout);
+    match (attempt, remaining_time) {
+        (None, None) => None,
+        (None, Some(t)) => Some(t),
+        (Some(t), None) => Some(t),
+        (Some(a), Some(r)) => Some(std::cmp::min(a, r)),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

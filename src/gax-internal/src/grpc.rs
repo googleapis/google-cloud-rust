@@ -39,7 +39,7 @@ use google_cloud_gax::polling_error_policy::{
     Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
 };
 use google_cloud_gax::response::{Parts, Response};
-use google_cloud_gax::retry_loop_internal::{effective_timeout, retry_loop};
+use google_cloud_gax::retry_loop_internal::retry_loop;
 use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
@@ -278,14 +278,8 @@ impl Client {
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
-        let mut merged_options = options.clone();
-        if merged_options.attempt_timeout().is_none() {
-            if let Some(t) = self.attempt_timeout {
-                merged_options.set_attempt_timeout(t);
-            }
-        }
-        if let Some(attempt_timeout) = merged_options.attempt_timeout() {
-            request.set_timeout(*attempt_timeout);
+        if let Some(timeout) = crate::options::resolve_effective_timeout(&options, self.attempt_timeout, None) {
+            request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
@@ -416,13 +410,7 @@ impl Client {
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
 
-        let mut merged_options = options.clone();
-        if merged_options.attempt_timeout().is_none() {
-            if let Some(t) = self.attempt_timeout {
-                merged_options.set_attempt_timeout(t);
-            }
-        }
-        if let Some(timeout) = effective_timeout(&merged_options, remaining_time) {
+        if let Some(timeout) = crate::options::resolve_effective_timeout(options, self.attempt_timeout, remaining_time) {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
