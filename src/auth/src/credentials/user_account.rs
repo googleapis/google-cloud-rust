@@ -409,8 +409,8 @@ pub(crate) struct UserTokenProvider {
 }
 
 #[derive(PartialEq)]
-#[allow(dead_code)]
 enum UserTokenSource {
+    #[cfg_attr(not(feature = "idtoken"), expect(unused))]
     IdToken,
     AccessToken,
 }
