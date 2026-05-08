@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{get_database_id, get_emulator_host};
-use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
+use crate::client::{get_database_id, get_emulator_host, update_database_ddl};
+use crate::test_proxy::{InterceptionResult, PassThroughProxy, start_proxy_server};
+use futures::future::BoxFuture;
 use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement, TypeCode};
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
 use google_cloud_spanner::model::result_set_stats::RowCount;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
-use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
-use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
 use std::sync::Arc;
 use tokio::sync::Notify;
 use tonic::transport::Channel;
@@ -419,33 +418,6 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
     );
 }
 
-/// A test proxy that intercepts and delays `BeginTransaction` requests.
-///
-/// It notifies `begin_transaction_entered_latch` when a `BeginTransaction` request is received,
-/// and blocks the request execution until `latch` is notified. This allows tests to
-/// synchronize the order of execution of `BeginTransaction` with other operations.
-struct DelayedBeginProxy {
-    emulator_client: SpannerClient<Channel>,
-    latch: Arc<Notify>,
-    begin_transaction_entered_latch: Arc<Notify>,
-}
-
-#[tonic::async_trait]
-impl SpannerInterceptor for DelayedBeginProxy {
-    fn emulator_client(&self) -> SpannerClient<Channel> {
-        self.emulator_client.clone()
-    }
-
-    async fn begin_transaction(
-        &self,
-        request: tonic::Request<spanner_v1::BeginTransactionRequest>,
-    ) -> std::result::Result<tonic::Response<spanner_v1::Transaction>, tonic::Status> {
-        self.begin_transaction_entered_latch.notify_one();
-        self.latch.notified().await;
-        self.emulator_client().begin_transaction(request).await
-    }
-}
-
 // This test verifies that the client correctly falls back to `BeginTransaction` when the
 // first statement in a transaction fails. It also shows that the statement is retried and
 // could (theoretically) succeed during this retry. It achieves this by doing the following:
@@ -474,18 +446,35 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
     let endpoint = Channel::from_shared(format!("http://{}", emulator_host))?
         .connect()
         .await?;
-    let raw_client = SpannerClient::new(endpoint);
+    let latch_clone = Arc::clone(&latch);
+    let begin_entered_clone = Arc::clone(&begin_transaction_entered_latch);
 
-    let proxy = DelayedBeginProxy {
-        emulator_client: raw_client,
-        latch: Arc::clone(&latch),
-        begin_transaction_entered_latch: Arc::clone(&begin_transaction_entered_latch),
+    // Define an interceptor that intercepts `BeginTransaction` requests,
+    // notifies the test that the request has been received, and blocks
+    // until the test allows it to proceed. All other requests are passed through.
+    let interceptor = move |req: http::Request<tonic::body::Body>| {
+        let l = latch_clone.clone();
+        let be = begin_entered_clone.clone();
+        Box::pin(async move {
+            if req.uri().path() == "/google.spanner.v1.Spanner/BeginTransaction" {
+                be.notify_one();
+                l.notified().await;
+            }
+            InterceptionResult::Continue(req)
+        }) as BoxFuture<'static, InterceptionResult>
     };
 
-    let (proxy_uri, _guard) =
-        crate::client::start_guarded_server("127.0.0.1:0", InterceptedSpanner(proxy)).await?;
+    let proxy = PassThroughProxy::new(endpoint, interceptor);
+    let (proxy_uri, handle) = start_proxy_server("127.0.0.1:0", proxy).await?;
+    struct Guard(tokio::task::JoinHandle<()>);
+    impl Drop for Guard {
+        fn drop(&mut self) {
+            self.0.abort();
+        }
+    }
+    let _guard = Guard(handle);
 
-    // We build the Spanner DatabaseClient pointing directly to our proxy address over HTTP.
+    // We build the Spanner DatabaseClient pointing directly to our proxy address over gRPC.
     let proxy_db_client = Spanner::builder()
         .with_endpoint(proxy_uri)
         .build()
@@ -531,7 +520,7 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
 
     // Create the table on the emulator while the BeginTransaction RPC is blocked.
     let statement = format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_name);
-    crate::client::update_database_ddl(statement).await?;
+    update_database_ddl(statement).await?;
 
     // Unblock the BeginTransaction RPC.
     latch.notify_one();
