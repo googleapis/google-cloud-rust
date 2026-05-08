@@ -169,7 +169,10 @@ impl Collector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
-    /// let x = Collector::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collector_id = "collector_id";
+    /// let x = Collector::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -670,7 +673,10 @@ impl Annotation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
-    /// let x = Annotation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let annotation_id = "annotation_id";
+    /// let x = Annotation::new().set_name(format!("projects/{project_id}/locations/{location_id}/annotations/{annotation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1032,7 +1038,10 @@ impl GetAnnotationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::GetAnnotationRequest;
-    /// let x = GetAnnotationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let annotation_id = "annotation_id";
+    /// let x = GetAnnotationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/annotations/{annotation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1358,7 +1367,10 @@ impl GetCollectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::GetCollectorRequest;
-    /// let x = GetCollectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collector_id = "collector_id";
+    /// let x = GetCollectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1408,7 +1420,10 @@ impl DeleteCollectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::DeleteCollectorRequest;
-    /// let x = DeleteCollectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collector_id = "collector_id";
+    /// let x = DeleteCollectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1593,7 +1608,10 @@ impl ResumeCollectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::ResumeCollectorRequest;
-    /// let x = ResumeCollectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collector_id = "collector_id";
+    /// let x = ResumeCollectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1655,7 +1673,10 @@ impl RegisterCollectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::RegisterCollectorRequest;
-    /// let x = RegisterCollectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collector_id = "collector_id";
+    /// let x = RegisterCollectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1717,7 +1738,10 @@ impl PauseCollectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_rapidmigrationassessment_v1::model::PauseCollectorRequest;
-    /// let x = PauseCollectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collector_id = "collector_id";
+    /// let x = PauseCollectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collectors/{collector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1767,8 +1791,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

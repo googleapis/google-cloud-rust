@@ -140,7 +140,10 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3029,7 +3032,11 @@ impl NodePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_pool_id = "node_pool_id";
+    /// let x = NodePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/nodePools/{node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3506,7 +3513,10 @@ impl Machine {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let machine_id = "machine_id";
+    /// let x = Machine::new().set_name(format!("projects/{project_id}/locations/{location_id}/machines/{machine_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3715,7 +3725,10 @@ impl VpnConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpn_connection_id = "vpn_connection_id";
+    /// let x = VpnConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpnConnections/{vpn_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3846,7 +3859,10 @@ impl VpnConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = VpnConnection::new().set_cluster(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
@@ -5467,8 +5483,6 @@ pub struct OperationMetadata {
     /// Operations that have successfully been cancelled have [Operation.error][]
     /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
@@ -5823,7 +5837,9 @@ impl ListClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6000,7 +6016,10 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6046,7 +6065,9 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6262,7 +6283,10 @@ impl UpgradeClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = UpgradeClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6475,7 +6499,10 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6522,7 +6549,10 @@ impl GenerateAccessTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GenerateAccessTokenRequest::new().set_cluster(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
@@ -6628,7 +6658,10 @@ impl GenerateOfflineCredentialRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialRequest;
-    /// let x = GenerateOfflineCredentialRequest::new().set_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GenerateOfflineCredentialRequest::new().set_cluster(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
@@ -6779,7 +6812,10 @@ impl ListNodePoolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsRequest;
-    /// let x = ListNodePoolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListNodePoolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6956,7 +6992,11 @@ impl GetNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::GetNodePoolRequest;
-    /// let x = GetNodePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_pool_id = "node_pool_id";
+    /// let x = GetNodePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/nodePools/{node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7002,7 +7042,10 @@ impl CreateNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::CreateNodePoolRequest;
-    /// let x = CreateNodePoolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateNodePoolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7212,7 +7255,11 @@ impl DeleteNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::DeleteNodePoolRequest;
-    /// let x = DeleteNodePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_pool_id = "node_pool_id";
+    /// let x = DeleteNodePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/nodePools/{node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7271,7 +7318,9 @@ impl ListMachinesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::ListMachinesRequest;
-    /// let x = ListMachinesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMachinesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7448,7 +7497,10 @@ impl GetMachineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::GetMachineRequest;
-    /// let x = GetMachineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let machine_id = "machine_id";
+    /// let x = GetMachineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/machines/{machine_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7496,7 +7548,9 @@ impl ListVpnConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsRequest;
-    /// let x = ListVpnConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListVpnConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7673,7 +7727,10 @@ impl GetVpnConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::GetVpnConnectionRequest;
-    /// let x = GetVpnConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpn_connection_id = "vpn_connection_id";
+    /// let x = GetVpnConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpnConnections/{vpn_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7719,7 +7776,9 @@ impl CreateVpnConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::CreateVpnConnectionRequest;
-    /// let x = CreateVpnConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateVpnConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7819,7 +7878,10 @@ impl DeleteVpnConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgecontainer_v1::model::DeleteVpnConnectionRequest;
-    /// let x = DeleteVpnConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpn_connection_id = "vpn_connection_id";
+    /// let x = DeleteVpnConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpnConnections/{vpn_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

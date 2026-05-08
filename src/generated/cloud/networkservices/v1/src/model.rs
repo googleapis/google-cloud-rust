@@ -60,8 +60,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1175,7 +1173,10 @@ impl LbTrafficExtension {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = LbTrafficExtension::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_traffic_extension_id = "lb_traffic_extension_id";
+    /// let x = LbTrafficExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbTrafficExtensions/{lb_traffic_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1413,7 +1414,9 @@ impl ListLbTrafficExtensionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsRequest;
-    /// let x = ListLbTrafficExtensionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListLbTrafficExtensionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1592,7 +1595,10 @@ impl GetLbTrafficExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetLbTrafficExtensionRequest;
-    /// let x = GetLbTrafficExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_traffic_extension_id = "lb_traffic_extension_id";
+    /// let x = GetLbTrafficExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbTrafficExtensions/{lb_traffic_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1649,7 +1655,9 @@ impl CreateLbTrafficExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateLbTrafficExtensionRequest;
-    /// let x = CreateLbTrafficExtensionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateLbTrafficExtensionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1882,7 +1890,10 @@ impl DeleteLbTrafficExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteLbTrafficExtensionRequest;
-    /// let x = DeleteLbTrafficExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_traffic_extension_id = "lb_traffic_extension_id";
+    /// let x = DeleteLbTrafficExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbTrafficExtensions/{lb_traffic_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1992,7 +2003,10 @@ impl LbRouteExtension {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = LbRouteExtension::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_route_extension_id = "lb_route_extension_id";
+    /// let x = LbRouteExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbRouteExtensions/{lb_route_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2230,7 +2244,9 @@ impl ListLbRouteExtensionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsRequest;
-    /// let x = ListLbRouteExtensionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListLbRouteExtensionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2409,7 +2425,10 @@ impl GetLbRouteExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetLbRouteExtensionRequest;
-    /// let x = GetLbRouteExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_route_extension_id = "lb_route_extension_id";
+    /// let x = GetLbRouteExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbRouteExtensions/{lb_route_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2466,7 +2485,9 @@ impl CreateLbRouteExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateLbRouteExtensionRequest;
-    /// let x = CreateLbRouteExtensionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateLbRouteExtensionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2699,7 +2720,10 @@ impl DeleteLbRouteExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteLbRouteExtensionRequest;
-    /// let x = DeleteLbRouteExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_route_extension_id = "lb_route_extension_id";
+    /// let x = DeleteLbRouteExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbRouteExtensions/{lb_route_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2785,7 +2809,10 @@ impl LbEdgeExtension {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = LbEdgeExtension::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_edge_extension_id = "lb_edge_extension_id";
+    /// let x = LbEdgeExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbEdgeExtensions/{lb_edge_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2990,7 +3017,9 @@ impl ListLbEdgeExtensionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsRequest;
-    /// let x = ListLbEdgeExtensionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListLbEdgeExtensionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3169,7 +3198,10 @@ impl GetLbEdgeExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetLbEdgeExtensionRequest;
-    /// let x = GetLbEdgeExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_edge_extension_id = "lb_edge_extension_id";
+    /// let x = GetLbEdgeExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbEdgeExtensions/{lb_edge_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3225,7 +3257,9 @@ impl CreateLbEdgeExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateLbEdgeExtensionRequest;
-    /// let x = CreateLbEdgeExtensionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateLbEdgeExtensionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3458,7 +3492,10 @@ impl DeleteLbEdgeExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteLbEdgeExtensionRequest;
-    /// let x = DeleteLbEdgeExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lb_edge_extension_id = "lb_edge_extension_id";
+    /// let x = DeleteLbEdgeExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbEdgeExtensions/{lb_edge_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3589,7 +3626,10 @@ impl AuthzExtension {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authz_extension_id = "authz_extension_id";
+    /// let x = AuthzExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzExtensions/{authz_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3890,7 +3930,9 @@ impl ListAuthzExtensionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsRequest;
-    /// let x = ListAuthzExtensionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAuthzExtensionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4069,7 +4111,10 @@ impl GetAuthzExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetAuthzExtensionRequest;
-    /// let x = GetAuthzExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authz_extension_id = "authz_extension_id";
+    /// let x = GetAuthzExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzExtensions/{authz_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4126,7 +4171,9 @@ impl CreateAuthzExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateAuthzExtensionRequest;
-    /// let x = CreateAuthzExtensionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAuthzExtensionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4359,7 +4406,10 @@ impl DeleteAuthzExtensionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteAuthzExtensionRequest;
-    /// let x = DeleteAuthzExtensionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authz_extension_id = "authz_extension_id";
+    /// let x = DeleteAuthzExtensionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzExtensions/{authz_extension_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4458,7 +4508,10 @@ impl EndpointPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let endpoint_policy_id = "endpoint_policy_id";
+    /// let x = EndpointPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpointPolicies/{endpoint_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4873,7 +4926,9 @@ impl ListEndpointPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesRequest;
-    /// let x = ListEndpointPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEndpointPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5046,7 +5101,10 @@ impl GetEndpointPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetEndpointPolicyRequest;
-    /// let x = GetEndpointPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let endpoint_policy_id = "endpoint_policy_id";
+    /// let x = GetEndpointPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpointPolicies/{endpoint_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5089,7 +5147,9 @@ impl CreateEndpointPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateEndpointPolicyRequest;
-    /// let x = CreateEndpointPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEndpointPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5269,7 +5329,10 @@ impl DeleteEndpointPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteEndpointPolicyRequest;
-    /// let x = DeleteEndpointPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let endpoint_policy_id = "endpoint_policy_id";
+    /// let x = DeleteEndpointPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpointPolicies/{endpoint_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5357,7 +5420,10 @@ impl WasmPlugin {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = WasmPlugin::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// let x = WasmPlugin::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6250,7 +6316,11 @@ impl WasmPluginVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// # let wasm_plugin_version_id = "wasm_plugin_version_id";
+    /// let x = WasmPluginVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}/versions/{wasm_plugin_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6553,7 +6623,9 @@ impl ListWasmPluginsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListWasmPluginsRequest;
-    /// let x = ListWasmPluginsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListWasmPluginsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6716,7 +6788,10 @@ impl GetWasmPluginRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetWasmPluginRequest;
-    /// let x = GetWasmPluginRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// let x = GetWasmPluginRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6772,7 +6847,9 @@ impl CreateWasmPluginRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateWasmPluginRequest;
-    /// let x = CreateWasmPluginRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateWasmPluginRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6954,7 +7031,10 @@ impl DeleteWasmPluginRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteWasmPluginRequest;
-    /// let x = DeleteWasmPluginRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// let x = DeleteWasmPluginRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7003,7 +7083,10 @@ impl ListWasmPluginVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsRequest;
-    /// let x = ListWasmPluginVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// let x = ListWasmPluginVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7163,7 +7246,11 @@ impl GetWasmPluginVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetWasmPluginVersionRequest;
-    /// let x = GetWasmPluginVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// # let wasm_plugin_version_id = "wasm_plugin_version_id";
+    /// let x = GetWasmPluginVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}/versions/{wasm_plugin_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7207,7 +7294,10 @@ impl CreateWasmPluginVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateWasmPluginVersionRequest;
-    /// let x = CreateWasmPluginVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// let x = CreateWasmPluginVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7292,7 +7382,11 @@ impl DeleteWasmPluginVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteWasmPluginVersionRequest;
-    /// let x = DeleteWasmPluginVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let wasm_plugin_id = "wasm_plugin_id";
+    /// # let wasm_plugin_version_id = "wasm_plugin_version_id";
+    /// let x = DeleteWasmPluginVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}/versions/{wasm_plugin_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7423,7 +7517,10 @@ impl Gateway {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = Gateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8190,7 +8287,9 @@ impl ListGatewaysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListGatewaysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8346,7 +8445,10 @@ impl GetGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetGatewayRequest;
-    /// let x = GetGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = GetGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8388,7 +8490,9 @@ impl CreateGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateGatewayRequest;
-    /// let x = CreateGatewayRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateGatewayRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8565,7 +8669,10 @@ impl DeleteGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteGatewayRequest;
-    /// let x = DeleteGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = DeleteGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8674,7 +8781,10 @@ impl GrpcRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let grpc_route_id = "grpc_route_id";
+    /// let x = GrpcRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/grpcRoutes/{grpc_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10370,7 +10480,9 @@ impl ListGrpcRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesRequest;
-    /// let x = ListGrpcRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListGrpcRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10543,7 +10655,10 @@ impl GetGrpcRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetGrpcRouteRequest;
-    /// let x = GetGrpcRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let grpc_route_id = "grpc_route_id";
+    /// let x = GetGrpcRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/grpcRoutes/{grpc_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10585,7 +10700,9 @@ impl CreateGrpcRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateGrpcRouteRequest;
-    /// let x = CreateGrpcRouteRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateGrpcRouteRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10762,7 +10879,10 @@ impl DeleteGrpcRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteGrpcRouteRequest;
-    /// let x = DeleteGrpcRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let grpc_route_id = "grpc_route_id";
+    /// let x = DeleteGrpcRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/grpcRoutes/{grpc_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10864,7 +10984,10 @@ impl HttpRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let http_route_id = "http_route_id";
+    /// let x = HttpRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/httpRoutes/{http_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13978,7 +14101,9 @@ impl ListHttpRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListHttpRoutesRequest;
-    /// let x = ListHttpRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListHttpRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14151,7 +14276,10 @@ impl GetHttpRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetHttpRouteRequest;
-    /// let x = GetHttpRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let http_route_id = "http_route_id";
+    /// let x = GetHttpRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/httpRoutes/{http_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14193,7 +14321,9 @@ impl CreateHttpRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateHttpRouteRequest;
-    /// let x = CreateHttpRouteRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateHttpRouteRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14370,7 +14500,10 @@ impl DeleteHttpRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteHttpRouteRequest;
-    /// let x = DeleteHttpRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let http_route_id = "http_route_id";
+    /// let x = DeleteHttpRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/httpRoutes/{http_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14437,7 +14570,10 @@ impl Mesh {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = Mesh::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mesh_id = "mesh_id";
+    /// let x = Mesh::new().set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14644,7 +14780,9 @@ impl ListMeshesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListMeshesRequest;
-    /// let x = ListMeshesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMeshesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14814,7 +14952,10 @@ impl GetMeshRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetMeshRequest;
-    /// let x = GetMeshRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mesh_id = "mesh_id";
+    /// let x = GetMeshRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14856,7 +14997,9 @@ impl CreateMeshRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateMeshRequest;
-    /// let x = CreateMeshRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMeshRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15033,7 +15176,10 @@ impl DeleteMeshRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteMeshRequest;
-    /// let x = DeleteMeshRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mesh_id = "mesh_id";
+    /// let x = DeleteMeshRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15082,7 +15228,11 @@ impl GatewayRouteView {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = GatewayRouteView::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// # let route_view_id = "route_view_id";
+    /// let x = GatewayRouteView::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}/routeViews/{route_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15179,7 +15329,11 @@ impl MeshRouteView {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = MeshRouteView::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mesh_id = "mesh_id";
+    /// # let route_view_id = "route_view_id";
+    /// let x = MeshRouteView::new().set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}/routeViews/{route_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15264,7 +15418,11 @@ impl GetGatewayRouteViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetGatewayRouteViewRequest;
-    /// let x = GetGatewayRouteViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// # let route_view_id = "route_view_id";
+    /// let x = GetGatewayRouteViewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}/routeViews/{route_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15301,7 +15459,11 @@ impl GetMeshRouteViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetMeshRouteViewRequest;
-    /// let x = GetMeshRouteViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mesh_id = "mesh_id";
+    /// # let route_view_id = "route_view_id";
+    /// let x = GetMeshRouteViewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}/routeViews/{route_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15346,7 +15508,10 @@ impl ListGatewayRouteViewsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsRequest;
-    /// let x = ListGatewayRouteViewsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_id = "gateway_id";
+    /// let x = ListGatewayRouteViewsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15415,7 +15580,10 @@ impl ListMeshRouteViewsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsRequest;
-    /// let x = ListMeshRouteViewsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mesh_id = "mesh_id";
+    /// let x = ListMeshRouteViewsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15704,7 +15872,10 @@ impl ServiceBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ServiceBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_binding_id = "service_binding_id";
+    /// let x = ServiceBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceBindings/{service_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15873,7 +16044,9 @@ impl ListServiceBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListServiceBindingsRequest;
-    /// let x = ListServiceBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListServiceBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16031,7 +16204,10 @@ impl GetServiceBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetServiceBindingRequest;
-    /// let x = GetServiceBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_binding_id = "service_binding_id";
+    /// let x = GetServiceBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceBindings/{service_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16073,7 +16249,9 @@ impl CreateServiceBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateServiceBindingRequest;
-    /// let x = CreateServiceBindingRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateServiceBindingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16253,7 +16431,10 @@ impl DeleteServiceBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteServiceBindingRequest;
-    /// let x = DeleteServiceBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_binding_id = "service_binding_id";
+    /// let x = DeleteServiceBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceBindings/{service_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16319,7 +16500,10 @@ impl ServiceLbPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = ServiceLbPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_lb_policy_id = "service_lb_policy_id";
+    /// let x = ServiceLbPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceLbPolicies/{service_lb_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17149,7 +17333,9 @@ impl ListServiceLbPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesRequest;
-    /// let x = ListServiceLbPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListServiceLbPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17307,7 +17493,10 @@ impl GetServiceLbPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetServiceLbPolicyRequest;
-    /// let x = GetServiceLbPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_lb_policy_id = "service_lb_policy_id";
+    /// let x = GetServiceLbPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceLbPolicies/{service_lb_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17352,7 +17541,9 @@ impl CreateServiceLbPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateServiceLbPolicyRequest;
-    /// let x = CreateServiceLbPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateServiceLbPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17532,7 +17723,10 @@ impl DeleteServiceLbPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteServiceLbPolicyRequest;
-    /// let x = DeleteServiceLbPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_lb_policy_id = "service_lb_policy_id";
+    /// let x = DeleteServiceLbPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceLbPolicies/{service_lb_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17606,7 +17800,10 @@ impl TcpRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tcp_route_id = "tcp_route_id";
+    /// let x = TcpRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/tcpRoutes/{tcp_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18144,7 +18341,9 @@ impl ListTcpRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListTcpRoutesRequest;
-    /// let x = ListTcpRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTcpRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18317,7 +18516,10 @@ impl GetTcpRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetTcpRouteRequest;
-    /// let x = GetTcpRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tcp_route_id = "tcp_route_id";
+    /// let x = GetTcpRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tcpRoutes/{tcp_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18359,7 +18561,9 @@ impl CreateTcpRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateTcpRouteRequest;
-    /// let x = CreateTcpRouteRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTcpRouteRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18536,7 +18740,10 @@ impl DeleteTcpRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteTcpRouteRequest;
-    /// let x = DeleteTcpRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tcp_route_id = "tcp_route_id";
+    /// let x = DeleteTcpRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tcpRoutes/{tcp_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18610,7 +18817,10 @@ impl TlsRoute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_route_id = "tls_route_id";
+    /// let x = TlsRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsRoutes/{tls_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19130,7 +19340,9 @@ impl ListTlsRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::ListTlsRoutesRequest;
-    /// let x = ListTlsRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTlsRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19303,7 +19515,10 @@ impl GetTlsRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::GetTlsRouteRequest;
-    /// let x = GetTlsRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_route_id = "tls_route_id";
+    /// let x = GetTlsRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsRoutes/{tls_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19345,7 +19560,9 @@ impl CreateTlsRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::CreateTlsRouteRequest;
-    /// let x = CreateTlsRouteRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTlsRouteRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19522,7 +19739,10 @@ impl DeleteTlsRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkservices_v1::model::DeleteTlsRouteRequest;
-    /// let x = DeleteTlsRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_route_id = "tls_route_id";
+    /// let x = DeleteTlsRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsRoutes/{tls_route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

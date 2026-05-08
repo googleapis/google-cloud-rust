@@ -79,7 +79,11 @@ impl McpServer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apiregistry_v1::model::McpServer;
-    /// let x = McpServer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let api_namespace_id = "api_namespace_id";
+    /// # let mcp_server_id = "mcp_server_id";
+    /// let x = McpServer::new().set_name(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -246,7 +250,12 @@ impl McpTool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apiregistry_v1::model::McpTool;
-    /// let x = McpTool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let api_namespace_id = "api_namespace_id";
+    /// # let mcp_server_id = "mcp_server_id";
+    /// # let mcp_tool_id = "mcp_tool_id";
+    /// let x = McpTool::new().set_name(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}/mcpTools/{mcp_tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -422,7 +431,11 @@ impl GetMcpServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apiregistry_v1::model::GetMcpServerRequest;
-    /// let x = GetMcpServerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let api_namespace_id = "api_namespace_id";
+    /// # let mcp_server_id = "mcp_server_id";
+    /// let x = GetMcpServerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -653,7 +666,12 @@ impl GetMcpToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apiregistry_v1::model::GetMcpToolRequest;
-    /// let x = GetMcpToolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let api_namespace_id = "api_namespace_id";
+    /// # let mcp_server_id = "mcp_server_id";
+    /// # let mcp_tool_id = "mcp_tool_id";
+    /// let x = GetMcpToolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}/mcpTools/{mcp_tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -705,7 +723,11 @@ impl ListMcpToolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apiregistry_v1::model::ListMcpToolsRequest;
-    /// let x = ListMcpToolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let api_namespace_id = "api_namespace_id";
+    /// # let mcp_server_id = "mcp_server_id";
+    /// let x = ListMcpToolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

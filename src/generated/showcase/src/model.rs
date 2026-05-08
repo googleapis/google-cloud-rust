@@ -3805,7 +3805,8 @@ impl User {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::User;
-    /// let x = User::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// let x = User::new().set_name(format!("users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4112,7 +4113,8 @@ impl GetUserRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::GetUserRequest;
-    /// let x = GetUserRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// let x = GetUserRequest::new().set_name(format!("users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4242,7 +4244,8 @@ impl DeleteUserRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::DeleteUserRequest;
-    /// let x = DeleteUserRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// let x = DeleteUserRequest::new().set_name(format!("users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4421,7 +4424,8 @@ impl Room {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::Room;
-    /// let x = Room::new().set_name("example");
+    /// # let room_id = "room_id";
+    /// let x = Room::new().set_name(format!("rooms/{room_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4604,7 +4608,8 @@ impl GetRoomRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::GetRoomRequest;
-    /// let x = GetRoomRequest::new().set_name("example");
+    /// # let room_id = "room_id";
+    /// let x = GetRoomRequest::new().set_name(format!("rooms/{room_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4734,7 +4739,8 @@ impl DeleteRoomRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::DeleteRoomRequest;
-    /// let x = DeleteRoomRequest::new().set_name("example");
+    /// # let room_id = "room_id";
+    /// let x = DeleteRoomRequest::new().set_name(format!("rooms/{room_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4931,7 +4937,8 @@ impl Blurb {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::Blurb;
-    /// let x = Blurb::new().set_user("example");
+    /// # let user_id = "user_id";
+    /// let x = Blurb::new().set_user(format!("users/{user_id}"));
     /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user = v.into();
@@ -6487,7 +6494,8 @@ impl Sequence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::Sequence;
-    /// let x = Sequence::new().set_name("example");
+    /// # let sequence_id = "sequence_id";
+    /// let x = Sequence::new().set_name(format!("sequences/{sequence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6651,7 +6659,8 @@ impl StreamingSequence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::StreamingSequence;
-    /// let x = StreamingSequence::new().set_name("example");
+    /// # let streaming_sequence_id = "streaming_sequence_id";
+    /// let x = StreamingSequence::new().set_name(format!("streamingSequences/{streaming_sequence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6836,7 +6845,8 @@ impl StreamingSequenceReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::StreamingSequenceReport;
-    /// let x = StreamingSequenceReport::new().set_name("example");
+    /// # let streaming_sequence_id = "streaming_sequence_id";
+    /// let x = StreamingSequenceReport::new().set_name(format!("streamingSequences/{streaming_sequence_id}/streamingSequenceReport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7083,7 +7093,8 @@ impl SequenceReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::SequenceReport;
-    /// let x = SequenceReport::new().set_name("example");
+    /// # let sequence_id = "sequence_id";
+    /// let x = SequenceReport::new().set_name(format!("sequences/{sequence_id}/sequenceReport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7439,7 +7450,8 @@ impl AttemptSequenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::AttemptSequenceRequest;
-    /// let x = AttemptSequenceRequest::new().set_name("example");
+    /// # let sequence_id = "sequence_id";
+    /// let x = AttemptSequenceRequest::new().set_name(format!("sequences/{sequence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7479,7 +7491,8 @@ impl AttemptStreamingSequenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::AttemptStreamingSequenceRequest;
-    /// let x = AttemptStreamingSequenceRequest::new().set_name("example");
+    /// # let streaming_sequence_id = "streaming_sequence_id";
+    /// let x = AttemptStreamingSequenceRequest::new().set_name(format!("streamingSequences/{streaming_sequence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7561,7 +7574,8 @@ impl GetSequenceReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::GetSequenceReportRequest;
-    /// let x = GetSequenceReportRequest::new().set_name("example");
+    /// # let sequence_id = "sequence_id";
+    /// let x = GetSequenceReportRequest::new().set_name(format!("sequences/{sequence_id}/sequenceReport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7596,7 +7610,8 @@ impl GetStreamingSequenceReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::GetStreamingSequenceReportRequest;
-    /// let x = GetStreamingSequenceReportRequest::new().set_name("example");
+    /// # let streaming_sequence_id = "streaming_sequence_id";
+    /// let x = GetStreamingSequenceReportRequest::new().set_name(format!("streamingSequences/{streaming_sequence_id}/streamingSequenceReport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7639,7 +7654,8 @@ impl Session {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::Session;
-    /// let x = Session::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// let x = Session::new().set_name(format!("sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7888,7 +7904,8 @@ impl GetSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::GetSessionRequest;
-    /// let x = GetSessionRequest::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// let x = GetSessionRequest::new().set_name(format!("sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8048,7 +8065,8 @@ impl DeleteSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::DeleteSessionRequest;
-    /// let x = DeleteSessionRequest::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// let x = DeleteSessionRequest::new().set_name(format!("sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8083,7 +8101,8 @@ impl ReportSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::ReportSessionRequest;
-    /// let x = ReportSessionRequest::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// let x = ReportSessionRequest::new().set_name(format!("sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8343,7 +8362,9 @@ impl Test {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::Test;
-    /// let x = Test::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// # let test_id = "test_id";
+    /// let x = Test::new().set_name(format!("sessions/{session_id}/tests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8447,7 +8468,10 @@ pub mod test {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::test::Blueprint;
-        /// let x = Blueprint::new().set_name("example");
+        /// # let session_id = "session_id";
+        /// # let test_id = "test_id";
+        /// # let blueprint_id = "blueprint_id";
+        /// let x = Blueprint::new().set_name(format!("sessions/{session_id}/tests/{test_id}/blueprints/{blueprint_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -9118,7 +9142,8 @@ impl ListTestsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::ListTestsRequest;
-    /// let x = ListTestsRequest::new().set_parent("example");
+    /// # let session_id = "session_id";
+    /// let x = ListTestsRequest::new().set_parent(format!("sessions/{session_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9257,7 +9282,9 @@ impl TestRun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::TestRun;
-    /// let x = TestRun::new().set_test("example");
+    /// # let session_id = "session_id";
+    /// # let test_id = "test_id";
+    /// let x = TestRun::new().set_test(format!("sessions/{session_id}/tests/{test_id}"));
     /// ```
     pub fn set_test<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.test = v.into();
@@ -9325,7 +9352,9 @@ impl DeleteTestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::DeleteTestRequest;
-    /// let x = DeleteTestRequest::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// # let test_id = "test_id";
+    /// let x = DeleteTestRequest::new().set_name(format!("sessions/{session_id}/tests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9366,7 +9395,9 @@ impl VerifyTestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::VerifyTestRequest;
-    /// let x = VerifyTestRequest::new().set_name("example");
+    /// # let session_id = "session_id";
+    /// # let test_id = "test_id";
+    /// let x = VerifyTestRequest::new().set_name(format!("sessions/{session_id}/tests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

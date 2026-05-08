@@ -529,7 +529,9 @@ impl InstanceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
-    /// let x = InstanceConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = InstanceConfig::new().set_name(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -614,7 +616,9 @@ impl InstanceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
-    /// let x = InstanceConfig::new().set_base_config("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = InstanceConfig::new().set_base_config(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_base_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_config = v.into();
@@ -2421,7 +2425,9 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2433,7 +2439,9 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
-    /// let x = Instance::new().set_config("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = Instance::new().set_config(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config = v.into();
@@ -3488,7 +3496,9 @@ impl GetInstanceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::GetInstanceConfigRequest;
-    /// let x = GetInstanceConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = GetInstanceConfigRequest::new().set_name(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3784,7 +3794,9 @@ impl DeleteInstanceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstanceConfigRequest;
-    /// let x = DeleteInstanceConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = DeleteInstanceConfigRequest::new().set_name(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4077,7 +4089,9 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4607,7 +4621,9 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5634,7 +5650,10 @@ impl InstancePartition {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
-    /// let x = InstancePartition::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let instance_partition_id = "instance_partition_id";
+    /// let x = InstancePartition::new().set_name(format!("projects/{project_id}/instances/{instance_id}/instancePartitions/{instance_partition_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5646,7 +5665,9 @@ impl InstancePartition {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
-    /// let x = InstancePartition::new().set_config("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = InstancePartition::new().set_config(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config = v.into();
@@ -6299,7 +6320,9 @@ impl CreateInstancePartitionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionRequest;
-    /// let x = CreateInstancePartitionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateInstancePartitionRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6393,7 +6416,10 @@ impl DeleteInstancePartitionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstancePartitionRequest;
-    /// let x = DeleteInstancePartitionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let instance_partition_id = "instance_partition_id";
+    /// let x = DeleteInstancePartitionRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/instancePartitions/{instance_partition_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6445,7 +6471,10 @@ impl GetInstancePartitionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::GetInstancePartitionRequest;
-    /// let x = GetInstancePartitionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let instance_partition_id = "instance_partition_id";
+    /// let x = GetInstancePartitionRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/instancePartitions/{instance_partition_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6790,7 +6819,9 @@ impl ListInstancePartitionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsRequest;
-    /// let x = ListInstancePartitionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListInstancePartitionsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7063,7 +7094,9 @@ impl ListInstancePartitionOperationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
-    /// let x = ListInstancePartitionOperationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListInstancePartitionOperationsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7287,7 +7320,9 @@ impl MoveInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceRequest;
-    /// let x = MoveInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = MoveInstanceRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7299,7 +7334,9 @@ impl MoveInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceRequest;
-    /// let x = MoveInstanceRequest::new().set_target_config("example");
+    /// # let project_id = "project_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = MoveInstanceRequest::new().set_target_config(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_target_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_config = v.into();

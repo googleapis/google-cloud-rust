@@ -95,7 +95,11 @@ impl Environment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Environment;
-    /// let x = Environment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let environment_id = "environment_id";
+    /// let x = Environment::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -965,7 +969,11 @@ impl Content {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Content;
-    /// let x = Content::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let content_id = "content_id";
+    /// let x = Content::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/content/{content_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1648,7 +1656,12 @@ impl Session {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Session;
-    /// let x = Session::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let environment_id = "environment_id";
+    /// # let session_id = "session_id";
+    /// let x = Session::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/environments/{environment_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1780,7 +1793,10 @@ impl Glossary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Glossary;
-    /// let x = Glossary::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = Glossary::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2007,7 +2023,11 @@ impl GlossaryCategory {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
-    /// let x = GlossaryCategory::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_category_id = "glossary_category_id";
+    /// let x = GlossaryCategory::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/categories/{glossary_category_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2210,7 +2230,11 @@ impl GlossaryTerm {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
-    /// let x = GlossaryTerm::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_term_id = "glossary_term_id";
+    /// let x = GlossaryTerm::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/terms/{glossary_term_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2345,7 +2369,10 @@ impl GlossaryTerm {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
-    /// let x = GlossaryTerm::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = GlossaryTerm::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2603,7 +2630,10 @@ impl DeleteGlossaryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteGlossaryRequest;
-    /// let x = DeleteGlossaryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = DeleteGlossaryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2652,7 +2682,10 @@ impl GetGlossaryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetGlossaryRequest;
-    /// let x = GetGlossaryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = GetGlossaryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2902,7 +2935,10 @@ impl CreateGlossaryCategoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateGlossaryCategoryRequest;
-    /// let x = CreateGlossaryCategoryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = CreateGlossaryCategoryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3079,7 +3115,11 @@ impl DeleteGlossaryCategoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteGlossaryCategoryRequest;
-    /// let x = DeleteGlossaryCategoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_category_id = "glossary_category_id";
+    /// let x = DeleteGlossaryCategoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/categories/{glossary_category_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3116,7 +3156,11 @@ impl GetGlossaryCategoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetGlossaryCategoryRequest;
-    /// let x = GetGlossaryCategoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_category_id = "glossary_category_id";
+    /// let x = GetGlossaryCategoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/categories/{glossary_category_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3185,7 +3229,10 @@ impl ListGlossaryCategoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesRequest;
-    /// let x = ListGlossaryCategoriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = ListGlossaryCategoriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3372,7 +3419,10 @@ impl CreateGlossaryTermRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateGlossaryTermRequest;
-    /// let x = CreateGlossaryTermRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = CreateGlossaryTermRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3549,7 +3599,11 @@ impl DeleteGlossaryTermRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteGlossaryTermRequest;
-    /// let x = DeleteGlossaryTermRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_term_id = "glossary_term_id";
+    /// let x = DeleteGlossaryTermRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/terms/{glossary_term_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3586,7 +3640,11 @@ impl GetGlossaryTermRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetGlossaryTermRequest;
-    /// let x = GetGlossaryTermRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_term_id = "glossary_term_id";
+    /// let x = GetGlossaryTermRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/terms/{glossary_term_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3655,7 +3713,10 @@ impl ListGlossaryTermsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsRequest;
-    /// let x = ListGlossaryTermsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = ListGlossaryTermsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3872,7 +3933,10 @@ impl AspectType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::AspectType;
-    /// let x = AspectType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aspect_type_id = "aspect_type_id";
+    /// let x = AspectType::new().set_name(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4914,7 +4978,10 @@ impl EntryGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::EntryGroup;
-    /// let x = EntryGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = EntryGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5144,7 +5211,10 @@ impl EntryType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::EntryType;
-    /// let x = EntryType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_type_id = "entry_type_id";
+    /// let x = EntryType::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryTypes/{entry_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5415,7 +5485,10 @@ pub mod entry_type {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataplex_v1::model::entry_type::AspectInfo;
-        /// let x = AspectInfo::new().set_type("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let aspect_type_id = "aspect_type_id";
+        /// let x = AspectInfo::new().set_type(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"));
         /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
@@ -5834,7 +5907,11 @@ impl Entry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Entry;
-    /// let x = Entry::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = Entry::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6549,7 +6626,10 @@ impl DeleteEntryGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteEntryGroupRequest;
-    /// let x = DeleteEntryGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = DeleteEntryGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6795,7 +6875,10 @@ impl GetEntryGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetEntryGroupRequest;
-    /// let x = GetEntryGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = GetEntryGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7047,7 +7130,10 @@ impl DeleteEntryTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteEntryTypeRequest;
-    /// let x = DeleteEntryTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_type_id = "entry_type_id";
+    /// let x = DeleteEntryTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryTypes/{entry_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7301,7 +7387,10 @@ impl GetEntryTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetEntryTypeRequest;
-    /// let x = GetEntryTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_type_id = "entry_type_id";
+    /// let x = GetEntryTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryTypes/{entry_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7554,7 +7643,10 @@ impl DeleteAspectTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteAspectTypeRequest;
-    /// let x = DeleteAspectTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aspect_type_id = "aspect_type_id";
+    /// let x = DeleteAspectTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7808,7 +7900,10 @@ impl GetAspectTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetAspectTypeRequest;
-    /// let x = GetAspectTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aspect_type_id = "aspect_type_id";
+    /// let x = GetAspectTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aspectTypes/{aspect_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7869,7 +7964,10 @@ impl CreateEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateEntryRequest;
-    /// let x = CreateEntryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = CreateEntryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8116,7 +8214,11 @@ impl DeleteEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteEntryRequest;
-    /// let x = DeleteEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = DeleteEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8189,7 +8291,10 @@ impl ListEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListEntriesRequest;
-    /// let x = ListEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = ListEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8348,7 +8453,11 @@ impl GetEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetEntryRequest;
-    /// let x = GetEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = GetEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8510,7 +8619,11 @@ impl LookupEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::LookupEntryRequest;
-    /// let x = LookupEntryRequest::new().set_entry("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = LookupEntryRequest::new().set_entry(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry = v.into();
@@ -9396,7 +9509,10 @@ impl GetMetadataJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetMetadataJobRequest;
-    /// let x = GetMetadataJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let metadata_job_id = "metadata_job_id";
+    /// let x = GetMetadataJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataJobs/{metadata_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9637,7 +9753,10 @@ impl CancelMetadataJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CancelMetadataJobRequest;
-    /// let x = CancelMetadataJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let metadata_job_id = "metadata_job_id";
+    /// let x = CancelMetadataJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataJobs/{metadata_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9700,7 +9819,10 @@ impl MetadataJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::MetadataJob;
-    /// let x = MetadataJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let metadata_job_id = "metadata_job_id";
+    /// let x = MetadataJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataJobs/{metadata_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11738,7 +11860,11 @@ impl EntryLink {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::EntryLink;
-    /// let x = EntryLink::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_link_id = "entry_link_id";
+    /// let x = EntryLink::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12130,7 +12256,10 @@ impl CreateEntryLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateEntryLinkRequest;
-    /// let x = CreateEntryLinkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = CreateEntryLinkRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12308,7 +12437,11 @@ impl DeleteEntryLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteEntryLinkRequest;
-    /// let x = DeleteEntryLinkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_link_id = "entry_link_id";
+    /// let x = DeleteEntryLinkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12380,7 +12513,11 @@ impl LookupEntryLinksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::LookupEntryLinksRequest;
-    /// let x = LookupEntryLinksRequest::new().set_entry("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = LookupEntryLinksRequest::new().set_entry(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry = v.into();
@@ -12690,7 +12827,11 @@ impl GetEntryLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetEntryLinkRequest;
-    /// let x = GetEntryLinkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_link_id = "entry_link_id";
+    /// let x = GetEntryLinkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12752,7 +12893,10 @@ impl MetadataFeed {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::MetadataFeed;
-    /// let x = MetadataFeed::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let metadata_feed_id = "metadata_feed_id";
+    /// let x = MetadataFeed::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataFeeds/{metadata_feed_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13458,7 +13602,10 @@ impl GetMetadataFeedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetMetadataFeedRequest;
-    /// let x = GetMetadataFeedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let metadata_feed_id = "metadata_feed_id";
+    /// let x = GetMetadataFeedRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataFeeds/{metadata_feed_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13699,7 +13846,10 @@ impl DeleteMetadataFeedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteMetadataFeedRequest;
-    /// let x = DeleteMetadataFeedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let metadata_feed_id = "metadata_feed_id";
+    /// let x = DeleteMetadataFeedRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataFeeds/{metadata_feed_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13870,7 +14020,10 @@ impl EncryptionConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
-    /// let x = EncryptionConfig::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let encryption_config_id = "encryption_config_id";
+    /// let x = EncryptionConfig::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/encryptionConfigs/{encryption_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14505,7 +14658,10 @@ impl GetEncryptionConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetEncryptionConfigRequest;
-    /// let x = GetEncryptionConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let encryption_config_id = "encryption_config_id";
+    /// let x = GetEncryptionConfigRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/encryptionConfigs/{encryption_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14637,7 +14793,10 @@ impl DeleteEncryptionConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteEncryptionConfigRequest;
-    /// let x = DeleteEncryptionConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let encryption_config_id = "encryption_config_id";
+    /// let x = DeleteEncryptionConfigRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/encryptionConfigs/{encryption_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14717,7 +14876,9 @@ impl ListEncryptionConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsRequest;
-    /// let x = ListEncryptionConfigsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEncryptionConfigsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17212,7 +17373,10 @@ impl DataProduct {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataProduct;
-    /// let x = DataProduct::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = DataProduct::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17716,7 +17880,11 @@ impl DataAsset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataAsset;
-    /// let x = DataAsset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// # let data_asset_id = "data_asset_id";
+    /// let x = DataAsset::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}/dataAssets/{data_asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18068,7 +18236,10 @@ impl DeleteDataProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteDataProductRequest;
-    /// let x = DeleteDataProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = DeleteDataProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18129,7 +18300,10 @@ impl GetDataProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataProductRequest;
-    /// let x = GetDataProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = GetDataProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18507,7 +18681,10 @@ impl CreateDataAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateDataAssetRequest;
-    /// let x = CreateDataAssetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = CreateDataAssetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18721,7 +18898,11 @@ impl DeleteDataAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteDataAssetRequest;
-    /// let x = DeleteDataAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// # let data_asset_id = "data_asset_id";
+    /// let x = DeleteDataAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}/dataAssets/{data_asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18782,7 +18963,11 @@ impl GetDataAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataAssetRequest;
-    /// let x = GetDataAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// # let data_asset_id = "data_asset_id";
+    /// let x = GetDataAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}/dataAssets/{data_asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18844,7 +19029,10 @@ impl ListDataAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListDataAssetsRequest;
-    /// let x = ListDataAssetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = ListDataAssetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23894,7 +24082,10 @@ impl DataTaxonomy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
-    /// let x = DataTaxonomy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// let x = DataTaxonomy::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24142,7 +24333,11 @@ impl DataAttribute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataAttribute;
-    /// let x = DataAttribute::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// # let data_attribute_id = "data_attribute_id";
+    /// let x = DataAttribute::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24277,7 +24472,11 @@ impl DataAttribute {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataAttribute;
-    /// let x = DataAttribute::new().set_parent_id("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// # let data_attribute_id = "data_attribute_id";
+    /// let x = DataAttribute::new().set_parent_id(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"));
     /// ```
     pub fn set_parent_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_id = v.into();
@@ -24447,7 +24646,10 @@ impl DataAttributeBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
-    /// let x = DataAttributeBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_attribute_binding_id = "data_attribute_binding_id";
+    /// let x = DataAttributeBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAttributeBindings/{data_attribute_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25012,7 +25214,10 @@ impl GetDataTaxonomyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataTaxonomyRequest;
-    /// let x = GetDataTaxonomyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// let x = GetDataTaxonomyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25251,7 +25456,10 @@ impl DeleteDataTaxonomyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteDataTaxonomyRequest;
-    /// let x = DeleteDataTaxonomyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// let x = DeleteDataTaxonomyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25315,7 +25523,10 @@ impl CreateDataAttributeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateDataAttributeRequest;
-    /// let x = CreateDataAttributeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// let x = CreateDataAttributeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25519,7 +25730,11 @@ impl GetDataAttributeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataAttributeRequest;
-    /// let x = GetDataAttributeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// # let data_attribute_id = "data_attribute_id";
+    /// let x = GetDataAttributeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25573,7 +25788,10 @@ impl ListDataAttributesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListDataAttributesRequest;
-    /// let x = ListDataAttributesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// let x = ListDataAttributesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25756,7 +25974,11 @@ impl DeleteDataAttributeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteDataAttributeRequest;
-    /// let x = DeleteDataAttributeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_taxonomy_id = "data_taxonomy_id";
+    /// # let data_attribute_id = "data_attribute_id";
+    /// let x = DeleteDataAttributeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}/attributes/{data_attribute_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26024,7 +26246,10 @@ impl GetDataAttributeBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataAttributeBindingRequest;
-    /// let x = GetDataAttributeBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_attribute_binding_id = "data_attribute_binding_id";
+    /// let x = GetDataAttributeBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAttributeBindings/{data_attribute_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26267,7 +26492,10 @@ impl DeleteDataAttributeBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteDataAttributeBindingRequest;
-    /// let x = DeleteDataAttributeBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_attribute_binding_id = "data_attribute_binding_id";
+    /// let x = DeleteDataAttributeBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAttributeBindings/{data_attribute_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26543,7 +26771,10 @@ impl DeleteDataScanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteDataScanRequest;
-    /// let x = DeleteDataScanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// let x = DeleteDataScanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26596,7 +26827,10 @@ impl GetDataScanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataScanRequest;
-    /// let x = GetDataScanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// let x = GetDataScanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26990,7 +27224,10 @@ impl RunDataScanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::RunDataScanRequest;
-    /// let x = RunDataScanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// let x = RunDataScanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27087,7 +27324,11 @@ impl GetDataScanJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetDataScanJobRequest;
-    /// let x = GetDataScanJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// # let job_id = "job_id";
+    /// let x = GetDataScanJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27313,7 +27554,10 @@ impl ListDataScanJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListDataScanJobsRequest;
-    /// let x = ListDataScanJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// let x = ListDataScanJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -27616,7 +27860,10 @@ impl DataScan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataScan;
-    /// let x = DataScan::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// let x = DataScan::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -28608,7 +28855,11 @@ impl DataScanJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataScanJob;
-    /// let x = DataScanJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// # let job_id = "job_id";
+    /// let x = DataScanJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -32250,7 +32501,12 @@ pub mod governance_event {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataplex_v1::model::governance_event::Entity;
-        /// let x = Entity::new().set_entity("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let lake_id = "lake_id";
+        /// # let zone_id = "zone_id";
+        /// # let entity_id = "entity_id";
+        /// let x = Entity::new().set_entity(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
         /// ```
         pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity = v.into();
@@ -35643,7 +35899,11 @@ impl CreateEntityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateEntityRequest;
-    /// let x = CreateEntityRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = CreateEntityRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35803,7 +36063,12 @@ impl DeleteEntityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteEntityRequest;
-    /// let x = DeleteEntityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// let x = DeleteEntityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35876,7 +36141,11 @@ impl ListEntitiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListEntitiesRequest;
-    /// let x = ListEntitiesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListEntitiesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -36183,7 +36452,12 @@ impl GetEntityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetEntityRequest;
-    /// let x = GetEntityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// let x = GetEntityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36415,7 +36689,12 @@ impl ListPartitionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListPartitionsRequest;
-    /// let x = ListPartitionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// let x = ListPartitionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -36494,7 +36773,12 @@ impl CreatePartitionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreatePartitionRequest;
-    /// let x = CreatePartitionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// let x = CreatePartitionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -36582,7 +36866,13 @@ impl DeletePartitionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeletePartitionRequest;
-    /// let x = DeletePartitionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// # let partition_id = "partition_id";
+    /// let x = DeletePartitionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}/partitions/{partition_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36708,7 +36998,13 @@ impl GetPartitionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetPartitionRequest;
-    /// let x = GetPartitionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// # let partition_id = "partition_id";
+    /// let x = GetPartitionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}/partitions/{partition_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36814,7 +37110,12 @@ impl Entity {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Entity;
-    /// let x = Entity::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// let x = Entity::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -37493,7 +37794,13 @@ impl Partition {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Partition;
-    /// let x = Partition::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// # let partition_id = "partition_id";
+    /// let x = Partition::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}/partitions/{partition_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39629,7 +39936,12 @@ impl DataSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataSource;
-    /// let x = DataSource::new().set_entity("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let entity_id = "entity_id";
+    /// let x = DataSource::new().set_entity(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}"));
     /// assert!(x.entity().is_some());
     /// assert!(x.resource().is_none());
     /// ```
@@ -39933,7 +40245,10 @@ impl Lake {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Lake;
-    /// let x = Lake::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = Lake::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -40650,7 +40965,11 @@ impl Zone {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Zone;
-    /// let x = Zone::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = Zone::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -41736,7 +42055,11 @@ impl Action {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Action;
-    /// let x = Action::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let action_id = "action_id";
+    /// let x = Action::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/actions/{action_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -41748,7 +42071,10 @@ impl Action {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Action;
-    /// let x = Action::new().set_lake("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = Action::new().set_lake(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_lake<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lake = v.into();
@@ -41760,7 +42086,11 @@ impl Action {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Action;
-    /// let x = Action::new().set_zone("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = Action::new().set_zone(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -41772,7 +42102,12 @@ impl Action {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Action;
-    /// let x = Action::new().set_asset("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let asset_id = "asset_id";
+    /// let x = Action::new().set_asset(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"));
     /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
@@ -43058,7 +43393,12 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Asset;
-    /// let x = Asset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let asset_id = "asset_id";
+    /// let x = Asset::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -45420,7 +45760,10 @@ impl DeleteLakeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteLakeRequest;
-    /// let x = DeleteLakeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = DeleteLakeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -45663,7 +46006,10 @@ impl ListLakeActionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListLakeActionsRequest;
-    /// let x = ListLakeActionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = ListLakeActionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -45798,7 +46144,10 @@ impl GetLakeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetLakeRequest;
-    /// let x = GetLakeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = GetLakeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -45853,7 +46202,10 @@ impl CreateZoneRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateZoneRequest;
-    /// let x = CreateZoneRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = CreateZoneRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46055,7 +46407,11 @@ impl DeleteZoneRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteZoneRequest;
-    /// let x = DeleteZoneRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = DeleteZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46107,7 +46463,10 @@ impl ListZonesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListZonesRequest;
-    /// let x = ListZonesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = ListZonesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46277,7 +46636,11 @@ impl ListZoneActionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListZoneActionsRequest;
-    /// let x = ListZoneActionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListZoneActionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46337,7 +46700,11 @@ impl GetZoneRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetZoneRequest;
-    /// let x = GetZoneRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = GetZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46391,7 +46758,11 @@ impl CreateAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateAssetRequest;
-    /// let x = CreateAssetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = CreateAssetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46593,7 +46964,12 @@ impl DeleteAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteAssetRequest;
-    /// let x = DeleteAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let asset_id = "asset_id";
+    /// let x = DeleteAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46646,7 +47022,11 @@ impl ListAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListAssetsRequest;
-    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListAssetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46816,7 +47196,12 @@ impl ListAssetActionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListAssetActionsRequest;
-    /// let x = ListAssetActionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let asset_id = "asset_id";
+    /// let x = ListAssetActionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -46876,7 +47261,12 @@ impl GetAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetAssetRequest;
-    /// let x = GetAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let zone_id = "zone_id";
+    /// # let asset_id = "asset_id";
+    /// let x = GetAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -46914,8 +47304,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -47095,7 +47483,10 @@ impl CreateTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CreateTaskRequest;
-    /// let x = CreateTaskRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = CreateTaskRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -47297,7 +47688,11 @@ impl DeleteTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DeleteTaskRequest;
-    /// let x = DeleteTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// let x = DeleteTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47349,7 +47744,10 @@ impl ListTasksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListTasksRequest;
-    /// let x = ListTasksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// let x = ListTasksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -47528,7 +47926,11 @@ impl GetTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetTaskRequest;
-    /// let x = GetTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// let x = GetTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47564,7 +47966,12 @@ impl GetJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// # let job_id = "job_id";
+    /// let x = GetJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47618,7 +48025,11 @@ impl RunTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::RunTaskRequest;
-    /// let x = RunTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// let x = RunTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47763,7 +48174,11 @@ impl ListJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// let x = ListJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -47898,7 +48313,12 @@ impl CancelJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::CancelJobRequest;
-    /// let x = CancelJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// # let job_id = "job_id";
+    /// let x = CancelJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -47969,7 +48389,11 @@ impl Task {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Task;
-    /// let x = Task::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// let x = Task::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -50002,7 +50426,12 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::Job;
-    /// let x = Job::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let lake_id = "lake_id";
+    /// # let task_id = "task_id";
+    /// # let job_id = "job_id";
+    /// let x = Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/lakes/{lake_id}/tasks/{task_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

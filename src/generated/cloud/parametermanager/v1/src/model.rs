@@ -79,7 +79,10 @@ impl Parameter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::Parameter;
-    /// let x = Parameter::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// let x = Parameter::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -297,7 +300,9 @@ impl ListParametersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::ListParametersRequest;
-    /// let x = ListParametersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListParametersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -475,7 +480,10 @@ impl GetParameterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::GetParameterRequest;
-    /// let x = GetParameterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// let x = GetParameterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -532,7 +540,9 @@ impl CreateParameterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::CreateParameterRequest;
-    /// let x = CreateParameterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateParameterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -764,7 +774,10 @@ impl DeleteParameterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::DeleteParameterRequest;
-    /// let x = DeleteParameterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// let x = DeleteParameterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -836,7 +849,11 @@ impl ParameterVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
-    /// let x = ParameterVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = ParameterVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1062,7 +1079,10 @@ impl ListParameterVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsRequest;
-    /// let x = ListParameterVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// let x = ListParameterVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1245,7 +1265,11 @@ impl GetParameterVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::GetParameterVersionRequest;
-    /// let x = GetParameterVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = GetParameterVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1294,7 +1318,11 @@ impl RenderParameterVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionRequest;
-    /// let x = RenderParameterVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = RenderParameterVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1339,7 +1367,11 @@ impl RenderParameterVersionResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionResponse;
-    /// let x = RenderParameterVersionResponse::new().set_parameter_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = RenderParameterVersionResponse::new().set_parameter_version(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
     /// ```
     pub fn set_parameter_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1444,7 +1476,10 @@ impl CreateParameterVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
-    /// let x = CreateParameterVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// let x = CreateParameterVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1679,7 +1714,11 @@ impl DeleteParameterVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::DeleteParameterVersionRequest;
-    /// let x = DeleteParameterVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = DeleteParameterVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -104,7 +104,10 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::Channel;
-    /// let x = Channel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = Channel::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -549,7 +552,10 @@ impl ChannelConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ChannelConnection;
-    /// let x = ChannelConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_connection_id = "channel_connection_id";
+    /// let x = ChannelConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/channelConnections/{channel_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -573,7 +579,10 @@ impl ChannelConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ChannelConnection;
-    /// let x = ChannelConnection::new().set_channel("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = ChannelConnection::new().set_channel(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
@@ -718,7 +727,10 @@ impl Provider {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::Provider;
-    /// let x = Provider::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let provider_id = "provider_id";
+    /// let x = Provider::new().set_name(format!("projects/{project_id}/locations/{location_id}/providers/{provider_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1013,7 +1025,10 @@ impl Enrollment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::Enrollment;
-    /// let x = Enrollment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let enrollment_id = "enrollment_id";
+    /// let x = Enrollment::new().set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1181,7 +1196,10 @@ impl Enrollment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::Enrollment;
-    /// let x = Enrollment::new().set_message_bus("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let message_bus_id = "message_bus_id";
+    /// let x = Enrollment::new().set_message_bus(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
     /// ```
     pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message_bus = v.into();
@@ -1228,7 +1246,10 @@ impl GetTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetTriggerRequest;
-    /// let x = GetTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = GetTriggerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1286,7 +1307,9 @@ impl ListTriggersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListTriggersRequest;
-    /// let x = ListTriggersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTriggersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1474,7 +1497,9 @@ impl CreateTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreateTriggerRequest;
-    /// let x = CreateTriggerRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTriggerRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1704,7 +1729,10 @@ impl DeleteTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeleteTriggerRequest;
-    /// let x = DeleteTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = DeleteTriggerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1775,7 +1803,10 @@ impl GetChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetChannelRequest;
-    /// let x = GetChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = GetChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1828,7 +1859,9 @@ impl ListChannelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListChannelsRequest;
-    /// let x = ListChannelsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListChannelsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2004,7 +2037,9 @@ impl CreateChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreateChannelRequest;
-    /// let x = CreateChannelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateChannelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2210,7 +2245,10 @@ impl DeleteChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeleteChannelRequest;
-    /// let x = DeleteChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = DeleteChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2257,7 +2295,10 @@ impl GetProviderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetProviderRequest;
-    /// let x = GetProviderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let provider_id = "provider_id";
+    /// let x = GetProviderRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/providers/{provider_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2311,7 +2352,9 @@ impl ListProvidersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListProvidersRequest;
-    /// let x = ListProvidersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProvidersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2489,7 +2532,10 @@ impl GetChannelConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetChannelConnectionRequest;
-    /// let x = GetChannelConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_connection_id = "channel_connection_id";
+    /// let x = GetChannelConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channelConnections/{channel_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2536,7 +2582,9 @@ impl ListChannelConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsRequest;
-    /// let x = ListChannelConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListChannelConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2698,7 +2746,9 @@ impl CreateChannelConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreateChannelConnectionRequest;
-    /// let x = CreateChannelConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateChannelConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2781,7 +2831,10 @@ impl DeleteChannelConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeleteChannelConnectionRequest;
-    /// let x = DeleteChannelConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_connection_id = "channel_connection_id";
+    /// let x = DeleteChannelConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channelConnections/{channel_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2910,7 +2963,9 @@ impl GetGoogleChannelConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetGoogleChannelConfigRequest;
-    /// let x = GetGoogleChannelConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetGoogleChannelConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleChannelConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2945,7 +3000,10 @@ impl GetMessageBusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetMessageBusRequest;
-    /// let x = GetMessageBusRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let message_bus_id = "message_bus_id";
+    /// let x = GetMessageBusRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3002,7 +3060,9 @@ impl ListMessageBusesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListMessageBusesRequest;
-    /// let x = ListMessageBusesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMessageBusesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3192,7 +3252,10 @@ impl ListMessageBusEnrollmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsRequest;
-    /// let x = ListMessageBusEnrollmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let message_bus_id = "message_bus_id";
+    /// let x = ListMessageBusEnrollmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3338,7 +3401,9 @@ impl CreateMessageBusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreateMessageBusRequest;
-    /// let x = CreateMessageBusRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMessageBusRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3568,7 +3633,10 @@ impl DeleteMessageBusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeleteMessageBusRequest;
-    /// let x = DeleteMessageBusRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let message_bus_id = "message_bus_id";
+    /// let x = DeleteMessageBusRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3639,7 +3707,10 @@ impl GetEnrollmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetEnrollmentRequest;
-    /// let x = GetEnrollmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let enrollment_id = "enrollment_id";
+    /// let x = GetEnrollmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3696,7 +3767,9 @@ impl ListEnrollmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListEnrollmentsRequest;
-    /// let x = ListEnrollmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEnrollmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3885,7 +3958,9 @@ impl CreateEnrollmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreateEnrollmentRequest;
-    /// let x = CreateEnrollmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEnrollmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4115,7 +4190,10 @@ impl DeleteEnrollmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeleteEnrollmentRequest;
-    /// let x = DeleteEnrollmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let enrollment_id = "enrollment_id";
+    /// let x = DeleteEnrollmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4186,7 +4264,10 @@ impl GetPipelineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetPipelineRequest;
-    /// let x = GetPipelineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pipeline_id = "pipeline_id";
+    /// let x = GetPipelineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/pipelines/{pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4243,7 +4324,9 @@ impl ListPipelinesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListPipelinesRequest;
-    /// let x = ListPipelinesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPipelinesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4432,7 +4515,9 @@ impl CreatePipelineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreatePipelineRequest;
-    /// let x = CreatePipelineRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePipelineRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4662,7 +4747,10 @@ impl DeletePipelineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeletePipelineRequest;
-    /// let x = DeletePipelineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pipeline_id = "pipeline_id";
+    /// let x = DeletePipelineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/pipelines/{pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4733,7 +4821,10 @@ impl GetGoogleApiSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GetGoogleApiSourceRequest;
-    /// let x = GetGoogleApiSourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let google_api_source_id = "google_api_source_id";
+    /// let x = GetGoogleApiSourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleApiSources/{google_api_source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4790,7 +4881,9 @@ impl ListGoogleApiSourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesRequest;
-    /// let x = ListGoogleApiSourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListGoogleApiSourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4979,7 +5072,9 @@ impl CreateGoogleApiSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::CreateGoogleApiSourceRequest;
-    /// let x = CreateGoogleApiSourceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateGoogleApiSourceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5213,7 +5308,10 @@ impl DeleteGoogleApiSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::DeleteGoogleApiSourceRequest;
-    /// let x = DeleteGoogleApiSourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let google_api_source_id = "google_api_source_id";
+    /// let x = DeleteGoogleApiSourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleApiSources/{google_api_source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5287,8 +5385,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -5506,7 +5602,10 @@ impl GoogleApiSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
-    /// let x = GoogleApiSource::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let google_api_source_id = "google_api_source_id";
+    /// let x = GoogleApiSource::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleApiSources/{google_api_source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5662,7 +5761,10 @@ impl GoogleApiSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
-    /// let x = GoogleApiSource::new().set_destination("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let message_bus_id = "message_bus_id";
+    /// let x = GoogleApiSource::new().set_destination(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
     /// ```
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
@@ -5982,7 +6084,9 @@ impl GoogleChannelConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::GoogleChannelConfig;
-    /// let x = GoogleChannelConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GoogleChannelConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleChannelConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6362,7 +6466,10 @@ impl MessageBus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::MessageBus;
-    /// let x = MessageBus::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let message_bus_id = "message_bus_id";
+    /// let x = MessageBus::new().set_name(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6696,7 +6803,10 @@ impl Pipeline {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::Pipeline;
-    /// let x = Pipeline::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pipeline_id = "pipeline_id";
+    /// let x = Pipeline::new().set_name(format!("projects/{project_id}/locations/{location_id}/pipelines/{pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7592,7 +7702,10 @@ pub mod pipeline {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
-        /// let x = Destination::new().set_message_bus("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let message_bus_id = "message_bus_id";
+        /// let x = Destination::new().set_message_bus(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"));
         /// assert!(x.message_bus().is_some());
         /// assert!(x.http_endpoint().is_none());
         /// assert!(x.workflow().is_none());
@@ -8680,7 +8793,10 @@ impl Trigger {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::Trigger;
-    /// let x = Trigger::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = Trigger::new().set_name(format!("projects/{project_id}/locations/{location_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

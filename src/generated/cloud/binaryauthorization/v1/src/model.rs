@@ -106,7 +106,8 @@ impl Policy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// let x = Policy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = Policy::new().set_name(format!("projects/{project_id}/policy"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -935,7 +936,9 @@ impl Attestor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = Attestor::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let attestor_id = "attestor_id";
+    /// let x = Attestor::new().set_name(format!("projects/{project_id}/attestors/{attestor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1684,7 +1687,8 @@ impl GetPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::GetPolicyRequest;
-    /// let x = GetPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetPolicyRequest::new().set_name(format!("projects/{project_id}/policy"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1878,7 +1882,9 @@ impl GetAttestorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::GetAttestorRequest;
-    /// let x = GetAttestorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let attestor_id = "attestor_id";
+    /// let x = GetAttestorRequest::new().set_name(format!("projects/{project_id}/attestors/{attestor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2130,7 +2136,9 @@ impl DeleteAttestorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::DeleteAttestorRequest;
-    /// let x = DeleteAttestorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let attestor_id = "attestor_id";
+    /// let x = DeleteAttestorRequest::new().set_name(format!("projects/{project_id}/attestors/{attestor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2166,7 +2174,8 @@ impl GetSystemPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::GetSystemPolicyRequest;
-    /// let x = GetSystemPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetSystemPolicyRequest::new().set_name(format!("projects/{project_id}/policy"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

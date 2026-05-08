@@ -176,7 +176,9 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -441,7 +443,9 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -486,7 +490,9 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -567,7 +573,10 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -609,7 +618,9 @@ impl ListClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListClustersRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -741,7 +752,10 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1795,7 +1809,9 @@ impl CreateAppProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateAppProfileRequest;
-    /// let x = CreateAppProfileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateAppProfileRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1888,7 +1904,10 @@ impl GetAppProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetAppProfileRequest;
-    /// let x = GetAppProfileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let app_profile_id = "app_profile_id";
+    /// let x = GetAppProfileRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/appProfiles/{app_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1941,7 +1960,9 @@ impl ListAppProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesRequest;
-    /// let x = ListAppProfilesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListAppProfilesRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2212,7 +2233,10 @@ impl DeleteAppProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteAppProfileRequest;
-    /// let x = DeleteAppProfileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let app_profile_id = "app_profile_id";
+    /// let x = DeleteAppProfileRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/appProfiles/{app_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2306,7 +2330,10 @@ impl ListHotTabletsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// let x = ListHotTabletsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListHotTabletsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2519,7 +2546,9 @@ impl CreateLogicalViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// let x = CreateLogicalViewRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateLogicalViewRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2729,7 +2758,10 @@ impl GetLogicalViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetLogicalViewRequest;
-    /// let x = GetLogicalViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let logical_view_id = "logical_view_id";
+    /// let x = GetLogicalViewRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/logicalViews/{logical_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2777,7 +2809,9 @@ impl ListLogicalViewsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListLogicalViewsRequest;
-    /// let x = ListLogicalViewsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListLogicalViewsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3144,7 +3178,10 @@ impl DeleteLogicalViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteLogicalViewRequest;
-    /// let x = DeleteLogicalViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let logical_view_id = "logical_view_id";
+    /// let x = DeleteLogicalViewRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/logicalViews/{logical_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3199,7 +3236,9 @@ impl CreateMaterializedViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// let x = CreateMaterializedViewRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateMaterializedViewRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3413,7 +3452,10 @@ impl GetMaterializedViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetMaterializedViewRequest;
-    /// let x = GetMaterializedViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let materialized_view_id = "materialized_view_id";
+    /// let x = GetMaterializedViewRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/materializedViews/{materialized_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3461,7 +3503,9 @@ impl ListMaterializedViewsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListMaterializedViewsRequest;
-    /// let x = ListMaterializedViewsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListMaterializedViewsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3828,7 +3872,10 @@ impl DeleteMaterializedViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteMaterializedViewRequest;
-    /// let x = DeleteMaterializedViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let materialized_view_id = "materialized_view_id";
+    /// let x = DeleteMaterializedViewRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/materializedViews/{materialized_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3888,7 +3935,9 @@ impl RestoreTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::RestoreTableRequest;
-    /// let x = RestoreTableRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = RestoreTableRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3948,7 +3997,11 @@ impl RestoreTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::RestoreTableRequest;
-    /// let x = RestoreTableRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreTableRequest::new().set_backup(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"));
     /// assert!(x.backup().is_some());
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4002,8 +4055,6 @@ pub struct RestoreTableMetadata {
     /// RestoreTable long-running operation completes successfully. This operation
     /// may not be created if the table is already optimized or the restore was
     /// not successful.
-    ///
-    /// [google.protobuf.Empty]: wkt::Empty
     pub optimize_table_operation_name: std::string::String,
 
     /// The progress of the
@@ -4313,7 +4364,9 @@ impl CreateTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateTableRequest;
-    /// let x = CreateTableRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateTableRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4475,7 +4528,9 @@ impl CreateTableFromSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateTableFromSnapshotRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4499,7 +4554,11 @@ impl CreateTableFromSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotRequest::new().set_source_snapshot("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = CreateTableFromSnapshotRequest::new().set_source_snapshot(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_snapshot = v.into();
@@ -4542,7 +4601,10 @@ impl DropRowRangeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DropRowRangeRequest;
-    /// let x = DropRowRangeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = DropRowRangeRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4703,7 +4765,9 @@ impl ListTablesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListTablesRequest;
-    /// let x = ListTablesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListTablesRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4865,7 +4929,10 @@ impl GetTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetTableRequest;
-    /// let x = GetTableRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = GetTableRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5153,7 +5220,10 @@ impl DeleteTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteTableRequest;
-    /// let x = DeleteTableRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = DeleteTableRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5193,7 +5263,10 @@ impl UndeleteTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableRequest;
-    /// let x = UndeleteTableRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = UndeleteTableRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5352,7 +5425,10 @@ impl ModifyColumnFamiliesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ModifyColumnFamiliesRequest;
-    /// let x = ModifyColumnFamiliesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = ModifyColumnFamiliesRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5665,7 +5741,10 @@ impl GenerateConsistencyTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GenerateConsistencyTokenRequest;
-    /// let x = GenerateConsistencyTokenRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = GenerateConsistencyTokenRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5753,7 +5832,10 @@ impl CheckConsistencyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyRequest;
-    /// let x = CheckConsistencyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = CheckConsistencyRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6039,7 +6121,10 @@ impl SnapshotTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = SnapshotTableRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6051,7 +6136,10 @@ impl SnapshotTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableRequest::new().set_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = SnapshotTableRequest::new().set_cluster(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
@@ -6153,7 +6241,11 @@ impl GetSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetSnapshotRequest;
-    /// let x = GetSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = GetSnapshotRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6207,7 +6299,10 @@ impl ListSnapshotsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListSnapshotsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6360,7 +6455,11 @@ impl DeleteSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteSnapshotRequest;
-    /// let x = DeleteSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = DeleteSnapshotRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6678,7 +6777,10 @@ impl CreateBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateBackupRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6991,7 +7093,11 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7031,7 +7137,11 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7147,7 +7257,10 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7340,7 +7453,10 @@ impl CopyBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CopyBackupRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7364,7 +7480,11 @@ impl CopyBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_source_backup("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let backup_id = "backup_id";
+    /// let x = CopyBackupRequest::new().set_source_backup(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"));
     /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
@@ -7447,7 +7567,11 @@ impl CopyBackupMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CopyBackupMetadata;
-    /// let x = CopyBackupMetadata::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let backup_id = "backup_id";
+    /// let x = CopyBackupMetadata::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7562,7 +7686,10 @@ impl CreateAuthorizedViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// let x = CreateAuthorizedViewRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = CreateAuthorizedViewRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7797,7 +7924,10 @@ impl ListAuthorizedViewsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsRequest;
-    /// let x = ListAuthorizedViewsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = ListAuthorizedViewsRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7962,7 +8092,11 @@ impl GetAuthorizedViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetAuthorizedViewRequest;
-    /// let x = GetAuthorizedViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// # let authorized_view_id = "authorized_view_id";
+    /// let x = GetAuthorizedViewRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/authorizedViews/{authorized_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8278,7 +8412,11 @@ impl DeleteAuthorizedViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteAuthorizedViewRequest;
-    /// let x = DeleteAuthorizedViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// # let authorized_view_id = "authorized_view_id";
+    /// let x = DeleteAuthorizedViewRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/authorizedViews/{authorized_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8337,7 +8475,10 @@ impl CreateSchemaBundleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleRequest;
-    /// let x = CreateSchemaBundleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = CreateSchemaBundleRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8767,7 +8908,11 @@ impl GetSchemaBundleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::GetSchemaBundleRequest;
-    /// let x = GetSchemaBundleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// # let schema_bundle_id = "schema_bundle_id";
+    /// let x = GetSchemaBundleRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/schemaBundles/{schema_bundle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8819,7 +8964,10 @@ impl ListSchemaBundlesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::ListSchemaBundlesRequest;
-    /// let x = ListSchemaBundlesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = ListSchemaBundlesRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8966,7 +9114,11 @@ impl DeleteSchemaBundleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::DeleteSchemaBundleRequest;
-    /// let x = DeleteSchemaBundleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// # let schema_bundle_id = "schema_bundle_id";
+    /// let x = DeleteSchemaBundleRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/schemaBundles/{schema_bundle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9183,7 +9335,9 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9975,7 +10129,10 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10699,7 +10856,10 @@ impl AppProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = AppProfile::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let app_profile_id = "app_profile_id";
+    /// let x = AppProfile::new().set_name(format!("projects/{project_id}/instances/{instance_id}/appProfiles/{app_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11707,7 +11867,11 @@ impl HotTablet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let hot_tablet_id = "hot_tablet_id";
+    /// let x = HotTablet::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/hotTablets/{hot_tablet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11719,7 +11883,10 @@ impl HotTablet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_table_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = HotTablet::new().set_table_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_table_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_name = v.into();
@@ -11870,7 +12037,10 @@ impl LogicalView {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = LogicalView::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let logical_view_id = "logical_view_id";
+    /// let x = LogicalView::new().set_name(format!("projects/{project_id}/instances/{instance_id}/logicalViews/{logical_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11955,7 +12125,10 @@ impl MaterializedView {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = MaterializedView::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let materialized_view_id = "materialized_view_id";
+    /// let x = MaterializedView::new().set_name(format!("projects/{project_id}/instances/{instance_id}/materializedViews/{materialized_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12309,7 +12482,10 @@ impl Table {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = Table::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// let x = Table::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13285,7 +13461,11 @@ impl AuthorizedView {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = AuthorizedView::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// # let authorized_view_id = "authorized_view_id";
+    /// let x = AuthorizedView::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/authorizedViews/{authorized_view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14381,7 +14561,11 @@ impl Snapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// let x = Snapshot::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = Snapshot::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14759,7 +14943,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15664,7 +15852,11 @@ impl SchemaBundle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = SchemaBundle::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let table_id = "table_id";
+    /// # let schema_bundle_id = "schema_bundle_id";
+    /// let x = SchemaBundle::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/schemaBundles/{schema_bundle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

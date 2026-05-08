@@ -753,7 +753,10 @@ impl GetResourceEnrollmentStatusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::GetResourceEnrollmentStatusRequest;
-    /// let x = GetResourceEnrollmentStatusRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// # let location_id = "location_id";
+    /// # let resource_enrollment_status_id = "resource_enrollment_status_id";
+    /// let x = GetResourceEnrollmentStatusRequest::new().set_name(format!("folders/{folder_id}/locations/{location_id}/resourceEnrollmentStatuses/{resource_enrollment_status_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -939,7 +942,9 @@ impl ListAuditReportsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::ListAuditReportsRequest;
-    /// let x = ListAuditReportsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAuditReportsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1074,7 +1079,10 @@ impl GetAuditReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::GetAuditReportRequest;
-    /// let x = GetAuditReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let audit_report_id = "audit_report_id";
+    /// let x = GetAuditReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/auditReports/{audit_report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1369,7 +1377,10 @@ impl ReportGenerationProgress {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::ReportGenerationProgress;
-    /// let x = ReportGenerationProgress::new().set_audit_report("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let audit_report_id = "audit_report_id";
+    /// let x = ReportGenerationProgress::new().set_audit_report(format!("projects/{project_id}/locations/{location_id}/auditReports/{audit_report_id}"));
     /// ```
     pub fn set_audit_report<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audit_report = v.into();
@@ -1408,7 +1419,10 @@ impl Enrollment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::Enrollment;
-    /// let x = Enrollment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let enrollment_id = "enrollment_id";
+    /// let x = Enrollment::new().set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1469,7 +1483,10 @@ impl AuditScopeReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::AuditScopeReport;
-    /// let x = AuditScopeReport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let audit_scope_report_id = "audit_scope_report_id";
+    /// let x = AuditScopeReport::new().set_name(format!("projects/{project_id}/locations/{location_id}/auditScopeReports/{audit_scope_report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1577,8 +1594,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1761,7 +1776,10 @@ impl ResourceEnrollmentStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::ResourceEnrollmentStatus;
-    /// let x = ResourceEnrollmentStatus::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// # let location_id = "location_id";
+    /// # let resource_enrollment_status_id = "resource_enrollment_status_id";
+    /// let x = ResourceEnrollmentStatus::new().set_name(format!("folders/{folder_id}/locations/{location_id}/resourceEnrollmentStatuses/{resource_enrollment_status_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2052,7 +2070,10 @@ impl AuditReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_auditmanager_v1::model::AuditReport;
-    /// let x = AuditReport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let audit_report_id = "audit_report_id";
+    /// let x = AuditReport::new().set_name(format!("projects/{project_id}/locations/{location_id}/auditReports/{audit_report_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

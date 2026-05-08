@@ -74,7 +74,9 @@ impl ListReportConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ListReportConfigsRequest;
-    /// let x = ListReportConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListReportConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -251,7 +253,10 @@ impl GetReportConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::GetReportConfigRequest;
-    /// let x = GetReportConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = GetReportConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -304,7 +309,9 @@ impl CreateReportConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::CreateReportConfigRequest;
-    /// let x = CreateReportConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateReportConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -525,7 +532,10 @@ impl DeleteReportConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DeleteReportConfigRequest;
-    /// let x = DeleteReportConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = DeleteReportConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -616,7 +626,11 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// let x = ReportDetail::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// # let report_detail_id = "report_detail_id";
+    /// let x = ReportDetail::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reportDetails/{report_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -885,7 +899,10 @@ impl ListReportDetailsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ListReportDetailsRequest;
-    /// let x = ListReportDetailsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = ListReportDetailsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1062,7 +1079,11 @@ impl GetReportDetailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::GetReportDetailRequest;
-    /// let x = GetReportDetailRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// # let report_detail_id = "report_detail_id";
+    /// let x = GetReportDetailRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reportDetails/{report_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1100,8 +1121,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1931,7 +1950,10 @@ impl ReportConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportConfig;
-    /// let x = ReportConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let report_config_id = "report_config_id";
+    /// let x = ReportConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2541,7 +2563,10 @@ impl DatasetConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
-    /// let x = DatasetConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_config_id = "dataset_config_id";
+    /// let x = DatasetConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4470,7 +4495,9 @@ impl ListDatasetConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsRequest;
-    /// let x = ListDatasetConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDatasetConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4653,7 +4680,10 @@ impl GetDatasetConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::GetDatasetConfigRequest;
-    /// let x = GetDatasetConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_config_id = "dataset_config_id";
+    /// let x = GetDatasetConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4713,7 +4743,9 @@ impl CreateDatasetConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::CreateDatasetConfigRequest;
-    /// let x = CreateDatasetConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDatasetConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4948,7 +4980,10 @@ impl DeleteDatasetConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DeleteDatasetConfigRequest;
-    /// let x = DeleteDatasetConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_config_id = "dataset_config_id";
+    /// let x = DeleteDatasetConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4998,7 +5033,10 @@ impl LinkDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::LinkDatasetRequest;
-    /// let x = LinkDatasetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_config_id = "dataset_config_id";
+    /// let x = LinkDatasetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5059,7 +5097,10 @@ impl UnlinkDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::UnlinkDatasetRequest;
-    /// let x = UnlinkDatasetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_config_id = "dataset_config_id";
+    /// let x = UnlinkDatasetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

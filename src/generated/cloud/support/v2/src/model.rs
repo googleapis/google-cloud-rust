@@ -172,7 +172,10 @@ impl Attachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::Attachment;
-    /// let x = Attachment::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// # let attachment_id = "attachment_id";
+    /// let x = Attachment::new().set_name(format!("organizations/{organization_id}/cases/{case_id}/attachments/{attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -323,7 +326,9 @@ impl ListAttachmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = ListAttachmentsRequest::new().set_parent(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -541,7 +546,9 @@ impl Case {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = Case::new().set_name(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1225,7 +1232,9 @@ impl GetCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::GetCaseRequest;
-    /// let x = GetCaseRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = GetCaseRequest::new().set_name(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1263,7 +1272,8 @@ impl CreateCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::CreateCaseRequest;
-    /// let x = CreateCaseRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateCaseRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1359,7 +1369,8 @@ impl ListCasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::ListCasesRequest;
-    /// let x = ListCasesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListCasesRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1700,7 +1711,9 @@ impl EscalateCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::EscalateCaseRequest;
-    /// let x = EscalateCaseRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = EscalateCaseRequest::new().set_name(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1867,7 +1880,9 @@ impl CloseCaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::CloseCaseRequest;
-    /// let x = CloseCaseRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = CloseCaseRequest::new().set_name(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2070,7 +2085,10 @@ impl Comment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::Comment;
-    /// let x = Comment::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// # let comment_id = "comment_id";
+    /// let x = Comment::new().set_name(format!("organizations/{organization_id}/cases/{case_id}/comments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2203,7 +2221,9 @@ impl ListCommentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::ListCommentsRequest;
-    /// let x = ListCommentsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = ListCommentsRequest::new().set_parent(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2341,7 +2361,9 @@ impl CreateCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_support_v2::model::CreateCommentRequest;
-    /// let x = CreateCommentRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// let x = CreateCommentRequest::new().set_parent(format!("organizations/{organization_id}/cases/{case_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

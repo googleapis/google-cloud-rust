@@ -126,7 +126,9 @@ impl ConnectivityTest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ConnectivityTest;
-    /// let x = ConnectivityTest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let test_id = "test_id";
+    /// let x = ConnectivityTest::new().set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2844,7 +2846,9 @@ impl GetConnectivityTestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::GetConnectivityTestRequest;
-    /// let x = GetConnectivityTestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let test_id = "test_id";
+    /// let x = GetConnectivityTestRequest::new().set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3067,7 +3071,9 @@ impl DeleteConnectivityTestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::DeleteConnectivityTestRequest;
-    /// let x = DeleteConnectivityTestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let test_id = "test_id";
+    /// let x = DeleteConnectivityTestRequest::new().set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3103,7 +3109,9 @@ impl RerunConnectivityTestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::RerunConnectivityTestRequest;
-    /// let x = RerunConnectivityTestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let test_id = "test_id";
+    /// let x = RerunConnectivityTestRequest::new().set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16510,7 +16518,9 @@ impl ListVpcFlowLogsConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ListVpcFlowLogsConfigsRequest;
-    /// let x = ListVpcFlowLogsConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListVpcFlowLogsConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16695,7 +16705,10 @@ impl GetVpcFlowLogsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::GetVpcFlowLogsConfigRequest;
-    /// let x = GetVpcFlowLogsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpc_flow_logs_config_id = "vpc_flow_logs_config_id";
+    /// let x = GetVpcFlowLogsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16743,7 +16756,9 @@ impl CreateVpcFlowLogsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::CreateVpcFlowLogsConfigRequest;
-    /// let x = CreateVpcFlowLogsConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateVpcFlowLogsConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16755,7 +16770,10 @@ impl CreateVpcFlowLogsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::CreateVpcFlowLogsConfigRequest;
-    /// let x = CreateVpcFlowLogsConfigRequest::new().set_vpc_flow_logs_config_id("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpc_flow_logs_config_id = "vpc_flow_logs_config_id";
+    /// let x = CreateVpcFlowLogsConfigRequest::new().set_vpc_flow_logs_config_id(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"));
     /// ```
     pub fn set_vpc_flow_logs_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16933,7 +16951,10 @@ impl DeleteVpcFlowLogsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::DeleteVpcFlowLogsConfigRequest;
-    /// let x = DeleteVpcFlowLogsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpc_flow_logs_config_id = "vpc_flow_logs_config_id";
+    /// let x = DeleteVpcFlowLogsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16981,7 +17002,9 @@ impl QueryOrgVpcFlowLogsConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::QueryOrgVpcFlowLogsConfigsRequest;
-    /// let x = QueryOrgVpcFlowLogsConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = QueryOrgVpcFlowLogsConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17168,7 +17191,9 @@ impl ShowEffectiveFlowLogsConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ShowEffectiveFlowLogsConfigsRequest;
-    /// let x = ShowEffectiveFlowLogsConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ShowEffectiveFlowLogsConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17414,7 +17439,10 @@ impl VpcFlowLogsConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
-    /// let x = VpcFlowLogsConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vpc_flow_logs_config_id = "vpc_flow_logs_config_id";
+    /// let x = VpcFlowLogsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

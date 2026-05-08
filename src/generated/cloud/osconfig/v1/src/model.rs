@@ -79,7 +79,10 @@ impl Inventory {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// let x = Inventory::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Inventory::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/inventory"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2091,7 +2094,10 @@ impl GetInventoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::GetInventoryRequest;
-    /// let x = GetInventoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInventoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/inventory"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5991,7 +5997,11 @@ impl GetOSPolicyAssignmentReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::GetOSPolicyAssignmentReportRequest;
-    /// let x = GetOSPolicyAssignmentReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let assignment_id = "assignment_id";
+    /// let x = GetOSPolicyAssignmentReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/osPolicyAssignments/{assignment_id}/report"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6236,7 +6246,11 @@ impl OSPolicyAssignmentReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = OSPolicyAssignmentReport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let assignment_id = "assignment_id";
+    /// let x = OSPolicyAssignmentReport::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/osPolicyAssignments/{assignment_id}/report"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6260,7 +6274,10 @@ impl OSPolicyAssignmentReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = OSPolicyAssignmentReport::new().set_os_policy_assignment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_policy_assignment_id = "os_policy_assignment_id";
+    /// let x = OSPolicyAssignmentReport::new().set_os_policy_assignment(format!("projects/{project_id}/locations/{location_id}/osPolicyAssignments/{os_policy_assignment_id}"));
     /// ```
     pub fn set_os_policy_assignment<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7296,7 +7313,10 @@ impl OSPolicyAssignment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_policy_assignment_id = "os_policy_assignment_id";
+    /// let x = OSPolicyAssignment::new().set_name(format!("projects/{project_id}/locations/{location_id}/osPolicyAssignments/{os_policy_assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8069,7 +8089,10 @@ impl OSPolicyAssignmentOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_os_policy_assignment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_policy_assignment_id = "os_policy_assignment_id";
+    /// let x = OSPolicyAssignmentOperationMetadata::new().set_os_policy_assignment(format!("projects/{project_id}/locations/{location_id}/osPolicyAssignments/{os_policy_assignment_id}"));
     /// ```
     pub fn set_os_policy_assignment<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8697,7 +8720,10 @@ impl GetOSPolicyAssignmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::GetOSPolicyAssignmentRequest;
-    /// let x = GetOSPolicyAssignmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_policy_assignment_id = "os_policy_assignment_id";
+    /// let x = GetOSPolicyAssignmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/osPolicyAssignments/{os_policy_assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8881,7 +8907,10 @@ impl ListOSPolicyAssignmentRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentRevisionsRequest;
-    /// let x = ListOSPolicyAssignmentRevisionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_policy_assignment_id = "os_policy_assignment_id";
+    /// let x = ListOSPolicyAssignmentRevisionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/osPolicyAssignments/{os_policy_assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9017,7 +9046,10 @@ impl DeleteOSPolicyAssignmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::DeleteOSPolicyAssignmentRequest;
-    /// let x = DeleteOSPolicyAssignmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_policy_assignment_id = "os_policy_assignment_id";
+    /// let x = DeleteOSPolicyAssignmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/osPolicyAssignments/{os_policy_assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9217,7 +9249,9 @@ impl PatchDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = PatchDeployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_deployment_id = "patch_deployment_id";
+    /// let x = PatchDeployment::new().set_name(format!("projects/{project_id}/patchDeployments/{patch_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10694,7 +10728,9 @@ impl GetPatchDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::GetPatchDeploymentRequest;
-    /// let x = GetPatchDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_deployment_id = "patch_deployment_id";
+    /// let x = GetPatchDeploymentRequest::new().set_name(format!("projects/{project_id}/patchDeployments/{patch_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10873,7 +10909,9 @@ impl DeletePatchDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::DeletePatchDeploymentRequest;
-    /// let x = DeletePatchDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_deployment_id = "patch_deployment_id";
+    /// let x = DeletePatchDeploymentRequest::new().set_name(format!("projects/{project_id}/patchDeployments/{patch_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11002,7 +11040,9 @@ impl PausePatchDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::PausePatchDeploymentRequest;
-    /// let x = PausePatchDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_deployment_id = "patch_deployment_id";
+    /// let x = PausePatchDeploymentRequest::new().set_name(format!("projects/{project_id}/patchDeployments/{patch_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11038,7 +11078,9 @@ impl ResumePatchDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::ResumePatchDeploymentRequest;
-    /// let x = ResumePatchDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_deployment_id = "patch_deployment_id";
+    /// let x = ResumePatchDeploymentRequest::new().set_name(format!("projects/{project_id}/patchDeployments/{patch_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11303,7 +11345,9 @@ impl GetPatchJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::GetPatchJobRequest;
-    /// let x = GetPatchJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_job_id = "patch_job_id";
+    /// let x = GetPatchJobRequest::new().set_name(format!("projects/{project_id}/patchJobs/{patch_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11351,7 +11395,9 @@ impl ListPatchJobInstanceDetailsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsRequest;
-    /// let x = ListPatchJobInstanceDetailsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let patch_job_id = "patch_job_id";
+    /// let x = ListPatchJobInstanceDetailsRequest::new().set_parent(format!("projects/{project_id}/patchJobs/{patch_job_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11820,7 +11866,9 @@ impl PatchJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_job_id = "patch_job_id";
+    /// let x = PatchJob::new().set_name(format!("projects/{project_id}/patchJobs/{patch_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12108,7 +12156,9 @@ impl PatchJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_patch_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let patch_deployment_id = "patch_deployment_id";
+    /// let x = PatchJob::new().set_patch_deployment(format!("projects/{project_id}/patchDeployments/{patch_deployment_id}"));
     /// ```
     pub fn set_patch_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13335,7 +13385,9 @@ impl CancelPatchJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::CancelPatchJobRequest;
-    /// let x = CancelPatchJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let patch_job_id = "patch_job_id";
+    /// let x = CancelPatchJobRequest::new().set_name(format!("projects/{project_id}/patchJobs/{patch_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15058,7 +15110,10 @@ impl VulnerabilityReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// let x = VulnerabilityReport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = VulnerabilityReport::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/vulnerabilityReport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15881,7 +15936,10 @@ impl GetVulnerabilityReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::GetVulnerabilityReportRequest;
-    /// let x = GetVulnerabilityReportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetVulnerabilityReportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/vulnerabilityReport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

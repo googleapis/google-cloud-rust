@@ -216,7 +216,11 @@ impl GetProtectedResourcesSummaryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_inventory_v1::model::GetProtectedResourcesSummaryRequest;
-    /// let x = GetProtectedResourcesSummaryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = GetProtectedResourcesSummaryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/protectedResourcesSummary"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -295,7 +299,11 @@ impl ProtectedResourcesSummary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
-    /// let x = ProtectedResourcesSummary::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = ProtectedResourcesSummary::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/protectedResourcesSummary"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -790,7 +798,12 @@ impl ProtectedResource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
-    /// let x = ProtectedResource::new().set_crypto_key_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = ProtectedResource::new().set_crypto_key_version(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,

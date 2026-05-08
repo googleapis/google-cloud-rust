@@ -69,7 +69,9 @@ impl ListActiveDirectoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesRequest;
-    /// let x = ListActiveDirectoriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListActiveDirectoriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -246,7 +248,10 @@ impl GetActiveDirectoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetActiveDirectoryRequest;
-    /// let x = GetActiveDirectoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let active_directory_id = "active_directory_id";
+    /// let x = GetActiveDirectoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -290,7 +295,9 @@ impl CreateActiveDirectoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateActiveDirectoryRequest;
-    /// let x = CreateActiveDirectoryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateActiveDirectoryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -469,7 +476,10 @@ impl DeleteActiveDirectoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteActiveDirectoryRequest;
-    /// let x = DeleteActiveDirectoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let active_directory_id = "active_directory_id";
+    /// let x = DeleteActiveDirectoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -576,7 +586,10 @@ impl ActiveDirectory {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ActiveDirectory;
-    /// let x = ActiveDirectory::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let active_directory_id = "active_directory_id";
+    /// let x = ActiveDirectory::new().set_name(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1147,7 +1160,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1215,7 +1232,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Backup;
-    /// let x = Backup::new().set_source_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = Backup::new().set_source_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_source_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_volume = v.into();
@@ -1227,7 +1247,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Backup;
-    /// let x = Backup::new().set_source_snapshot("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = Backup::new().set_source_snapshot(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_source_snapshot<T>(mut self, v: T) -> Self
     where
@@ -1242,7 +1266,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Backup;
-    /// let x = Backup::new().set_or_clear_source_snapshot(Some("example"));
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = Backup::new().set_or_clear_source_snapshot(Some(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}")));
     /// let x = Backup::new().set_or_clear_source_snapshot(None::<String>);
     /// ```
     pub fn set_or_clear_source_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1756,7 +1784,10 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1935,7 +1966,11 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1981,7 +2016,10 @@ impl CreateBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = CreateBackupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2062,7 +2100,11 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2227,7 +2269,10 @@ impl BackupPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::BackupPolicy;
-    /// let x = BackupPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_policy_id = "backup_policy_id";
+    /// let x = BackupPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPolicies/{backup_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2690,7 +2735,9 @@ impl CreateBackupPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateBackupPolicyRequest;
-    /// let x = CreateBackupPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackupPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2774,7 +2821,10 @@ impl GetBackupPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetBackupPolicyRequest;
-    /// let x = GetBackupPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_policy_id = "backup_policy_id";
+    /// let x = GetBackupPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPolicies/{backup_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2822,7 +2872,9 @@ impl ListBackupPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListBackupPoliciesRequest;
-    /// let x = ListBackupPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3096,7 +3148,10 @@ impl DeleteBackupPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteBackupPolicyRequest;
-    /// let x = DeleteBackupPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_policy_id = "backup_policy_id";
+    /// let x = DeleteBackupPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPolicies/{backup_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3184,7 +3239,10 @@ impl BackupVault {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::BackupVault;
-    /// let x = BackupVault::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = BackupVault::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3323,7 +3381,10 @@ impl BackupVault {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::BackupVault;
-    /// let x = BackupVault::new().set_source_backup_vault("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = BackupVault::new().set_source_backup_vault(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_source_backup_vault<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3338,7 +3399,10 @@ impl BackupVault {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::BackupVault;
-    /// let x = BackupVault::new().set_destination_backup_vault("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = BackupVault::new().set_destination_backup_vault(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_destination_backup_vault<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3386,7 +3450,10 @@ impl BackupVault {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::BackupVault;
-    /// let x = BackupVault::new().set_kms_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = BackupVault::new().set_kms_config(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_kms_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_config = v.into();
@@ -4001,7 +4068,10 @@ impl GetBackupVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetBackupVaultRequest;
-    /// let x = GetBackupVaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = GetBackupVaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4051,7 +4121,9 @@ impl ListBackupVaultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListBackupVaultsRequest;
-    /// let x = ListBackupVaultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupVaultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4240,7 +4312,9 @@ impl CreateBackupVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateBackupVaultRequest;
-    /// let x = CreateBackupVaultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackupVaultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4321,7 +4395,10 @@ impl DeleteBackupVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteBackupVaultRequest;
-    /// let x = DeleteBackupVaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = DeleteBackupVaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4455,8 +4532,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4780,7 +4855,9 @@ impl ListHostGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListHostGroupsRequest;
-    /// let x = ListHostGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListHostGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4959,7 +5036,10 @@ impl GetHostGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetHostGroupRequest;
-    /// let x = GetHostGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let host_group_id = "host_group_id";
+    /// let x = GetHostGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/hostGroups/{host_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5003,7 +5083,9 @@ impl CreateHostGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateHostGroupRequest;
-    /// let x = CreateHostGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateHostGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5180,7 +5262,10 @@ impl DeleteHostGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteHostGroupRequest;
-    /// let x = DeleteHostGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let host_group_id = "host_group_id";
+    /// let x = DeleteHostGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/hostGroups/{host_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5242,7 +5327,10 @@ impl HostGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::HostGroup;
-    /// let x = HostGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let host_group_id = "host_group_id";
+    /// let x = HostGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/hostGroups/{host_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5690,7 +5778,10 @@ impl GetKmsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetKmsConfigRequest;
-    /// let x = GetKmsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = GetKmsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5738,7 +5829,9 @@ impl ListKmsConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListKmsConfigsRequest;
-    /// let x = ListKmsConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListKmsConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5924,7 +6017,9 @@ impl CreateKmsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateKmsConfigRequest;
-    /// let x = CreateKmsConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateKmsConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6100,7 +6195,10 @@ impl DeleteKmsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteKmsConfigRequest;
-    /// let x = DeleteKmsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = DeleteKmsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6135,7 +6233,10 @@ impl EncryptVolumesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::EncryptVolumesRequest;
-    /// let x = EncryptVolumesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = EncryptVolumesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6170,7 +6271,10 @@ impl VerifyKmsConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::VerifyKmsConfigRequest;
-    /// let x = VerifyKmsConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = VerifyKmsConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6301,7 +6405,10 @@ impl KmsConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::KmsConfig;
-    /// let x = KmsConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = KmsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7158,7 +7265,10 @@ impl ListQuotaRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListQuotaRulesRequest;
-    /// let x = ListQuotaRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = ListQuotaRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7335,7 +7445,11 @@ impl GetQuotaRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetQuotaRuleRequest;
-    /// let x = GetQuotaRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let quota_rule_id = "quota_rule_id";
+    /// let x = GetQuotaRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/quotaRules/{quota_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7379,7 +7493,10 @@ impl CreateQuotaRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateQuotaRuleRequest;
-    /// let x = CreateQuotaRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = CreateQuotaRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7555,7 +7672,11 @@ impl DeleteQuotaRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteQuotaRuleRequest;
-    /// let x = DeleteQuotaRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let quota_rule_id = "quota_rule_id";
+    /// let x = DeleteQuotaRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/quotaRules/{quota_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7618,7 +7739,11 @@ impl QuotaRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::QuotaRule;
-    /// let x = QuotaRule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let quota_rule_id = "quota_rule_id";
+    /// let x = QuotaRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/quotaRules/{quota_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8461,7 +8586,11 @@ impl Replication {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Replication;
-    /// let x = Replication::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = Replication::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8622,7 +8751,10 @@ impl Replication {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Replication;
-    /// let x = Replication::new().set_destination_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = Replication::new().set_destination_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_destination_volume<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8758,7 +8890,10 @@ impl Replication {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Replication;
-    /// let x = Replication::new().set_source_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = Replication::new().set_source_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_source_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_volume = v.into();
@@ -9863,7 +9998,10 @@ impl ListReplicationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListReplicationsRequest;
-    /// let x = ListReplicationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = ListReplicationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10042,7 +10180,11 @@ impl GetReplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetReplicationRequest;
-    /// let x = GetReplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = GetReplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10094,7 +10236,10 @@ impl DestinationVolumeParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
-    /// let x = DestinationVolumeParameters::new().set_storage_pool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = DestinationVolumeParameters::new().set_storage_pool(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_pool = v.into();
@@ -10227,7 +10372,10 @@ impl CreateReplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateReplicationRequest;
-    /// let x = CreateReplicationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = CreateReplicationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10308,7 +10456,11 @@ impl DeleteReplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteReplicationRequest;
-    /// let x = DeleteReplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = DeleteReplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10445,7 +10597,11 @@ impl StopReplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::StopReplicationRequest;
-    /// let x = StopReplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = StopReplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10493,7 +10649,11 @@ impl ResumeReplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ResumeReplicationRequest;
-    /// let x = ResumeReplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = ResumeReplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10530,7 +10690,11 @@ impl ReverseReplicationDirectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ReverseReplicationDirectionRequest;
-    /// let x = ReverseReplicationDirectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = ReverseReplicationDirectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10582,7 +10746,11 @@ impl EstablishPeeringRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::EstablishPeeringRequest;
-    /// let x = EstablishPeeringRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = EstablishPeeringRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10677,7 +10845,11 @@ impl SyncReplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::SyncReplicationRequest;
-    /// let x = SyncReplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = SyncReplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10727,7 +10899,10 @@ impl ListSnapshotsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = ListSnapshotsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10906,7 +11081,11 @@ impl GetSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetSnapshotRequest;
-    /// let x = GetSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = GetSnapshotRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10951,7 +11130,10 @@ impl CreateSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateSnapshotRequest;
-    /// let x = CreateSnapshotRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = CreateSnapshotRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11032,7 +11214,11 @@ impl DeleteSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteSnapshotRequest;
-    /// let x = DeleteSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = DeleteSnapshotRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11181,7 +11367,11 @@ impl Snapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Snapshot;
-    /// let x = Snapshot::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = Snapshot::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11487,7 +11677,10 @@ impl GetStoragePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetStoragePoolRequest;
-    /// let x = GetStoragePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = GetStoragePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11536,7 +11729,9 @@ impl ListStoragePoolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListStoragePoolsRequest;
-    /// let x = ListStoragePoolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListStoragePoolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11722,7 +11917,9 @@ impl CreateStoragePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateStoragePoolRequest;
-    /// let x = CreateStoragePoolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateStoragePoolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11898,7 +12095,10 @@ impl DeleteStoragePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteStoragePoolRequest;
-    /// let x = DeleteStoragePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = DeleteStoragePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11934,7 +12134,10 @@ impl SwitchActiveReplicaZoneRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::SwitchActiveReplicaZoneRequest;
-    /// let x = SwitchActiveReplicaZoneRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = SwitchActiveReplicaZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12093,7 +12296,10 @@ impl StoragePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::StoragePool;
-    /// let x = StoragePool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = StoragePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12267,7 +12473,10 @@ impl StoragePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::StoragePool;
-    /// let x = StoragePool::new().set_active_directory("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let active_directory_id = "active_directory_id";
+    /// let x = StoragePool::new().set_active_directory(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"));
     /// ```
     pub fn set_active_directory<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12282,7 +12491,10 @@ impl StoragePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::StoragePool;
-    /// let x = StoragePool::new().set_kms_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = StoragePool::new().set_kms_config(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_kms_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_config = v.into();
@@ -12841,7 +13053,10 @@ impl ValidateDirectoryServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ValidateDirectoryServiceRequest;
-    /// let x = ValidateDirectoryServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = ValidateDirectoryServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12905,7 +13120,9 @@ impl ListVolumesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::ListVolumesRequest;
-    /// let x = ListVolumesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListVolumesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13082,7 +13299,10 @@ impl GetVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::GetVolumeRequest;
-    /// let x = GetVolumeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = GetVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13126,7 +13346,9 @@ impl CreateVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::CreateVolumeRequest;
-    /// let x = CreateVolumeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateVolumeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13307,7 +13529,10 @@ impl DeleteVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::DeleteVolumeRequest;
-    /// let x = DeleteVolumeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = DeleteVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13360,7 +13585,10 @@ impl RevertVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::RevertVolumeRequest;
-    /// let x = RevertVolumeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = RevertVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13559,7 +13787,10 @@ impl Volume {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Volume;
-    /// let x = Volume::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = Volume::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13655,7 +13886,10 @@ impl Volume {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Volume;
-    /// let x = Volume::new().set_storage_pool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = Volume::new().set_storage_pool(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
     /// ```
     pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_pool = v.into();
@@ -13966,7 +14200,10 @@ impl Volume {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Volume;
-    /// let x = Volume::new().set_active_directory("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let active_directory_id = "active_directory_id";
+    /// let x = Volume::new().set_active_directory(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"));
     /// ```
     pub fn set_active_directory<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -14014,7 +14251,10 @@ impl Volume {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::Volume;
-    /// let x = Volume::new().set_kms_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let kms_config_id = "kms_config_id";
+    /// let x = Volume::new().set_kms_config(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"));
     /// ```
     pub fn set_kms_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_config = v.into();
@@ -14421,7 +14661,11 @@ pub mod volume {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_netapp_v1::model::volume::CloneDetails;
-        /// let x = CloneDetails::new().set_source_snapshot("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let volume_id = "volume_id";
+        /// # let snapshot_id = "snapshot_id";
+        /// let x = CloneDetails::new().set_source_snapshot(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
         /// ```
         pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -14436,7 +14680,10 @@ pub mod volume {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_netapp_v1::model::volume::CloneDetails;
-        /// let x = CloneDetails::new().set_source_volume("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let volume_id = "volume_id";
+        /// let x = CloneDetails::new().set_source_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
         /// ```
         pub fn set_source_volume<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -16291,7 +16538,11 @@ impl RestoreParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::RestoreParameters;
-    /// let x = RestoreParameters::new().set_source_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreParameters::new().set_source_backup(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"));
     /// assert!(x.source_backup().is_some());
     /// assert!(x.source_snapshot().is_none());
     /// ```
@@ -16383,7 +16634,10 @@ impl BackupConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::BackupConfig;
-    /// let x = BackupConfig::new().set_backup_vault("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// let x = BackupConfig::new().set_backup_vault(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"));
     /// ```
     pub fn set_backup_vault<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault = v.into();
@@ -16783,7 +17037,11 @@ impl HybridReplicationParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
-    /// let x = HybridReplicationParameters::new().set_replication("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let replication_id = "replication_id";
+    /// let x = HybridReplicationParameters::new().set_replication(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"));
     /// ```
     pub fn set_replication<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.replication = v.into();
@@ -18131,7 +18389,10 @@ impl RestoreBackupFilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::RestoreBackupFilesRequest;
-    /// let x = RestoreBackupFilesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = RestoreBackupFilesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18143,7 +18404,11 @@ impl RestoreBackupFilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::RestoreBackupFilesRequest;
-    /// let x = RestoreBackupFilesRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreBackupFilesRequest::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -18247,7 +18512,10 @@ impl EstablishVolumePeeringRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_netapp_v1::model::EstablishVolumePeeringRequest;
-    /// let x = EstablishVolumePeeringRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = EstablishVolumePeeringRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

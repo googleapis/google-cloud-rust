@@ -67,7 +67,10 @@ impl ListQuotaInfosRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaInfosRequest;
-    /// let x = ListQuotaInfosRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = ListQuotaInfosRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -204,7 +207,11 @@ impl GetQuotaInfoRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::GetQuotaInfoRequest;
-    /// let x = GetQuotaInfoRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let quota_info_id = "quota_info_id";
+    /// let x = GetQuotaInfoRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/quotaInfos/{quota_info_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -271,7 +278,9 @@ impl ListQuotaPreferencesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesRequest;
-    /// let x = ListQuotaPreferencesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListQuotaPreferencesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -452,7 +461,10 @@ impl GetQuotaPreferenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::GetQuotaPreferenceRequest;
-    /// let x = GetQuotaPreferenceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let quota_preference_id = "quota_preference_id";
+    /// let x = GetQuotaPreferenceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/quotaPreferences/{quota_preference_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -500,7 +512,9 @@ impl CreateQuotaPreferenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::CreateQuotaPreferenceRequest;
-    /// let x = CreateQuotaPreferenceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateQuotaPreferenceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -818,7 +832,11 @@ impl QuotaInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// # let quota_info_id = "quota_info_id";
+    /// let x = QuotaInfo::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/quotaInfos/{quota_info_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1511,7 +1529,10 @@ impl QuotaPreference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let quota_preference_id = "quota_preference_id";
+    /// let x = QuotaPreference::new().set_name(format!("projects/{project_id}/locations/{location_id}/quotaPreferences/{quota_preference_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

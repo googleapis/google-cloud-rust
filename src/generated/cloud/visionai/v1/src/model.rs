@@ -4395,7 +4395,10 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4737,8 +4740,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4947,7 +4948,10 @@ impl HealthCheckRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::HealthCheckRequest;
-    /// let x = HealthCheckRequest::new().set_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = HealthCheckRequest::new().set_cluster(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
@@ -6415,7 +6419,10 @@ impl Operator {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Operator;
-    /// let x = Operator::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let operator_id = "operator_id";
+    /// let x = Operator::new().set_name(format!("projects/{project_id}/locations/{location_id}/operators/{operator_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6612,7 +6619,11 @@ impl Analysis {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Analysis;
-    /// let x = Analysis::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = Analysis::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6854,7 +6865,11 @@ impl Process {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Process;
-    /// let x = Process::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let process_id = "process_id";
+    /// let x = Process::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/processes/{process_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6932,7 +6947,11 @@ impl Process {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Process;
-    /// let x = Process::new().set_analysis("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = Process::new().set_analysis(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_analysis<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.analysis = v.into();
@@ -7257,7 +7276,10 @@ impl GetOperatorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetOperatorRequest;
-    /// let x = GetOperatorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let operator_id = "operator_id";
+    /// let x = GetOperatorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/operators/{operator_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7543,7 +7565,10 @@ impl DeleteOperatorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteOperatorRequest;
-    /// let x = DeleteOperatorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let operator_id = "operator_id";
+    /// let x = DeleteOperatorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/operators/{operator_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7603,7 +7628,10 @@ impl ListAnalysesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListAnalysesRequest;
-    /// let x = ListAnalysesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListAnalysesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7780,7 +7808,11 @@ impl GetAnalysisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetAnalysisRequest;
-    /// let x = GetAnalysisRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = GetAnalysisRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7836,7 +7868,10 @@ impl CreateAnalysisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateAnalysisRequest;
-    /// let x = CreateAnalysisRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateAnalysisRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8066,7 +8101,11 @@ impl DeleteAnalysisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteAnalysisRequest;
-    /// let x = DeleteAnalysisRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = DeleteAnalysisRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8126,7 +8165,10 @@ impl ListProcessesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListProcessesRequest;
-    /// let x = ListProcessesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListProcessesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8303,7 +8345,11 @@ impl GetProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetProcessRequest;
-    /// let x = GetProcessRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let process_id = "process_id";
+    /// let x = GetProcessRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/processes/{process_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8359,7 +8405,10 @@ impl CreateProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateProcessRequest;
-    /// let x = CreateProcessRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateProcessRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8589,7 +8638,11 @@ impl DeleteProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteProcessRequest;
-    /// let x = DeleteProcessRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let process_id = "process_id";
+    /// let x = DeleteProcessRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/processes/{process_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8646,7 +8699,10 @@ impl BatchRunProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::BatchRunProcessRequest;
-    /// let x = BatchRunProcessRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = BatchRunProcessRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9286,7 +9342,10 @@ impl CreateApplicationInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateApplicationInstancesRequest;
-    /// let x = CreateApplicationInstancesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = CreateApplicationInstancesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9375,7 +9434,10 @@ impl DeleteApplicationInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteApplicationInstancesRequest;
-    /// let x = DeleteApplicationInstancesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = DeleteApplicationInstancesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9553,7 +9615,9 @@ impl ListApplicationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListApplicationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9730,7 +9794,10 @@ impl GetApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetApplicationRequest;
-    /// let x = GetApplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = GetApplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9786,7 +9853,9 @@ impl CreateApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateApplicationRequest;
-    /// let x = CreateApplicationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateApplicationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10021,7 +10090,10 @@ impl DeleteApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteApplicationRequest;
-    /// let x = DeleteApplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = DeleteApplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10105,7 +10177,10 @@ impl DeployApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeployApplicationRequest;
-    /// let x = DeployApplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = DeployApplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10193,7 +10268,10 @@ impl UndeployApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::UndeployApplicationRequest;
-    /// let x = UndeployApplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = UndeployApplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10317,7 +10395,10 @@ impl AddApplicationStreamInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::AddApplicationStreamInputRequest;
-    /// let x = AddApplicationStreamInputRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = AddApplicationStreamInputRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10411,7 +10492,10 @@ impl UpdateApplicationStreamInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::UpdateApplicationStreamInputRequest;
-    /// let x = UpdateApplicationStreamInputRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = UpdateApplicationStreamInputRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10513,7 +10597,10 @@ impl RemoveApplicationStreamInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::RemoveApplicationStreamInputRequest;
-    /// let x = RemoveApplicationStreamInputRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = RemoveApplicationStreamInputRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10589,7 +10676,11 @@ pub mod remove_application_stream_input_request {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_visionai_v1::model::remove_application_stream_input_request::TargetStreamInput;
-        /// let x = TargetStreamInput::new().set_stream("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let cluster_id = "cluster_id";
+        /// # let stream_id = "stream_id";
+        /// let x = TargetStreamInput::new().set_stream(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
         /// ```
         pub fn set_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.stream = v.into();
@@ -10638,7 +10729,10 @@ impl ListInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = ListInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10815,7 +10909,11 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10863,7 +10961,10 @@ impl ListDraftsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListDraftsRequest;
-    /// let x = ListDraftsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = ListDraftsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11040,7 +11141,11 @@ impl GetDraftRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetDraftRequest;
-    /// let x = GetDraftRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let draft_id = "draft_id";
+    /// let x = GetDraftRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/drafts/{draft_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11096,7 +11201,10 @@ impl CreateDraftRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateDraftRequest;
-    /// let x = CreateDraftRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = CreateDraftRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11353,7 +11461,10 @@ impl UpdateApplicationInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::UpdateApplicationInstancesRequest;
-    /// let x = UpdateApplicationInstancesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = UpdateApplicationInstancesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11568,7 +11679,11 @@ impl DeleteDraftRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteDraftRequest;
-    /// let x = DeleteDraftRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let draft_id = "draft_id";
+    /// let x = DeleteDraftRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/drafts/{draft_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11628,7 +11743,9 @@ impl ListProcessorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListProcessorsRequest;
-    /// let x = ListProcessorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProcessorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11805,7 +11922,9 @@ impl ListPrebuiltProcessorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListPrebuiltProcessorsRequest;
-    /// let x = ListPrebuiltProcessorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPrebuiltProcessorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11885,7 +12004,10 @@ impl GetProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetProcessorRequest;
-    /// let x = GetProcessorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = GetProcessorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11941,7 +12063,9 @@ impl CreateProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateProcessorRequest;
-    /// let x = CreateProcessorRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateProcessorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12171,7 +12295,10 @@ impl DeleteProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteProcessorRequest;
-    /// let x = DeleteProcessorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = DeleteProcessorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12246,7 +12373,10 @@ impl Application {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Application;
-    /// let x = Application::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = Application::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13540,7 +13670,11 @@ impl Draft {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Draft;
-    /// let x = Draft::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let draft_id = "draft_id";
+    /// let x = Draft::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/drafts/{draft_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13750,7 +13884,11 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14794,7 +14932,10 @@ impl Processor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Processor;
-    /// let x = Processor::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = Processor::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17560,7 +17701,11 @@ impl StreamWithAnnotation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::StreamWithAnnotation;
-    /// let x = StreamWithAnnotation::new().set_stream("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let stream_id = "stream_id";
+    /// let x = StreamWithAnnotation::new().set_stream(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
     /// ```
     pub fn set_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream = v.into();
@@ -20180,7 +20325,11 @@ impl SeriesMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::SeriesMetadata;
-    /// let x = SeriesMetadata::new().set_series("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let series_id = "series_id";
+    /// let x = SeriesMetadata::new().set_series(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"));
     /// ```
     pub fn set_series<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.series = v.into();
@@ -22861,7 +23010,11 @@ impl Stream {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Stream;
-    /// let x = Stream::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let stream_id = "stream_id";
+    /// let x = Stream::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23064,7 +23217,11 @@ impl Event {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Event;
-    /// let x = Event::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let event_id = "event_id";
+    /// let x = Event::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23414,7 +23571,11 @@ impl Series {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Series;
-    /// let x = Series::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let series_id = "series_id";
+    /// let x = Series::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23534,7 +23695,11 @@ impl Series {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Series;
-    /// let x = Series::new().set_stream("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let stream_id = "stream_id";
+    /// let x = Series::new().set_stream(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
     /// ```
     pub fn set_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream = v.into();
@@ -23546,7 +23711,11 @@ impl Series {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Series;
-    /// let x = Series::new().set_event("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let event_id = "event_id";
+    /// let x = Series::new().set_event(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"));
     /// ```
     pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event = v.into();
@@ -23599,7 +23768,11 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Channel;
-    /// let x = Channel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let channel_id = "channel_id";
+    /// let x = Channel::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23719,7 +23892,11 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Channel;
-    /// let x = Channel::new().set_stream("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let stream_id = "stream_id";
+    /// let x = Channel::new().set_stream(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
     /// ```
     pub fn set_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream = v.into();
@@ -23731,7 +23908,11 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Channel;
-    /// let x = Channel::new().set_event("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let event_id = "event_id";
+    /// let x = Channel::new().set_event(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"));
     /// ```
     pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event = v.into();
@@ -23956,7 +24137,10 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24012,7 +24196,9 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24242,7 +24428,10 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24302,7 +24491,10 @@ impl ListStreamsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListStreamsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24479,7 +24671,11 @@ impl GetStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetStreamRequest;
-    /// let x = GetStreamRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let stream_id = "stream_id";
+    /// let x = GetStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24535,7 +24731,10 @@ impl CreateStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateStreamRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24765,7 +24964,11 @@ impl DeleteStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteStreamRequest;
-    /// let x = DeleteStreamRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let stream_id = "stream_id";
+    /// let x = DeleteStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25050,7 +25253,10 @@ impl ListEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListEventsRequest;
-    /// let x = ListEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25227,7 +25433,11 @@ impl GetEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetEventRequest;
-    /// let x = GetEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let event_id = "event_id";
+    /// let x = GetEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25283,7 +25493,10 @@ impl CreateEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateEventRequest;
-    /// let x = CreateEventRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateEventRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25513,7 +25726,11 @@ impl DeleteEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteEventRequest;
-    /// let x = DeleteEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let event_id = "event_id";
+    /// let x = DeleteEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25573,7 +25790,10 @@ impl ListSeriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListSeriesRequest;
-    /// let x = ListSeriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListSeriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25750,7 +25970,11 @@ impl GetSeriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetSeriesRequest;
-    /// let x = GetSeriesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let series_id = "series_id";
+    /// let x = GetSeriesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25806,7 +26030,10 @@ impl CreateSeriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateSeriesRequest;
-    /// let x = CreateSeriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateSeriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26036,7 +26263,11 @@ impl DeleteSeriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteSeriesRequest;
-    /// let x = DeleteSeriesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let series_id = "series_id";
+    /// let x = DeleteSeriesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/series/{series_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26104,7 +26335,10 @@ impl MaterializeChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::MaterializeChannelRequest;
-    /// let x = MaterializeChannelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = MaterializeChannelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26210,7 +26444,10 @@ impl CreateAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateAssetRequest;
-    /// let x = CreateAssetRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = CreateAssetRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26311,7 +26548,11 @@ impl GetAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetAssetRequest;
-    /// let x = GetAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = GetAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26367,7 +26608,10 @@ impl ListAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListAssetsRequest;
-    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ListAssetsRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26611,7 +26855,11 @@ impl DeleteAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteAssetRequest;
-    /// let x = DeleteAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = DeleteAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26867,7 +27115,11 @@ impl UploadAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::UploadAssetRequest;
-    /// let x = UploadAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = UploadAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27049,7 +27301,11 @@ impl GenerateRetrievalUrlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GenerateRetrievalUrlRequest;
-    /// let x = GenerateRetrievalUrlRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = GenerateRetrievalUrlRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27133,7 +27389,11 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Asset;
-    /// let x = Asset::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = Asset::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27236,7 +27496,11 @@ impl AnalyzeAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::AnalyzeAssetRequest;
-    /// let x = AnalyzeAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = AnalyzeAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27867,7 +28131,11 @@ impl IndexAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::IndexAssetRequest;
-    /// let x = IndexAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = IndexAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -27879,7 +28147,11 @@ impl IndexAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::IndexAssetRequest;
-    /// let x = IndexAssetRequest::new().set_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = IndexAssetRequest::new().set_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
@@ -28069,7 +28341,11 @@ impl RemoveIndexAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::RemoveIndexAssetRequest;
-    /// let x = RemoveIndexAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = RemoveIndexAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -28081,7 +28357,11 @@ impl RemoveIndexAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::RemoveIndexAssetRequest;
-    /// let x = RemoveIndexAssetRequest::new().set_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = RemoveIndexAssetRequest::new().set_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
@@ -28277,7 +28557,11 @@ impl IndexedAsset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::IndexedAsset;
-    /// let x = IndexedAsset::new().set_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = IndexedAsset::new().set_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
@@ -28289,7 +28573,11 @@ impl IndexedAsset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::IndexedAsset;
-    /// let x = IndexedAsset::new().set_asset("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = IndexedAsset::new().set_asset(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
@@ -28411,7 +28699,11 @@ impl ViewIndexedAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ViewIndexedAssetsRequest;
-    /// let x = ViewIndexedAssetsRequest::new().set_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = ViewIndexedAssetsRequest::new().set_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
@@ -29004,7 +29296,10 @@ impl CreateCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateCollectionRequest;
-    /// let x = CreateCollectionRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = CreateCollectionRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -29160,7 +29455,11 @@ impl DeleteCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteCollectionRequest;
-    /// let x = DeleteCollectionRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let collection_id = "collection_id";
+    /// let x = DeleteCollectionRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -29196,7 +29495,11 @@ impl GetCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetCollectionRequest;
-    /// let x = GetCollectionRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let collection_id = "collection_id";
+    /// let x = GetCollectionRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -29347,7 +29650,10 @@ impl ListCollectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListCollectionsRequest;
-    /// let x = ListCollectionsRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ListCollectionsRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -29719,7 +30025,11 @@ impl ViewCollectionItemsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ViewCollectionItemsRequest;
-    /// let x = ViewCollectionItemsRequest::new().set_collection("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let collection_id = "collection_id";
+    /// let x = ViewCollectionItemsRequest::new().set_collection(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"));
     /// ```
     pub fn set_collection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collection = v.into();
@@ -29863,7 +30173,11 @@ impl Collection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Collection;
-    /// let x = Collection::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let collection_id = "collection_id";
+    /// let x = Collection::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -29932,7 +30246,11 @@ impl CollectionItem {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CollectionItem;
-    /// let x = CollectionItem::new().set_collection("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let collection_id = "collection_id";
+    /// let x = CollectionItem::new().set_collection(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/collections/{collection_id}"));
     /// ```
     pub fn set_collection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collection = v.into();
@@ -30140,7 +30458,10 @@ impl CreateIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateIndexRequest;
-    /// let x = CreateIndexRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = CreateIndexRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -30431,7 +30752,11 @@ impl GetIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetIndexRequest;
-    /// let x = GetIndexRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = GetIndexRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -30481,7 +30806,10 @@ impl ListIndexesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListIndexesRequest;
-    /// let x = ListIndexesRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ListIndexesRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -30617,7 +30945,11 @@ impl DeleteIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteIndexRequest;
-    /// let x = DeleteIndexRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = DeleteIndexRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -30712,7 +31044,11 @@ impl Index {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Index;
-    /// let x = Index::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = Index::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -31143,7 +31479,10 @@ impl DeployedIndexReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeployedIndexReference;
-    /// let x = DeployedIndexReference::new().set_index_endpoint("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = DeployedIndexReference::new().set_index_endpoint(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_index_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_endpoint = v.into();
@@ -31211,7 +31550,10 @@ impl Corpus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Corpus;
-    /// let x = Corpus::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = Corpus::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -31559,7 +31901,10 @@ impl GetCorpusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetCorpusRequest;
-    /// let x = GetCorpusRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = GetCorpusRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -31860,7 +32205,10 @@ impl DeleteCorpusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteCorpusRequest;
-    /// let x = DeleteCorpusRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = DeleteCorpusRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -31897,7 +32245,10 @@ impl AnalyzeCorpusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::AnalyzeCorpusRequest;
-    /// let x = AnalyzeCorpusRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = AnalyzeCorpusRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -32013,7 +32364,10 @@ impl CreateDataSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateDataSchemaRequest;
-    /// let x = CreateDataSchemaRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = CreateDataSchemaRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -32093,7 +32447,11 @@ impl DataSchema {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DataSchema;
-    /// let x = DataSchema::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let data_schema_id = "data_schema_id";
+    /// let x = DataSchema::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/dataSchemas/{data_schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -33412,7 +33770,11 @@ impl GetDataSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetDataSchemaRequest;
-    /// let x = GetDataSchemaRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let data_schema_id = "data_schema_id";
+    /// let x = GetDataSchemaRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/dataSchemas/{data_schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -33449,7 +33811,11 @@ impl DeleteDataSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteDataSchemaRequest;
-    /// let x = DeleteDataSchemaRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let data_schema_id = "data_schema_id";
+    /// let x = DeleteDataSchemaRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/dataSchemas/{data_schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -33498,7 +33864,10 @@ impl ListDataSchemasRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListDataSchemasRequest;
-    /// let x = ListDataSchemasRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ListDataSchemasRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -33646,7 +34015,11 @@ impl CreateAnnotationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateAnnotationRequest;
-    /// let x = CreateAnnotationRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = CreateAnnotationRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -33751,7 +34124,12 @@ impl Annotation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::Annotation;
-    /// let x = Annotation::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// # let annotation_id = "annotation_id";
+    /// let x = Annotation::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}/annotations/{annotation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -34597,7 +34975,11 @@ impl ListAnnotationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListAnnotationsRequest;
-    /// let x = ListAnnotationsRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = ListAnnotationsRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -34745,7 +35127,12 @@ impl GetAnnotationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetAnnotationRequest;
-    /// let x = GetAnnotationRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// # let annotation_id = "annotation_id";
+    /// let x = GetAnnotationRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}/annotations/{annotation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -34877,7 +35264,12 @@ impl DeleteAnnotationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteAnnotationRequest;
-    /// let x = DeleteAnnotationRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// # let annotation_id = "annotation_id";
+    /// let x = DeleteAnnotationRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}/annotations/{annotation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -34917,7 +35309,10 @@ impl ImportAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ImportAssetsRequest;
-    /// let x = ImportAssetsRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ImportAssetsRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35199,7 +35594,10 @@ impl CreateSearchConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateSearchConfigRequest;
-    /// let x = CreateSearchConfigRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = CreateSearchConfigRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35381,7 +35779,11 @@ impl GetSearchConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetSearchConfigRequest;
-    /// let x = GetSearchConfigRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let search_config_id = "search_config_id";
+    /// let x = GetSearchConfigRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchConfigs/{search_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35418,7 +35820,11 @@ impl DeleteSearchConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteSearchConfigRequest;
-    /// let x = DeleteSearchConfigRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let search_config_id = "search_config_id";
+    /// let x = DeleteSearchConfigRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchConfigs/{search_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35468,7 +35874,10 @@ impl ListSearchConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListSearchConfigsRequest;
-    /// let x = ListSearchConfigsRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ListSearchConfigsRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35614,7 +36023,11 @@ impl SearchConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::SearchConfig;
-    /// let x = SearchConfig::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let search_config_id = "search_config_id";
+    /// let x = SearchConfig::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchConfigs/{search_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35769,7 +36182,10 @@ impl IndexEndpoint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::IndexEndpoint;
-    /// let x = IndexEndpoint::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = IndexEndpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36331,7 +36747,10 @@ impl GetIndexEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetIndexEndpointRequest;
-    /// let x = GetIndexEndpointRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = GetIndexEndpointRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36687,7 +37106,10 @@ impl DeleteIndexEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteIndexEndpointRequest;
-    /// let x = DeleteIndexEndpointRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = DeleteIndexEndpointRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36783,7 +37205,10 @@ impl DeployIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeployIndexRequest;
-    /// let x = DeployIndexRequest::new().set_index_endpoint("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = DeployIndexRequest::new().set_index_endpoint(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_index_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_endpoint = v.into();
@@ -36907,7 +37332,11 @@ impl DeployIndexMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeployIndexMetadata;
-    /// let x = DeployIndexMetadata::new().set_deployed_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = DeployIndexMetadata::new().set_deployed_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_deployed_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployed_index = v.into();
@@ -36978,7 +37407,11 @@ impl UndeployIndexMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::UndeployIndexMetadata;
-    /// let x = UndeployIndexMetadata::new().set_deployed_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = UndeployIndexMetadata::new().set_deployed_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_deployed_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployed_index = v.into();
@@ -37015,7 +37448,10 @@ impl UndeployIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::UndeployIndexRequest;
-    /// let x = UndeployIndexRequest::new().set_index_endpoint("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = UndeployIndexRequest::new().set_index_endpoint(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_index_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_endpoint = v.into();
@@ -37072,7 +37508,11 @@ impl DeployedIndex {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeployedIndex;
-    /// let x = DeployedIndex::new().set_index("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let index_id = "index_id";
+    /// let x = DeployedIndex::new().set_index(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/indexes/{index_id}"));
     /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
@@ -37757,7 +38197,11 @@ impl SearchHypernym {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::SearchHypernym;
-    /// let x = SearchHypernym::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let search_hypernym_id = "search_hypernym_id";
+    /// let x = SearchHypernym::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchHypernyms/{search_hypernym_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -37829,7 +38273,10 @@ impl CreateSearchHypernymRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::CreateSearchHypernymRequest;
-    /// let x = CreateSearchHypernymRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = CreateSearchHypernymRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -38026,7 +38473,11 @@ impl GetSearchHypernymRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GetSearchHypernymRequest;
-    /// let x = GetSearchHypernymRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let search_hypernym_id = "search_hypernym_id";
+    /// let x = GetSearchHypernymRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchHypernyms/{search_hypernym_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -38063,7 +38514,11 @@ impl DeleteSearchHypernymRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::DeleteSearchHypernymRequest;
-    /// let x = DeleteSearchHypernymRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let search_hypernym_id = "search_hypernym_id";
+    /// let x = DeleteSearchHypernymRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/searchHypernyms/{search_hypernym_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -38113,7 +38568,10 @@ impl ListSearchHypernymsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ListSearchHypernymsRequest;
-    /// let x = ListSearchHypernymsRequest::new().set_parent("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = ListSearchHypernymsRequest::new().set_parent(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -38972,7 +39430,11 @@ pub mod ingest_asset_request {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_visionai_v1::model::ingest_asset_request::Config;
-        /// let x = Config::new().set_asset("example");
+        /// # let project_number_id = "project_number_id";
+        /// # let location_id = "location_id";
+        /// # let corpus_id = "corpus_id";
+        /// # let asset_id = "asset_id";
+        /// let x = Config::new().set_asset(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
         /// ```
         pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset = v.into();
@@ -39417,7 +39879,11 @@ impl ClipAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ClipAssetRequest;
-    /// let x = ClipAssetRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = ClipAssetRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39618,7 +40084,11 @@ impl GenerateHlsUriRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::GenerateHlsUriRequest;
-    /// let x = GenerateHlsUriRequest::new().set_name("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = GenerateHlsUriRequest::new().set_name(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39788,7 +40258,10 @@ impl SearchAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::SearchAssetsRequest;
-    /// let x = SearchAssetsRequest::new().set_corpus("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// let x = SearchAssetsRequest::new().set_corpus(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}"));
     /// ```
     pub fn set_corpus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.corpus = v.into();
@@ -40054,7 +40527,10 @@ impl SearchIndexEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::SearchIndexEndpointRequest;
-    /// let x = SearchIndexEndpointRequest::new().set_index_endpoint("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let index_endpoint_id = "index_endpoint_id";
+    /// let x = SearchIndexEndpointRequest::new().set_index_endpoint(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"));
     /// ```
     pub fn set_index_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_endpoint = v.into();
@@ -40330,7 +40806,11 @@ impl ImageQuery {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_visionai_v1::model::ImageQuery;
-    /// let x = ImageQuery::new().set_asset("example");
+    /// # let project_number_id = "project_number_id";
+    /// # let location_id = "location_id";
+    /// # let corpus_id = "corpus_id";
+    /// # let asset_id = "asset_id";
+    /// let x = ImageQuery::new().set_asset(format!("projects/{project_number_id}/locations/{location_id}/corpora/{corpus_id}/assets/{asset_id}"));
     /// assert!(x.asset().is_some());
     /// assert!(x.input_image().is_none());
     /// ```

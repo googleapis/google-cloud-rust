@@ -1285,7 +1285,9 @@ impl GetDeviceSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_devicestreaming_v1::model::GetDeviceSessionRequest;
-    /// let x = GetDeviceSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let device_session_id = "device_session_id";
+    /// let x = GetDeviceSessionRequest::new().set_name(format!("projects/{project_id}/deviceSessions/{device_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1321,7 +1323,9 @@ impl CancelDeviceSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_devicestreaming_v1::model::CancelDeviceSessionRequest;
-    /// let x = CancelDeviceSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let device_session_id = "device_session_id";
+    /// let x = CancelDeviceSessionRequest::new().set_name(format!("projects/{project_id}/deviceSessions/{device_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1477,7 +1481,9 @@ impl DeviceSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
-    /// let x = DeviceSession::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let device_session_id = "device_session_id";
+    /// let x = DeviceSession::new().set_name(format!("projects/{project_id}/deviceSessions/{device_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

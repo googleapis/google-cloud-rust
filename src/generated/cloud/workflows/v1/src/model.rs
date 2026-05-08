@@ -174,7 +174,10 @@ impl Workflow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
-    /// let x = Workflow::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = Workflow::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1309,7 +1312,10 @@ impl GetWorkflowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::GetWorkflowRequest;
-    /// let x = GetWorkflowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = GetWorkflowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1459,7 +1465,10 @@ impl DeleteWorkflowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::DeleteWorkflowRequest;
-    /// let x = DeleteWorkflowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = DeleteWorkflowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1742,7 +1751,10 @@ impl ListWorkflowRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
-    /// let x = ListWorkflowRevisionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = ListWorkflowRevisionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

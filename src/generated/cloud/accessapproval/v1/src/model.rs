@@ -839,7 +839,9 @@ impl ApprovalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
-    /// let x = ApprovalRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let approval_request_id = "approval_request_id";
+    /// let x = ApprovalRequest::new().set_name(format!("projects/{project_id}/approvalRequests/{approval_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1329,7 +1331,8 @@ impl AccessApprovalSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
-    /// let x = AccessApprovalSettings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = AccessApprovalSettings::new().set_name(format!("projects/{project_id}/accessApprovalSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1464,7 +1467,8 @@ impl AccessApprovalServiceAccount {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::AccessApprovalServiceAccount;
-    /// let x = AccessApprovalServiceAccount::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = AccessApprovalServiceAccount::new().set_name(format!("projects/{project_id}/serviceAccount"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1532,7 +1536,8 @@ impl ListApprovalRequestsMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsMessage;
-    /// let x = ListApprovalRequestsMessage::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListApprovalRequestsMessage::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1679,7 +1684,9 @@ impl GetApprovalRequestMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::GetApprovalRequestMessage;
-    /// let x = GetApprovalRequestMessage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let approval_request_id = "approval_request_id";
+    /// let x = GetApprovalRequestMessage::new().set_name(format!("projects/{project_id}/approvalRequests/{approval_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1717,7 +1724,9 @@ impl ApproveApprovalRequestMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::ApproveApprovalRequestMessage;
-    /// let x = ApproveApprovalRequestMessage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let approval_request_id = "approval_request_id";
+    /// let x = ApproveApprovalRequestMessage::new().set_name(format!("projects/{project_id}/approvalRequests/{approval_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1785,7 +1794,9 @@ impl DismissApprovalRequestMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::DismissApprovalRequestMessage;
-    /// let x = DismissApprovalRequestMessage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let approval_request_id = "approval_request_id";
+    /// let x = DismissApprovalRequestMessage::new().set_name(format!("projects/{project_id}/approvalRequests/{approval_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1820,7 +1831,9 @@ impl InvalidateApprovalRequestMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::InvalidateApprovalRequestMessage;
-    /// let x = InvalidateApprovalRequestMessage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let approval_request_id = "approval_request_id";
+    /// let x = InvalidateApprovalRequestMessage::new().set_name(format!("projects/{project_id}/approvalRequests/{approval_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1856,7 +1869,8 @@ impl GetAccessApprovalSettingsMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::GetAccessApprovalSettingsMessage;
-    /// let x = GetAccessApprovalSettingsMessage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetAccessApprovalSettingsMessage::new().set_name(format!("projects/{project_id}/accessApprovalSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1992,7 +2006,8 @@ impl DeleteAccessApprovalSettingsMessage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_accessapproval_v1::model::DeleteAccessApprovalSettingsMessage;
-    /// let x = DeleteAccessApprovalSettingsMessage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = DeleteAccessApprovalSettingsMessage::new().set_name(format!("projects/{project_id}/accessApprovalSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

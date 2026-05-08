@@ -103,7 +103,10 @@ impl Event {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::Event;
-    /// let x = Event::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let event_id = "event_id";
+    /// let x = Event::new().set_name(format!("projects/{project_id}/locations/{location_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1219,7 +1222,10 @@ impl OrganizationEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
-    /// let x = OrganizationEvent::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let event_id = "event_id";
+    /// let x = OrganizationEvent::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/organizationEvents/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2426,7 +2432,10 @@ impl OrganizationImpact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
-    /// let x = OrganizationImpact::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let organization_impact_id = "organization_impact_id";
+    /// let x = OrganizationImpact::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/organizationImpacts/{organization_impact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2639,7 +2648,9 @@ impl ListEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::ListEventsRequest;
-    /// let x = ListEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2828,7 +2839,10 @@ impl GetEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::GetEventRequest;
-    /// let x = GetEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let event_id = "event_id";
+    /// let x = GetEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2909,7 +2923,9 @@ impl ListOrganizationEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsRequest;
-    /// let x = ListOrganizationEventsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListOrganizationEventsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3103,7 +3119,10 @@ impl GetOrganizationEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::GetOrganizationEventRequest;
-    /// let x = GetOrganizationEventRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let event_id = "event_id";
+    /// let x = GetOrganizationEventRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/organizationEvents/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3181,7 +3200,9 @@ impl ListOrganizationImpactsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsRequest;
-    /// let x = ListOrganizationImpactsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListOrganizationImpactsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3361,7 +3382,10 @@ impl GetOrganizationImpactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_servicehealth_v1::model::GetOrganizationImpactRequest;
-    /// let x = GetOrganizationImpactRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let organization_impact_id = "organization_impact_id";
+    /// let x = GetOrganizationImpactRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/organizationImpacts/{organization_impact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

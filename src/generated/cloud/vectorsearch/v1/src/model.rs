@@ -80,7 +80,11 @@ impl DataObject {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::DataObject;
-    /// let x = DataObject::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let data_object_id = "data_object_id";
+    /// let x = DataObject::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -698,7 +702,11 @@ pub mod search_hint {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
-        /// let x = IndexHint::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let collection_id = "collection_id";
+        /// # let index_id = "index_id";
+        /// let x = IndexHint::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -1654,7 +1662,10 @@ impl SearchDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::SearchDataObjectsRequest;
-    /// let x = SearchDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = SearchDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2053,7 +2064,10 @@ impl AggregateDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::AggregateDataObjectsRequest;
-    /// let x = AggregateDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = AggregateDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2211,7 +2225,10 @@ impl QueryDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::QueryDataObjectsRequest;
-    /// let x = QueryDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = QueryDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2423,7 +2440,10 @@ impl BatchSearchDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::BatchSearchDataObjectsRequest;
-    /// let x = BatchSearchDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = BatchSearchDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2820,7 +2840,10 @@ impl CreateDataObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::CreateDataObjectRequest;
-    /// let x = CreateDataObjectRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = CreateDataObjectRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2910,7 +2933,10 @@ impl BatchCreateDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::BatchCreateDataObjectsRequest;
-    /// let x = BatchCreateDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = BatchCreateDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3020,7 +3046,11 @@ impl GetDataObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::GetDataObjectRequest;
-    /// let x = GetDataObjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let data_object_id = "data_object_id";
+    /// let x = GetDataObjectRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3163,7 +3193,10 @@ impl BatchUpdateDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::BatchUpdateDataObjectsRequest;
-    /// let x = BatchUpdateDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = BatchUpdateDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3253,7 +3286,11 @@ impl DeleteDataObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::DeleteDataObjectRequest;
-    /// let x = DeleteDataObjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let data_object_id = "data_object_id";
+    /// let x = DeleteDataObjectRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3308,7 +3345,10 @@ impl BatchDeleteDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::BatchDeleteDataObjectsRequest;
-    /// let x = BatchDeleteDataObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = BatchDeleteDataObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3513,7 +3553,10 @@ impl Collection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::Collection;
-    /// let x = Collection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = Collection::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3995,7 +4038,9 @@ impl ListCollectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::ListCollectionsRequest;
-    /// let x = ListCollectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCollectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4172,7 +4217,10 @@ impl GetCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::GetCollectionRequest;
-    /// let x = GetCollectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = GetCollectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4232,7 +4280,9 @@ impl CreateCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::CreateCollectionRequest;
-    /// let x = CreateCollectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCollectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4474,7 +4524,10 @@ impl DeleteCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::DeleteCollectionRequest;
-    /// let x = DeleteCollectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = DeleteCollectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4557,7 +4610,11 @@ impl Index {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::Index;
-    /// let x = Index::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let index_id = "index_id";
+    /// let x = Index::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4936,7 +4993,10 @@ impl CreateIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::CreateIndexRequest;
-    /// let x = CreateIndexRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = CreateIndexRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5179,7 +5239,11 @@ impl DeleteIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::DeleteIndexRequest;
-    /// let x = DeleteIndexRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let index_id = "index_id";
+    /// let x = DeleteIndexRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5239,7 +5303,10 @@ impl ListIndexesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::ListIndexesRequest;
-    /// let x = ListIndexesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = ListIndexesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5396,7 +5463,11 @@ impl GetIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::GetIndexRequest;
-    /// let x = GetIndexRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// # let index_id = "index_id";
+    /// let x = GetIndexRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5613,7 +5684,10 @@ impl ImportDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::ImportDataObjectsRequest;
-    /// let x = ImportDataObjectsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = ImportDataObjectsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5992,7 +6066,10 @@ impl ExportDataObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsRequest;
-    /// let x = ExportDataObjectsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let collection_id = "collection_id";
+    /// let x = ExportDataObjectsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

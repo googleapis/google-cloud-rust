@@ -101,7 +101,10 @@ impl DataExchange {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = DataExchange::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -348,7 +351,11 @@ impl QueryTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let query_template_id = "query_template_id";
+    /// let x = QueryTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -907,7 +914,10 @@ impl CreateQueryTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::CreateQueryTemplateRequest;
-    /// let x = CreateQueryTemplateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = CreateQueryTemplateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -992,7 +1002,11 @@ impl GetQueryTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::GetQueryTemplateRequest;
-    /// let x = GetQueryTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let query_template_id = "query_template_id";
+    /// let x = GetQueryTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1036,7 +1050,10 @@ impl ListQueryTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::ListQueryTemplatesRequest;
-    /// let x = ListQueryTemplatesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = ListQueryTemplatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1265,7 +1282,11 @@ impl DeleteQueryTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteQueryTemplateRequest;
-    /// let x = DeleteQueryTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let query_template_id = "query_template_id";
+    /// let x = DeleteQueryTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1302,7 +1323,11 @@ impl SubmitQueryTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::SubmitQueryTemplateRequest;
-    /// let x = SubmitQueryTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let query_template_id = "query_template_id";
+    /// let x = SubmitQueryTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1339,7 +1364,11 @@ impl ApproveQueryTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::ApproveQueryTemplateRequest;
-    /// let x = ApproveQueryTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let query_template_id = "query_template_id";
+    /// let x = ApproveQueryTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2138,7 +2167,11 @@ impl Listing {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let listing_id = "listing_id";
+    /// let x = Listing::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4563,7 +4596,10 @@ impl Subscription {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = Subscription::new().set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5392,7 +5428,9 @@ impl ListDataExchangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::ListDataExchangesRequest;
-    /// let x = ListDataExchangesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDataExchangesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5670,7 +5708,10 @@ impl GetDataExchangeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::GetDataExchangeRequest;
-    /// let x = GetDataExchangeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = GetDataExchangeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5714,7 +5755,9 @@ impl CreateDataExchangeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::CreateDataExchangeRequest;
-    /// let x = CreateDataExchangeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDataExchangeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5892,7 +5935,10 @@ impl DeleteDataExchangeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteDataExchangeRequest;
-    /// let x = DeleteDataExchangeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = DeleteDataExchangeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5936,7 +5982,10 @@ impl ListListingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::ListListingsRequest;
-    /// let x = ListListingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = ListListingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6070,7 +6119,11 @@ impl GetListingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::GetListingRequest;
-    /// let x = GetListingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let listing_id = "listing_id";
+    /// let x = GetListingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6114,7 +6167,10 @@ impl CreateListingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::CreateListingRequest;
-    /// let x = CreateListingRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = CreateListingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6294,7 +6350,11 @@ impl DeleteListingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteListingRequest;
-    /// let x = DeleteListingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let listing_id = "listing_id";
+    /// let x = DeleteListingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6345,7 +6405,11 @@ impl SubscribeListingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingRequest;
-    /// let x = SubscribeListingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// # let listing_id = "listing_id";
+    /// let x = SubscribeListingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6576,7 +6640,10 @@ impl SubscribeDataExchangeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// let x = SubscribeDataExchangeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_exchange_id = "data_exchange_id";
+    /// let x = SubscribeDataExchangeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6740,7 +6807,10 @@ impl RefreshSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::RefreshSubscriptionRequest;
-    /// let x = RefreshSubscriptionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = RefreshSubscriptionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6832,7 +6902,10 @@ impl GetSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::GetSubscriptionRequest;
-    /// let x = GetSubscriptionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = GetSubscriptionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6891,7 +6964,9 @@ impl ListSubscriptionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsRequest;
-    /// let x = ListSubscriptionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSubscriptionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7202,7 +7277,10 @@ impl RevokeSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::RevokeSubscriptionRequest;
-    /// let x = RevokeSubscriptionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = RevokeSubscriptionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7271,7 +7349,10 @@ impl DeleteSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteSubscriptionRequest;
-    /// let x = DeleteSubscriptionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = DeleteSubscriptionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7309,8 +7390,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

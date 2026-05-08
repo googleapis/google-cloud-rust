@@ -1127,7 +1127,9 @@ impl GetFeedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::GetFeedRequest;
-    /// let x = GetFeedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let feed_id = "feed_id";
+    /// let x = GetFeedRequest::new().set_name(format!("projects/{project_id}/feeds/{feed_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1345,7 +1347,9 @@ impl DeleteFeedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::DeleteFeedRequest;
-    /// let x = DeleteFeedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let feed_id = "feed_id";
+    /// let x = DeleteFeedRequest::new().set_name(format!("projects/{project_id}/feeds/{feed_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2359,7 +2363,9 @@ impl Feed {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Feed;
-    /// let x = Feed::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let feed_id = "feed_id";
+    /// let x = Feed::new().set_name(format!("projects/{project_id}/feeds/{feed_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4911,7 +4917,9 @@ impl SavedQuery {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::SavedQuery;
-    /// let x = SavedQuery::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let saved_query_id = "saved_query_id";
+    /// let x = SavedQuery::new().set_name(format!("projects/{project_id}/savedQueries/{saved_query_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5239,7 +5247,8 @@ impl CreateSavedQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::CreateSavedQueryRequest;
-    /// let x = CreateSavedQueryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateSavedQueryRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5323,7 +5332,9 @@ impl GetSavedQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::GetSavedQueryRequest;
-    /// let x = GetSavedQueryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let saved_query_id = "saved_query_id";
+    /// let x = GetSavedQueryRequest::new().set_name(format!("projects/{project_id}/savedQueries/{saved_query_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5382,7 +5393,8 @@ impl ListSavedQueriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::ListSavedQueriesRequest;
-    /// let x = ListSavedQueriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListSavedQueriesRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5632,7 +5644,9 @@ impl DeleteSavedQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::DeleteSavedQueryRequest;
-    /// let x = DeleteSavedQueryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let saved_query_id = "saved_query_id";
+    /// let x = DeleteSavedQueryRequest::new().set_name(format!("projects/{project_id}/savedQueries/{saved_query_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

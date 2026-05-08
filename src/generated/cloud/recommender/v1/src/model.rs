@@ -93,7 +93,11 @@ impl Insight {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::Insight;
-    /// let x = Insight::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insight_type_id = "insight_type_id";
+    /// # let insight_id = "insight_id";
+    /// let x = Insight::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightTypes/{insight_type_id}/insights/{insight_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -971,7 +975,10 @@ impl InsightTypeConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
-    /// let x = InsightTypeConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insight_type_id = "insight_type_id";
+    /// let x = InsightTypeConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightTypes/{insight_type_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1242,7 +1249,11 @@ impl Recommendation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::Recommendation;
-    /// let x = Recommendation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// # let recommendation_id = "recommendation_id";
+    /// let x = Recommendation::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/recommendations/{recommendation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3436,7 +3447,10 @@ impl RecommenderConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::RecommenderConfig;
-    /// let x = RecommenderConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// let x = RecommenderConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3862,7 +3876,11 @@ impl GetInsightRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::GetInsightRequest;
-    /// let x = GetInsightRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insight_type_id = "insight_type_id";
+    /// # let insight_id = "insight_id";
+    /// let x = GetInsightRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightTypes/{insight_type_id}/insights/{insight_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3904,7 +3922,11 @@ impl MarkInsightAcceptedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::MarkInsightAcceptedRequest;
-    /// let x = MarkInsightAcceptedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insight_type_id = "insight_type_id";
+    /// # let insight_id = "insight_id";
+    /// let x = MarkInsightAcceptedRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightTypes/{insight_type_id}/insights/{insight_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4178,7 +4200,11 @@ impl GetRecommendationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::GetRecommendationRequest;
-    /// let x = GetRecommendationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// # let recommendation_id = "recommendation_id";
+    /// let x = GetRecommendationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/recommendations/{recommendation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4216,7 +4242,11 @@ impl MarkRecommendationDismissedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::MarkRecommendationDismissedRequest;
-    /// let x = MarkRecommendationDismissedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// # let recommendation_id = "recommendation_id";
+    /// let x = MarkRecommendationDismissedRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/recommendations/{recommendation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4272,7 +4302,11 @@ impl MarkRecommendationClaimedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::MarkRecommendationClaimedRequest;
-    /// let x = MarkRecommendationClaimedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// # let recommendation_id = "recommendation_id";
+    /// let x = MarkRecommendationClaimedRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/recommendations/{recommendation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4349,7 +4383,11 @@ impl MarkRecommendationSucceededRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::MarkRecommendationSucceededRequest;
-    /// let x = MarkRecommendationSucceededRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// # let recommendation_id = "recommendation_id";
+    /// let x = MarkRecommendationSucceededRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/recommendations/{recommendation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4426,7 +4464,11 @@ impl MarkRecommendationFailedRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::MarkRecommendationFailedRequest;
-    /// let x = MarkRecommendationFailedRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// # let recommendation_id = "recommendation_id";
+    /// let x = MarkRecommendationFailedRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/recommendations/{recommendation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4505,7 +4547,10 @@ impl GetRecommenderConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::GetRecommenderConfigRequest;
-    /// let x = GetRecommenderConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recommender_id = "recommender_id";
+    /// let x = GetRecommenderConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recommenders/{recommender_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4659,7 +4704,10 @@ impl GetInsightTypeConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::GetInsightTypeConfigRequest;
-    /// let x = GetInsightTypeConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insight_type_id = "insight_type_id";
+    /// let x = GetInsightTypeConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightTypes/{insight_type_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

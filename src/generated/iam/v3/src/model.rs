@@ -59,8 +59,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -318,7 +316,10 @@ impl PolicyBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let policy_binding_id = "policy_binding_id";
+    /// let x = PolicyBinding::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/policyBindings/{policy_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -855,7 +856,9 @@ impl CreatePolicyBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
-    /// let x = CreatePolicyBindingRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePolicyBindingRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -957,7 +960,10 @@ impl GetPolicyBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::GetPolicyBindingRequest;
-    /// let x = GetPolicyBindingRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let policy_binding_id = "policy_binding_id";
+    /// let x = GetPolicyBindingRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/policyBindings/{policy_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1118,7 +1124,10 @@ impl DeletePolicyBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::DeletePolicyBindingRequest;
-    /// let x = DeletePolicyBindingRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let policy_binding_id = "policy_binding_id";
+    /// let x = DeletePolicyBindingRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/policyBindings/{policy_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1212,7 +1221,9 @@ impl ListPolicyBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::ListPolicyBindingsRequest;
-    /// let x = ListPolicyBindingsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPolicyBindingsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1431,7 +1442,9 @@ impl SearchTargetPolicyBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsRequest;
-    /// let x = SearchTargetPolicyBindingsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = SearchTargetPolicyBindingsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1564,7 +1577,9 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1665,7 +1680,10 @@ impl GetPrincipalAccessBoundaryPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::GetPrincipalAccessBoundaryPolicyRequest;
-    /// let x = GetPrincipalAccessBoundaryPolicyRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let principal_access_boundary_policy_id = "principal_access_boundary_policy_id";
+    /// let x = GetPrincipalAccessBoundaryPolicyRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1830,7 +1848,10 @@ impl DeletePrincipalAccessBoundaryPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::DeletePrincipalAccessBoundaryPolicyRequest;
-    /// let x = DeletePrincipalAccessBoundaryPolicyRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let principal_access_boundary_policy_id = "principal_access_boundary_policy_id";
+    /// let x = DeletePrincipalAccessBoundaryPolicyRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1922,7 +1943,9 @@ impl ListPrincipalAccessBoundaryPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::ListPrincipalAccessBoundaryPoliciesRequest;
-    /// let x = ListPrincipalAccessBoundaryPoliciesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPrincipalAccessBoundaryPoliciesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2077,7 +2100,10 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest;
-    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let principal_access_boundary_policy_id = "principal_access_boundary_policy_id";
+    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2244,7 +2270,10 @@ impl PrincipalAccessBoundaryPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let principal_access_boundary_policy_id = "principal_access_boundary_policy_id";
+    /// let x = PrincipalAccessBoundaryPolicy::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

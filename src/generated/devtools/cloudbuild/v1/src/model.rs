@@ -58,7 +58,9 @@ impl GetDefaultServiceAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GetDefaultServiceAccountRequest;
-    /// let x = GetDefaultServiceAccountRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetDefaultServiceAccountRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/defaultServiceAccount"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -106,7 +108,9 @@ impl DefaultServiceAccount {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::DefaultServiceAccount;
-    /// let x = DefaultServiceAccount::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = DefaultServiceAccount::new().set_name(format!("projects/{project_id}/locations/{location_id}/defaultServiceAccount"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -163,7 +167,9 @@ impl RetryBuildRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::RetryBuildRequest;
-    /// let x = RetryBuildRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let build_id = "build_id";
+    /// let x = RetryBuildRequest::new().set_name(format!("projects/{project_id}/builds/{build_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -233,7 +239,9 @@ impl RunBuildTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::RunBuildTriggerRequest;
-    /// let x = RunBuildTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = RunBuildTriggerRequest::new().set_name(format!("projects/{project_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2918,7 +2926,9 @@ impl Build {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::Build;
-    /// let x = Build::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let build_id = "build_id";
+    /// let x = Build::new().set_name(format!("projects/{project_id}/builds/{build_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6380,7 +6390,8 @@ impl CreateBuildRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::CreateBuildRequest;
-    /// let x = CreateBuildRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateBuildRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6467,7 +6478,9 @@ impl GetBuildRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GetBuildRequest;
-    /// let x = GetBuildRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let build_id = "build_id";
+    /// let x = GetBuildRequest::new().set_name(format!("projects/{project_id}/builds/{build_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6547,7 +6560,8 @@ impl ListBuildsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::ListBuildsRequest;
-    /// let x = ListBuildsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListBuildsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6712,7 +6726,9 @@ impl CancelBuildRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::CancelBuildRequest;
-    /// let x = CancelBuildRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let build_id = "build_id";
+    /// let x = CancelBuildRequest::new().set_name(format!("projects/{project_id}/builds/{build_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7558,7 +7574,9 @@ impl GitRepoSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GitRepoSource;
-    /// let x = GitRepoSource::new().set_github_enterprise_config("example");
+    /// # let project_id = "project_id";
+    /// # let config_id = "config_id";
+    /// let x = GitRepoSource::new().set_github_enterprise_config(format!("projects/{project_id}/githubEnterpriseConfigs/{config_id}"));
     /// assert!(x.github_enterprise_config().is_some());
     /// ```
     pub fn set_github_enterprise_config<T: std::convert::Into<std::string::String>>(
@@ -7793,7 +7811,9 @@ impl GitFileSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GitFileSource;
-    /// let x = GitFileSource::new().set_github_enterprise_config("example");
+    /// # let project_id = "project_id";
+    /// # let config_id = "config_id";
+    /// let x = GitFileSource::new().set_github_enterprise_config(format!("projects/{project_id}/githubEnterpriseConfigs/{config_id}"));
     /// assert!(x.github_enterprise_config().is_some());
     /// ```
     pub fn set_github_enterprise_config<T: std::convert::Into<std::string::String>>(
@@ -8151,7 +8171,9 @@ impl BuildTrigger {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::BuildTrigger;
-    /// let x = BuildTrigger::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = BuildTrigger::new().set_name(format!("projects/{project_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10160,7 +10182,8 @@ impl CreateBuildTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::CreateBuildTriggerRequest;
-    /// let x = CreateBuildTriggerRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateBuildTriggerRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10247,7 +10270,9 @@ impl GetBuildTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GetBuildTriggerRequest;
-    /// let x = GetBuildTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = GetBuildTriggerRequest::new().set_name(format!("projects/{project_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10316,7 +10341,8 @@ impl ListBuildTriggersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::ListBuildTriggersRequest;
-    /// let x = ListBuildTriggersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListBuildTriggersRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10468,7 +10494,9 @@ impl DeleteBuildTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::DeleteBuildTriggerRequest;
-    /// let x = DeleteBuildTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let trigger_id = "trigger_id";
+    /// let x = DeleteBuildTriggerRequest::new().set_name(format!("projects/{project_id}/triggers/{trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11053,7 +11081,10 @@ pub mod build_options {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_build_v1::model::build_options::PoolOption;
-        /// let x = PoolOption::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let worker_pool_id = "worker_pool_id";
+        /// let x = PoolOption::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -12111,7 +12142,9 @@ impl GitHubEnterpriseConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GitHubEnterpriseConfig;
-    /// let x = GitHubEnterpriseConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let config_id = "config_id";
+    /// let x = GitHubEnterpriseConfig::new().set_name(format!("projects/{project_id}/githubEnterpriseConfigs/{config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12428,7 +12461,10 @@ impl WorkerPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::WorkerPool;
-    /// let x = WorkerPool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = WorkerPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13529,7 +13565,10 @@ impl GetWorkerPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::GetWorkerPoolRequest;
-    /// let x = GetWorkerPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = GetWorkerPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13578,7 +13617,10 @@ impl DeleteWorkerPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::DeleteWorkerPoolRequest;
-    /// let x = DeleteWorkerPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = DeleteWorkerPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13912,7 +13954,10 @@ impl CreateWorkerPoolOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::CreateWorkerPoolOperationMetadata;
-    /// let x = CreateWorkerPoolOperationMetadata::new().set_worker_pool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = CreateWorkerPoolOperationMetadata::new().set_worker_pool(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
@@ -14021,7 +14066,10 @@ impl UpdateWorkerPoolOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::UpdateWorkerPoolOperationMetadata;
-    /// let x = UpdateWorkerPoolOperationMetadata::new().set_worker_pool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = UpdateWorkerPoolOperationMetadata::new().set_worker_pool(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
@@ -14130,7 +14178,10 @@ impl DeleteWorkerPoolOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::DeleteWorkerPoolOperationMetadata;
-    /// let x = DeleteWorkerPoolOperationMetadata::new().set_worker_pool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let worker_pool_id = "worker_pool_id";
+    /// let x = DeleteWorkerPoolOperationMetadata::new().set_worker_pool(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"));
     /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();

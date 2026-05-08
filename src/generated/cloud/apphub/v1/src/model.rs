@@ -165,7 +165,9 @@ impl ListServiceProjectAttachmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsRequest;
-    /// let x = ListServiceProjectAttachmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListServiceProjectAttachmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -369,7 +371,9 @@ impl CreateServiceProjectAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::CreateServiceProjectAttachmentRequest;
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateServiceProjectAttachmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -466,7 +470,10 @@ impl GetServiceProjectAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::GetServiceProjectAttachmentRequest;
-    /// let x = GetServiceProjectAttachmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_project_attachment_id = "service_project_attachment_id";
+    /// let x = GetServiceProjectAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceProjectAttachments/{service_project_attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -518,7 +525,10 @@ impl DeleteServiceProjectAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::DeleteServiceProjectAttachmentRequest;
-    /// let x = DeleteServiceProjectAttachmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_project_attachment_id = "service_project_attachment_id";
+    /// let x = DeleteServiceProjectAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceProjectAttachments/{service_project_attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -637,7 +647,10 @@ impl ListServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = ListServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -828,7 +841,9 @@ impl ListDiscoveredServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesRequest;
-    /// let x = ListDiscoveredServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDiscoveredServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1031,7 +1046,10 @@ impl CreateServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = CreateServiceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1125,7 +1143,11 @@ impl GetServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let service_id = "service_id";
+    /// let x = GetServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1162,7 +1184,10 @@ impl GetDiscoveredServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::GetDiscoveredServiceRequest;
-    /// let x = GetDiscoveredServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovered_service_id = "discovered_service_id";
+    /// let x = GetDiscoveredServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveredServices/{discovered_service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1203,7 +1228,9 @@ impl LookupDiscoveredServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::LookupDiscoveredServiceRequest;
-    /// let x = LookupDiscoveredServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = LookupDiscoveredServiceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1450,7 +1477,11 @@ impl DeleteServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let service_id = "service_id";
+    /// let x = DeleteServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1511,7 +1542,9 @@ impl ListApplicationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListApplicationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1713,7 +1746,9 @@ impl CreateApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::CreateApplicationRequest;
-    /// let x = CreateApplicationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateApplicationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1807,7 +1842,10 @@ impl GetApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::GetApplicationRequest;
-    /// let x = GetApplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = GetApplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1986,7 +2024,10 @@ impl DeleteApplicationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::DeleteApplicationRequest;
-    /// let x = DeleteApplicationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = DeleteApplicationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2048,7 +2089,10 @@ impl ListWorkloadsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = ListWorkloadsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2239,7 +2283,9 @@ impl ListDiscoveredWorkloadsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsRequest;
-    /// let x = ListDiscoveredWorkloadsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDiscoveredWorkloadsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2442,7 +2488,10 @@ impl CreateWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::CreateWorkloadRequest;
-    /// let x = CreateWorkloadRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = CreateWorkloadRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2536,7 +2585,11 @@ impl GetWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::GetWorkloadRequest;
-    /// let x = GetWorkloadRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let workload_id = "workload_id";
+    /// let x = GetWorkloadRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2573,7 +2626,10 @@ impl GetDiscoveredWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::GetDiscoveredWorkloadRequest;
-    /// let x = GetDiscoveredWorkloadRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovered_workload_id = "discovered_workload_id";
+    /// let x = GetDiscoveredWorkloadRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveredWorkloads/{discovered_workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2614,7 +2670,9 @@ impl LookupDiscoveredWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::LookupDiscoveredWorkloadRequest;
-    /// let x = LookupDiscoveredWorkloadRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = LookupDiscoveredWorkloadRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2861,7 +2919,11 @@ impl DeleteWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::DeleteWorkloadRequest;
-    /// let x = DeleteWorkloadRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let workload_id = "workload_id";
+    /// let x = DeleteWorkloadRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3115,7 +3177,10 @@ impl Application {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::Application;
-    /// let x = Application::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// let x = Application::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4299,7 +4364,11 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4434,7 +4503,9 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_discovered_service("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Service::new().set_discovered_service(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_discovered_service<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4832,7 +4903,10 @@ impl DiscoveredService {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::DiscoveredService;
-    /// let x = DiscoveredService::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovered_service_id = "discovered_service_id";
+    /// let x = DiscoveredService::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveredServices/{discovered_service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4953,7 +5027,10 @@ impl ServiceProjectAttachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = ServiceProjectAttachment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_project_attachment_id = "service_project_attachment_id";
+    /// let x = ServiceProjectAttachment::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceProjectAttachments/{service_project_attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5249,7 +5326,11 @@ impl Workload {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let application_id = "application_id";
+    /// # let workload_id = "workload_id";
+    /// let x = Workload::new().set_name(format!("projects/{project_id}/locations/{location_id}/applications/{application_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5351,7 +5432,9 @@ impl Workload {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_discovered_workload("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Workload::new().set_discovered_workload(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_discovered_workload<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5782,7 +5865,10 @@ impl DiscoveredWorkload {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// let x = DiscoveredWorkload::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovered_workload_id = "discovered_workload_id";
+    /// let x = DiscoveredWorkload::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveredWorkloads/{discovered_workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

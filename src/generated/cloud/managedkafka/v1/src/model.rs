@@ -75,7 +75,9 @@ impl ListClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -253,7 +255,10 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -317,7 +322,9 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -549,7 +556,10 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -609,7 +619,10 @@ impl ListTopicsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ListTopicsRequest;
-    /// let x = ListTopicsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListTopicsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -746,7 +759,11 @@ impl GetTopicRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::GetTopicRequest;
-    /// let x = GetTopicRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let topic_id = "topic_id";
+    /// let x = GetTopicRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/topics/{topic_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -793,7 +810,10 @@ impl CreateTopicRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::CreateTopicRequest;
-    /// let x = CreateTopicRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateTopicRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -970,7 +990,11 @@ impl DeleteTopicRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::DeleteTopicRequest;
-    /// let x = DeleteTopicRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let topic_id = "topic_id";
+    /// let x = DeleteTopicRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/topics/{topic_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1019,7 +1043,10 @@ impl ListConsumerGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ListConsumerGroupsRequest;
-    /// let x = ListConsumerGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListConsumerGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1155,7 +1182,11 @@ impl GetConsumerGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::GetConsumerGroupRequest;
-    /// let x = GetConsumerGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let consumer_group_id = "consumer_group_id";
+    /// let x = GetConsumerGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/consumerGroups/{consumer_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1287,7 +1318,11 @@ impl DeleteConsumerGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::DeleteConsumerGroupRequest;
-    /// let x = DeleteConsumerGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let consumer_group_id = "consumer_group_id";
+    /// let x = DeleteConsumerGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/consumerGroups/{consumer_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1336,7 +1371,10 @@ impl ListAclsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ListAclsRequest;
-    /// let x = ListAclsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListAclsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1477,7 +1515,11 @@ impl GetAclRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::GetAclRequest;
-    /// let x = GetAclRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let acl_id = "acl_id";
+    /// let x = GetAclRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1541,7 +1583,10 @@ impl CreateAclRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::CreateAclRequest;
-    /// let x = CreateAclRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateAclRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1723,7 +1768,11 @@ impl DeleteAclRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::DeleteAclRequest;
-    /// let x = DeleteAclRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let acl_id = "acl_id";
+    /// let x = DeleteAclRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1767,7 +1816,11 @@ impl AddAclEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::AddAclEntryRequest;
-    /// let x = AddAclEntryRequest::new().set_acl("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let acl_id = "acl_id";
+    /// let x = AddAclEntryRequest::new().set_acl(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"));
     /// ```
     pub fn set_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.acl = v.into();
@@ -1915,7 +1968,11 @@ impl RemoveAclEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryRequest;
-    /// let x = RemoveAclEntryRequest::new().set_acl("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let acl_id = "acl_id";
+    /// let x = RemoveAclEntryRequest::new().set_acl(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"));
     /// ```
     pub fn set_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.acl = v.into();
@@ -2117,7 +2174,10 @@ impl GetConnectClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::GetConnectClusterRequest;
-    /// let x = GetConnectClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// let x = GetConnectClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2182,7 +2242,9 @@ impl CreateConnectClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
-    /// let x = CreateConnectClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConnectClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2420,7 +2482,10 @@ impl DeleteConnectClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::DeleteConnectClusterRequest;
-    /// let x = DeleteConnectClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// let x = DeleteConnectClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2486,7 +2551,9 @@ impl ListConnectClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ListConnectClustersRequest;
-    /// let x = ListConnectClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConnectClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2666,7 +2733,11 @@ impl GetConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::GetConnectorRequest;
-    /// let x = GetConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = GetConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2714,7 +2785,10 @@ impl CreateConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::CreateConnectorRequest;
-    /// let x = CreateConnectorRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// let x = CreateConnectorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2892,7 +2966,11 @@ impl DeleteConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::DeleteConnectorRequest;
-    /// let x = DeleteConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = DeleteConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2941,7 +3019,10 @@ impl ListConnectorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// let x = ListConnectorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3077,7 +3158,11 @@ impl PauseConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::PauseConnectorRequest;
-    /// let x = PauseConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = PauseConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3134,7 +3219,11 @@ impl ResumeConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ResumeConnectorRequest;
-    /// let x = ResumeConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = ResumeConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3191,7 +3280,11 @@ impl RestartConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::RestartConnectorRequest;
-    /// let x = RestartConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = RestartConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3248,7 +3341,11 @@ impl StopConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::StopConnectorRequest;
-    /// let x = StopConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = StopConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3334,7 +3431,10 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4430,7 +4530,11 @@ impl Topic {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::Topic;
-    /// let x = Topic::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let topic_id = "topic_id";
+    /// let x = Topic::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/topics/{topic_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4615,7 +4719,11 @@ impl ConsumerGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ConsumerGroup;
-    /// let x = ConsumerGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let consumer_group_id = "consumer_group_id";
+    /// let x = ConsumerGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/consumerGroups/{consumer_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4675,8 +4783,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4874,7 +4980,10 @@ impl ConnectCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
-    /// let x = ConnectCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// let x = ConnectCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5532,7 +5641,11 @@ impl Connector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::Connector;
-    /// let x = Connector::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connect_cluster_id = "connect_cluster_id";
+    /// # let connector_id = "connector_id";
+    /// let x = Connector::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5998,7 +6111,11 @@ impl Acl {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_v1::model::Acl;
-    /// let x = Acl::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let acl_id = "acl_id";
+    /// let x = Acl::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

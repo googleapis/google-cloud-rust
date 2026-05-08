@@ -54,8 +54,6 @@ pub struct OpMetadata {
     /// of the operation. Operations that have successfully been cancelled
     /// have [Operation.error][] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -231,7 +229,9 @@ impl CreateMicrosoftAdDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::CreateMicrosoftAdDomainRequest;
-    /// let x = CreateMicrosoftAdDomainRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMicrosoftAdDomainRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -313,7 +313,10 @@ impl ResetAdminPasswordRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::ResetAdminPasswordRequest;
-    /// let x = ResetAdminPasswordRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = ResetAdminPasswordRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -412,7 +415,9 @@ impl ListDomainsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::ListDomainsRequest;
-    /// let x = ListDomainsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDomainsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -592,7 +597,10 @@ impl GetDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::GetDomainRequest;
-    /// let x = GetDomainRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = GetDomainRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -731,7 +739,10 @@ impl DeleteDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::DeleteDomainRequest;
-    /// let x = DeleteDomainRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = DeleteDomainRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -771,7 +782,10 @@ impl AttachTrustRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::AttachTrustRequest;
-    /// let x = AttachTrustRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = AttachTrustRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -849,7 +863,10 @@ impl ReconfigureTrustRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::ReconfigureTrustRequest;
-    /// let x = ReconfigureTrustRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = ReconfigureTrustRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -921,7 +938,10 @@ impl DetachTrustRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::DetachTrustRequest;
-    /// let x = DetachTrustRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = DetachTrustRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -994,7 +1014,10 @@ impl ValidateTrustRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::ValidateTrustRequest;
-    /// let x = ValidateTrustRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = ValidateTrustRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1111,7 +1134,10 @@ impl Domain {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedidentities_v1::model::Domain;
-    /// let x = Domain::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = Domain::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

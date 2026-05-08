@@ -105,7 +105,9 @@ impl Constraint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::Constraint;
-    /// let x = Constraint::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let constraint_id = "constraint_id";
+    /// let x = Constraint::new().set_name(format!("projects/{project_id}/constraints/{constraint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1464,7 +1466,9 @@ impl CustomConstraint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
-    /// let x = CustomConstraint::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let custom_constraint_id = "custom_constraint_id";
+    /// let x = CustomConstraint::new().set_name(format!("organizations/{organization_id}/customConstraints/{custom_constraint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1955,7 +1959,9 @@ impl Policy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::Policy;
-    /// let x = Policy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let policy_id = "policy_id";
+    /// let x = Policy::new().set_name(format!("projects/{project_id}/policies/{policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2742,7 +2748,8 @@ impl ListConstraintsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::ListConstraintsRequest;
-    /// let x = ListConstraintsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListConstraintsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2893,7 +2900,8 @@ impl ListPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::ListPoliciesRequest;
-    /// let x = ListPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListPoliciesRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3034,7 +3042,9 @@ impl GetPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::GetPolicyRequest;
-    /// let x = GetPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let policy_id = "policy_id";
+    /// let x = GetPolicyRequest::new().set_name(format!("projects/{project_id}/policies/{policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3073,7 +3083,9 @@ impl GetEffectivePolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::GetEffectivePolicyRequest;
-    /// let x = GetEffectivePolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let policy_id = "policy_id";
+    /// let x = GetEffectivePolicyRequest::new().set_name(format!("projects/{project_id}/policies/{policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3118,7 +3130,8 @@ impl CreatePolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::CreatePolicyRequest;
-    /// let x = CreatePolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreatePolicyRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3288,7 +3301,9 @@ impl DeletePolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::DeletePolicyRequest;
-    /// let x = DeletePolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let policy_id = "policy_id";
+    /// let x = DeletePolicyRequest::new().set_name(format!("projects/{project_id}/policies/{policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3341,7 +3356,8 @@ impl CreateCustomConstraintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::CreateCustomConstraintRequest;
-    /// let x = CreateCustomConstraintRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateCustomConstraintRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3411,7 +3427,9 @@ impl GetCustomConstraintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::GetCustomConstraintRequest;
-    /// let x = GetCustomConstraintRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let custom_constraint_id = "custom_constraint_id";
+    /// let x = GetCustomConstraintRequest::new().set_name(format!("organizations/{organization_id}/customConstraints/{custom_constraint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3460,7 +3478,8 @@ impl ListCustomConstraintsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::ListCustomConstraintsRequest;
-    /// let x = ListCustomConstraintsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListCustomConstraintsRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3657,7 +3676,9 @@ impl DeleteCustomConstraintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orgpolicy_v2::model::DeleteCustomConstraintRequest;
-    /// let x = DeleteCustomConstraintRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let custom_constraint_id = "custom_constraint_id";
+    /// let x = DeleteCustomConstraintRequest::new().set_name(format!("organizations/{organization_id}/customConstraints/{custom_constraint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
