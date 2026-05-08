@@ -37,20 +37,20 @@ pub(crate) enum BodyEncoding {
     #[default]
     UrlEncoded,
     /// JSON encoding (application/json).
-    #[cfg_attr(not(feature = "gdch"), expect(unused))]
+    #[cfg_attr(all(not(feature = "gdch"), not(test)), expect(unused))]
     Json,
 }
 
 impl STSHandler {
     /// Configures the handler to use the specified request type for token exchange.
-    #[cfg_attr(not(feature = "gdch"), expect(unused))]
+    #[cfg_attr(all(not(feature = "gdch"), not(test)), expect(unused))]
     pub(crate) fn with_body_encoding(mut self, body_encoding: BodyEncoding) -> Self {
         self.body_encoding = body_encoding;
         self
     }
 
     /// Configures a custom CA certificate path for the handler.
-    #[cfg_attr(not(feature = "gdch"), expect(unused))]
+    #[cfg_attr(all(not(feature = "gdch"), not(test)), expect(unused))]
     pub(crate) fn with_ca_cert_path(mut self, ca_cert_path: Option<String>) -> Self {
         self.ca_cert_path = ca_cert_path;
         self
