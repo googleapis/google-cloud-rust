@@ -817,6 +817,7 @@ pub(crate) mod tests {
     use crate::result_set::tests::string_val;
     use crate::value::Value;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
+    use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::Arc;
@@ -1608,7 +1609,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_concurrent_queries_inline_begin() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().never();
@@ -1750,7 +1751,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_concurrent_queries_inline_begin_failed_cascade() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -1881,7 +1882,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_concurrent_queries_inline_begin_stream_restart_deadlock_prevention()
     -> crate::Result<()> {
         let mut mock = create_session_mock();
@@ -2052,7 +2053,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_concurrent_queries_late_arrival_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -2115,7 +2116,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_concurrent_reads_inline_begin() -> anyhow::Result<()> {
         use crate::client::{KeySet, ReadRequest};
         let mut mock = create_session_mock();
@@ -2247,7 +2248,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_inline_begin_idempotent_update() -> anyhow::Result<()> {
         let (db_client, _server) = setup_db_client(create_session_mock()).await;
         // Access internal state for unit testing.
@@ -2292,7 +2293,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_inline_begin_with_transient_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
