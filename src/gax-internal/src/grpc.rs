@@ -77,6 +77,7 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    attempt_timeout: Option<Duration>,
 }
 
 impl Client {
@@ -140,6 +141,7 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            attempt_timeout: config.attempt_timeout,
         })
     }
 
@@ -276,7 +278,13 @@ impl Client {
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
-        if let Some(attempt_timeout) = options.attempt_timeout() {
+        let mut merged_options = options.clone();
+        if merged_options.attempt_timeout().is_none() {
+            if let Some(t) = self.attempt_timeout {
+                merged_options.set_attempt_timeout(t);
+            }
+        }
+        if let Some(attempt_timeout) = merged_options.attempt_timeout() {
             request.set_timeout(*attempt_timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -408,7 +416,13 @@ impl Client {
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
 
-        if let Some(timeout) = effective_timeout(options, remaining_time) {
+        let mut merged_options = options.clone();
+        if merged_options.attempt_timeout().is_none() {
+            if let Some(t) = self.attempt_timeout {
+                merged_options.set_attempt_timeout(t);
+            }
+        }
+        if let Some(timeout) = effective_timeout(&merged_options, remaining_time) {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();

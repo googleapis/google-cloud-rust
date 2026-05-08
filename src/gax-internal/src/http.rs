@@ -68,6 +68,7 @@ pub struct ReqwestClient {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    attempt_timeout: Option<Duration>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
     universe_domain: String,
@@ -127,6 +128,7 @@ impl ReqwestClient {
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
             universe_domain,
+            attempt_timeout: config.attempt_timeout,
             transport_metric: None,
         })
     }
@@ -388,7 +390,16 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
-        builder = effective_timeout(options, remaining_time)
+        let merged_options = if options.attempt_timeout().is_some() {
+            options.clone()
+        } else {
+            let mut o = options.clone();
+            if let Some(t) = self.attempt_timeout {
+                o.set_attempt_timeout(t);
+            }
+            o
+        };
+        builder = effective_timeout(&merged_options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
 
