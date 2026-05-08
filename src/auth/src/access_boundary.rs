@@ -91,11 +91,11 @@ impl AccessBoundary {
         Self { rx_header }
     }
     fn is_enabled() -> bool {
-        #[cfg(google_cloud_unstable_trusted_boundaries)]
+        #[cfg(google_cloud_unstable_trust_boundaries)]
         {
             true
         }
-        #[cfg(not(google_cloud_unstable_trusted_boundaries))]
+        #[cfg(not(google_cloud_unstable_trust_boundaries))]
         {
             false
         }
@@ -259,7 +259,7 @@ where
         }
     }
 
-    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
+    #[cfg(all(test, google_cloud_unstable_trust_boundaries))]
     pub(crate) async fn wait_for_boundary(&self) {
         let mut rx = self.access_boundary.rx_header.clone();
         if rx.borrow().0.is_some() {
@@ -447,7 +447,7 @@ where
 
 #[derive(serde::Serialize, serde::Deserialize)]
 struct AllowedLocationsResponse {
-    #[allow(dead_code)]
+    
     locations: Vec<String>,
     #[serde(rename = "encodedLocations")]
     encoded_locations: String,
@@ -715,7 +715,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
-    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_fetch_access_boundary_success() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -764,7 +764,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
-    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_fetch_access_boundary_mds_success() -> TestResult {
         use crate::mds::MDS_DEFAULT_URI;
 
@@ -1069,7 +1069,7 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     #[parallel]
-    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_entity_tag_caching_behavior() -> TestResult {
         let mut mock_creds = MockCredentials::new();
         let latest_token_etag = Arc::new(std::sync::RwLock::new(EntityTag::new()));
@@ -1246,7 +1246,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
-    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_credentials_with_access_boundary_non_default_universe() -> TestResult {
         let mut mock = MockCredentials::new();
         mock.expect_headers().returning(|_extensions| {
@@ -1279,7 +1279,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
-    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_mds_provider_non_default_universe() -> TestResult {
         let mut mock = MockCredentials::new();
         mock.expect_universe_domain()

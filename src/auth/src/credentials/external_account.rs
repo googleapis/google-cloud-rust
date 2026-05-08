@@ -746,7 +746,7 @@ impl Builder {
         self
     }
 
-    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
+    #[cfg(all(test, google_cloud_unstable_trust_boundaries))]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
         self
@@ -2476,7 +2476,7 @@ mod tests {
         "workforce_pool"
     )]
     #[tokio::test]
-    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn e2e_access_boundary(audience: &str, iam_path: &str) -> anyhow::Result<()> {
         use crate::credentials::tests::get_access_boundary_from_headers;
 
