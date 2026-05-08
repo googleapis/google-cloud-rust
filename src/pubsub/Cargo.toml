@@ -37,7 +37,6 @@ google-cloud-gax       = { workspace = true }
 gaxi                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 http.workspace         = true
 google-cloud-iam-v1    = { workspace = true }
-google-cloud-rpc       = { workspace = true }
 prost.workspace        = true
 prost-types.workspace  = true
 serde.workspace        = true
@@ -69,6 +68,7 @@ tokio                              = { workspace = true, features = ["rt", "sync
 google-cloud-test-macros.workspace = true
 pubsub-grpc-mock                   = { path = "grpc-mock" }
 google-cloud-pubsub                = { path = ".", features = ["default-rustls-provider"] }
+google-cloud-rpc                   = { workspace = true }
 
 [lints]
 workspace = true
