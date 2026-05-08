@@ -44,12 +44,14 @@ futures         = { workspace = true, optional = true }
 pin-project     = { workspace = true, optional = true }
 serde.workspace = true
 tokio           = { workspace = true, features = ["time"] }
-tracing         = { workspace = true }
 # Local crates
 google-cloud-gax         = { workspace = true }
 google-cloud-longrunning = { workspace = true }
 google-cloud-rpc         = { workspace = true }
 google-cloud-wkt         = { workspace = true }
+
+[target.'cfg(google_cloud_unstable_tracing)'.dependencies]
+tracing = { workspace = true }
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]
