@@ -655,6 +655,7 @@ pub mod examples {
     #[cfg(test)]
     mod tests {
         use super::*;
+        use std::time::Duration;
 
         #[tokio::test]
         async fn build_default() {
@@ -759,6 +760,18 @@ pub mod examples {
                 config.universe_domain,
                 Some("some-universe-domain.com".to_string())
             );
+        }
+
+        #[tokio::test]
+        async fn attempt_timeout() {
+            let timeout = Duration::from_secs(42);
+            let client = Client::builder()
+                .with_attempt_timeout(timeout)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert_eq!(config.attempt_timeout, Some(timeout));
         }
 
         #[tokio::test]
