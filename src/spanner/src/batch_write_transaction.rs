@@ -19,6 +19,9 @@ use crate::mutation::MutationGroup;
 use crate::server_streaming::stream::BatchWriteStream;
 use gaxi::prost::FromProto;
 
+#[cfg(feature = "unstable-stream")]
+use futures::Stream;
+
 /// A builder for [BatchWriteTransaction].
 pub struct BatchWriteTransactionBuilder {
     client: DatabaseClient,
@@ -129,7 +132,7 @@ impl BatchWriteResponseStream {
     ///
     /// This consumes the [`BatchWriteResponseStream`] and returns a stream of responses.
     #[cfg(feature = "unstable-stream")]
-    pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<BatchWriteResponse>> + Unpin {
+    pub fn into_stream(self) -> impl Stream<Item = crate::Result<BatchWriteResponse>> + Unpin {
         use futures::stream::unfold;
         Box::pin(unfold(self, |mut stream| async move {
             stream.next().await.map(|res| (res, stream))
@@ -212,7 +215,11 @@ mod tests {
             .next()
             .await
             .expect("stream should have yielded a message")?;
-        assert_eq!(result.indexes, vec![0], "indexes should match the mocked response");
+        assert_eq!(
+            result.indexes,
+            vec![0],
+            "indexes should match the mocked response"
+        );
 
         Ok(())
     }
@@ -233,11 +240,14 @@ mod tests {
         mock.expect_batch_write().once().returning(|req| {
             let req = req.into_inner();
             assert_eq!(
-                req.session,
-                "projects/p/instances/i/databases/d/sessions/123",
+                req.session, "projects/p/instances/i/databases/d/sessions/123",
                 "session name should match"
             );
-            assert_eq!(req.mutation_groups.len(), 1, "should contain precisely 1 mutation group");
+            assert_eq!(
+                req.mutation_groups.len(),
+                1,
+                "should contain precisely 1 mutation group"
+            );
 
             let response = mock_v1::BatchWriteResponse {
                 indexes: vec![0],
@@ -264,7 +274,11 @@ mod tests {
             .next()
             .await
             .expect("stream should have yielded a message")?;
-        assert_eq!(result.indexes, vec![0], "indexes should match the mocked response");
+        assert_eq!(
+            result.indexes,
+            vec![0],
+            "indexes should match the mocked response"
+        );
 
         Ok(())
     }
