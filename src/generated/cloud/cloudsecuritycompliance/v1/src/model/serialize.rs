@@ -1358,6 +1358,79 @@ impl serde::ser::Serialize for super::OperationMetadata {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::Control {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !wkt::internal::is_default(&self.family) {
+            state.serialize_entry("family", &self.family)?;
+        }
+        if self.control_family.is_some() {
+            state.serialize_entry("controlFamily", &self.control_family)?;
+        }
+        if !wkt::internal::is_default(&self.responsibility_type) {
+            state.serialize_entry("responsibilityType", &self.responsibility_type)?;
+        }
+        if !self.google_responsibility_description.is_empty() {
+            state.serialize_entry(
+                "googleResponsibilityDescription",
+                &self.google_responsibility_description,
+            )?;
+        }
+        if !self.google_responsibility_implementation.is_empty() {
+            state.serialize_entry(
+                "googleResponsibilityImplementation",
+                &self.google_responsibility_implementation,
+            )?;
+        }
+        if !self.customer_responsibility_description.is_empty() {
+            state.serialize_entry(
+                "customerResponsibilityDescription",
+                &self.customer_responsibility_description,
+            )?;
+        }
+        if !self.customer_responsibility_implementation.is_empty() {
+            state.serialize_entry(
+                "customerResponsibilityImplementation",
+                &self.customer_responsibility_implementation,
+            )?;
+        }
+        if !self.shared_responsibility_description.is_empty() {
+            state.serialize_entry(
+                "sharedResponsibilityDescription",
+                &self.shared_responsibility_description,
+            )?;
+        }
+        if !self.additional_content_uri.is_empty() {
+            state.serialize_entry("additionalContentUri", &self.additional_content_uri)?;
+        }
+        if !self.related_frameworks.is_empty() {
+            state.serialize_entry("relatedFrameworks", &self.related_frameworks)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ControlFamily {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2303,6 +2376,9 @@ impl serde::ser::Serialize for super::ListFrameworkComplianceSummariesRequest {
         if !self.filter.is_empty() {
             state.serialize_entry("filter", &self.filter)?;
         }
+        if !wkt::internal::is_default(&self.view) {
+            state.serialize_entry("view", &self.view)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2428,6 +2504,9 @@ impl serde::ser::Serialize for super::FetchFrameworkComplianceReportRequest {
         }
         if self.end_time.is_some() {
             state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2757,6 +2836,21 @@ impl serde::ser::Serialize for super::FrameworkComplianceSummary {
         }
         if !self.target_resource_details.is_empty() {
             state.serialize_entry("targetResourceDetails", &self.target_resource_details)?;
+        }
+        if !wkt::internal::is_default(&self.finding_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("findingCount", &__With(&self.finding_count))?;
+        }
+        if self.controls_passing_trend.is_some() {
+            state.serialize_entry("controlsPassingTrend", &self.controls_passing_trend)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3136,6 +3230,40 @@ impl serde::ser::Serialize for super::TargetResourceDetails {
                 }
             }
             state.serialize_entry("minorRevisionId", &__With(&self.minor_revision_id))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Trend {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.duration.is_some() {
+            state.serialize_entry("duration", &self.duration)?;
+        }
+        if !wkt::internal::is_default(&self.value_percent) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("valuePercent", &__With(&self.value_percent))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

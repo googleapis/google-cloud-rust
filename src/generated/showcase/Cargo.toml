@@ -57,3 +57,6 @@ serde_with.workspace               = true
 tracing.workspace                  = true
 uuid.workspace                     = true
 wkt.workspace                      = true
+
+[dev-dependencies]
+anyhow.workspace = true

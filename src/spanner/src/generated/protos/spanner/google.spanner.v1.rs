@@ -1106,6 +1106,10 @@ pub struct CommitResponse {
     pub snapshot_timestamp: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "6")]
     pub cache_update: ::core::option::Option<CacheUpdate>,
+    #[prost(enumeration = "transaction_options::IsolationLevel", tag = "7")]
+    pub isolation_level: i32,
+    #[prost(enumeration = "transaction_options::read_write::ReadLockMode", tag = "8")]
+    pub read_lock_mode: i32,
     #[prost(oneof = "commit_response::MultiplexedSessionRetry", tags = "4")]
     pub multiplexed_session_retry: ::core::option::Option<
         commit_response::MultiplexedSessionRetry,
@@ -2454,5 +2458,24 @@ impl ::prost::Name for BatchWriteResponse {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.spanner.v1.BatchWriteResponse".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct FetchCacheUpdateRequest {
+    #[prost(string, tag = "1")]
+    pub database: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub max_recipe_count: i32,
+    #[prost(int32, tag = "3")]
+    pub max_range_count: i32,
+}
+impl ::prost::Name for FetchCacheUpdateRequest {
+    const NAME: &'static str = "FetchCacheUpdateRequest";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.FetchCacheUpdateRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.FetchCacheUpdateRequest".into()
     }
 }

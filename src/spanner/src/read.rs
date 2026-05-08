@@ -14,6 +14,8 @@
 
 use crate::key::KeySet;
 use crate::model::DirectedReadOptions;
+use crate::model::read_request::{LockHint, OrderBy};
+use crate::model::request_options::Priority;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
@@ -67,6 +69,8 @@ impl ReadRequestBuilder {
             limit: None,
             request_options: None,
             directed_read_options: None,
+            order_by: None,
+            lock_hint: None,
             gax_options: GaxRequestOptions::default(),
         }
     }
@@ -95,6 +99,8 @@ impl ReadRequestBuilder {
             limit: None,
             request_options: None,
             directed_read_options: None,
+            order_by: None,
+            lock_hint: None,
             gax_options: GaxRequestOptions::default(),
         }
     }
@@ -110,6 +116,8 @@ pub struct ConfiguredReadRequestBuilder {
     limit: Option<i64>,
     request_options: Option<crate::model::RequestOptions>,
     directed_read_options: Option<DirectedReadOptions>,
+    order_by: Option<OrderBy>,
+    lock_hint: Option<LockHint>,
     gax_options: GaxRequestOptions,
 }
 
@@ -150,6 +158,24 @@ impl ConfiguredReadRequestBuilder {
         self
     }
 
+    /// Sets the RPC priority to use for this read request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_priority(Priority::Low)
+    ///     .build();
+    /// ```
+    pub fn with_priority(mut self, priority: Priority) -> Self {
+        self.request_options
+            .get_or_insert_with(crate::model::RequestOptions::default)
+            .priority = priority;
+        self
+    }
+
     /// Sets the directed read options for this request.
     ///
     /// ```
@@ -167,6 +193,57 @@ impl ConfiguredReadRequestBuilder {
     /// otherwise Spanner returns an INVALID_ARGUMENT error.
     pub fn with_directed_read_options(mut self, options: DirectedReadOptions) -> Self {
         self.directed_read_options = Some(options);
+        self
+    }
+
+    /// Sets the order in which rows are returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::model::read_request::OrderBy;
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_order_by(OrderBy::NoOrder);
+    /// ```
+    ///
+    /// By default, Spanner returns result rows in primary key order (or index key
+    /// order if reading via an index) except for `PartitionRead` requests.
+    ///
+    /// For applications that don't require rows to be returned in primary key
+    /// (`ORDER_BY_PRIMARY_KEY`) order, setting `ORDER_BY_NO_ORDER` option allows
+    /// Spanner to optimize row retrieval, resulting in lower latencies in certain
+    /// cases (for example, bulk point lookups).
+    pub fn with_order_by(mut self, order_by: OrderBy) -> Self {
+        self.order_by = Some(order_by);
+        self
+    }
+
+    /// Sets the lock hint for this read.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::model::read_request::LockHint;
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_lock_hint(LockHint::Exclusive);
+    /// ```
+    ///
+    /// Lock hints can only be used with read-write transactions.
+    ///
+    /// By default, Spanner acquires shared read locks, which allows other reads to
+    /// still access the data until your transaction is ready to commit.
+    ///
+    /// Requesting exclusive locks (`LOCK_HINT_EXCLUSIVE`) is beneficial if you observe
+    /// high write contention. It prevents deadlocks by avoiding the situation where
+    /// multiple transactions initially acquire shared locks and then both try to upgrade
+    /// to exclusive locks at the same time.
+    ///
+    /// Request exclusive locks judiciously because they block others from reading that
+    /// data for the entire transaction, rather than just when the writes are being performed.
+    pub fn with_lock_hint(mut self, lock_hint: LockHint) -> Self {
+        self.lock_hint = Some(lock_hint);
         self
     }
 
@@ -198,6 +275,8 @@ impl ConfiguredReadRequestBuilder {
             limit: self.limit,
             request_options: self.request_options,
             directed_read_options: self.directed_read_options,
+            order_by: self.order_by,
+            lock_hint: self.lock_hint,
             gax_options: self.gax_options,
         }
     }
@@ -216,6 +295,8 @@ pub struct ReadRequest {
     pub(crate) limit: Option<i64>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
+    pub(crate) order_by: Option<OrderBy>,
+    pub(crate) lock_hint: Option<LockHint>,
     pub(crate) gax_options: GaxRequestOptions,
 }
 
@@ -248,6 +329,8 @@ impl ReadRequest {
             .set_limit(self.limit.unwrap_or_default())
             .set_or_clear_request_options(self.request_options)
             .set_or_clear_directed_read_options(self.directed_read_options)
+            .set_order_by(self.order_by.unwrap_or_default())
+            .set_lock_hint(self.lock_hint.unwrap_or_default())
     }
 
     pub(crate) fn into_partition_read_request(self) -> crate::model::PartitionReadRequest {
@@ -320,6 +403,20 @@ mod tests {
     }
 
     #[test]
+    fn with_priority() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_priority(Priority::High)
+            .build();
+        assert_eq!(
+            req.request_options
+                .expect("request options missing")
+                .priority,
+            Priority::High
+        );
+    }
+
+    #[test]
     fn with_directed_read_options() {
         let dro = DirectedReadOptions::default();
         let req = ReadRequest::builder("MyTable", vec!["col1"])
@@ -327,6 +424,24 @@ mod tests {
             .with_directed_read_options(dro.clone())
             .build();
         assert_eq!(req.directed_read_options, Some(dro));
+    }
+
+    #[test]
+    fn with_order_by() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_order_by(OrderBy::PrimaryKey)
+            .build();
+        assert_eq!(req.order_by, Some(OrderBy::PrimaryKey));
+    }
+
+    #[test]
+    fn with_lock_hint() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_lock_hint(LockHint::Exclusive)
+            .build();
+        assert_eq!(req.lock_hint, Some(LockHint::Exclusive));
     }
 
     #[test]

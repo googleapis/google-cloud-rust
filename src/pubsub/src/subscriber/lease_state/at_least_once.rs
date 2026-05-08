@@ -111,9 +111,6 @@ impl Leases {
                     // Flush the batch when it is full.
                     batches.push(std::mem::take(&mut batch));
                 }
-                // TODO(#5048): Do not update last_extension here after update_last_extension fn
-                // is used to report successful extends.
-                info.last_extension = Some(now);
                 true
             }
         });
@@ -589,6 +586,7 @@ mod tests {
         // We should always send a receipt lease extension upon receiving a
         // message.
         let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        leases.update_last_extension(&test_ids(0..1));
         assert_eq!(batches, vec![vec![test_id(0)]]);
         assert_eq!(
             TestLeases {
@@ -617,6 +615,7 @@ mod tests {
 
         // We need to extend the lease again.
         let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        leases.update_last_extension(&test_ids(0..1));
         assert_eq!(batches, vec![vec![test_id(0)]]);
         assert_eq!(
             TestLeases {

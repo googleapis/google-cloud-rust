@@ -394,6 +394,8 @@ impl gaxi::prost::ToProto<CommitResponse> for crate::generated::gapic_dataplane:
             commit_stats: self.commit_stats.map(|v| v.to_proto()).transpose()?,
             snapshot_timestamp: self.snapshot_timestamp.map(|v| v.to_proto()).transpose()?,
             cache_update: self.cache_update.map(|v| v.to_proto()).transpose()?,
+            isolation_level: self.isolation_level.to_proto()?,
+            read_lock_mode: self.read_lock_mode.to_proto()?,
             multiplexed_session_retry: self.multiplexed_session_retry.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -407,6 +409,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CommitResp
                 .set_or_clear_commit_stats(self.commit_stats.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_snapshot_timestamp(self.snapshot_timestamp.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
+                .set_isolation_level(self.isolation_level)
+                .set_read_lock_mode(self.read_lock_mode)
                 .set_multiplexed_session_retry(self.multiplexed_session_retry.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -2143,6 +2147,28 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchWrite
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<FetchCacheUpdateRequest> for crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest {
+    type Output = FetchCacheUpdateRequest;
+    fn to_proto(self) -> std::result::Result<FetchCacheUpdateRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            database: self.database.to_proto()?,
+            max_recipe_count: self.max_recipe_count.to_proto()?,
+            max_range_count: self.max_range_count.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest> for FetchCacheUpdateRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::FetchCacheUpdateRequest::new()
+                .set_database(self.database)
+                .set_max_recipe_count(self.max_recipe_count)
+                .set_max_range_count(self.max_range_count)
         )
     }
 }

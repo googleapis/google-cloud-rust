@@ -422,6 +422,12 @@ impl serde::ser::Serialize for super::CommitResponse {
         if self.cache_update.is_some() {
             state.serialize_entry("cacheUpdate", &self.cache_update)?;
         }
+        if !wkt::internal::is_default(&self.isolation_level) {
+            state.serialize_entry("isolationLevel", &self.isolation_level)?;
+        }
+        if !wkt::internal::is_default(&self.read_lock_mode) {
+            state.serialize_entry("readLockMode", &self.read_lock_mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2658,6 +2664,52 @@ impl serde::ser::Serialize for super::BatchWriteResponse {
         }
         if self.commit_timestamp.is_some() {
             state.serialize_entry("commitTimestamp", &self.commit_timestamp)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FetchCacheUpdateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !wkt::internal::is_default(&self.max_recipe_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxRecipeCount", &__With(&self.max_recipe_count))?;
+        }
+        if !wkt::internal::is_default(&self.max_range_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxRangeCount", &__With(&self.max_range_count))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

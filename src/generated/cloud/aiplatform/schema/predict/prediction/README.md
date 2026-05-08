@@ -13,4 +13,4 @@ should not introduce breaking changes to the client libraries.
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1-schema-predict-prediction/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1-schema-predict-prediction/1.3.0)

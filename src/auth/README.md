@@ -23,6 +23,8 @@ also describes the common terminology used with authentication, such as
   `rustls::CryptoProvider::install_default()`.
 - `idtoken`: disabled by default, this feature enables support to create and
   verify [OIDC ID Tokens].
+- `gdch`: disabled by default, this feature enables support for the
+  [Google Distributed Cloud] service account authentication.
 - `default-idtoken-backend`: enabled by default, this feature enables a default
   backend for the `idtoken` feature. Currently the feature is implemented using
   the [jsonwebtoken] crate and uses `aws-lc-rs` as its default backend. We may
@@ -36,8 +38,9 @@ also describes the common terminology used with authentication, such as
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [credentials]: https://cloud.google.com/docs/authentication#credentials
-[credentials::credentials]: https://docs.rs/google-cloud-auth/1.9.0/google_cloud_auth/credentials/struct.Credentials.html
+[credentials::credentials]: https://docs.rs/google-cloud-auth/1.10.0/google_cloud_auth/credentials/struct.Credentials.html
 [gcloud-auth]: https://crates.io/crates/gcloud-auth
+[google distributed cloud]: https://cloud.google.com/distributed-cloud
 [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
 [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 [principals]: https://cloud.google.com/docs/authentication#principal

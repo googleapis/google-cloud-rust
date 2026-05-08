@@ -4,6 +4,7 @@
     "api_shortname": "datastore",
     "client_documentation": "https://docs.rs/google-cloud-datastore-admin-v1/latest",
     "distribution_name": "google-cloud-datastore-admin-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559768",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "datastore",

@@ -23,6 +23,7 @@ use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
 use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
+use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::Mode;
@@ -52,6 +53,7 @@ pub(crate) struct ReadWriteTransactionBuilder {
     transaction_tag: Option<String>,
     max_commit_delay: Option<Duration>,
     pub(crate) session_name: String,
+    commit_priority: Priority,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -63,6 +65,7 @@ impl ReadWriteTransactionBuilder {
             transaction_tag: None,
             max_commit_delay: None,
             session_name,
+            commit_priority: Priority::Unspecified,
         }
     }
 
@@ -93,6 +96,11 @@ impl ReadWriteTransactionBuilder {
 
     pub(crate) fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
+        self
+    }
+
+    pub(crate) fn with_commit_priority(mut self, priority: Priority) -> Self {
+        self.commit_priority = priority;
         self
     }
 
@@ -149,6 +157,7 @@ impl ReadWriteTransactionBuilder {
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
             deadline,
+            commit_priority: self.commit_priority.clone(),
         })
     }
 }
@@ -157,9 +166,10 @@ impl ReadWriteTransactionBuilder {
 #[derive(Clone, Debug)]
 pub struct ReadWriteTransaction {
     pub(crate) context: ReadContext,
+    pub(crate) deadline: Option<Instant>,
     seqno: Arc<AtomicI64>,
     max_commit_delay: Option<Duration>,
-    pub(crate) deadline: Option<Instant>,
+    commit_priority: Priority,
 }
 
 impl ReadWriteTransaction {
@@ -339,6 +349,16 @@ impl ReadWriteTransaction {
         }
     }
 
+    fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
+        let mut options = self.context.amend_request_options(None);
+        if self.commit_priority != Priority::Unspecified {
+            options
+                .get_or_insert_with(crate::model::RequestOptions::default)
+                .priority = self.commit_priority.clone();
+        }
+        options
+    }
+
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<wkt::Timestamp> {
         let transaction_id = self.transaction_id()?;
@@ -347,7 +367,7 @@ impl ReadWriteTransaction {
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id.clone())
             .set_or_clear_precommit_token(precommit_token)
-            .set_or_clear_request_options(self.context.amend_request_options(None))
+            .set_or_clear_request_options(self.commit_request_options())
             .set_or_clear_max_commit_delay(self.max_commit_delay);
 
         // TODO(#4972): make request options configurable
@@ -367,7 +387,7 @@ impl ReadWriteTransaction {
                     .set_session(self.context.session_name.clone())
                     .set_transaction_id(transaction_id)
                     .set_precommit_token(*new_precommit_token)
-                    .set_or_clear_request_options(self.context.amend_request_options(None));
+                    .set_or_clear_request_options(self.commit_request_options());
 
                 // TODO(#4972): make request options configurable
                 let mut gax_options = GaxRequestOptions::default();

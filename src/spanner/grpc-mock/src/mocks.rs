@@ -96,6 +96,12 @@ pub trait Spanner {
     ) -> tonic::Result<
         tonic::Response<mpsc::Receiver<tonic::Result<google::spanner::v1::BatchWriteResponse>>>,
     >;
+    async fn fetch_cache_update(
+        &self,
+        request: tonic::Request<google::spanner::v1::FetchCacheUpdateRequest>,
+    ) -> tonic::Result<
+        tonic::Response<mpsc::Receiver<tonic::Result<google::spanner::v1::CacheUpdate>>>,
+    >;
 }
 
 #[async_trait]
@@ -211,6 +217,19 @@ impl google::spanner::v1::spanner_server::Spanner for MockSpanner {
         request: tonic::Request<google::spanner::v1::BatchWriteRequest>,
     ) -> tonic::Result<tonic::Response<Self::BatchWriteStream>> {
         let response = self::Spanner::batch_write(self, request).await?;
+        let (metadata, receiver, extensions) = response.into_parts();
+        Ok(tonic::Response::from_parts(
+            metadata,
+            ReceiverStream::new(receiver),
+            extensions,
+        ))
+    }
+    type FetchCacheUpdateStream = ReceiverStream<tonic::Result<google::spanner::v1::CacheUpdate>>;
+    async fn fetch_cache_update(
+        &self,
+        request: tonic::Request<google::spanner::v1::FetchCacheUpdateRequest>,
+    ) -> tonic::Result<tonic::Response<Self::FetchCacheUpdateStream>> {
+        let response = self::Spanner::fetch_cache_update(self, request).await?;
         let (metadata, receiver, extensions) = response.into_parts();
         Ok(tonic::Response::from_parts(
             metadata,

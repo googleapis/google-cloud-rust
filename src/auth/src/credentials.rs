@@ -28,8 +28,11 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 pub mod anonymous;
 pub mod api_key_credentials;
+pub(crate) mod crypto_provider;
 pub mod external_account;
 pub(crate) mod external_account_sources;
+#[cfg(feature = "gdch")]
+pub mod gdch;
 #[cfg(feature = "idtoken")]
 pub mod idtoken;
 pub mod impersonated;
@@ -556,10 +559,19 @@ impl Builder {
 
     /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// The universe domain is the default service domain for a given Cloud universe.
+    /// If not set, the default will be used.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// # fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -780,6 +792,9 @@ fn build_credentials(
                     universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
+                "gdch_service_account" => Err(BuilderError::not_supported(format!(
+                    "{cred_type}, use gdch::Builder directly."
+                ))),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
@@ -825,6 +840,9 @@ fn build_signer(
                 }
                 "external_account" => Err(BuilderError::not_supported(
                     "external_account signer is not supported",
+                )),
+                "gdch_service_account" => Err(BuilderError::not_supported(
+                    "gdch_service_account signer is not supported",
                 )),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
@@ -1002,6 +1020,21 @@ pub(crate) mod tests {
         }
     }
 
+    // Used by tests in other modules.
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Credentials {}
+
+        impl crate::credentials::CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: http::Extensions) -> std::result::Result<crate::credentials::CacheableResource<http::HeaderMap>, crate::errors::CredentialsError>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+
+        impl crate::credentials::AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> std::result::Result<crate::credentials::AccessToken, crate::errors::CredentialsError>;
+        }
+    }
+
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {
@@ -1102,7 +1135,7 @@ pub(crate) mod tests {
             .expect("Failed to create RsaPrivateKey from primes")
     });
 
-    #[cfg(feature = "idtoken")]
+    #[cfg(any(feature = "idtoken", feature = "gdch"))]
     pub static ES256_PRIVATE_KEY: LazyLock<p256::SecretKey> = LazyLock::new(|| {
         let secret_key_bytes = [
             0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
@@ -1110,6 +1143,14 @@ pub(crate) mod tests {
             0x26, 0x6c, 0x75, 0xdf,
         ];
         p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
+    });
+
+    #[cfg(feature = "gdch")]
+    pub static ES256_PEM: LazyLock<String> = LazyLock::new(|| {
+        (*ES256_PRIVATE_KEY)
+            .to_sec1_pem(LineEnding::LF)
+            .expect("Failed to encode EC key to PEM")
+            .to_string()
     });
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {

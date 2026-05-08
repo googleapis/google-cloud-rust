@@ -1609,6 +1609,12 @@ pub struct CommitResponse {
     /// future.
     pub cache_update: std::option::Option<crate::model::CacheUpdate>,
 
+    /// The isolation level used for the read-write transaction.
+    pub isolation_level: crate::model::transaction_options::IsolationLevel,
+
+    /// The read lock mode used for the read-write transaction.
+    pub read_lock_mode: crate::model::transaction_options::read_write::ReadLockMode,
+
     /// You must examine and retry the commit if the following is populated.
     pub multiplexed_session_retry:
         std::option::Option<crate::model::commit_response::MultiplexedSessionRetry>,
@@ -1691,6 +1697,28 @@ impl CommitResponse {
         T: std::convert::Into<crate::model::CacheUpdate>,
     {
         self.cache_update = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [isolation_level][crate::model::CommitResponse::isolation_level].
+    pub fn set_isolation_level<
+        T: std::convert::Into<crate::model::transaction_options::IsolationLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.isolation_level = v.into();
+        self
+    }
+
+    /// Sets the value of [read_lock_mode][crate::model::CommitResponse::read_lock_mode].
+    pub fn set_read_lock_mode<
+        T: std::convert::Into<crate::model::transaction_options::read_write::ReadLockMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_lock_mode = v.into();
         self
     }
 
@@ -9307,6 +9335,56 @@ impl BatchWriteResponse {
 impl wkt::message::Message for BatchWriteResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.spanner.v1.BatchWriteResponse"
+    }
+}
+
+/// The request for
+/// [FetchCacheUpdate][google.spanner.v1.Spanner.FetchCacheUpdate].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchCacheUpdateRequest {
+    /// Required. The database for which to retrieve the cache update.
+    pub database: std::string::String,
+
+    /// Optional. The maximum number of key recipes to return in the response.
+    /// If not set, a default limit of 100 will be used.
+    pub max_recipe_count: i32,
+
+    /// Optional. The maximum number of ranges to return in the response.
+    /// If not set, a default limit of 10000 will be used.
+    pub max_range_count: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchCacheUpdateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::FetchCacheUpdateRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [max_recipe_count][crate::model::FetchCacheUpdateRequest::max_recipe_count].
+    pub fn set_max_recipe_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_recipe_count = v.into();
+        self
+    }
+
+    /// Sets the value of [max_range_count][crate::model::FetchCacheUpdateRequest::max_range_count].
+    pub fn set_max_range_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_range_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchCacheUpdateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.FetchCacheUpdateRequest"
     }
 }
 

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AppGatewaysService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_app_gateways()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -60,7 +63,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://beyondcorp.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -145,10 +148,10 @@ impl AppGatewaysService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_beyondcorp_appgateways_v1::Result;
     /// async fn sample(
-    ///    client: &AppGatewaysService, parent: &str
+    ///    client: &AppGatewaysService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_app_gateways()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -167,10 +170,10 @@ impl AppGatewaysService {
     /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
     /// use google_cloud_beyondcorp_appgateways_v1::Result;
     /// async fn sample(
-    ///    client: &AppGatewaysService, name: &str
+    ///    client: &AppGatewaysService, project_id: &str, location_id: &str, app_gateway_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -199,10 +202,10 @@ impl AppGatewaysService {
     /// use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
     /// use google_cloud_beyondcorp_appgateways_v1::Result;
     /// async fn sample(
-    ///    client: &AppGatewaysService, parent: &str
+    ///    client: &AppGatewaysService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_app_gateway()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_app_gateway(
     ///             AppGateway::new()/* set fields */
     ///         )
@@ -233,10 +236,10 @@ impl AppGatewaysService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_beyondcorp_appgateways_v1::Result;
     /// async fn sample(
-    ///    client: &AppGatewaysService, name: &str
+    ///    client: &AppGatewaysService, project_id: &str, location_id: &str, app_gateway_id: &str
     /// ) -> Result<()> {
     ///     client.delete_app_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

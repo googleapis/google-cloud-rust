@@ -178,7 +178,7 @@ where
     // These are held separate from pending acks/nacks because we do not need to
     // await them on shutdown.
     pending_extends: JoinSet<Vec<String>>,
-    eo_pending_extends: JoinSet<Vec<String>>,
+    eo_pending_extends: TaskTracker,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -188,6 +188,8 @@ pub(super) enum LeaseEvent {
     Flush,
     /// Extend leases
     Extend,
+    /// Pending extensions completed
+    ExtendCompleted(Vec<String>),
 }
 
 impl<L> LeaseState<L>
@@ -209,7 +211,7 @@ where
             max_lease_extension: options.max_lease_extension,
             pending_acks_nacks: TaskTracker::new(),
             pending_extends: JoinSet::new(),
-            eo_pending_extends: JoinSet::new(),
+            eo_pending_extends: TaskTracker::new(),
         }
     }
 
@@ -225,9 +227,19 @@ where
             return LeaseEvent::Flush;
         }
 
-        tokio::select! {
-            _ = self.flush_interval.tick() => LeaseEvent::Flush,
-            _ = self.extend_interval.tick() => LeaseEvent::Extend,
+        loop {
+            tokio::select! {
+                _ = self.flush_interval.tick() => return LeaseEvent::Flush,
+                _ = self.extend_interval.tick() => return LeaseEvent::Extend,
+                res = self.pending_extends.join_next(), if !self.pending_extends.is_empty() => {
+                    if let Some(Ok(ack_ids)) = res {
+                        return LeaseEvent::ExtendCompleted(ack_ids);
+                    } else {
+                        // swallow the JoinError.
+                        continue;
+                    }
+                }
+            }
         }
     }
 
@@ -262,14 +274,12 @@ where
 
     /// Updates the `last_extension` timestamp for the given at-least-once ack IDs
     /// with the completion time of a successful extension RPC.
-    #[allow(dead_code)]
     pub(super) fn update_last_extension(&mut self, ack_ids: Vec<String>) {
         self.leases.update_last_extension(&ack_ids);
     }
 
     /// Updates the `last_extension` timestamp for the given exactly-once ack IDs
     /// with the completion time of a successful extension RPC.
-    #[allow(dead_code)]
     pub(super) fn update_last_extension_eo(&mut self, ack_ids: Vec<String>) {
         self.eo_leases.update_last_extension(&ack_ids);
     }
@@ -318,11 +328,8 @@ where
         for ack_ids in batches {
             let leaser = self.leaser.clone();
             self.eo_pending_extends
-                .spawn(async move { leaser.extend(ack_ids).await });
+                .spawn(async move { leaser.eo_extend(ack_ids).await });
         }
-
-        // TODO(#5048) - we could process the results as a lease event.
-        while self.pending_extends.try_join_next().is_some() {}
     }
 
     /// Shutdown the leaser
@@ -365,7 +372,8 @@ where
         #[cfg(test)]
         {
             self.pending_extends.join_all().await;
-            self.eo_pending_extends.join_all().await;
+            self.eo_pending_extends.close();
+            self.eo_pending_extends.wait().await;
         }
     }
 }
@@ -378,7 +386,6 @@ pub(super) mod tests {
     use std::collections::HashMap;
     use std::collections::HashSet;
     use std::sync::Arc;
-    use test_case::test_case;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
 
@@ -436,8 +443,10 @@ pub(super) mod tests {
         state.extend();
         let pending_extends = std::mem::take(&mut state.pending_extends);
         let _ = pending_extends.join_all().await;
-        let eo_pending_extends = std::mem::take(&mut state.eo_pending_extends);
-        let _ = eo_pending_extends.join_all().await;
+        let eo_pending_extends =
+            std::mem::replace(&mut state.eo_pending_extends, TaskTracker::new());
+        eo_pending_extends.close();
+        eo_pending_extends.wait().await;
     }
 
     #[tokio::test(start_paused = true)]
@@ -884,31 +893,31 @@ pub(super) mod tests {
     async fn extend_exactly_once() {
         let mut seq = mockall::Sequence::new();
         let mut mock = MockLeaser::new();
-        mock.expect_extend()
+        mock.expect_eo_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|ack_ids| ack_ids);
-        mock.expect_extend()
+            .returning(|_| ());
+        mock.expect_eo_extend()
             .times(2)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|ack_ids| ack_ids);
+            .returning(|_| ());
         mock.expect_confirmed_ack()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..5))
             .returning(|_| ());
-        mock.expect_extend()
+        mock.expect_eo_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|ack_ids| ack_ids);
-        mock.expect_extend()
+            .returning(|_| ());
+        mock.expect_eo_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|ack_ids| ack_ids);
+            .returning(|_| ());
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -955,9 +964,13 @@ pub(super) mod tests {
     async fn pending_extends_size_management() {
         let mut mock = MockLeaser::new();
         mock.expect_extend()
-            .times(2)
+            .times(1)
             .withf(|v| *v == vec![test_id(1)])
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
+        mock.expect_eo_extend()
+            .times(1)
+            .withf(|v| *v == vec![test_id(2)])
+            .returning(|_| ());
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -966,21 +979,19 @@ pub(super) mod tests {
         let mut state = LeaseState::new(Arc::new(mock), options);
 
         state.add(test_id(1), at_least_once_info());
+        state.add(test_id(2), exactly_once_info());
         state.extend();
-        // Yield execution so the extend attempt can execute.
-        tokio::task::yield_now().await;
 
-        // TODO(#5048) - We currently clean up the completed pending extends in
-        // `LeaseState::extend()`. If we decide to clean up the pending extends
-        // elsewhere, this test will need an update.
-        state.extend();
-        let pending_extends = state.pending_extends.len();
-        assert!(
-            pending_extends < 2,
-            "The first lease extension attempt should have completed. We should not hold onto it."
+        assert_eq!(
+            state.next_event().await,
+            LeaseEvent::ExtendCompleted(test_ids(1..2))
         );
 
-        let _ = state.pending_extends.join_all().await;
+        assert_eq!(
+            state.pending_extends.len(),
+            0,
+            "Completed at-least-once extensions should be cleaned up"
+        );
     }
 
     #[tokio::test]
@@ -1281,10 +1292,8 @@ pub(super) mod tests {
         assert_eq!(start.elapsed(), FLUSH_START);
     }
 
-    #[test_case(super::at_least_once_info)]
-    #[test_case(super::exactly_once_info)]
     #[tokio::test(start_paused = true)]
-    async fn limit_size_of_extends(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
+    async fn limit_size_of_extends_at_least_once() -> anyhow::Result<()> {
         const NUM_BATCHES: i32 = 5;
 
         // We use this channel to surface ack_ids from the mock expectation.
@@ -1303,7 +1312,7 @@ pub(super) mod tests {
 
         let mut want = HashSet::new();
         for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
-            state.add(test_id(i), lease_info_factory());
+            state.add(test_id(i), at_least_once_info());
 
             // All ack IDs should be extended.
             want.insert(test_id(i));
@@ -1330,10 +1339,54 @@ pub(super) mod tests {
         Ok(())
     }
 
-    #[test_case(super::at_least_once_info)]
-    #[test_case(super::exactly_once_info)]
     #[tokio::test(start_paused = true)]
-    async fn message_expiration(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
+    async fn limit_size_of_extends_exactly_once() -> anyhow::Result<()> {
+        const NUM_BATCHES: i32 = 5;
+
+        // We use this channel to surface ack_ids from the mock expectation.
+        let (ack_id_tx, mut ack_id_rx) = unbounded_channel();
+
+        let mut mock = MockLeaser::new();
+        mock.expect_eo_extend()
+            .times(NUM_BATCHES as usize)
+            .returning(move |ack_ids| {
+                ack_id_tx
+                    .send(ack_ids.clone())
+                    .expect("sending on channel always succeeds");
+            });
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+
+        let mut want = HashSet::new();
+        for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
+            state.add(test_id(i), exactly_once_info());
+
+            // All ack IDs should be extended.
+            want.insert(test_id(i));
+        }
+        extend_and_await(&mut state).await;
+
+        let mut got = HashSet::new();
+        for i in 0..NUM_BATCHES {
+            let Some(ack_ids) = ack_id_rx.recv().await else {
+                anyhow::bail!("expected batch {i}/{NUM_BATCHES}");
+            };
+            assert_eq!(ack_ids.len(), MAX_IDS_PER_RPC as usize);
+            for ack_id in ack_ids {
+                got.insert(ack_id);
+            }
+        }
+        assert!(
+            ack_id_rx.is_empty(),
+            "There should be exactly {NUM_BATCHES} batches"
+        );
+
+        // Make sure all ack IDs were extended.
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn message_expiration_at_least_once() -> anyhow::Result<()> {
         const MAX_LEASE: Duration = Duration::from_secs(300);
         const DELTA: Duration = Duration::from_secs(1);
 
@@ -1358,13 +1411,60 @@ pub(super) mod tests {
 
         // Add 10 messages under lease management
         for i in 0..10 {
-            state.add(test_id(i), lease_info_factory());
+            state.add(test_id(i), at_least_once_info());
         }
 
         // Add 10 more messages under lease management, a little later.
         tokio::time::advance(DELTA * 2).await;
         for i in 10..20 {
-            state.add(test_id(i), lease_info_factory());
+            state.add(test_id(i), at_least_once_info());
+        }
+        extend_and_await(&mut state).await;
+
+        // Advance the time past the expiration of the original 10 messages.
+        tokio::time::advance(MAX_LEASE - DELTA).await;
+        extend_and_await(&mut state).await;
+
+        // Advance the time past the expiration of the subsequent 10 messages.
+        tokio::time::advance(DELTA * 2).await;
+        extend_and_await(&mut state).await;
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn message_expiration_exactly_once() -> anyhow::Result<()> {
+        const MAX_LEASE: Duration = Duration::from_secs(300);
+        const DELTA: Duration = Duration::from_secs(1);
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockLeaser::new();
+        mock.expect_eo_extend()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|v| sorted(v) == test_ids(0..20))
+            .returning(|_| ());
+        mock.expect_eo_extend()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|v| sorted(v) == test_ids(10..20))
+            .returning(|_| ());
+
+        let options = LeaseOptions {
+            max_lease: MAX_LEASE,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
+
+        // Add 10 messages under lease management
+        for i in 0..10 {
+            state.add(test_id(i), exactly_once_info());
+        }
+
+        // Add 10 more messages under lease management, a little later.
+        tokio::time::advance(DELTA * 2).await;
+        for i in 10..20 {
+            state.add(test_id(i), exactly_once_info());
         }
         extend_and_await(&mut state).await;
 

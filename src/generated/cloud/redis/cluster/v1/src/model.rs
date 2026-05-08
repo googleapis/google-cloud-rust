@@ -7916,6 +7916,12 @@ pub enum NodeType {
     RedisHighmemXlarge,
     /// Redis standard small node_type.
     RedisStandardSmall,
+    /// Redis highcpu medium node_type.
+    RedisHighcpuMedium,
+    /// Redis standard large node_type.
+    RedisStandardLarge,
+    /// Redis highmem 2xlarge node_type.
+    RedisHighmem2Xlarge,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [NodeType::value] or
@@ -7943,6 +7949,9 @@ impl NodeType {
             Self::RedisHighmemMedium => std::option::Option::Some(2),
             Self::RedisHighmemXlarge => std::option::Option::Some(3),
             Self::RedisStandardSmall => std::option::Option::Some(4),
+            Self::RedisHighcpuMedium => std::option::Option::Some(7),
+            Self::RedisStandardLarge => std::option::Option::Some(8),
+            Self::RedisHighmem2Xlarge => std::option::Option::Some(9),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -7958,6 +7967,9 @@ impl NodeType {
             Self::RedisHighmemMedium => std::option::Option::Some("REDIS_HIGHMEM_MEDIUM"),
             Self::RedisHighmemXlarge => std::option::Option::Some("REDIS_HIGHMEM_XLARGE"),
             Self::RedisStandardSmall => std::option::Option::Some("REDIS_STANDARD_SMALL"),
+            Self::RedisHighcpuMedium => std::option::Option::Some("REDIS_HIGHCPU_MEDIUM"),
+            Self::RedisStandardLarge => std::option::Option::Some("REDIS_STANDARD_LARGE"),
+            Self::RedisHighmem2Xlarge => std::option::Option::Some("REDIS_HIGHMEM_2XLARGE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -7984,6 +7996,9 @@ impl std::convert::From<i32> for NodeType {
             2 => Self::RedisHighmemMedium,
             3 => Self::RedisHighmemXlarge,
             4 => Self::RedisStandardSmall,
+            7 => Self::RedisHighcpuMedium,
+            8 => Self::RedisStandardLarge,
+            9 => Self::RedisHighmem2Xlarge,
             _ => Self::UnknownValue(node_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -8000,6 +8015,9 @@ impl std::convert::From<&str> for NodeType {
             "REDIS_HIGHMEM_MEDIUM" => Self::RedisHighmemMedium,
             "REDIS_HIGHMEM_XLARGE" => Self::RedisHighmemXlarge,
             "REDIS_STANDARD_SMALL" => Self::RedisStandardSmall,
+            "REDIS_HIGHCPU_MEDIUM" => Self::RedisHighcpuMedium,
+            "REDIS_STANDARD_LARGE" => Self::RedisStandardLarge,
+            "REDIS_HIGHMEM_2XLARGE" => Self::RedisHighmem2Xlarge,
             _ => Self::UnknownValue(node_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -8018,6 +8036,9 @@ impl serde::ser::Serialize for NodeType {
             Self::RedisHighmemMedium => serializer.serialize_i32(2),
             Self::RedisHighmemXlarge => serializer.serialize_i32(3),
             Self::RedisStandardSmall => serializer.serialize_i32(4),
+            Self::RedisHighcpuMedium => serializer.serialize_i32(7),
+            Self::RedisStandardLarge => serializer.serialize_i32(8),
+            Self::RedisHighmem2Xlarge => serializer.serialize_i32(9),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

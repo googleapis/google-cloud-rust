@@ -1999,6 +1999,7 @@ impl Batch {
     /// assert!(x.spark_batch().is_none());
     /// assert!(x.spark_r_batch().is_none());
     /// assert!(x.spark_sql_batch().is_none());
+    /// assert!(x.pyspark_notebook_batch().is_none());
     /// ```
     pub fn set_pyspark_batch<T: std::convert::Into<std::boxed::Box<crate::model::PySparkBatch>>>(
         mut self,
@@ -2035,6 +2036,7 @@ impl Batch {
     /// assert!(x.pyspark_batch().is_none());
     /// assert!(x.spark_r_batch().is_none());
     /// assert!(x.spark_sql_batch().is_none());
+    /// assert!(x.pyspark_notebook_batch().is_none());
     /// ```
     pub fn set_spark_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkBatch>>>(
         mut self,
@@ -2073,6 +2075,7 @@ impl Batch {
     /// assert!(x.pyspark_batch().is_none());
     /// assert!(x.spark_batch().is_none());
     /// assert!(x.spark_sql_batch().is_none());
+    /// assert!(x.pyspark_notebook_batch().is_none());
     /// ```
     pub fn set_spark_r_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkRBatch>>>(
         mut self,
@@ -2111,6 +2114,7 @@ impl Batch {
     /// assert!(x.pyspark_batch().is_none());
     /// assert!(x.spark_batch().is_none());
     /// assert!(x.spark_r_batch().is_none());
+    /// assert!(x.pyspark_notebook_batch().is_none());
     /// ```
     pub fn set_spark_sql_batch<
         T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlBatch>>,
@@ -2120,6 +2124,50 @@ impl Batch {
     ) -> Self {
         self.batch_config =
             std::option::Option::Some(crate::model::batch::BatchConfig::SparkSqlBatch(v.into()));
+        self
+    }
+
+    /// The value of [batch_config][crate::model::Batch::batch_config]
+    /// if it holds a `PysparkNotebookBatch`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pyspark_notebook_batch(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PySparkNotebookBatch>> {
+        #[allow(unreachable_patterns)]
+        self.batch_config.as_ref().and_then(|v| match v {
+            crate::model::batch::BatchConfig::PysparkNotebookBatch(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [batch_config][crate::model::Batch::batch_config]
+    /// to hold a `PysparkNotebookBatch`.
+    ///
+    /// Note that all the setters affecting `batch_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::Batch;
+    /// use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = Batch::new().set_pyspark_notebook_batch(PySparkNotebookBatch::default()/* use setters */);
+    /// assert!(x.pyspark_notebook_batch().is_some());
+    /// assert!(x.pyspark_batch().is_none());
+    /// assert!(x.spark_batch().is_none());
+    /// assert!(x.spark_r_batch().is_none());
+    /// assert!(x.spark_sql_batch().is_none());
+    /// ```
+    pub fn set_pyspark_notebook_batch<
+        T: std::convert::Into<std::boxed::Box<crate::model::PySparkNotebookBatch>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.batch_config = std::option::Option::Some(
+            crate::model::batch::BatchConfig::PysparkNotebookBatch(v.into()),
+        );
         self
     }
 }
@@ -2402,6 +2450,8 @@ pub mod batch {
         SparkRBatch(std::boxed::Box<crate::model::SparkRBatch>),
         /// Optional. SparkSql batch config.
         SparkSqlBatch(std::boxed::Box<crate::model::SparkSqlBatch>),
+        /// Optional. PySpark notebook batch config.
+        PysparkNotebookBatch(std::boxed::Box<crate::model::PySparkNotebookBatch>),
     }
 }
 
@@ -2956,6 +3006,151 @@ impl SparkSqlBatch {
 impl wkt::message::Message for SparkSqlBatch {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataproc.v1.SparkSqlBatch"
+    }
+}
+
+/// A configuration for running a PySpark Notebook batch workload.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PySparkNotebookBatch {
+    /// Required. The HCFS URI of the notebook file to execute.
+    pub notebook_file_uri: std::string::String,
+
+    /// Optional. The parameters to pass to the notebook.
+    pub params: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. HCFS URIs of Python files to pass to the PySpark framework.
+    pub python_file_uris: std::vec::Vec<std::string::String>,
+
+    /// Optional. HCFS URIs of jar files to be added to the Spark CLASSPATH.
+    pub jar_file_uris: std::vec::Vec<std::string::String>,
+
+    /// Optional. HCFS URIs of files to be placed in the working directory of
+    /// each executor
+    pub file_uris: std::vec::Vec<std::string::String>,
+
+    /// Optional. HCFS URIs of archives to be extracted into the working directory
+    /// of each executor. Supported file types:
+    /// `.jar`, `.tar`, `.tar.gz`, `.tgz`, and `.zip`.
+    pub archive_uris: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PySparkNotebookBatch {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [notebook_file_uri][crate::model::PySparkNotebookBatch::notebook_file_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = PySparkNotebookBatch::new().set_notebook_file_uri("example");
+    /// ```
+    pub fn set_notebook_file_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.notebook_file_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [params][crate::model::PySparkNotebookBatch::params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = PySparkNotebookBatch::new().set_params([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_params<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [python_file_uris][crate::model::PySparkNotebookBatch::python_file_uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = PySparkNotebookBatch::new().set_python_file_uris(["a", "b", "c"]);
+    /// ```
+    pub fn set_python_file_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.python_file_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [jar_file_uris][crate::model::PySparkNotebookBatch::jar_file_uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = PySparkNotebookBatch::new().set_jar_file_uris(["a", "b", "c"]);
+    /// ```
+    pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [file_uris][crate::model::PySparkNotebookBatch::file_uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = PySparkNotebookBatch::new().set_file_uris(["a", "b", "c"]);
+    /// ```
+    pub fn set_file_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.file_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [archive_uris][crate::model::PySparkNotebookBatch::archive_uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::PySparkNotebookBatch;
+    /// let x = PySparkNotebookBatch::new().set_archive_uris(["a", "b", "c"]);
+    /// ```
+    pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.archive_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PySparkNotebookBatch {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataproc.v1.PySparkNotebookBatch"
     }
 }
 

@@ -87,14 +87,17 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CmekConfigService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_cmek_config()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

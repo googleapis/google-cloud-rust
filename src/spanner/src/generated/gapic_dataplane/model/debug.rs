@@ -183,6 +183,8 @@ impl std::fmt::Debug for super::CommitResponse {
         debug_struct.field("commit_stats", &self.commit_stats);
         debug_struct.field("snapshot_timestamp", &self.snapshot_timestamp);
         debug_struct.field("cache_update", &self.cache_update);
+        debug_struct.field("isolation_level", &self.isolation_level);
+        debug_struct.field("read_lock_mode", &self.read_lock_mode);
         debug_struct.field("multiplexed_session_retry", &self.multiplexed_session_retry);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -983,6 +985,19 @@ impl std::fmt::Debug for super::BatchWriteResponse {
         debug_struct.field("indexes", &self.indexes);
         debug_struct.field("status", &self.status);
         debug_struct.field("commit_timestamp", &self.commit_timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FetchCacheUpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchCacheUpdateRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("max_recipe_count", &self.max_recipe_count);
+        debug_struct.field("max_range_count", &self.max_range_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

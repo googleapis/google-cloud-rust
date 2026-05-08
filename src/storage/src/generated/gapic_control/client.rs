@@ -73,10 +73,10 @@ impl StorageControl {
     /// use google_cloud_storage::model::Folder;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, parent: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_folder()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/buckets/{bucket_id}"))
     ///         .set_folder_id("folder_id_value")
     ///         .set_folder(
     ///             Folder::new()/* set fields */
@@ -98,10 +98,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str, folder_id: &str
     /// ) -> Result<()> {
     ///     client.delete_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -118,10 +118,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -140,10 +140,10 @@ impl StorageControl {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, parent: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_folders()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/buckets/{bucket_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -229,10 +229,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_storage_layout()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/storageLayout"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -269,10 +269,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str, managed_folder_id: &str
     /// ) -> Result<()> {
     ///     client.delete_managed_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/managedFolders/{managed_folder_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -288,10 +288,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str, managed_folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_managed_folder()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/managedFolders/{managed_folder_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -309,10 +309,10 @@ impl StorageControl {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, parent: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_managed_folders()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/buckets/{bucket_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -457,10 +457,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str, anywhere_cache_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_anywhere_cache()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/anywhereCaches/{anywhere_cache_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -478,10 +478,10 @@ impl StorageControl {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, parent: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_anywhere_caches()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/buckets/{bucket_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

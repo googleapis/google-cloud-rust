@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::client::{DatabaseClient, Mutation};
+use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
     BeginTransactionRequest, CommitRequest, CommitResponse, RequestOptions, TransactionOptions,
@@ -31,6 +32,7 @@ pub struct WriteOnlyTransactionBuilder {
     max_commit_delay: Option<Duration>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
     exclude_txn_from_change_streams: bool,
+    commit_priority: Priority,
 }
 
 impl WriteOnlyTransactionBuilder {
@@ -41,6 +43,7 @@ impl WriteOnlyTransactionBuilder {
             max_commit_delay: None,
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
             exclude_txn_from_change_streams: false,
+            commit_priority: Priority::Unspecified,
         }
     }
 
@@ -61,6 +64,25 @@ impl WriteOnlyTransactionBuilder {
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
     pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
+        self
+    }
+
+    /// Sets the RPC priority to use for the commit of this transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_priority(Priority::Low)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_priority(mut self, priority: Priority) -> Self {
+        self.commit_priority = priority;
         self
     }
 
@@ -164,6 +186,7 @@ impl WriteOnlyTransactionBuilder {
             max_commit_delay: self.max_commit_delay,
             retry_policy: self.retry_policy,
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
+            commit_priority: self.commit_priority,
         }
     }
 }
@@ -178,6 +201,7 @@ pub struct WriteOnlyTransaction {
     max_commit_delay: Option<Duration>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
     exclude_txn_from_change_streams: bool,
+    commit_priority: Priority,
 }
 
 impl WriteOnlyTransaction {
@@ -213,8 +237,9 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let req_options =
-            RequestOptions::default().set_transaction_tag(self.transaction_tag.unwrap_or_default());
+        let req_options = RequestOptions::default()
+            .set_transaction_tag(self.transaction_tag.unwrap_or_default())
+            .set_priority(self.commit_priority.clone());
 
         let mutations_proto: Vec<_> = mutations.into_iter().map(|m| m.build_proto()).collect();
         let mutation_key = Mutation::select_mutation_key(&mutations_proto);
@@ -326,9 +351,9 @@ impl WriteOnlyTransaction {
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
             .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
-        let req_options =
-            RequestOptions::new().set_transaction_tag(self.transaction_tag.unwrap_or_default());
-
+        let req_options = RequestOptions::default()
+            .set_transaction_tag(self.transaction_tag.unwrap_or_default())
+            .set_priority(self.commit_priority.clone());
         let request = CommitRequest::new()
             .set_session(self.session_name.clone())
             .set_mutations(mutations.into_iter().map(|m| m.build_proto()))
@@ -405,9 +430,11 @@ mod tests {
             let req = req.into_inner();
             assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
 
-            // Validate the custom request options contain the transaction tag
+            // Validate the custom request options contain the transaction tag and priority
             assert!(req.request_options.is_some());
-            assert_eq!(req.request_options.as_ref().expect("request_options should be present").transaction_tag, "my_tag");
+            let req_opts = req.request_options.as_ref().expect("request_options should be present");
+            assert_eq!(req_opts.transaction_tag, "my_tag");
+            assert_eq!(Priority::from(req_opts.priority), Priority::High);
 
             assert!(req.mutations.len() == 1);
 
@@ -440,6 +467,7 @@ mod tests {
         let res = db_client
             .write_only_transaction()
             .with_transaction_tag("my_tag")
+            .with_commit_priority(Priority::High)
             .build()
             .write_at_least_once(vec![mutation])
             .await;

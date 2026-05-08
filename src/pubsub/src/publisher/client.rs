@@ -65,7 +65,9 @@ pub use super::base_publisher::BasePublisher;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Debug, Clone)]
 pub struct Publisher {
-    #[allow(dead_code)]
+    // A copy of the batching options are stored in the Publisher for testing
+    // purposes and also to include in the Debug output.
+    #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) batching_options: BatchingOptions,
     pub(crate) tx: UnboundedSender<ToDispatcher>,
 }
