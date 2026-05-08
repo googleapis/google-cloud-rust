@@ -59,6 +59,7 @@ pub struct CommonMetadata {
 }
 
 impl CommonMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -384,6 +385,7 @@ pub struct Progress {
 }
 
 impl Progress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -461,6 +463,7 @@ pub struct ExportEntitiesRequest {
 }
 
 impl ExportEntitiesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -594,6 +597,7 @@ pub struct ImportEntitiesRequest {
 }
 
 impl ImportEntitiesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -702,6 +706,7 @@ pub struct ExportEntitiesResponse {
 }
 
 impl ExportEntitiesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -755,6 +760,7 @@ pub struct ExportEntitiesMetadata {
 }
 
 impl ExportEntitiesMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -941,6 +947,7 @@ pub struct ImportEntitiesMetadata {
 }
 
 impl ImportEntitiesMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1134,6 +1141,7 @@ pub struct EntityFilter {
 }
 
 impl EntityFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1197,6 +1205,7 @@ pub struct CreateIndexRequest {
 }
 
 impl CreateIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1270,6 +1279,7 @@ pub struct DeleteIndexRequest {
 }
 
 impl DeleteIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1322,6 +1332,7 @@ pub struct GetIndexRequest {
 }
 
 impl GetIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1367,6 +1378,7 @@ pub struct ListIndexesRequest {
     /// Project ID against which to make the request.
     pub project_id: std::string::String,
 
+    #[allow(missing_docs)]
     pub filter: std::string::String,
 
     /// The maximum number of items to return.  If zero, then all results will be
@@ -1380,6 +1392,7 @@ pub struct ListIndexesRequest {
 }
 
 impl ListIndexesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1456,6 +1469,7 @@ pub struct ListIndexesResponse {
 }
 
 impl ListIndexesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1532,6 +1546,7 @@ pub struct IndexOperationMetadata {
 }
 
 impl IndexOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1644,6 +1659,7 @@ pub struct DatastoreFirestoreMigrationMetadata {
 }
 
 impl DatastoreFirestoreMigrationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1722,6 +1738,7 @@ pub struct Index {
 }
 
 impl Index {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1843,6 +1860,7 @@ pub mod index {
     }
 
     impl IndexedProperty {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2323,6 +2341,7 @@ pub struct MigrationStateEvent {
 }
 
 impl MigrationStateEvent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2368,6 +2387,7 @@ pub struct MigrationProgressEvent {
 }
 
 impl MigrationProgressEvent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2527,6 +2547,7 @@ pub mod migration_progress_event {
     }
 
     impl PrepareStepDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2569,6 +2590,7 @@ pub mod migration_progress_event {
     }
 
     impl RedirectWritesStepDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

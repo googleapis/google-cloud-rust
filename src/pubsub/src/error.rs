@@ -104,4 +104,20 @@ mod tests {
         assert!(fmt.contains("operation failed."), "{fmt}");
         assert!(fmt.contains("inner fail"), "{fmt}");
     }
+
+    impl PartialEq for AckError {
+        fn eq(&self, other: &Self) -> bool {
+            match (self, other) {
+                (AckError::LeaseExpired, AckError::LeaseExpired) => true,
+                (AckError::ShutdownBeforeAck, AckError::ShutdownBeforeAck) => true,
+                (AckError::Rpc { source: s1 }, AckError::Rpc { source: s2 }) => {
+                    format!("{:?}", s1) == format!("{:?}", s2)
+                }
+                (AckError::Shutdown(e1), AckError::Shutdown(e2)) => {
+                    format!("{:?}", e1) == format!("{:?}", e2)
+                }
+                _ => false,
+            }
+        }
+    }
 }

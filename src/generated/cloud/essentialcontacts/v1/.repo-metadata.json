@@ -1,4 +1,5 @@
 {
+    "api_description": "Essential Contacts helps you direct critical Google Cloud notifications to the appropriate personnel across your projects, folders, and organization resources.",
     "api_id": "essentialcontacts.googleapis.com",
     "api_shortname": "essentialcontacts",
     "client_documentation": "https://docs.rs/google-cloud-essentialcontacts-v1/latest",

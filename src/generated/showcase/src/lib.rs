@@ -69,14 +69,16 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_showcase_v1beta1::client::Identity;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    user_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Identity::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_user()
-///         .set_name(name)
+///         .set_name(format!("users/{user_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

@@ -1,4 +1,5 @@
 {
+    "api_description": "Web Risk is an enterprise security product that lets your client applications check URLs against Google's constantly updated lists of unsafe web resources.",
     "api_id": "webrisk.googleapis.com",
     "api_shortname": "webrisk",
     "client_documentation": "https://docs.rs/google-cloud-webrisk-v1/latest",

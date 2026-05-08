@@ -22,9 +22,10 @@
 /// ```
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
 /// use google_cloud_confidentialcomputing_v1::model::Challenge;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConfidentialComputing::builder().build().await?;
-///     let parent = "parent_value";
 ///     let response = client.create_challenge()
 ///         .set_parent(parent)
 ///         .set_challenge(
@@ -32,7 +33,8 @@
 ///         )
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -48,7 +50,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://confidentialcomputing.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

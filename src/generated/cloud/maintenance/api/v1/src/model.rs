@@ -64,6 +64,7 @@ pub struct SummarizeMaintenancesRequest {
 }
 
 impl SummarizeMaintenancesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -154,6 +155,7 @@ pub struct SummarizeMaintenancesResponse {
 }
 
 impl SummarizeMaintenancesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -282,6 +284,7 @@ pub struct MaintenanceSummary {
 }
 
 impl MaintenanceSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -565,6 +568,7 @@ pub mod maintenance_summary {
     }
 
     impl Stats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -626,6 +630,7 @@ pub mod maintenance_summary {
     }
 
     impl Aggregate {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -741,6 +746,7 @@ pub struct ResourceMaintenance {
 }
 
 impl ResourceMaintenance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1215,6 +1221,7 @@ pub mod resource_maintenance {
     }
 
     impl Resource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1286,6 +1293,7 @@ pub mod resource_maintenance {
     }
 
     impl Maintenance {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1522,6 +1530,7 @@ pub struct MaintenanceControl {
 }
 
 impl MaintenanceControl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1744,6 +1753,7 @@ pub struct ListResourceMaintenancesRequest {
 }
 
 impl ListResourceMaintenancesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1834,6 +1844,7 @@ pub struct ListResourceMaintenancesResponse {
 }
 
 impl ListResourceMaintenancesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1921,6 +1932,7 @@ pub struct GetResourceMaintenanceRequest {
 }
 
 impl GetResourceMaintenanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

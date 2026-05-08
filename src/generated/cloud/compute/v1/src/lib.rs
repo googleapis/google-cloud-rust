@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260410" revision of the API.
+//! This client library was generated from the "20260422" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -49,6 +49,7 @@
 //! * [GlobalOperations](client/struct.GlobalOperations.html)
 //! * [GlobalOrganizationOperations](client/struct.GlobalOrganizationOperations.html)
 //! * [GlobalPublicDelegatedPrefixes](client/struct.GlobalPublicDelegatedPrefixes.html)
+//! * [GlobalVmExtensionPolicies](client/struct.GlobalVmExtensionPolicies.html)
 //! * [HealthChecks](client/struct.HealthChecks.html)
 //! * [HttpHealthChecks](client/struct.HttpHealthChecks.html)
 //! * [HttpsHealthChecks](client/struct.HttpsHealthChecks.html)
@@ -125,6 +126,8 @@
 //! * [ReservationSubBlocks](client/struct.ReservationSubBlocks.html)
 //! * [Reservations](client/struct.Reservations.html)
 //! * [ResourcePolicies](client/struct.ResourcePolicies.html)
+//! * [RolloutPlans](client/struct.RolloutPlans.html)
+//! * [Rollouts](client/struct.Rollouts.html)
 //! * [Routers](client/struct.Routers.html)
 //! * [Routes](client/struct.Routes.html)
 //! * [SecurityPolicies](client/struct.SecurityPolicies.html)
@@ -183,10 +186,12 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Instances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
@@ -222,6 +227,7 @@ pub(crate) mod transport;
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -298,6 +304,8 @@ pub(crate) mod transport;
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -348,6 +356,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -424,6 +433,8 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -474,6 +485,8 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+#[allow(missing_docs)]
 pub mod errors;
 
+#[allow(missing_docs)]
 pub mod operation;

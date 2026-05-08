@@ -55,14 +55,16 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    metrics_scope_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = MetricsScopes::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_metrics_scope()
-///         .set_name(name)
+///         .set_name(format!("locations/global/metricsScope/{metrics_scope_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

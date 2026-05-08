@@ -15,10 +15,15 @@
 use crate::model::DirectedReadOptions;
 use crate::model::execute_sql_request::QueryMode;
 use crate::model::execute_sql_request::QueryOptions;
+use crate::model::request_options::Priority;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::collections::BTreeMap;
+use std::time::Duration;
 
 /// A builder for [Statement].
 ///
@@ -29,7 +34,7 @@ use std::collections::BTreeMap;
 ///     .add_param("id", &42)
 ///     .build();
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct StatementBuilder {
     sql: String,
     params: BTreeMap<String, Value>,
@@ -38,6 +43,7 @@ pub struct StatementBuilder {
     directed_read_options: Option<DirectedReadOptions>,
     query_options: Option<QueryOptions>,
     query_mode: Option<QueryMode>,
+    gax_options: GaxRequestOptions,
 }
 
 impl StatementBuilder {
@@ -50,6 +56,7 @@ impl StatementBuilder {
             directed_read_options: None,
             query_options: None,
             query_mode: None,
+            gax_options: GaxRequestOptions::default(),
         }
     }
 
@@ -96,6 +103,23 @@ impl StatementBuilder {
         self.request_options
             .get_or_insert_with(crate::model::RequestOptions::default)
             .request_tag = tag.into();
+        self
+    }
+
+    /// Sets the RPC priority to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_priority(Priority::Low)
+    ///     .build();
+    /// ```
+    pub fn with_priority(mut self, priority: Priority) -> Self {
+        self.request_options
+            .get_or_insert_with(crate::model::RequestOptions::default)
+            .priority = priority;
         self
     }
 
@@ -149,6 +173,24 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the per-attempt timeout for this statement.
+    pub fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
+        self.gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for this statement.
+    pub fn with_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for this statement.
+    pub fn with_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.gax_options.set_backoff_policy(policy);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -159,6 +201,7 @@ impl StatementBuilder {
             directed_read_options: self.directed_read_options,
             query_options: self.query_options,
             query_mode: self.query_mode,
+            gax_options: self.gax_options,
         }
     }
 }
@@ -186,7 +229,7 @@ impl StatementBuilder {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct Statement {
     pub sql: String,
     pub(crate) params: BTreeMap<String, Value>,
@@ -195,12 +238,17 @@ pub struct Statement {
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
     pub(crate) query_options: Option<QueryOptions>,
     pub(crate) query_mode: Option<QueryMode>,
+    gax_options: GaxRequestOptions,
 }
 
 impl Statement {
     /// Creates a new statement builder.
     pub fn builder(sql: impl Into<String>) -> StatementBuilder {
         StatementBuilder::new(sql)
+    }
+
+    pub(crate) fn gax_options(&self) -> &GaxRequestOptions {
+        &self.gax_options
     }
 
     /// Sets the query mode to use for this statement.
@@ -308,8 +356,8 @@ mod tests {
 
     #[test]
     fn test_auto_traits() {
-        static_assertions::assert_impl_all!(Statement: Clone, std::fmt::Debug, PartialEq, Send, Sync);
-        static_assertions::assert_impl_all!(StatementBuilder: Clone, std::fmt::Debug, PartialEq, Send, Sync);
+        static_assertions::assert_impl_all!(Statement: Clone, std::fmt::Debug, Send, Sync);
+        static_assertions::assert_impl_all!(StatementBuilder: Clone, std::fmt::Debug, Send, Sync);
     }
 
     #[test]
@@ -420,6 +468,19 @@ mod tests {
     }
 
     #[test]
+    fn with_priority() {
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_priority(Priority::High)
+            .build();
+        assert_eq!(
+            stmt.request_options
+                .expect("request options missing")
+                .priority,
+            Priority::High
+        );
+    }
+
+    #[test]
     fn with_directed_read_options() {
         let dro = DirectedReadOptions::default();
         let stmt = Statement::builder("SELECT * FROM users")
@@ -474,6 +535,28 @@ mod tests {
 
         let req = stmt.into_request();
         assert_eq!(req.query_mode, QueryMode::Profile);
+        Ok(())
+    }
+
+    #[test]
+    fn with_gax_options() -> anyhow::Result<()> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+        use google_cloud_gax::retry_policy::NeverRetry;
+        use std::time::Duration;
+
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_attempt_timeout(Duration::from_secs(10))
+            .with_retry_policy(NeverRetry)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .build();
+
+        assert_eq!(
+            stmt.gax_options.attempt_timeout(),
+            &Some(Duration::from_secs(10))
+        );
+        assert!(stmt.gax_options.retry_policy().is_some());
+        assert!(stmt.gax_options.backoff_policy().is_some());
+
         Ok(())
     }
 }

@@ -41,7 +41,7 @@ This command will generate the library, add the library to Cargo and git, and
 run the necessary tests:
 
 ```bash
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 # add library to librarian.yaml
 go run github.com/googleapis/librarian/cmd/librarian@${V} add ${library}
 # generate library
@@ -90,7 +90,7 @@ Run:
 
 ```bash
 git checkout -b chore-update-shas-circa-$(date +%Y-%m-%d)
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
 go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
@@ -124,7 +124,7 @@ Run:
 ```bash
 git fetch upstream
 git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go run github.com/googleapis/librarian/cmd/librarian@${V} bump --all
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
 # It is safe to commit everything because `bump` stops you from updating a
@@ -226,7 +226,7 @@ Commit all these changes and send a PR.
 Run:
 
 ```bash
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all 
 ```
 
@@ -240,7 +240,7 @@ the library name from librarian.yaml.
 Run:
 
 ```bash
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate google-cloud-secretmanager-v1
 ```
 
@@ -250,7 +250,7 @@ Someday `librarian` will be stable enough that we will be able to install it. At
 that point we will be able to say:
 
 ```bash
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go install github.com/googleapis/librarian/cmd/librarian@${V}
 ```
 
@@ -267,7 +267,7 @@ to automatically format and sort the file. This ensures consistency and
 readability.
 
 ```bash
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go run github.com/googleapis/librarian/cmd/librarian@${V} tidy
 ```
 
@@ -298,7 +298,14 @@ Wait for the PR to be approved and merged.
 
 Then finish your PR in `google-cloud-rust`.
 
-1. Update the librarian version in `librarian.yaml`:
+1. Update the librarian version in `librarian.yaml` to the `latest` published
+   tag on github:
+
+   ```bash
+   go run github.com/googleapis/librarian/cmd/librarian@latest update version
+   ```
+
+   Note: if you want to use the version of librarian at HEAD, you can run:
 
    ```bash
    V=$(GOPROXY=direct go list -m -f '{{.Version}}' github.com/googleapis/librarian@main)
@@ -308,7 +315,7 @@ Then finish your PR in `google-cloud-rust`.
 1. Update the generated code:
 
    ```bash
-   V=$(sed -n 's/^version: *//p' librarian.yaml)
+   V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
    go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
    ```
 
@@ -345,7 +352,7 @@ example:
 
 ```
 bash
-V=$(sed -n 's/^version: *//p' librarian.yaml)
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate google-cloud-apps-script-type
 ```
 

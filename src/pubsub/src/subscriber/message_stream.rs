@@ -134,9 +134,11 @@ impl MessageStream {
         let subscription = builder.subscription;
 
         let (confirmed_tx, confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             stub.clone(),
             confirmed_tx,
+            eo_extend_tx,
             subscription.clone(),
             builder.ack_deadline_seconds,
             builder.grpc_subchannel_count,
@@ -152,7 +154,7 @@ impl MessageStream {
             message_tx,
             ack_tx,
             cancel: shutdown,
-        } = LeaseLoop::new(leaser, confirmed_rx, options);
+        } = LeaseLoop::new(leaser, confirmed_rx, eo_extend_rx, options);
         let lease_loop = handle.map(|_| ()).boxed().shared();
         let _shutdown_guard = shutdown.clone().drop_guard();
 
@@ -250,7 +252,7 @@ impl MessageStream {
     /// // Signal and await a shutdown of the stream.
     /// shutdown_token.shutdown().await;
     ///
-    /// // The stream stops yielding messages after a cancel.
+    /// // The stream stops yielding messages after shutdown is signaled.
     /// assert!(stream.next().await.is_none());
     /// # }
     /// ```

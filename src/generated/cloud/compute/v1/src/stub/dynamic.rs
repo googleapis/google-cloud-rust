@@ -3187,6 +3187,145 @@ impl<T: super::GlobalPublicDelegatedPrefixes> GlobalPublicDelegatedPrefixes for 
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::GlobalVmExtensionPolicies].
+#[cfg(feature = "global-vm-extension-policies")]
+#[async_trait::async_trait]
+pub trait GlobalVmExtensionPolicies: std::fmt::Debug + Send + Sync {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::global_vm_extension_policies::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VmExtensionPolicyAggregatedListResponse>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::global_vm_extension_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::global_vm_extension_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GlobalVmExtensionPolicy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::global_vm_extension_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::global_vm_extension_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GlobalVmExtensionPolicyList>>;
+
+    async fn update(
+        &self,
+        req: crate::model::global_vm_extension_policies::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::GlobalVmExtensionPolicies] also implement [GlobalVmExtensionPolicies].
+#[cfg(feature = "global-vm-extension-policies")]
+#[async_trait::async_trait]
+impl<T: super::GlobalVmExtensionPolicies> GlobalVmExtensionPolicies for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::global_vm_extension_policies::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VmExtensionPolicyAggregatedListResponse>> {
+        T::aggregated_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::global_vm_extension_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::global_vm_extension_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GlobalVmExtensionPolicy>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::global_vm_extension_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::global_vm_extension_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GlobalVmExtensionPolicyList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update(
+        &self,
+        req: crate::model::global_vm_extension_policies::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::HealthChecks].
 #[cfg(feature = "health-checks")]
 #[async_trait::async_trait]
@@ -6843,6 +6982,18 @@ pub trait LicenseCodes: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::LicenseCode>>;
 
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::license_codes::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::license_codes::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
     async fn test_iam_permissions(
         &self,
         req: crate::model::license_codes::TestIamPermissionsRequest,
@@ -6861,6 +7012,24 @@ impl<T: super::LicenseCodes> LicenseCodes for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::LicenseCode>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::license_codes::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::license_codes::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -8174,6 +8343,12 @@ pub trait Networks: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn cancel_request_remove_peering(
+        &self,
+        req: crate::model::networks::CancelRequestRemovePeeringRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn delete(
         &self,
         req: crate::model::networks::DeleteRequest,
@@ -8268,6 +8443,15 @@ impl<T: super::Networks> Networks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::add_peering(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_request_remove_peering(
+        &self,
+        req: crate::model::networks::CancelRequestRemovePeeringRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::cancel_request_remove_peering(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -15805,6 +15989,224 @@ impl<T: super::ResourcePolicies> ResourcePolicies for T {
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::RolloutPlans].
+#[cfg(feature = "rollout-plans")]
+#[async_trait::async_trait]
+pub trait RolloutPlans: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::rollout_plans::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::rollout_plans::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RolloutPlan>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::rollout_plans::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::rollout_plans::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RolloutPlansListResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RolloutPlans] also implement [RolloutPlans].
+#[cfg(feature = "rollout-plans")]
+#[async_trait::async_trait]
+impl<T: super::RolloutPlans> RolloutPlans for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::rollout_plans::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::rollout_plans::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RolloutPlan>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::rollout_plans::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::rollout_plans::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RolloutPlansListResponse>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::Rollouts].
+#[cfg(feature = "rollouts")]
+#[async_trait::async_trait]
+pub trait Rollouts: std::fmt::Debug + Send + Sync {
+    async fn cancel(
+        &self,
+        req: crate::model::rollouts::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::rollouts::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::rollouts::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Rollout>>;
+
+    async fn list(
+        &self,
+        req: crate::model::rollouts::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RolloutsListResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::Rollouts] also implement [Rollouts].
+#[cfg(feature = "rollouts")]
+#[async_trait::async_trait]
+impl<T: super::Rollouts> Rollouts for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel(
+        &self,
+        req: crate::model::rollouts::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::cancel(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::rollouts::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::rollouts::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Rollout>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::rollouts::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RolloutsListResponse>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await

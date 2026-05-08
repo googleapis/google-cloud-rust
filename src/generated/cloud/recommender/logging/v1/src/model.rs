@@ -50,6 +50,7 @@ pub struct ActionLog {
 }
 
 impl ActionLog {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -150,6 +151,7 @@ pub struct InsightActionLog {
 }
 
 impl InsightActionLog {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
