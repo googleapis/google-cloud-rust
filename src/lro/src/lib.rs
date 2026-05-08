@@ -102,6 +102,7 @@ use std::future::Future;
 /// * `MetadataType` - The LRO may return values of this type while the
 ///   operation is in progress. This may include some measure of "progress".
 #[derive(Debug)]
+#[allow(clippy::exhaustive_enums)]
 pub enum PollingResult<ResponseType, MetadataType> {
     /// The operation is still in progress.
     InProgress(Option<MetadataType>),

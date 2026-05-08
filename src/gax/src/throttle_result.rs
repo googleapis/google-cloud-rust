@@ -46,6 +46,7 @@ use crate::error::Error;
 /// }
 /// ```
 #[derive(Debug)]
+#[allow(clippy::exhaustive_enums)]
 pub enum ThrottleResult {
     /// The error is retryable, but the policy is stopping the loop.
     ///

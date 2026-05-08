@@ -108,6 +108,7 @@ where
 
 /// Specifies what assertions are included in ID Tokens fetched from the Metadata Service.
 #[derive(Debug, Clone)]
+#[allow(clippy::exhaustive_enums)]
 pub enum Format {
     /// Omit project and instance details from the payload. It's the default value.
     Standard,
