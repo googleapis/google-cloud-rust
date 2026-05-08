@@ -163,6 +163,8 @@ impl WriteOnlyTransactionBuilder {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
     pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
         self.return_commit_stats = return_stats;
         self
