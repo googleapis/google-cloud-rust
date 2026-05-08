@@ -57,14 +57,17 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_iam_admin_v1::client::Iam;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    service_account_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Iam::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_service_account()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

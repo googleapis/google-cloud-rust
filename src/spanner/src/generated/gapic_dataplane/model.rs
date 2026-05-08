@@ -43,6 +43,7 @@ pub struct ChangeStreamRecord {
 }
 
 impl ChangeStreamRecord {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -334,6 +335,7 @@ pub mod change_stream_record {
     }
 
     impl DataChangeRecord {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -503,6 +505,7 @@ pub mod change_stream_record {
         }
 
         impl ColumnMetadata {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -571,6 +574,7 @@ pub mod change_stream_record {
         }
 
         impl ModValue {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -637,6 +641,7 @@ pub mod change_stream_record {
         }
 
         impl Mod {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1005,6 +1010,7 @@ pub mod change_stream_record {
     }
 
     impl HeartbeatRecord {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1063,6 +1069,7 @@ pub mod change_stream_record {
     }
 
     impl PartitionStartRecord {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1148,6 +1155,7 @@ pub mod change_stream_record {
     }
 
     impl PartitionEndRecord {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1330,6 +1338,7 @@ pub mod change_stream_record {
     }
 
     impl PartitionEventRecord {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1433,6 +1442,7 @@ pub mod change_stream_record {
         }
 
         impl MoveInEvent {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1481,6 +1491,7 @@ pub mod change_stream_record {
         }
 
         impl MoveOutEvent {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1598,6 +1609,12 @@ pub struct CommitResponse {
     /// future.
     pub cache_update: std::option::Option<crate::model::CacheUpdate>,
 
+    /// The isolation level used for the read-write transaction.
+    pub isolation_level: crate::model::transaction_options::IsolationLevel,
+
+    /// The read lock mode used for the read-write transaction.
+    pub read_lock_mode: crate::model::transaction_options::read_write::ReadLockMode,
+
     /// You must examine and retry the commit if the following is populated.
     pub multiplexed_session_retry:
         std::option::Option<crate::model::commit_response::MultiplexedSessionRetry>,
@@ -1606,6 +1623,7 @@ pub struct CommitResponse {
 }
 
 impl CommitResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1679,6 +1697,28 @@ impl CommitResponse {
         T: std::convert::Into<crate::model::CacheUpdate>,
     {
         self.cache_update = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [isolation_level][crate::model::CommitResponse::isolation_level].
+    pub fn set_isolation_level<
+        T: std::convert::Into<crate::model::transaction_options::IsolationLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.isolation_level = v.into();
+        self
+    }
+
+    /// Sets the value of [read_lock_mode][crate::model::CommitResponse::read_lock_mode].
+    pub fn set_read_lock_mode<
+        T: std::convert::Into<crate::model::transaction_options::read_write::ReadLockMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_lock_mode = v.into();
         self
     }
 
@@ -1761,6 +1801,7 @@ pub mod commit_response {
     }
 
     impl CommitStats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1924,6 +1965,7 @@ pub struct KeyRange {
 }
 
 impl KeyRange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2156,6 +2198,7 @@ pub struct KeySet {
 }
 
 impl KeySet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2235,6 +2278,7 @@ pub struct Range {
 }
 
 impl Range {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2351,6 +2395,7 @@ pub struct Tablet {
 }
 
 impl Tablet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2574,6 +2619,7 @@ pub struct Group {
 }
 
 impl Group {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2635,6 +2681,7 @@ pub struct KeyRecipe {
 }
 
 impl KeyRecipe {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2773,6 +2820,7 @@ pub mod key_recipe {
     }
 
     impl Part {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3291,6 +3339,7 @@ pub struct RecipeList {
 }
 
 impl RecipeList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3346,6 +3395,7 @@ pub struct CacheUpdate {
 }
 
 impl CacheUpdate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3487,6 +3537,7 @@ pub struct RoutingHint {
 }
 
 impl RoutingHint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3583,6 +3634,7 @@ pub mod routing_hint {
     }
 
     impl SkippedTablet {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3622,6 +3674,7 @@ pub struct Mutation {
 }
 
 impl Mutation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3876,6 +3929,7 @@ pub mod mutation {
     }
 
     impl Write {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3938,6 +3992,7 @@ pub mod mutation {
     }
 
     impl Delete {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3998,6 +4053,7 @@ pub mod mutation {
     }
 
     impl Send {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4092,6 +4148,7 @@ pub mod mutation {
     }
 
     impl Ack {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4281,6 +4338,7 @@ pub struct PlanNode {
 }
 
 impl PlanNode {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4412,6 +4470,7 @@ pub mod plan_node {
     }
 
     impl ChildLink {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4462,6 +4521,7 @@ pub mod plan_node {
     }
 
     impl ShortRepresentation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4645,6 +4705,7 @@ pub struct QueryAdvisorResult {
 }
 
 impl QueryAdvisorResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4688,6 +4749,7 @@ pub mod query_advisor_result {
     }
 
     impl IndexAdvice {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4736,6 +4798,7 @@ pub struct QueryPlan {
 }
 
 impl QueryPlan {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4831,6 +4894,7 @@ pub struct ResultSet {
 }
 
 impl ResultSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5072,6 +5136,7 @@ pub struct PartialResultSet {
 }
 
 impl PartialResultSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5226,6 +5291,7 @@ pub struct ResultSetMetadata {
 }
 
 impl ResultSetMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5325,6 +5391,7 @@ pub struct ResultSetStats {
 }
 
 impl ResultSetStats {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5480,6 +5547,7 @@ pub struct CreateSessionRequest {
 }
 
 impl CreateSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5542,6 +5610,7 @@ pub struct BatchCreateSessionsRequest {
 }
 
 impl BatchCreateSessionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5597,6 +5666,7 @@ pub struct BatchCreateSessionsResponse {
 }
 
 impl BatchCreateSessionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5664,6 +5734,7 @@ pub struct Session {
 }
 
 impl Session {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5754,6 +5825,7 @@ pub struct GetSessionRequest {
 }
 
 impl GetSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5809,6 +5881,7 @@ pub struct ListSessionsRequest {
 }
 
 impl ListSessionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5864,6 +5937,7 @@ pub struct ListSessionsResponse {
 }
 
 impl ListSessionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5919,6 +5993,7 @@ pub struct DeleteSessionRequest {
 }
 
 impl DeleteSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5978,6 +6053,7 @@ pub struct RequestOptions {
 }
 
 impl RequestOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6046,6 +6122,7 @@ pub mod request_options {
     }
 
     impl ClientContext {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6242,6 +6319,7 @@ pub struct DirectedReadOptions {
 }
 
 impl DirectedReadOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6369,6 +6447,7 @@ pub mod directed_read_options {
     }
 
     impl ReplicaSelection {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6556,6 +6635,7 @@ pub mod directed_read_options {
     }
 
     impl IncludeReplicas {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6597,6 +6677,7 @@ pub mod directed_read_options {
     }
 
     impl ExcludeReplicas {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6790,6 +6871,7 @@ pub struct ExecuteSqlRequest {
 }
 
 impl ExecuteSqlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7035,6 +7117,7 @@ pub mod execute_sql_request {
     }
 
     impl QueryOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7269,6 +7352,7 @@ pub struct ExecuteBatchDmlRequest {
 }
 
 impl ExecuteBatchDmlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7390,6 +7474,7 @@ pub mod execute_batch_dml_request {
     }
 
     impl Statement {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7506,6 +7591,7 @@ pub struct ExecuteBatchDmlResponse {
 }
 
 impl ExecuteBatchDmlResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7590,6 +7676,7 @@ pub struct PartitionOptions {
 }
 
 impl PartitionOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7677,6 +7764,7 @@ pub struct PartitionQueryRequest {
 }
 
 impl PartitionQueryRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7822,6 +7910,7 @@ pub struct PartitionReadRequest {
 }
 
 impl PartitionReadRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7930,6 +8019,7 @@ pub struct Partition {
 }
 
 impl Partition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7965,6 +8055,7 @@ pub struct PartitionResponse {
 }
 
 impl PartitionResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8122,6 +8213,7 @@ pub struct ReadRequest {
 }
 
 impl ReadRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8643,6 +8735,7 @@ pub struct BeginTransactionRequest {
 }
 
 impl BeginTransactionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8784,6 +8877,7 @@ pub struct CommitRequest {
 }
 
 impl CommitRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9017,6 +9111,7 @@ pub struct RollbackRequest {
 }
 
 impl RollbackRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9062,6 +9157,7 @@ pub struct BatchWriteRequest {
 }
 
 impl BatchWriteRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9135,6 +9231,7 @@ pub mod batch_write_request {
     }
 
     impl MutationGroup {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9182,6 +9279,7 @@ pub struct BatchWriteResponse {
 }
 
 impl BatchWriteResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9240,6 +9338,56 @@ impl wkt::message::Message for BatchWriteResponse {
     }
 }
 
+/// The request for
+/// [FetchCacheUpdate][google.spanner.v1.Spanner.FetchCacheUpdate].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchCacheUpdateRequest {
+    /// Required. The database for which to retrieve the cache update.
+    pub database: std::string::String,
+
+    /// Optional. The maximum number of key recipes to return in the response.
+    /// If not set, a default limit of 100 will be used.
+    pub max_recipe_count: i32,
+
+    /// Optional. The maximum number of ranges to return in the response.
+    /// If not set, a default limit of 10000 will be used.
+    pub max_range_count: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchCacheUpdateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::FetchCacheUpdateRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [max_recipe_count][crate::model::FetchCacheUpdateRequest::max_recipe_count].
+    pub fn set_max_recipe_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_recipe_count = v.into();
+        self
+    }
+
+    /// Sets the value of [max_range_count][crate::model::FetchCacheUpdateRequest::max_range_count].
+    pub fn set_max_range_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_range_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchCacheUpdateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.FetchCacheUpdateRequest"
+    }
+}
+
 /// Options to use for transactions.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -9275,6 +9423,7 @@ pub struct TransactionOptions {
 }
 
 impl TransactionOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9433,6 +9582,7 @@ pub mod transaction_options {
     }
 
     impl ReadWrite {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9661,6 +9811,7 @@ pub mod transaction_options {
     }
 
     impl PartitionedDml {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9691,6 +9842,7 @@ pub mod transaction_options {
     }
 
     impl ReadOnly {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10225,6 +10377,7 @@ pub struct Transaction {
 }
 
 impl Transaction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10317,6 +10470,7 @@ pub struct TransactionSelector {
 }
 
 impl TransactionSelector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10494,6 +10648,7 @@ pub struct MultiplexedSessionPrecommitToken {
 }
 
 impl MultiplexedSessionPrecommitToken {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10572,6 +10727,7 @@ pub struct Type {
 }
 
 impl Type {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10661,6 +10817,7 @@ pub struct StructType {
 }
 
 impl StructType {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10708,6 +10865,7 @@ pub mod struct_type {
     }
 
     impl Field {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

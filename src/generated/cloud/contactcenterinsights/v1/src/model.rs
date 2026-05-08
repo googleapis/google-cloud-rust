@@ -51,6 +51,7 @@ pub struct CalculateStatsRequest {
 }
 
 impl CalculateStatsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -132,6 +133,7 @@ pub struct CalculateStatsResponse {
 }
 
 impl CalculateStatsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -344,6 +346,7 @@ pub mod calculate_stats_response {
     }
 
     impl TimeSeries {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -429,6 +432,7 @@ pub mod calculate_stats_response {
         }
 
         impl Interval {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -507,6 +511,7 @@ pub struct CreateAnalysisOperationMetadata {
 }
 
 impl CreateAnalysisOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -651,6 +656,7 @@ pub struct CreateConversationRequest {
 }
 
 impl CreateConversationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -749,6 +755,7 @@ pub struct UploadConversationRequest {
 }
 
 impl UploadConversationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -907,6 +914,7 @@ pub struct UploadConversationMetadata {
 }
 
 impl UploadConversationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1111,6 +1119,7 @@ pub struct ListConversationsRequest {
 }
 
 impl ListConversationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1212,6 +1221,7 @@ pub struct ListConversationsResponse {
 }
 
 impl ListConversationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1285,6 +1295,7 @@ pub struct GetConversationRequest {
 }
 
 impl GetConversationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1349,6 +1360,7 @@ pub struct UpdateConversationRequest {
 }
 
 impl UpdateConversationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1442,6 +1454,7 @@ pub struct DeleteConversationRequest {
 }
 
 impl DeleteConversationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1514,6 +1527,7 @@ pub struct IngestConversationsRequest {
 }
 
 impl IngestConversationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1835,6 +1849,7 @@ pub mod ingest_conversations_request {
     }
 
     impl GcsSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1932,6 +1947,7 @@ pub mod ingest_conversations_request {
         #[allow(unused_imports)]
         use super::*;
 
+        /// Enum for [BucketObjectType].
         ///
         /// # Working with unknown values
         ///
@@ -2079,6 +2095,7 @@ pub mod ingest_conversations_request {
     }
 
     impl TranscriptObjectConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2131,6 +2148,7 @@ pub mod ingest_conversations_request {
     }
 
     impl ConversationConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2224,6 +2242,7 @@ pub struct IngestConversationsMetadata {
 }
 
 impl IngestConversationsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2421,6 +2440,7 @@ pub mod ingest_conversations_metadata {
     }
 
     impl IngestConversationsStats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2489,6 +2509,7 @@ pub struct IngestConversationsResponse {
 }
 
 impl IngestConversationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2514,6 +2535,7 @@ pub struct CreateAnalysisRequest {
 }
 
 impl CreateAnalysisRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2596,6 +2618,7 @@ pub struct ListAnalysesRequest {
 }
 
 impl ListAnalysesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2670,6 +2693,7 @@ pub struct ListAnalysesResponse {
 }
 
 impl ListAnalysesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2740,6 +2764,7 @@ pub struct GetAnalysisRequest {
 }
 
 impl GetAnalysisRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2774,6 +2799,7 @@ pub struct DeleteAnalysisRequest {
 }
 
 impl DeleteAnalysisRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2819,6 +2845,7 @@ pub struct BulkAnalyzeConversationsRequest {
 }
 
 impl BulkAnalyzeConversationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2930,6 +2957,7 @@ pub struct BulkAnalyzeConversationsMetadata {
 }
 
 impl BulkAnalyzeConversationsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3112,6 +3140,7 @@ pub struct BulkAnalyzeConversationsResponse {
 }
 
 impl BulkAnalyzeConversationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3171,6 +3200,7 @@ pub struct BulkDeleteConversationsRequest {
 }
 
 impl BulkDeleteConversationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3251,6 +3281,7 @@ pub struct BulkDeleteConversationsMetadata {
 }
 
 impl BulkDeleteConversationsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3391,6 +3422,7 @@ pub struct BulkDeleteConversationsResponse {
 }
 
 impl BulkDeleteConversationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3428,6 +3460,7 @@ pub struct ExportInsightsDataRequest {
 }
 
 impl ExportInsightsDataRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3590,6 +3623,7 @@ pub mod export_insights_data_request {
     }
 
     impl BigQueryDestination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3802,6 +3836,7 @@ pub struct ExportInsightsDataMetadata {
 }
 
 impl ExportInsightsDataMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3942,6 +3977,7 @@ pub struct ExportInsightsDataResponse {
 }
 
 impl ExportInsightsDataResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3967,6 +4003,7 @@ pub struct CreateIssueModelRequest {
 }
 
 impl CreateIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4040,6 +4077,7 @@ pub struct CreateIssueModelMetadata {
 }
 
 impl CreateIssueModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4164,6 +4202,7 @@ pub struct UpdateIssueModelRequest {
 }
 
 impl UpdateIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4252,6 +4291,7 @@ pub struct ListIssueModelsRequest {
 }
 
 impl ListIssueModelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4286,6 +4326,7 @@ pub struct ListIssueModelsResponse {
 }
 
 impl ListIssueModelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4330,6 +4371,7 @@ pub struct GetIssueModelRequest {
 }
 
 impl GetIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4364,6 +4406,7 @@ pub struct DeleteIssueModelRequest {
 }
 
 impl DeleteIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4404,6 +4447,7 @@ pub struct DeleteIssueModelMetadata {
 }
 
 impl DeleteIssueModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4525,6 +4569,7 @@ pub struct DeployIssueModelRequest {
 }
 
 impl DeployIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4556,6 +4601,7 @@ pub struct DeployIssueModelResponse {
 }
 
 impl DeployIssueModelResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4584,6 +4630,7 @@ pub struct DeployIssueModelMetadata {
 }
 
 impl DeployIssueModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4705,6 +4752,7 @@ pub struct UndeployIssueModelRequest {
 }
 
 impl UndeployIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4736,6 +4784,7 @@ pub struct UndeployIssueModelResponse {
 }
 
 impl UndeployIssueModelResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4764,6 +4813,7 @@ pub struct UndeployIssueModelMetadata {
 }
 
 impl UndeployIssueModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4881,12 +4931,14 @@ pub struct ExportIssueModelRequest {
     /// Required. The issue model to export.
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub destination: std::option::Option<crate::model::export_issue_model_request::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4994,6 +5046,7 @@ pub mod export_issue_model_request {
     }
 
     impl GcsDestination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5017,6 +5070,7 @@ pub mod export_issue_model_request {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
@@ -5033,6 +5087,7 @@ pub struct ExportIssueModelResponse {
 }
 
 impl ExportIssueModelResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5061,6 +5116,7 @@ pub struct ExportIssueModelMetadata {
 }
 
 impl ExportIssueModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5183,12 +5239,14 @@ pub struct ImportIssueModelRequest {
     /// Otherwise, replaces an existing model with the same ID as the file.
     pub create_new_model: bool,
 
+    #[allow(missing_docs)]
     pub source: std::option::Option<crate::model::import_issue_model_request::Source>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportIssueModelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5303,6 +5361,7 @@ pub mod import_issue_model_request {
     }
 
     impl GcsSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5326,6 +5385,7 @@ pub mod import_issue_model_request {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Source {
@@ -5342,6 +5402,7 @@ pub struct ImportIssueModelResponse {
 }
 
 impl ImportIssueModelResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5370,6 +5431,7 @@ pub struct ImportIssueModelMetadata {
 }
 
 impl ImportIssueModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5491,6 +5553,7 @@ pub struct GetIssueRequest {
 }
 
 impl GetIssueRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5525,6 +5588,7 @@ pub struct ListIssuesRequest {
 }
 
 impl ListIssuesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5559,6 +5623,7 @@ pub struct ListIssuesResponse {
 }
 
 impl ListIssuesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5606,6 +5671,7 @@ pub struct UpdateIssueRequest {
 }
 
 impl UpdateIssueRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5694,6 +5760,7 @@ pub struct DeleteIssueRequest {
 }
 
 impl DeleteIssueRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5728,6 +5795,7 @@ pub struct CalculateIssueModelStatsRequest {
 }
 
 impl CalculateIssueModelStatsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5763,6 +5831,7 @@ pub struct CalculateIssueModelStatsResponse {
 }
 
 impl CalculateIssueModelStatsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5824,6 +5893,7 @@ pub struct CreatePhraseMatcherRequest {
 }
 
 impl CreatePhraseMatcherRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5906,6 +5976,7 @@ pub struct ListPhraseMatchersRequest {
 }
 
 impl ListPhraseMatchersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5980,6 +6051,7 @@ pub struct ListPhraseMatchersResponse {
 }
 
 impl ListPhraseMatchersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6050,6 +6122,7 @@ pub struct GetPhraseMatcherRequest {
 }
 
 impl GetPhraseMatcherRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6084,6 +6157,7 @@ pub struct DeletePhraseMatcherRequest {
 }
 
 impl DeletePhraseMatcherRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6121,6 +6195,7 @@ pub struct UpdatePhraseMatcherRequest {
 }
 
 impl UpdatePhraseMatcherRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6209,6 +6284,7 @@ pub struct GetSettingsRequest {
 }
 
 impl GetSettingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6246,6 +6322,7 @@ pub struct UpdateSettingsRequest {
 }
 
 impl UpdateSettingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6341,6 +6418,7 @@ pub struct CreateAnalysisRuleRequest {
 }
 
 impl CreateAnalysisRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6408,6 +6486,7 @@ pub struct GetAnalysisRuleRequest {
 }
 
 impl GetAnalysisRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6447,6 +6526,7 @@ pub struct UpdateAnalysisRuleRequest {
 }
 
 impl UpdateAnalysisRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6535,6 +6615,7 @@ pub struct DeleteAnalysisRuleRequest {
 }
 
 impl DeleteAnalysisRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6580,6 +6661,7 @@ pub struct ListAnalysisRulesRequest {
 }
 
 impl ListAnalysisRulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6642,6 +6724,7 @@ pub struct ListAnalysisRulesResponse {
 }
 
 impl ListAnalysisRulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6712,6 +6795,7 @@ pub struct GetEncryptionSpecRequest {
 }
 
 impl GetEncryptionSpecRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6749,6 +6833,7 @@ pub struct InitializeEncryptionSpecRequest {
 }
 
 impl InitializeEncryptionSpecRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6801,6 +6886,7 @@ pub struct InitializeEncryptionSpecResponse {
 }
 
 impl InitializeEncryptionSpecResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6833,6 +6919,7 @@ pub struct InitializeEncryptionSpecMetadata {
 }
 
 impl InitializeEncryptionSpecMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6982,6 +7069,7 @@ pub struct CreateViewRequest {
 }
 
 impl CreateViewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7049,6 +7137,7 @@ pub struct GetViewRequest {
 }
 
 impl GetViewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7094,6 +7183,7 @@ pub struct ListViewsRequest {
 }
 
 impl ListViewsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7156,6 +7246,7 @@ pub struct ListViewsResponse {
 }
 
 impl ListViewsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7229,6 +7320,7 @@ pub struct UpdateViewRequest {
 }
 
 impl UpdateViewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7317,6 +7409,7 @@ pub struct DeleteViewRequest {
 }
 
 impl DeleteViewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7355,6 +7448,7 @@ pub struct Dimension {
 }
 
 impl Dimension {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7607,6 +7701,7 @@ pub mod dimension {
     }
 
     impl IssueDimensionMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7677,6 +7772,7 @@ pub mod dimension {
     }
 
     impl AgentDimensionMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7744,6 +7840,7 @@ pub mod dimension {
     }
 
     impl QaQuestionDimensionMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7822,6 +7919,7 @@ pub mod dimension {
     }
 
     impl QaQuestionAnswerDimensionMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8119,6 +8217,7 @@ pub struct QueryMetricsRequest {
 }
 
 impl QueryMetricsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8429,6 +8528,7 @@ pub struct QueryMetricsResponse {
 }
 
 impl QueryMetricsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8574,6 +8674,7 @@ pub mod query_metrics_response {
     }
 
     impl Slice {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8699,6 +8800,7 @@ pub mod query_metrics_response {
         }
 
         impl DataPoint {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8856,6 +8958,7 @@ pub mod query_metrics_response {
             }
 
             impl ConversationMeasure {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -9214,6 +9317,7 @@ pub mod query_metrics_response {
                 }
 
                 impl QaTagScore {
+                    /// Creates a new default instance.
                     pub fn new() -> Self {
                         std::default::Default::default()
                     }
@@ -9276,6 +9380,7 @@ pub mod query_metrics_response {
         }
 
         impl TimeSeries {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -9319,6 +9424,7 @@ pub struct QueryMetricsMetadata {
 }
 
 impl QueryMetricsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9352,6 +9458,7 @@ pub struct CreateQaQuestionRequest {
 }
 
 impl CreateQaQuestionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9431,6 +9538,7 @@ pub struct GetQaQuestionRequest {
 }
 
 impl GetQaQuestionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9476,6 +9584,7 @@ pub struct ListQaQuestionsRequest {
 }
 
 impl ListQaQuestionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9538,6 +9647,7 @@ pub struct ListQaQuestionsResponse {
 }
 
 impl ListQaQuestionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9620,6 +9730,7 @@ pub struct UpdateQaQuestionRequest {
 }
 
 impl UpdateQaQuestionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9708,6 +9819,7 @@ pub struct DeleteQaQuestionRequest {
 }
 
 impl DeleteQaQuestionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9753,6 +9865,7 @@ pub struct CreateQaScorecardRequest {
 }
 
 impl CreateQaScorecardRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9832,6 +9945,7 @@ pub struct GetQaScorecardRequest {
 }
 
 impl GetQaScorecardRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9874,6 +9988,7 @@ pub struct UpdateQaScorecardRequest {
 }
 
 impl UpdateQaScorecardRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9966,6 +10081,7 @@ pub struct DeleteQaScorecardRequest {
 }
 
 impl DeleteQaScorecardRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10023,6 +10139,7 @@ pub struct CreateQaScorecardRevisionRequest {
 }
 
 impl CreateQaScorecardRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10105,6 +10222,7 @@ pub struct GetQaScorecardRevisionRequest {
 }
 
 impl GetQaScorecardRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10152,6 +10270,7 @@ pub struct TuneQaScorecardRevisionRequest {
 }
 
 impl TuneQaScorecardRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10207,6 +10326,7 @@ pub struct TuneQaScorecardRevisionResponse {
 }
 
 impl TuneQaScorecardRevisionResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10251,6 +10371,7 @@ pub struct TuneQaScorecardRevisionMetadata {
 }
 
 impl TuneQaScorecardRevisionMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10443,6 +10564,7 @@ pub mod tune_qa_scorecard_revision_metadata {
     }
 
     impl QaQuestionDatasetValidationResult {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10517,6 +10639,7 @@ pub mod tune_qa_scorecard_revision_metadata {
     }
 
     impl QaQuestionDatasetTuningMetrics {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10588,6 +10711,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         }
 
         impl Metrics {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -10624,6 +10748,7 @@ pub struct DeployQaScorecardRevisionRequest {
 }
 
 impl DeployQaScorecardRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10658,6 +10783,7 @@ pub struct UndeployQaScorecardRevisionRequest {
 }
 
 impl UndeployQaScorecardRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10697,6 +10823,7 @@ pub struct DeleteQaScorecardRevisionRequest {
 }
 
 impl DeleteQaScorecardRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10754,6 +10881,7 @@ pub struct ListQaScorecardsRequest {
 }
 
 impl ListQaScorecardsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10816,6 +10944,7 @@ pub struct ListQaScorecardsResponse {
 }
 
 impl ListQaScorecardsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10904,6 +11033,7 @@ pub struct ListQaScorecardRevisionsRequest {
 }
 
 impl ListQaScorecardRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10978,6 +11108,7 @@ pub struct ListQaScorecardRevisionsResponse {
 }
 
 impl ListQaScorecardRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11055,6 +11186,7 @@ pub struct CreateFeedbackLabelRequest {
 }
 
 impl CreateFeedbackLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11165,6 +11297,7 @@ pub struct ListFeedbackLabelsRequest {
 }
 
 impl ListFeedbackLabelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11238,6 +11371,7 @@ pub struct ListFeedbackLabelsResponse {
 }
 
 impl ListFeedbackLabelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11308,6 +11442,7 @@ pub struct GetFeedbackLabelRequest {
 }
 
 impl GetFeedbackLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11345,6 +11480,7 @@ pub struct UpdateFeedbackLabelRequest {
 }
 
 impl UpdateFeedbackLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11433,6 +11569,7 @@ pub struct DeleteFeedbackLabelRequest {
 }
 
 impl DeleteFeedbackLabelRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11493,6 +11630,7 @@ pub struct ListAllFeedbackLabelsRequest {
 }
 
 impl ListAllFeedbackLabelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11567,6 +11705,7 @@ pub struct ListAllFeedbackLabelsResponse {
 }
 
 impl ListAllFeedbackLabelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11646,6 +11785,7 @@ pub struct BulkUploadFeedbackLabelsRequest {
 }
 
 impl BulkUploadFeedbackLabelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11769,6 +11909,7 @@ pub mod bulk_upload_feedback_labels_request {
     }
 
     impl GcsSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11971,6 +12112,7 @@ pub struct BulkUploadFeedbackLabelsResponse {
 }
 
 impl BulkUploadFeedbackLabelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12007,6 +12149,7 @@ pub struct BulkUploadFeedbackLabelsMetadata {
 }
 
 impl BulkUploadFeedbackLabelsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12194,6 +12337,7 @@ pub mod bulk_upload_feedback_labels_metadata {
     }
 
     impl UploadStats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12292,6 +12436,7 @@ pub struct BulkDownloadFeedbackLabelsRequest {
 }
 
 impl BulkDownloadFeedbackLabelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12500,6 +12645,7 @@ pub mod bulk_download_feedback_labels_request {
     }
 
     impl GcsDestination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12876,6 +13022,7 @@ pub struct BulkDownloadFeedbackLabelsResponse {
 }
 
 impl BulkDownloadFeedbackLabelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12912,6 +13059,7 @@ pub struct BulkDownloadFeedbackLabelsMetadata {
 }
 
 impl BulkDownloadFeedbackLabelsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13104,6 +13252,7 @@ pub mod bulk_download_feedback_labels_metadata {
     }
 
     impl DownloadStats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -13254,6 +13403,7 @@ pub struct Conversation {
 }
 
 impl Conversation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13884,6 +14034,7 @@ pub mod conversation {
     }
 
     impl CallMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -13939,6 +14090,7 @@ pub mod conversation {
     }
 
     impl QualityMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14061,6 +14213,7 @@ pub mod conversation {
         }
 
         impl AgentInfo {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -14162,6 +14315,7 @@ pub mod conversation {
     }
 
     impl Transcript {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14242,6 +14396,7 @@ pub mod conversation {
         }
 
         impl TranscriptSegment {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -14486,6 +14641,7 @@ pub mod conversation {
             }
 
             impl WordInfo {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -14602,6 +14758,7 @@ pub mod conversation {
             }
 
             impl DialogflowSegmentMetadata {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -14814,6 +14971,7 @@ pub struct Analysis {
 }
 
 impl Analysis {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14980,6 +15138,7 @@ pub struct ConversationDataSource {
 }
 
 impl ConversationDataSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15123,6 +15282,7 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15175,6 +15335,7 @@ pub struct DialogflowSource {
 }
 
 impl DialogflowSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15227,6 +15388,7 @@ pub struct AnalysisResult {
 }
 
 impl AnalysisResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15372,6 +15534,7 @@ pub mod analysis_result {
     }
 
     impl CallAnalysisMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15605,6 +15768,7 @@ pub struct IssueModelResult {
 }
 
 impl IssueModelResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15675,6 +15839,7 @@ pub struct FeedbackLabel {
 }
 
 impl FeedbackLabel {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15901,6 +16066,7 @@ pub struct ConversationLevelSentiment {
 }
 
 impl ConversationLevelSentiment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15971,6 +16137,7 @@ pub struct ConversationLevelSilence {
 }
 
 impl ConversationLevelSilence {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16046,6 +16213,7 @@ pub struct IssueAssignment {
 }
 
 impl IssueAssignment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16114,6 +16282,7 @@ pub struct CallAnnotation {
 }
 
 impl CallAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16621,6 +16790,7 @@ pub struct AnnotationBoundary {
 }
 
 impl AnnotationBoundary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16748,6 +16918,7 @@ pub struct Entity {
 }
 
 impl Entity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17112,6 +17283,7 @@ pub struct Intent {
 }
 
 impl Intent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17162,6 +17334,7 @@ pub struct PhraseMatchData {
 }
 
 impl PhraseMatchData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17209,6 +17382,7 @@ pub struct DialogflowIntent {
 }
 
 impl DialogflowIntent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17240,6 +17414,7 @@ pub struct InterruptionData {
 }
 
 impl InterruptionData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17259,6 +17434,7 @@ pub struct SilenceData {
 }
 
 impl SilenceData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17278,6 +17454,7 @@ pub struct HoldData {
 }
 
 impl HoldData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17308,6 +17485,7 @@ pub struct EntityMentionData {
 }
 
 impl EntityMentionData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17537,6 +17715,7 @@ pub struct IntentMatchData {
 }
 
 impl IntentMatchData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17578,6 +17757,7 @@ pub struct SentimentData {
 }
 
 impl SentimentData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17624,6 +17804,7 @@ pub struct IssueMatchData {
 }
 
 impl IssueMatchData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17709,6 +17890,7 @@ pub struct IssueModel {
 }
 
 impl IssueModel {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17961,6 +18143,7 @@ pub mod issue_model {
     }
 
     impl InputDataConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18333,6 +18516,7 @@ pub struct Issue {
 }
 
 impl Issue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18487,6 +18671,7 @@ pub struct IssueModelLabelStats {
 }
 
 impl IssueModelLabelStats {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18571,6 +18756,7 @@ pub mod issue_model_label_stats {
     }
 
     impl IssueStats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18673,6 +18859,7 @@ pub struct PhraseMatcher {
 }
 
 impl PhraseMatcher {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19053,6 +19240,7 @@ pub struct PhraseMatchRuleGroup {
 }
 
 impl PhraseMatchRuleGroup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19264,6 +19452,7 @@ pub struct PhraseMatchRule {
 }
 
 impl PhraseMatchRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19343,6 +19532,7 @@ pub struct PhraseMatchRuleConfig {
 }
 
 impl PhraseMatchRuleConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19441,6 +19631,7 @@ pub struct ExactMatchConfig {
 }
 
 impl ExactMatchConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19536,6 +19727,7 @@ pub struct Settings {
 }
 
 impl Settings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19816,6 +20008,7 @@ pub mod settings {
     }
 
     impl AnalysisConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -19937,6 +20130,7 @@ pub struct AnalysisRule {
 }
 
 impl AnalysisRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20150,6 +20344,7 @@ pub struct EncryptionSpec {
 }
 
 impl EncryptionSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20209,6 +20404,7 @@ pub struct RedactionConfig {
 }
 
 impl RedactionConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20267,6 +20463,7 @@ pub struct SpeechConfig {
 }
 
 impl SpeechConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20324,6 +20521,7 @@ pub struct RuntimeAnnotation {
 }
 
 impl RuntimeAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20817,6 +21015,7 @@ pub mod runtime_annotation {
     }
 
     impl UserInput {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -21055,6 +21254,7 @@ pub struct AnswerFeedback {
 }
 
 impl AnswerFeedback {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21288,6 +21488,7 @@ pub struct ArticleSuggestionData {
 }
 
 impl ArticleSuggestionData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21413,6 +21614,7 @@ pub struct FaqAnswerData {
 }
 
 impl FaqAnswerData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21530,6 +21732,7 @@ pub struct SmartReplyData {
 }
 
 impl SmartReplyData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21623,6 +21826,7 @@ pub struct SmartComposeSuggestionData {
 }
 
 impl SmartComposeSuggestionData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21707,6 +21911,7 @@ pub struct DialogflowInteractionData {
 }
 
 impl DialogflowInteractionData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21778,6 +21983,7 @@ pub struct ConversationSummarizationSuggestionData {
 }
 
 impl ConversationSummarizationSuggestionData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21898,12 +22104,14 @@ pub struct ConversationParticipant {
     /// The role of the participant.
     pub role: crate::model::conversation_participant::Role,
 
+    #[allow(missing_docs)]
     pub participant: std::option::Option<crate::model::conversation_participant::Participant>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConversationParticipant {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22209,6 +22417,7 @@ pub mod conversation_participant {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Participant {
@@ -22245,6 +22454,7 @@ pub struct View {
 }
 
 impl View {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22415,6 +22625,7 @@ pub struct AnnotatorSelector {
 }
 
 impl AnnotatorSelector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22653,6 +22864,7 @@ pub mod annotator_selector {
     }
 
     impl SummarizationConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -22942,6 +23154,7 @@ pub mod annotator_selector {
     }
 
     impl QaConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -23041,6 +23254,7 @@ pub mod annotator_selector {
         }
 
         impl ScorecardList {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -23131,6 +23345,7 @@ pub struct QaQuestion {
 }
 
 impl QaQuestion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23399,6 +23614,7 @@ pub mod qa_question {
     }
 
     impl AnswerChoice {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -23651,6 +23867,7 @@ pub mod qa_question {
     }
 
     impl Metrics {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -23695,6 +23912,7 @@ pub mod qa_question {
     }
 
     impl TuningMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -23782,6 +24000,7 @@ pub struct QaScorecard {
 }
 
 impl QaScorecard {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23927,6 +24146,7 @@ pub struct QaScorecardRevision {
 }
 
 impl QaScorecardRevision {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24245,6 +24465,7 @@ pub struct QaAnswer {
 }
 
 impl QaAnswer {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24400,6 +24621,7 @@ pub mod qa_answer {
     }
 
     impl AnswerValue {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -24713,6 +24935,7 @@ pub mod qa_answer {
     }
 
     impl AnswerSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -24965,6 +25188,7 @@ pub struct QaScorecardResult {
 }
 
 impl QaScorecardResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25244,6 +25468,7 @@ pub mod qa_scorecard_result {
     }
 
     impl QaTagResult {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25386,6 +25611,7 @@ pub mod qa_scorecard_result {
     }
 
     impl ScoreSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

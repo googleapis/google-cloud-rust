@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Audit::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_framework_audits()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -47,7 +50,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudsecuritycompliance.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -164,10 +167,10 @@ impl Audit {
     /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Audit, parent: &str
+    ///    client: &Audit, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_framework_audit()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_framework_audit(
     ///             FrameworkAudit::new()/* set fields */
     ///         )
@@ -188,10 +191,10 @@ impl Audit {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Audit, parent: &str
+    ///    client: &Audit, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_framework_audits()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -210,10 +213,10 @@ impl Audit {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Audit, name: &str
+    ///    client: &Audit, project_id: &str, location_id: &str, framework_audit_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_framework_audit()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/frameworkAudits/{framework_audit_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,6 +227,23 @@ impl Audit {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -364,17 +384,20 @@ impl Audit {
 /// # extern crate wkt as google_cloud_wkt;
 /// use google_cloud_wkt::FieldMask;
 /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CmEnrollmentService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.update_cm_enrollment()
 ///         .set_cm_enrollment(
-///             CmEnrollment::new().set_name(name)/* set fields */
+///             CmEnrollment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cmEnrollment"))/* set fields */
 ///         )
 ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -391,7 +414,7 @@ impl Audit {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudsecuritycompliance.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -481,11 +504,11 @@ impl CmEnrollmentService {
     /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &CmEnrollmentService, name: &str
+    ///    client: &CmEnrollmentService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cm_enrollment()
     ///         .set_cm_enrollment(
-    ///             CmEnrollment::new().set_name(name)/* set fields */
+    ///             CmEnrollment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cmEnrollment"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -527,6 +550,23 @@ impl CmEnrollmentService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -665,16 +705,19 @@ impl CmEnrollmentService {
 /// ```
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Config::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_frameworks()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -691,7 +734,7 @@ impl CmEnrollmentService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudsecuritycompliance.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -778,10 +821,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_frameworks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -804,10 +847,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, organization_id: &str, location_id: &str, framework_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_framework()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -827,10 +870,10 @@ impl Config {
     /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_framework()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_framework_id("framework_id_value")
     ///         .set_framework(
     ///             Framework::new()/* set fields */
@@ -865,11 +908,11 @@ impl Config {
     /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, organization_id: &str, location_id: &str, framework_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_framework()
     ///         .set_framework(
-    ///             Framework::new().set_name(name)/* set fields */
+    ///             Framework::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -894,10 +937,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, organization_id: &str, location_id: &str, framework_id: &str
     /// ) -> Result<()> {
     ///     client.delete_framework()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworks/{framework_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -917,10 +960,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cloud_controls()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -945,10 +988,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, organization_id: &str, location_id: &str, cloud_control_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_control()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControls/{cloud_control_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -969,10 +1012,10 @@ impl Config {
     /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cloud_control()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_cloud_control(
     ///             CloudControl::new()/* set fields */
     ///         )
@@ -1006,11 +1049,11 @@ impl Config {
     /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, organization_id: &str, location_id: &str, cloud_control_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cloud_control()
     ///         .set_cloud_control(
-    ///             CloudControl::new().set_name(name)/* set fields */
+    ///             CloudControl::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControls/{cloud_control_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1036,10 +1079,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, organization_id: &str, location_id: &str, cloud_control_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cloud_control()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControls/{cloud_control_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1049,6 +1092,23 @@ impl Config {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1187,16 +1247,19 @@ impl Config {
 /// ```
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Deployment::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_framework_deployments()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1213,7 +1276,7 @@ impl Config {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudsecuritycompliance.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1311,10 +1374,10 @@ impl Deployment {
     /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, parent: &str
+    ///    client: &Deployment, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_framework_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_framework_deployment(
     ///             FrameworkDeployment::new()/* set fields */
     ///         )
@@ -1347,10 +1410,10 @@ impl Deployment {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, name: &str
+    ///    client: &Deployment, organization_id: &str, location_id: &str, framework_deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_framework_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworkDeployments/{framework_deployment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1368,10 +1431,10 @@ impl Deployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, name: &str
+    ///    client: &Deployment, organization_id: &str, location_id: &str, framework_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_framework_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/frameworkDeployments/{framework_deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1389,10 +1452,10 @@ impl Deployment {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, parent: &str
+    ///    client: &Deployment, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_framework_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1413,10 +1476,10 @@ impl Deployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, name: &str
+    ///    client: &Deployment, organization_id: &str, location_id: &str, cloud_control_deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_control_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/cloudControlDeployments/{cloud_control_deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1436,10 +1499,10 @@ impl Deployment {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, parent: &str
+    ///    client: &Deployment, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cloud_control_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1454,6 +1517,23 @@ impl Deployment {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1592,16 +1672,19 @@ impl Deployment {
 /// ```
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Monitoring::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_framework_compliance_summaries()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1617,7 +1700,7 @@ impl Deployment {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudsecuritycompliance.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1701,10 +1784,10 @@ impl Monitoring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Monitoring, parent: &str
+    ///    client: &Monitoring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_framework_compliance_summaries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1726,10 +1809,10 @@ impl Monitoring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Monitoring, parent: &str
+    ///    client: &Monitoring, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_finding_summaries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1771,10 +1854,10 @@ impl Monitoring {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Monitoring, parent: &str
+    ///    client: &Monitoring, project_id: &str, location_id: &str, framework_compliance_report_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_control_compliance_summaries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/frameworkComplianceReports/{framework_compliance_report_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1811,6 +1894,23 @@ impl Monitoring {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

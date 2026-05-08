@@ -202,6 +202,7 @@ pub struct Reservation {
 }
 
 impl Reservation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -607,6 +608,7 @@ pub mod reservation {
     }
 
     impl Autoscale {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -671,6 +673,7 @@ pub mod reservation {
     }
 
     impl ReplicationStatus {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1022,6 +1025,7 @@ pub struct SchedulingPolicy {
 }
 
 impl SchedulingPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1110,6 +1114,7 @@ pub struct ReservationGroup {
 }
 
 impl ReservationGroup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1207,6 +1212,7 @@ pub struct CapacityCommitment {
 }
 
 impl CapacityCommitment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1814,6 +1820,7 @@ pub struct CreateReservationRequest {
 }
 
 impl CreateReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1903,6 +1910,7 @@ pub struct ListReservationsRequest {
 }
 
 impl ListReservationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1968,6 +1976,7 @@ pub struct ListReservationsResponse {
 }
 
 impl ListReservationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2042,6 +2051,7 @@ pub struct GetReservationRequest {
 }
 
 impl GetReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2080,6 +2090,7 @@ pub struct DeleteReservationRequest {
 }
 
 impl DeleteReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2120,6 +2131,7 @@ pub struct UpdateReservationRequest {
 }
 
 impl UpdateReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2214,6 +2226,7 @@ pub struct FailoverReservationRequest {
 }
 
 impl FailoverReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2277,6 +2290,7 @@ pub struct CreateReservationGroupRequest {
 }
 
 impl CreateReservationGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2363,6 +2377,7 @@ pub struct GetReservationGroupRequest {
 }
 
 impl GetReservationGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2407,6 +2422,7 @@ pub struct ListReservationGroupsRequest {
 }
 
 impl ListReservationGroupsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2472,6 +2488,7 @@ pub struct ListReservationGroupsResponse {
 }
 
 impl ListReservationGroupsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2546,6 +2563,7 @@ pub struct DeleteReservationGroupRequest {
 }
 
 impl DeleteReservationGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2598,6 +2616,7 @@ pub struct CreateCapacityCommitmentRequest {
 }
 
 impl CreateCapacityCommitmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2705,6 +2724,7 @@ pub struct ListCapacityCommitmentsRequest {
 }
 
 impl ListCapacityCommitmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2770,6 +2790,7 @@ pub struct ListCapacityCommitmentsResponse {
 }
 
 impl ListCapacityCommitmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2844,6 +2865,7 @@ pub struct GetCapacityCommitmentRequest {
 }
 
 impl GetCapacityCommitmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2887,6 +2909,7 @@ pub struct DeleteCapacityCommitmentRequest {
 }
 
 impl DeleteCapacityCommitmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2939,6 +2962,7 @@ pub struct UpdateCapacityCommitmentRequest {
 }
 
 impl UpdateCapacityCommitmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3034,6 +3058,7 @@ pub struct SplitCapacityCommitmentRequest {
 }
 
 impl SplitCapacityCommitmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3086,6 +3111,7 @@ pub struct SplitCapacityCommitmentResponse {
 }
 
 impl SplitCapacityCommitmentResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3191,6 +3217,7 @@ pub struct MergeCapacityCommitmentsRequest {
 }
 
 impl MergeCapacityCommitmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3304,6 +3331,7 @@ pub struct Assignment {
 }
 
 impl Assignment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3790,6 +3818,7 @@ pub struct CreateAssignmentRequest {
 }
 
 impl CreateAssignmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3884,6 +3913,7 @@ pub struct ListAssignmentsRequest {
 }
 
 impl ListAssignmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3949,6 +3979,7 @@ pub struct ListAssignmentsResponse {
 }
 
 impl ListAssignmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4025,6 +4056,7 @@ pub struct DeleteAssignmentRequest {
 }
 
 impl DeleteAssignmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4081,6 +4113,7 @@ pub struct SearchAssignmentsRequest {
 }
 
 impl SearchAssignmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4173,6 +4206,7 @@ pub struct SearchAllAssignmentsRequest {
 }
 
 impl SearchAllAssignmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4250,6 +4284,7 @@ pub struct SearchAssignmentsResponse {
 }
 
 impl SearchAssignmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4327,6 +4362,7 @@ pub struct SearchAllAssignmentsResponse {
 }
 
 impl SearchAllAssignmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4420,6 +4456,7 @@ pub struct MoveAssignmentRequest {
 }
 
 impl MoveAssignmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4484,6 +4521,7 @@ pub struct UpdateAssignmentRequest {
 }
 
 impl UpdateAssignmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4579,6 +4617,7 @@ pub struct TableReference {
 }
 
 impl TableReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4648,6 +4687,7 @@ pub struct BiReservation {
 }
 
 impl BiReservation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4750,6 +4790,7 @@ pub struct GetBiReservationRequest {
 }
 
 impl GetBiReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4787,6 +4828,7 @@ pub struct UpdateBiReservationRequest {
 }
 
 impl UpdateBiReservationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

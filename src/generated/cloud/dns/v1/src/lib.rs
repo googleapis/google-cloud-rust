@@ -65,13 +65,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_dns_v1::client::DnsKeys;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DnsKeys::builder().build().await?;
 ///     let response = client.get()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
@@ -111,4 +113,5 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+#[allow(missing_docs)]
 pub mod operation;

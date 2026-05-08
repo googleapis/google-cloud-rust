@@ -1,4 +1,5 @@
 {
+    "api_description": "Parallelstore is a high performance, managed parallel file service based on DAOS. It delivers up to 6x greater read throughput performance compared to competitive Lustre scratch offerings.",
     "api_id": "parallelstore.googleapis.com",
     "api_shortname": "parallelstore",
     "client_documentation": "https://docs.rs/google-cloud-parallelstore-v1/latest",

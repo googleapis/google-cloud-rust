@@ -753,6 +753,7 @@ impl std::fmt::Debug for super::AttachedDiskInitializeParams {
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "network-attachments",
@@ -799,6 +800,7 @@ impl std::fmt::Debug for super::AuditConfig {
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "network-attachments",
@@ -1019,6 +1021,7 @@ impl std::fmt::Debug for super::AutoscalingPolicy {
         debug_struct.field("mode", &self.mode);
         debug_struct.field("scale_in_control", &self.scale_in_control);
         debug_struct.field("scaling_schedules", &self.scaling_schedules);
+        debug_struct.field("stabilization_period_sec", &self.stabilization_period_sec);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2188,6 +2191,7 @@ impl std::fmt::Debug for super::BgpRouteNetworkLayerReachabilityInformation {
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "network-attachments",
@@ -2296,6 +2300,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -2362,6 +2367,8 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -3784,6 +3791,7 @@ impl std::fmt::Debug for super::DistributionPolicyZoneConfiguration {
     feature = "instance-group-manager-resize-requests",
     feature = "instance-templates",
     feature = "instances",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "node-groups",
@@ -3827,6 +3835,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -3893,6 +3902,8 @@ impl std::fmt::Debug for super::Duration {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -4003,6 +4014,7 @@ impl std::fmt::Debug for super::exchanged_peering_routes_list::warning::Data {
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "network-attachments",
@@ -5320,6 +5332,7 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -5386,6 +5399,8 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -5440,6 +5455,7 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -5506,6 +5522,8 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -5626,6 +5644,7 @@ impl std::fmt::Debug for super::GlobalSetLabelsRequest {
     feature = "instance-templates",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "network-firewall-policies",
@@ -5637,6 +5656,186 @@ impl std::fmt::Debug for super::GlobalSetPolicyRequest {
         debug_struct.field("bindings", &self.bindings);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicy");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("extension_policies", &self.extension_policies);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("instance_selectors", &self.instance_selectors);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("rollout_operation", &self.rollout_operation);
+        debug_struct.field("scoped_resource_status", &self.scoped_resource_status);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("update_timestamp", &self.update_timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyExtensionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicyExtensionPolicy");
+        debug_struct.field("pinned_version", &self.pinned_version);
+        debug_struct.field("string_config", &self.string_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyInstanceSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicyInstanceSelector");
+        debug_struct.field("label_selector", &self.label_selector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyLabelSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicyLabelSelector");
+        debug_struct.field("inclusion_labels", &self.inclusion_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicyList");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policy_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policy_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyRolloutOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicyRolloutOperation");
+        debug_struct.field("rollout_input", &self.rollout_input);
+        debug_struct.field("rollout_status", &self.rollout_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyRolloutOperationRolloutInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("GlobalVmExtensionPolicyRolloutOperationRolloutInput");
+        debug_struct.field("conflict_behavior", &self.conflict_behavior);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("predefined_rollout_plan", &self.predefined_rollout_plan);
+        debug_struct.field("retry_uuid", &self.retry_uuid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyRolloutOperationRolloutStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("GlobalVmExtensionPolicyRolloutOperationRolloutStatus");
+        debug_struct.field("current_rollouts", &self.current_rollouts);
+        debug_struct.field("previous_rollout", &self.previous_rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug
+    for super::GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadata
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadata");
+        debug_struct.field("location_rollout_status", &self.location_rollout_status);
+        debug_struct.field("rollout", &self.rollout);
+        debug_struct.field("rollout_plan", &self.rollout_plan);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadataLocationRolloutStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadataLocationRolloutStatus");
+        debug_struct.field("state", &self.state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6580,6 +6779,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -6646,6 +6846,8 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -6700,6 +6902,7 @@ impl std::fmt::Debug for super::Help {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -6766,6 +6969,8 @@ impl std::fmt::Debug for super::Help {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -9332,6 +9537,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -9398,6 +9604,8 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -11463,15 +11671,31 @@ impl std::fmt::Debug for super::License {
 impl std::fmt::Debug for super::LicenseCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LicenseCode");
+        debug_struct.field(
+            "allowed_replacement_licenses",
+            &self.allowed_replacement_licenses,
+        );
+        debug_struct.field("appendable_to_disk", &self.appendable_to_disk);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
         debug_struct.field("id", &self.id);
+        debug_struct.field("incompatible_licenses", &self.incompatible_licenses);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("license_alias", &self.license_alias);
+        debug_struct.field("minimum_retention", &self.minimum_retention);
+        debug_struct.field("multi_tenant_only", &self.multi_tenant_only);
         debug_struct.field("name", &self.name);
+        debug_struct.field("os_license", &self.os_license);
+        debug_struct.field("removable_from_disk", &self.removable_from_disk);
+        debug_struct.field(
+            "required_coattached_licenses",
+            &self.required_coattached_licenses,
+        );
         debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("sole_tenant_only", &self.sole_tenant_only);
         debug_struct.field("state", &self.state);
         debug_struct.field("transferable", &self.transferable);
+        debug_struct.field("update_timestamp", &self.update_timestamp);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11661,6 +11885,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -11727,6 +11952,8 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -13530,6 +13757,18 @@ impl std::fmt::Debug for super::NetworksAddPeeringRequest {
 }
 
 #[cfg(feature = "networks")]
+impl std::fmt::Debug for super::NetworksCancelRequestRemovePeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworksCancelRequestRemovePeeringRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "networks")]
 impl std::fmt::Debug for super::NetworksGetEffectiveFirewallsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworksGetEffectiveFirewallsResponse");
@@ -14416,6 +14655,7 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -14482,6 +14722,8 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -14571,6 +14813,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -14637,6 +14880,8 @@ impl std::fmt::Debug for super::Operation {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -14691,6 +14936,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -14757,6 +15003,8 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -14814,6 +15062,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -14880,6 +15129,8 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -14937,6 +15188,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -15003,6 +15255,8 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -15059,6 +15313,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -15125,6 +15380,8 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -15679,6 +15936,7 @@ impl std::fmt::Debug for super::PerInstanceConfig {
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
+    feature = "license-codes",
     feature = "licenses",
     feature = "machine-images",
     feature = "network-attachments",
@@ -16337,6 +16595,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -16403,6 +16662,8 @@ impl std::fmt::Debug for super::Quota {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -18518,6 +18779,333 @@ impl std::fmt::Debug for super::ResourceStatusScheduling {
     }
 }
 
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::Rollout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rollout");
+        debug_struct.field("cancellation_time", &self.cancellation_time);
+        debug_struct.field("completion_time", &self.completion_time);
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("current_wave_number", &self.current_wave_number);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("rollout_entity", &self.rollout_entity);
+        debug_struct.field("rollout_plan", &self.rollout_plan);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("wave_details", &self.wave_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlan");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("location_scope", &self.location_scope);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("waves", &self.waves);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWave {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWave");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("number", &self.number);
+        debug_struct.field("orchestration_options", &self.orchestration_options);
+        debug_struct.field("selectors", &self.selectors);
+        debug_struct.field("validation", &self.validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveOrchestrationOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWaveOrchestrationOptions");
+        debug_struct.field("delays", &self.delays);
+        debug_struct.field("max_concurrent_locations", &self.max_concurrent_locations);
+        debug_struct.field(
+            "max_concurrent_resources_per_location",
+            &self.max_concurrent_resources_per_location,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveOrchestrationOptionsDelay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWaveOrchestrationOptionsDelay");
+        debug_struct.field("delimiter", &self.delimiter);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWaveSelector");
+        debug_struct.field("location_selector", &self.location_selector);
+        debug_struct.field(
+            "resource_hierarchy_selector",
+            &self.resource_hierarchy_selector,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveSelectorLocationSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWaveSelectorLocationSelector");
+        debug_struct.field("included_locations", &self.included_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveSelectorResourceHierarchySelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWaveSelectorResourceHierarchySelector");
+        debug_struct.field("included_folders", &self.included_folders);
+        debug_struct.field("included_organizations", &self.included_organizations);
+        debug_struct.field("included_projects", &self.included_projects);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveValidation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlanWaveValidation");
+        debug_struct.field(
+            "time_based_validation_metadata",
+            &self.time_based_validation_metadata,
+        );
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlanWaveValidationTimeBasedValidationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("RolloutPlanWaveValidationTimeBasedValidationMetadata");
+        debug_struct.field("wait_duration", &self.wait_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::RolloutPlansListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutPlansListResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::rollout_plans_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::rollout_plans_list_response::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::RolloutRolloutEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutRolloutEntity");
+        debug_struct.field("orchestrated_entity", &self.orchestrated_entity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::RolloutRolloutEntityOrchestratedEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutRolloutEntityOrchestratedEntity");
+        debug_struct.field("conflict_behavior", &self.conflict_behavior);
+        debug_struct.field("orchestration_action", &self.orchestration_action);
+        debug_struct.field("orchestration_source", &self.orchestration_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::RolloutWaveDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutWaveDetails");
+        debug_struct.field("orchestrated_wave_details", &self.orchestrated_wave_details);
+        debug_struct.field("wave_display_name", &self.wave_display_name);
+        debug_struct.field("wave_number", &self.wave_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::RolloutWaveDetailsOrchestratedWaveDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutWaveDetailsOrchestratedWaveDetails");
+        debug_struct.field("completed_resources_count", &self.completed_resources_count);
+        debug_struct.field("estimated_completion_time", &self.estimated_completion_time);
+        debug_struct.field(
+            "estimated_total_resources_count",
+            &self.estimated_total_resources_count,
+        );
+        debug_struct.field("failed_locations", &self.failed_locations);
+        debug_struct.field("failed_resources_count", &self.failed_resources_count);
+        debug_struct.field("location_status", &self.location_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::RolloutWaveDetailsOrchestratedWaveDetailsLocationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("RolloutWaveDetailsOrchestratedWaveDetailsLocationStatus");
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::RolloutsListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutsListResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::rollouts_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::rollouts_list_response::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "routers", feature = "routes",))]
 impl std::fmt::Debug for super::Route {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -20555,6 +21143,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -20621,6 +21210,8 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -20676,6 +21267,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -20742,6 +21334,8 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -21517,6 +22111,7 @@ impl std::fmt::Debug for super::SslPolicy {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("min_tls_version", &self.min_tls_version);
         debug_struct.field("name", &self.name);
+        debug_struct.field("post_quantum_key_exchange", &self.post_quantum_key_exchange);
         debug_struct.field("profile", &self.profile);
         debug_struct.field("region", &self.region);
         debug_struct.field("self_link", &self.self_link);
@@ -21647,6 +22242,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "global-operations",
     feature = "global-organization-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -21713,6 +22309,8 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routers",
     feature = "routes",
     feature = "security-policies",
@@ -24531,7 +25129,50 @@ impl std::fmt::Debug for super::vm_endpoint_nat_mappings_list::warning::Data {
     }
 }
 
-#[cfg(feature = "zone-vm-extension-policies")]
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPoliciesScopedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPoliciesScopedList");
+        debug_struct.field("vm_extension_policies", &self.vm_extension_policies);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::vm_extension_policies_scoped_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::vm_extension_policies_scoped_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "global-vm-extension-policies",
+    feature = "zone-vm-extension-policies",
+))]
 impl std::fmt::Debug for super::VmExtensionPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VmExtensionPolicy");
@@ -24556,7 +25197,56 @@ impl std::fmt::Debug for super::VmExtensionPolicy {
     }
 }
 
-#[cfg(feature = "zone-vm-extension-policies")]
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPolicyAggregatedListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPolicyAggregatedListResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::vm_extension_policy_aggregated_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::vm_extension_policy_aggregated_list_response::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "global-vm-extension-policies",
+    feature = "zone-vm-extension-policies",
+))]
 impl std::fmt::Debug for super::VmExtensionPolicyExtensionPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VmExtensionPolicyExtensionPolicy");
@@ -24569,7 +25259,10 @@ impl std::fmt::Debug for super::VmExtensionPolicyExtensionPolicy {
     }
 }
 
-#[cfg(feature = "zone-vm-extension-policies")]
+#[cfg(any(
+    feature = "global-vm-extension-policies",
+    feature = "zone-vm-extension-policies",
+))]
 impl std::fmt::Debug for super::VmExtensionPolicyInstanceSelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VmExtensionPolicyInstanceSelector");
@@ -24581,7 +25274,10 @@ impl std::fmt::Debug for super::VmExtensionPolicyInstanceSelector {
     }
 }
 
-#[cfg(feature = "zone-vm-extension-policies")]
+#[cfg(any(
+    feature = "global-vm-extension-policies",
+    feature = "zone-vm-extension-policies",
+))]
 impl std::fmt::Debug for super::VmExtensionPolicyLabelSelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VmExtensionPolicyLabelSelector");
@@ -27790,6 +28486,7 @@ impl std::fmt::Debug for super::global_operations::DeleteRequest {
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
     feature = "health-checks",
     feature = "http-health-checks",
     feature = "https-health-checks",
@@ -27805,6 +28502,8 @@ impl std::fmt::Debug for super::global_operations::DeleteRequest {
     feature = "preview-features",
     feature = "projects",
     feature = "public-advertised-prefixes",
+    feature = "rollout-plans",
+    feature = "rollouts",
     feature = "routes",
     feature = "security-policies",
     feature = "snapshot-settings",
@@ -27972,6 +28671,108 @@ impl std::fmt::Debug for super::global_public_delegated_prefixes::PatchRequest {
         let mut debug_struct = f.debug_struct("PatchRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("public_delegated_prefix", &self.public_delegated_prefix);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policies::AggregatedListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregatedListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("include_all_scopes", &self.include_all_scopes);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("service_project_number", &self.service_project_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policies::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field(
+            "global_vm_extension_policy",
+            &self.global_vm_extension_policy,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policies::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field(
+            "global_vm_extension_policy",
+            &self.global_vm_extension_policy,
+        );
+        debug_struct.field("project", &self.project);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policies::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policies::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl std::fmt::Debug for super::global_vm_extension_policies::UpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRequest");
+        debug_struct.field(
+            "global_vm_extension_policy",
+            &self.global_vm_extension_policy,
+        );
+        debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
@@ -30945,6 +31746,37 @@ impl std::fmt::Debug for super::license_codes::GetRequest {
 }
 
 #[cfg(feature = "license-codes")]
+impl std::fmt::Debug for super::license_codes::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "license-codes")]
+impl std::fmt::Debug for super::license_codes::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "license-codes")]
 impl std::fmt::Debug for super::license_codes::TestIamPermissionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
@@ -31988,6 +32820,21 @@ impl std::fmt::Debug for super::network_profiles::ListRequest {
 impl std::fmt::Debug for super::networks::AddPeeringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddPeeringRequest");
+        debug_struct.field("network", &self.network);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "networks")]
+impl std::fmt::Debug for super::networks::CancelRequestRemovePeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelRequestRemovePeeringRequest");
         debug_struct.field("network", &self.network);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
@@ -37795,6 +38642,123 @@ impl std::fmt::Debug for super::resource_policies::TestIamPermissionsRequest {
         debug_struct.field("region", &self.region);
         debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::rollout_plans::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("rollout_plan", &self.rollout_plan);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::rollout_plans::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("rollout_plan", &self.rollout_plan);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::rollout_plans::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollout-plans")]
+impl std::fmt::Debug for super::rollout_plans::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::rollouts::CancelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("rollback", &self.rollback);
+        debug_struct.field("rollout", &self.rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::rollouts::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("rollout", &self.rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::rollouts::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("rollout", &self.rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "rollouts")]
+impl std::fmt::Debug for super::rollouts::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

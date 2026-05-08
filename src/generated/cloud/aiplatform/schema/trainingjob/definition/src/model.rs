@@ -42,6 +42,7 @@ pub struct AutoMlImageClassification {
 }
 
 impl AutoMlImageClassification {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -119,9 +120,11 @@ impl wkt::message::Message for AutoMlImageClassification {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageClassificationInputs {
+    #[allow(missing_docs)]
     pub model_type: crate::model::auto_ml_image_classification_inputs::ModelType,
 
     /// The ID of the `base` model. If it is specified, the new model will be
@@ -164,6 +167,7 @@ pub struct AutoMlImageClassificationInputs {
 }
 
 impl AutoMlImageClassificationInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -248,6 +252,7 @@ pub mod auto_ml_image_classification_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [ModelType].
     ///
     /// # Working with unknown values
     ///
@@ -407,6 +412,7 @@ pub mod auto_ml_image_classification_inputs {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageClassificationMetadata {
@@ -424,6 +430,7 @@ pub struct AutoMlImageClassificationMetadata {
 }
 
 impl AutoMlImageClassificationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -473,6 +480,7 @@ pub mod auto_ml_image_classification_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [SuccessfulStopReason].
     ///
     /// # Working with unknown values
     ///
@@ -621,6 +629,7 @@ pub struct AutoMlImageObjectDetection {
 }
 
 impl AutoMlImageObjectDetection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -698,9 +707,11 @@ impl wkt::message::Message for AutoMlImageObjectDetection {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageObjectDetectionInputs {
+    #[allow(missing_docs)]
     pub model_type: crate::model::auto_ml_image_object_detection_inputs::ModelType,
 
     /// The training budget of creating this model, expressed in milli node
@@ -730,6 +741,7 @@ pub struct AutoMlImageObjectDetectionInputs {
 }
 
 impl AutoMlImageObjectDetectionInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -790,6 +802,7 @@ pub mod auto_ml_image_object_detection_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [ModelType].
     ///
     /// # Working with unknown values
     ///
@@ -958,6 +971,7 @@ pub mod auto_ml_image_object_detection_inputs {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageObjectDetectionMetadata {
@@ -975,6 +989,7 @@ pub struct AutoMlImageObjectDetectionMetadata {
 }
 
 impl AutoMlImageObjectDetectionMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1024,6 +1039,7 @@ pub mod auto_ml_image_object_detection_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [SuccessfulStopReason].
     ///
     /// # Working with unknown values
     ///
@@ -1172,6 +1188,7 @@ pub struct AutoMlImageSegmentation {
 }
 
 impl AutoMlImageSegmentation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1249,9 +1266,11 @@ impl wkt::message::Message for AutoMlImageSegmentation {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageSegmentationInputs {
+    #[allow(missing_docs)]
     pub model_type: crate::model::auto_ml_image_segmentation_inputs::ModelType,
 
     /// The training budget of creating this model, expressed in milli node
@@ -1280,6 +1299,7 @@ pub struct AutoMlImageSegmentationInputs {
 }
 
 impl AutoMlImageSegmentationInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1340,6 +1360,7 @@ pub mod auto_ml_image_segmentation_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [ModelType].
     ///
     /// # Working with unknown values
     ///
@@ -1485,6 +1506,7 @@ pub mod auto_ml_image_segmentation_inputs {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageSegmentationMetadata {
@@ -1502,6 +1524,7 @@ pub struct AutoMlImageSegmentationMetadata {
 }
 
 impl AutoMlImageSegmentationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1549,6 +1572,7 @@ pub mod auto_ml_image_segmentation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [SuccessfulStopReason].
     ///
     /// # Working with unknown values
     ///
@@ -1697,6 +1721,7 @@ pub struct AutoMlTables {
 }
 
 impl AutoMlTables {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1774,6 +1799,7 @@ impl wkt::message::Message for AutoMlTables {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTablesInputs {
@@ -1869,6 +1895,7 @@ pub struct AutoMlTablesInputs {
 }
 
 impl AutoMlTablesInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2135,6 +2162,7 @@ pub mod auto_ml_tables_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Transformation {
@@ -2148,6 +2176,7 @@ pub mod auto_ml_tables_inputs {
     }
 
     impl Transformation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2594,12 +2623,14 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AutoTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AutoTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2640,6 +2671,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NumericTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             /// If invalid values is allowed, the training pipeline will create a
@@ -2652,6 +2684,7 @@ pub mod auto_ml_tables_inputs {
         }
 
         impl NumericTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2703,12 +2736,14 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CategoricalTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl CategoricalTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2746,6 +2781,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TimestampTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             /// The format in which that time field is expressed. The time_format must
@@ -2772,6 +2808,7 @@ pub mod auto_ml_tables_inputs {
         }
 
         impl TimestampTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2840,12 +2877,14 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl TextTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2881,6 +2920,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NumericArrayTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             /// If invalid values is allowed, the training pipeline will create a
@@ -2893,6 +2933,7 @@ pub mod auto_ml_tables_inputs {
         }
 
         impl NumericArrayTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2943,12 +2984,14 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CategoricalArrayTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl CategoricalArrayTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2986,12 +3029,14 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextArrayTransformation {
+            #[allow(missing_docs)]
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl TextArrayTransformation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3023,13 +3068,21 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum TransformationDetail {
+            #[allow(missing_docs)]
             Auto(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::AutoTransformation>),
+            #[allow(missing_docs)]
             Numeric(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericTransformation>),
+            #[allow(missing_docs)]
             Categorical(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation>),
+            #[allow(missing_docs)]
             Timestamp(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation>),
+            #[allow(missing_docs)]
             Text(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextTransformation>),
+            #[allow(missing_docs)]
             RepeatedNumeric(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation>),
+            #[allow(missing_docs)]
             RepeatedCategorical(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation>),
+            #[allow(missing_docs)]
             RepeatedText(std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation>),
         }
     }
@@ -3062,6 +3115,7 @@ pub struct AutoMlTablesMetadata {
 }
 
 impl AutoMlTablesMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3096,6 +3150,7 @@ pub struct AutoMlTextClassification {
 }
 
 impl AutoMlTextClassification {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3140,15 +3195,18 @@ impl wkt::message::Message for AutoMlTextClassification {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextClassificationInputs {
+    #[allow(missing_docs)]
     pub multi_label: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoMlTextClassificationInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3183,6 +3241,7 @@ pub struct AutoMlTextExtraction {
 }
 
 impl AutoMlTextExtraction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3227,6 +3286,7 @@ impl wkt::message::Message for AutoMlTextExtraction {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextExtractionInputs {
@@ -3234,6 +3294,7 @@ pub struct AutoMlTextExtractionInputs {
 }
 
 impl AutoMlTextExtractionInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3256,6 +3317,7 @@ pub struct AutoMlTextSentiment {
 }
 
 impl AutoMlTextSentiment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3300,6 +3362,7 @@ impl wkt::message::Message for AutoMlTextSentiment {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextSentimentInputs {
@@ -3316,6 +3379,7 @@ pub struct AutoMlTextSentimentInputs {
 }
 
 impl AutoMlTextSentimentInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3351,6 +3415,7 @@ pub struct AutoMlVideoActionRecognition {
 }
 
 impl AutoMlVideoActionRecognition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3395,15 +3460,18 @@ impl wkt::message::Message for AutoMlVideoActionRecognition {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoActionRecognitionInputs {
+    #[allow(missing_docs)]
     pub model_type: crate::model::auto_ml_video_action_recognition_inputs::ModelType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoMlVideoActionRecognitionInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3440,6 +3508,7 @@ pub mod auto_ml_video_action_recognition_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [ModelType].
     ///
     /// # Working with unknown values
     ///
@@ -3607,6 +3676,7 @@ pub struct AutoMlVideoClassification {
 }
 
 impl AutoMlVideoClassification {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3651,15 +3721,18 @@ impl wkt::message::Message for AutoMlVideoClassification {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoClassificationInputs {
+    #[allow(missing_docs)]
     pub model_type: crate::model::auto_ml_video_classification_inputs::ModelType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoMlVideoClassificationInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3696,6 +3769,7 @@ pub mod auto_ml_video_classification_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [ModelType].
     ///
     /// # Working with unknown values
     ///
@@ -3852,6 +3926,7 @@ pub struct AutoMlVideoObjectTracking {
 }
 
 impl AutoMlVideoObjectTracking {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3896,15 +3971,18 @@ impl wkt::message::Message for AutoMlVideoObjectTracking {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoObjectTrackingInputs {
+    #[allow(missing_docs)]
     pub model_type: crate::model::auto_ml_video_object_tracking_inputs::ModelType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoMlVideoObjectTrackingInputs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3941,6 +4019,7 @@ pub mod auto_ml_video_object_tracking_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [ModelType].
     ///
     /// # Working with unknown values
     ///
@@ -4136,6 +4215,7 @@ pub struct ExportEvaluatedDataItemsConfig {
 }
 
 impl ExportEvaluatedDataItemsConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

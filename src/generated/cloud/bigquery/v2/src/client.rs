@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::DatasetService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DatasetService::builder().build().await?;
 ///     let response = client.get_dataset()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -43,7 +45,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -278,13 +280,15 @@ impl DatasetService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::JobService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = JobService::builder().build().await?;
 ///     let response = client.cancel_job()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -299,7 +303,7 @@ impl DatasetService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -543,13 +547,15 @@ impl JobService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::ModelService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ModelService::builder().build().await?;
 ///     let response = client.get_model()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -565,7 +571,7 @@ impl JobService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -731,13 +737,15 @@ impl ModelService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::ProjectService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ProjectService::builder().build().await?;
 ///     let response = client.get_service_account()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -753,7 +761,7 @@ impl ModelService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -856,13 +864,15 @@ impl ProjectService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::RoutineService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RoutineService::builder().build().await?;
 ///     let response = client.get_routine()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -878,7 +888,7 @@ impl ProjectService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1064,13 +1074,15 @@ impl RoutineService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RowAccessPolicyService::builder().build().await?;
 ///     let response = client.get_row_access_policy()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1086,7 +1098,7 @@ impl RoutineService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1304,13 +1316,15 @@ impl RowAccessPolicyService {
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::TableService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TableService::builder().build().await?;
 ///     let response = client.get_table()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1327,7 +1341,7 @@ impl RowAccessPolicyService {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://bigquery.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

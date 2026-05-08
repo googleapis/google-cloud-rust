@@ -56,13 +56,15 @@ pub mod stub;
 /// ```
 /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DatastoreAdmin::builder().build().await?;
 ///     let response = client.export_entities()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

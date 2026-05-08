@@ -59,6 +59,7 @@ pub struct GenerateFrameworkAuditScopeReportRequest {
 }
 
 impl GenerateFrameworkAuditScopeReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -266,6 +267,7 @@ pub struct GenerateFrameworkAuditScopeReportResponse {
 }
 
 impl GenerateFrameworkAuditScopeReportResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -401,6 +403,7 @@ pub struct ReportSummary {
 }
 
 impl ReportSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -499,6 +502,7 @@ pub struct CreateFrameworkAuditRequest {
 }
 
 impl CreateFrameworkAuditRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -582,6 +586,7 @@ pub struct FrameworkAuditDestination {
 }
 
 impl FrameworkAuditDestination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -681,6 +686,7 @@ pub struct BucketDestination {
 }
 
 impl BucketDestination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -901,6 +907,7 @@ pub struct FrameworkAudit {
 }
 
 impl FrameworkAudit {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1383,6 +1390,7 @@ pub struct ListFrameworkAuditsRequest {
 }
 
 impl ListFrameworkAuditsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1457,6 +1465,7 @@ pub struct ListFrameworkAuditsResponse {
 }
 
 impl ListFrameworkAuditsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1533,6 +1542,7 @@ pub struct GetFrameworkAuditRequest {
 }
 
 impl GetFrameworkAuditRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1603,6 +1613,7 @@ pub struct CloudControlGroupAuditDetails {
 }
 
 impl CloudControlGroupAuditDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1868,6 +1879,7 @@ pub struct FindingDetails {
 }
 
 impl FindingDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1992,6 +2004,7 @@ pub struct ObservationDetails {
 }
 
 impl ObservationDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2056,6 +2069,7 @@ pub struct EvidenceDetails {
 }
 
 impl EvidenceDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2129,6 +2143,7 @@ pub struct CloudControlAuditDetails {
 }
 
 impl CloudControlAuditDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2270,6 +2285,7 @@ pub struct UpdateCmEnrollmentRequest {
 }
 
 impl UpdateCmEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2364,6 +2380,7 @@ pub struct CalculateEffectiveCmEnrollmentRequest {
 }
 
 impl CalculateEffectiveCmEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2413,6 +2430,7 @@ pub struct CmEnrollment {
 }
 
 impl CmEnrollment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2492,6 +2510,7 @@ pub struct CalculateEffectiveCmEnrollmentResponse {
 }
 
 impl CalculateEffectiveCmEnrollmentResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2548,6 +2567,7 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2600,6 +2620,7 @@ pub mod audit_config {
     }
 
     impl CmEligibleDestination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2690,8 +2711,12 @@ pub mod audit_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Framework {
-    /// Required. Identifier. The name of the framework, in the format
-    /// `organizations/{organization}/locations/{location}/frameworks/{framework_id}`.
+    /// Required. Identifier. The name of the framework, in one of the following
+    /// formats:
+    /// `organizations/{organization}/locations/{location}/frameworks/{framework}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworks/{framework}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -2730,6 +2755,7 @@ pub struct Framework {
 }
 
 impl Framework {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3058,8 +3084,11 @@ pub mod framework {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDetails {
-    /// Required. The name of the cloud control, in the format
-    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud-control}`.
+    /// Required. The name of the cloud control, in one of the following formats:
+    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control}`
+    /// or
+    /// `projects/{project}/locations/{location}/cloudControls/{cloud_control}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -3076,6 +3105,7 @@ pub struct CloudControlDetails {
 }
 
 impl CloudControlDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3133,8 +3163,11 @@ impl wkt::message::Message for CloudControlDetails {
     }
 }
 
-/// The reference of a framework, in the format
-/// `organizations/{organization}/locations/{location}/frameworks/{framework}`.
+/// The reference of a framework, in one of the following formats:
+///
+/// - `organizations/{organization}/locations/{location}/frameworks/{framework}`
+/// - `projects/{project}/locations/{location}/frameworks/{framework}`.
+///
 /// The only supported location is `global`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3151,6 +3184,7 @@ pub struct FrameworkReference {
 }
 
 impl FrameworkReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3221,6 +3255,7 @@ pub struct Parameter {
 }
 
 impl Parameter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3282,8 +3317,12 @@ impl wkt::message::Message for Parameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControl {
-    /// Required. Identifier. The name of the cloud control, in the format
-    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control_id}`.
+    /// Required. Identifier. The name of the cloud control, in either of the
+    /// formats:
+    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control}`
+    /// or
+    /// `projects/{project}/locations/{location}/cloudControls/{cloud_control}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -3343,6 +3382,7 @@ pub struct CloudControl {
 }
 
 impl CloudControl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3804,6 +3844,7 @@ pub struct ParameterSpec {
 }
 
 impl ParameterSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4160,6 +4201,7 @@ pub struct Validation {
 }
 
 impl Validation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4337,6 +4379,7 @@ pub struct AllowedValues {
 }
 
 impl AllowedValues {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4381,6 +4424,7 @@ pub struct RegexpPattern {
 }
 
 impl RegexpPattern {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4420,6 +4464,7 @@ pub struct IntRange {
 }
 
 impl IntRange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4466,6 +4511,7 @@ pub struct StringList {
 }
 
 impl StringList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4505,6 +4551,7 @@ pub struct ParamValue {
 }
 
 impl ParamValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4720,15 +4767,15 @@ pub mod param_value {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
-        /// A string value.
+        /// Optional. A string value.
         StringValue(std::string::String),
-        /// A boolean value.
+        /// Optional. A boolean value.
         BoolValue(bool),
-        /// A repeated string.
+        /// Optional. A repeated string.
         StringListValue(std::boxed::Box<crate::model::StringList>),
-        /// A double value.
+        /// Optional. A double value.
         NumberValue(f64),
-        /// Sub-parameter values.
+        /// Optional. Sub-parameter values.
         OneofValue(std::boxed::Box<crate::model::Parameter>),
     }
 }
@@ -4745,6 +4792,7 @@ pub struct ParameterSubstitutionRule {
 }
 
 impl ParameterSubstitutionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4890,6 +4938,7 @@ pub struct AttributeSubstitutionRule {
 }
 
 impl AttributeSubstitutionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4924,6 +4973,7 @@ pub struct PlaceholderSubstitutionRule {
 }
 
 impl PlaceholderSubstitutionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4964,6 +5014,7 @@ pub struct Rule {
 }
 
 impl Rule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5098,6 +5149,7 @@ pub struct CELExpression {
 }
 
 impl CELExpression {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5234,6 +5286,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5371,6 +5424,543 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// The regulatory control.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Control {
+    /// Output only. The name of a regulatory control, in one of the following
+    /// formats:
+    ///
+    /// - `organizations/{organization}/locations/{location}/controls/{control}`
+    /// - `projects/{project}/locations/{location}/controls/{control}`.
+    ///
+    /// The only supported location is `global`.
+    pub name: std::string::String,
+
+    /// Output only. The friendly name for the regulatory control.
+    pub display_name: std::string::String,
+
+    /// Output only. The description of the regulatory control.
+    pub description: std::string::String,
+
+    /// Output only. The regulatory group that the control belongs to.
+    pub family: crate::model::control::Family,
+
+    /// Output only. The regulatory family that the control belongs to.
+    pub control_family: std::option::Option<crate::model::ControlFamily>,
+
+    /// Output only. The entity that's responsible for the control, whether Google,
+    /// you as the customer, or both.
+    pub responsibility_type: crate::model::RegulatoryControlResponsibilityType,
+
+    /// Output only. A description of Google's responsibility for the regulatory
+    /// control.
+    pub google_responsibility_description: std::string::String,
+
+    /// Output only. A description of Google's responsibility for implementing the
+    /// regulatory control.
+    pub google_responsibility_implementation: std::string::String,
+
+    /// Output only. A description of your responsibility for the regulatory
+    /// control.
+    pub customer_responsibility_description: std::string::String,
+
+    /// Output only. A description of the your responsibility for implementing the
+    /// regulatory control.
+    pub customer_responsibility_implementation: std::string::String,
+
+    /// Output only. A description of the responsibility that's shared between
+    /// Google and you in implementing this control.
+    pub shared_responsibility_description: std::string::String,
+
+    /// Output only. A link to the documentation that's related to this control.
+    pub additional_content_uri: std::string::String,
+
+    /// Output only. The frameworks that include this control.
+    pub related_frameworks: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Control {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Control::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Control::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Control::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [family][crate::model::Control::family].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::control::Family;
+    /// let x0 = Control::new().set_family(Family::Ac);
+    /// let x1 = Control::new().set_family(Family::At);
+    /// let x2 = Control::new().set_family(Family::Au);
+    /// ```
+    pub fn set_family<T: std::convert::Into<crate::model::control::Family>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.family = v.into();
+        self
+    }
+
+    /// Sets the value of [control_family][crate::model::Control::control_family].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlFamily;
+    /// let x = Control::new().set_control_family(ControlFamily::default()/* use setters */);
+    /// ```
+    pub fn set_control_family<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlFamily>,
+    {
+        self.control_family = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_family][crate::model::Control::control_family].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlFamily;
+    /// let x = Control::new().set_or_clear_control_family(Some(ControlFamily::default()/* use setters */));
+    /// let x = Control::new().set_or_clear_control_family(None::<ControlFamily>);
+    /// ```
+    pub fn set_or_clear_control_family<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlFamily>,
+    {
+        self.control_family = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [responsibility_type][crate::model::Control::responsibility_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::RegulatoryControlResponsibilityType;
+    /// let x0 = Control::new().set_responsibility_type(RegulatoryControlResponsibilityType::Google);
+    /// let x1 = Control::new().set_responsibility_type(RegulatoryControlResponsibilityType::Customer);
+    /// let x2 = Control::new().set_responsibility_type(RegulatoryControlResponsibilityType::Shared);
+    /// ```
+    pub fn set_responsibility_type<
+        T: std::convert::Into<crate::model::RegulatoryControlResponsibilityType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.responsibility_type = v.into();
+        self
+    }
+
+    /// Sets the value of [google_responsibility_description][crate::model::Control::google_responsibility_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_google_responsibility_description("example");
+    /// ```
+    pub fn set_google_responsibility_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.google_responsibility_description = v.into();
+        self
+    }
+
+    /// Sets the value of [google_responsibility_implementation][crate::model::Control::google_responsibility_implementation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_google_responsibility_implementation("example");
+    /// ```
+    pub fn set_google_responsibility_implementation<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.google_responsibility_implementation = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_responsibility_description][crate::model::Control::customer_responsibility_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_customer_responsibility_description("example");
+    /// ```
+    pub fn set_customer_responsibility_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_responsibility_description = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_responsibility_implementation][crate::model::Control::customer_responsibility_implementation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_customer_responsibility_implementation("example");
+    /// ```
+    pub fn set_customer_responsibility_implementation<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_responsibility_implementation = v.into();
+        self
+    }
+
+    /// Sets the value of [shared_responsibility_description][crate::model::Control::shared_responsibility_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_shared_responsibility_description("example");
+    /// ```
+    pub fn set_shared_responsibility_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.shared_responsibility_description = v.into();
+        self
+    }
+
+    /// Sets the value of [additional_content_uri][crate::model::Control::additional_content_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_additional_content_uri("example");
+    /// ```
+    pub fn set_additional_content_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.additional_content_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [related_frameworks][crate::model::Control::related_frameworks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Control;
+    /// let x = Control::new().set_related_frameworks(["a", "b", "c"]);
+    /// ```
+    pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.related_frameworks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Control {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.Control"
+    }
+}
+
+/// Defines additional types related to [Control].
+pub mod control {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The regulatory control family.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Family {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Access control
+        Ac,
+        /// Awareness and araining
+        At,
+        /// Audit and accountability
+        Au,
+        /// Certification, accreditation, and security assessments
+        Ca,
+        /// Configuration management
+        Cm,
+        /// Contingency planning
+        Cp,
+        /// Identification and authentication
+        Ia,
+        /// Incident response
+        Ir,
+        /// Maintenance
+        Ma,
+        /// Media protection
+        Mp,
+        /// Physical and environmental protection
+        Pe,
+        /// Security planning
+        Pl,
+        /// Personnel aecurity
+        Ps,
+        /// Risk assessment
+        Ra,
+        /// System services and acquisition
+        Sa,
+        /// System and communications protection
+        Sc,
+        /// System and information integrity
+        Si,
+        /// Supply chain risk management
+        Sr,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Family::value] or
+        /// [Family::name].
+        UnknownValue(family::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod family {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Family {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ac => std::option::Option::Some(1),
+                Self::At => std::option::Option::Some(2),
+                Self::Au => std::option::Option::Some(3),
+                Self::Ca => std::option::Option::Some(4),
+                Self::Cm => std::option::Option::Some(5),
+                Self::Cp => std::option::Option::Some(6),
+                Self::Ia => std::option::Option::Some(7),
+                Self::Ir => std::option::Option::Some(8),
+                Self::Ma => std::option::Option::Some(9),
+                Self::Mp => std::option::Option::Some(10),
+                Self::Pe => std::option::Option::Some(11),
+                Self::Pl => std::option::Option::Some(12),
+                Self::Ps => std::option::Option::Some(13),
+                Self::Ra => std::option::Option::Some(14),
+                Self::Sa => std::option::Option::Some(15),
+                Self::Sc => std::option::Option::Some(16),
+                Self::Si => std::option::Option::Some(17),
+                Self::Sr => std::option::Option::Some(18),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FAMILY_UNSPECIFIED"),
+                Self::Ac => std::option::Option::Some("AC"),
+                Self::At => std::option::Option::Some("AT"),
+                Self::Au => std::option::Option::Some("AU"),
+                Self::Ca => std::option::Option::Some("CA"),
+                Self::Cm => std::option::Option::Some("CM"),
+                Self::Cp => std::option::Option::Some("CP"),
+                Self::Ia => std::option::Option::Some("IA"),
+                Self::Ir => std::option::Option::Some("IR"),
+                Self::Ma => std::option::Option::Some("MA"),
+                Self::Mp => std::option::Option::Some("MP"),
+                Self::Pe => std::option::Option::Some("PE"),
+                Self::Pl => std::option::Option::Some("PL"),
+                Self::Ps => std::option::Option::Some("PS"),
+                Self::Ra => std::option::Option::Some("RA"),
+                Self::Sa => std::option::Option::Some("SA"),
+                Self::Sc => std::option::Option::Some("SC"),
+                Self::Si => std::option::Option::Some("SI"),
+                Self::Sr => std::option::Option::Some("SR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Family {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Family {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Family {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ac,
+                2 => Self::At,
+                3 => Self::Au,
+                4 => Self::Ca,
+                5 => Self::Cm,
+                6 => Self::Cp,
+                7 => Self::Ia,
+                8 => Self::Ir,
+                9 => Self::Ma,
+                10 => Self::Mp,
+                11 => Self::Pe,
+                12 => Self::Pl,
+                13 => Self::Ps,
+                14 => Self::Ra,
+                15 => Self::Sa,
+                16 => Self::Sc,
+                17 => Self::Si,
+                18 => Self::Sr,
+                _ => Self::UnknownValue(family::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Family {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FAMILY_UNSPECIFIED" => Self::Unspecified,
+                "AC" => Self::Ac,
+                "AT" => Self::At,
+                "AU" => Self::Au,
+                "CA" => Self::Ca,
+                "CM" => Self::Cm,
+                "CP" => Self::Cp,
+                "IA" => Self::Ia,
+                "IR" => Self::Ir,
+                "MA" => Self::Ma,
+                "MP" => Self::Mp,
+                "PE" => Self::Pe,
+                "PL" => Self::Pl,
+                "PS" => Self::Ps,
+                "RA" => Self::Ra,
+                "SA" => Self::Sa,
+                "SC" => Self::Sc,
+                "SI" => Self::Si,
+                "SR" => Self::Sr,
+                _ => Self::UnknownValue(family::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Family {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ac => serializer.serialize_i32(1),
+                Self::At => serializer.serialize_i32(2),
+                Self::Au => serializer.serialize_i32(3),
+                Self::Ca => serializer.serialize_i32(4),
+                Self::Cm => serializer.serialize_i32(5),
+                Self::Cp => serializer.serialize_i32(6),
+                Self::Ia => serializer.serialize_i32(7),
+                Self::Ir => serializer.serialize_i32(8),
+                Self::Ma => serializer.serialize_i32(9),
+                Self::Mp => serializer.serialize_i32(10),
+                Self::Pe => serializer.serialize_i32(11),
+                Self::Pl => serializer.serialize_i32(12),
+                Self::Ps => serializer.serialize_i32(13),
+                Self::Ra => serializer.serialize_i32(14),
+                Self::Sa => serializer.serialize_i32(15),
+                Self::Sc => serializer.serialize_i32(16),
+                Self::Si => serializer.serialize_i32(17),
+                Self::Sr => serializer.serialize_i32(18),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Family {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Family>::new(
+                ".google.cloud.cloudsecuritycompliance.v1.Control.Family",
+            ))
+        }
+    }
+}
+
 /// The regulatory family of the control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5385,6 +5975,7 @@ pub struct ControlFamily {
 }
 
 impl ControlFamily {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5424,8 +6015,11 @@ impl wkt::message::Message for ControlFamily {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksRequest {
-    /// Required. The parent resource name, in the format
-    /// `organizations/{organization}/locations/{location}`.
+    /// Required. The parent resource name, in one of the following formats:
+    ///
+    /// - `organizations/{organization}/locations/{location}`
+    /// - `projects/{project}/locations/{location}`.
+    ///
     /// The only supported location is `global`.
     pub parent: std::string::String,
 
@@ -5444,6 +6038,7 @@ pub struct ListFrameworksRequest {
 }
 
 impl ListFrameworksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5507,6 +6102,7 @@ pub struct ListFrameworksResponse {
 }
 
 impl ListFrameworksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5570,8 +6166,12 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListFrameworksR
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkRequest {
-    /// Required. The name of the framework to retrieve, in the format
-    /// `organizations/{organization}/locations/{location}/frameworks/{framework_id}`
+    /// Required. The name of the framework to retrieve, in one of the following
+    /// formats:
+    /// `organizations/{organization}/locations/{location}/frameworks/{framework}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworks/{framework}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -5583,6 +6183,7 @@ pub struct GetFrameworkRequest {
 }
 
 impl GetFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5622,8 +6223,11 @@ impl wkt::message::Message for GetFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkRequest {
-    /// Required. The parent resource name, in the format
-    /// `organizations/{organization}/locations/{location}`.
+    /// Required. The parent resource name, in one of the following formats:
+    ///
+    /// - `organizations/{organization}/locations/{location}`
+    /// - `projects/{project}/locations/{location}`.
+    ///
     /// The only supported location is `global`.
     pub parent: std::string::String,
 
@@ -5638,6 +6242,7 @@ pub struct CreateFrameworkRequest {
 }
 
 impl CreateFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5727,6 +6332,7 @@ pub struct UpdateFrameworkRequest {
 }
 
 impl UpdateFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5820,8 +6426,11 @@ impl wkt::message::Message for UpdateFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkRequest {
-    /// Required. The name of the resource, in the format
-    /// `organizations/{organization}/locations/{location}/frameworks/{framework}`.
+    /// Required. The name of the resource, in one of the following formats:
+    /// `organizations/{organization}/locations/{location}/frameworks/{framework}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworks/{framework}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -5829,6 +6438,7 @@ pub struct DeleteFrameworkRequest {
 }
 
 impl DeleteFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5856,8 +6466,11 @@ impl wkt::message::Message for DeleteFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlsRequest {
-    /// Required. The parent resource name, in the format
-    /// `organizations/{organization}/locations/{location}`.
+    /// Required. The parent resource name, in one of the following formats:
+    ///
+    /// - `organizations/{organization}/locations/{location}`
+    /// - `projects/{project}/locations/{location}`.
+    ///
     /// The only supported location is `global`.
     pub parent: std::string::String,
 
@@ -5883,6 +6496,7 @@ pub struct ListCloudControlsRequest {
 }
 
 impl ListCloudControlsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5945,6 +6559,7 @@ pub struct ListCloudControlsResponse {
 }
 
 impl ListCloudControlsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6008,8 +6623,12 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListCloudContro
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlRequest {
-    /// Required. The name of the cloud control to retrieve, in the format
-    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control}`.
+    /// Required. The name of the cloud control to retrieve, in one of the
+    /// following formats:
+    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control}`
+    /// or
+    /// `projects/{project}/locations/{location}/cloudControls/{cloud_control}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -6021,6 +6640,7 @@ pub struct GetCloudControlRequest {
 }
 
 impl GetCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6060,8 +6680,11 @@ impl wkt::message::Message for GetCloudControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCloudControlRequest {
-    /// Required. The parent resource name, in the format
-    /// `organizations/{organization}/locations/{location}`.
+    /// Required. The parent resource name, in one of the following formats:
+    ///
+    /// - `organizations/{organization}/locations/{location}`.
+    /// - `projects/{project}/locations/{location}`.
+    ///
     /// The only supported location is `global`.
     pub parent: std::string::String,
 
@@ -6077,6 +6700,7 @@ pub struct CreateCloudControlRequest {
 }
 
 impl CreateCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6175,6 +6799,7 @@ pub struct UpdateCloudControlRequest {
 }
 
 impl UpdateCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6256,8 +6881,12 @@ impl wkt::message::Message for UpdateCloudControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCloudControlRequest {
-    /// Required. The name of the cloud control to delete, in the format
-    /// `organizations/{organization}/locations/{location}/CloudControls/{CloudControl}`.
+    /// Required. The name of the cloud control to delete, in one of the following
+    /// formats:
+    /// `organizations/{organization}/locations/{location}/CloudControls/{CloudControl}`
+    /// or
+    /// `projects/{project}/locations/{location}/CloudControls/{CloudControl}`.
+    ///
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -6265,6 +6894,7 @@ pub struct DeleteCloudControlRequest {
 }
 
 impl DeleteCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6295,7 +6925,9 @@ impl wkt::message::Message for DeleteCloudControlRequest {
 #[non_exhaustive]
 pub struct FrameworkDeployment {
     /// Identifier. The name of the framework deployment, in the format
-    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworkDeployments/{framework_deployment}`.
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -6366,6 +6998,7 @@ pub struct FrameworkDeployment {
 }
 
 impl FrameworkDeployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6645,7 +7278,9 @@ impl wkt::message::Message for FrameworkDeployment {
 #[non_exhaustive]
 pub struct CloudControlDeployment {
     /// Identifier. The name for the cloud control deployment, in the format
-    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/cloudControlDeployments/{cloud_control_deployment}`.
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -6698,6 +7333,7 @@ pub struct CloudControlDeployment {
 }
 
 impl CloudControlDeployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6992,6 +7628,7 @@ pub struct TargetResourceConfig {
 }
 
 impl TargetResourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7138,6 +7775,7 @@ pub struct TargetResourceCreationConfig {
 }
 
 impl TargetResourceCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7289,6 +7927,7 @@ pub struct FolderCreationConfig {
 }
 
 impl FolderCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7346,6 +7985,7 @@ pub struct ProjectCreationConfig {
 }
 
 impl ProjectCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7414,6 +8054,7 @@ pub struct CloudControlMetadata {
 }
 
 impl CloudControlMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7481,7 +8122,9 @@ impl wkt::message::Message for CloudControlMetadata {
 #[non_exhaustive]
 pub struct CreateFrameworkDeploymentRequest {
     /// Required. The parent resource of the framework deployment in the format
-    /// `organizations/{organization}/locations/{location}`.
+    /// `organizations/{organization}/locations/{location}`
+    /// or
+    /// `projects/{project}/locations/{location}`.
     /// Only the global location is supported.
     pub parent: std::string::String,
 
@@ -7497,6 +8140,7 @@ pub struct CreateFrameworkDeploymentRequest {
 }
 
 impl CreateFrameworkDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7574,7 +8218,9 @@ impl wkt::message::Message for CreateFrameworkDeploymentRequest {
 pub struct DeleteFrameworkDeploymentRequest {
     /// Required. The name of the framework deployment that you want to delete,
     /// in the format
-    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworkDeployments/{framework_deployment}`.
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -7592,6 +8238,7 @@ pub struct DeleteFrameworkDeploymentRequest {
 }
 
 impl DeleteFrameworkDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7632,7 +8279,9 @@ impl wkt::message::Message for DeleteFrameworkDeploymentRequest {
 #[non_exhaustive]
 pub struct GetFrameworkDeploymentRequest {
     /// Required. The name of the framework deployment, in the format
-    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworkDeployments/{framework_deployment}`.
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -7640,6 +8289,7 @@ pub struct GetFrameworkDeploymentRequest {
 }
 
 impl GetFrameworkDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7668,7 +8318,9 @@ impl wkt::message::Message for GetFrameworkDeploymentRequest {
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsRequest {
     /// Required. The parent resource of the framework deployment, in the format
-    /// `organizations/{organization}/locations/{location}`.
+    /// `organizations/{organization}/locations/{location}`
+    /// or
+    /// `projects/{project}/locations/{location}`.
     /// The only supported location is `global`.
     pub parent: std::string::String,
 
@@ -7698,6 +8350,7 @@ pub struct ListFrameworkDeploymentsRequest {
 }
 
 impl ListFrameworkDeploymentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7784,6 +8437,7 @@ pub struct ListFrameworkDeploymentsResponse {
 }
 
 impl ListFrameworkDeploymentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7848,7 +8502,9 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListFrameworkDe
 #[non_exhaustive]
 pub struct GetCloudControlDeploymentRequest {
     /// Required. The name for the cloud control deployment, in the format
-    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/cloudControlDeployments/{cloud_control_deployment}`.
     /// The only supported location is `global`.
     pub name: std::string::String,
 
@@ -7856,6 +8512,7 @@ pub struct GetCloudControlDeploymentRequest {
 }
 
 impl GetCloudControlDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7884,8 +8541,9 @@ impl wkt::message::Message for GetCloudControlDeploymentRequest {
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsRequest {
     /// Required. The parent resource for the cloud control deployment, in the
-    /// format `organizations/{organization}/locations/{location}`. The only
-    /// supported location is `global`.
+    /// format `organizations/{organization}/locations/{location}` or
+    /// `projects/{project}/locations/{location}`.
+    /// The only supported location is `global`.
     pub parent: std::string::String,
 
     /// Optional. The requested page size. The server might return fewer items than
@@ -7914,6 +8572,7 @@ pub struct ListCloudControlDeploymentsRequest {
 }
 
 impl ListCloudControlDeploymentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8000,6 +8659,7 @@ pub struct ListCloudControlDeploymentsResponse {
 }
 
 impl ListCloudControlDeploymentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8066,7 +8726,9 @@ impl google_cloud_gax::paginator::internal::PageableResponse
 #[non_exhaustive]
 pub struct CloudControlDeploymentReference {
     /// Output only. The name of the CloudControlDeployment. The format is
-    /// `organizations/{org}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/cloudControlDeployments/{cloud_control_deployment}`.
     /// The only supported location is `global`.
     pub cloud_control_deployment: std::string::String,
 
@@ -8074,6 +8736,7 @@ pub struct CloudControlDeploymentReference {
 }
 
 impl CloudControlDeploymentReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8105,7 +8768,9 @@ impl wkt::message::Message for CloudControlDeploymentReference {
 #[non_exhaustive]
 pub struct FrameworkDeploymentReference {
     /// Output only. The name of the framework deployment, in the format
-    /// `organizations/{org}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment}`
+    /// or
+    /// `projects/{project}/locations/{location}/frameworkDeployments/{framework_deployment}`.
     /// The only supported location is `global`.
     pub framework_deployment: std::string::String,
 
@@ -8115,7 +8780,7 @@ pub struct FrameworkDeploymentReference {
     /// ```norust
     /// {
     ///   framework:
-    ///   "organizations/{org}/locations/{location}/frameworks/{framework}",
+    ///   "organizations/{organization}/locations/{location}/frameworks/{framework}",
     ///   major_revision_id: 1
     /// }
     /// ```
@@ -8131,6 +8796,7 @@ pub struct FrameworkDeploymentReference {
 }
 
 impl FrameworkDeploymentReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8226,10 +8892,14 @@ pub struct ListFrameworkComplianceSummariesRequest {
     /// Optional. The filtering results.
     pub filter: std::string::String,
 
+    /// Optional. Specifies the level of detail to return in the response.
+    pub view: crate::model::FrameworkComplianceSummaryView,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFrameworkComplianceSummariesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8281,6 +8951,23 @@ impl ListFrameworkComplianceSummariesRequest {
         self.filter = v.into();
         self
     }
+
+    /// Sets the value of [view][crate::model::ListFrameworkComplianceSummariesRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummaryView;
+    /// let x0 = ListFrameworkComplianceSummariesRequest::new().set_view(FrameworkComplianceSummaryView::Basic);
+    /// let x1 = ListFrameworkComplianceSummariesRequest::new().set_view(FrameworkComplianceSummaryView::Full);
+    /// ```
+    pub fn set_view<T: std::convert::Into<crate::model::FrameworkComplianceSummaryView>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.view = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListFrameworkComplianceSummariesRequest {
@@ -8306,6 +8993,7 @@ pub struct ListFrameworkComplianceSummariesResponse {
 }
 
 impl ListFrameworkComplianceSummariesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8411,6 +9099,7 @@ pub struct FrameworkComplianceReport {
 }
 
 impl FrameworkComplianceReport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8659,10 +9348,14 @@ pub struct FetchFrameworkComplianceReportRequest {
     /// Optional. The end time of the report.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
+    /// Optional. The filtering results.
+    pub filter: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchFrameworkComplianceReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8711,6 +9404,18 @@ impl FetchFrameworkComplianceReportRequest {
         self.end_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [filter][crate::model::FetchFrameworkComplianceReportRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FetchFrameworkComplianceReportRequest;
+    /// let x = FetchFrameworkComplianceReportRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for FetchFrameworkComplianceReportRequest {
@@ -8745,6 +9450,7 @@ pub struct ListFindingSummariesRequest {
 }
 
 impl ListFindingSummariesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8853,6 +9559,7 @@ pub struct ListFindingSummariesResponse {
 }
 
 impl ListFindingSummariesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8938,6 +9645,7 @@ pub struct ListControlComplianceSummariesRequest {
 }
 
 impl ListControlComplianceSummariesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9046,6 +9754,7 @@ pub struct ListControlComplianceSummariesResponse {
 }
 
 impl ListControlComplianceSummariesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9129,6 +9838,7 @@ pub struct AggregateFrameworkComplianceReportRequest {
 }
 
 impl AggregateFrameworkComplianceReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9208,6 +9918,7 @@ pub struct AggregateFrameworkComplianceReportResponse {
 }
 
 impl AggregateFrameworkComplianceReportResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9262,6 +9973,7 @@ pub struct ControlAssessmentDetails {
 }
 
 impl ControlAssessmentDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9355,10 +10067,17 @@ pub struct FrameworkComplianceSummary {
     /// The target resource details for the framework.
     pub target_resource_details: std::vec::Vec<crate::model::TargetResourceDetails>,
 
+    /// Output only. The count of the findings generated against the framework.
+    pub finding_count: i64,
+
+    /// Output only. The trend of controls that are passing for the given duration.
+    pub controls_passing_trend: std::option::Option<crate::model::Trend>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FrameworkComplianceSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9541,6 +10260,51 @@ impl FrameworkComplianceSummary {
         self.target_resource_details = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [finding_count][crate::model::FrameworkComplianceSummary::finding_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = FrameworkComplianceSummary::new().set_finding_count(42);
+    /// ```
+    pub fn set_finding_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.finding_count = v.into();
+        self
+    }
+
+    /// Sets the value of [controls_passing_trend][crate::model::FrameworkComplianceSummary::controls_passing_trend].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Trend;
+    /// let x = FrameworkComplianceSummary::new().set_controls_passing_trend(Trend::default()/* use setters */);
+    /// ```
+    pub fn set_controls_passing_trend<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Trend>,
+    {
+        self.controls_passing_trend = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [controls_passing_trend][crate::model::FrameworkComplianceSummary::controls_passing_trend].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Trend;
+    /// let x = FrameworkComplianceSummary::new().set_or_clear_controls_passing_trend(Some(Trend::default()/* use setters */));
+    /// let x = FrameworkComplianceSummary::new().set_or_clear_controls_passing_trend(None::<Trend>);
+    /// ```
+    pub fn set_or_clear_controls_passing_trend<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Trend>,
+    {
+        self.controls_passing_trend = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for FrameworkComplianceSummary {
@@ -9578,6 +10342,7 @@ pub struct FindingSummary {
 }
 
 impl FindingSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9753,6 +10518,7 @@ pub struct ControlComplianceSummary {
 }
 
 impl ControlComplianceSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9989,6 +10755,7 @@ pub struct CloudControlReport {
 }
 
 impl CloudControlReport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10357,6 +11124,7 @@ pub struct ManualCloudControlAssessmentDetails {
 }
 
 impl ManualCloudControlAssessmentDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10399,6 +11167,7 @@ pub struct CloudControlAssessmentDetails {
 }
 
 impl CloudControlAssessmentDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10454,6 +11223,7 @@ pub struct SimilarControls {
 }
 
 impl SimilarControls {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10503,6 +11273,7 @@ pub struct AggregatedComplianceReport {
 }
 
 impl AggregatedComplianceReport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10614,6 +11385,7 @@ pub struct TargetResourceDetails {
 }
 
 impl TargetResourceDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10754,6 +11526,78 @@ impl TargetResourceDetails {
 impl wkt::message::Message for TargetResourceDetails {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.TargetResourceDetails"
+    }
+}
+
+/// The trend of a compliance metric.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Trend {
+    /// Output only. The duration for the trend.
+    pub duration: std::option::Option<wkt::Duration>,
+
+    /// Output only. The trend value as a percentage. The value can be positive or
+    /// negative.
+    pub value_percent: f64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Trend {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [duration][crate::model::Trend::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Trend;
+    /// use wkt::Duration;
+    /// let x = Trend::new().set_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [duration][crate::model::Trend::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Trend;
+    /// use wkt::Duration;
+    /// let x = Trend::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = Trend::new().set_or_clear_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [value_percent][crate::model::Trend::value_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Trend;
+    /// let x = Trend::new().set_value_percent(42.0);
+    /// ```
+    pub fn set_value_percent<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.value_percent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Trend {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.Trend"
     }
 }
 
@@ -11395,6 +12239,14 @@ pub enum CloudControlCategory {
     CcCategoryPrivacy,
     /// The business continuity and disaster recovery (BCDR) category.
     CcCategoryBcdr,
+    /// The admin access category.
+    CcCategoryAdminAccess,
+    /// DRZ (Data Residency).
+    CcCategoryDataResidency,
+    /// RUR (Resource Usage Restriction).
+    CcCategoryResourceUsageRestriction,
+    /// SERVICE SPECIFIC
+    CcCategoryServiceSpecific,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [CloudControlCategory::value] or
@@ -11433,6 +12285,10 @@ impl CloudControlCategory {
             Self::CcCategoryVulnerabilityManagement => std::option::Option::Some(13),
             Self::CcCategoryPrivacy => std::option::Option::Some(14),
             Self::CcCategoryBcdr => std::option::Option::Some(15),
+            Self::CcCategoryAdminAccess => std::option::Option::Some(16),
+            Self::CcCategoryDataResidency => std::option::Option::Some(17),
+            Self::CcCategoryResourceUsageRestriction => std::option::Option::Some(18),
+            Self::CcCategoryServiceSpecific => std::option::Option::Some(19),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -11481,6 +12337,16 @@ impl CloudControlCategory {
             }
             Self::CcCategoryPrivacy => std::option::Option::Some("CC_CATEGORY_PRIVACY"),
             Self::CcCategoryBcdr => std::option::Option::Some("CC_CATEGORY_BCDR"),
+            Self::CcCategoryAdminAccess => std::option::Option::Some("CC_CATEGORY_ADMIN_ACCESS"),
+            Self::CcCategoryDataResidency => {
+                std::option::Option::Some("CC_CATEGORY_DATA_RESIDENCY")
+            }
+            Self::CcCategoryResourceUsageRestriction => {
+                std::option::Option::Some("CC_CATEGORY_RESOURCE_USAGE_RESTRICTION")
+            }
+            Self::CcCategoryServiceSpecific => {
+                std::option::Option::Some("CC_CATEGORY_SERVICE_SPECIFIC")
+            }
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -11518,6 +12384,10 @@ impl std::convert::From<i32> for CloudControlCategory {
             13 => Self::CcCategoryVulnerabilityManagement,
             14 => Self::CcCategoryPrivacy,
             15 => Self::CcCategoryBcdr,
+            16 => Self::CcCategoryAdminAccess,
+            17 => Self::CcCategoryDataResidency,
+            18 => Self::CcCategoryResourceUsageRestriction,
+            19 => Self::CcCategoryServiceSpecific,
             _ => Self::UnknownValue(cloud_control_category::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -11551,6 +12421,10 @@ impl std::convert::From<&str> for CloudControlCategory {
             "CC_CATEGORY_VULNERABILITY_MANAGEMENT" => Self::CcCategoryVulnerabilityManagement,
             "CC_CATEGORY_PRIVACY" => Self::CcCategoryPrivacy,
             "CC_CATEGORY_BCDR" => Self::CcCategoryBcdr,
+            "CC_CATEGORY_ADMIN_ACCESS" => Self::CcCategoryAdminAccess,
+            "CC_CATEGORY_DATA_RESIDENCY" => Self::CcCategoryDataResidency,
+            "CC_CATEGORY_RESOURCE_USAGE_RESTRICTION" => Self::CcCategoryResourceUsageRestriction,
+            "CC_CATEGORY_SERVICE_SPECIFIC" => Self::CcCategoryServiceSpecific,
             _ => Self::UnknownValue(cloud_control_category::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -11580,6 +12454,10 @@ impl serde::ser::Serialize for CloudControlCategory {
             Self::CcCategoryVulnerabilityManagement => serializer.serialize_i32(13),
             Self::CcCategoryPrivacy => serializer.serialize_i32(14),
             Self::CcCategoryBcdr => serializer.serialize_i32(15),
+            Self::CcCategoryAdminAccess => serializer.serialize_i32(16),
+            Self::CcCategoryDataResidency => serializer.serialize_i32(17),
+            Self::CcCategoryResourceUsageRestriction => serializer.serialize_i32(18),
+            Self::CcCategoryServiceSpecific => serializer.serialize_i32(19),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -12231,6 +13109,8 @@ pub enum DeploymentState {
     Creating,
     /// Deployment is being deleted.
     Deleting,
+    /// Deployment is being updated.
+    Updating,
     /// Deployment has failed. All the changes made by the deployment were
     /// successfully rolled back. You can retry or delete a deployment that's
     /// in this state.
@@ -12271,6 +13151,7 @@ impl DeploymentState {
             Self::Validating => std::option::Option::Some(1),
             Self::Creating => std::option::Option::Some(2),
             Self::Deleting => std::option::Option::Some(3),
+            Self::Updating => std::option::Option::Some(8),
             Self::Failed => std::option::Option::Some(4),
             Self::Ready => std::option::Option::Some(5),
             Self::PartiallyDeployed => std::option::Option::Some(6),
@@ -12289,6 +13170,7 @@ impl DeploymentState {
             Self::Validating => std::option::Option::Some("DEPLOYMENT_STATE_VALIDATING"),
             Self::Creating => std::option::Option::Some("DEPLOYMENT_STATE_CREATING"),
             Self::Deleting => std::option::Option::Some("DEPLOYMENT_STATE_DELETING"),
+            Self::Updating => std::option::Option::Some("DEPLOYMENT_STATE_UPDATING"),
             Self::Failed => std::option::Option::Some("DEPLOYMENT_STATE_FAILED"),
             Self::Ready => std::option::Option::Some("DEPLOYMENT_STATE_READY"),
             Self::PartiallyDeployed => {
@@ -12326,6 +13208,7 @@ impl std::convert::From<i32> for DeploymentState {
             5 => Self::Ready,
             6 => Self::PartiallyDeployed,
             7 => Self::PartiallyDeleted,
+            8 => Self::Updating,
             _ => Self::UnknownValue(deployment_state::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -12341,6 +13224,7 @@ impl std::convert::From<&str> for DeploymentState {
             "DEPLOYMENT_STATE_VALIDATING" => Self::Validating,
             "DEPLOYMENT_STATE_CREATING" => Self::Creating,
             "DEPLOYMENT_STATE_DELETING" => Self::Deleting,
+            "DEPLOYMENT_STATE_UPDATING" => Self::Updating,
             "DEPLOYMENT_STATE_FAILED" => Self::Failed,
             "DEPLOYMENT_STATE_READY" => Self::Ready,
             "DEPLOYMENT_STATE_PARTIALLY_DEPLOYED" => Self::PartiallyDeployed,
@@ -12362,6 +13246,7 @@ impl serde::ser::Serialize for DeploymentState {
             Self::Validating => serializer.serialize_i32(1),
             Self::Creating => serializer.serialize_i32(2),
             Self::Deleting => serializer.serialize_i32(3),
+            Self::Updating => serializer.serialize_i32(8),
             Self::Failed => serializer.serialize_i32(4),
             Self::Ready => serializer.serialize_i32(5),
             Self::PartiallyDeployed => serializer.serialize_i32(6),
@@ -12706,5 +13591,146 @@ impl<'de> serde::de::Deserialize<'de> for FindingClass {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingClass>::new(
             ".google.cloud.cloudsecuritycompliance.v1.FindingClass",
         ))
+    }
+}
+
+/// Specifies the view of the framework compliance summary to be returned.
+/// New values may be added in the future.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FrameworkComplianceSummaryView {
+    /// The default / unset value. The API will default to the BASIC view.
+    Unspecified,
+    /// Includes basic compliance metadata, but omits trend data.
+    Basic,
+    /// Includes all information, including
+    /// [finding_count][google.cloud.cloudsecuritycompliance.v1main.FrameworkComplianceSummary.finding_count]
+    /// and
+    /// [controls_passing_trend][google.cloud.cloudsecuritycompliance.v1main.FrameworkComplianceSummary.controls_passing_trend].
+    /// Trend data is provided for the last 30 days.
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FrameworkComplianceSummaryView::value] or
+    /// [FrameworkComplianceSummaryView::name].
+    UnknownValue(framework_compliance_summary_view::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod framework_compliance_summary_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FrameworkComplianceSummaryView {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_UNSPECIFIED")
+            }
+            Self::Basic => std::option::Option::Some("FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_BASIC"),
+            Self::Full => std::option::Option::Some("FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_FULL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FrameworkComplianceSummaryView {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FrameworkComplianceSummaryView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FrameworkComplianceSummaryView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(framework_compliance_summary_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FrameworkComplianceSummaryView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_BASIC" => Self::Basic,
+            "FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_FULL" => Self::Full,
+            _ => Self::UnknownValue(framework_compliance_summary_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FrameworkComplianceSummaryView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FrameworkComplianceSummaryView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(
+            wkt::internal::EnumVisitor::<FrameworkComplianceSummaryView>::new(
+                ".google.cloud.cloudsecuritycompliance.v1.FrameworkComplianceSummaryView",
+            ),
+        )
     }
 }

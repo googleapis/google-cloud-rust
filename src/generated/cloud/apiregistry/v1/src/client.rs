@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudApiRegistry::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_mcp_servers()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -48,7 +50,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://cloudapiregistry.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -132,10 +134,10 @@ impl CloudApiRegistry {
     /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
     /// use google_cloud_apiregistry_v1::Result;
     /// async fn sample(
-    ///    client: &CloudApiRegistry, name: &str
+    ///    client: &CloudApiRegistry, project_id: &str, location_id: &str, api_namespace_id: &str, mcp_server_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mcp_server()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -175,10 +177,10 @@ impl CloudApiRegistry {
     /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
     /// use google_cloud_apiregistry_v1::Result;
     /// async fn sample(
-    ///    client: &CloudApiRegistry, name: &str
+    ///    client: &CloudApiRegistry, project_id: &str, location_id: &str, api_namespace_id: &str, mcp_server_id: &str, mcp_tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mcp_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}/mcpTools/{mcp_tool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -196,10 +198,10 @@ impl CloudApiRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apiregistry_v1::Result;
     /// async fn sample(
-    ///    client: &CloudApiRegistry, parent: &str
+    ///    client: &CloudApiRegistry, project_id: &str, location_id: &str, api_namespace_id: &str, mcp_server_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mcp_tools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apiNamespaces/{api_namespace_id}/mcpServers/{mcp_server_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

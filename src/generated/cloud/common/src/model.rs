@@ -60,6 +60,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

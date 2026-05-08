@@ -164,6 +164,7 @@ pub struct Workflow {
 }
 
 impl Workflow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -599,6 +600,7 @@ pub mod workflow {
     }
 
     impl StateError {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1104,6 +1106,7 @@ pub struct ListWorkflowsRequest {
 }
 
 impl ListWorkflowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1197,6 +1200,7 @@ pub struct ListWorkflowsResponse {
 }
 
 impl ListWorkflowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1295,6 +1299,7 @@ pub struct GetWorkflowRequest {
 }
 
 impl GetWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1359,6 +1364,7 @@ pub struct CreateWorkflowRequest {
 }
 
 impl CreateWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1443,6 +1449,7 @@ pub struct DeleteWorkflowRequest {
 }
 
 impl DeleteWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1485,6 +1492,7 @@ pub struct UpdateWorkflowRequest {
 }
 
 impl UpdateWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1585,6 +1593,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1723,6 +1732,7 @@ pub struct ListWorkflowRevisionsRequest {
 }
 
 impl ListWorkflowRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1789,6 +1799,7 @@ pub struct ListWorkflowRevisionsResponse {
 }
 
 impl ListWorkflowRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

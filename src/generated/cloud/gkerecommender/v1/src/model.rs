@@ -63,6 +63,7 @@ pub struct FetchModelsRequest {
 }
 
 impl FetchModelsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -158,6 +159,7 @@ pub struct FetchModelsResponse {
 }
 
 impl FetchModelsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -238,6 +240,7 @@ pub struct FetchModelServersRequest {
 }
 
 impl FetchModelServersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -345,6 +348,7 @@ pub struct FetchModelServersResponse {
 }
 
 impl FetchModelServersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -433,6 +437,7 @@ pub struct FetchModelServerVersionsRequest {
 }
 
 impl FetchModelServerVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -551,6 +556,7 @@ pub struct FetchModelServerVersionsResponse {
 }
 
 impl FetchModelServerVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -622,6 +628,7 @@ pub struct FetchBenchmarkingDataRequest {
 }
 
 impl FetchBenchmarkingDataRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -705,6 +712,7 @@ pub struct FetchBenchmarkingDataResponse {
 }
 
 impl FetchBenchmarkingDataResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -800,6 +808,7 @@ pub struct FetchProfilesRequest {
 }
 
 impl FetchProfilesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -967,6 +976,7 @@ pub struct PerformanceRequirements {
 }
 
 impl PerformanceRequirements {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1093,6 +1103,7 @@ pub struct Amount {
 }
 
 impl Amount {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1156,6 +1167,7 @@ pub struct Cost {
 }
 
 impl Cost {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1296,6 +1308,7 @@ pub struct TokensPerSecondRange {
 }
 
 impl TokensPerSecondRange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1345,6 +1358,7 @@ pub struct MillisecondRange {
 }
 
 impl MillisecondRange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1402,6 +1416,7 @@ pub struct PerformanceRange {
 }
 
 impl PerformanceRange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1540,6 +1555,7 @@ pub struct FetchProfilesResponse {
 }
 
 impl FetchProfilesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1680,6 +1696,7 @@ pub struct ModelServerInfo {
 }
 
 impl ModelServerInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1742,6 +1759,7 @@ pub struct ResourcesUsed {
 }
 
 impl ResourcesUsed {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1795,6 +1813,7 @@ pub struct PerformanceStats {
 }
 
 impl PerformanceStats {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1906,6 +1925,7 @@ pub struct Profile {
 }
 
 impl Profile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2084,6 +2104,7 @@ pub struct GenerateOptimizedManifestRequest {
 }
 
 impl GenerateOptimizedManifestRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2241,6 +2262,7 @@ pub struct KubernetesManifest {
 }
 
 impl KubernetesManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2312,6 +2334,7 @@ pub struct GenerateOptimizedManifestResponse {
 }
 
 impl GenerateOptimizedManifestResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2398,6 +2421,7 @@ pub struct StorageConfig {
 }
 
 impl StorageConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

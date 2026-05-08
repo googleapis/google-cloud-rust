@@ -46,6 +46,7 @@ pub struct SlidesAddOnManifest {
 }
 
 impl SlidesAddOnManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -137,6 +138,7 @@ pub struct SlidesExtensionPoint {
 }
 
 impl SlidesExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

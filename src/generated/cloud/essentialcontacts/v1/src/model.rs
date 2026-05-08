@@ -67,6 +67,7 @@ pub struct Contact {
 }
 
 impl Contact {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -211,6 +212,7 @@ pub struct ListContactsRequest {
 }
 
 impl ListContactsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -275,6 +277,7 @@ pub struct ListContactsResponse {
 }
 
 impl ListContactsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -348,6 +351,7 @@ pub struct GetContactRequest {
 }
 
 impl GetContactRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -385,6 +389,7 @@ pub struct DeleteContactRequest {
 }
 
 impl DeleteContactRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -425,6 +430,7 @@ pub struct CreateContactRequest {
 }
 
 impl CreateContactRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -498,6 +504,7 @@ pub struct UpdateContactRequest {
 }
 
 impl UpdateContactRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -605,6 +612,7 @@ pub struct ComputeContactsRequest {
 }
 
 impl ComputeContactsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -693,6 +701,7 @@ pub struct ComputeContactsResponse {
 }
 
 impl ComputeContactsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -777,6 +786,7 @@ pub struct SendTestMessageRequest {
 }
 
 impl SendTestMessageRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

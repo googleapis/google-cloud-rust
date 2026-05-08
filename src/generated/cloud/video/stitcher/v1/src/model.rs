@@ -51,6 +51,7 @@ pub struct LiveAdTagDetail {
 }
 
 impl LiveAdTagDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -113,6 +114,7 @@ pub struct VodAdTagDetail {
 }
 
 impl VodAdTagDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -175,6 +177,7 @@ pub struct AdRequest {
 }
 
 impl AdRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -275,6 +278,7 @@ pub struct RequestMetadata {
 }
 
 impl RequestMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -345,6 +349,7 @@ pub struct ResponseMetadata {
 }
 
 impl ResponseMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -491,6 +496,7 @@ pub struct CdnKey {
 }
 
 impl CdnKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -695,6 +701,7 @@ pub struct GoogleCdnKey {
 }
 
 impl GoogleCdnKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -741,6 +748,7 @@ pub struct AkamaiCdnKey {
 }
 
 impl AkamaiCdnKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -782,6 +790,7 @@ pub struct MediaCdnKey {
 }
 
 impl MediaCdnKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -873,6 +882,7 @@ pub mod media_cdn_key {
     }
 
     impl TokenConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -914,6 +924,7 @@ pub struct CompanionAds {
 }
 
 impl CompanionAds {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1152,6 +1163,7 @@ pub struct Companion {
 }
 
 impl Companion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1456,6 +1468,7 @@ pub struct HtmlAdResource {
 }
 
 impl HtmlAdResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1490,6 +1503,7 @@ pub struct IframeAdResource {
 }
 
 impl IframeAdResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1527,6 +1541,7 @@ pub struct StaticAdResource {
 }
 
 impl StaticAdResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1582,6 +1597,7 @@ pub struct Event {
 }
 
 impl Event {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1976,6 +1992,7 @@ pub struct ProgressEvent {
 }
 
 impl ProgressEvent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2056,6 +2073,7 @@ pub struct FetchOptions {
 }
 
 impl FetchOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2132,6 +2150,7 @@ pub struct LiveConfig {
 }
 
 impl LiveConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2642,6 +2661,7 @@ pub struct PrefetchConfig {
 }
 
 impl PrefetchConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2715,6 +2735,7 @@ pub struct GamLiveConfig {
 }
 
 impl GamLiveConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2829,6 +2850,7 @@ pub struct VodSession {
 }
 
 impl VodSession {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3069,6 +3091,7 @@ pub mod vod_session {
     }
 
     impl GamSettings {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3122,6 +3145,7 @@ pub struct Interstitials {
 }
 
 impl Interstitials {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3209,6 +3233,7 @@ pub struct VodSessionAd {
 }
 
 impl VodSessionAd {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3320,6 +3345,7 @@ pub struct VodSessionContent {
 }
 
 impl VodSessionContent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3384,6 +3410,7 @@ pub struct VodSessionAdBreak {
 }
 
 impl VodSessionAdBreak {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3551,6 +3578,7 @@ pub struct LiveSession {
 }
 
 impl LiveSession {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3726,6 +3754,7 @@ pub mod live_session {
     }
 
     impl GamSettings {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3787,6 +3816,7 @@ pub struct ManifestOptions {
 }
 
 impl ManifestOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3991,6 +4021,7 @@ pub struct RenditionFilter {
 }
 
 impl RenditionFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4045,6 +4076,7 @@ pub struct Slate {
 }
 
 impl Slate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4133,6 +4165,7 @@ pub mod slate {
     }
 
     impl GamSlate {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4189,6 +4222,7 @@ pub struct VodStitchDetail {
 }
 
 impl VodStitchDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4257,6 +4291,7 @@ pub struct AdStitchDetail {
 }
 
 impl AdStitchDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4382,6 +4417,7 @@ pub struct CreateCdnKeyRequest {
 }
 
 impl CreateCdnKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4475,6 +4511,7 @@ pub struct ListCdnKeysRequest {
 }
 
 impl ListCdnKeysRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4563,6 +4600,7 @@ pub struct ListCdnKeysResponse {
 }
 
 impl ListCdnKeysResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4651,6 +4689,7 @@ pub struct GetCdnKeyRequest {
 }
 
 impl GetCdnKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4686,6 +4725,7 @@ pub struct DeleteCdnKeyRequest {
 }
 
 impl DeleteCdnKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4725,6 +4765,7 @@ pub struct UpdateCdnKeyRequest {
 }
 
 impl UpdateCdnKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4817,6 +4858,7 @@ pub struct CreateVodSessionRequest {
 }
 
 impl CreateVodSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4885,6 +4927,7 @@ pub struct GetVodSessionRequest {
 }
 
 impl GetVodSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4926,6 +4969,7 @@ pub struct ListVodStitchDetailsRequest {
 }
 
 impl ListVodStitchDetailsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4987,6 +5031,7 @@ pub struct ListVodStitchDetailsResponse {
 }
 
 impl ListVodStitchDetailsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5059,6 +5104,7 @@ pub struct GetVodStitchDetailRequest {
 }
 
 impl GetVodStitchDetailRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5100,6 +5146,7 @@ pub struct ListVodAdTagDetailsRequest {
 }
 
 impl ListVodAdTagDetailsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5161,6 +5208,7 @@ pub struct ListVodAdTagDetailsResponse {
 }
 
 impl ListVodAdTagDetailsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5233,6 +5281,7 @@ pub struct GetVodAdTagDetailRequest {
 }
 
 impl GetVodAdTagDetailRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5274,6 +5323,7 @@ pub struct ListLiveAdTagDetailsRequest {
 }
 
 impl ListLiveAdTagDetailsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5335,6 +5385,7 @@ pub struct ListLiveAdTagDetailsResponse {
 }
 
 impl ListLiveAdTagDetailsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5406,6 +5457,7 @@ pub struct GetLiveAdTagDetailRequest {
 }
 
 impl GetLiveAdTagDetailRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5465,6 +5517,7 @@ pub struct CreateSlateRequest {
 }
 
 impl CreateSlateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5557,6 +5610,7 @@ pub struct GetSlateRequest {
 }
 
 impl GetSlateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5605,6 +5659,7 @@ pub struct ListSlatesRequest {
 }
 
 impl ListSlatesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5693,6 +5748,7 @@ pub struct ListSlatesResponse {
 }
 
 impl ListSlatesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5783,6 +5839,7 @@ pub struct UpdateSlateRequest {
 }
 
 impl UpdateSlateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5872,6 +5929,7 @@ pub struct DeleteSlateRequest {
 }
 
 impl DeleteSlateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5910,6 +5968,7 @@ pub struct CreateLiveSessionRequest {
 }
 
 impl CreateLiveSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5978,6 +6037,7 @@ pub struct GetLiveSessionRequest {
 }
 
 impl GetLiveSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6034,6 +6094,7 @@ pub struct CreateLiveConfigRequest {
 }
 
 impl CreateLiveConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6141,6 +6202,7 @@ pub struct ListLiveConfigsRequest {
 }
 
 impl ListLiveConfigsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6229,6 +6291,7 @@ pub struct ListLiveConfigsResponse {
 }
 
 impl ListLiveConfigsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6318,6 +6381,7 @@ pub struct GetLiveConfigRequest {
 }
 
 impl GetLiveConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6353,6 +6417,7 @@ pub struct DeleteLiveConfigRequest {
 }
 
 impl DeleteLiveConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6393,6 +6458,7 @@ pub struct UpdateLiveConfigRequest {
 }
 
 impl UpdateLiveConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6503,6 +6569,7 @@ pub struct CreateVodConfigRequest {
 }
 
 impl CreateVodConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6611,6 +6678,7 @@ pub struct ListVodConfigsRequest {
 }
 
 impl ListVodConfigsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6699,6 +6767,7 @@ pub struct ListVodConfigsResponse {
 }
 
 impl ListVodConfigsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6787,6 +6856,7 @@ pub struct GetVodConfigRequest {
 }
 
 impl GetVodConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6822,6 +6892,7 @@ pub struct DeleteVodConfigRequest {
 }
 
 impl DeleteVodConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6862,6 +6933,7 @@ pub struct UpdateVodConfigRequest {
 }
 
 impl UpdateVodConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6959,6 +7031,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7087,6 +7160,7 @@ pub struct VodConfig {
 }
 
 impl VodConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7374,6 +7448,7 @@ pub struct GamVodConfig {
 }
 
 impl GamVodConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
