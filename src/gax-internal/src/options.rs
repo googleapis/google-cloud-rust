@@ -50,7 +50,11 @@ pub(crate) fn resolve_effective_timeout(
     client_attempt_timeout: Option<std::time::Duration>,
     remaining_time: Option<std::time::Duration>,
 ) -> Option<std::time::Duration> {
-    let attempt = options.attempt_timeout().as_ref().copied().or(client_attempt_timeout);
+    let attempt = options
+        .attempt_timeout()
+        .as_ref()
+        .copied()
+        .or(client_attempt_timeout);
     match (attempt, remaining_time) {
         (None, None) => None,
         (None, Some(t)) => Some(t),

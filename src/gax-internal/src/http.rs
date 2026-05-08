@@ -390,7 +390,11 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
-        let timeout = crate::options::resolve_effective_timeout(options, self.attempt_timeout, remaining_time);
+        let timeout = crate::options::resolve_effective_timeout(
+            options,
+            self.attempt_timeout,
+            remaining_time,
+        );
         if let Some(timeout) = timeout {
             builder = builder.timeout(timeout);
         }

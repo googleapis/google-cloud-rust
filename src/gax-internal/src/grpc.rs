@@ -278,7 +278,9 @@ impl Client {
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
-        if let Some(timeout) = crate::options::resolve_effective_timeout(&options, self.attempt_timeout, None) {
+        if let Some(timeout) =
+            crate::options::resolve_effective_timeout(&options, self.attempt_timeout, None)
+        {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -410,7 +412,9 @@ impl Client {
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
 
-        if let Some(timeout) = crate::options::resolve_effective_timeout(options, self.attempt_timeout, remaining_time) {
+        if let Some(timeout) =
+            crate::options::resolve_effective_timeout(options, self.attempt_timeout, remaining_time)
+        {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
