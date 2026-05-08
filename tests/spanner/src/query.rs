@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::client::{get_database_id, get_emulator_host, update_database_ddl};
-use crate::test_proxy::{InterceptionResult, PassThroughProxy, start_proxy_server};
+use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
 use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement, TypeCode};
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
@@ -465,18 +465,11 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
     };
 
     let proxy = PassThroughProxy::new(endpoint, interceptor);
-    let (proxy_uri, handle) = start_proxy_server("127.0.0.1:0", proxy).await?;
-    struct Guard(tokio::task::JoinHandle<()>);
-    impl Drop for Guard {
-        fn drop(&mut self) {
-            self.0.abort();
-        }
-    }
-    let _guard = Guard(handle);
+    let proxy_server = proxy.start("127.0.0.1:0").await?;
 
     // We build the Spanner DatabaseClient pointing directly to our proxy address over gRPC.
     let proxy_db_client = Spanner::builder()
-        .with_endpoint(proxy_uri)
+        .with_endpoint(proxy_server.uri())
         .build()
         .await?
         .database_client(format!(

@@ -116,25 +116,44 @@ where
     const NAME: &'static str = "google.spanner.v1.Spanner";
 }
 
-/// Starts a proxy server and returns the URI and a join handle.
-pub(crate) async fn start_proxy_server<F>(
-    address: &str,
-    proxy: PassThroughProxy<F>,
-) -> anyhow::Result<(String, JoinHandle<()>)>
+pub(crate) struct ProxyServer {
+    uri: String,
+    handle: JoinHandle<()>,
+}
+
+impl Drop for ProxyServer {
+    fn drop(&mut self) {
+        self.handle.abort();
+    }
+}
+
+impl ProxyServer {
+    pub fn uri(&self) -> &str {
+        &self.uri
+    }
+}
+
+impl<F> PassThroughProxy<F>
 where
     F: Fn(Request<Body>) -> BoxFuture<'static, InterceptionResult> + Clone + Send + Sync + 'static,
 {
-    let listener = TcpListener::bind(address).await?;
-    let addr = listener.local_addr()?;
+    /// Starts the proxy server and returns a `ProxyServer`.
+    pub async fn start(self, address: &str) -> anyhow::Result<ProxyServer> {
+        let listener = TcpListener::bind(address).await?;
+        let addr = listener.local_addr()?;
 
-    let server = spawn(async {
-        let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
+        let server = spawn(async {
+            let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
-        let _ = Server::builder()
-            .add_service(proxy)
-            .serve_with_incoming(stream)
-            .await;
-    });
+            let _ = Server::builder()
+                .add_service(self)
+                .serve_with_incoming(stream)
+                .await;
+        });
 
-    Ok((to_uri(addr), server))
+        Ok(ProxyServer {
+            uri: to_uri(addr),
+            handle: server,
+        })
+    }
 }
