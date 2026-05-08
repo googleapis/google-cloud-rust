@@ -52,6 +52,7 @@ pub struct CrawledUrl {
 }
 
 impl CrawledUrl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -174,6 +175,7 @@ pub struct Finding {
 }
 
 impl Finding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -723,6 +725,7 @@ pub struct Form {
 }
 
 impl Form {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -780,6 +783,7 @@ pub struct OutdatedLibrary {
 }
 
 impl OutdatedLibrary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -847,6 +851,7 @@ pub struct ViolatingResource {
 }
 
 impl ViolatingResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -893,6 +898,7 @@ pub struct VulnerableParameters {
 }
 
 impl VulnerableParameters {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -935,6 +941,7 @@ pub struct VulnerableHeaders {
 }
 
 impl VulnerableHeaders {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1009,6 +1016,7 @@ pub mod vulnerable_headers {
     }
 
     impl Header {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1065,6 +1073,7 @@ pub struct Xss {
 }
 
 impl Xss {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1383,6 +1392,7 @@ pub struct Xxe {
 }
 
 impl Xxe {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1568,6 +1578,7 @@ pub struct FindingTypeStats {
 }
 
 impl FindingTypeStats {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1660,6 +1671,7 @@ pub struct ScanConfig {
 }
 
 impl ScanConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1915,6 +1927,7 @@ pub mod scan_config {
     }
 
     impl Authentication {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2111,6 +2124,7 @@ pub mod scan_config {
         }
 
         impl GoogleAccount {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2170,6 +2184,7 @@ pub mod scan_config {
         }
 
         impl CustomAccount {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2239,6 +2254,7 @@ pub mod scan_config {
         }
 
         impl IapCredential {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2319,6 +2335,7 @@ pub mod scan_config {
             }
 
             impl IapTestServiceAccountInfo {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -2393,6 +2410,7 @@ pub mod scan_config {
     }
 
     impl Schedule {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2880,6 +2898,7 @@ pub struct ScanConfigError {
 }
 
 impl ScanConfigError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3471,6 +3490,7 @@ pub struct ScanRun {
 }
 
 impl ScanRun {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4007,6 +4027,7 @@ pub struct ScanRunErrorTrace {
 }
 
 impl ScanRunErrorTrace {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4278,18 +4299,23 @@ pub struct ScanRunLog {
     /// The result state of the ScanRun.
     pub result_state: crate::model::scan_run::ResultState,
 
+    #[allow(missing_docs)]
     pub urls_crawled_count: i64,
 
+    #[allow(missing_docs)]
     pub urls_tested_count: i64,
 
+    #[allow(missing_docs)]
     pub has_findings: bool,
 
+    #[allow(missing_docs)]
     pub error_trace: std::option::Option<crate::model::ScanRunErrorTrace>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanRunLog {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4443,6 +4469,7 @@ pub struct ScanRunWarningTrace {
 }
 
 impl ScanRunWarningTrace {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4657,6 +4684,7 @@ pub struct CreateScanConfigRequest {
 }
 
 impl CreateScanConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4725,6 +4753,7 @@ pub struct DeleteScanConfigRequest {
 }
 
 impl DeleteScanConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4760,6 +4789,7 @@ pub struct GetScanConfigRequest {
 }
 
 impl GetScanConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4805,6 +4835,7 @@ pub struct ListScanConfigsRequest {
 }
 
 impl ListScanConfigsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4870,6 +4901,7 @@ pub struct UpdateScanConfigRequest {
 }
 
 impl UpdateScanConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4962,6 +4994,7 @@ pub struct ListScanConfigsResponse {
 }
 
 impl ListScanConfigsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5033,6 +5066,7 @@ pub struct StartScanRunRequest {
 }
 
 impl StartScanRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5069,6 +5103,7 @@ pub struct GetScanRunRequest {
 }
 
 impl GetScanRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5114,6 +5149,7 @@ pub struct ListScanRunsRequest {
 }
 
 impl ListScanRunsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5176,6 +5212,7 @@ pub struct ListScanRunsResponse {
 }
 
 impl ListScanRunsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5248,6 +5285,7 @@ pub struct StopScanRunRequest {
 }
 
 impl StopScanRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5294,6 +5332,7 @@ pub struct ListCrawledUrlsRequest {
 }
 
 impl ListCrawledUrlsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5356,6 +5395,7 @@ pub struct ListCrawledUrlsResponse {
 }
 
 impl ListCrawledUrlsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5428,6 +5468,7 @@ pub struct GetFindingRequest {
 }
 
 impl GetFindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5480,6 +5521,7 @@ pub struct ListFindingsRequest {
 }
 
 impl ListFindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5554,6 +5596,7 @@ pub struct ListFindingsResponse {
 }
 
 impl ListFindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5626,6 +5669,7 @@ pub struct ListFindingTypeStatsRequest {
 }
 
 impl ListFindingTypeStatsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5660,6 +5704,7 @@ pub struct ListFindingTypeStatsResponse {
 }
 
 impl ListFindingTypeStatsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

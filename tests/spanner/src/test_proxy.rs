@@ -150,6 +150,16 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
     > {
         self.emulator_client().batch_write(request).await
     }
+
+    async fn fetch_cache_update(
+        &self,
+        request: tonic::Request<spanner_v1::FetchCacheUpdateRequest>,
+    ) -> std::result::Result<
+        tonic::Response<tonic::codec::Streaming<spanner_v1::CacheUpdate>>,
+        tonic::Status,
+    > {
+        self.emulator_client().fetch_cache_update(request).await
+    }
 }
 
 pub struct InterceptedSpanner<T>(pub T);
@@ -274,5 +284,14 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         request: tonic::Request<spanner_v1::BatchWriteRequest>,
     ) -> std::result::Result<tonic::Response<Self::BatchWriteStream>, tonic::Status> {
         self.0.batch_write(request).await
+    }
+
+    type FetchCacheUpdateStream = tonic::codec::Streaming<spanner_v1::CacheUpdate>;
+
+    async fn fetch_cache_update(
+        &self,
+        request: tonic::Request<spanner_v1::FetchCacheUpdateRequest>,
+    ) -> std::result::Result<tonic::Response<Self::FetchCacheUpdateStream>, tonic::Status> {
+        self.0.fetch_cache_update(request).await
     }
 }

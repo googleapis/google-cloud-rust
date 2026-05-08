@@ -51,6 +51,7 @@ pub struct TroubleshootIamPolicyRequest {
 }
 
 impl TroubleshootIamPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -123,6 +124,7 @@ pub struct TroubleshootIamPolicyResponse {
 }
 
 impl TroubleshootIamPolicyResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -452,6 +454,7 @@ pub struct AccessTuple {
 }
 
 impl AccessTuple {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -573,6 +576,7 @@ pub struct ConditionContext {
 }
 
 impl ConditionContext {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -743,6 +747,7 @@ pub mod condition_context {
     }
 
     impl Resource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -807,6 +812,7 @@ pub mod condition_context {
     }
 
     impl Peer {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -856,6 +862,7 @@ pub mod condition_context {
     }
 
     impl Request {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -942,6 +949,7 @@ pub mod condition_context {
     }
 
     impl EffectiveTag {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1063,6 +1071,7 @@ pub struct AllowPolicyExplanation {
 }
 
 impl AllowPolicyExplanation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1185,6 +1194,7 @@ pub struct ExplainedAllowPolicy {
 }
 
 impl ExplainedAllowPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1380,6 +1390,7 @@ pub struct AllowBindingExplanation {
 }
 
 impl AllowBindingExplanation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1618,6 +1629,7 @@ pub mod allow_binding_explanation {
     }
 
     impl AnnotatedAllowMembership {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1700,6 +1712,7 @@ pub struct DenyPolicyExplanation {
 }
 
 impl DenyPolicyExplanation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1826,6 +1839,7 @@ pub struct ExplainedDenyResource {
 }
 
 impl ExplainedDenyResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1955,6 +1969,7 @@ pub struct ExplainedDenyPolicy {
 }
 
 impl ExplainedDenyPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2157,6 +2172,7 @@ pub struct DenyRuleExplanation {
 }
 
 impl DenyRuleExplanation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2514,6 +2530,7 @@ pub mod deny_rule_explanation {
     }
 
     impl AnnotatedPermissionMatching {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2579,6 +2596,7 @@ pub mod deny_rule_explanation {
     }
 
     impl AnnotatedDenyPrincipalMatching {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2645,6 +2663,7 @@ pub struct ConditionExplanation {
 }
 
 impl ConditionExplanation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2761,6 +2780,7 @@ pub mod condition_explanation {
     }
 
     impl EvaluationState {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

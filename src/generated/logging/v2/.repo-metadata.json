@@ -4,6 +4,7 @@
     "api_shortname": "logging",
     "client_documentation": "https://docs.rs/google-cloud-logging-v2/latest",
     "distribution_name": "google-cloud-logging-v2",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559764",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "logging",

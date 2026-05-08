@@ -22,13 +22,15 @@
 /// ```
 /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = VideoIntelligenceService::builder().build().await?;
 ///     let response = client.annotate_video()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -44,7 +46,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://videointelligence.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

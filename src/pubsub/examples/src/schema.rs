@@ -14,5 +14,6 @@
 
 pub mod create_avro_schema;
 pub mod delete_schema;
+pub mod get_schema;
 pub mod list_schema_revisions;
 pub mod list_schemas;

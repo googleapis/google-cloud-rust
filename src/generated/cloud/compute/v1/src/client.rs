@@ -22,10 +22,12 @@
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::AcceleratorTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AcceleratorTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -41,7 +43,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -146,10 +148,12 @@ impl AcceleratorTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Addresses;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Addresses::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -165,7 +169,7 @@ impl AcceleratorTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -301,10 +305,12 @@ impl Addresses {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Advice;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Advice::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -320,7 +326,7 @@ impl Addresses {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -413,10 +419,12 @@ impl Advice {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Autoscalers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Autoscalers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -432,7 +440,7 @@ impl Advice {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -571,10 +579,12 @@ impl Autoscalers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::BackendBuckets;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = BackendBuckets::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -590,7 +600,7 @@ impl Autoscalers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -766,10 +776,12 @@ impl BackendBuckets {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::BackendServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = BackendServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -785,7 +797,7 @@ impl BackendBuckets {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -990,10 +1002,12 @@ impl BackendServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = CrossSiteNetworks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1009,7 +1023,7 @@ impl BackendServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1129,10 +1143,12 @@ impl CrossSiteNetworks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::DiskTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DiskTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1148,7 +1164,7 @@ impl CrossSiteNetworks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1252,10 +1268,12 @@ impl DiskTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Disks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Disks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1271,7 +1289,7 @@ impl DiskTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1489,10 +1507,12 @@ impl Disks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ExternalVpnGateways::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1508,7 +1528,7 @@ impl Disks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1636,10 +1656,12 @@ impl ExternalVpnGateways {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::FirewallPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = FirewallPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1655,7 +1677,7 @@ impl ExternalVpnGateways {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1841,10 +1863,12 @@ impl FirewallPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Firewalls;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Firewalls::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1860,7 +1884,7 @@ impl FirewallPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -1993,10 +2017,12 @@ impl Firewalls {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ForwardingRules;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ForwardingRules::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2012,7 +2038,7 @@ impl Firewalls {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2154,10 +2180,12 @@ impl ForwardingRules {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::FutureReservations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = FutureReservations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2173,7 +2201,7 @@ impl ForwardingRules {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2303,10 +2331,12 @@ impl FutureReservations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalAddresses;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalAddresses::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2322,7 +2352,7 @@ impl FutureReservations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2449,10 +2479,12 @@ impl GlobalAddresses {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalForwardingRules::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2468,7 +2500,7 @@ impl GlobalAddresses {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2604,10 +2636,12 @@ impl GlobalForwardingRules {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalNetworkEndpointGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2623,7 +2657,7 @@ impl GlobalForwardingRules {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2776,10 +2810,12 @@ impl GlobalNetworkEndpointGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2795,7 +2831,7 @@ impl GlobalNetworkEndpointGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -2927,10 +2963,12 @@ impl GlobalOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalOrganizationOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2946,7 +2984,7 @@ impl GlobalOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3050,10 +3088,12 @@ impl GlobalOrganizationOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3069,7 +3109,7 @@ impl GlobalOrganizationOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3189,11 +3229,165 @@ impl GlobalPublicDelegatedPrefixes {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::GlobalVmExtensionPolicies;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = GlobalVmExtensionPolicies::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `globalVmExtensionPolicies` resource.
+///
+/// # Configuration
+///
+/// To configure `GlobalVmExtensionPolicies` use the `with_*` methods in the type returned
+/// by [builder()][GlobalVmExtensionPolicies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::global_vm_extension_policies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::global_vm_extension_policies::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GlobalVmExtensionPolicies` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `GlobalVmExtensionPolicies` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "global-vm-extension-policies")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-vm-extension-policies")))]
+#[derive(Clone, Debug)]
+pub struct GlobalVmExtensionPolicies {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GlobalVmExtensionPolicies>,
+}
+
+#[cfg(feature = "global-vm-extension-policies")]
+impl GlobalVmExtensionPolicies {
+    /// Returns a builder for [GlobalVmExtensionPolicies].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::GlobalVmExtensionPolicies;
+    /// let client = GlobalVmExtensionPolicies::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::global_vm_extension_policies::ClientBuilder {
+        crate::new_client_builder(super::builder::global_vm_extension_policies::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::GlobalVmExtensionPolicies + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::GlobalVmExtensionPolicies>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalVmExtensionPolicies> {
+        super::transport::GlobalVmExtensionPolicies::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalVmExtensionPolicies> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GlobalVmExtensionPolicies::new)
+    }
+
+    /// Retrieves the list of all VM Extension Policy resources
+    /// available to the specified project.
+    ///
+    /// To prevent failure, it's recommended that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::global_vm_extension_policies::AggregatedList {
+        super::builder::global_vm_extension_policies::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Purge scoped resources (zonal policies) from a global VM extension
+    /// policy, and then delete the global VM extension policy. Purge of the scoped
+    /// resources is a pre-condition of the global VM extension policy deletion.
+    /// The deletion of the global VM extension policy happens after the purge
+    /// rollout is done, so it's not a part of the LRO. It's an automatic process
+    /// that triggers in the backend.
+    pub fn delete(&self) -> super::builder::global_vm_extension_policies::Delete {
+        super::builder::global_vm_extension_policies::Delete::new(self.inner.clone())
+    }
+
+    /// Gets details of a global VM extension policy.
+    pub fn get(&self) -> super::builder::global_vm_extension_policies::Get {
+        super::builder::global_vm_extension_policies::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new project level GlobalVmExtensionPolicy.
+    pub fn insert(&self) -> super::builder::global_vm_extension_policies::Insert {
+        super::builder::global_vm_extension_policies::Insert::new(self.inner.clone())
+    }
+
+    /// Lists global VM extension policies.
+    pub fn list(&self) -> super::builder::global_vm_extension_policies::List {
+        super::builder::global_vm_extension_policies::List::new(self.inner.clone())
+    }
+
+    /// Updates a global VM extension policy.
+    pub fn update(&self) -> super::builder::global_vm_extension_policies::Update {
+        super::builder::global_vm_extension_policies::Update::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::global_vm_extension_policies::GetOperation {
+        super::builder::global_vm_extension_policies::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::HealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3209,7 +3403,7 @@ impl GlobalPublicDelegatedPrefixes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3349,10 +3543,12 @@ impl HealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::HttpHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HttpHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3368,7 +3564,7 @@ impl HealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3500,10 +3696,12 @@ impl HttpHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HttpsHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3519,7 +3717,7 @@ impl HttpHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3651,10 +3849,12 @@ impl HttpsHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ImageFamilyViews;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ImageFamilyViews::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3670,7 +3870,7 @@ impl HttpsHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3762,10 +3962,12 @@ impl ImageFamilyViews {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Images;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Images::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3781,7 +3983,7 @@ impl ImageFamilyViews {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -3942,10 +4144,12 @@ impl Images {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroupManagerResizeRequests::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3961,7 +4165,7 @@ impl Images {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4091,10 +4295,12 @@ impl InstanceGroupManagerResizeRequests {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroupManagers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4110,7 +4316,7 @@ impl InstanceGroupManagerResizeRequests {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4533,10 +4739,12 @@ impl InstanceGroupManagers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4552,7 +4760,7 @@ impl InstanceGroupManagers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4721,10 +4929,12 @@ impl InstanceGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceSettings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceSettings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4740,7 +4950,7 @@ impl InstanceGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -4841,10 +5051,12 @@ impl InstanceSettings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceTemplates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceTemplates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4860,7 +5072,7 @@ impl InstanceSettings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5004,10 +5216,12 @@ impl InstanceTemplates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Instances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5023,7 +5237,7 @@ impl InstanceTemplates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5460,10 +5674,12 @@ impl Instances {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstantSnapshotGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstantSnapshotGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5479,7 +5695,7 @@ impl Instances {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5610,10 +5826,12 @@ impl InstantSnapshotGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstantSnapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstantSnapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5629,7 +5847,7 @@ impl InstantSnapshotGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5780,10 +5998,12 @@ impl InstantSnapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectAttachmentGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5799,7 +6019,7 @@ impl InstantSnapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -5950,10 +6170,12 @@ impl InterconnectAttachmentGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectAttachments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectAttachments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5969,7 +6191,7 @@ impl InterconnectAttachmentGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6105,10 +6327,12 @@ impl InterconnectAttachments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6124,7 +6348,7 @@ impl InterconnectAttachments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6275,10 +6499,12 @@ impl InterconnectGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectLocations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectLocations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6294,7 +6520,7 @@ impl InterconnectGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6392,10 +6618,12 @@ impl InterconnectLocations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectRemoteLocations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6411,7 +6639,7 @@ impl InterconnectLocations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6510,10 +6738,12 @@ impl InterconnectRemoteLocations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Interconnects;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Interconnects::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6529,7 +6759,7 @@ impl InterconnectRemoteLocations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6676,10 +6906,12 @@ impl Interconnects {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::LicenseCodes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = LicenseCodes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6695,7 +6927,7 @@ impl Interconnects {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6783,6 +7015,24 @@ impl LicenseCodes {
         super::builder::license_codes::Get::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    /// *Caution* This resource is intended
+    /// for use only by third-party partners who are creatingCloud Marketplace
+    /// images.
+    pub fn get_iam_policy(&self) -> super::builder::license_codes::GetIamPolicy {
+        super::builder::license_codes::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    /// *Caution* This resource is intended
+    /// for use only by third-party partners who are creatingCloud Marketplace
+    /// images.
+    pub fn set_iam_policy(&self) -> super::builder::license_codes::SetIamPolicy {
+        super::builder::license_codes::SetIamPolicy::new(self.inner.clone())
+    }
+
     /// Returns permissions that a caller has on the specified resource.
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
@@ -6797,10 +7047,12 @@ impl LicenseCodes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Licenses;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Licenses::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6816,7 +7068,7 @@ impl LicenseCodes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -6977,10 +7229,12 @@ impl Licenses {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::MachineImages;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MachineImages::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6996,7 +7250,7 @@ impl Licenses {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7135,10 +7389,12 @@ impl MachineImages {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::MachineTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MachineTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7154,7 +7410,7 @@ impl MachineImages {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7258,10 +7514,12 @@ impl MachineTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkAttachments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkAttachments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7277,7 +7535,7 @@ impl MachineTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7423,10 +7681,12 @@ impl NetworkAttachments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkEdgeSecurityServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7442,7 +7702,7 @@ impl NetworkAttachments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7566,10 +7826,12 @@ impl NetworkEdgeSecurityServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkEndpointGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7585,7 +7847,7 @@ impl NetworkEdgeSecurityServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7749,10 +8011,12 @@ impl NetworkEndpointGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkFirewallPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7768,7 +8032,7 @@ impl NetworkEndpointGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -7986,10 +8250,12 @@ impl NetworkFirewallPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkProfiles;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkProfiles::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8005,7 +8271,7 @@ impl NetworkFirewallPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8101,10 +8367,12 @@ impl NetworkProfiles {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Networks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Networks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8120,7 +8388,7 @@ impl NetworkProfiles {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8204,6 +8472,15 @@ impl Networks {
         super::builder::networks::AddPeering::new(self.inner.clone())
     }
 
+    /// Cancel requests to remove a peering from the specified network. Applicable
+    /// only for PeeringConnection with update_strategy=CONSENSUS.  Cancels a
+    /// request to remove a peering from the specified network.
+    pub fn cancel_request_remove_peering(
+        &self,
+    ) -> super::builder::networks::CancelRequestRemovePeering {
+        super::builder::networks::CancelRequestRemovePeering::new(self.inner.clone())
+    }
+
     /// Deletes the specified network.
     pub fn delete(&self) -> super::builder::networks::Delete {
         super::builder::networks::Delete::new(self.inner.clone())
@@ -8275,10 +8552,12 @@ impl Networks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NodeGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8294,7 +8573,7 @@ impl Networks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8472,10 +8751,12 @@ impl NodeGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NodeTemplates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeTemplates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8491,7 +8772,7 @@ impl NodeGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8628,10 +8909,12 @@ impl NodeTemplates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NodeTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8647,7 +8930,7 @@ impl NodeTemplates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -8751,10 +9034,12 @@ impl NodeTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = OrganizationSecurityPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8770,7 +9055,7 @@ impl NodeTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9029,10 +9314,12 @@ impl OrganizationSecurityPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PacketMirrorings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PacketMirrorings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9048,7 +9335,7 @@ impl OrganizationSecurityPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9182,10 +9469,12 @@ impl PacketMirrorings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PreviewFeatures;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PreviewFeatures::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9201,7 +9490,7 @@ impl PacketMirrorings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9307,10 +9596,12 @@ impl PreviewFeatures {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Projects;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Projects::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9326,7 +9617,7 @@ impl PreviewFeatures {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9530,10 +9821,12 @@ impl Projects {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PublicAdvertisedPrefixes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9549,7 +9842,7 @@ impl Projects {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9680,10 +9973,12 @@ impl PublicAdvertisedPrefixes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PublicDelegatedPrefixes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9699,7 +9994,7 @@ impl PublicAdvertisedPrefixes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9838,10 +10133,12 @@ impl PublicDelegatedPrefixes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionAutoscalers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionAutoscalers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9857,7 +10154,7 @@ impl PublicDelegatedPrefixes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -9989,10 +10286,12 @@ impl RegionAutoscalers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionBackendBuckets;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionBackendBuckets::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10008,7 +10307,7 @@ impl RegionAutoscalers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10154,10 +10453,12 @@ impl RegionBackendBuckets {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionBackendServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionBackendServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10173,7 +10474,7 @@ impl RegionBackendBuckets {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10344,10 +10645,12 @@ impl RegionBackendServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionCommitments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionCommitments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10363,7 +10666,7 @@ impl RegionBackendServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10486,10 +10789,12 @@ impl RegionCommitments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionCompositeHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionCompositeHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10505,7 +10810,7 @@ impl RegionCommitments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10650,10 +10955,12 @@ impl RegionCompositeHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionDiskTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionDiskTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10669,7 +10976,7 @@ impl RegionCompositeHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10764,10 +11071,12 @@ impl RegionDiskTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionDisks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionDisks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10783,7 +11092,7 @@ impl RegionDiskTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -10983,10 +11292,12 @@ impl RegionDisks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthAggregationPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthAggregationPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11002,7 +11313,7 @@ impl RegionDisks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11147,10 +11458,12 @@ impl RegionHealthAggregationPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthCheckServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11166,7 +11479,7 @@ impl RegionHealthAggregationPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11304,10 +11617,12 @@ impl RegionHealthCheckServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11323,7 +11638,7 @@ impl RegionHealthCheckServices {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11455,10 +11770,12 @@ impl RegionHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthSources;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthSources::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11474,7 +11791,7 @@ impl RegionHealthChecks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11616,10 +11933,12 @@ impl RegionHealthSources {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagerResizeRequests;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroupManagerResizeRequests::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11635,7 +11954,7 @@ impl RegionHealthSources {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -11777,10 +12096,12 @@ impl RegionInstanceGroupManagerResizeRequests {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroupManagers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11796,7 +12117,7 @@ impl RegionInstanceGroupManagerResizeRequests {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12218,10 +12539,12 @@ impl RegionInstanceGroupManagers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12237,7 +12560,7 @@ impl RegionInstanceGroupManagers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12359,10 +12682,12 @@ impl RegionInstanceGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceTemplates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12378,7 +12703,7 @@ impl RegionInstanceGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12492,10 +12817,12 @@ impl RegionInstanceTemplates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12511,7 +12838,7 @@ impl RegionInstanceTemplates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12607,10 +12934,12 @@ impl RegionInstances {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshotGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstantSnapshotGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12626,7 +12955,7 @@ impl RegionInstances {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12759,10 +13088,12 @@ impl RegionInstantSnapshotGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstantSnapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12778,7 +13109,7 @@ impl RegionInstantSnapshotGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -12923,10 +13254,12 @@ impl RegionInstantSnapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionNetworkEndpointGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12942,7 +13275,7 @@ impl RegionInstantSnapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13095,10 +13428,12 @@ impl RegionNetworkEndpointGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionNetworkFirewallPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13114,7 +13449,7 @@ impl RegionNetworkEndpointGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13308,10 +13643,12 @@ impl RegionNetworkFirewallPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionNotificationEndpoints::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13327,7 +13664,7 @@ impl RegionNetworkFirewallPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13453,10 +13790,12 @@ impl RegionNotificationEndpoints {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13472,7 +13811,7 @@ impl RegionNotificationEndpoints {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13596,10 +13935,12 @@ impl RegionOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSecurityPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13615,7 +13956,7 @@ impl RegionOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13765,10 +14106,12 @@ impl RegionSecurityPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSnapshotSettings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSnapshotSettings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13784,7 +14127,7 @@ impl RegionSecurityPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -13885,10 +14228,12 @@ impl RegionSnapshotSettings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSnapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSnapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13904,7 +14249,7 @@ impl RegionSnapshotSettings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14053,10 +14398,12 @@ impl RegionSnapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSslCertificates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSslCertificates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14072,7 +14419,7 @@ impl RegionSnapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14187,10 +14534,12 @@ impl RegionSslCertificates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSslPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSslPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14206,7 +14555,7 @@ impl RegionSslCertificates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14334,10 +14683,12 @@ impl RegionSslPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetHttpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14353,7 +14704,7 @@ impl RegionSslPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14471,10 +14822,12 @@ impl RegionTargetHttpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetHttpsProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14490,7 +14843,7 @@ impl RegionTargetHttpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14624,10 +14977,12 @@ impl RegionTargetHttpsProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetTcpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14643,7 +14998,7 @@ impl RegionTargetHttpsProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14756,10 +15111,12 @@ impl RegionTargetTcpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionUrlMaps;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionUrlMaps::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14775,7 +15132,7 @@ impl RegionTargetTcpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -14908,10 +15265,12 @@ impl RegionUrlMaps {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionZones;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionZones::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14927,7 +15286,7 @@ impl RegionUrlMaps {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15018,10 +15377,12 @@ impl RegionZones {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Regions;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Regions::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15037,7 +15398,7 @@ impl RegionZones {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15167,10 +15528,12 @@ impl Regions {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ReservationBlocks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationBlocks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15186,7 +15549,7 @@ impl Regions {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15309,10 +15672,12 @@ impl ReservationBlocks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ReservationSlots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationSlots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15328,7 +15693,7 @@ impl ReservationBlocks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15439,10 +15804,12 @@ impl ReservationSlots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationSubBlocks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15458,7 +15825,7 @@ impl ReservationSlots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15595,10 +15962,12 @@ impl ReservationSubBlocks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Reservations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Reservations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15614,7 +15983,7 @@ impl ReservationSubBlocks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15768,10 +16137,12 @@ impl Reservations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ResourcePolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ResourcePolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15787,7 +16158,7 @@ impl Reservations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -15928,11 +16299,275 @@ impl ResourcePolicies {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::RolloutPlans;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = RolloutPlans::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `rolloutPlans` resource.
+///
+/// # Configuration
+///
+/// To configure `RolloutPlans` use the `with_*` methods in the type returned
+/// by [builder()][RolloutPlans::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::rollout_plans::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::rollout_plans::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RolloutPlans` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RolloutPlans` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "rollout-plans")]
+#[cfg_attr(docsrs, doc(cfg(feature = "rollout-plans")))]
+#[derive(Clone, Debug)]
+pub struct RolloutPlans {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RolloutPlans>,
+}
+
+#[cfg(feature = "rollout-plans")]
+impl RolloutPlans {
+    /// Returns a builder for [RolloutPlans].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RolloutPlans;
+    /// let client = RolloutPlans::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::rollout_plans::ClientBuilder {
+        crate::new_client_builder(super::builder::rollout_plans::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::RolloutPlans + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RolloutPlans>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RolloutPlans> {
+        super::transport::RolloutPlans::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RolloutPlans> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RolloutPlans::new)
+    }
+
+    /// Deletes a RolloutPlan.
+    pub fn delete(&self) -> super::builder::rollout_plans::Delete {
+        super::builder::rollout_plans::Delete::new(self.inner.clone())
+    }
+
+    /// Gets details of a single project-scoped RolloutPlan.
+    pub fn get(&self) -> super::builder::rollout_plans::Get {
+        super::builder::rollout_plans::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new RolloutPlan in a given project and location.
+    pub fn insert(&self) -> super::builder::rollout_plans::Insert {
+        super::builder::rollout_plans::Insert::new(self.inner.clone())
+    }
+
+    /// Lists RolloutPlans in a given project and location.
+    pub fn list(&self) -> super::builder::rollout_plans::List {
+        super::builder::rollout_plans::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::rollout_plans::GetOperation {
+        super::builder::rollout_plans::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::Rollouts;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Rollouts::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `rollouts` resource.
+///
+/// # Configuration
+///
+/// To configure `Rollouts` use the `with_*` methods in the type returned
+/// by [builder()][Rollouts::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::rollouts::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::rollouts::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Rollouts` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Rollouts` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "rollouts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "rollouts")))]
+#[derive(Clone, Debug)]
+pub struct Rollouts {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Rollouts>,
+}
+
+#[cfg(feature = "rollouts")]
+impl Rollouts {
+    /// Returns a builder for [Rollouts].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::Rollouts;
+    /// let client = Rollouts::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::rollouts::ClientBuilder {
+        crate::new_client_builder(super::builder::rollouts::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Rollouts + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Rollouts>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Rollouts> {
+        super::transport::Rollouts::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Rollouts> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Rollouts::new)
+    }
+
+    /// Cancels a Rollout.
+    pub fn cancel(&self) -> super::builder::rollouts::Cancel {
+        super::builder::rollouts::Cancel::new(self.inner.clone())
+    }
+
+    /// Deletes a Rollout.
+    pub fn delete(&self) -> super::builder::rollouts::Delete {
+        super::builder::rollouts::Delete::new(self.inner.clone())
+    }
+
+    /// Gets details of a single project-scoped Rollout.
+    pub fn get(&self) -> super::builder::rollouts::Get {
+        super::builder::rollouts::Get::new(self.inner.clone())
+    }
+
+    /// Lists Rollouts in a given project and location.
+    pub fn list(&self) -> super::builder::rollouts::List {
+        super::builder::rollouts::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::rollouts::GetOperation {
+        super::builder::rollouts::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::Routers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Routers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15948,7 +16583,7 @@ impl ResourcePolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16135,10 +16770,12 @@ impl Routers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Routes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Routes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16154,7 +16791,7 @@ impl Routers {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16270,10 +16907,12 @@ impl Routes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SecurityPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SecurityPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16289,7 +16928,7 @@ impl Routes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16455,10 +17094,12 @@ impl SecurityPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ServiceAttachments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceAttachments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16474,7 +17115,7 @@ impl SecurityPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16620,10 +17261,12 @@ impl ServiceAttachments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SnapshotSettings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SnapshotSettings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16639,7 +17282,7 @@ impl ServiceAttachments {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16740,10 +17383,12 @@ impl SnapshotSettings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Snapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Snapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16759,7 +17404,7 @@ impl SnapshotSettings {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -16910,10 +17555,12 @@ impl Snapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SslCertificates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SslCertificates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16929,7 +17576,7 @@ impl Snapshots {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17050,10 +17697,12 @@ impl SslCertificates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SslPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SslPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17069,7 +17718,7 @@ impl SslCertificates {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17202,10 +17851,12 @@ impl SslPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::StoragePoolTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = StoragePoolTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17221,7 +17872,7 @@ impl SslPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17326,10 +17977,12 @@ impl StoragePoolTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::StoragePools;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = StoragePools::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17345,7 +17998,7 @@ impl StoragePoolTypes {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17501,10 +18154,12 @@ impl StoragePools {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Subnetworks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Subnetworks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17520,7 +18175,7 @@ impl StoragePools {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17684,10 +18339,12 @@ impl Subnetworks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetGrpcProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17703,7 +18360,7 @@ impl Subnetworks {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17823,10 +18480,12 @@ impl TargetGrpcProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetHttpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetHttpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17842,7 +18501,7 @@ impl TargetGrpcProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -17977,10 +18636,12 @@ impl TargetHttpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetHttpsProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17996,7 +18657,7 @@ impl TargetHttpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18154,10 +18815,12 @@ impl TargetHttpsProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetInstances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetInstances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18173,7 +18836,7 @@ impl TargetHttpsProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18305,10 +18968,12 @@ impl TargetInstances {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetPools;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetPools::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18324,7 +18989,7 @@ impl TargetInstances {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18487,10 +19152,12 @@ impl TargetPools {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetSslProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetSslProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18506,7 +19173,7 @@ impl TargetPools {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18652,10 +19319,12 @@ impl TargetSslProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetTcpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetTcpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18671,7 +19340,7 @@ impl TargetSslProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18808,10 +19477,12 @@ impl TargetTcpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetVpnGateways;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetVpnGateways::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18827,7 +19498,7 @@ impl TargetTcpProxies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -18954,10 +19625,12 @@ impl TargetVpnGateways {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::UrlMaps;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = UrlMaps::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18973,7 +19646,7 @@ impl TargetVpnGateways {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19129,10 +19802,12 @@ impl UrlMaps {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::VpnGateways;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = VpnGateways::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19148,7 +19823,7 @@ impl UrlMaps {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19284,10 +19959,12 @@ impl VpnGateways {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::VpnTunnels;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = VpnTunnels::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19303,7 +19980,7 @@ impl VpnGateways {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19429,10 +20106,12 @@ impl VpnTunnels {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::WireGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = WireGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19448,7 +20127,7 @@ impl VpnTunnels {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19567,10 +20246,12 @@ impl WireGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ZoneOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ZoneOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19586,7 +20267,7 @@ impl WireGroups {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19708,10 +20389,12 @@ impl ZoneOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ZoneVmExtensionPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ZoneVmExtensionPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19727,7 +20410,7 @@ impl ZoneOperations {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -19807,12 +20490,12 @@ impl ZoneVmExtensionPolicies {
             .map(super::tracing::ZoneVmExtensionPolicies::new)
     }
 
-    /// Deletes a specified zone VM extension policy.
+    /// Deletes a specified zone VM extension policy within a project.
     pub fn delete(&self) -> super::builder::zone_vm_extension_policies::Delete {
         super::builder::zone_vm_extension_policies::Delete::new(self.inner.clone())
     }
 
-    /// Retrieves details of a specific zone VM extension policy.
+    /// Retrieves details of a specific zone VM extension policy within a project.
     pub fn get(&self) -> super::builder::zone_vm_extension_policies::Get {
         super::builder::zone_vm_extension_policies::Get::new(self.inner.clone())
     }
@@ -19827,7 +20510,7 @@ impl ZoneVmExtensionPolicies {
         super::builder::zone_vm_extension_policies::List::new(self.inner.clone())
     }
 
-    /// Modifies an existing zone VM extension policy.
+    /// Modifies an existing zone VM extension policy within a project.
     pub fn update(&self) -> super::builder::zone_vm_extension_policies::Update {
         super::builder::zone_vm_extension_policies::Update::new(self.inner.clone())
     }
@@ -19843,10 +20526,12 @@ impl ZoneVmExtensionPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Zones;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Zones::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19862,7 +20547,7 @@ impl ZoneVmExtensionPolicies {
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://compute.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

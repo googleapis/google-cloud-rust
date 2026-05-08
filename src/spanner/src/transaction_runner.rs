@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::database_client::DatabaseClient;
+use crate::model::request_options::Priority;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBuilder};
@@ -121,6 +122,27 @@ impl TransactionRunnerBuilder {
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
     pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.builder = self.builder.with_transaction_tag(tag);
+        self
+    }
+
+    /// Sets the RPC priority to use for the commit of this transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client
+    ///     .read_write_transaction()
+    ///     .with_commit_priority(Priority::Low)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_priority(mut self, priority: Priority) -> Self {
+        self.builder = self.builder.with_commit_priority(priority);
         self
     }
 

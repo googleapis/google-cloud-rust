@@ -31,12 +31,12 @@ should not introduce breaking changes to the client libraries.
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-storage/1.11.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-storage/1.12.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [gcloud-storage]: https://crates.io/crates/gcloud-storage
 [google cloud storage]: https://cloud.google.com/storage
 [ring]: https://crates.io/crates/ring
-[storage]: https://docs.rs/google-cloud-storage/1.11.0/google_cloud_storage/client/struct.Storage.html
-[storagecontrol]: https://docs.rs/google-cloud-storage/1.11.0/google_cloud_storage/client/struct.StorageControl.html
+[storage]: https://docs.rs/google-cloud-storage/1.12.0/google_cloud_storage/client/struct.Storage.html
+[storagecontrol]: https://docs.rs/google-cloud-storage/1.12.0/google_cloud_storage/client/struct.StorageControl.html
 [using google cloud storage]: https://googleapis.github.io/google-cloud-rust/storage.html

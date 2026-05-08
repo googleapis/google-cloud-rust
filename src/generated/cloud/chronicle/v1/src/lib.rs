@@ -27,10 +27,15 @@
 //!
 //! # Available Clients
 //!
+//! * [BigQueryExportService](client/struct.BigQueryExportService.html)
+//! * [DashboardChartService](client/struct.DashboardChartService.html)
+//! * [DashboardQueryService](client/struct.DashboardQueryService.html)
 //! * [DataAccessControlService](client/struct.DataAccessControlService.html)
 //! * [DataTableService](client/struct.DataTableService.html)
 //! * [EntityService](client/struct.EntityService.html)
+//! * [FeaturedContentNativeDashboardService](client/struct.FeaturedContentNativeDashboardService.html)
 //! * [InstanceService](client/struct.InstanceService.html)
+//! * [NativeDashboardService](client/struct.NativeDashboardService.html)
 //! * [ReferenceListService](client/struct.ReferenceListService.html)
 //! * [RuleService](client/struct.RuleService.html)
 //!
@@ -59,18 +64,19 @@ pub mod stub;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_chronicle_v1::client::DataAccessControlService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DataAccessControlService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_data_access_labels()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
-/// # Ok(()) }
+/// # use google_cloud_chronicle_v1::client::BigQueryExportService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = BigQueryExportService::builder().build().await?;
+///     let response = client.get_big_query_export()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/bigQueryExport"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

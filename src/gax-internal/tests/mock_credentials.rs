@@ -52,5 +52,6 @@ pub fn mock_credentials() -> MockCredentials {
             data: header,
         })
     });
+    mock.expect_universe_domain().returning(|| None);
     mock
 }

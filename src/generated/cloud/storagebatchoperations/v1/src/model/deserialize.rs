@@ -3240,6 +3240,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Counters {
             __succeeded_object_count,
             __failed_object_count,
             __total_bytes_found,
+            __object_custom_contexts_created,
+            __object_custom_contexts_deleted,
+            __object_custom_contexts_updated,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3268,6 +3271,24 @@ impl<'de> serde::de::Deserialize<'de> for super::Counters {
                             "failed_object_count" => Ok(__FieldTag::__failed_object_count),
                             "totalBytesFound" => Ok(__FieldTag::__total_bytes_found),
                             "total_bytes_found" => Ok(__FieldTag::__total_bytes_found),
+                            "objectCustomContextsCreated" => {
+                                Ok(__FieldTag::__object_custom_contexts_created)
+                            }
+                            "object_custom_contexts_created" => {
+                                Ok(__FieldTag::__object_custom_contexts_created)
+                            }
+                            "objectCustomContextsDeleted" => {
+                                Ok(__FieldTag::__object_custom_contexts_deleted)
+                            }
+                            "object_custom_contexts_deleted" => {
+                                Ok(__FieldTag::__object_custom_contexts_deleted)
+                            }
+                            "objectCustomContextsUpdated" => {
+                                Ok(__FieldTag::__object_custom_contexts_updated)
+                            }
+                            "object_custom_contexts_updated" => {
+                                Ok(__FieldTag::__object_custom_contexts_updated)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3371,6 +3392,63 @@ impl<'de> serde::de::Deserialize<'de> for super::Counters {
                                 }
                             }
                             result.total_bytes_found = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__object_custom_contexts_created => {
+                            if !fields.insert(__FieldTag::__object_custom_contexts_created) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_custom_contexts_created",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.object_custom_contexts_created = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__object_custom_contexts_deleted => {
+                            if !fields.insert(__FieldTag::__object_custom_contexts_deleted) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_custom_contexts_deleted",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.object_custom_contexts_deleted = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__object_custom_contexts_updated => {
+                            if !fields.insert(__FieldTag::__object_custom_contexts_updated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_custom_contexts_updated",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.object_custom_contexts_updated = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -1689,6 +1689,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Batch {
             __spark_batch,
             __spark_r_batch,
             __spark_sql_batch,
+            __pyspark_notebook_batch,
             __runtime_info,
             __state,
             __state_message,
@@ -1731,6 +1732,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Batch {
                             "spark_r_batch" => Ok(__FieldTag::__spark_r_batch),
                             "sparkSqlBatch" => Ok(__FieldTag::__spark_sql_batch),
                             "spark_sql_batch" => Ok(__FieldTag::__spark_sql_batch),
+                            "pysparkNotebookBatch" => Ok(__FieldTag::__pyspark_notebook_batch),
+                            "pyspark_notebook_batch" => Ok(__FieldTag::__pyspark_notebook_batch),
                             "runtimeInfo" => Ok(__FieldTag::__runtime_info),
                             "runtime_info" => Ok(__FieldTag::__runtime_info),
                             "state" => Ok(__FieldTag::__state),
@@ -1876,6 +1879,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Batch {
                                 crate::model::batch::BatchConfig::SparkSqlBatch(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::SparkSqlBatch>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__pyspark_notebook_batch => {
+                            if !fields.insert(__FieldTag::__pyspark_notebook_batch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pyspark_notebook_batch",
+                                ));
+                            }
+                            if result.batch_config.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `batch_config`, a oneof with full ID .google.cloud.dataproc.v1.Batch.pyspark_notebook_batch, latest field was pysparkNotebookBatch",
+                                ));
+                            }
+                            result.batch_config = std::option::Option::Some(
+                                crate::model::batch::BatchConfig::PysparkNotebookBatch(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PySparkNotebookBatch>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -2600,6 +2623,148 @@ impl<'de> serde::de::Deserialize<'de> for super::SparkSqlBatch {
                                 ));
                             }
                             result.jar_file_uris = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::PySparkNotebookBatch {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __notebook_file_uri,
+            __params,
+            __python_file_uris,
+            __jar_file_uris,
+            __file_uris,
+            __archive_uris,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PySparkNotebookBatch")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "notebookFileUri" => Ok(__FieldTag::__notebook_file_uri),
+                            "notebook_file_uri" => Ok(__FieldTag::__notebook_file_uri),
+                            "params" => Ok(__FieldTag::__params),
+                            "pythonFileUris" => Ok(__FieldTag::__python_file_uris),
+                            "python_file_uris" => Ok(__FieldTag::__python_file_uris),
+                            "jarFileUris" => Ok(__FieldTag::__jar_file_uris),
+                            "jar_file_uris" => Ok(__FieldTag::__jar_file_uris),
+                            "fileUris" => Ok(__FieldTag::__file_uris),
+                            "file_uris" => Ok(__FieldTag::__file_uris),
+                            "archiveUris" => Ok(__FieldTag::__archive_uris),
+                            "archive_uris" => Ok(__FieldTag::__archive_uris),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::PySparkNotebookBatch;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PySparkNotebookBatch")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__notebook_file_uri => {
+                            if !fields.insert(__FieldTag::__notebook_file_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for notebook_file_uri",
+                                ));
+                            }
+                            result.notebook_file_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__params => {
+                            if !fields.insert(__FieldTag::__params) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for params",
+                                ));
+                            }
+                            result.params = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__python_file_uris => {
+                            if !fields.insert(__FieldTag::__python_file_uris) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for python_file_uris",
+                                ));
+                            }
+                            result.python_file_uris = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__jar_file_uris => {
+                            if !fields.insert(__FieldTag::__jar_file_uris) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jar_file_uris",
+                                ));
+                            }
+                            result.jar_file_uris = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__file_uris => {
+                            if !fields.insert(__FieldTag::__file_uris) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for file_uris",
+                                ));
+                            }
+                            result.file_uris = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__archive_uris => {
+                            if !fields.insert(__FieldTag::__archive_uris) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for archive_uris",
+                                ));
+                            }
+                            result.archive_uris = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

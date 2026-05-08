@@ -55,6 +55,7 @@ pub struct AccessApprovalRequest {
 }
 
 impl AccessApprovalRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -206,6 +207,7 @@ pub struct ListAccessApprovalRequestsRequest {
 }
 
 impl ListAccessApprovalRequestsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -295,6 +297,7 @@ pub struct ListAccessApprovalRequestsResponse {
 }
 
 impl ListAccessApprovalRequestsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -387,6 +390,7 @@ pub struct AccessReason {
 }
 
 impl AccessReason {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -653,6 +657,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -828,6 +833,7 @@ pub struct Workload {
 }
 
 impl Workload {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1204,6 +1210,7 @@ pub struct ListWorkloadsRequest {
 }
 
 impl ListWorkloadsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1293,6 +1300,7 @@ pub struct ListWorkloadsResponse {
 }
 
 impl ListWorkloadsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1381,6 +1389,7 @@ pub struct GetWorkloadRequest {
 }
 
 impl GetWorkloadRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1415,6 +1424,7 @@ pub struct WorkloadOnboardingState {
 }
 
 impl WorkloadOnboardingState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1468,6 +1478,7 @@ pub struct WorkloadOnboardingStep {
 }
 
 impl WorkloadOnboardingStep {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1745,6 +1756,7 @@ pub struct Customer {
 }
 
 impl Customer {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1866,6 +1878,7 @@ pub struct ListCustomersRequest {
 }
 
 impl ListCustomersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1955,6 +1968,7 @@ pub struct ListCustomersResponse {
 }
 
 impl ListCustomersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2051,6 +2065,7 @@ pub struct CreateCustomerRequest {
 }
 
 impl CreateCustomerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2131,6 +2146,7 @@ pub struct GetCustomerRequest {
 }
 
 impl GetCustomerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2165,6 +2181,7 @@ pub struct CustomerOnboardingState {
 }
 
 impl CustomerOnboardingState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2218,6 +2235,7 @@ pub struct CustomerOnboardingStep {
 }
 
 impl CustomerOnboardingStep {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2484,6 +2502,7 @@ pub struct UpdateCustomerRequest {
 }
 
 impl UpdateCustomerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2573,6 +2592,7 @@ pub struct DeleteCustomerRequest {
 }
 
 impl DeleteCustomerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2611,6 +2631,7 @@ pub struct EkmConnections {
 }
 
 impl EkmConnections {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2668,6 +2689,7 @@ pub struct GetEkmConnectionsRequest {
 }
 
 impl GetEkmConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2709,6 +2731,7 @@ pub struct EkmConnection {
 }
 
 impl EkmConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2805,6 +2828,7 @@ pub mod ekm_connection {
     }
 
     impl ConnectionError {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3008,6 +3032,7 @@ pub struct PartnerPermissions {
 }
 
 impl PartnerPermissions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3058,6 +3083,7 @@ pub mod partner_permissions {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [Permission].
     ///
     /// # Working with unknown values
     ///
@@ -3239,6 +3265,7 @@ pub struct GetPartnerPermissionsRequest {
 }
 
 impl GetPartnerPermissionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3296,6 +3323,7 @@ pub struct Partner {
 }
 
 impl Partner {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3473,6 +3501,7 @@ pub struct GetPartnerRequest {
 }
 
 impl GetPartnerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3514,6 +3543,7 @@ pub struct Sku {
 }
 
 impl Sku {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3564,6 +3594,7 @@ pub struct EkmMetadata {
 }
 
 impl EkmMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3809,6 +3840,7 @@ pub struct Violation {
 }
 
 impl Violation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4059,6 +4091,7 @@ pub mod violation {
     }
 
     impl Remediation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4161,6 +4194,7 @@ pub mod violation {
         }
 
         impl Instructions {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4260,6 +4294,7 @@ pub mod violation {
             }
 
             impl Gcloud {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4339,6 +4374,7 @@ pub mod violation {
             }
 
             impl Console {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4772,6 +4808,7 @@ pub struct ListViolationsRequest {
 }
 
 impl ListViolationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4895,6 +4932,7 @@ pub struct ListViolationsResponse {
 }
 
 impl ListViolationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4983,6 +5021,7 @@ pub struct GetViolationRequest {
 }
 
 impl GetViolationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

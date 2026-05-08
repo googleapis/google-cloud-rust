@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceController::builder().build().await?;
 ///     let response = client.check()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -48,7 +50,7 @@
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://servicecontrol.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom

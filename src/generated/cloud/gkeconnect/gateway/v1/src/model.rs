@@ -66,6 +66,7 @@ pub struct GenerateCredentialsRequest {
 }
 
 impl GenerateCredentialsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -294,6 +295,7 @@ pub struct GenerateCredentialsResponse {
 }
 
 impl GenerateCredentialsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
