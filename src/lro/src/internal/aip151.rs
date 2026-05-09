@@ -394,19 +394,22 @@ where
 
     async fn until_done(mut self) -> Result<ResponseType> {
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            let lro_span = self.lro_span.clone();
-            let wait_loop = async {
-                let mut state = PollingState::default();
-                let mut pending = self.poll().await;
-                while let Some(p) = pending {
-                    match p {
-                        PollingResult::Completed(r) => return r,
-                        PollingResult::InProgress(_) => (),
-                        PollingResult::PollingError(_) => (),
-                    }
-                    state.attempt_count += 1;
-                    let wait = self.backoff_policy.wait_period(&state);
+        let lro_span = self.lro_span.clone();
+
+        let wait_loop = async {
+            let mut state = PollingState::default();
+            let mut pending = self.poll().await;
+            while let Some(p) = pending {
+                match p {
+                    PollingResult::Completed(r) => return r,
+                    PollingResult::InProgress(_) => (),
+                    PollingResult::PollingError(_) => (),
+                }
+                state.attempt_count += 1;
+                let wait = self.backoff_policy.wait_period(&state);
+
+                #[cfg(google_cloud_unstable_tracing)]
+                {
                     pending = {
                         let parent_for_poll_span = self.lro_span.clone();
                         let next_poll = async {
@@ -430,11 +433,20 @@ where
                         }
                     };
                 }
-                // We can only get here if `poll()` returns `None`, but it only returns
-                // `None` after it returned `Polling::Completed` and therefore this is
-                // never reached.
-                unreachable!("loop should exit via the `Completed` branch vs. this line");
-            };
+                #[cfg(not(google_cloud_unstable_tracing))]
+                {
+                    tokio::time::sleep(wait).await;
+                    pending = self.poll().await;
+                }
+            }
+            // We can only get here if `poll()` returns `None`, but it only returns
+            // `None` after it returned `Polling::Completed` and therefore this is
+            // never reached.
+            unreachable!("loop should exit via the `Completed` branch vs. this line");
+        };
+
+        #[cfg(google_cloud_unstable_tracing)]
+        {
             match lro_span {
                 Some(span) => wait_loop.instrument(span).await,
                 None => wait_loop.await,
@@ -442,20 +454,7 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
-            let mut state = PollingState::default();
-            while let Some(p) = self.poll().await {
-                match p {
-                    PollingResult::Completed(r) => return r,
-                    PollingResult::InProgress(_) => (),
-                    PollingResult::PollingError(_) => (),
-                }
-                state.attempt_count += 1;
-                tokio::time::sleep(self.backoff_policy.wait_period(&state)).await;
-            }
-            // We can only get here if `poll()` returns `None`, but it only returns
-            // `None` after it returned `Polling::Completed` and therefore this is
-            // never reached.
-            unreachable!("loop should exit via the `Completed` branch vs. this line");
+            wait_loop.await
         }
     }
 
