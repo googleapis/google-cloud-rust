@@ -142,6 +142,10 @@ where
     )
 }
 
+/// Creates a new `impl Poller<(), M>` with options.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to use this function directly.
 pub fn new_unit_response_poller_with_options<MetadataType, S, SF, Q, QF>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -192,6 +196,10 @@ where
     )
 }
 
+/// Creates a new `impl Poller<R, ()>` with options.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to use this function directly.
 pub fn new_unit_metadata_poller_with_options<ResponseType, S, SF, Q, QF>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -241,6 +249,10 @@ where
     )
 }
 
+/// Creates a new `impl Poller<(), ()>` with options.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to use this function directly.
 pub fn new_unit_poller_with_options<S, SF, Q, QF>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
