@@ -390,23 +390,21 @@ where
                     }
                     state.attempt_count += 1;
                     let wait = self.backoff_policy.wait_period(&state);
-                    pending = match &self.lro_span {
-                        Some(parent) => {
+                    pending = {
+                        let parent_for_poll_span = self.lro_span.clone();
+                        let next_poll = async {
+                            tokio::time::sleep(wait).await;
+                            self.poll().await
+                        };
+                        if let Some(ref parent) = parent_for_poll_span {
                             let poll_span = tracing::info_span!(
                                 parent: parent,
                                 "LRO Polling",
                                 "gcp.lro.poll_attempt" = state.attempt_count
                             );
-                            async {
-                                tokio::time::sleep(wait).await;
-                                self.poll().await
-                            }
-                            .instrument(poll_span)
-                            .await
-                        }
-                        None => {
-                            tokio::time::sleep(wait).await;
-                            self.poll().await
+                            next_poll.instrument(poll_span).await
+                        } else {
+                            next_poll.await
                         }
                     };
                 }
@@ -1131,11 +1129,13 @@ mod tests {
     }
 
     #[cfg(google_cloud_unstable_tracing)]
-    #[tokio::test(flavor = "multi_thread")]
-    async fn until_done_tracing_emits_lro_polling_under_lro_wait() -> Result<()> {
+    mod tracing_tests {
+        use super::*;
         use std::sync::{Arc, Mutex};
-        use tracing_subscriber::Registry;
-        use tracing_subscriber::layer::{Context, Layer, SubscriberExt};
+        use tracing_subscriber::{
+            Registry,
+            layer::{Context, Layer, SubscriberExt},
+        };
 
         type SpanCreated = (String, Option<String>);
 
@@ -1149,6 +1149,10 @@ mod tests {
 
             fn snapshots(&self) -> Vec<SpanCreated> {
                 self.0.lock().unwrap().clone()
+            }
+
+            fn names(&self) -> Vec<String> {
+                self.snapshots().into_iter().map(|(s, _)| s).collect()
             }
         }
 
@@ -1174,150 +1178,120 @@ mod tests {
             }
         }
 
-        let cap = Capture::default();
-        let subscriber = Registry::default().with(RecordNewSpans { cap: cap.clone() });
-        let _guard = tracing::subscriber::set_default(subscriber);
-
-        let start = || async move {
-            let any = Any::from_msg(&Timestamp::clamp(123, 0))
-                .expect("test message deserializes via Any::from_msg");
-            let op = OperationAny::default()
-                .set_name("test-only-name")
-                .set_metadata(any);
-            let op = TestOperation::new(op);
-            Ok::<TestOperation, Error>(op)
-        };
-
-        let query = |_: String| async move {
-            let any = Any::from_msg(&Duration::clamp(234, 0))
-                .expect("test message deserializes via Any::from_msg");
-            let result = ResultAny::Response(any.into());
-            let op = OperationAny::default().set_done(true).set_result(result);
-            let op = TestOperation::new(op);
-            Ok::<TestOperation, Error>(op)
-        };
-
-        let poller = new_poller_with_options(
-            Arc::new(AlwaysContinue),
-            Arc::new(
-                ExponentialBackoffBuilder::new()
-                    .with_initial_delay(StdDuration::from_millis(1))
-                    .clamp(),
-            ),
-            start,
-            query,
-            PollerOptions {
-                tracing: Some(TracingDetails {
-                    method_name: "test.LroMethod",
-                }),
-            },
-        );
-        let response = poller.until_done().await?;
-        assert_eq!(response, Duration::clamp(234, 0));
-
-        let spans = cap.snapshots();
-        let polling: Vec<_> = spans
-            .iter()
-            .filter(|(name, _)| name == "LRO Polling")
-            .collect();
-        assert_eq!(
-            polling.len(),
-            1,
-            "expected one LRO Polling span, got: {spans:?}"
-        );
-        assert_eq!(
-            polling[0].1.as_deref(),
-            Some("LRO Wait"),
-            "LRO Polling should be a child of LRO Wait, got: {spans:?}"
-        );
-        assert!(
-            spans.iter().any(|(name, _)| name == "LRO Wait"),
-            "expected LRO Wait span, got: {spans:?}"
-        );
-
-        Ok(())
-    }
-
-    #[cfg(google_cloud_unstable_tracing)]
-    #[tokio::test(flavor = "multi_thread")]
-    async fn until_done_tracing_skips_lro_polling_when_immediate_completion() -> Result<()> {
-        use std::sync::{Arc, Mutex};
-        use tracing_subscriber::Registry;
-        use tracing_subscriber::layer::{Context, Layer, SubscriberExt};
-
-        #[derive(Clone, Default)]
-        struct Capture(Arc<Mutex<Vec<String>>>);
-
-        impl Capture {
-            fn record(&self, name: String) {
-                self.0.lock().unwrap().push(name);
-            }
-
-            fn names(&self) -> Vec<String> {
-                self.0.lock().unwrap().clone()
-            }
+        fn setup_tracing_subscriber() -> (Capture, tracing::subscriber::DefaultGuard) {
+            let cap = Capture::default();
+            let subscriber = Registry::default().with(RecordNewSpans { cap: cap.clone() });
+            let guard = tracing::subscriber::set_default(subscriber);
+            (cap, guard)
         }
 
-        struct RecordNewSpans {
-            cap: Capture,
+        #[tokio::test(flavor = "multi_thread")]
+        async fn until_done_tracing_emits_lro_polling_under_lro_wait() -> Result<()> {
+            let (cap, _guard) = setup_tracing_subscriber();
+
+            let start = || async move {
+                let any = Any::from_msg(&Timestamp::clamp(123, 0))
+                    .expect("test message deserializes via Any::from_msg");
+                let op = OperationAny::default()
+                    .set_name("test-only-name")
+                    .set_metadata(any);
+                let op = TestOperation::new(op);
+                Ok::<TestOperation, Error>(op)
+            };
+
+            let query = |_: String| async move {
+                let any = Any::from_msg(&Duration::clamp(234, 0))
+                    .expect("test message deserializes via Any::from_msg");
+                let result = ResultAny::Response(any.into());
+                let op = OperationAny::default().set_done(true).set_result(result);
+                let op = TestOperation::new(op);
+                Ok::<TestOperation, Error>(op)
+            };
+
+            let poller = new_poller_with_options(
+                Arc::new(AlwaysContinue),
+                Arc::new(
+                    ExponentialBackoffBuilder::new()
+                        .with_initial_delay(StdDuration::from_millis(1))
+                        .clamp(),
+                ),
+                start,
+                query,
+                PollerOptions {
+                    tracing: Some(TracingDetails {
+                        method_name: "test.LroMethod",
+                    }),
+                },
+            );
+            let response = poller.until_done().await?;
+            assert_eq!(response, Duration::clamp(234, 0));
+
+            let spans = cap.snapshots();
+            let polling: Vec<_> = spans
+                .iter()
+                .filter(|(name, _)| name == "LRO Polling")
+                .collect();
+            assert_eq!(
+                polling.len(),
+                1,
+                "expected one LRO Polling span, got: {spans:?}"
+            );
+            assert_eq!(
+                polling[0].1.as_deref(),
+                Some("LRO Wait"),
+                "LRO Polling should be a child of LRO Wait, got: {spans:?}"
+            );
+            assert!(
+                spans.iter().any(|(name, _)| name == "LRO Wait"),
+                "expected LRO Wait span, got: {spans:?}"
+            );
+
+            Ok(())
         }
 
-        impl<S> Layer<S> for RecordNewSpans
-        where
-            S: tracing::Subscriber + for<'lookup> tracing_subscriber::registry::LookupSpan<'lookup>,
-        {
-            fn on_new_span(
-                &self,
-                attrs: &tracing::span::Attributes<'_>,
-                _id: &tracing::span::Id,
-                _ctx: Context<'_, S>,
-            ) {
-                self.cap.record(attrs.metadata().name().to_string());
-            }
+        #[tokio::test(flavor = "multi_thread")]
+        async fn until_done_tracing_skips_lro_polling_when_immediate_completion() -> Result<()> {
+            let (cap, _guard) = setup_tracing_subscriber();
+
+            let start = || async move {
+                let any = Any::from_msg(&Duration::clamp(234, 0))
+                    .expect("test message deserializes via Any::from_msg");
+                let result = ResultAny::Response(any.into());
+                let op = OperationAny::default().set_done(true).set_result(result);
+                let op = TestOperation::new(op);
+                Ok::<TestOperation, Error>(op)
+            };
+
+            let query = |_: String| async move {
+                panic!("query should not run when the operation completes on start");
+            };
+
+            let poller = new_poller_with_options(
+                Arc::new(AlwaysContinue),
+                Arc::new(
+                    ExponentialBackoffBuilder::new()
+                        .with_initial_delay(StdDuration::from_millis(1))
+                        .clamp(),
+                ),
+                start,
+                query,
+                PollerOptions {
+                    tracing: Some(TracingDetails {
+                        method_name: "test.LroMethod",
+                    }),
+                },
+            );
+            let response = poller.until_done().await?;
+            assert_eq!(response, Duration::clamp(234, 0));
+
+            assert!(
+                !cap.names().iter().any(|n| n == "LRO Polling"),
+                "unexpected LRO Polling spans: {:?}",
+                cap.names()
+            );
+
+            Ok(())
         }
-
-        let cap = Capture::default();
-        let subscriber = Registry::default().with(RecordNewSpans { cap: cap.clone() });
-        let _guard = tracing::subscriber::set_default(subscriber);
-
-        let start = || async move {
-            let any = Any::from_msg(&Duration::clamp(234, 0))
-                .expect("test message deserializes via Any::from_msg");
-            let result = ResultAny::Response(any.into());
-            let op = OperationAny::default().set_done(true).set_result(result);
-            let op = TestOperation::new(op);
-            Ok::<TestOperation, Error>(op)
-        };
-
-        let query = |_: String| async move {
-            panic!("query should not run when the operation completes on start");
-        };
-
-        let poller = new_poller_with_options(
-            Arc::new(AlwaysContinue),
-            Arc::new(
-                ExponentialBackoffBuilder::new()
-                    .with_initial_delay(StdDuration::from_millis(1))
-                    .clamp(),
-            ),
-            start,
-            query,
-            PollerOptions {
-                tracing: Some(TracingDetails {
-                    method_name: "test.LroMethod",
-                }),
-            },
-        );
-        let response = poller.until_done().await?;
-        assert_eq!(response, Duration::clamp(234, 0));
-
-        assert!(
-            !cap.names().iter().any(|n| n == "LRO Polling"),
-            "unexpected LRO Polling spans: {:?}",
-            cap.names()
-        );
-
-        Ok(())
     }
 
     fn service_error() -> Error {
