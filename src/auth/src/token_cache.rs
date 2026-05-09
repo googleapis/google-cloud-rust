@@ -19,6 +19,8 @@ use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
 use rand::RngExt;
+use rand::SeedableRng;
+use rand::rngs::{StdRng, SysRng};
 use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
@@ -27,14 +29,10 @@ use tokio::time::{Duration, Instant, sleep};
 // determine when to refresh a token. Most MDS' refresh token 5 mins before
 // expiry, except for Serverless which refresh tokens 4 mins before
 // expiry. So we are using 4 mins as the staleness limit for our refresh logic.
-const NORMAL_REFRESH_SLACK_SECS: u64 = 240;
-const SHORT_REFRESH_SLACK_SECS: u64 = 10;
-const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(NORMAL_REFRESH_SLACK_SECS);
-const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(SHORT_REFRESH_SLACK_SECS);
-/// Upper bound on jitter for the main refresh sleep: `NORMAL_REFRESH_SLACK / 4` (#1587).
-const REFRESH_JITTER_CAP: Duration = Duration::from_secs(NORMAL_REFRESH_SLACK_SECS / 4);
-/// Upper bound on jitter for [`SHORT_REFRESH_SLACK`] sleeps: `SHORT_REFRESH_SLACK / 2` (#1587).
-const SHORT_REFRESH_JITTER_CAP: Duration = Duration::from_secs(SHORT_REFRESH_SLACK_SECS / 2);
+const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
+const REFRESH_JITTER_CAP: Duration = NORMAL_REFRESH_SLACK.checked_div(4).unwrap();
+const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
+const SHORT_REFRESH_JITTER_CAP: Duration = SHORT_REFRESH_SLACK.checked_div(2).unwrap();
 
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
@@ -102,7 +100,7 @@ async fn wait_for_next_token(
 
 /// Returns a duration in `[base - max_jitter, base]` (uniformly) so independent
 /// credential caches are less likely to hit the token endpoint at the same
-/// instant (#1587).
+/// instant.
 fn jittered_sleep_duration_with_rng<R: RngExt + ?Sized>(
     base: Duration,
     jitter_cap: Duration,
@@ -126,20 +124,18 @@ async fn refresh_task<T>(
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
-    fn sleep_duration_with_thread_rng(base: Duration, cap: Duration) -> Duration {
-        let mut rng = rand::rng();
-        jittered_sleep_duration_with_rng(base, cap, &mut rng)
-    }
-
-    refresh_task_impl(token_provider, tx_token, sleep_duration_with_thread_rng).await;
+    let mut sys = SysRng;
+    let mut rng = StdRng::try_from_rng(&mut sys).expect("SysRng must seed StdRng");
+    refresh_task_impl(token_provider, tx_token, &mut rng).await;
 }
 
-async fn refresh_task_impl<T>(
+async fn refresh_task_impl<T, R>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
-    mut jitter_fn: impl FnMut(Duration, Duration) -> Duration + Send,
+    rng: &mut R,
 ) where
     T: TokenProvider + Send + Sync + 'static,
+    R: RngExt + Send + ?Sized,
 {
     loop {
         let token_result = token_provider.token().await;
@@ -162,15 +158,20 @@ async fn refresh_task_impl<T>(
                     }
                     Some(time_until_expiry) => {
                         if time_until_expiry > NORMAL_REFRESH_SLACK {
-                            let wait = jitter_fn(
+                            let wait = jittered_sleep_duration_with_rng(
                                 time_until_expiry - NORMAL_REFRESH_SLACK,
                                 REFRESH_JITTER_CAP,
+                                rng,
                             );
                             sleep(wait).await;
                         } else if time_until_expiry > SHORT_REFRESH_SLACK {
                             // If expiry is less than 4 mins, try to refresh every 10 seconds
                             // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
-                            let wait = jitter_fn(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP);
+                            let wait = jittered_sleep_duration_with_rng(
+                                SHORT_REFRESH_SLACK,
+                                SHORT_REFRESH_JITTER_CAP,
+                                rng,
+                            );
                             sleep(wait).await;
                         }
                     }
@@ -178,17 +179,17 @@ async fn refresh_task_impl<T>(
             }
             Ok(None) => {
                 // If there is no expiry, the token is valid forever, so no need to refresh
-                // TODO(#1553): Validate that all auth backends provide expiry and make expiry not optional.
+                // TODO: Validate that all auth backends provide expiry and make expiry not optional.
                 break;
             }
             Err(err) => {
                 // On transient errors, even if the retry policy is exhausted,
                 // we want to continue running this retry loop.
                 // This loop cannot stop because that may leave the
-                // credentials in an unrecoverable state (see #4541).
+                // credentials in an unrecoverable state.
                 // We considered using a notification to wake up the next time
                 // a caller wants to retrieve a token, but that seemed prone to
-                // deadlocks. We may implement this as an improvement (#4593).
+                // deadlocks. We may implement this as an improvement.
                 // On permanent errors, then there is really no point in trying
                 // again, by definition of "permanent". If the error was misclassified
                 // as permanent, that is a bug in the retry policy and better fixed
@@ -196,7 +197,11 @@ async fn refresh_task_impl<T>(
                 if !err.is_transient() {
                     break;
                 }
-                let wait = jitter_fn(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP);
+                let wait = jittered_sleep_duration_with_rng(
+                    SHORT_REFRESH_SLACK,
+                    SHORT_REFRESH_JITTER_CAP,
+                    rng,
+                );
                 sleep(wait).await;
             }
         }
@@ -218,8 +223,34 @@ mod tests {
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    /// Deterministic `TryRng` for tests. A stream of identical values can make
-    /// `random_range` reject forever for some sampled types, so this advances.
+    /// [`TryRng`] that always draws `u64::MAX` so `random_range` tends to sample
+    /// the upper end of the jitter range (see `refresh_task_impl_jitter_shortens_main_refresh_sleep`).
+    #[derive(Clone, Copy, Default)]
+    struct AlwaysMaxU64Rng;
+
+    impl TryRng for AlwaysMaxU64Rng {
+        type Error = Infallible;
+
+        fn try_next_u32(&mut self) -> std::result::Result<u32, Self::Error> {
+            Ok(u32::MAX)
+        }
+
+        fn try_next_u64(&mut self) -> std::result::Result<u64, Self::Error> {
+            Ok(u64::MAX)
+        }
+
+        fn try_fill_bytes(
+            &mut self,
+            dest: &mut [u8],
+        ) -> std::result::Result<(), Self::Error> {
+            dest.fill(0xff);
+            Ok(())
+        }
+    }
+
+    /// Deterministic `TryRng` for tests. First `try_next_u64` is `0`, so the first jitter
+    /// draw is unjittered (legacy behavior). Values then increase: a constant stream breaks
+    /// `rand`'s `UniformDuration` rejection sampling.
     #[derive(Clone, Default)]
     struct CountingRng(u64);
 
@@ -245,6 +276,14 @@ mod tests {
             }
             Ok(())
         }
+    }
+
+    #[test]
+    fn jittered_sleep_duration_counting_rng_first_draw_is_unjittered_base() {
+        let base = Duration::from_secs(3360);
+        let mut rng = CountingRng::default();
+        let got = jittered_sleep_duration_with_rng(base, REFRESH_JITTER_CAP, &mut rng);
+        assert_eq!(got, base);
     }
 
     #[test]
@@ -331,7 +370,7 @@ mod tests {
         assert!(result.is_err(), "{result:?}");
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
     async fn expired_token_success() -> TestResult {
         let now = Instant::now();
 
@@ -376,7 +415,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
     async fn expired_token_failure() -> TestResult {
         let now = Instant::now();
 
@@ -481,10 +520,7 @@ mod tests {
 
         tokio::spawn(async move {
             let mut rng = CountingRng::default();
-            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
-                jittered_sleep_duration_with_rng(base, cap, &mut rng)
-            })
-            .await;
+            refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
         // Give the refresh task a chance to run
@@ -499,7 +535,66 @@ mod tests {
         assert_eq!(actual, token2.clone());
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
+    async fn refresh_task_impl_jitter_shortens_main_refresh_sleep() {
+        let now = Instant::now();
+        let long_expiry = TOKEN_VALID_DURATION;
+        let token1 = Token {
+            token: "token1".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(now + long_expiry),
+            metadata: None,
+        };
+        let token1_clone = token1.clone();
+        let token2 = Token {
+            token: "token2".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(now + 2 * long_expiry),
+            metadata: None,
+        };
+        let token2_clone = token2.clone();
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(token1_clone));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(token2_clone));
+
+        let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
+
+        tokio::spawn(async move {
+            let mut rng = AlwaysMaxU64Rng;
+            refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
+        });
+
+        rx.changed().await.unwrap();
+        assert_eq!(
+            rx.borrow().as_ref().unwrap().as_ref().unwrap().0.token,
+            "token1"
+        );
+
+        let base = long_expiry - NORMAL_REFRESH_SLACK;
+        let max_jitter = REFRESH_JITTER_CAP.min(base / 4);
+        assert!(
+            max_jitter > Duration::ZERO,
+            "test requires non-zero jitter cap"
+        );
+
+        tokio::time::advance(base - max_jitter).await;
+        tokio::task::yield_now().await;
+
+        tokio::time::timeout(Duration::from_secs(5), rx.changed())
+            .await
+            .expect("timed out waiting for refresh after jitter-shortened sleep")
+            .unwrap();
+
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual.token, "token2");
+    }
+
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
     async fn refresh_task_loop() {
         let now = Instant::now();
 
@@ -548,10 +643,7 @@ mod tests {
 
         tokio::spawn(async move {
             let mut rng = CountingRng::default();
-            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
-                jittered_sleep_duration_with_rng(base, cap, &mut rng)
-            })
-            .await;
+            refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
         rx.changed().await.unwrap();
@@ -584,7 +676,7 @@ mod tests {
         assert_eq!(actual, token3);
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
     async fn refresh_task_loop_less_expiry() {
         let now = Instant::now();
 
@@ -626,10 +718,7 @@ mod tests {
 
         tokio::spawn(async move {
             let mut rng = CountingRng::default();
-            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
-                jittered_sleep_duration_with_rng(base, cap, &mut rng)
-            })
-            .await;
+            refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
         rx.changed().await.unwrap();
@@ -658,7 +747,7 @@ mod tests {
         assert_eq!(actual, token2);
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
     async fn refresh_task_loop_long_expiry_waits_long_time_before_refresh() {
         let now = Instant::now();
 
@@ -695,10 +784,7 @@ mod tests {
 
         tokio::spawn(async move {
             let mut rng = CountingRng::default();
-            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
-                jittered_sleep_duration_with_rng(base, cap, &mut rng)
-            })
-            .await;
+            refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
         rx.changed().await.unwrap();
@@ -717,7 +803,7 @@ mod tests {
         assert_eq!(actual, token2);
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test(start_paused = true, flavor = "current_thread")]
     async fn refresh_task_sleeps_on_transient_error_and_recovers_on_next_loop() -> TestResult {
         let now = Instant::now();
 
