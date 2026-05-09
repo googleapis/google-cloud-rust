@@ -24,6 +24,15 @@ use google_cloud_wkt::Empty;
 use google_cloud_wkt::message::Message;
 use std::sync::Arc;
 
+#[cfg(google_cloud_unstable_tracing)]
+use tracing::Instrument;
+
+#[cfg(google_cloud_unstable_tracing)]
+const SPAN_LRO_GET_OPERATION: &str = "google.longrunning.Operations/GetOperation";
+
+#[cfg(google_cloud_unstable_tracing)]
+const SPAN_LRO_POLL_SLEEP: &str = "LRO Poll Sleep";
+
 pub type Operation<R, M> = crate::details::Operation<R, M>;
 
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
@@ -295,7 +304,6 @@ struct PollerImpl<S, Q> {
     operation: Option<String>,
     state: PollingState,
     #[cfg(google_cloud_unstable_tracing)]
-    #[expect(dead_code)]
     lro_span: Option<tracing::Span>,
 }
 
@@ -358,7 +366,24 @@ where
         }
         if let Some(name) = self.operation.take() {
             self.state.attempt_count += 1;
-            let result = (self.query)(name.clone()).await;
+            #[cfg(google_cloud_unstable_tracing)]
+            let result = {
+                let with_get_op_span = self.lro_span.is_some();
+                let name_for_query = name.clone();
+                if with_get_op_span {
+                    let span = tracing::info_span!(SPAN_LRO_GET_OPERATION);
+                    async { (self.query)(name_for_query).await }
+                        .instrument(span)
+                        .await
+                } else {
+                    (self.query)(name_for_query).await
+                }
+            };
+            #[cfg(not(google_cloud_unstable_tracing))]
+            let result = {
+                let name_for_query = name.clone();
+                (self.query)(name_for_query).await
+            };
             let (op, poll) =
                 crate::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
             self.operation = op;
@@ -368,26 +393,70 @@ where
     }
 
     async fn until_done(mut self) -> Result<ResponseType> {
-        let mut state = PollingState::default();
-        while let Some(p) = self.poll().await {
-            match p {
-                // Return, the operation completed or the polling policy is
-                // exhausted.
-                PollingResult::Completed(r) => return r,
-                // Continue, the operation was successfully polled and the
-                // polling policy was queried.
-                PollingResult::InProgress(_) => (),
-                // Continue, the polling policy was queried and decided the
-                // error is recoverable.
-                PollingResult::PollingError(_) => (),
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let lro_span = self.lro_span.clone();
+            let wait_loop = async {
+                let mut state = PollingState::default();
+                let mut pending = self.poll().await;
+                while let Some(p) = pending {
+                    match p {
+                        PollingResult::Completed(r) => return r,
+                        PollingResult::InProgress(_) => (),
+                        PollingResult::PollingError(_) => (),
+                    }
+                    state.attempt_count += 1;
+                    let wait = self.backoff_policy.wait_period(&state);
+                    pending = {
+                        let parent_for_poll_span = self.lro_span.clone();
+                        let next_poll = async {
+                            if parent_for_poll_span.is_some() {
+                                let sleep_span = tracing::info_span!(SPAN_LRO_POLL_SLEEP);
+                                tokio::time::sleep(wait).instrument(sleep_span).await;
+                            } else {
+                                tokio::time::sleep(wait).await;
+                            }
+                            self.poll().await
+                        };
+                        if let Some(ref parent) = parent_for_poll_span {
+                            let poll_span = tracing::info_span!(
+                                parent: parent,
+                                "LRO Polling",
+                                "gcp.lro.poll_attempt" = state.attempt_count
+                            );
+                            next_poll.instrument(poll_span).await
+                        } else {
+                            next_poll.await
+                        }
+                    };
+                }
+                // We can only get here if `poll()` returns `None`, but it only returns
+                // `None` after it returned `Polling::Completed` and therefore this is
+                // never reached.
+                unreachable!("loop should exit via the `Completed` branch vs. this line");
+            };
+            match lro_span {
+                Some(span) => wait_loop.instrument(span).await,
+                None => wait_loop.await,
             }
-            state.attempt_count += 1;
-            tokio::time::sleep(self.backoff_policy.wait_period(&state)).await;
         }
-        // We can only get here if `poll()` returns `None`, but it only returns
-        // `None` after it returned `Polling::Completed` and therefore this is
-        // never reached.
-        unreachable!("loop should exit via the `Completed` branch vs. this line");
+        #[cfg(not(google_cloud_unstable_tracing))]
+        {
+            let mut state = PollingState::default();
+            while let Some(p) = self.poll().await {
+                match p {
+                    PollingResult::Completed(r) => return r,
+                    PollingResult::InProgress(_) => (),
+                    PollingResult::PollingError(_) => (),
+                }
+                state.attempt_count += 1;
+                tokio::time::sleep(self.backoff_policy.wait_period(&state)).await;
+            }
+            // We can only get here if `poll()` returns `None`, but it only returns
+            // `None` after it returned `Polling::Completed` and therefore this is
+            // never reached.
+            unreachable!("loop should exit via the `Completed` branch vs. this line");
+        }
     }
 
     #[cfg(feature = "unstable-stream")]
@@ -1073,6 +1142,208 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    mod tracing_tests {
+        use super::*;
+        use std::sync::{Arc, Mutex};
+        use tracing_subscriber::{
+            Registry,
+            layer::{Context, Layer, SubscriberExt},
+        };
+
+        type SpanCreated = (String, Option<String>);
+
+        #[derive(Clone, Default)]
+        struct Capture(Arc<Mutex<Vec<SpanCreated>>>);
+
+        impl Capture {
+            fn record(&self, name: String, parent: Option<String>) {
+                self.0.lock().unwrap().push((name, parent));
+            }
+
+            fn snapshots(&self) -> Vec<SpanCreated> {
+                self.0.lock().unwrap().clone()
+            }
+
+            fn names(&self) -> Vec<String> {
+                self.snapshots().into_iter().map(|(s, _)| s).collect()
+            }
+        }
+
+        struct RecordNewSpans {
+            cap: Capture,
+        }
+
+        impl<S> Layer<S> for RecordNewSpans
+        where
+            S: tracing::Subscriber + for<'lookup> tracing_subscriber::registry::LookupSpan<'lookup>,
+        {
+            fn on_new_span(
+                &self,
+                attrs: &tracing::span::Attributes<'_>,
+                _id: &tracing::span::Id,
+                ctx: Context<'_, S>,
+            ) {
+                let name = attrs.metadata().name().to_string();
+                let parent = attrs
+                    .parent()
+                    .and_then(|pid| ctx.span(pid).map(|s| s.metadata().name().to_string()));
+                self.cap.record(name, parent);
+            }
+        }
+
+        fn setup_tracing_subscriber() -> (Capture, tracing::subscriber::DefaultGuard) {
+            let cap = Capture::default();
+            let subscriber = Registry::default().with(RecordNewSpans { cap: cap.clone() });
+            let guard = tracing::subscriber::set_default(subscriber);
+            (cap, guard)
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn until_done_tracing_emits_expected_spans() -> Result<()> {
+            let (cap, _guard) = setup_tracing_subscriber();
+
+            let start = || async move {
+                let any = Any::from_msg(&Timestamp::clamp(123, 0))
+                    .expect("test message deserializes via Any::from_msg");
+                let op = OperationAny::default()
+                    .set_name("test-only-name")
+                    .set_metadata(any);
+                let op = TestOperation::new(op);
+                Ok::<TestOperation, Error>(op)
+            };
+
+            let query = |_: String| async move {
+                let any = Any::from_msg(&Duration::clamp(234, 0))
+                    .expect("test message deserializes via Any::from_msg");
+                let result = ResultAny::Response(any.into());
+                let op = OperationAny::default().set_done(true).set_result(result);
+                let op = TestOperation::new(op);
+                Ok::<TestOperation, Error>(op)
+            };
+
+            let poller = new_poller_with_options(
+                Arc::new(AlwaysContinue),
+                Arc::new(
+                    ExponentialBackoffBuilder::new()
+                        .with_initial_delay(StdDuration::from_millis(1))
+                        .clamp(),
+                ),
+                start,
+                query,
+                PollerOptions {
+                    tracing: Some(TracingDetails {
+                        method_name: "test.LroMethod",
+                    }),
+                },
+            );
+            let response = poller.until_done().await?;
+            assert_eq!(response, Duration::clamp(234, 0));
+
+            let spans = cap.snapshots();
+            let names = cap.names();
+            let polling: Vec<_> = spans
+                .iter()
+                .filter(|(name, _)| name == "LRO Polling")
+                .collect();
+            assert_eq!(
+                polling.len(),
+                1,
+                "expected one LRO Polling span, got: {spans:?}"
+            );
+            assert_eq!(
+                polling[0].1.as_deref(),
+                Some("LRO Wait"),
+                "LRO Polling should be a child of LRO Wait, got: {spans:?}"
+            );
+            assert!(
+                spans.iter().any(|(name, _)| name == "LRO Wait"),
+                "expected LRO Wait span, got: {spans:?}"
+            );
+            let sleep_count = names
+                .iter()
+                .filter(|n| *n == super::super::SPAN_LRO_POLL_SLEEP)
+                .count();
+            assert_eq!(
+                sleep_count,
+                1,
+                "expected one {span} span, got: {names:?}",
+                span = super::super::SPAN_LRO_POLL_SLEEP
+            );
+            let get_op_count = names
+                .iter()
+                .filter(|n| *n == super::super::SPAN_LRO_GET_OPERATION)
+                .count();
+            assert_eq!(
+                get_op_count,
+                1,
+                "expected one {span} span, got: {names:?}",
+                span = super::super::SPAN_LRO_GET_OPERATION
+            );
+
+            Ok(())
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn until_done_tracing_skips_poll_loop_spans_when_immediate_completion() -> Result<()>
+        {
+            let (cap, _guard) = setup_tracing_subscriber();
+
+            let start = || async move {
+                let any = Any::from_msg(&Duration::clamp(234, 0))
+                    .expect("test message deserializes via Any::from_msg");
+                let result = ResultAny::Response(any.into());
+                let op = OperationAny::default().set_done(true).set_result(result);
+                let op = TestOperation::new(op);
+                Ok::<TestOperation, Error>(op)
+            };
+
+            let query = |_: String| async move {
+                panic!("query should not run when the operation completes on start");
+            };
+
+            let poller = new_poller_with_options(
+                Arc::new(AlwaysContinue),
+                Arc::new(
+                    ExponentialBackoffBuilder::new()
+                        .with_initial_delay(StdDuration::from_millis(1))
+                        .clamp(),
+                ),
+                start,
+                query,
+                PollerOptions {
+                    tracing: Some(TracingDetails {
+                        method_name: "test.LroMethod",
+                    }),
+                },
+            );
+            let response = poller.until_done().await?;
+            assert_eq!(response, Duration::clamp(234, 0));
+
+            assert!(
+                !cap.names().iter().any(|n| n == "LRO Polling"),
+                "unexpected LRO Polling spans: {:?}",
+                cap.names()
+            );
+            assert!(
+                !cap.names()
+                    .iter()
+                    .any(|n| n == super::super::SPAN_LRO_POLL_SLEEP),
+                "unexpected sleep spans: {:?}",
+                cap.names()
+            );
+            assert!(
+                !cap.names()
+                    .iter()
+                    .any(|n| n == super::super::SPAN_LRO_GET_OPERATION),
+                "unexpected GetOperation spans: {:?}",
+                cap.names()
+            );
+
+            Ok(())
+        }
     }
 
     fn service_error() -> Error {
