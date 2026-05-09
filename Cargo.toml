@@ -478,7 +478,7 @@ google-cloud-api         = { default-features = false, version = "1.6.0", path =
 google-cloud-iam-v1      = { default-features = false, version = "1.9.0", path = "src/generated/iam/v1" }
 google-cloud-location    = { default-features = false, version = "1.9.0", path = "src/generated/cloud/location" }
 google-cloud-longrunning = { default-features = false, version = "1.10.0", path = "src/generated/longrunning" }
-google-cloud-lro         = { default-features = false, version = "1.6.0", path = "src/lro" }
+google-cloud-lro         = { default-features = false, version = "1.7.0", path = "src/lro" }
 google-cloud-rpc         = { default-features = false, version = "1.5.0", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
 google-cloud-type        = { default-features = false, version = "1.5.0", path = "src/generated/type" }
 # These are used by specific generated libraries.

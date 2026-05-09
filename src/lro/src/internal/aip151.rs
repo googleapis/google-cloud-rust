@@ -133,12 +133,35 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
 {
-    let poller = new_poller_with_options(
+    new_unit_response_poller_with_options(
         polling_error_policy,
         polling_backoff_policy,
         start,
         query,
         PollerOptions::default(),
+    )
+}
+
+pub fn new_unit_response_poller_with_options<MetadataType, S, SF, Q, QF>(
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    start: S,
+    query: Q,
+    options: PollerOptions,
+) -> impl Poller<(), MetadataType>
+where
+    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
+{
+    let poller = new_poller_with_options(
+        polling_error_policy,
+        polling_backoff_policy,
+        start,
+        query,
+        options,
     );
     UnitResponsePoller::new(poller)
 }
@@ -160,12 +183,35 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
 {
-    let poller = new_poller_with_options(
+    new_unit_metadata_poller_with_options(
         polling_error_policy,
         polling_backoff_policy,
         start,
         query,
         PollerOptions::default(),
+    )
+}
+
+pub fn new_unit_metadata_poller_with_options<ResponseType, S, SF, Q, QF>(
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    start: S,
+    query: Q,
+    options: PollerOptions,
+) -> impl Poller<ResponseType, ()>
+where
+    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
+{
+    let poller = new_poller_with_options(
+        polling_error_policy,
+        polling_backoff_policy,
+        start,
+        query,
+        options,
     );
     UnitMetadataPoller::new(poller)
 }
@@ -186,12 +232,34 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
 {
-    let poller = new_poller_with_options(
+    new_unit_poller_with_options(
         polling_error_policy,
         polling_backoff_policy,
         start,
         query,
         PollerOptions::default(),
+    )
+}
+
+pub fn new_unit_poller_with_options<S, SF, Q, QF>(
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    start: S,
+    query: Q,
+    options: PollerOptions,
+) -> impl Poller<(), ()>
+where
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
+{
+    let poller = new_poller_with_options(
+        polling_error_policy,
+        polling_backoff_policy,
+        start,
+        query,
+        options,
     );
     UnitResponsePoller::new(UnitMetadataPoller::new(poller))
 }
