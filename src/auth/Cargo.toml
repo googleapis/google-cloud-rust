@@ -53,6 +53,7 @@ tokio                 = { workspace = true, features = ["fs", "process"] }
 url.workspace         = true
 p256                  = { workspace = true, features = ["ecdsa", "pem"], optional = true }
 jsonwebtoken          = { workspace = true, optional = true }
+rand                  = { workspace = true, features = ["thread_rng"] }
 # We do not use this directly, but without it the minimal-versions build breaks.
 # See: https://github.com/Keats/jsonwebtoken/pull/481
 aws-lc-rs = { workspace = true, optional = true }

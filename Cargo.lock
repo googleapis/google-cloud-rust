@@ -1658,6 +1658,7 @@ dependencies = [
  "mockall",
  "mutants",
  "p256",
+ "rand 0.10.1",
  "regex",
  "reqwest 0.13.3",
  "rsa",

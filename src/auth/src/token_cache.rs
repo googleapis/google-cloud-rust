@@ -18,6 +18,8 @@ use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
+#[cfg(not(test))]
+use rand::RngExt;
 use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
@@ -28,6 +30,11 @@ use tokio::time::{Duration, Instant, sleep};
 // expiry. So we are using 4 mins as the staleness limit for our refresh logic.
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
+/// Upper bound on how much we randomize the scheduled refresh instant. Spreads
+/// load when many independent caches refresh on a similar cadence (#1587).
+const REFRESH_JITTER_CAP: Duration = Duration::from_secs(60);
+/// Jitter cap for the short fixed delays (`SHORT_REFRESH_SLACK`).
+const SHORT_REFRESH_JITTER_CAP: Duration = Duration::from_secs(5);
 
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
@@ -93,6 +100,33 @@ async fn wait_for_next_token(
     token_result.expect("There should always be a token or error in the channel after changed()")
 }
 
+/// Returns a duration in `[base - max_jitter, base]` (uniformly) so independent
+/// credential caches are less likely to hit the token endpoint at the same
+/// instant. In unit tests the crate is built with `cfg(test)` and jitter is
+/// disabled so timing assertions stay stable.
+fn jittered_sleep_duration(base: Duration, jitter_cap: Duration) -> Duration {
+    if base.is_zero() {
+        return base;
+    }
+
+    #[cfg(test)]
+    {
+        let _ = jitter_cap;
+        base
+    }
+
+    #[cfg(not(test))]
+    {
+        let max_jitter = jitter_cap.min(base / 4);
+        if max_jitter.is_zero() {
+            base
+        } else {
+            let jitter = rand::rng().random_range(Duration::ZERO..=max_jitter);
+            base.saturating_sub(jitter)
+        }
+    }
+}
+
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
@@ -120,11 +154,19 @@ async fn refresh_task<T>(
                     }
                     Some(time_until_expiry) => {
                         if time_until_expiry > NORMAL_REFRESH_SLACK {
-                            sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
+                            let wait = jittered_sleep_duration(
+                                time_until_expiry - NORMAL_REFRESH_SLACK,
+                                REFRESH_JITTER_CAP,
+                            );
+                            sleep(wait).await;
                         } else if time_until_expiry > SHORT_REFRESH_SLACK {
                             // If expiry is less than 4 mins, try to refresh every 10 seconds
                             // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
-                            sleep(SHORT_REFRESH_SLACK).await;
+                            let wait = jittered_sleep_duration(
+                                SHORT_REFRESH_SLACK,
+                                SHORT_REFRESH_JITTER_CAP,
+                            );
+                            sleep(wait).await;
                         }
                     }
                 }
@@ -149,7 +191,8 @@ async fn refresh_task<T>(
                 if !err.is_transient() {
                     break;
                 }
-                sleep(SHORT_REFRESH_SLACK).await;
+                let wait = jittered_sleep_duration(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP);
+                sleep(wait).await;
             }
         }
     }
