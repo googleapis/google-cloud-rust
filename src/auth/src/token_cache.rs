@@ -18,7 +18,6 @@ use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
-#[cfg(not(test))]
 use rand::RngExt;
 use std::sync::Arc;
 use tokio::sync::watch;
@@ -28,13 +27,14 @@ use tokio::time::{Duration, Instant, sleep};
 // determine when to refresh a token. Most MDS' refresh token 5 mins before
 // expiry, except for Serverless which refresh tokens 4 mins before
 // expiry. So we are using 4 mins as the staleness limit for our refresh logic.
-const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
-const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
-/// Upper bound on how much we randomize the scheduled refresh instant. Spreads
-/// load when many independent caches refresh on a similar cadence (#1587).
-const REFRESH_JITTER_CAP: Duration = Duration::from_secs(60);
-/// Jitter cap for the short fixed delays (`SHORT_REFRESH_SLACK`).
-const SHORT_REFRESH_JITTER_CAP: Duration = Duration::from_secs(5);
+const NORMAL_REFRESH_SLACK_SECS: u64 = 240;
+const SHORT_REFRESH_SLACK_SECS: u64 = 10;
+const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(NORMAL_REFRESH_SLACK_SECS);
+const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(SHORT_REFRESH_SLACK_SECS);
+/// Upper bound on jitter for the main refresh sleep: `NORMAL_REFRESH_SLACK / 4` (#1587).
+const REFRESH_JITTER_CAP: Duration = Duration::from_secs(NORMAL_REFRESH_SLACK_SECS / 4);
+/// Upper bound on jitter for [`SHORT_REFRESH_SLACK`] sleeps: `SHORT_REFRESH_SLACK / 2` (#1587).
+const SHORT_REFRESH_JITTER_CAP: Duration = Duration::from_secs(SHORT_REFRESH_SLACK_SECS / 2);
 
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
@@ -102,34 +102,42 @@ async fn wait_for_next_token(
 
 /// Returns a duration in `[base - max_jitter, base]` (uniformly) so independent
 /// credential caches are less likely to hit the token endpoint at the same
-/// instant. In unit tests the crate is built with `cfg(test)` and jitter is
-/// disabled so timing assertions stay stable.
-fn jittered_sleep_duration(base: Duration, jitter_cap: Duration) -> Duration {
+/// instant (#1587).
+fn jittered_sleep_duration_with_rng<R: RngExt + ?Sized>(
+    base: Duration,
+    jitter_cap: Duration,
+    rng: &mut R,
+) -> Duration {
     if base.is_zero() {
         return base;
     }
-
-    #[cfg(test)]
-    {
-        let _ = jitter_cap;
+    let max_jitter = jitter_cap.min(base / 4);
+    if max_jitter.is_zero() {
         base
-    }
-
-    #[cfg(not(test))]
-    {
-        let max_jitter = jitter_cap.min(base / 4);
-        if max_jitter.is_zero() {
-            base
-        } else {
-            let jitter = rand::rng().random_range(Duration::ZERO..=max_jitter);
-            base.saturating_sub(jitter)
-        }
+    } else {
+        let jitter = rng.random_range(Duration::ZERO..=max_jitter);
+        base.saturating_sub(jitter)
     }
 }
 
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
+) where
+    T: TokenProvider + Send + Sync + 'static,
+{
+    fn sleep_duration_with_thread_rng(base: Duration, cap: Duration) -> Duration {
+        let mut rng = rand::rng();
+        jittered_sleep_duration_with_rng(base, cap, &mut rng)
+    }
+
+    refresh_task_impl(token_provider, tx_token, sleep_duration_with_thread_rng).await;
+}
+
+async fn refresh_task_impl<T>(
+    token_provider: Arc<T>,
+    tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
+    mut jitter_fn: impl FnMut(Duration, Duration) -> Duration + Send,
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
@@ -154,7 +162,7 @@ async fn refresh_task<T>(
                     }
                     Some(time_until_expiry) => {
                         if time_until_expiry > NORMAL_REFRESH_SLACK {
-                            let wait = jittered_sleep_duration(
+                            let wait = jitter_fn(
                                 time_until_expiry - NORMAL_REFRESH_SLACK,
                                 REFRESH_JITTER_CAP,
                             );
@@ -162,10 +170,7 @@ async fn refresh_task<T>(
                         } else if time_until_expiry > SHORT_REFRESH_SLACK {
                             // If expiry is less than 4 mins, try to refresh every 10 seconds
                             // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
-                            let wait = jittered_sleep_duration(
-                                SHORT_REFRESH_SLACK,
-                                SHORT_REFRESH_JITTER_CAP,
-                            );
+                            let wait = jitter_fn(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP);
                             sleep(wait).await;
                         }
                     }
@@ -191,7 +196,7 @@ async fn refresh_task<T>(
                 if !err.is_transient() {
                     break;
                 }
-                let wait = jittered_sleep_duration(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP);
+                let wait = jitter_fn(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP);
                 sleep(wait).await;
             }
         }
@@ -203,13 +208,58 @@ mod tests {
     use super::*;
     use crate::errors;
     use crate::token::tests::MockTokenProvider;
+    use core::convert::Infallible;
     use google_cloud_gax::error::CredentialsError;
+    use rand::rand_core::TryRng;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};
     use tokio::time::{Duration, Instant};
 
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    /// Deterministic `TryRng` for tests. A stream of identical values can make
+    /// `random_range` reject forever for some sampled types, so this advances.
+    #[derive(Clone, Default)]
+    struct CountingRng(u64);
+
+    impl TryRng for CountingRng {
+        type Error = Infallible;
+
+        fn try_next_u32(&mut self) -> std::result::Result<u32, Self::Error> {
+            self.try_next_u64().map(|v| v as u32)
+        }
+
+        fn try_next_u64(&mut self) -> std::result::Result<u64, Self::Error> {
+            let v = self.0;
+            self.0 = self.0.wrapping_add(1);
+            Ok(v)
+        }
+
+        fn try_fill_bytes(
+            &mut self,
+            dest: &mut [u8],
+        ) -> std::result::Result<(), Self::Error> {
+            for d in dest.iter_mut() {
+                *d = self.try_next_u32()? as u8;
+            }
+            Ok(())
+        }
+    }
+
+    #[test]
+    fn jittered_sleep_duration_with_counting_rng_stays_in_bounds() {
+        let base = Duration::from_secs(3300);
+        let mut rng = CountingRng::default();
+        let got = jittered_sleep_duration_with_rng(base, REFRESH_JITTER_CAP, &mut rng);
+        let max_jitter = REFRESH_JITTER_CAP.min(base / 4);
+        assert!(got <= base, "{got:?} <= {base:?}");
+        assert!(
+            base.saturating_sub(max_jitter) <= got,
+            "{got:?} >= {:?}",
+            base.saturating_sub(max_jitter)
+        );
+    }
 
     fn get_cached_token(cache: CacheableResource<Token>) -> Result<Token> {
         match cache {
@@ -430,7 +480,11 @@ mod tests {
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            let mut rng = CountingRng::default();
+            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
+                jittered_sleep_duration_with_rng(base, cap, &mut rng)
+            })
+            .await;
         });
 
         // Give the refresh task a chance to run
@@ -493,7 +547,11 @@ mod tests {
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            let mut rng = CountingRng::default();
+            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
+                jittered_sleep_duration_with_rng(base, cap, &mut rng)
+            })
+            .await;
         });
 
         rx.changed().await.unwrap();
@@ -567,7 +625,11 @@ mod tests {
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            let mut rng = CountingRng::default();
+            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
+                jittered_sleep_duration_with_rng(base, cap, &mut rng)
+            })
+            .await;
         });
 
         rx.changed().await.unwrap();
@@ -632,7 +694,11 @@ mod tests {
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            let mut rng = CountingRng::default();
+            refresh_task_impl(Arc::new(mock), tx, move |base, cap| {
+                jittered_sleep_duration_with_rng(base, cap, &mut rng)
+            })
+            .await;
         });
 
         rx.changed().await.unwrap();
