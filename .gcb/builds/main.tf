@@ -41,7 +41,12 @@ module "services" {
 # Service enablement can take time to propagate.
 resource "time_sleep" "wait_for_services" {
   create_duration = "60s"
-  depends_on      = [module.services]
+
+  triggers = {
+    services = join(",", module.services.services)
+  }
+
+  depends_on = [module.services]
 }
 
 # Create the resources we will need to run integration tests on.
