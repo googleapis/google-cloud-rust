@@ -23,7 +23,10 @@ use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
-    exponential_backoff::ExponentialBackoffBuilder, retry_policy::RetryPolicyExt,
+    backoff_policy::BackoffPolicy,
+    error::rpc::Code,
+    exponential_backoff::ExponentialBackoffBuilder,
+    retry_policy::RetryPolicyExt,
     retry_state::RetryState,
 };
 use google_cloud_storage::client::{Storage, StorageControl};
@@ -763,45 +766,93 @@ pub async fn cleanup_stale_buckets(
     }
 
     println!("cleaning up {} buckets", buckets_to_cleanup.len());
-    // Serialize bucket deletion to respect GCP rate limit (~1 deletion every 2 seconds)
-    for (idx, name) in buckets_to_cleanup.iter().enumerate() {
-        if let Err(e) = cleanup_bucket(client.clone(), name.clone()).await {
-            println!("error deleting bucket {name}: {e:?}");
+
+    // Many integration-test workers can run at once against the same project.
+    // A fixed sleep between `DeleteBucket` calls in *this* process does not
+    // coordinate with other processes, so it does not prevent shared rate limits.
+    //
+    // Instead we:
+    // 1) Empty buckets in parallel — listing/deleting objects and other child
+    //    resources per bucket still uses `join_all` inside each bucket so work
+    //    completes quickly; different buckets are emptied concurrently.
+    // 2) Call `DeleteBucket` strictly one-after-another, and on retryable /
+    //    rate-limit-style errors back off with exponential delay whose **initial**
+    //    wait is at least 2 seconds. That slows down *every* runner when the API
+    //    pushes back, which is the practical mitigation across processes.
+    let bucket_names = buckets_to_cleanup;
+    let empty_tasks = bucket_names.iter().cloned().map(|name| {
+        let c = client.clone();
+        async move { empty_bucket_contents(&c, &name).await }
+    });
+    for result in futures::future::join_all(empty_tasks).await {
+        if let Err(e) = result {
+            tracing::error!("error emptying stale bucket before delete: {e:?}");
         }
-        // Add delay between deletions, but not after the last one
-        if idx < buckets_to_cleanup.len() - 1 {
-            tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+    }
+
+    for name in bucket_names {
+        if let Err(e) = delete_bucket_with_error_backoff(client, &name).await {
+            println!("error deleting bucket {name}: {e:?}");
         }
     }
 
     Ok(())
 }
 
-pub async fn custom_project_billing(msg: &str) -> anyhow::Result<bool> {
-    let credentials = CredentialsBuilder::default().build()?;
-    let headers = match credentials.headers(http::Extensions::new()).await? {
-        CacheableResource::NotModified => unreachable!("no caching requested"),
-        CacheableResource::New { data, .. } => data,
-    };
-    let Some(project) = headers.get("x-goog-user-project") else {
-        return Ok(false);
-    };
-    tracing::warn!(
-        r#"Skipping: {msg} does not support custom billing projects.
-The default credentials (see below) are configured to use project {project:?}.
-{credentials:?}"#
-    );
-    Ok(true)
+fn delete_bucket_error_should_backoff(e: &google_cloud_gax::error::Error) -> bool {
+    if e.is_transient_and_before_rpc() {
+        return true;
+    }
+    matches!(
+        e.status().map(|s| s.code),
+        Some(
+            Code::ResourceExhausted
+                | Code::Unavailable
+                | Code::DeadlineExceeded
+                | Code::Aborted
+                | Code::Internal
+        )
+    )
 }
 
-pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
+/// Delete one bucket, sleeping with exponential backoff (initial delay ≥ 2s,
+/// capped) between attempts on retryable errors. See [`cleanup_stale_buckets`].
+async fn delete_bucket_with_error_backoff(
+    client: &StorageControl,
+    name: &str,
+) -> anyhow::Result<()> {
+    let backoff = ExponentialBackoffBuilder::new()
+        .with_initial_delay(Duration::from_secs(2))
+        .with_maximum_delay(Duration::from_secs(120))
+        .build()?;
+    let mut state = RetryState::new(true);
+    let deadline = std::time::Instant::now() + Duration::from_secs(900);
+    loop {
+        match client.delete_bucket().set_name(name).send().await {
+            Ok(()) => return Ok(()),
+            Err(e) => {
+                if std::time::Instant::now() > deadline {
+                    return Err(e.into());
+                }
+                if !delete_bucket_error_should_backoff(&e) {
+                    return Err(e.into());
+                }
+                let wait = backoff.on_failure(&state);
+                tokio::time::sleep(wait).await;
+                state.attempt_count = state.attempt_count.saturating_add(1);
+            }
+        }
+    }
+}
+
+/// List and remove objects, managed folders, folders, and anywhere caches so
+/// the bucket can be deleted. Per-resource deletes are still parallelized with
+/// `join_all` inside this bucket.
+async fn empty_bucket_contents(client: &StorageControl, name: &str) -> anyhow::Result<()> {
     use google_cloud_gax::{Result as GaxResult, paginator::ItemPaginator};
     use google_cloud_wkt::FieldMask;
 
-    // Configure the bucket to be garbage collected. Some buckets are created by
-    // sample code, which does not (and should not) include setting labels to
-    // automatically garbage collect the bucket.
-    let current = client.get_bucket().set_name(&name).send().await?;
+    let current = client.get_bucket().set_name(name).send().await?;
     if current
         .labels
         .get("integration-test")
@@ -826,7 +877,7 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
 
     let mut objects = client
         .list_objects()
-        .set_parent(&name)
+        .set_parent(name)
         .set_versions(true)
         .by_item();
     let mut pending = Vec::new();
@@ -849,11 +900,11 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
         .collect::<GaxResult<Vec<_>>>()
     {
         tracing::error!("Error cleaning up objects in bucket {name}: {e:?}");
-    };
+    }
 
     if current.hierarchical_namespace.is_some_and(|h| h.enabled) {
         let mut pending = Vec::new();
-        let mut folders = client.list_managed_folders().set_parent(&name).by_item();
+        let mut folders = client.list_managed_folders().set_parent(name).by_item();
         while let Some(item) = folders.next().await {
             let Ok(folder) = item else {
                 continue;
@@ -869,7 +920,7 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
         }
 
         let mut pending = Vec::new();
-        let mut folders = client.list_folders().set_parent(&name).by_item();
+        let mut folders = client.list_folders().set_parent(name).by_item();
         while let Some(item) = folders.next().await {
             let Ok(folder) = item else {
                 continue;
@@ -882,11 +933,11 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
             .collect::<GaxResult<Vec<_>>>()
         {
             tracing::error!("Error cleaning up folders in bucket {name}: {e:?}");
-        };
+        }
     }
 
     let mut pending = Vec::new();
-    let mut caches = client.list_anywhere_caches().set_parent(&name).by_item();
+    let mut caches = client.list_anywhere_caches().set_parent(name).by_item();
     while let Some(item) = caches.next().await {
         let Ok(cache) = item else {
             continue;
@@ -899,10 +950,31 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
         .collect::<GaxResult<Vec<_>>>()
     {
         tracing::error!("Error cleaning up caches in bucket {name}: {e:?}");
-    };
+    }
 
-    client.delete_bucket().set_name(&name).send().await?;
     Ok(())
+}
+
+pub async fn custom_project_billing(msg: &str) -> anyhow::Result<bool> {
+    let credentials = CredentialsBuilder::default().build()?;
+    let headers = match credentials.headers(http::Extensions::new()).await? {
+        CacheableResource::NotModified => unreachable!("no caching requested"),
+        CacheableResource::New { data, .. } => data,
+    };
+    let Some(project) = headers.get("x-goog-user-project") else {
+        return Ok(false);
+    };
+    tracing::warn!(
+        r#"Skipping: {msg} does not support custom billing projects.
+The default credentials (see below) are configured to use project {project:?}.
+{credentials:?}"#
+    );
+    Ok(true)
+}
+
+pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
+    empty_bucket_contents(&client, &name).await?;
+    delete_bucket_with_error_backoff(&client, &name).await
 }
 
 fn enable_info_tracing() -> tracing::subscriber::DefaultGuard {
