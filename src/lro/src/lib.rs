@@ -128,6 +128,8 @@ pub enum PollingResult<ResponseType, MetadataType> {
 #[allow(missing_docs)]
 pub mod internal;
 
+pub use internal::{PollerOptions, TracingDetails};
+
 pub(crate) mod sealed {
     pub trait Poller {}
 }

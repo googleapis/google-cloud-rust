@@ -61,6 +61,7 @@ where
 #[derive(Clone, Debug, Default)]
 #[non_exhaustive]
 pub struct TracingDetails {
+    /// The fully qualified RPC method name.
     pub method_name: &'static str,
 }
 
@@ -68,6 +69,7 @@ pub struct TracingDetails {
 #[derive(Default)]
 #[non_exhaustive]
 pub struct PollerOptions {
+    /// Telemetry tracing details, if active.
     pub tracing: Option<TracingDetails>,
 }
 
