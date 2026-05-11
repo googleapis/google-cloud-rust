@@ -311,29 +311,66 @@ pub struct WriteObjectRequest {
 }
 
 #[cfg(google_cloud_unstable_storage_appendable_upload)]
-/// The first message sent in an appendable upload stream.
+/// The first message sent in an appendable upload bidi stream.
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]
 pub enum AppendObjectFirstMessage {
     /// Create a new appendable object.
     Create(Box<crate::model::WriteObjectSpec>),
     /// Take over an existing appendable object.
-    Takeover(crate::google::storage::v2::AppendObjectSpec),
+    Takeover(AppendObjectSpec),
 }
 
 #[cfg(google_cloud_unstable_storage_appendable_upload)]
-/// Represents the parameters of an [AppendObject] request.
+/// The request type for an appendable upload bidi streaming RPC.
 ///
-/// This type is only used in mocks of the `Storage` client.
-///
-/// [AppendObject]: crate::builder::storage::AppendObject
+/// This type might be used in mocks of the `Storage` client.
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]
+#[allow(dead_code)]
 pub struct AppendObjectRequest {
     /// The first message sent in the stream, which determines whether this is a create or takeover operation.
     pub first_message: AppendObjectFirstMessage,
     /// Additional request parameters that are not part of the object attributes.
     pub params: Option<crate::model::CommonObjectRequestParams>,
+}
+
+#[cfg(google_cloud_unstable_storage_appendable_upload)]
+/// Describes an existing target object to be appended to.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AppendObjectSpec {
+    /// The bucket containing the target object.
+    pub bucket: String,
+    /// The target object name.
+    pub object: String,
+    /// The target object generation to append to.
+    pub generation: i64,
+    /// If set, return an error if the current metageneration does not match the value.
+    pub if_metageneration_match: Option<i64>,
+    /// If set, return an error if the current metageneration matches the value.
+    pub if_metageneration_not_match: Option<i64>,
+    /// Optional. A routing token for the request.
+    pub routing_token: Option<String>,
+    /// Optional. A write handle from a previous `AppendObject` operation.
+    pub write_handle: Option<bytes::Bytes>,
+}
+
+#[cfg(google_cloud_unstable_storage_appendable_upload)]
+impl From<AppendObjectSpec> for crate::google::storage::v2::AppendObjectSpec {
+    fn from(value: AppendObjectSpec) -> Self {
+        Self {
+            bucket: value.bucket,
+            object: value.object,
+            generation: value.generation,
+            if_metageneration_match: value.if_metageneration_match,
+            if_metageneration_not_match: value.if_metageneration_not_match,
+            routing_token: value.routing_token,
+            write_handle: value
+                .write_handle
+                .map(|h| crate::google::storage::v2::BidiWriteHandle { handle: h }),
+        }
+    }
 }
 
 #[cfg(test)]
