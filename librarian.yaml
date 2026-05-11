@@ -826,7 +826,7 @@ libraries:
     version: 1.10.0
     copyright_year: "2025"
   - name: google-cloud-gax
-    version: 1.9.0
+    version: 1.11.0
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal

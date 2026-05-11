@@ -43,7 +43,7 @@ use google_cloud_gax::polling_error_policy::{
     Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
 };
 use google_cloud_gax::response::{Parts, Response};
-use google_cloud_gax::retry_loop_internal::{effective_timeout, retry_loop};
+use google_cloud_gax::retry_loop_internal::retry_loop;
 use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
@@ -68,6 +68,7 @@ pub struct ReqwestClient {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    attempt_timeout: Option<Duration>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
     universe_domain: String,
@@ -127,6 +128,7 @@ impl ReqwestClient {
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
             universe_domain,
+            attempt_timeout: config.attempt_timeout,
             transport_metric: None,
         })
     }
@@ -388,9 +390,14 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
-        builder = effective_timeout(options, remaining_time)
-            .into_iter()
-            .fold(builder, |b, t| b.timeout(t));
+        let timeout = crate::options::resolve_effective_timeout(
+            options,
+            self.attempt_timeout,
+            remaining_time,
+        );
+        if let Some(timeout) = timeout {
+            builder = builder.timeout(timeout);
+        }
 
         let mut headers = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),
