@@ -123,6 +123,31 @@ For example:
 cargo clippy -p google-cloud-storage --profile test -- -D warnings
 ```
 
+We have a more comprehensive strict check as part of our CI (see
+`.gcb/scripts/lint.sh`) that enforces stricter lints on all handwritten crates.
+
+To run this strict check for a specific crate, copy the exact lint flags defined
+in `.gcb/scripts/lint.sh` and run:
+
+```bash
+cargo clippy --all-features --no-deps -p ${crate_name} -- <flags from lint.sh>
+```
+
+For example, with flags like `-D missing_docs -D clippy::exhaustive_enums`:
+
+```bash
+cargo clippy --all-features --no-deps -p ${crate_name} -- -D missing_docs -D clippy::exhaustive_enums
+```
+
+Please refer to `.gcb/scripts/lint.sh` for the authoritative list of crates and
+exact set of lint flags currently subject to these checks.
+
+> [!IMPORTANT]
+> When editing or adding code within any of the handwritten crates, you MUST
+> check `.gcb/scripts/lint.sh` to find the list of covered crates and the exact
+> strict lint flags currently enforced, and run the strict clippy command for
+> the modified crate to ensure no new warnings are introduced.
+
 ### Code Formatter
 
 To format the code for the entire workspace, use the following command:
