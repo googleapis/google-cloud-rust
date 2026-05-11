@@ -15,6 +15,7 @@
 use std::marker::PhantomData;
 
 #[derive(Clone, Debug, PartialEq)]
+#[allow(clippy::exhaustive_enums)]
 pub enum UnknownEnumValue {
     Integer(i32),
     String(String),

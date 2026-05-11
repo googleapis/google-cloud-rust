@@ -43,6 +43,7 @@ use crate::error::Error;
 /// }
 /// ```
 #[derive(Debug)]
+#[allow(clippy::exhaustive_enums)]
 pub enum RetryResult {
     /// The error is non-retryable, stop the loop.
     Permanent(Error),
