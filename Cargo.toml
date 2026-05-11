@@ -382,7 +382,7 @@ humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
 markdown              = { default-features = false, version = "1.0" }
-opentelemetry         = { default-features = false, version = "0.31" }
+opentelemetry         = { default-features = false, version = "0.32" }
 opentelemetry-proto   = { default-features = false, version = "0.31" }
 opentelemetry_sdk     = { default-features = false, version = "0.31" }
 opentelemetry-http    = { default-features = false, version = "0.31" }
