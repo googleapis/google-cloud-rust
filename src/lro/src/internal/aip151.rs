@@ -58,6 +58,7 @@ where
 }
 
 /// Details for tracing a poller.
+#[allow(dead_code)]
 #[derive(Clone, Debug, Default)]
 #[non_exhaustive]
 pub struct TracingDetails {
@@ -66,6 +67,7 @@ pub struct TracingDetails {
 }
 
 /// Options for creating a new poller.
+#[allow(dead_code)]
 #[derive(Default)]
 #[non_exhaustive]
 pub struct PollerOptions {

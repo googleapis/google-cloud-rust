@@ -22,9 +22,14 @@ mod aip151;
 mod discovery;
 #[allow(deprecated)]
 pub use aip151::{
-    Operation, PollerOptions, TracingDetails, new_poller, new_poller_with_options,
-    new_unit_metadata_poller, new_unit_metadata_poller_with_options, new_unit_poller,
-    new_unit_poller_with_options, new_unit_response_poller, new_unit_response_poller_with_options,
+    Operation, new_poller, new_unit_metadata_poller, new_unit_poller, new_unit_response_poller,
+};
+
+#[cfg(google_cloud_unstable_tracing)]
+#[allow(deprecated)]
+pub use aip151::{
+    PollerOptions, TracingDetails, new_poller_with_options, new_unit_metadata_poller_with_options,
+    new_unit_poller_with_options, new_unit_response_poller_with_options,
 };
 
 pub use discovery::{DiscoveryOperation, new_discovery_poller};

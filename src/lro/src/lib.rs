@@ -128,6 +128,7 @@ pub enum PollingResult<ResponseType, MetadataType> {
 #[allow(missing_docs)]
 pub mod internal;
 
+#[cfg(google_cloud_unstable_tracing)]
 pub use internal::{PollerOptions, TracingDetails};
 
 pub(crate) mod sealed {
