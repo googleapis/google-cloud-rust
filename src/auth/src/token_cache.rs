@@ -502,7 +502,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn refresh_task_impl_jitter_shortens_main_refresh_sleep() {
+    async fn refresh_task_impl_jitter_shortens_main_refresh_sleep() -> TestResult {
         let now = Instant::now();
         let long_expiry = TOKEN_VALID_DURATION;
         let token1 = Token {
@@ -545,20 +545,30 @@ mod tests {
             refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
-        rx.changed().await.unwrap();
-        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
-        assert_eq!(actual.token, "token1");
+        rx.changed()
+            .await
+            .map_err(|e| -> Box<dyn std::error::Error> { Box::new(e) })?;
+
+        let actual = rx.borrow().clone();
+        assert!(
+            matches!(&actual, Some(Ok((t, _))) if t.token == "token1"),
+            "{actual:?}"
+        );
 
         tokio::time::advance(base - max_jitter).await;
         tokio::task::yield_now().await;
 
         tokio::time::timeout(Duration::from_secs(5), rx.changed())
             .await
-            .expect("timed out waiting for refresh after jitter-shortened sleep")
-            .unwrap();
+            .map_err(|e| -> Box<dyn std::error::Error> { Box::new(e) })?
+            .map_err(|e| -> Box<dyn std::error::Error> { Box::new(e) })?;
 
-        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
-        assert_eq!(actual.token, "token2");
+        let actual = rx.borrow().clone();
+        assert!(
+            matches!(&actual, Some(Ok((t, _))) if t.token == "token2"),
+            "{actual:?}"
+        );
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
