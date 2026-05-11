@@ -587,7 +587,10 @@ impl CreateAnalysisOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
-    /// let x = CreateAnalysisOperationMetadata::new().set_conversation("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = CreateAnalysisOperationMetadata::new().set_conversation(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();
@@ -1305,7 +1308,10 @@ impl GetConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetConversationRequest;
-    /// let x = GetConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = GetConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1464,7 +1470,10 @@ impl DeleteConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteConversationRequest;
-    /// let x = DeleteConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = DeleteConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2545,7 +2554,10 @@ impl CreateAnalysisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRequest;
-    /// let x = CreateAnalysisRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = CreateAnalysisRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2628,7 +2640,10 @@ impl ListAnalysesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesRequest;
-    /// let x = ListAnalysesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = ListAnalysesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2774,7 +2789,11 @@ impl GetAnalysisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetAnalysisRequest;
-    /// let x = GetAnalysisRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = GetAnalysisRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2809,7 +2828,11 @@ impl DeleteAnalysisRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteAnalysisRequest;
-    /// let x = DeleteAnalysisRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = DeleteAnalysisRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4381,7 +4404,10 @@ impl GetIssueModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetIssueModelRequest;
-    /// let x = GetIssueModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = GetIssueModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4416,7 +4442,10 @@ impl DeleteIssueModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelRequest;
-    /// let x = DeleteIssueModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = DeleteIssueModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4579,7 +4608,10 @@ impl DeployIssueModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelRequest;
-    /// let x = DeployIssueModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = DeployIssueModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4762,7 +4794,10 @@ impl UndeployIssueModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelRequest;
-    /// let x = UndeployIssueModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = UndeployIssueModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4948,7 +4983,10 @@ impl ExportIssueModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelRequest;
-    /// let x = ExportIssueModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = ExportIssueModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5563,7 +5601,11 @@ impl GetIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetIssueRequest;
-    /// let x = GetIssueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// # let issue_id = "issue_id";
+    /// let x = GetIssueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5598,7 +5640,10 @@ impl ListIssuesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ListIssuesRequest;
-    /// let x = ListIssuesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = ListIssuesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5770,7 +5815,11 @@ impl DeleteIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueRequest;
-    /// let x = DeleteIssueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// # let issue_id = "issue_id";
+    /// let x = DeleteIssueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5805,7 +5854,10 @@ impl CalculateIssueModelStatsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::CalculateIssueModelStatsRequest;
-    /// let x = CalculateIssueModelStatsRequest::new().set_issue_model("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = CalculateIssueModelStatsRequest::new().set_issue_model(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_issue_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issue_model = v.into();
@@ -6132,7 +6184,10 @@ impl GetPhraseMatcherRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetPhraseMatcherRequest;
-    /// let x = GetPhraseMatcherRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_matcher_id = "phrase_matcher_id";
+    /// let x = GetPhraseMatcherRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseMatchers/{phrase_matcher_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6167,7 +6222,10 @@ impl DeletePhraseMatcherRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeletePhraseMatcherRequest;
-    /// let x = DeletePhraseMatcherRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_matcher_id = "phrase_matcher_id";
+    /// let x = DeletePhraseMatcherRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseMatchers/{phrase_matcher_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6294,7 +6352,9 @@ impl GetSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetSettingsRequest;
-    /// let x = GetSettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetSettingsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6496,7 +6556,10 @@ impl GetAnalysisRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetAnalysisRuleRequest;
-    /// let x = GetAnalysisRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let analysis_rule_id = "analysis_rule_id";
+    /// let x = GetAnalysisRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/analysisRules/{analysis_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6625,7 +6688,10 @@ impl DeleteAnalysisRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteAnalysisRuleRequest;
-    /// let x = DeleteAnalysisRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let analysis_rule_id = "analysis_rule_id";
+    /// let x = DeleteAnalysisRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/analysisRules/{analysis_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6805,7 +6871,9 @@ impl GetEncryptionSpecRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetEncryptionSpecRequest;
-    /// let x = GetEncryptionSpecRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetEncryptionSpecRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/encryptionSpec"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7147,7 +7215,10 @@ impl GetViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetViewRequest;
-    /// let x = GetViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let view_id = "view_id";
+    /// let x = GetViewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/views/{view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7419,7 +7490,10 @@ impl DeleteViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteViewRequest;
-    /// let x = DeleteViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let view_id = "view_id";
+    /// let x = DeleteViewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/views/{view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7711,7 +7785,11 @@ pub mod dimension {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
-        /// let x = IssueDimensionMetadata::new().set_issue_id("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let issue_model_id = "issue_model_id";
+        /// # let issue_id = "issue_id";
+        /// let x = IssueDimensionMetadata::new().set_issue_id(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"));
         /// ```
         pub fn set_issue_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.issue_id = v.into();
@@ -7738,7 +7816,10 @@ pub mod dimension {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
-        /// let x = IssueDimensionMetadata::new().set_issue_model_id("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let issue_model_id = "issue_model_id";
+        /// let x = IssueDimensionMetadata::new().set_issue_model_id(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
         /// ```
         pub fn set_issue_model_id<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -9468,7 +9549,11 @@ impl CreateQaQuestionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::CreateQaQuestionRequest;
-    /// let x = CreateQaQuestionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = CreateQaQuestionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9548,7 +9633,12 @@ impl GetQaQuestionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetQaQuestionRequest;
-    /// let x = GetQaQuestionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// # let qa_question_id = "qa_question_id";
+    /// let x = GetQaQuestionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9594,7 +9684,11 @@ impl ListQaQuestionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ListQaQuestionsRequest;
-    /// let x = ListQaQuestionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = ListQaQuestionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9829,7 +9923,12 @@ impl DeleteQaQuestionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaQuestionRequest;
-    /// let x = DeleteQaQuestionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// # let qa_question_id = "qa_question_id";
+    /// let x = DeleteQaQuestionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9955,7 +10054,10 @@ impl GetQaScorecardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetQaScorecardRequest;
-    /// let x = GetQaScorecardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// let x = GetQaScorecardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10091,7 +10193,10 @@ impl DeleteQaScorecardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaScorecardRequest;
-    /// let x = DeleteQaScorecardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// let x = DeleteQaScorecardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10149,7 +10254,10 @@ impl CreateQaScorecardRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRevisionRequest;
-    /// let x = CreateQaScorecardRevisionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// let x = CreateQaScorecardRevisionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10232,7 +10340,11 @@ impl GetQaScorecardRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetQaScorecardRevisionRequest;
-    /// let x = GetQaScorecardRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetQaScorecardRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10280,7 +10392,11 @@ impl TuneQaScorecardRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionRequest;
-    /// let x = TuneQaScorecardRevisionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = TuneQaScorecardRevisionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10574,7 +10690,12 @@ pub mod tune_qa_scorecard_revision_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult;
-        /// let x = QaQuestionDatasetValidationResult::new().set_question("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let qa_scorecard_id = "qa_scorecard_id";
+        /// # let revision_id = "revision_id";
+        /// # let qa_question_id = "qa_question_id";
+        /// let x = QaQuestionDatasetValidationResult::new().set_question(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"));
         /// ```
         pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.question = v.into();
@@ -10649,7 +10770,12 @@ pub mod tune_qa_scorecard_revision_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics;
-        /// let x = QaQuestionDatasetTuningMetrics::new().set_question("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let qa_scorecard_id = "qa_scorecard_id";
+        /// # let revision_id = "revision_id";
+        /// # let qa_question_id = "qa_question_id";
+        /// let x = QaQuestionDatasetTuningMetrics::new().set_question(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"));
         /// ```
         pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.question = v.into();
@@ -10758,7 +10884,11 @@ impl DeployQaScorecardRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeployQaScorecardRevisionRequest;
-    /// let x = DeployQaScorecardRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = DeployQaScorecardRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10793,7 +10923,11 @@ impl UndeployQaScorecardRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::UndeployQaScorecardRevisionRequest;
-    /// let x = UndeployQaScorecardRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = UndeployQaScorecardRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10833,7 +10967,11 @@ impl DeleteQaScorecardRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaScorecardRevisionRequest;
-    /// let x = DeleteQaScorecardRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = DeleteQaScorecardRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11043,7 +11181,10 @@ impl ListQaScorecardRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsRequest;
-    /// let x = ListQaScorecardRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// let x = ListQaScorecardRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11196,7 +11337,10 @@ impl CreateFeedbackLabelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::CreateFeedbackLabelRequest;
-    /// let x = CreateFeedbackLabelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = CreateFeedbackLabelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11307,7 +11451,10 @@ impl ListFeedbackLabelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsRequest;
-    /// let x = ListFeedbackLabelsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = ListFeedbackLabelsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11452,7 +11599,11 @@ impl GetFeedbackLabelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::GetFeedbackLabelRequest;
-    /// let x = GetFeedbackLabelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let feedback_label_id = "feedback_label_id";
+    /// let x = GetFeedbackLabelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/feedbackLabels/{feedback_label_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11579,7 +11730,11 @@ impl DeleteFeedbackLabelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::DeleteFeedbackLabelRequest;
-    /// let x = DeleteFeedbackLabelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let feedback_label_id = "feedback_label_id";
+    /// let x = DeleteFeedbackLabelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/feedbackLabels/{feedback_label_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13413,7 +13568,10 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
-    /// let x = Conversation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14981,7 +15139,11 @@ impl Analysis {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
-    /// let x = Analysis::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let analysis_id = "analysis_id";
+    /// let x = Analysis::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/analyses/{analysis_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15778,7 +15940,10 @@ impl IssueModelResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::IssueModelResult;
-    /// let x = IssueModelResult::new().set_issue_model("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = IssueModelResult::new().set_issue_model(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_issue_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issue_model = v.into();
@@ -15849,7 +16014,11 @@ impl FeedbackLabel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
-    /// let x = FeedbackLabel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let feedback_label_id = "feedback_label_id";
+    /// let x = FeedbackLabel::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/feedbackLabels/{feedback_label_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17900,7 +18069,10 @@ impl IssueModel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
-    /// let x = IssueModel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// let x = IssueModel::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18526,7 +18698,11 @@ impl Issue {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::Issue;
-    /// let x = Issue::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let issue_model_id = "issue_model_id";
+    /// # let issue_id = "issue_id";
+    /// let x = Issue::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18869,7 +19045,10 @@ impl PhraseMatcher {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
-    /// let x = PhraseMatcher::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_matcher_id = "phrase_matcher_id";
+    /// let x = PhraseMatcher::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseMatchers/{phrase_matcher_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19737,7 +19916,9 @@ impl Settings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::Settings;
-    /// let x = Settings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Settings::new().set_name(format!("projects/{project_id}/locations/{location_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20140,7 +20321,10 @@ impl AnalysisRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
-    /// let x = AnalysisRule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let analysis_rule_id = "analysis_rule_id";
+    /// let x = AnalysisRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/analysisRules/{analysis_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20354,7 +20538,9 @@ impl EncryptionSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::EncryptionSpec;
-    /// let x = EncryptionSpec::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = EncryptionSpec::new().set_name(format!("projects/{project_id}/locations/{location_id}/encryptionSpec"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22464,7 +22650,10 @@ impl View {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::View;
-    /// let x = View::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let view_id = "view_id";
+    /// let x = View::new().set_name(format!("projects/{project_id}/locations/{location_id}/views/{view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23355,7 +23544,12 @@ impl QaQuestion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
-    /// let x = QaQuestion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// # let qa_question_id = "qa_question_id";
+    /// let x = QaQuestion::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24010,7 +24204,10 @@ impl QaScorecard {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
-    /// let x = QaScorecard::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// let x = QaScorecard::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24156,7 +24353,11 @@ impl QaScorecardRevision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
-    /// let x = QaScorecardRevision::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = QaScorecardRevision::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24475,7 +24676,12 @@ impl QaAnswer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
-    /// let x = QaAnswer::new().set_qa_question("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// # let qa_question_id = "qa_question_id";
+    /// let x = QaAnswer::new().set_qa_question(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"));
     /// ```
     pub fn set_qa_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.qa_question = v.into();
@@ -24487,7 +24693,10 @@ impl QaAnswer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
-    /// let x = QaAnswer::new().set_conversation("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = QaAnswer::new().set_conversation(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();
@@ -25198,7 +25407,10 @@ impl QaScorecardResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
-    /// let x = QaScorecardResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_result_id = "qa_scorecard_result_id";
+    /// let x = QaScorecardResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecardResults/{qa_scorecard_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25210,7 +25422,11 @@ impl QaScorecardResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
-    /// let x = QaScorecardResult::new().set_qa_scorecard_revision("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let qa_scorecard_id = "qa_scorecard_id";
+    /// # let revision_id = "revision_id";
+    /// let x = QaScorecardResult::new().set_qa_scorecard_revision(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_qa_scorecard_revision<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -25225,7 +25441,10 @@ impl QaScorecardResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
-    /// let x = QaScorecardResult::new().set_conversation("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = QaScorecardResult::new().set_conversation(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();

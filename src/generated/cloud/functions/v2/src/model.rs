@@ -107,7 +107,10 @@ impl Function {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let function_id = "function_id";
+    /// let x = Function::new().set_name(format!("projects/{project_id}/locations/{location_id}/functions/{function_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3447,7 +3450,10 @@ impl GetFunctionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_functions_v2::model::GetFunctionRequest;
-    /// let x = GetFunctionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let function_id = "function_id";
+    /// let x = GetFunctionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/functions/{function_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3520,7 +3526,9 @@ impl ListFunctionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_functions_v2::model::ListFunctionsRequest;
-    /// let x = ListFunctionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFunctionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3883,7 +3891,10 @@ impl DeleteFunctionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_functions_v2::model::DeleteFunctionRequest;
-    /// let x = DeleteFunctionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let function_id = "function_id";
+    /// let x = DeleteFunctionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/functions/{function_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4087,7 +4098,10 @@ impl GenerateDownloadUrlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_functions_v2::model::GenerateDownloadUrlRequest;
-    /// let x = GenerateDownloadUrlRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let function_id = "function_id";
+    /// let x = GenerateDownloadUrlRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/functions/{function_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

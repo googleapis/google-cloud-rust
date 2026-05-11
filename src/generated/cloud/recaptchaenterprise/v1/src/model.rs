@@ -634,7 +634,9 @@ impl AnnotateAssessmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
-    /// let x = AnnotateAssessmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let assessment_id = "assessment_id";
+    /// let x = AnnotateAssessmentRequest::new().set_name(format!("projects/{project_id}/assessments/{assessment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1848,7 +1850,9 @@ impl Assessment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
-    /// let x = Assessment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let assessment_id = "assessment_id";
+    /// let x = Assessment::new().set_name(format!("projects/{project_id}/assessments/{assessment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6291,7 +6295,9 @@ impl RetrieveLegacySecretKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::RetrieveLegacySecretKeyRequest;
-    /// let x = RetrieveLegacySecretKeyRequest::new().set_key("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = RetrieveLegacySecretKeyRequest::new().set_key(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -6327,7 +6333,9 @@ impl GetKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::GetKeyRequest;
-    /// let x = GetKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = GetKeyRequest::new().set_name(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6456,7 +6464,9 @@ impl DeleteKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::DeleteKeyRequest;
-    /// let x = DeleteKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = DeleteKeyRequest::new().set_name(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6707,7 +6717,9 @@ impl GetFirewallPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::GetFirewallPolicyRequest;
-    /// let x = GetFirewallPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let firewallpolicy_id = "firewallpolicy_id";
+    /// let x = GetFirewallPolicyRequest::new().set_name(format!("projects/{project_id}/firewallpolicies/{firewallpolicy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6836,7 +6848,9 @@ impl DeleteFirewallPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::DeleteFirewallPolicyRequest;
-    /// let x = DeleteFirewallPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let firewallpolicy_id = "firewallpolicy_id";
+    /// let x = DeleteFirewallPolicyRequest::new().set_name(format!("projects/{project_id}/firewallpolicies/{firewallpolicy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6959,7 +6973,9 @@ impl MigrateKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::MigrateKeyRequest;
-    /// let x = MigrateKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = MigrateKeyRequest::new().set_name(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7007,7 +7023,9 @@ impl GetMetricsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::GetMetricsRequest;
-    /// let x = GetMetricsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = GetMetricsRequest::new().set_name(format!("projects/{project_id}/keys/{key_id}/metrics"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7056,7 +7074,9 @@ impl Metrics {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::Metrics;
-    /// let x = Metrics::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = Metrics::new().set_name(format!("projects/{project_id}/keys/{key_id}/metrics"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7232,7 +7252,9 @@ impl Key {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::Key;
-    /// let x = Key::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = Key::new().set_name(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9537,7 +9559,9 @@ impl FirewallPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
-    /// let x = FirewallPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let firewallpolicy_id = "firewallpolicy_id";
+    /// let x = FirewallPolicy::new().set_name(format!("projects/{project_id}/firewallpolicies/{firewallpolicy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9644,7 +9668,9 @@ impl ListRelatedAccountGroupMembershipsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupMembershipsRequest;
-    /// let x = ListRelatedAccountGroupMembershipsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let relatedaccountgroup_id = "relatedaccountgroup_id";
+    /// let x = ListRelatedAccountGroupMembershipsRequest::new().set_parent(format!("projects/{project_id}/relatedaccountgroups/{relatedaccountgroup_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9795,7 +9821,8 @@ impl ListRelatedAccountGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupsRequest;
-    /// let x = ListRelatedAccountGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListRelatedAccountGroupsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10125,7 +10152,9 @@ impl AddIpOverrideRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::AddIpOverrideRequest;
-    /// let x = AddIpOverrideRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = AddIpOverrideRequest::new().set_name(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10217,7 +10246,9 @@ impl RemoveIpOverrideRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::RemoveIpOverrideRequest;
-    /// let x = RemoveIpOverrideRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = RemoveIpOverrideRequest::new().set_name(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10316,7 +10347,9 @@ impl ListIpOverridesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::ListIpOverridesRequest;
-    /// let x = ListIpOverridesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let key_id = "key_id";
+    /// let x = ListIpOverridesRequest::new().set_parent(format!("projects/{project_id}/keys/{key_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10463,7 +10496,10 @@ impl RelatedAccountGroupMembership {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroupMembership;
-    /// let x = RelatedAccountGroupMembership::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let relatedaccountgroup_id = "relatedaccountgroup_id";
+    /// # let membership_id = "membership_id";
+    /// let x = RelatedAccountGroupMembership::new().set_name(format!("projects/{project_id}/relatedaccountgroups/{relatedaccountgroup_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10525,7 +10561,9 @@ impl RelatedAccountGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroup;
-    /// let x = RelatedAccountGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let relatedaccountgroup_id = "relatedaccountgroup_id";
+    /// let x = RelatedAccountGroup::new().set_name(format!("projects/{project_id}/relatedaccountgroups/{relatedaccountgroup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -132,7 +132,9 @@ impl CreateRecognizerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::CreateRecognizerRequest;
-    /// let x = CreateRecognizerRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateRecognizerRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1407,7 +1409,10 @@ impl GetRecognizerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::GetRecognizerRequest;
-    /// let x = GetRecognizerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = GetRecognizerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1574,7 +1579,10 @@ impl DeleteRecognizerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::DeleteRecognizerRequest;
-    /// let x = DeleteRecognizerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = DeleteRecognizerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1659,7 +1667,10 @@ impl UndeleteRecognizerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::UndeleteRecognizerRequest;
-    /// let x = UndeleteRecognizerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = UndeleteRecognizerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1817,7 +1828,10 @@ impl Recognizer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::Recognizer;
-    /// let x = Recognizer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = Recognizer::new().set_name(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3380,7 +3394,10 @@ pub mod speech_adaptation {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_speech_v2::model::speech_adaptation::AdaptationPhraseSet;
-        /// let x = AdaptationPhraseSet::new().set_phrase_set("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let phrase_set_id = "phrase_set_id";
+        /// let x = AdaptationPhraseSet::new().set_phrase_set(format!("projects/{project_id}/locations/{location_id}/phraseSets/{phrase_set_id}"));
         /// assert!(x.phrase_set().is_some());
         /// assert!(x.inline_phrase_set().is_none());
         /// ```
@@ -3963,7 +3980,10 @@ impl RecognizeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::RecognizeRequest;
-    /// let x = RecognizeRequest::new().set_recognizer("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = RecognizeRequest::new().set_recognizer(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_recognizer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer = v.into();
@@ -5294,7 +5314,10 @@ impl StreamingRecognizeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
-    /// let x = StreamingRecognizeRequest::new().set_recognizer("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = StreamingRecognizeRequest::new().set_recognizer(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_recognizer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer = v.into();
@@ -5491,7 +5514,10 @@ impl BatchRecognizeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
-    /// let x = BatchRecognizeRequest::new().set_recognizer("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let recognizer_id = "recognizer_id";
+    /// let x = BatchRecognizeRequest::new().set_recognizer(format!("projects/{project_id}/locations/{location_id}/recognizers/{recognizer_id}"));
     /// ```
     pub fn set_recognizer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer = v.into();
@@ -7705,7 +7731,9 @@ impl Config {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::Config;
-    /// let x = Config::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Config::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7790,7 +7818,9 @@ impl GetConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::GetConfigRequest;
-    /// let x = GetConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7978,7 +8008,10 @@ impl CustomClass {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::CustomClass;
-    /// let x = CustomClass::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_class_id = "custom_class_id";
+    /// let x = CustomClass::new().set_name(format!("projects/{project_id}/locations/{location_id}/customClasses/{custom_class_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8516,7 +8549,10 @@ impl PhraseSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::PhraseSet;
-    /// let x = PhraseSet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_set_id = "phrase_set_id";
+    /// let x = PhraseSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseSets/{phrase_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9110,7 +9146,9 @@ impl CreateCustomClassRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::CreateCustomClassRequest;
-    /// let x = CreateCustomClassRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCustomClassRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9326,7 +9364,10 @@ impl GetCustomClassRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::GetCustomClassRequest;
-    /// let x = GetCustomClassRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_class_id = "custom_class_id";
+    /// let x = GetCustomClassRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/customClasses/{custom_class_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9495,7 +9536,10 @@ impl DeleteCustomClassRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::DeleteCustomClassRequest;
-    /// let x = DeleteCustomClassRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_class_id = "custom_class_id";
+    /// let x = DeleteCustomClassRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/customClasses/{custom_class_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9581,7 +9625,10 @@ impl UndeleteCustomClassRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::UndeleteCustomClassRequest;
-    /// let x = UndeleteCustomClassRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_class_id = "custom_class_id";
+    /// let x = UndeleteCustomClassRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/customClasses/{custom_class_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9715,7 +9762,9 @@ impl CreatePhraseSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::CreatePhraseSetRequest;
-    /// let x = CreatePhraseSetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePhraseSetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9930,7 +9979,10 @@ impl GetPhraseSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::GetPhraseSetRequest;
-    /// let x = GetPhraseSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_set_id = "phrase_set_id";
+    /// let x = GetPhraseSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseSets/{phrase_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10097,7 +10149,10 @@ impl DeletePhraseSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::DeletePhraseSetRequest;
-    /// let x = DeletePhraseSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_set_id = "phrase_set_id";
+    /// let x = DeletePhraseSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseSets/{phrase_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10182,7 +10237,10 @@ impl UndeletePhraseSetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::UndeletePhraseSetRequest;
-    /// let x = UndeletePhraseSetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let phrase_set_id = "phrase_set_id";
+    /// let x = UndeletePhraseSetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseSets/{phrase_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

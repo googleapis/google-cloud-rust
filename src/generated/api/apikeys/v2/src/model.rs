@@ -71,7 +71,9 @@ impl CreateKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::CreateKeyRequest;
-    /// let x = CreateKeyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateKeyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -161,7 +163,9 @@ impl ListKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::ListKeysRequest;
-    /// let x = ListKeysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListKeysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -306,7 +310,10 @@ impl GetKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::GetKeyRequest;
-    /// let x = GetKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_id = "key_id";
+    /// let x = GetKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -341,7 +348,10 @@ impl GetKeyStringRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::GetKeyStringRequest;
-    /// let x = GetKeyStringRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_id = "key_id";
+    /// let x = GetKeyStringRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -515,7 +525,10 @@ impl DeleteKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::DeleteKeyRequest;
-    /// let x = DeleteKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_id = "key_id";
+    /// let x = DeleteKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -562,7 +575,10 @@ impl UndeleteKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::UndeleteKeyRequest;
-    /// let x = UndeleteKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_id = "key_id";
+    /// let x = UndeleteKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -727,7 +743,10 @@ impl Key {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apikeys_v2::model::Key;
-    /// let x = Key::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_id = "key_id";
+    /// let x = Key::new().set_name(format!("projects/{project_id}/locations/{location_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

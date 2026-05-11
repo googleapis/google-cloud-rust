@@ -217,7 +217,9 @@ impl CreateTunnelDestGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iap_v1::model::CreateTunnelDestGroupRequest;
-    /// let x = CreateTunnelDestGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTunnelDestGroupRequest::new().set_parent(format!("projects/{project_id}/iap_tunnel/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -302,7 +304,10 @@ impl GetTunnelDestGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iap_v1::model::GetTunnelDestGroupRequest;
-    /// let x = GetTunnelDestGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dest_group_id = "dest_group_id";
+    /// let x = GetTunnelDestGroupRequest::new().set_name(format!("projects/{project_id}/iap_tunnel/locations/{location_id}/destGroups/{dest_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -339,7 +344,10 @@ impl DeleteTunnelDestGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iap_v1::model::DeleteTunnelDestGroupRequest;
-    /// let x = DeleteTunnelDestGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dest_group_id = "dest_group_id";
+    /// let x = DeleteTunnelDestGroupRequest::new().set_name(format!("projects/{project_id}/iap_tunnel/locations/{location_id}/destGroups/{dest_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -475,7 +483,10 @@ impl TunnelDestGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = TunnelDestGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dest_group_id = "dest_group_id";
+    /// let x = TunnelDestGroup::new().set_name(format!("projects/{project_id}/iap_tunnel/locations/{location_id}/destGroups/{dest_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -70,7 +70,10 @@ impl ResourceBundle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ResourceBundle;
-    /// let x = ResourceBundle::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// let x = ResourceBundle::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -217,7 +220,9 @@ impl ListResourceBundlesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ListResourceBundlesRequest;
-    /// let x = ListResourceBundlesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListResourceBundlesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -394,7 +399,10 @@ impl GetResourceBundleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::GetResourceBundleRequest;
-    /// let x = GetResourceBundleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// let x = GetResourceBundleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -452,7 +460,9 @@ impl CreateResourceBundleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::CreateResourceBundleRequest;
-    /// let x = CreateResourceBundleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateResourceBundleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -690,7 +700,10 @@ impl DeleteResourceBundleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::DeleteResourceBundleRequest;
-    /// let x = DeleteResourceBundleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// let x = DeleteResourceBundleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -802,7 +815,10 @@ impl FleetPackage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::FleetPackage;
-    /// let x = FleetPackage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// let x = FleetPackage::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1292,7 +1308,10 @@ pub mod fleet_package {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_configdelivery_v1::model::fleet_package::ResourceBundleTag;
-        /// let x = ResourceBundleTag::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let resource_bundle_id = "resource_bundle_id";
+        /// let x = ResourceBundleTag::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -1863,7 +1882,11 @@ impl FleetPackageInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::FleetPackageInfo;
-    /// let x = FleetPackageInfo::new().set_active_rollout("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = FleetPackageInfo::new().set_active_rollout(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_active_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_rollout = v.into();
@@ -1875,7 +1898,11 @@ impl FleetPackageInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::FleetPackageInfo;
-    /// let x = FleetPackageInfo::new().set_last_completed_rollout("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = FleetPackageInfo::new().set_last_completed_rollout(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_last_completed_rollout<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2601,7 +2628,11 @@ impl ResourceBundleDeploymentInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ResourceBundleDeploymentInfo;
-    /// let x = ResourceBundleDeploymentInfo::new().set_release("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = ResourceBundleDeploymentInfo::new().set_release(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
@@ -3452,7 +3483,9 @@ impl ListFleetPackagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ListFleetPackagesRequest;
-    /// let x = ListFleetPackagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFleetPackagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3629,7 +3662,10 @@ impl GetFleetPackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::GetFleetPackageRequest;
-    /// let x = GetFleetPackageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// let x = GetFleetPackageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3687,7 +3723,9 @@ impl CreateFleetPackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::CreateFleetPackageRequest;
-    /// let x = CreateFleetPackageRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFleetPackageRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3929,7 +3967,10 @@ impl DeleteFleetPackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::DeleteFleetPackageRequest;
-    /// let x = DeleteFleetPackageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// let x = DeleteFleetPackageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4198,7 +4239,11 @@ impl Release {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::Release;
-    /// let x = Release::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = Release::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4607,7 +4652,12 @@ impl Variant {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::Variant;
-    /// let x = Variant::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// # let variant_id = "variant_id";
+    /// let x = Variant::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}/variants/{variant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4721,7 +4771,11 @@ impl ListVariantsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ListVariantsRequest;
-    /// let x = ListVariantsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = ListVariantsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4898,7 +4952,12 @@ impl GetVariantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::GetVariantRequest;
-    /// let x = GetVariantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// # let variant_id = "variant_id";
+    /// let x = GetVariantRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}/variants/{variant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4954,7 +5013,11 @@ impl CreateVariantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::CreateVariantRequest;
-    /// let x = CreateVariantRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = CreateVariantRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5184,7 +5247,12 @@ impl DeleteVariantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::DeleteVariantRequest;
-    /// let x = DeleteVariantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// # let variant_id = "variant_id";
+    /// let x = DeleteVariantRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}/variants/{variant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5307,7 +5375,10 @@ impl ListReleasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ListReleasesRequest;
-    /// let x = ListReleasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// let x = ListReleasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5484,7 +5555,11 @@ impl GetReleaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::GetReleaseRequest;
-    /// let x = GetReleaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = GetReleaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5542,7 +5617,10 @@ impl CreateReleaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::CreateReleaseRequest;
-    /// let x = CreateReleaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// let x = CreateReleaseRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5777,7 +5855,11 @@ impl DeleteReleaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::DeleteReleaseRequest;
-    /// let x = DeleteReleaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = DeleteReleaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5849,7 +5931,10 @@ impl ListRolloutsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ListRolloutsRequest;
-    /// let x = ListRolloutsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// let x = ListRolloutsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6026,7 +6111,11 @@ impl GetRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::GetRolloutRequest;
-    /// let x = GetRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = GetRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6423,7 +6512,11 @@ impl Rollout {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::Rollout;
-    /// let x = Rollout::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = Rollout::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6435,7 +6528,11 @@ impl Rollout {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::Rollout;
-    /// let x = Rollout::new().set_release("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_bundle_id = "resource_bundle_id";
+    /// # let release_id = "release_id";
+    /// let x = Rollout::new().set_release(format!("projects/{project_id}/locations/{location_id}/resourceBundles/{resource_bundle_id}/releases/{release_id}"));
     /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
@@ -6624,7 +6721,11 @@ impl SuspendRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::SuspendRolloutRequest;
-    /// let x = SuspendRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = SuspendRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6674,7 +6775,11 @@ impl ResumeRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::ResumeRolloutRequest;
-    /// let x = ResumeRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = ResumeRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6724,7 +6829,11 @@ impl AbortRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_configdelivery_v1::model::AbortRolloutRequest;
-    /// let x = AbortRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_package_id = "fleet_package_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = AbortRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleetPackages/{fleet_package_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

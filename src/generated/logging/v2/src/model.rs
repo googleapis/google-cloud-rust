@@ -953,7 +953,9 @@ impl DeleteLogRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteLogRequest;
-    /// let x = DeleteLogRequest::new().set_log_name("example");
+    /// # let project_id = "project_id";
+    /// # let log_id = "log_id";
+    /// let x = DeleteLogRequest::new().set_log_name(format!("projects/{project_id}/logs/{log_id}"));
     /// ```
     pub fn set_log_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_name = v.into();
@@ -1070,7 +1072,9 @@ impl WriteLogEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// let x = WriteLogEntriesRequest::new().set_log_name("example");
+    /// # let project_id = "project_id";
+    /// # let log_id = "log_id";
+    /// let x = WriteLogEntriesRequest::new().set_log_name(format!("projects/{project_id}/logs/{log_id}"));
     /// ```
     pub fn set_log_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_name = v.into();
@@ -1657,7 +1661,8 @@ impl ListLogsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::ListLogsRequest;
-    /// let x = ListLogsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListLogsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2345,7 +2350,10 @@ impl LogBucket {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = LogBucket::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2613,7 +2621,11 @@ impl LogView {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogView;
-    /// let x = LogView::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let view_id = "view_id";
+    /// let x = LogView::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}/views/{view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2847,7 +2859,9 @@ impl LogSink {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let sink_id = "sink_id";
+    /// let x = LogSink::new().set_name(format!("projects/{project_id}/sinks/{sink_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3338,7 +3352,11 @@ impl Link {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::Link;
-    /// let x = Link::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let link_id = "link_id";
+    /// let x = Link::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}/links/{link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3557,7 +3575,9 @@ impl ListBucketsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::ListBucketsRequest;
-    /// let x = ListBucketsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBucketsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3710,7 +3730,9 @@ impl CreateBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// let x = CreateBucketRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBucketRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3814,7 +3836,10 @@ impl UpdateBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// let x = UpdateBucketRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = UpdateBucketRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3926,7 +3951,10 @@ impl GetBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetBucketRequest;
-    /// let x = GetBucketRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = GetBucketRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3972,7 +4000,10 @@ impl DeleteBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteBucketRequest;
-    /// let x = DeleteBucketRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = DeleteBucketRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4018,7 +4049,10 @@ impl UndeleteBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::UndeleteBucketRequest;
-    /// let x = UndeleteBucketRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = UndeleteBucketRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4430,7 +4464,11 @@ impl GetViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetViewRequest;
-    /// let x = GetViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let view_id = "view_id";
+    /// let x = GetViewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}/views/{view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4473,7 +4511,11 @@ impl DeleteViewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteViewRequest;
-    /// let x = DeleteViewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let view_id = "view_id";
+    /// let x = DeleteViewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}/views/{view_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4526,7 +4568,8 @@ impl ListSinksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::ListSinksRequest;
-    /// let x = ListSinksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListSinksRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4672,7 +4715,9 @@ impl GetSinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetSinkRequest;
-    /// let x = GetSinkRequest::new().set_sink_name("example");
+    /// # let project_id = "project_id";
+    /// # let sink_id = "sink_id";
+    /// let x = GetSinkRequest::new().set_sink_name(format!("projects/{project_id}/sinks/{sink_id}"));
     /// ```
     pub fn set_sink_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_name = v.into();
@@ -4739,7 +4784,8 @@ impl CreateSinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::CreateSinkRequest;
-    /// let x = CreateSinkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateSinkRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4868,7 +4914,9 @@ impl UpdateSinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// let x = UpdateSinkRequest::new().set_sink_name("example");
+    /// # let project_id = "project_id";
+    /// # let sink_id = "sink_id";
+    /// let x = UpdateSinkRequest::new().set_sink_name(format!("projects/{project_id}/sinks/{sink_id}"));
     /// ```
     pub fn set_sink_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_name = v.into();
@@ -4993,7 +5041,9 @@ impl DeleteSinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteSinkRequest;
-    /// let x = DeleteSinkRequest::new().set_sink_name("example");
+    /// # let project_id = "project_id";
+    /// # let sink_id = "sink_id";
+    /// let x = DeleteSinkRequest::new().set_sink_name(format!("projects/{project_id}/sinks/{sink_id}"));
     /// ```
     pub fn set_sink_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_name = v.into();
@@ -5043,7 +5093,10 @@ impl CreateLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// let x = CreateLinkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = CreateLinkRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5128,7 +5181,11 @@ impl DeleteLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteLinkRequest;
-    /// let x = DeleteLinkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let link_id = "link_id";
+    /// let x = DeleteLinkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}/links/{link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5176,7 +5233,10 @@ impl ListLinksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::ListLinksRequest;
-    /// let x = ListLinksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ListLinksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5316,7 +5376,11 @@ impl GetLinkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetLinkRequest;
-    /// let x = GetLinkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let link_id = "link_id";
+    /// let x = GetLinkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/buckets/{bucket_id}/links/{link_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5391,7 +5455,9 @@ impl LogExclusion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = LogExclusion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let exclusion_id = "exclusion_id";
+    /// let x = LogExclusion::new().set_name(format!("projects/{project_id}/exclusions/{exclusion_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5546,7 +5612,8 @@ impl ListExclusionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::ListExclusionsRequest;
-    /// let x = ListExclusionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListExclusionsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5692,7 +5759,9 @@ impl GetExclusionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetExclusionRequest;
-    /// let x = GetExclusionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let exclusion_id = "exclusion_id";
+    /// let x = GetExclusionRequest::new().set_name(format!("projects/{project_id}/exclusions/{exclusion_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5743,7 +5812,8 @@ impl CreateExclusionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::CreateExclusionRequest;
-    /// let x = CreateExclusionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateExclusionRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5838,7 +5908,9 @@ impl UpdateExclusionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::UpdateExclusionRequest;
-    /// let x = UpdateExclusionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let exclusion_id = "exclusion_id";
+    /// let x = UpdateExclusionRequest::new().set_name(format!("projects/{project_id}/exclusions/{exclusion_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5950,7 +6022,9 @@ impl DeleteExclusionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteExclusionRequest;
-    /// let x = DeleteExclusionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let exclusion_id = "exclusion_id";
+    /// let x = DeleteExclusionRequest::new().set_name(format!("projects/{project_id}/exclusions/{exclusion_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6008,7 +6082,8 @@ impl GetCmekSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetCmekSettingsRequest;
-    /// let x = GetCmekSettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetCmekSettingsRequest::new().set_name(format!("projects/{project_id}/cmekSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6260,7 +6335,8 @@ impl CmekSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = CmekSettings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = CmekSettings::new().set_name(format!("projects/{project_id}/cmekSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6360,7 +6436,8 @@ impl GetSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetSettingsRequest;
-    /// let x = GetSettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetSettingsRequest::new().set_name(format!("projects/{project_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6590,7 +6667,8 @@ impl Settings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::Settings;
-    /// let x = Settings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = Settings::new().set_name(format!("projects/{project_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7612,7 +7690,9 @@ impl LogMetric {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let metric_id = "metric_id";
+    /// let x = LogMetric::new().set_name(format!("projects/{project_id}/metrics/{metric_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8162,7 +8242,9 @@ impl GetLogMetricRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::GetLogMetricRequest;
-    /// let x = GetLogMetricRequest::new().set_metric_name("example");
+    /// # let project_id = "project_id";
+    /// # let metric_id = "metric_id";
+    /// let x = GetLogMetricRequest::new().set_metric_name(format!("projects/{project_id}/metrics/{metric_id}"));
     /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();
@@ -8207,7 +8289,8 @@ impl CreateLogMetricRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::CreateLogMetricRequest;
-    /// let x = CreateLogMetricRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateLogMetricRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8286,7 +8369,9 @@ impl UpdateLogMetricRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::UpdateLogMetricRequest;
-    /// let x = UpdateLogMetricRequest::new().set_metric_name("example");
+    /// # let project_id = "project_id";
+    /// # let metric_id = "metric_id";
+    /// let x = UpdateLogMetricRequest::new().set_metric_name(format!("projects/{project_id}/metrics/{metric_id}"));
     /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();
@@ -8358,7 +8443,9 @@ impl DeleteLogMetricRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::DeleteLogMetricRequest;
-    /// let x = DeleteLogMetricRequest::new().set_metric_name("example");
+    /// # let project_id = "project_id";
+    /// # let metric_id = "metric_id";
+    /// let x = DeleteLogMetricRequest::new().set_metric_name(format!("projects/{project_id}/metrics/{metric_id}"));
     /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();

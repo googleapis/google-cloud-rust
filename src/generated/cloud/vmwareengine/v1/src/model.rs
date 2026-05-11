@@ -303,7 +303,10 @@ impl GetPrivateCloudRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetPrivateCloudRequest;
-    /// let x = GetPrivateCloudRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = GetPrivateCloudRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -621,7 +624,10 @@ impl DeletePrivateCloudRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeletePrivateCloudRequest;
-    /// let x = DeletePrivateCloudRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = DeletePrivateCloudRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -722,7 +728,10 @@ impl UndeletePrivateCloudRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::UndeletePrivateCloudRequest;
-    /// let x = UndeletePrivateCloudRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = UndeletePrivateCloudRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -813,7 +822,10 @@ impl ListClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ListClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1002,7 +1014,11 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1068,7 +1084,10 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1314,7 +1333,11 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1382,7 +1405,11 @@ impl ListNodesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListNodesRequest;
-    /// let x = ListNodesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListNodesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1524,7 +1551,12 @@ impl GetNodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetNodeRequest;
-    /// let x = GetNodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_id = "node_id";
+    /// let x = GetNodeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1616,7 +1648,10 @@ impl ListExternalAddressesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesRequest;
-    /// let x = ListExternalAddressesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ListExternalAddressesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1820,7 +1855,10 @@ impl FetchNetworkPolicyExternalAddressesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::FetchNetworkPolicyExternalAddressesRequest;
-    /// let x = FetchNetworkPolicyExternalAddressesRequest::new().set_network_policy("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// let x = FetchNetworkPolicyExternalAddressesRequest::new().set_network_policy(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"));
     /// ```
     pub fn set_network_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_policy = v.into();
@@ -1967,7 +2005,11 @@ impl GetExternalAddressRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetExternalAddressRequest;
-    /// let x = GetExternalAddressRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let external_address_id = "external_address_id";
+    /// let x = GetExternalAddressRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2042,7 +2084,10 @@ impl CreateExternalAddressRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateExternalAddressRequest;
-    /// let x = CreateExternalAddressRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = CreateExternalAddressRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2287,7 +2332,11 @@ impl DeleteExternalAddressRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteExternalAddressRequest;
-    /// let x = DeleteExternalAddressRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let external_address_id = "external_address_id";
+    /// let x = DeleteExternalAddressRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2355,7 +2404,10 @@ impl ListSubnetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListSubnetsRequest;
-    /// let x = ListSubnetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ListSubnetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2520,7 +2572,11 @@ impl GetSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetSubnetRequest;
-    /// let x = GetSubnetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let subnet_id = "subnet_id";
+    /// let x = GetSubnetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/subnets/{subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2711,7 +2767,10 @@ impl ListExternalAccessRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesRequest;
-    /// let x = ListExternalAccessRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// let x = ListExternalAccessRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2900,7 +2959,11 @@ impl GetExternalAccessRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetExternalAccessRuleRequest;
-    /// let x = GetExternalAccessRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// # let external_access_rule_id = "external_access_rule_id";
+    /// let x = GetExternalAccessRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}/externalAccessRules/{external_access_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2975,7 +3038,10 @@ impl CreateExternalAccessRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateExternalAccessRuleRequest;
-    /// let x = CreateExternalAccessRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// let x = CreateExternalAccessRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3220,7 +3286,11 @@ impl DeleteExternalAccessRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteExternalAccessRuleRequest;
-    /// let x = DeleteExternalAccessRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// # let external_access_rule_id = "external_access_rule_id";
+    /// let x = DeleteExternalAccessRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}/externalAccessRules/{external_access_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3325,7 +3395,10 @@ impl ListLoggingServersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersRequest;
-    /// let x = ListLoggingServersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ListLoggingServersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3514,7 +3587,11 @@ impl GetLoggingServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetLoggingServerRequest;
-    /// let x = GetLoggingServerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let logging_server_id = "logging_server_id";
+    /// let x = GetLoggingServerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/loggingServers/{logging_server_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3589,7 +3666,10 @@ impl CreateLoggingServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateLoggingServerRequest;
-    /// let x = CreateLoggingServerRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = CreateLoggingServerRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3834,7 +3914,11 @@ impl DeleteLoggingServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteLoggingServerRequest;
-    /// let x = DeleteLoggingServerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let logging_server_id = "logging_server_id";
+    /// let x = DeleteLoggingServerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/loggingServers/{logging_server_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3885,8 +3969,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4281,7 +4363,10 @@ impl GetNodeTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetNodeTypeRequest;
-    /// let x = GetNodeTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_type_id = "node_type_id";
+    /// let x = GetNodeTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodeTypes/{node_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4324,7 +4409,10 @@ impl ShowNsxCredentialsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ShowNsxCredentialsRequest;
-    /// let x = ShowNsxCredentialsRequest::new().set_private_cloud("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ShowNsxCredentialsRequest::new().set_private_cloud(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
@@ -4379,7 +4467,10 @@ impl ShowVcenterCredentialsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ShowVcenterCredentialsRequest;
-    /// let x = ShowVcenterCredentialsRequest::new().set_private_cloud("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ShowVcenterCredentialsRequest::new().set_private_cloud(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
@@ -4450,7 +4541,10 @@ impl ResetNsxCredentialsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ResetNsxCredentialsRequest;
-    /// let x = ResetNsxCredentialsRequest::new().set_private_cloud("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ResetNsxCredentialsRequest::new().set_private_cloud(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
@@ -4532,7 +4626,10 @@ impl ResetVcenterCredentialsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ResetVcenterCredentialsRequest;
-    /// let x = ResetVcenterCredentialsRequest::new().set_private_cloud("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ResetVcenterCredentialsRequest::new().set_private_cloud(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
@@ -4712,7 +4809,10 @@ impl ListHcxActivationKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysRequest;
-    /// let x = ListHcxActivationKeysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ListHcxActivationKeysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4775,7 +4875,11 @@ impl GetHcxActivationKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetHcxActivationKeyRequest;
-    /// let x = GetHcxActivationKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let hcx_activation_key_id = "hcx_activation_key_id";
+    /// let x = GetHcxActivationKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/hcxActivationKeys/{hcx_activation_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4850,7 +4954,10 @@ impl CreateHcxActivationKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateHcxActivationKeyRequest;
-    /// let x = CreateHcxActivationKeyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = CreateHcxActivationKeyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4952,7 +5059,10 @@ impl GetDnsForwardingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetDnsForwardingRequest;
-    /// let x = GetDnsForwardingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = GetDnsForwardingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/dnsForwarding"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5271,7 +5381,10 @@ impl DeleteNetworkPeeringRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteNetworkPeeringRequest;
-    /// let x = DeleteNetworkPeeringRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_peering_id = "network_peering_id";
+    /// let x = DeleteNetworkPeeringRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5325,7 +5438,10 @@ impl GetNetworkPeeringRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetNetworkPeeringRequest;
-    /// let x = GetNetworkPeeringRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_peering_id = "network_peering_id";
+    /// let x = GetNetworkPeeringRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5415,7 +5531,9 @@ impl ListNetworkPeeringsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsRequest;
-    /// let x = ListNetworkPeeringsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListNetworkPeeringsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5748,7 +5866,10 @@ impl ListPeeringRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesRequest;
-    /// let x = ListPeeringRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_peering_id = "network_peering_id";
+    /// let x = ListPeeringRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5953,7 +6074,9 @@ impl ListNetworkPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesRequest;
-    /// let x = ListNetworkPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListNetworkPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6142,7 +6265,10 @@ impl GetNetworkPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetNetworkPolicyRequest;
-    /// let x = GetNetworkPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// let x = GetNetworkPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6345,7 +6471,9 @@ impl CreateNetworkPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPolicyRequest;
-    /// let x = CreateNetworkPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateNetworkPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6463,7 +6591,10 @@ impl DeleteNetworkPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteNetworkPolicyRequest;
-    /// let x = DeleteNetworkPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// let x = DeleteNetworkPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6568,7 +6699,10 @@ impl ListManagementDnsZoneBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsRequest;
-    /// let x = ListManagementDnsZoneBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = ListManagementDnsZoneBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6759,7 +6893,11 @@ impl GetManagementDnsZoneBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetManagementDnsZoneBindingRequest;
-    /// let x = GetManagementDnsZoneBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let management_dns_zone_binding_id = "management_dns_zone_binding_id";
+    /// let x = GetManagementDnsZoneBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6832,7 +6970,10 @@ impl CreateManagementDnsZoneBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateManagementDnsZoneBindingRequest;
-    /// let x = CreateManagementDnsZoneBindingRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7077,7 +7218,11 @@ impl DeleteManagementDnsZoneBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteManagementDnsZoneBindingRequest;
-    /// let x = DeleteManagementDnsZoneBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let management_dns_zone_binding_id = "management_dns_zone_binding_id";
+    /// let x = DeleteManagementDnsZoneBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7144,7 +7289,11 @@ impl RepairManagementDnsZoneBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::RepairManagementDnsZoneBindingRequest;
-    /// let x = RepairManagementDnsZoneBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let management_dns_zone_binding_id = "management_dns_zone_binding_id";
+    /// let x = RepairManagementDnsZoneBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7235,7 +7384,9 @@ impl CreateVmwareEngineNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreateVmwareEngineNetworkRequest;
-    /// let x = CreateVmwareEngineNetworkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7487,7 +7638,10 @@ impl DeleteVmwareEngineNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeleteVmwareEngineNetworkRequest;
-    /// let x = DeleteVmwareEngineNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = DeleteVmwareEngineNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7553,7 +7707,10 @@ impl GetVmwareEngineNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetVmwareEngineNetworkRequest;
-    /// let x = GetVmwareEngineNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = GetVmwareEngineNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7863,7 +8020,9 @@ impl CreatePrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePrivateConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7965,7 +8124,10 @@ impl GetPrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetPrivateConnectionRequest;
-    /// let x = GetPrivateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = GetPrivateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8055,7 +8217,9 @@ impl ListPrivateConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPrivateConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8386,7 +8550,10 @@ impl DeletePrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DeletePrivateConnectionRequest;
-    /// let x = DeletePrivateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = DeletePrivateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8451,7 +8618,10 @@ impl ListPrivateConnectionPeeringRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionPeeringRoutesRequest;
-    /// let x = ListPrivateConnectionPeeringRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = ListPrivateConnectionPeeringRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8619,7 +8789,9 @@ impl GrantDnsBindPermissionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GrantDnsBindPermissionRequest;
-    /// let x = GrantDnsBindPermissionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GrantDnsBindPermissionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsBindPermission"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8728,7 +8900,9 @@ impl RevokeDnsBindPermissionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::RevokeDnsBindPermissionRequest;
-    /// let x = RevokeDnsBindPermissionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = RevokeDnsBindPermissionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsBindPermission"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8816,7 +8990,9 @@ impl GetDnsBindPermissionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::GetDnsBindPermissionRequest;
-    /// let x = GetDnsBindPermissionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetDnsBindPermissionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsBindPermission"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8891,7 +9067,10 @@ impl NetworkConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_vmware_engine_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = NetworkConfig::new().set_vmware_engine_network(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8906,7 +9085,10 @@ impl NetworkConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_vmware_engine_network_canonical("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = NetworkConfig::new().set_vmware_engine_network_canonical(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9139,7 +9321,10 @@ impl PrivateCloud {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
-    /// let x = PrivateCloud::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = PrivateCloud::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9974,7 +10159,11 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10388,7 +10577,12 @@ impl Node {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::Node;
-    /// let x = Node::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_id = "node_id";
+    /// let x = Node::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10676,7 +10870,11 @@ impl ExternalAddress {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
-    /// let x = ExternalAddress::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let external_address_id = "external_address_id";
+    /// let x = ExternalAddress::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11017,7 +11215,11 @@ impl Subnet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::Subnet;
-    /// let x = Subnet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let subnet_id = "subnet_id";
+    /// let x = Subnet::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/subnets/{subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11350,7 +11552,11 @@ impl ExternalAccessRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
-    /// let x = ExternalAccessRule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// # let external_access_rule_id = "external_access_rule_id";
+    /// let x = ExternalAccessRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}/externalAccessRules/{external_access_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11728,7 +11934,11 @@ pub mod external_access_rule {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
-        /// let x = IpRange::new().set_external_address("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let private_cloud_id = "private_cloud_id";
+        /// # let external_address_id = "external_address_id";
+        /// let x = IpRange::new().set_external_address(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"));
         /// assert!(x.external_address().is_some());
         /// assert!(x.ip_address().is_none());
         /// assert!(x.ip_address_range().is_none());
@@ -12101,7 +12311,11 @@ impl LoggingServer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
-    /// let x = LoggingServer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let logging_server_id = "logging_server_id";
+    /// let x = LoggingServer::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/loggingServers/{logging_server_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12603,7 +12817,10 @@ impl NodeType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NodeType;
-    /// let x = NodeType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_type_id = "node_type_id";
+    /// let x = NodeType::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodeTypes/{node_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13118,7 +13335,11 @@ impl HcxActivationKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
-    /// let x = HcxActivationKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let hcx_activation_key_id = "hcx_activation_key_id";
+    /// let x = HcxActivationKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/hcxActivationKeys/{hcx_activation_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14460,7 +14681,10 @@ impl DnsForwarding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
-    /// let x = DnsForwarding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// let x = DnsForwarding::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/dnsForwarding"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14724,7 +14948,10 @@ impl NetworkPeering {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
-    /// let x = NetworkPeering::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_peering_id = "network_peering_id";
+    /// let x = NetworkPeering::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15049,7 +15276,10 @@ impl NetworkPeering {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
-    /// let x = NetworkPeering::new().set_vmware_engine_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = NetworkPeering::new().set_vmware_engine_network(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -15879,7 +16109,10 @@ impl NetworkPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
-    /// let x = NetworkPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_policy_id = "network_policy_id";
+    /// let x = NetworkPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16050,7 +16283,10 @@ impl NetworkPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
-    /// let x = NetworkPolicy::new().set_vmware_engine_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = NetworkPolicy::new().set_vmware_engine_network(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16077,7 +16313,10 @@ impl NetworkPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
-    /// let x = NetworkPolicy::new().set_vmware_engine_network_canonical("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = NetworkPolicy::new().set_vmware_engine_network_canonical(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16361,7 +16600,11 @@ impl ManagementDnsZoneBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
-    /// let x = ManagementDnsZoneBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_cloud_id = "private_cloud_id";
+    /// # let management_dns_zone_binding_id = "management_dns_zone_binding_id";
+    /// let x = ManagementDnsZoneBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16554,7 +16797,10 @@ impl ManagementDnsZoneBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
-    /// let x = ManagementDnsZoneBinding::new().set_vmware_engine_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = ManagementDnsZoneBinding::new().set_vmware_engine_network(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// assert!(x.vmware_engine_network().is_some());
     /// assert!(x.vpc_network().is_none());
     /// ```
@@ -16808,7 +17054,10 @@ impl VmwareEngineNetwork {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
-    /// let x = VmwareEngineNetwork::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = VmwareEngineNetwork::new().set_name(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17567,7 +17816,10 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = PrivateConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17675,7 +17927,10 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_vmware_engine_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = PrivateConnection::new().set_vmware_engine_network(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -17690,7 +17945,10 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_vmware_engine_network_canonical("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vmware_engine_network_id = "vmware_engine_network_id";
+    /// let x = PrivateConnection::new().set_vmware_engine_network_canonical(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"));
     /// ```
     pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -18590,7 +18848,9 @@ impl DnsBindPermission {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmwareengine_v1::model::DnsBindPermission;
-    /// let x = DnsBindPermission::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = DnsBindPermission::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsBindPermission"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -101,7 +101,9 @@ impl ListQueuesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::ListQueuesRequest;
-    /// let x = ListQueuesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListQueuesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -263,7 +265,10 @@ impl GetQueueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::GetQueueRequest;
-    /// let x = GetQueueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = GetQueueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -314,7 +319,9 @@ impl CreateQueueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::CreateQueueRequest;
-    /// let x = CreateQueueRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateQueueRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -491,7 +498,10 @@ impl DeleteQueueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::DeleteQueueRequest;
-    /// let x = DeleteQueueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = DeleteQueueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -530,7 +540,10 @@ impl PurgeQueueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::PurgeQueueRequest;
-    /// let x = PurgeQueueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = PurgeQueueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -569,7 +582,10 @@ impl PauseQueueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::PauseQueueRequest;
-    /// let x = PauseQueueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = PauseQueueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -608,7 +624,10 @@ impl ResumeQueueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::ResumeQueueRequest;
-    /// let x = ResumeQueueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = ResumeQueueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -691,7 +710,10 @@ impl ListTasksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::ListTasksRequest;
-    /// let x = ListTasksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = ListTasksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -875,7 +897,11 @@ impl GetTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::GetTaskRequest;
-    /// let x = GetTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// # let task_id = "task_id";
+    /// let x = GetTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -990,7 +1016,10 @@ impl CreateTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::CreateTaskRequest;
-    /// let x = CreateTaskRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = CreateTaskRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1079,7 +1108,11 @@ impl DeleteTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::DeleteTaskRequest;
-    /// let x = DeleteTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// # let task_id = "task_id";
+    /// let x = DeleteTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1136,7 +1169,11 @@ impl RunTaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::RunTaskRequest;
-    /// let x = RunTaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// # let task_id = "task_id";
+    /// let x = RunTaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1310,7 +1347,10 @@ impl Queue {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::Queue;
-    /// let x = Queue::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = Queue::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3111,7 +3151,11 @@ impl Task {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::Task;
-    /// let x = Task::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// # let task_id = "task_id";
+    /// let x = Task::new().set_name(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}/tasks/{task_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

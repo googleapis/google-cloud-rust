@@ -146,7 +146,8 @@ impl CreateSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::CreateSshPublicKeyRequest;
-    /// let x = CreateSshPublicKeyRequest::new().set_parent("example");
+    /// # let user_id = "user_id";
+    /// let x = CreateSshPublicKeyRequest::new().set_parent(format!("users/{user_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -216,7 +217,9 @@ impl DeletePosixAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::DeletePosixAccountRequest;
-    /// let x = DeletePosixAccountRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let project_id = "project_id";
+    /// let x = DeletePosixAccountRequest::new().set_name(format!("users/{user_id}/projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -253,7 +256,9 @@ impl DeleteSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::DeleteSshPublicKeyRequest;
-    /// let x = DeleteSshPublicKeyRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let fingerprint_id = "fingerprint_id";
+    /// let x = DeleteSshPublicKeyRequest::new().set_name(format!("users/{user_id}/sshPublicKeys/{fingerprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -294,7 +299,8 @@ impl GetLoginProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::GetLoginProfileRequest;
-    /// let x = GetLoginProfileRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// let x = GetLoginProfileRequest::new().set_name(format!("users/{user_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -355,7 +361,9 @@ impl GetSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::GetSshPublicKeyRequest;
-    /// let x = GetSshPublicKeyRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let fingerprint_id = "fingerprint_id";
+    /// let x = GetSshPublicKeyRequest::new().set_name(format!("users/{user_id}/sshPublicKeys/{fingerprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -401,7 +409,8 @@ impl ImportSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
-    /// let x = ImportSshPublicKeyRequest::new().set_parent("example");
+    /// # let user_id = "user_id";
+    /// let x = ImportSshPublicKeyRequest::new().set_parent(format!("users/{user_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -577,7 +586,9 @@ impl UpdateSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
-    /// let x = UpdateSshPublicKeyRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let fingerprint_id = "fingerprint_id";
+    /// let x = UpdateSshPublicKeyRequest::new().set_name(format!("users/{user_id}/sshPublicKeys/{fingerprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

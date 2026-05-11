@@ -76,7 +76,9 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("projects/{project_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

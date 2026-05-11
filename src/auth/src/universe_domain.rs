@@ -20,7 +20,6 @@ use crate::credentials::Credentials;
 /// This serves as a feature gate for capabilities that are only supported in the GDU
 /// (e.g., `googleapis.com`). For example, Regional Access Boundaries should be disabled,
 /// and User Account credentials should return an error when running outside the GDU.
-#[allow(dead_code)]
 pub(crate) fn is_default_universe_domain(universe_domain: Option<&str>) -> bool {
     match universe_domain {
         Some(ud) => ud == DEFAULT_UNIVERSE_DOMAIN,
@@ -28,7 +27,6 @@ pub(crate) fn is_default_universe_domain(universe_domain: Option<&str>) -> bool 
     }
 }
 
-#[allow(dead_code)]
 pub(crate) async fn resolve(cred: &Credentials) -> String {
     let cred_universe = cred.universe_domain().await;
     cred_universe

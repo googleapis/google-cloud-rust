@@ -2280,7 +2280,10 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::Conversation;
-    /// let x = Conversation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2497,7 +2500,9 @@ impl CreateConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::CreateConversationRequest;
-    /// let x = CreateConversationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConversationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2591,7 +2596,10 @@ impl GetConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::GetConversationRequest;
-    /// let x = GetConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = GetConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2643,7 +2651,9 @@ impl ListConversationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::ListConversationsRequest;
-    /// let x = ListConversationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConversationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2790,7 +2800,10 @@ impl DeleteConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::DeleteConversationRequest;
-    /// let x = DeleteConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = DeleteConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3199,7 +3212,10 @@ impl DataAgent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::DataAgent;
-    /// let x = DataAgent::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_agent_id = "data_agent_id";
+    /// let x = DataAgent::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAgents/{data_agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3539,7 +3555,9 @@ impl ListDataAgentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::ListDataAgentsRequest;
-    /// let x = ListDataAgentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDataAgentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3754,7 +3772,9 @@ impl ListAccessibleDataAgentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::ListAccessibleDataAgentsRequest;
-    /// let x = ListAccessibleDataAgentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAccessibleDataAgentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4107,7 +4127,10 @@ impl GetDataAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::GetDataAgentRequest;
-    /// let x = GetDataAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_agent_id = "data_agent_id";
+    /// let x = GetDataAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAgents/{data_agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4165,7 +4188,9 @@ impl CreateDataAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::CreateDataAgentRequest;
-    /// let x = CreateDataAgentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDataAgentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4397,7 +4422,10 @@ impl DeleteDataAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::DeleteDataAgentRequest;
-    /// let x = DeleteDataAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_agent_id = "data_agent_id";
+    /// let x = DeleteDataAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataAgents/{data_agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4447,8 +4475,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4770,7 +4796,10 @@ impl ListMessagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::ListMessagesRequest;
-    /// let x = ListMessagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = ListMessagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5476,7 +5505,10 @@ impl DataAgentContext {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::DataAgentContext;
-    /// let x = DataAgentContext::new().set_data_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_agent_id = "data_agent_id";
+    /// let x = DataAgentContext::new().set_data_agent(format!("projects/{project_id}/locations/{location_id}/dataAgents/{data_agent_id}"));
     /// ```
     pub fn set_data_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_agent = v.into();
@@ -5677,7 +5709,10 @@ impl ConversationReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_geminidataanalytics_v1::model::ConversationReference;
-    /// let x = ConversationReference::new().set_conversation("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = ConversationReference::new().set_conversation(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();

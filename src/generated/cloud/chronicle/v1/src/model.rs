@@ -83,7 +83,10 @@ impl BigQueryExport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::BigQueryExport;
-    /// let x = BigQueryExport::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = BigQueryExport::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/bigQueryExport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -443,7 +446,10 @@ impl GetBigQueryExportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetBigQueryExportRequest;
-    /// let x = GetBigQueryExportRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetBigQueryExportRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/bigQueryExport"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -573,7 +579,10 @@ impl ProvisionBigQueryExportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ProvisionBigQueryExportRequest;
-    /// let x = ProvisionBigQueryExportRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ProvisionBigQueryExportRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -642,7 +651,11 @@ impl DashboardChart {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DashboardChart;
-    /// let x = DashboardChart::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let chart_id = "chart_id";
+    /// let x = DashboardChart::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -678,7 +691,11 @@ impl DashboardChart {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DashboardChart;
-    /// let x = DashboardChart::new().set_native_dashboard("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = DashboardChart::new().set_native_dashboard(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_native_dashboard<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -867,7 +884,11 @@ pub mod dashboard_chart {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_chronicle_v1::model::dashboard_chart::ChartDatasource;
-        /// let x = ChartDatasource::new().set_dashboard_query("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let instance_id = "instance_id";
+        /// # let query_id = "query_id";
+        /// let x = ChartDatasource::new().set_dashboard_query(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardQueries/{query_id}"));
         /// ```
         pub fn set_dashboard_query<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -4846,7 +4867,11 @@ impl GetDashboardChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDashboardChartRequest;
-    /// let x = GetDashboardChartRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let chart_id = "chart_id";
+    /// let x = GetDashboardChartRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4888,7 +4913,10 @@ impl BatchGetDashboardChartsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::BatchGetDashboardChartsRequest;
-    /// let x = BatchGetDashboardChartsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = BatchGetDashboardChartsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4999,7 +5027,11 @@ impl DashboardQuery {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DashboardQuery;
-    /// let x = DashboardQuery::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let query_id = "query_id";
+    /// let x = DashboardQuery::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardQueries/{query_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5056,7 +5088,11 @@ impl DashboardQuery {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DashboardQuery;
-    /// let x = DashboardQuery::new().set_dashboard_chart("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let chart_id = "chart_id";
+    /// let x = DashboardQuery::new().set_dashboard_chart(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"));
     /// ```
     pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dashboard_chart = v.into();
@@ -5313,7 +5349,11 @@ impl GetDashboardQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDashboardQueryRequest;
-    /// let x = GetDashboardQueryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let query_id = "query_id";
+    /// let x = GetDashboardQueryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardQueries/{query_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5366,7 +5406,10 @@ impl ExecuteDashboardQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ExecuteDashboardQueryRequest;
-    /// let x = ExecuteDashboardQueryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ExecuteDashboardQueryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8384,7 +8427,10 @@ impl CreateDataAccessLabelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateDataAccessLabelRequest;
-    /// let x = CreateDataAccessLabelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateDataAccessLabelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8469,7 +8515,11 @@ impl GetDataAccessLabelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDataAccessLabelRequest;
-    /// let x = GetDataAccessLabelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_label_id = "data_access_label_id";
+    /// let x = GetDataAccessLabelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessLabels/{data_access_label_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8522,7 +8572,10 @@ impl ListDataAccessLabelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsRequest;
-    /// let x = ListDataAccessLabelsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListDataAccessLabelsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8769,7 +8822,11 @@ impl DeleteDataAccessLabelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteDataAccessLabelRequest;
-    /// let x = DeleteDataAccessLabelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_label_id = "data_access_label_id";
+    /// let x = DeleteDataAccessLabelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessLabels/{data_access_label_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8813,7 +8870,10 @@ impl CreateDataAccessScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateDataAccessScopeRequest;
-    /// let x = CreateDataAccessScopeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateDataAccessScopeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8898,7 +8958,11 @@ impl GetDataAccessScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDataAccessScopeRequest;
-    /// let x = GetDataAccessScopeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_scope_id = "data_access_scope_id";
+    /// let x = GetDataAccessScopeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8951,7 +9015,10 @@ impl ListDataAccessScopesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesRequest;
-    /// let x = ListDataAccessScopesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListDataAccessScopesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9236,7 +9303,11 @@ impl DeleteDataAccessScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteDataAccessScopeRequest;
-    /// let x = DeleteDataAccessScopeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_scope_id = "data_access_scope_id";
+    /// let x = DeleteDataAccessScopeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9295,7 +9366,11 @@ impl DataAccessLabel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
-    /// let x = DataAccessLabel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_label_id = "data_access_label_id";
+    /// let x = DataAccessLabel::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessLabels/{data_access_label_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9560,7 +9635,11 @@ impl DataAccessScope {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DataAccessScope;
-    /// let x = DataAccessScope::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_scope_id = "data_access_scope_id";
+    /// let x = DataAccessScope::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10070,7 +10149,10 @@ impl CreateDataTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateDataTableRequest;
-    /// let x = CreateDataTableRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateDataTableRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10152,7 +10234,11 @@ impl GetDataTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDataTableRequest;
-    /// let x = GetDataTableRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = GetDataTableRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10302,7 +10388,10 @@ impl ListDataTablesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListDataTablesRequest;
-    /// let x = ListDataTablesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListDataTablesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10380,7 +10469,11 @@ impl DeleteDataTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteDataTableRequest;
-    /// let x = DeleteDataTableRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = DeleteDataTableRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10507,7 +10600,11 @@ impl CreateDataTableRowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateDataTableRowRequest;
-    /// let x = CreateDataTableRowRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = CreateDataTableRowRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10690,7 +10787,11 @@ impl ListDataTableRowsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListDataTableRowsRequest;
-    /// let x = ListDataTableRowsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = ListDataTableRowsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10850,7 +10951,12 @@ impl GetDataTableRowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDataTableRowRequest;
-    /// let x = GetDataTableRowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// # let data_table_row_id = "data_table_row_id";
+    /// let x = GetDataTableRowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}/dataTableRows/{data_table_row_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10887,7 +10993,12 @@ impl DeleteDataTableRowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteDataTableRowRequest;
-    /// let x = DeleteDataTableRowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// # let data_table_row_id = "data_table_row_id";
+    /// let x = DeleteDataTableRowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}/dataTableRows/{data_table_row_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10929,7 +11040,11 @@ impl BulkCreateDataTableRowsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::BulkCreateDataTableRowsRequest;
-    /// let x = BulkCreateDataTableRowsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = BulkCreateDataTableRowsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11037,7 +11152,11 @@ impl BulkGetDataTableRowsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::BulkGetDataTableRowsRequest;
-    /// let x = BulkGetDataTableRowsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = BulkGetDataTableRowsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11147,7 +11266,11 @@ impl BulkReplaceDataTableRowsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::BulkReplaceDataTableRowsRequest;
-    /// let x = BulkReplaceDataTableRowsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = BulkReplaceDataTableRowsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11255,7 +11378,11 @@ impl BulkUpdateDataTableRowsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::BulkUpdateDataTableRowsRequest;
-    /// let x = BulkUpdateDataTableRowsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = BulkUpdateDataTableRowsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11448,7 +11575,11 @@ impl DataTable {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DataTable;
-    /// let x = DataTable::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = DataTable::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11762,7 +11893,12 @@ impl DataTableRow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DataTableRow;
-    /// let x = DataTableRow::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// # let data_table_row_id = "data_table_row_id";
+    /// let x = DataTableRow::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}/dataTableRows/{data_table_row_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12259,7 +12395,11 @@ impl GetDataTableOperationErrorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetDataTableOperationErrorsRequest;
-    /// let x = GetDataTableOperationErrorsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_operation_errors_id = "data_table_operation_errors_id";
+    /// let x = GetDataTableOperationErrorsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTableOperationErrors/{data_table_operation_errors_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12300,7 +12440,11 @@ impl DataTableOperationErrors {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DataTableOperationErrors;
-    /// let x = DataTableOperationErrors::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_operation_errors_id = "data_table_operation_errors_id";
+    /// let x = DataTableOperationErrors::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTableOperationErrors/{data_table_operation_errors_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12389,7 +12533,11 @@ impl Watchlist {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Watchlist;
-    /// let x = Watchlist::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let watchlist_id = "watchlist_id";
+    /// let x = Watchlist::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/watchlists/{watchlist_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12849,7 +12997,11 @@ impl GetWatchlistRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetWatchlistRequest;
-    /// let x = GetWatchlistRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let watchlist_id = "watchlist_id";
+    /// let x = GetWatchlistRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/watchlists/{watchlist_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12907,7 +13059,10 @@ impl ListWatchlistsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListWatchlistsRequest;
-    /// let x = ListWatchlistsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListWatchlistsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13064,7 +13219,10 @@ impl CreateWatchlistRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateWatchlistRequest;
-    /// let x = CreateWatchlistRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateWatchlistRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13247,7 +13405,11 @@ impl DeleteWatchlistRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteWatchlistRequest;
-    /// let x = DeleteWatchlistRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let watchlist_id = "watchlist_id";
+    /// let x = DeleteWatchlistRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/watchlists/{watchlist_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13708,7 +13870,11 @@ impl FeaturedContentNativeDashboard {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::FeaturedContentNativeDashboard;
-    /// let x = FeaturedContentNativeDashboard::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let featured_content_native_dashboard_id = "featured_content_native_dashboard_id";
+    /// let x = FeaturedContentNativeDashboard::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13811,7 +13977,11 @@ impl GetFeaturedContentNativeDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetFeaturedContentNativeDashboardRequest;
-    /// let x = GetFeaturedContentNativeDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let featured_content_native_dashboard_id = "featured_content_native_dashboard_id";
+    /// let x = GetFeaturedContentNativeDashboardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13885,7 +14055,10 @@ impl ListFeaturedContentNativeDashboardsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListFeaturedContentNativeDashboardsRequest;
-    /// let x = ListFeaturedContentNativeDashboardsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListFeaturedContentNativeDashboardsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14041,7 +14214,11 @@ impl InstallFeaturedContentNativeDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::InstallFeaturedContentNativeDashboardRequest;
-    /// let x = InstallFeaturedContentNativeDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let featured_content_native_dashboard_id = "featured_content_native_dashboard_id";
+    /// let x = InstallFeaturedContentNativeDashboardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/contentHub/featuredContentNativeDashboards/{featured_content_native_dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14114,7 +14291,11 @@ impl InstallFeaturedContentNativeDashboardResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::InstallFeaturedContentNativeDashboardResponse;
-    /// let x = InstallFeaturedContentNativeDashboardResponse::new().set_native_dashboard("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = InstallFeaturedContentNativeDashboardResponse::new().set_native_dashboard(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_native_dashboard<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -14153,7 +14334,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14190,7 +14374,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14229,7 +14416,10 @@ impl ExportNativeDashboardsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ExportNativeDashboardsRequest;
-    /// let x = ExportNativeDashboardsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ExportNativeDashboardsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14540,7 +14730,10 @@ impl ImportNativeDashboardsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ImportNativeDashboardsRequest;
-    /// let x = ImportNativeDashboardsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ImportNativeDashboardsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14811,7 +15004,11 @@ impl NativeDashboard {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::NativeDashboard;
-    /// let x = NativeDashboard::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = NativeDashboard::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15074,7 +15271,10 @@ impl CreateNativeDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateNativeDashboardRequest;
-    /// let x = CreateNativeDashboardRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateNativeDashboardRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15148,7 +15348,11 @@ impl GetNativeDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetNativeDashboardRequest;
-    /// let x = GetNativeDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = GetNativeDashboardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15216,7 +15420,10 @@ impl ListNativeDashboardsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListNativeDashboardsRequest;
-    /// let x = ListNativeDashboardsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListNativeDashboardsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15478,7 +15685,11 @@ impl DuplicateNativeDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DuplicateNativeDashboardRequest;
-    /// let x = DuplicateNativeDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = DuplicateNativeDashboardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15548,7 +15759,11 @@ impl DeleteNativeDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteNativeDashboardRequest;
-    /// let x = DeleteNativeDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = DeleteNativeDashboardRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15595,7 +15810,11 @@ impl AddChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::AddChartRequest;
-    /// let x = AddChartRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = AddChartRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15846,7 +16065,11 @@ impl EditChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::EditChartRequest;
-    /// let x = EditChartRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = EditChartRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16099,7 +16322,11 @@ impl RemoveChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::RemoveChartRequest;
-    /// let x = RemoveChartRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = RemoveChartRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16111,7 +16338,11 @@ impl RemoveChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::RemoveChartRequest;
-    /// let x = RemoveChartRequest::new().set_dashboard_chart("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let chart_id = "chart_id";
+    /// let x = RemoveChartRequest::new().set_dashboard_chart(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"));
     /// ```
     pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dashboard_chart = v.into();
@@ -16151,7 +16382,11 @@ impl DuplicateChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DuplicateChartRequest;
-    /// let x = DuplicateChartRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = DuplicateChartRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/nativeDashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16163,7 +16398,11 @@ impl DuplicateChartRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DuplicateChartRequest;
-    /// let x = DuplicateChartRequest::new().set_dashboard_chart("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let chart_id = "chart_id";
+    /// let x = DuplicateChartRequest::new().set_dashboard_chart(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"));
     /// ```
     pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dashboard_chart = v.into();
@@ -16459,7 +16698,11 @@ pub mod dashboard_definition {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_chronicle_v1::model::dashboard_definition::ChartConfig;
-        /// let x = ChartConfig::new().set_dashboard_chart("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let instance_id = "instance_id";
+        /// # let chart_id = "chart_id";
+        /// let x = ChartConfig::new().set_dashboard_chart(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dashboardCharts/{chart_id}"));
         /// ```
         pub fn set_dashboard_chart<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -16777,7 +17020,11 @@ impl GetReferenceListRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetReferenceListRequest;
-    /// let x = GetReferenceListRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let reference_list_id = "reference_list_id";
+    /// let x = GetReferenceListRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/referenceLists/{reference_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16847,7 +17094,10 @@ impl ListReferenceListsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListReferenceListsRequest;
-    /// let x = ListReferenceListsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListReferenceListsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17012,7 +17262,10 @@ impl CreateReferenceListRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateReferenceListRequest;
-    /// let x = CreateReferenceListRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateReferenceListRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17232,7 +17485,11 @@ impl ReferenceList {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ReferenceList;
-    /// let x = ReferenceList::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let reference_list_id = "reference_list_id";
+    /// let x = ReferenceList::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/referenceLists/{reference_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17544,7 +17801,11 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Rule;
-    /// let x = Rule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = Rule::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17806,7 +18067,11 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Rule;
-    /// let x = Rule::new().set_scope("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_access_scope_id = "data_access_scope_id";
+    /// let x = Rule::new().set_scope(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataAccessScopes/{data_access_scope_id}"));
     /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
@@ -18099,7 +18364,11 @@ impl RuleDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::RuleDeployment;
-    /// let x = RuleDeployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = RuleDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/deployment"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18476,7 +18745,12 @@ impl Retrohunt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Retrohunt;
-    /// let x = Retrohunt::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// # let retrohunt_id = "retrohunt_id";
+    /// let x = Retrohunt::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/retrohunts/{retrohunt_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18763,7 +19037,10 @@ impl CreateRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateRuleRequest;
-    /// let x = CreateRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18837,7 +19114,11 @@ impl GetRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetRuleRequest;
-    /// let x = GetRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = GetRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18911,7 +19192,10 @@ impl ListRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListRulesRequest;
-    /// let x = ListRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19180,7 +19464,11 @@ impl DeleteRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::DeleteRuleRequest;
-    /// let x = DeleteRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = DeleteRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19246,7 +19534,11 @@ impl ListRuleRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsRequest;
-    /// let x = ListRuleRevisionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = ListRuleRevisionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19400,7 +19692,11 @@ impl CreateRetrohuntRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::CreateRetrohuntRequest;
-    /// let x = CreateRetrohuntRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = CreateRetrohuntRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19470,7 +19766,12 @@ impl GetRetrohuntRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetRetrohuntRequest;
-    /// let x = GetRetrohuntRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// # let retrohunt_id = "retrohunt_id";
+    /// let x = GetRetrohuntRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/retrohunts/{retrohunt_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19525,7 +19826,11 @@ impl ListRetrohuntsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListRetrohuntsRequest;
-    /// let x = ListRetrohuntsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = ListRetrohuntsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19673,7 +19978,11 @@ impl GetRuleDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::GetRuleDeploymentRequest;
-    /// let x = GetRuleDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = GetRuleDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}/deployment"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19729,7 +20038,11 @@ impl ListRuleDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsRequest;
-    /// let x = ListRuleDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = ListRuleDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20346,7 +20659,11 @@ impl RetrohuntMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
-    /// let x = RetrohuntMetadata::new().set_retrohunt("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = RetrohuntMetadata::new().set_retrohunt(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
     /// ```
     pub fn set_retrohunt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.retrohunt = v.into();

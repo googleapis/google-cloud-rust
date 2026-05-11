@@ -65,7 +65,10 @@ impl ExternalAccountKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_publicca_v1::model::ExternalAccountKey;
-    /// let x = ExternalAccountKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let external_account_key_id = "external_account_key_id";
+    /// let x = ExternalAccountKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/externalAccountKeys/{external_account_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -136,7 +139,9 @@ impl CreateExternalAccountKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_publicca_v1::model::CreateExternalAccountKeyRequest;
-    /// let x = CreateExternalAccountKeyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateExternalAccountKeyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

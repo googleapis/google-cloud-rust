@@ -2676,7 +2676,10 @@ impl Finding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Finding;
-    /// let x = Finding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let finding_id = "finding_id";
+    /// let x = Finding::new().set_name(format!("projects/{project_id}/locations/{location_id}/findings/{finding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2847,7 +2850,9 @@ impl Finding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Finding;
-    /// let x = Finding::new().set_resource_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = Finding::new().set_resource_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
@@ -2859,7 +2864,9 @@ impl Finding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Finding;
-    /// let x = Finding::new().set_trigger_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = Finding::new().set_trigger_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_trigger_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_name = v.into();
@@ -2925,7 +2932,9 @@ impl Finding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Finding;
-    /// let x = Finding::new().set_job_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = Finding::new().set_job_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_name = v.into();
@@ -19622,7 +19631,9 @@ impl InspectTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
-    /// let x = InspectTemplate::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let inspect_template_id = "inspect_template_id";
+    /// let x = InspectTemplate::new().set_name(format!("organizations/{organization_id}/inspectTemplates/{inspect_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19802,7 +19813,9 @@ impl DeidentifyTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
-    /// let x = DeidentifyTemplate::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let deidentify_template_id = "deidentify_template_id";
+    /// let x = DeidentifyTemplate::new().set_name(format!("organizations/{organization_id}/deidentifyTemplates/{deidentify_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20242,7 +20255,9 @@ impl JobTrigger {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
-    /// let x = JobTrigger::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = JobTrigger::new().set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21895,7 +21910,8 @@ impl CreateInspectTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateInspectTemplateRequest;
-    /// let x = CreateInspectTemplateRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateInspectTemplateRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21995,7 +22011,9 @@ impl UpdateInspectTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::UpdateInspectTemplateRequest;
-    /// let x = UpdateInspectTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let inspect_template_id = "inspect_template_id";
+    /// let x = UpdateInspectTemplateRequest::new().set_name(format!("organizations/{organization_id}/inspectTemplates/{inspect_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22098,7 +22116,9 @@ impl GetInspectTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetInspectTemplateRequest;
-    /// let x = GetInspectTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let inspect_template_id = "inspect_template_id";
+    /// let x = GetInspectTemplateRequest::new().set_name(format!("organizations/{organization_id}/inspectTemplates/{inspect_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22180,7 +22200,8 @@ impl ListInspectTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesRequest;
-    /// let x = ListInspectTemplatesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListInspectTemplatesRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22340,7 +22361,9 @@ impl DeleteInspectTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteInspectTemplateRequest;
-    /// let x = DeleteInspectTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let inspect_template_id = "inspect_template_id";
+    /// let x = DeleteInspectTemplateRequest::new().set_name(format!("organizations/{organization_id}/inspectTemplates/{inspect_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22404,7 +22427,8 @@ impl CreateJobTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateJobTriggerRequest;
-    /// let x = CreateJobTriggerRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateJobTriggerRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22497,7 +22521,9 @@ impl ActivateJobTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ActivateJobTriggerRequest;
-    /// let x = ActivateJobTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = ActivateJobTriggerRequest::new().set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22539,7 +22565,9 @@ impl UpdateJobTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::UpdateJobTriggerRequest;
-    /// let x = UpdateJobTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = UpdateJobTriggerRequest::new().set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22641,7 +22669,9 @@ impl GetJobTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetJobTriggerRequest;
-    /// let x = GetJobTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = GetJobTriggerRequest::new().set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22701,7 +22731,9 @@ impl CreateDiscoveryConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateDiscoveryConfigRequest;
-    /// let x = CreateDiscoveryConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDiscoveryConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22788,7 +22820,10 @@ impl UpdateDiscoveryConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::UpdateDiscoveryConfigRequest;
-    /// let x = UpdateDiscoveryConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovery_config_id = "discovery_config_id";
+    /// let x = UpdateDiscoveryConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveryConfigs/{discovery_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22890,7 +22925,10 @@ impl GetDiscoveryConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetDiscoveryConfigRequest;
-    /// let x = GetDiscoveryConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovery_config_id = "discovery_config_id";
+    /// let x = GetDiscoveryConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveryConfigs/{discovery_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22958,7 +22996,9 @@ impl ListDiscoveryConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsRequest;
-    /// let x = ListDiscoveryConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDiscoveryConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23105,7 +23145,10 @@ impl DeleteDiscoveryConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteDiscoveryConfigRequest;
-    /// let x = DeleteDiscoveryConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovery_config_id = "discovery_config_id";
+    /// let x = DeleteDiscoveryConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveryConfigs/{discovery_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23171,7 +23214,8 @@ impl CreateDlpJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
-    /// let x = CreateDlpJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateDlpJobRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23424,7 +23468,8 @@ impl ListJobTriggersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
-    /// let x = ListJobTriggersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListJobTriggersRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23609,7 +23654,9 @@ impl DeleteJobTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteJobTriggerRequest;
-    /// let x = DeleteJobTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = DeleteJobTriggerRequest::new().set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26162,7 +26209,10 @@ impl DiscoveryConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
-    /// let x = DiscoveryConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let discovery_config_id = "discovery_config_id";
+    /// let x = DiscoveryConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/discoveryConfigs/{discovery_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -34163,7 +34213,9 @@ impl DlpJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
-    /// let x = DlpJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = DlpJob::new().set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -34702,7 +34754,9 @@ impl GetDlpJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetDlpJobRequest;
-    /// let x = GetDlpJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = GetDlpJobRequest::new().set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -34813,7 +34867,8 @@ impl ListDlpJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
-    /// let x = ListDlpJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListDlpJobsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -34996,7 +35051,9 @@ impl CancelDlpJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CancelDlpJobRequest;
-    /// let x = CancelDlpJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = CancelDlpJobRequest::new().set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35031,7 +35088,9 @@ impl FinishDlpJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::FinishDlpJobRequest;
-    /// let x = FinishDlpJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = FinishDlpJobRequest::new().set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35066,7 +35125,9 @@ impl DeleteDlpJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteDlpJobRequest;
-    /// let x = DeleteDlpJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = DeleteDlpJobRequest::new().set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35134,7 +35195,8 @@ impl CreateDeidentifyTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateDeidentifyTemplateRequest;
-    /// let x = CreateDeidentifyTemplateRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateDeidentifyTemplateRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35235,7 +35297,9 @@ impl UpdateDeidentifyTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::UpdateDeidentifyTemplateRequest;
-    /// let x = UpdateDeidentifyTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let deidentify_template_id = "deidentify_template_id";
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_name(format!("organizations/{organization_id}/deidentifyTemplates/{deidentify_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35338,7 +35402,9 @@ impl GetDeidentifyTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetDeidentifyTemplateRequest;
-    /// let x = GetDeidentifyTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let deidentify_template_id = "deidentify_template_id";
+    /// let x = GetDeidentifyTemplateRequest::new().set_name(format!("organizations/{organization_id}/deidentifyTemplates/{deidentify_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -35420,7 +35486,8 @@ impl ListDeidentifyTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesRequest;
-    /// let x = ListDeidentifyTemplatesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListDeidentifyTemplatesRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -35582,7 +35649,9 @@ impl DeleteDeidentifyTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteDeidentifyTemplateRequest;
-    /// let x = DeleteDeidentifyTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let deidentify_template_id = "deidentify_template_id";
+    /// let x = DeleteDeidentifyTemplateRequest::new().set_name(format!("organizations/{organization_id}/deidentifyTemplates/{deidentify_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36355,7 +36424,9 @@ impl StoredInfoType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::StoredInfoType;
-    /// let x = StoredInfoType::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let stored_info_type_id = "stored_info_type_id";
+    /// let x = StoredInfoType::new().set_name(format!("organizations/{organization_id}/storedInfoTypes/{stored_info_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36478,7 +36549,8 @@ impl CreateStoredInfoTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateStoredInfoTypeRequest;
-    /// let x = CreateStoredInfoTypeRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateStoredInfoTypeRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -36583,7 +36655,9 @@ impl UpdateStoredInfoTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::UpdateStoredInfoTypeRequest;
-    /// let x = UpdateStoredInfoTypeRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let stored_info_type_id = "stored_info_type_id";
+    /// let x = UpdateStoredInfoTypeRequest::new().set_name(format!("organizations/{organization_id}/storedInfoTypes/{stored_info_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36686,7 +36760,9 @@ impl GetStoredInfoTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetStoredInfoTypeRequest;
-    /// let x = GetStoredInfoTypeRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let stored_info_type_id = "stored_info_type_id";
+    /// let x = GetStoredInfoTypeRequest::new().set_name(format!("organizations/{organization_id}/storedInfoTypes/{stored_info_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36765,7 +36841,8 @@ impl ListStoredInfoTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesRequest;
-    /// let x = ListStoredInfoTypesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListStoredInfoTypesRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -36925,7 +37002,9 @@ impl DeleteStoredInfoTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteStoredInfoTypeRequest;
-    /// let x = DeleteStoredInfoTypeRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let stored_info_type_id = "stored_info_type_id";
+    /// let x = DeleteStoredInfoTypeRequest::new().set_name(format!("organizations/{organization_id}/storedInfoTypes/{stored_info_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -36964,7 +37043,9 @@ impl HybridInspectJobTriggerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::HybridInspectJobTriggerRequest;
-    /// let x = HybridInspectJobTriggerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let job_trigger_id = "job_trigger_id";
+    /// let x = HybridInspectJobTriggerRequest::new().set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -37036,7 +37117,9 @@ impl HybridInspectDlpJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::HybridInspectDlpJobRequest;
-    /// let x = HybridInspectDlpJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dlp_job_id = "dlp_job_id";
+    /// let x = HybridInspectDlpJobRequest::new().set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -37682,7 +37765,9 @@ impl ListProjectDataProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesRequest;
-    /// let x = ListProjectDataProfilesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProjectDataProfilesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -37912,7 +37997,9 @@ impl ListTableDataProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesRequest;
-    /// let x = ListTableDataProfilesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTableDataProfilesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -38138,7 +38225,9 @@ impl ListColumnDataProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesRequest;
-    /// let x = ListColumnDataProfilesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListColumnDataProfilesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -38517,7 +38606,10 @@ impl ProjectDataProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
-    /// let x = ProjectDataProfile::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let project_data_profile_id = "project_data_profile_id";
+    /// let x = ProjectDataProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/projectDataProfiles/{project_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -39009,7 +39101,10 @@ impl TableDataProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
-    /// let x = TableDataProfile::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let table_data_profile_id = "table_data_profile_id";
+    /// let x = TableDataProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/tableDataProfiles/{table_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -40146,7 +40241,10 @@ impl ColumnDataProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
-    /// let x = ColumnDataProfile::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let column_data_profile_id = "column_data_profile_id";
+    /// let x = ColumnDataProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/columnDataProfiles/{column_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -41192,7 +41290,10 @@ impl FileStoreDataProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
-    /// let x = FileStoreDataProfile::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let file_store_data_profile_id = "file_store_data_profile_id";
+    /// let x = FileStoreDataProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/fileStoreDataProfiles/{file_store_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42596,7 +42697,10 @@ impl GetProjectDataProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetProjectDataProfileRequest;
-    /// let x = GetProjectDataProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let project_data_profile_id = "project_data_profile_id";
+    /// let x = GetProjectDataProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/projectDataProfiles/{project_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42632,7 +42736,10 @@ impl GetFileStoreDataProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetFileStoreDataProfileRequest;
-    /// let x = GetFileStoreDataProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let project_data_profile_id = "project_data_profile_id";
+    /// let x = GetFileStoreDataProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/projectDataProfiles/{project_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42745,7 +42852,9 @@ impl ListFileStoreDataProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesRequest;
-    /// let x = ListFileStoreDataProfilesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFileStoreDataProfilesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -42903,7 +43012,10 @@ impl DeleteFileStoreDataProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteFileStoreDataProfileRequest;
-    /// let x = DeleteFileStoreDataProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let file_store_data_profile_id = "file_store_data_profile_id";
+    /// let x = DeleteFileStoreDataProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/fileStoreDataProfiles/{file_store_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42939,7 +43051,10 @@ impl GetTableDataProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetTableDataProfileRequest;
-    /// let x = GetTableDataProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let table_data_profile_id = "table_data_profile_id";
+    /// let x = GetTableDataProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/tableDataProfiles/{table_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -42975,7 +43090,10 @@ impl GetColumnDataProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetColumnDataProfileRequest;
-    /// let x = GetColumnDataProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let column_data_profile_id = "column_data_profile_id";
+    /// let x = GetColumnDataProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/columnDataProfiles/{column_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -43701,7 +43819,9 @@ impl CreateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::CreateConnectionRequest;
-    /// let x = CreateConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -43770,7 +43890,10 @@ impl GetConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::GetConnectionRequest;
-    /// let x = GetConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = GetConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -43819,7 +43942,9 @@ impl ListConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -43904,7 +44029,9 @@ impl SearchConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsRequest;
-    /// let x = SearchConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SearchConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -44134,7 +44261,10 @@ impl UpdateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::UpdateConnectionRequest;
-    /// let x = UpdateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = UpdateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -44236,7 +44366,10 @@ impl DeleteConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteConnectionRequest;
-    /// let x = DeleteConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = DeleteConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -44283,7 +44416,10 @@ impl Connection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Connection;
-    /// let x = Connection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = Connection::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -44847,7 +44983,10 @@ impl DeleteTableDataProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DeleteTableDataProfileRequest;
-    /// let x = DeleteTableDataProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let table_data_profile_id = "table_data_profile_id";
+    /// let x = DeleteTableDataProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/tableDataProfiles/{table_data_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

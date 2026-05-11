@@ -327,7 +327,10 @@ impl DeliveryPipeline {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
-    /// let x = DeliveryPipeline::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = DeliveryPipeline::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2842,7 +2845,9 @@ impl ListDeliveryPipelinesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesRequest;
-    /// let x = ListDeliveryPipelinesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDeliveryPipelinesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3021,7 +3026,10 @@ impl GetDeliveryPipelineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetDeliveryPipelineRequest;
-    /// let x = GetDeliveryPipelineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = GetDeliveryPipelineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3082,7 +3090,9 @@ impl CreateDeliveryPipelineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
-    /// let x = CreateDeliveryPipelineRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDeliveryPipelineRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3378,7 +3388,10 @@ impl DeleteDeliveryPipelineRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
-    /// let x = DeleteDeliveryPipelineRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = DeleteDeliveryPipelineRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3576,7 +3589,10 @@ impl RollbackTargetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
-    /// let x = RollbackTargetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = RollbackTargetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3854,7 +3870,10 @@ impl Target {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::Target;
-    /// let x = Target::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let target_id = "target_id";
+    /// let x = Target::new().set_name(format!("projects/{project_id}/locations/{location_id}/targets/{target_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5131,7 +5150,10 @@ impl CustomTarget {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CustomTarget;
-    /// let x = CustomTarget::new().set_custom_target_type("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_target_type_id = "custom_target_type_id";
+    /// let x = CustomTarget::new().set_custom_target_type(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"));
     /// ```
     pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5261,7 +5283,9 @@ impl ListTargetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListTargetsRequest;
-    /// let x = ListTargetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTargetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5440,7 +5464,10 @@ impl GetTargetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetTargetRequest;
-    /// let x = GetTargetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let target_id = "target_id";
+    /// let x = GetTargetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/targets/{target_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5502,7 +5529,9 @@ impl CreateTargetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
-    /// let x = CreateTargetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTargetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5790,7 +5819,10 @@ impl DeleteTargetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeleteTargetRequest;
-    /// let x = DeleteTargetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let target_id = "target_id";
+    /// let x = DeleteTargetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/targets/{target_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5923,7 +5955,10 @@ impl CustomTargetType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CustomTargetType;
-    /// let x = CustomTargetType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_target_type_id = "custom_target_type_id";
+    /// let x = CustomTargetType::new().set_name(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6692,7 +6727,9 @@ impl ListCustomTargetTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesRequest;
-    /// let x = ListCustomTargetTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCustomTargetTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6871,7 +6908,10 @@ impl GetCustomTargetTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetCustomTargetTypeRequest;
-    /// let x = GetCustomTargetTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_target_type_id = "custom_target_type_id";
+    /// let x = GetCustomTargetTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6932,7 +6972,9 @@ impl CreateCustomTargetTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
-    /// let x = CreateCustomTargetTypeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCustomTargetTypeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7223,7 +7265,10 @@ impl DeleteCustomTargetTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeleteCustomTargetTypeRequest;
-    /// let x = DeleteCustomTargetTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let custom_target_type_id = "custom_target_type_id";
+    /// let x = DeleteCustomTargetTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7374,7 +7419,10 @@ impl DeployPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeployPolicy;
-    /// let x = DeployPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deploy_policy_id = "deploy_policy_id";
+    /// let x = DeployPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployPolicies/{deploy_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8955,7 +9003,11 @@ impl Release {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::Release;
-    /// let x = Release::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// let x = Release::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10364,7 +10416,9 @@ impl CreateDeployPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
-    /// let x = CreateDeployPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDeployPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10655,7 +10709,10 @@ impl DeleteDeployPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeleteDeployPolicyRequest;
-    /// let x = DeleteDeployPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deploy_policy_id = "deploy_policy_id";
+    /// let x = DeleteDeployPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployPolicies/{deploy_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10759,7 +10816,9 @@ impl ListDeployPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListDeployPoliciesRequest;
-    /// let x = ListDeployPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDeployPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10938,7 +10997,10 @@ impl GetDeployPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetDeployPolicyRequest;
-    /// let x = GetDeployPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deploy_policy_id = "deploy_policy_id";
+    /// let x = GetDeployPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployPolicies/{deploy_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11461,7 +11523,10 @@ impl ListReleasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListReleasesRequest;
-    /// let x = ListReleasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = ListReleasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11640,7 +11705,11 @@ impl GetReleaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetReleaseRequest;
-    /// let x = GetReleaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// let x = GetReleaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11706,7 +11775,10 @@ impl CreateReleaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
-    /// let x = CreateReleaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = CreateReleaseRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11919,7 +11991,12 @@ impl Rollout {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::Rollout;
-    /// let x = Rollout::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = Rollout::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14070,7 +14147,13 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::Job;
-    /// let x = Job::new().set_job_run("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// # let job_run_id = "job_run_id";
+    /// let x = Job::new().set_job_run(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}/jobRuns/{job_run_id}"));
     /// ```
     pub fn set_job_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_run = v.into();
@@ -14744,7 +14827,11 @@ impl ListRolloutsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListRolloutsRequest;
-    /// let x = ListRolloutsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// let x = ListRolloutsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14923,7 +15010,12 @@ impl GetRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetRolloutRequest;
-    /// let x = GetRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = GetRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14993,7 +15085,11 @@ impl CreateRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
-    /// let x = CreateRolloutRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// let x = CreateRolloutRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15312,7 +15408,12 @@ impl ApproveRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ApproveRolloutRequest;
-    /// let x = ApproveRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = ApproveRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15404,7 +15505,12 @@ impl AdvanceRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::AdvanceRolloutRequest;
-    /// let x = AdvanceRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = AdvanceRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15493,7 +15599,12 @@ impl CancelRolloutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CancelRolloutRequest;
-    /// let x = CancelRolloutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = CancelRolloutRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15576,7 +15687,12 @@ impl IgnoreJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::IgnoreJobRequest;
-    /// let x = IgnoreJobRequest::new().set_rollout("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = IgnoreJobRequest::new().set_rollout(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
@@ -15683,7 +15799,12 @@ impl RetryJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::RetryJobRequest;
-    /// let x = RetryJobRequest::new().set_rollout("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = RetryJobRequest::new().set_rollout(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
@@ -15780,7 +15901,11 @@ impl AbandonReleaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::AbandonReleaseRequest;
-    /// let x = AbandonReleaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// let x = AbandonReleaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15867,7 +15992,13 @@ impl JobRun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::JobRun;
-    /// let x = JobRun::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// # let job_run_id = "job_run_id";
+    /// let x = JobRun::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}/jobRuns/{job_run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17718,7 +17849,12 @@ impl ListJobRunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListJobRunsRequest;
-    /// let x = ListJobRunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// let x = ListJobRunsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17897,7 +18033,13 @@ impl GetJobRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetJobRunRequest;
-    /// let x = GetJobRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// # let job_run_id = "job_run_id";
+    /// let x = GetJobRunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}/jobRuns/{job_run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17937,7 +18079,13 @@ impl TerminateJobRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::TerminateJobRunRequest;
-    /// let x = TerminateJobRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let release_id = "release_id";
+    /// # let rollout_id = "rollout_id";
+    /// # let job_run_id = "job_run_id";
+    /// let x = TerminateJobRunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}/jobRuns/{job_run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18016,7 +18164,9 @@ impl Config {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::Config;
-    /// let x = Config::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Config::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18231,7 +18381,9 @@ impl GetConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetConfigRequest;
-    /// let x = GetConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18339,7 +18491,11 @@ impl Automation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::Automation;
-    /// let x = Automation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let automation_id = "automation_id";
+    /// let x = Automation::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automations/{automation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20068,7 +20224,10 @@ impl CreateAutomationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
-    /// let x = CreateAutomationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = CreateAutomationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20357,7 +20516,11 @@ impl DeleteAutomationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::DeleteAutomationRequest;
-    /// let x = DeleteAutomationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let automation_id = "automation_id";
+    /// let x = DeleteAutomationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automations/{automation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20462,7 +20625,10 @@ impl ListAutomationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListAutomationsRequest;
-    /// let x = ListAutomationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = ListAutomationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20641,7 +20807,11 @@ impl GetAutomationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetAutomationRequest;
-    /// let x = GetAutomationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let automation_id = "automation_id";
+    /// let x = GetAutomationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automations/{automation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20733,7 +20903,11 @@ impl AutomationRun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::AutomationRun;
-    /// let x = AutomationRun::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let automation_run_id = "automation_run_id";
+    /// let x = AutomationRun::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automationRuns/{automation_run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22257,7 +22431,10 @@ impl ListAutomationRunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::ListAutomationRunsRequest;
-    /// let x = ListAutomationRunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// let x = ListAutomationRunsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22436,7 +22613,11 @@ impl GetAutomationRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::GetAutomationRunRequest;
-    /// let x = GetAutomationRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let automation_run_id = "automation_run_id";
+    /// let x = GetAutomationRunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automationRuns/{automation_run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22472,7 +22653,11 @@ impl CancelAutomationRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::CancelAutomationRunRequest;
-    /// let x = CancelAutomationRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let delivery_pipeline_id = "delivery_pipeline_id";
+    /// # let automation_run_id = "automation_run_id";
+    /// let x = CancelAutomationRunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automationRuns/{automation_run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

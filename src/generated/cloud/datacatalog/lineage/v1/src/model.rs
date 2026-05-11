@@ -74,7 +74,10 @@ impl Process {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::Process;
-    /// let x = Process::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = Process::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -201,7 +204,11 @@ impl Run {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::Run;
-    /// let x = Run::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// let x = Run::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -523,7 +530,12 @@ impl LineageEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
-    /// let x = LineageEvent::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// # let lineage_event_id = "lineage_event_id";
+    /// let x = LineageEvent::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}/lineageEvents/{lineage_event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1331,7 +1343,10 @@ impl ProcessOpenLineageRunEventResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventResponse;
-    /// let x = ProcessOpenLineageRunEventResponse::new().set_process("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = ProcessOpenLineageRunEventResponse::new().set_process(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_process<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.process = v.into();
@@ -1343,7 +1358,11 @@ impl ProcessOpenLineageRunEventResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventResponse;
-    /// let x = ProcessOpenLineageRunEventResponse::new().set_run("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// let x = ProcessOpenLineageRunEventResponse::new().set_run(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"));
     /// ```
     pub fn set_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run = v.into();
@@ -1405,7 +1424,9 @@ impl CreateProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::CreateProcessRequest;
-    /// let x = CreateProcessRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateProcessRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1597,7 +1618,10 @@ impl GetProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::GetProcessRequest;
-    /// let x = GetProcessRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = GetProcessRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1647,7 +1671,9 @@ impl ListProcessesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::ListProcessesRequest;
-    /// let x = ListProcessesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProcessesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1787,7 +1813,10 @@ impl DeleteProcessRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::DeleteProcessRequest;
-    /// let x = DeleteProcessRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = DeleteProcessRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1843,7 +1872,10 @@ impl CreateRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::CreateRunRequest;
-    /// let x = CreateRunRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = CreateRunRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2038,7 +2070,11 @@ impl GetRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::GetRunRequest;
-    /// let x = GetRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// let x = GetRunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2087,7 +2123,10 @@ impl ListRunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::ListRunsRequest;
-    /// let x = ListRunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = ListRunsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2227,7 +2266,11 @@ impl DeleteRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::DeleteRunRequest;
-    /// let x = DeleteRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// let x = DeleteRunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2283,7 +2326,11 @@ impl CreateLineageEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::CreateLineageEventRequest;
-    /// let x = CreateLineageEventRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// let x = CreateLineageEventRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2364,7 +2411,12 @@ impl GetLineageEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::GetLineageEventRequest;
-    /// let x = GetLineageEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// # let lineage_event_id = "lineage_event_id";
+    /// let x = GetLineageEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}/lineageEvents/{lineage_event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2415,7 +2467,11 @@ impl ListLineageEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::ListLineageEventsRequest;
-    /// let x = ListLineageEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// let x = ListLineageEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2555,7 +2611,12 @@ impl DeleteLineageEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::DeleteLineageEventRequest;
-    /// let x = DeleteLineageEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// # let run_id = "run_id";
+    /// # let lineage_event_id = "lineage_event_id";
+    /// let x = DeleteLineageEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}/lineageEvents/{lineage_event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2623,7 +2684,9 @@ impl SearchLinksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
-    /// let x = SearchLinksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SearchLinksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3079,7 +3142,9 @@ impl BatchSearchLinkProcessesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesRequest;
-    /// let x = BatchSearchLinkProcessesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = BatchSearchLinkProcessesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3242,7 +3307,10 @@ impl ProcessLinks {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinks;
-    /// let x = ProcessLinks::new().set_process("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let process_id = "process_id";
+    /// let x = ProcessLinks::new().set_process(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"));
     /// ```
     pub fn set_process<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.process = v.into();

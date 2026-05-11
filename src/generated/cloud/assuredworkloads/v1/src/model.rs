@@ -65,7 +65,9 @@ impl CreateWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadRequest;
-    /// let x = CreateWorkloadRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateWorkloadRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -246,7 +248,10 @@ impl DeleteWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::DeleteWorkloadRequest;
-    /// let x = DeleteWorkloadRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let workload_id = "workload_id";
+    /// let x = DeleteWorkloadRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -297,7 +302,10 @@ impl GetWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::GetWorkloadRequest;
-    /// let x = GetWorkloadRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let workload_id = "workload_id";
+    /// let x = GetWorkloadRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -345,7 +353,9 @@ impl ListWorkloadsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListWorkloadsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -574,7 +584,10 @@ impl Workload {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::Workload;
-    /// let x = Workload::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let workload_id = "workload_id";
+    /// let x = Workload::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2712,7 +2725,10 @@ impl ListViolationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
-    /// let x = ListViolationsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let workload_id = "workload_id";
+    /// let x = ListViolationsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2892,7 +2908,11 @@ impl GetViolationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::GetViolationRequest;
-    /// let x = GetViolationRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let workload_id = "workload_id";
+    /// # let violation_id = "violation_id";
+    /// let x = GetViolationRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}/violations/{violation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2982,7 +3002,11 @@ impl Violation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_assuredworkloads_v1::model::Violation;
-    /// let x = Violation::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let workload_id = "workload_id";
+    /// # let violation_id = "violation_id";
+    /// let x = Violation::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}/violations/{violation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -149,7 +149,10 @@ impl Feature {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::Feature;
-    /// let x = Feature::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let feature_id = "feature_id";
+    /// let x = Feature::new().set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1567,7 +1570,10 @@ impl Fleet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::Fleet;
-    /// let x = Fleet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_id = "fleet_id";
+    /// let x = Fleet::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleets/{fleet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3002,7 +3008,11 @@ impl Namespace {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::Namespace;
-    /// let x = Namespace::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = Namespace::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3158,7 +3168,10 @@ impl Namespace {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::Namespace;
-    /// let x = Namespace::new().set_scope("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = Namespace::new().set_scope(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
@@ -3458,7 +3471,11 @@ impl RBACRoleBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
-    /// let x = RBACRoleBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let rbacrolebinding_id = "rbacrolebinding_id";
+    /// let x = RBACRoleBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4229,7 +4246,10 @@ impl Scope {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::Scope;
-    /// let x = Scope::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = Scope::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4670,7 +4690,11 @@ impl MembershipBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::MembershipBinding;
-    /// let x = MembershipBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// # let membershipbinding_id = "membershipbinding_id";
+    /// let x = MembershipBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}/bindings/{membershipbinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4883,7 +4907,10 @@ impl MembershipBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::MembershipBinding;
-    /// let x = MembershipBinding::new().set_scope("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = MembershipBinding::new().set_scope(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// assert!(x.scope().is_some());
     /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5194,7 +5221,10 @@ impl Membership {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::Membership;
-    /// let x = Membership::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = Membership::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6647,7 +6677,11 @@ impl GetScopeNamespaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetScopeNamespaceRequest;
-    /// let x = GetScopeNamespaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = GetScopeNamespaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6697,7 +6731,10 @@ impl CreateScopeNamespaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateScopeNamespaceRequest;
-    /// let x = CreateScopeNamespaceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = CreateScopeNamespaceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6875,7 +6912,11 @@ impl DeleteScopeNamespaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteScopeNamespaceRequest;
-    /// let x = DeleteScopeNamespaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let namespace_id = "namespace_id";
+    /// let x = DeleteScopeNamespaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/namespaces/{namespace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6921,7 +6962,10 @@ impl ListScopeNamespacesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListScopeNamespacesRequest;
-    /// let x = ListScopeNamespacesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = ListScopeNamespacesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7057,7 +7101,11 @@ impl GetScopeRBACRoleBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetScopeRBACRoleBindingRequest;
-    /// let x = GetScopeRBACRoleBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let rbacrolebinding_id = "rbacrolebinding_id";
+    /// let x = GetScopeRBACRoleBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7107,7 +7155,10 @@ impl CreateScopeRBACRoleBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateScopeRBACRoleBindingRequest;
-    /// let x = CreateScopeRBACRoleBindingRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = CreateScopeRBACRoleBindingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7284,7 +7335,11 @@ impl DeleteScopeRBACRoleBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteScopeRBACRoleBindingRequest;
-    /// let x = DeleteScopeRBACRoleBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let rbacrolebinding_id = "rbacrolebinding_id";
+    /// let x = DeleteScopeRBACRoleBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7330,7 +7385,10 @@ impl ListScopeRBACRoleBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListScopeRBACRoleBindingsRequest;
-    /// let x = ListScopeRBACRoleBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = ListScopeRBACRoleBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7466,7 +7524,10 @@ impl GetScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetScopeRequest;
-    /// let x = GetScopeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = GetScopeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7509,7 +7570,9 @@ impl CreateScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateScopeRequest;
-    /// let x = CreateScopeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateScopeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7683,7 +7746,10 @@ impl DeleteScopeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteScopeRequest;
-    /// let x = DeleteScopeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = DeleteScopeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7729,7 +7795,9 @@ impl ListScopesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListScopesRequest;
-    /// let x = ListScopesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListScopesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7875,7 +7943,9 @@ impl ListPermittedScopesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListPermittedScopesRequest;
-    /// let x = ListPermittedScopesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPermittedScopesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8011,7 +8081,11 @@ impl GetMembershipBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetMembershipBindingRequest;
-    /// let x = GetMembershipBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// # let membershipbinding_id = "membershipbinding_id";
+    /// let x = GetMembershipBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}/bindings/{membershipbinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8054,7 +8128,10 @@ impl CreateMembershipBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateMembershipBindingRequest;
-    /// let x = CreateMembershipBindingRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = CreateMembershipBindingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8230,7 +8307,11 @@ impl DeleteMembershipBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteMembershipBindingRequest;
-    /// let x = DeleteMembershipBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// # let membershipbinding_id = "membershipbinding_id";
+    /// let x = DeleteMembershipBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}/bindings/{membershipbinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8280,7 +8361,10 @@ impl ListMembershipBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsRequest;
-    /// let x = ListMembershipBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = ListMembershipBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8486,7 +8570,9 @@ impl ListMembershipsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListMembershipsRequest;
-    /// let x = ListMembershipsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMembershipsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8570,7 +8656,11 @@ impl GetMembershipRBACRoleBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetMembershipRBACRoleBindingRequest;
-    /// let x = GetMembershipRBACRoleBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let rbacrolebinding_id = "rbacrolebinding_id";
+    /// let x = GetMembershipRBACRoleBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8620,7 +8710,10 @@ impl CreateMembershipRBACRoleBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateMembershipRBACRoleBindingRequest;
-    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8797,7 +8890,11 @@ impl DeleteMembershipRBACRoleBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteMembershipRBACRoleBindingRequest;
-    /// let x = DeleteMembershipRBACRoleBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// # let rbacrolebinding_id = "rbacrolebinding_id";
+    /// let x = DeleteMembershipRBACRoleBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}/rbacrolebindings/{rbacrolebinding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8843,7 +8940,10 @@ impl ListMembershipRBACRoleBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsRequest;
-    /// let x = ListMembershipRBACRoleBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = ListMembershipRBACRoleBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9016,7 +9116,10 @@ impl GenerateMembershipRBACRoleBindingYAMLRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GenerateMembershipRBACRoleBindingYAMLRequest;
-    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9234,7 +9337,10 @@ impl GetMembershipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetMembershipRequest;
-    /// let x = GetMembershipRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = GetMembershipRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9287,7 +9393,10 @@ impl ListBoundMembershipsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsRequest;
-    /// let x = ListBoundMembershipsRequest::new().set_scope_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let scope_id = "scope_id";
+    /// let x = ListBoundMembershipsRequest::new().set_scope_name(format!("projects/{project_id}/locations/{location_id}/scopes/{scope_id}"));
     /// ```
     pub fn set_scope_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope_name = v.into();
@@ -9484,7 +9593,9 @@ impl CreateMembershipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateMembershipRequest;
-    /// let x = CreateMembershipRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMembershipRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9597,7 +9708,10 @@ impl DeleteMembershipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteMembershipRequest;
-    /// let x = DeleteMembershipRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = DeleteMembershipRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9685,7 +9799,10 @@ impl UpdateMembershipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
-    /// let x = UpdateMembershipRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = UpdateMembershipRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9831,7 +9948,10 @@ impl GenerateConnectManifestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
-    /// let x = GenerateConnectManifestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let membership_id = "membership_id";
+    /// let x = GenerateConnectManifestRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/memberships/{membership_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10151,7 +10271,9 @@ impl ListFeaturesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
-    /// let x = ListFeaturesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFeaturesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10329,7 +10451,10 @@ impl GetFeatureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetFeatureRequest;
-    /// let x = GetFeatureRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let feature_id = "feature_id";
+    /// let x = GetFeatureRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10398,7 +10523,9 @@ impl CreateFeatureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CreateFeatureRequest;
-    /// let x = CreateFeatureRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFeatureRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10511,7 +10638,10 @@ impl DeleteFeatureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteFeatureRequest;
-    /// let x = DeleteFeatureRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let feature_id = "feature_id";
+    /// let x = DeleteFeatureRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10599,7 +10729,10 @@ impl UpdateFeatureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
-    /// let x = UpdateFeatureRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let feature_id = "feature_id";
+    /// let x = UpdateFeatureRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/features/{feature_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10785,7 +10918,10 @@ impl GetFleetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::GetFleetRequest;
-    /// let x = GetFleetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_id = "fleet_id";
+    /// let x = GetFleetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleets/{fleet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10916,7 +11052,10 @@ impl DeleteFleetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::DeleteFleetRequest;
-    /// let x = DeleteFleetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let fleet_id = "fleet_id";
+    /// let x = DeleteFleetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/fleets/{fleet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

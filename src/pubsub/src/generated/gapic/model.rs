@@ -122,7 +122,9 @@ impl SchemaSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::SchemaSettings;
-    /// let x = SchemaSettings::new().set_schema("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = SchemaSettings::new().set_schema(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
@@ -1817,7 +1819,9 @@ pub mod ingestion_data_source_settings {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
-        /// let x = AwsMsk::new().set_topic("example");
+        /// # let project_id = "project_id";
+        /// # let topic_id = "topic_id";
+        /// let x = AwsMsk::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
         /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
@@ -3090,7 +3094,9 @@ impl Topic {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::Topic;
-    /// let x = Topic::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = Topic::new().set_name(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3505,7 +3511,9 @@ impl GetTopicRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::GetTopicRequest;
-    /// let x = GetTopicRequest::new().set_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = GetTopicRequest::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
@@ -3788,7 +3796,9 @@ impl ListTopicSubscriptionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::ListTopicSubscriptionsRequest;
-    /// let x = ListTopicSubscriptionsRequest::new().set_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = ListTopicSubscriptionsRequest::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
@@ -3928,7 +3938,9 @@ impl ListTopicSnapshotsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::ListTopicSnapshotsRequest;
-    /// let x = ListTopicSnapshotsRequest::new().set_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = ListTopicSnapshotsRequest::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
@@ -4045,7 +4057,9 @@ impl DeleteTopicRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DeleteTopicRequest;
-    /// let x = DeleteTopicRequest::new().set_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = DeleteTopicRequest::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
@@ -4081,7 +4095,9 @@ impl DetachSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DetachSubscriptionRequest;
-    /// let x = DetachSubscriptionRequest::new().set_subscription("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = DetachSubscriptionRequest::new().set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -4297,7 +4313,9 @@ impl Subscription {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::Subscription;
-    /// let x = Subscription::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = Subscription::new().set_name(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4309,7 +4327,9 @@ impl Subscription {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::Subscription;
-    /// let x = Subscription::new().set_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = Subscription::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
@@ -5163,7 +5183,9 @@ impl DeadLetterPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DeadLetterPolicy;
-    /// let x = DeadLetterPolicy::new().set_dead_letter_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = DeadLetterPolicy::new().set_dead_letter_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6914,7 +6936,9 @@ impl GetSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::GetSubscriptionRequest;
-    /// let x = GetSubscriptionRequest::new().set_subscription("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = GetSubscriptionRequest::new().set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -7187,7 +7211,9 @@ impl DeleteSubscriptionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DeleteSubscriptionRequest;
-    /// let x = DeleteSubscriptionRequest::new().set_subscription("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = DeleteSubscriptionRequest::new().set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -7231,7 +7257,9 @@ impl ModifyPushConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::ModifyPushConfigRequest;
-    /// let x = ModifyPushConfigRequest::new().set_subscription("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = ModifyPushConfigRequest::new().set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -7327,7 +7355,9 @@ impl CreateSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::CreateSnapshotRequest;
-    /// let x = CreateSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = CreateSnapshotRequest::new().set_name(format!("projects/{project_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7339,7 +7369,9 @@ impl CreateSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::CreateSnapshotRequest;
-    /// let x = CreateSnapshotRequest::new().set_subscription("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = CreateSnapshotRequest::new().set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -7533,7 +7565,9 @@ impl Snapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::Snapshot;
-    /// let x = Snapshot::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = Snapshot::new().set_name(format!("projects/{project_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7545,7 +7579,9 @@ impl Snapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::Snapshot;
-    /// let x = Snapshot::new().set_topic("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = Snapshot::new().set_topic(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
@@ -7635,7 +7671,9 @@ impl GetSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::GetSnapshotRequest;
-    /// let x = GetSnapshotRequest::new().set_snapshot("example");
+    /// # let project_id = "project_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = GetSnapshotRequest::new().set_snapshot(format!("projects/{project_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot = v.into();
@@ -7815,7 +7853,9 @@ impl DeleteSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DeleteSnapshotRequest;
-    /// let x = DeleteSnapshotRequest::new().set_snapshot("example");
+    /// # let project_id = "project_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = DeleteSnapshotRequest::new().set_snapshot(format!("projects/{project_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot = v.into();
@@ -7853,7 +7893,9 @@ impl SeekRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::SeekRequest;
-    /// let x = SeekRequest::new().set_subscription("example");
+    /// # let project_id = "project_id";
+    /// # let subscription_id = "subscription_id";
+    /// let x = SeekRequest::new().set_subscription(format!("projects/{project_id}/subscriptions/{subscription_id}"));
     /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -7934,7 +7976,9 @@ impl SeekRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::SeekRequest;
-    /// let x = SeekRequest::new().set_snapshot("example");
+    /// # let project_id = "project_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = SeekRequest::new().set_snapshot(format!("projects/{project_id}/snapshots/{snapshot_id}"));
     /// assert!(x.snapshot().is_some());
     /// assert!(x.time().is_none());
     /// ```
@@ -8035,7 +8079,9 @@ impl Schema {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::Schema;
-    /// let x = Schema::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = Schema::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8294,7 +8340,8 @@ impl CreateSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::CreateSchemaRequest;
-    /// let x = CreateSchemaRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateSchemaRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8379,7 +8426,9 @@ impl GetSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::GetSchemaRequest;
-    /// let x = GetSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = GetSchemaRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8602,7 +8651,9 @@ impl ListSchemaRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::ListSchemaRevisionsRequest;
-    /// let x = ListSchemaRevisionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = ListSchemaRevisionsRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8754,7 +8805,9 @@ impl CommitSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::CommitSchemaRequest;
-    /// let x = CommitSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = CommitSchemaRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8828,7 +8881,9 @@ impl RollbackSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::RollbackSchemaRequest;
-    /// let x = RollbackSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = RollbackSchemaRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8884,7 +8939,9 @@ impl DeleteSchemaRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DeleteSchemaRevisionRequest;
-    /// let x = DeleteSchemaRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = DeleteSchemaRevisionRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8933,7 +8990,9 @@ impl DeleteSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::DeleteSchemaRequest;
-    /// let x = DeleteSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = DeleteSchemaRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9147,7 +9206,9 @@ impl ValidateMessageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_pubsub::model::ValidateMessageRequest;
-    /// let x = ValidateMessageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let schema_id = "schema_id";
+    /// let x = ValidateMessageRequest::new().set_name(format!("projects/{project_id}/schemas/{schema_id}"));
     /// assert!(x.name().is_some());
     /// assert!(x.schema().is_none());
     /// ```

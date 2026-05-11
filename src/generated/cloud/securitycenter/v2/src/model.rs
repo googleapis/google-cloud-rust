@@ -1091,7 +1091,11 @@ impl AttackPath {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::AttackPath;
-    /// let x = AttackPath::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// # let valued_resource_id = "valued_resource_id";
+    /// # let attack_path_id = "attack_path_id";
+    /// let x = AttackPath::new().set_name(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}/attackPaths/{attack_path_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2012,7 +2016,10 @@ impl BigQueryExport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
-    /// let x = BigQueryExport::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let export_id = "export_id";
+    /// let x = BigQueryExport::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4730,7 +4737,11 @@ impl ExternalSystem {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
-    /// let x = ExternalSystem::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// # let finding_id = "finding_id";
+    /// # let externalsystem_id = "externalsystem_id";
+    /// let x = ExternalSystem::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}/externalSystems/{externalsystem_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5878,7 +5889,10 @@ impl Finding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::Finding;
-    /// let x = Finding::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// # let finding_id = "finding_id";
+    /// let x = Finding::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13360,7 +13374,9 @@ impl MuteConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::MuteConfig;
-    /// let x = MuteConfig::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let mute_config_id = "mute_config_id";
+    /// let x = MuteConfig::new().set_name(format!("organizations/{organization_id}/muteConfigs/{mute_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13863,7 +13879,10 @@ impl NotificationConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
-    /// let x = NotificationConfig::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let notification_config_id = "notification_config_id";
+    /// let x = NotificationConfig::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/notificationConfigs/{notification_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14249,7 +14268,9 @@ impl OrgPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::OrgPolicy;
-    /// let x = OrgPolicy::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let constraint_name = "constraint_name";
+    /// let x = OrgPolicy::new().set_name(format!("organizations/{organization_id}/policies/{constraint_name}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16069,7 +16090,9 @@ impl ResourceValueConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
-    /// let x = ResourceValueConfig::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let resource_value_config_id = "resource_value_config_id";
+    /// let x = ResourceValueConfig::new().set_name(format!("organizations/{organization_id}/resourceValueConfigs/{resource_value_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16432,7 +16455,9 @@ impl SecurityMarks {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::SecurityMarks;
-    /// let x = SecurityMarks::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let asset_id = "asset_id";
+    /// let x = SecurityMarks::new().set_name(format!("organizations/{organization_id}/assets/{asset_id}/securityMarks"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16750,7 +16775,8 @@ impl BatchCreateResourceValueConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::BatchCreateResourceValueConfigsRequest;
-    /// let x = BatchCreateResourceValueConfigsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = BatchCreateResourceValueConfigsRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17130,7 +17156,9 @@ impl CreateBigQueryExportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::CreateBigQueryExportRequest;
-    /// let x = CreateBigQueryExportRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBigQueryExportRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17227,7 +17255,9 @@ impl CreateFindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::CreateFindingRequest;
-    /// let x = CreateFindingRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// let x = CreateFindingRequest::new().set_parent(format!("organizations/{organization_id}/sources/{source_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17319,7 +17349,8 @@ impl CreateMuteConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::CreateMuteConfigRequest;
-    /// let x = CreateMuteConfigRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateMuteConfigRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17413,7 +17444,9 @@ impl CreateNotificationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::CreateNotificationConfigRequest;
-    /// let x = CreateNotificationConfigRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateNotificationConfigRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17496,7 +17529,8 @@ impl CreateResourceValueConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::CreateResourceValueConfigRequest;
-    /// let x = CreateResourceValueConfigRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = CreateResourceValueConfigRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17644,7 +17678,10 @@ impl DeleteBigQueryExportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::DeleteBigQueryExportRequest;
-    /// let x = DeleteBigQueryExportRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let export_id = "export_id";
+    /// let x = DeleteBigQueryExportRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17690,7 +17727,9 @@ impl DeleteMuteConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::DeleteMuteConfigRequest;
-    /// let x = DeleteMuteConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let mute_config_id = "mute_config_id";
+    /// let x = DeleteMuteConfigRequest::new().set_name(format!("organizations/{organization_id}/muteConfigs/{mute_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17733,7 +17772,10 @@ impl DeleteNotificationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::DeleteNotificationConfigRequest;
-    /// let x = DeleteNotificationConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let notification_config_id = "notification_config_id";
+    /// let x = DeleteNotificationConfigRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/notificationConfigs/{notification_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17768,7 +17810,9 @@ impl DeleteResourceValueConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::DeleteResourceValueConfigRequest;
-    /// let x = DeleteResourceValueConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let resource_value_config_id = "resource_value_config_id";
+    /// let x = DeleteResourceValueConfigRequest::new().set_name(format!("organizations/{organization_id}/resourceValueConfigs/{resource_value_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18003,7 +18047,10 @@ impl GetBigQueryExportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetBigQueryExportRequest;
-    /// let x = GetBigQueryExportRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let export_id = "export_id";
+    /// let x = GetBigQueryExportRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18049,7 +18096,9 @@ impl GetMuteConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetMuteConfigRequest;
-    /// let x = GetMuteConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let mute_config_id = "mute_config_id";
+    /// let x = GetMuteConfigRequest::new().set_name(format!("organizations/{organization_id}/muteConfigs/{mute_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18092,7 +18141,10 @@ impl GetNotificationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetNotificationConfigRequest;
-    /// let x = GetNotificationConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let notification_config_id = "notification_config_id";
+    /// let x = GetNotificationConfigRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/notificationConfigs/{notification_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18128,7 +18180,9 @@ impl GetResourceValueConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetResourceValueConfigRequest;
-    /// let x = GetResourceValueConfigRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let resource_value_config_id = "resource_value_config_id";
+    /// let x = GetResourceValueConfigRequest::new().set_name(format!("organizations/{organization_id}/resourceValueConfigs/{resource_value_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18164,7 +18218,9 @@ impl GetSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetSourceRequest;
-    /// let x = GetSourceRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// let x = GetSourceRequest::new().set_name(format!("organizations/{organization_id}/sources/{source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18292,7 +18348,9 @@ impl GroupFindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GroupFindingsRequest;
-    /// let x = GroupFindingsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// let x = GroupFindingsRequest::new().set_parent(format!("organizations/{organization_id}/sources/{source_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18549,7 +18607,10 @@ impl ListAttackPathsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListAttackPathsRequest;
-    /// let x = ListAttackPathsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// # let valued_resource_id = "valued_resource_id";
+    /// let x = ListAttackPathsRequest::new().set_parent(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18702,7 +18763,9 @@ impl GetSimulationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetSimulationRequest;
-    /// let x = GetSimulationRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// let x = GetSimulationRequest::new().set_name(format!("organizations/{organization_id}/simulations/{simulation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18740,7 +18803,10 @@ impl GetValuedResourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::GetValuedResourceRequest;
-    /// let x = GetValuedResourceRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// # let valued_resource_id = "valued_resource_id";
+    /// let x = GetValuedResourceRequest::new().set_name(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18791,7 +18857,9 @@ impl ListBigQueryExportsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListBigQueryExportsRequest;
-    /// let x = ListBigQueryExportsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBigQueryExportsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19037,7 +19105,9 @@ impl ListFindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
-    /// let x = ListFindingsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// let x = ListFindingsRequest::new().set_parent(format!("organizations/{organization_id}/sources/{source_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19727,7 +19797,8 @@ impl ListMuteConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListMuteConfigsRequest;
-    /// let x = ListMuteConfigsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListMuteConfigsRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19874,7 +19945,9 @@ impl ListNotificationConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListNotificationConfigsRequest;
-    /// let x = ListNotificationConfigsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListNotificationConfigsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20026,7 +20099,8 @@ impl ListResourceValueConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListResourceValueConfigsRequest;
-    /// let x = ListResourceValueConfigsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListResourceValueConfigsRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20171,7 +20245,8 @@ impl ListSourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListSourcesRequest;
-    /// let x = ListSourcesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// let x = ListSourcesRequest::new().set_parent(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20345,7 +20420,9 @@ impl ListValuedResourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesRequest;
-    /// let x = ListValuedResourcesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// let x = ListValuedResourcesRequest::new().set_parent(format!("organizations/{organization_id}/simulations/{simulation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20537,7 +20614,10 @@ impl SetFindingStateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::SetFindingStateRequest;
-    /// let x = SetFindingStateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// # let finding_id = "finding_id";
+    /// let x = SetFindingStateRequest::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20605,7 +20685,10 @@ impl SetMuteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::SetMuteRequest;
-    /// let x = SetMuteRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// # let finding_id = "finding_id";
+    /// let x = SetMuteRequest::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21430,7 +21513,9 @@ impl Simulation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::Simulation;
-    /// let x = Simulation::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// let x = Simulation::new().set_name(format!("organizations/{organization_id}/simulations/{simulation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21568,7 +21653,9 @@ impl Source {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::Source;
-    /// let x = Source::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// let x = Source::new().set_name(format!("organizations/{organization_id}/sources/{source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21729,7 +21816,10 @@ impl ValuedResource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycenter_v2::model::ValuedResource;
-    /// let x = ValuedResource::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let simulation_id = "simulation_id";
+    /// # let valued_resource_id = "valued_resource_id";
+    /// let x = ValuedResource::new().set_name(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

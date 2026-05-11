@@ -5955,7 +5955,9 @@ impl Occurrence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::Occurrence;
-    /// let x = Occurrence::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let occurrence_id = "occurrence_id";
+    /// let x = Occurrence::new().set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6791,7 +6793,9 @@ impl Note {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::Note;
-    /// let x = Note::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let note_id = "note_id";
+    /// let x = Note::new().set_name(format!("projects/{project_id}/notes/{note_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7666,7 +7670,9 @@ impl GetOccurrenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::GetOccurrenceRequest;
-    /// let x = GetOccurrenceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let occurrence_id = "occurrence_id";
+    /// let x = GetOccurrenceRequest::new().set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7902,7 +7908,9 @@ impl DeleteOccurrenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::DeleteOccurrenceRequest;
-    /// let x = DeleteOccurrenceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let occurrence_id = "occurrence_id";
+    /// let x = DeleteOccurrenceRequest::new().set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8016,7 +8024,9 @@ impl UpdateOccurrenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::UpdateOccurrenceRequest;
-    /// let x = UpdateOccurrenceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let occurrence_id = "occurrence_id";
+    /// let x = UpdateOccurrenceRequest::new().set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8118,7 +8128,9 @@ impl GetNoteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::GetNoteRequest;
-    /// let x = GetNoteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let note_id = "note_id";
+    /// let x = GetNoteRequest::new().set_name(format!("projects/{project_id}/notes/{note_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8154,7 +8166,9 @@ impl GetOccurrenceNoteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::GetOccurrenceNoteRequest;
-    /// let x = GetOccurrenceNoteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let occurrence_id = "occurrence_id";
+    /// let x = GetOccurrenceNoteRequest::new().set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8390,7 +8404,9 @@ impl DeleteNoteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::DeleteNoteRequest;
-    /// let x = DeleteNoteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let note_id = "note_id";
+    /// let x = DeleteNoteRequest::new().set_name(format!("projects/{project_id}/notes/{note_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8519,7 +8535,9 @@ impl UpdateNoteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::UpdateNoteRequest;
-    /// let x = UpdateNoteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let note_id = "note_id";
+    /// let x = UpdateNoteRequest::new().set_name(format!("projects/{project_id}/notes/{note_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8630,7 +8648,9 @@ impl ListNoteOccurrencesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesRequest;
-    /// let x = ListNoteOccurrencesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let note_id = "note_id";
+    /// let x = ListNoteOccurrencesRequest::new().set_name(format!("projects/{project_id}/notes/{note_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

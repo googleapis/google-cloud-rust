@@ -240,7 +240,9 @@ impl ServiceAccount {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
-    /// let x = ServiceAccount::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = ServiceAccount::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -627,7 +629,9 @@ impl GetServiceAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::GetServiceAccountRequest;
-    /// let x = GetServiceAccountRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = GetServiceAccountRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -666,7 +670,9 @@ impl DeleteServiceAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::DeleteServiceAccountRequest;
-    /// let x = DeleteServiceAccountRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = DeleteServiceAccountRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -981,7 +987,9 @@ impl ListServiceAccountKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::ListServiceAccountKeysRequest;
-    /// let x = ListServiceAccountKeysRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = ListServiceAccountKeysRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1231,7 +1239,10 @@ impl GetServiceAccountKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::GetServiceAccountKeyRequest;
-    /// let x = GetServiceAccountKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// # let key_id = "key_id";
+    /// let x = GetServiceAccountKeyRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1348,7 +1359,10 @@ impl ServiceAccountKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
-    /// let x = ServiceAccountKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// # let key_id = "key_id";
+    /// let x = ServiceAccountKey::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1571,7 +1585,9 @@ impl CreateServiceAccountKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountKeyRequest;
-    /// let x = CreateServiceAccountKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = CreateServiceAccountKeyRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1703,7 +1719,10 @@ impl DeleteServiceAccountKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::DeleteServiceAccountKeyRequest;
-    /// let x = DeleteServiceAccountKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// # let key_id = "key_id";
+    /// let x = DeleteServiceAccountKeyRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1743,7 +1762,10 @@ impl DisableServiceAccountKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::DisableServiceAccountKeyRequest;
-    /// let x = DisableServiceAccountKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// # let key_id = "key_id";
+    /// let x = DisableServiceAccountKeyRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1783,7 +1805,10 @@ impl EnableServiceAccountKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::EnableServiceAccountKeyRequest;
-    /// let x = EnableServiceAccountKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// # let key_id = "key_id";
+    /// let x = EnableServiceAccountKeyRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}/keys/{key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1836,7 +1861,9 @@ impl SignBlobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::SignBlobRequest;
-    /// let x = SignBlobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = SignBlobRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     #[deprecated]
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1975,7 +2002,9 @@ impl SignJwtRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::SignJwtRequest;
-    /// let x = SignJwtRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_account_id = "service_account_id";
+    /// let x = SignJwtRequest::new().set_name(format!("projects/{project_id}/serviceAccounts/{service_account_id}"));
     /// ```
     #[deprecated]
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {

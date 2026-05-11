@@ -164,7 +164,10 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Deployment;
-    /// let x = Deployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1622,7 +1625,10 @@ impl DeploymentSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeploymentSource;
-    /// let x = DeploymentSource::new().set_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeploymentSource::new().set_deployment(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment = v.into();
@@ -2038,7 +2044,10 @@ impl GetDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetDeploymentRequest;
-    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GetDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2112,7 +2121,10 @@ impl ListRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ListRevisionsRequest;
-    /// let x = ListRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ListRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2294,7 +2306,11 @@ impl GetRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetRevisionRequest;
-    /// let x = GetRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2723,7 +2739,10 @@ impl DeleteDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeleteDeploymentGroupRequest;
-    /// let x = DeleteDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// let x = DeleteDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3120,7 +3139,10 @@ impl DeleteDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeleteDeploymentRequest;
-    /// let x = DeleteDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeleteDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3773,7 +3795,11 @@ impl Revision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Revision;
-    /// let x = Revision::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let revision_id = "revision_id";
+    /// let x = Revision::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5247,7 +5273,12 @@ impl Resource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Resource;
-    /// let x = Resource::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let revision_id = "revision_id";
+    /// # let resource_id = "resource_id";
+    /// let x = Resource::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}/resources/{resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5781,7 +5812,12 @@ impl GetResourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetResourceRequest;
-    /// let x = GetResourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let revision_id = "revision_id";
+    /// # let resource_id = "resource_id";
+    /// let x = GetResourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}/resources/{resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5846,7 +5882,11 @@ impl ListResourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ListResourcesRequest;
-    /// let x = ListResourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let revision_id = "revision_id";
+    /// let x = ListResourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6071,7 +6111,10 @@ impl ExportDeploymentStatefileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ExportDeploymentStatefileRequest;
-    /// let x = ExportDeploymentStatefileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ExportDeploymentStatefileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6121,7 +6164,11 @@ impl ExportRevisionStatefileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ExportRevisionStatefileRequest;
-    /// let x = ExportRevisionStatefileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let revision_id = "revision_id";
+    /// let x = ExportRevisionStatefileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6165,7 +6212,10 @@ impl ImportStatefileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ImportStatefileRequest;
-    /// let x = ImportStatefileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ImportStatefileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6229,7 +6279,10 @@ impl DeleteStatefileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeleteStatefileRequest;
-    /// let x = DeleteStatefileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeleteStatefileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6277,7 +6330,10 @@ impl LockDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::LockDeploymentRequest;
-    /// let x = LockDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = LockDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6316,7 +6372,10 @@ impl UnlockDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::UnlockDeploymentRequest;
-    /// let x = UnlockDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = UnlockDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6364,7 +6423,10 @@ impl ExportLockInfoRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ExportLockInfoRequest;
-    /// let x = ExportLockInfoRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ExportLockInfoRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6622,7 +6684,10 @@ impl Preview {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Preview;
-    /// let x = Preview::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// let x = Preview::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6703,7 +6768,10 @@ impl Preview {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Preview;
-    /// let x = Preview::new().set_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Preview::new().set_deployment(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment = v.into();
@@ -8097,7 +8165,10 @@ impl GetPreviewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetPreviewRequest;
-    /// let x = GetPreviewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// let x = GetPreviewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8367,7 +8438,10 @@ impl DeletePreviewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeletePreviewRequest;
-    /// let x = DeletePreviewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// let x = DeletePreviewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8416,7 +8490,10 @@ impl ExportPreviewResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ExportPreviewResultRequest;
-    /// let x = ExportPreviewResultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// let x = ExportPreviewResultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8561,7 +8638,10 @@ impl GetTerraformVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetTerraformVersionRequest;
-    /// let x = GetTerraformVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let terraform_version_id = "terraform_version_id";
+    /// let x = GetTerraformVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/terraformVersions/{terraform_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8815,7 +8895,10 @@ impl TerraformVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::TerraformVersion;
-    /// let x = TerraformVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let terraform_version_id = "terraform_version_id";
+    /// let x = TerraformVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/terraformVersions/{terraform_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9223,7 +9306,11 @@ impl ResourceChange {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ResourceChange;
-    /// let x = ResourceChange::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// # let resource_change_id = "resource_change_id";
+    /// let x = ResourceChange::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}/resourceChanges/{resource_change_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9671,7 +9758,10 @@ impl ListResourceChangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ListResourceChangesRequest;
-    /// let x = ListResourceChangesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// let x = ListResourceChangesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9853,7 +9943,11 @@ impl GetResourceChangeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetResourceChangeRequest;
-    /// let x = GetResourceChangeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// # let resource_change_id = "resource_change_id";
+    /// let x = GetResourceChangeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}/resourceChanges/{resource_change_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9976,7 +10070,11 @@ impl ResourceDrift {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ResourceDrift;
-    /// let x = ResourceDrift::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// # let resource_drift_id = "resource_drift_id";
+    /// let x = ResourceDrift::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}/resourceDrifts/{resource_drift_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10247,7 +10345,10 @@ impl ListResourceDriftsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ListResourceDriftsRequest;
-    /// let x = ListResourceDriftsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// let x = ListResourceDriftsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10428,7 +10529,11 @@ impl GetResourceDriftRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetResourceDriftRequest;
-    /// let x = GetResourceDriftRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let preview_id = "preview_id";
+    /// # let resource_drift_id = "resource_drift_id";
+    /// let x = GetResourceDriftRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}/resourceDrifts/{resource_drift_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10652,7 +10757,9 @@ impl GetAutoMigrationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetAutoMigrationConfigRequest;
-    /// let x = GetAutoMigrationConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetAutoMigrationConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoMigrationConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10695,7 +10802,9 @@ impl AutoMigrationConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::AutoMigrationConfig;
-    /// let x = AutoMigrationConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = AutoMigrationConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoMigrationConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10912,7 +11021,10 @@ impl DeploymentGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeploymentGroup;
-    /// let x = DeploymentGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// let x = DeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11536,7 +11648,10 @@ impl DeploymentUnit {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeploymentUnit;
-    /// let x = DeploymentUnit::new().set_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeploymentUnit::new().set_deployment(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
@@ -11551,7 +11666,10 @@ impl DeploymentUnit {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeploymentUnit;
-    /// let x = DeploymentUnit::new().set_or_clear_deployment(Some("example"));
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeploymentUnit::new().set_or_clear_deployment(Some(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}")));
     /// let x = DeploymentUnit::new().set_or_clear_deployment(None::<String>);
     /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -11681,7 +11799,10 @@ impl GetDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetDeploymentGroupRequest;
-    /// let x = GetDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// let x = GetDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11946,7 +12067,10 @@ impl ProvisionDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ProvisionDeploymentGroupRequest;
-    /// let x = ProvisionDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// let x = ProvisionDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12016,7 +12140,10 @@ impl DeprovisionDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeprovisionDeploymentGroupRequest;
-    /// let x = DeprovisionDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// let x = DeprovisionDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12220,7 +12347,10 @@ impl DeploymentUnitProgress {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
-    /// let x = DeploymentUnitProgress::new().set_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeploymentUnitProgress::new().set_deployment(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment = v.into();
@@ -12984,7 +13114,11 @@ impl DeploymentGroupRevision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
-    /// let x = DeploymentGroupRevision::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// # let revision_id = "revision_id";
+    /// let x = DeploymentGroupRevision::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13104,7 +13238,11 @@ impl GetDeploymentGroupRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::GetDeploymentGroupRevisionRequest;
-    /// let x = GetDeploymentGroupRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetDeploymentGroupRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13154,7 +13292,10 @@ impl ListDeploymentGroupRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsRequest;
-    /// let x = ListDeploymentGroupRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let deployment_group_id = "deployment_group_id";
+    /// let x = ListDeploymentGroupRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

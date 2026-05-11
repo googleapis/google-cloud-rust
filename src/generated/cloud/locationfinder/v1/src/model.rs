@@ -85,7 +85,10 @@ impl CloudLocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_locationfinder_v1::model::CloudLocation;
-    /// let x = CloudLocation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_location_id = "cloud_location_id";
+    /// let x = CloudLocation::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudLocations/{cloud_location_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -97,7 +100,10 @@ impl CloudLocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_locationfinder_v1::model::CloudLocation;
-    /// let x = CloudLocation::new().set_containing_cloud_location("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_location_id = "cloud_location_id";
+    /// let x = CloudLocation::new().set_containing_cloud_location(format!("projects/{project_id}/locations/{location_id}/cloudLocations/{cloud_location_id}"));
     /// ```
     pub fn set_containing_cloud_location<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -557,7 +563,9 @@ impl ListCloudLocationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsRequest;
-    /// let x = ListCloudLocationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCloudLocationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -705,7 +713,10 @@ impl GetCloudLocationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_locationfinder_v1::model::GetCloudLocationRequest;
-    /// let x = GetCloudLocationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_location_id = "cloud_location_id";
+    /// let x = GetCloudLocationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudLocations/{cloud_location_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -763,7 +774,9 @@ impl SearchCloudLocationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
-    /// let x = SearchCloudLocationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SearchCloudLocationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -775,7 +788,10 @@ impl SearchCloudLocationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
-    /// let x = SearchCloudLocationsRequest::new().set_source_cloud_location("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_location_id = "cloud_location_id";
+    /// let x = SearchCloudLocationsRequest::new().set_source_cloud_location(format!("projects/{project_id}/locations/{location_id}/cloudLocations/{cloud_location_id}"));
     /// ```
     pub fn set_source_cloud_location<T: std::convert::Into<std::string::String>>(
         mut self,

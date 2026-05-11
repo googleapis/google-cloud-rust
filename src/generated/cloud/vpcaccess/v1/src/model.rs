@@ -87,7 +87,10 @@ impl Connector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connector_id = "connector_id";
+    /// let x = Connector::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -575,7 +578,10 @@ impl GetConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vpcaccess_v1::model::GetConnectorRequest;
-    /// let x = GetConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connector_id = "connector_id";
+    /// let x = GetConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -749,7 +755,10 @@ impl DeleteConnectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vpcaccess_v1::model::DeleteConnectorRequest;
-    /// let x = DeleteConnectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connector_id = "connector_id";
+    /// let x = DeleteConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -873,7 +882,10 @@ impl OperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connector_id = "connector_id";
+    /// let x = OperationMetadata::new().set_target(format!("projects/{project_id}/locations/{location_id}/connectors/{connector_id}"));
     /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();

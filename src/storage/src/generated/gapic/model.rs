@@ -51,7 +51,9 @@ impl DeleteBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::DeleteBucketRequest;
-    /// let x = DeleteBucketRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = DeleteBucketRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -163,7 +165,9 @@ impl GetBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetBucketRequest;
-    /// let x = GetBucketRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = GetBucketRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -324,7 +328,8 @@ impl CreateBucketRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::CreateBucketRequest;
-    /// let x = CreateBucketRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateBucketRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -468,7 +473,8 @@ impl ListBucketsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ListBucketsRequest;
-    /// let x = ListBucketsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListBucketsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -697,7 +703,9 @@ impl LockBucketRetentionPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::LockBucketRetentionPolicyRequest;
-    /// let x = LockBucketRetentionPolicyRequest::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = LockBucketRetentionPolicyRequest::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -1447,7 +1455,9 @@ impl DeleteObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::DeleteObjectRequest;
-    /// let x = DeleteObjectRequest::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = DeleteObjectRequest::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -1708,7 +1718,9 @@ impl RestoreObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::RestoreObjectRequest;
-    /// let x = RestoreObjectRequest::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = RestoreObjectRequest::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -2025,7 +2037,9 @@ impl ReadObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ReadObjectRequest;
-    /// let x = ReadObjectRequest::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ReadObjectRequest::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -2346,7 +2360,9 @@ impl GetObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetObjectRequest;
-    /// let x = GetObjectRequest::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = GetObjectRequest::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -2998,7 +3014,9 @@ impl ListObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ListObjectsRequest;
-    /// let x = ListObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ListObjectsRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3355,7 +3373,9 @@ impl RewriteObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::RewriteObjectRequest;
-    /// let x = RewriteObjectRequest::new().set_destination_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = RewriteObjectRequest::new().set_destination_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_destination_bucket<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3418,7 +3438,9 @@ impl RewriteObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::RewriteObjectRequest;
-    /// let x = RewriteObjectRequest::new().set_source_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = RewriteObjectRequest::new().set_source_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_source_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_bucket = v.into();
@@ -4069,7 +4091,9 @@ impl MoveObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::MoveObjectRequest;
-    /// let x = MoveObjectRequest::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = MoveObjectRequest::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -4934,7 +4958,9 @@ impl Bucket {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::Bucket;
-    /// let x = Bucket::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = Bucket::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8733,7 +8759,9 @@ impl Object {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::Object;
-    /// let x = Object::new().set_bucket("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = Object::new().set_bucket(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();

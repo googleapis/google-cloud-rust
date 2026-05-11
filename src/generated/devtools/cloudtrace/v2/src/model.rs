@@ -130,7 +130,10 @@ impl Span {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_trace_v2::model::Span;
-    /// let x = Span::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let trace_id = "trace_id";
+    /// # let span_id = "span_id";
+    /// let x = Span::new().set_name(format!("projects/{project_id}/traces/{trace_id}/spans/{span_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
