@@ -87,6 +87,13 @@ cargo fmt && cargo clippy --profile=test -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
+> [!NOTE]
+> If you are modifying handwritten crates, note that our CI runs stricter lints
+> (such as missing documentation checks and exhaustive enums). Please refer to
+> the **Linter** section in [GEMINI.md](../../GEMINI.md) or check
+> [.gcb/scripts/lint.sh](../../.gcb/scripts/lint.sh) for the exact commands and
+> targeted crates to verify locally before submitting a PR.
+
 If you are seeing errors when running locally that are not present in the CI,
 you may need to update your local rust version.
 
