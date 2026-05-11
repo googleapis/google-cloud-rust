@@ -32,6 +32,7 @@ pub struct WriteOnlyTransactionBuilder {
     max_commit_delay: Option<Duration>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
     exclude_txn_from_change_streams: bool,
+    return_commit_stats: bool,
     commit_priority: Priority,
 }
 
@@ -43,6 +44,7 @@ impl WriteOnlyTransactionBuilder {
             max_commit_delay: None,
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
             exclude_txn_from_change_streams: false,
+            return_commit_stats: false,
             commit_priority: Priority::Unspecified,
         }
     }
@@ -137,6 +139,37 @@ impl WriteOnlyTransactionBuilder {
         self
     }
 
+    /// Sets whether to return commit stats for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # let client = Spanner::builder().build().await?;
+    /// # let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .build();
+    ///
+    /// let response = db.write_only_transaction()
+    ///     .with_return_commit_stats(true)
+    ///     .build()
+    ///     .write(vec![mutation])
+    ///     .await?;
+    ///
+    /// if let Some(stats) = response.commit_stats {
+    ///     println!("Mutation count: {}", stats.mutation_count);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
+    pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
+        self.return_commit_stats = return_stats;
+        self
+    }
+
     /// Sets the retry policy for the transaction.
     ///
     /// # Example
@@ -186,6 +219,7 @@ impl WriteOnlyTransactionBuilder {
             max_commit_delay: self.max_commit_delay,
             retry_policy: self.retry_policy,
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
+            return_commit_stats: self.return_commit_stats,
             commit_priority: self.commit_priority,
         }
     }
@@ -201,6 +235,7 @@ pub struct WriteOnlyTransaction {
     max_commit_delay: Option<Duration>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
     exclude_txn_from_change_streams: bool,
+    return_commit_stats: bool,
     commit_priority: Priority,
 }
 
@@ -285,7 +320,8 @@ impl WriteOnlyTransaction {
                     .set_transaction_id(tx.id.clone())
                     .set_request_options(req_options.clone())
                     .set_or_clear_precommit_token(tx.precommit_token)
-                    .set_or_clear_max_commit_delay(self.max_commit_delay);
+                    .set_or_clear_max_commit_delay(self.max_commit_delay)
+                    .set_return_commit_stats(self.return_commit_stats);
 
                 let response = client
                     .spanner
@@ -359,7 +395,8 @@ impl WriteOnlyTransaction {
             .set_mutations(mutations.into_iter().map(|m| m.build_proto()))
             .set_single_use_transaction(Box::new(single_use))
             .set_request_options(req_options)
-            .set_or_clear_max_commit_delay(self.max_commit_delay);
+            .set_or_clear_max_commit_delay(self.max_commit_delay)
+            .set_return_commit_stats(self.return_commit_stats);
         let client = self.client;
 
         retry_aborted(&*self.retry_policy, || {
@@ -388,6 +425,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
     use spanner_grpc_mock::google::spanner::v1::Session;
     use spanner_grpc_mock::google::spanner::v1::Transaction;
+    use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
     use wkt::Duration;
 
@@ -567,6 +605,99 @@ mod tests {
                 .seconds(),
             5678
         );
+    }
+
+    #[tokio::test]
+    async fn write_at_least_once_with_commit_stats() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.return_commit_stats);
+
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                commit_stats: Some(CommitStats { mutation_count: 5 }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_return_commit_stats(true)
+            .build()
+            .write_at_least_once(vec![mutation])
+            .await?;
+
+        let stats = res.commit_stats.expect("Commit stats should be present");
+        assert_eq!(stats.mutation_count, 5);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_with_commit_stats() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.return_commit_stats);
+
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 5678,
+                    nanos: 0,
+                }),
+                commit_stats: Some(CommitStats { mutation_count: 10 }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_return_commit_stats(true)
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        let stats = res.commit_stats.expect("Commit stats should be present");
+        assert_eq!(stats.mutation_count, 10);
+        Ok(())
     }
 
     #[tokio::test]

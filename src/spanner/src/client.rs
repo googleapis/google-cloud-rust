@@ -1093,7 +1093,7 @@ mod tests {
             .await?;
 
         // 5. Verify success after retry
-        assert_eq!(result, 1);
+        assert_eq!(result.result, 1);
 
         Ok(())
     }

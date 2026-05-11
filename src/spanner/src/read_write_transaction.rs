@@ -18,6 +18,7 @@ use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::BeginTransactionRequest;
 use crate::model::CommitRequest;
+use crate::model::CommitResponse;
 use crate::model::ExecuteBatchDmlRequest;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
@@ -53,6 +54,7 @@ pub(crate) struct ReadWriteTransactionBuilder {
     transaction_tag: Option<String>,
     max_commit_delay: Option<Duration>,
     pub(crate) session_name: String,
+    return_commit_stats: bool,
     commit_priority: Priority,
 }
 
@@ -65,6 +67,7 @@ impl ReadWriteTransactionBuilder {
             transaction_tag: None,
             max_commit_delay: None,
             session_name,
+            return_commit_stats: false,
             commit_priority: Priority::Unspecified,
         }
     }
@@ -114,6 +117,11 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
+    pub(crate) fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
+        self.return_commit_stats = return_stats;
+        self
+    }
+
     pub(crate) async fn begin_transaction(
         &self,
         deadline: Option<Instant>,
@@ -156,6 +164,7 @@ impl ReadWriteTransactionBuilder {
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
+            return_commit_stats: self.return_commit_stats,
             deadline,
             commit_priority: self.commit_priority.clone(),
         })
@@ -169,6 +178,7 @@ pub struct ReadWriteTransaction {
     pub(crate) deadline: Option<Instant>,
     seqno: Arc<AtomicI64>,
     max_commit_delay: Option<Duration>,
+    return_commit_stats: bool,
     commit_priority: Priority,
 }
 
@@ -360,15 +370,16 @@ impl ReadWriteTransaction {
     }
 
     /// Commits the transaction.
-    pub(crate) async fn commit(self) -> crate::Result<wkt::Timestamp> {
+    pub(crate) async fn commit(self) -> crate::Result<CommitResponse> {
         let transaction_id = self.transaction_id()?;
         let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id.clone())
             .set_or_clear_precommit_token(precommit_token)
-            .set_or_clear_request_options(self.commit_request_options())
-            .set_or_clear_max_commit_delay(self.max_commit_delay);
+            .set_or_clear_request_options(self.context.amend_request_options(None))
+            .set_or_clear_max_commit_delay(self.max_commit_delay)
+            .set_return_commit_stats(self.return_commit_stats);
 
         // TODO(#4972): make request options configurable
         let mut gax_options = GaxRequestOptions::default();
@@ -402,10 +413,7 @@ impl ReadWriteTransaction {
                 response
             };
 
-        let timestamp = response
-            .commit_timestamp
-            .ok_or_else(|| internal_error("No commit timestamp returned"))?;
-        Ok(timestamp)
+        Ok(response)
     }
 
     /// Rolls back the transaction.
@@ -570,7 +578,13 @@ mod tests {
         assert_eq!(count, 1);
 
         let timestamp = tx.commit().await.unwrap();
-        assert_eq!(timestamp.seconds(), 1001);
+        assert_eq!(
+            timestamp
+                .commit_timestamp
+                .expect("Commit timestamp should be present")
+                .seconds(),
+            1001
+        );
     }
 
     #[tokio::test]
@@ -636,7 +650,12 @@ mod tests {
         assert_eq!(count, 1);
 
         let ts = tx.commit().await.expect("Failed to commit");
-        assert_eq!(ts.seconds(), 123456789);
+        assert_eq!(
+            ts.commit_timestamp
+                .expect("Commit timestamp should be present")
+                .seconds(),
+            123456789
+        );
     }
 
     #[tokio::test]
@@ -1066,7 +1085,12 @@ mod tests {
                 .expect("Failed to execute update");
         }
         let ts = tx.commit().await.expect("Failed to commit transaction");
-        assert_eq!(ts.seconds(), 12345);
+        assert_eq!(
+            ts.commit_timestamp
+                .expect("Commit timestamp should be present")
+                .seconds(),
+            12345
+        );
     }
 
     #[tokio::test]
@@ -1135,7 +1159,12 @@ mod tests {
             .expect("Failed to build transaction");
 
         let ts = tx.commit().await.expect("Failed to commit transaction");
-        assert_eq!(ts.seconds(), 9999);
+        assert_eq!(
+            ts.commit_timestamp
+                .expect("Commit timestamp should be present")
+                .seconds(),
+            9999
+        );
     }
 
     #[tokio::test]
@@ -1176,6 +1205,11 @@ mod tests {
             .expect("Failed to build transaction");
 
         let ts = tx.commit().await.expect("Failed to commit");
-        assert_eq!(ts.seconds(), 123456789);
+        assert_eq!(
+            ts.commit_timestamp
+                .expect("Commit timestamp should be present")
+                .seconds(),
+            123456789
+        );
     }
 }
