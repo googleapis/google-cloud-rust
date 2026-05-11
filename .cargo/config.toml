@@ -1,0 +1,20 @@
+[alias]
+clippy-strict = [
+    "clippy",
+    "--all-features",
+    "--no-deps",
+    "-p", "google-cloud-auth",
+    "-p", "google-cloud-bigquery",
+    "-p", "google-cloud-bigtable",
+    "-p", "google-cloud-datastore",
+    "-p", "google-cloud-firestore",
+    "-p", "google-cloud-gax",
+    "-p", "google-cloud-lro",
+    "-p", "google-cloud-pubsub",
+    "-p", "google-cloud-spanner",
+    "-p", "google-cloud-storage",
+    "-p", "google-cloud-wkt",
+    "--",
+    "-D", "missing_docs",
+    "-D", "clippy::exhaustive_enums",
+]

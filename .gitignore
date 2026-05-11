@@ -33,6 +33,3 @@ coverage.out
 # Ignore cargo-mutants directories.
 mutants.out/
 mutants.out.old/
-
-# Allow local customization for development.
-/.cargo/config.toml
