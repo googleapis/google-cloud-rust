@@ -17,7 +17,7 @@ use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
 use crate::model::transaction_options::ReadOnly;
 use crate::precommit::PrecommitTokenTracker;
-use crate::result_set::{ResultSet, StreamOperation};
+use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use std::mem::replace;
@@ -93,6 +93,7 @@ impl SingleUseReadOnlyTransactionBuilder {
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         let session_name = self.client.session_name();
+        let channel_hint = self.client.spanner.next_channel_hint();
         SingleUseReadOnlyTransaction {
             context: ReadContext {
                 session_name,
@@ -103,6 +104,7 @@ impl SingleUseReadOnlyTransactionBuilder {
                 ),
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
+                channel_hint,
             },
         }
     }
@@ -280,8 +282,10 @@ impl MultiUseReadOnlyTransactionBuilder {
         &self,
         session_name: String,
         options: TransactionOptions,
+        channel_hint: usize,
     ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = execute_begin_transaction(&self.client, session_name, options).await?;
+        let response =
+            execute_begin_transaction(&self.client, session_name, options, channel_hint).await?;
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
 
@@ -312,8 +316,10 @@ impl MultiUseReadOnlyTransactionBuilder {
         let options = TransactionOptions::default().set_read_only(read_only);
 
         let session_name = self.client.session_name();
+        let channel_hint = self.client.spanner.next_channel_hint();
         let selector = if self.explicit_begin {
-            self.begin(session_name.clone(), options).await?
+            self.begin(session_name.clone(), options, channel_hint)
+                .await?
         } else {
             ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
                 TransactionState::NotStarted(options),
@@ -327,6 +333,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                 transaction_selector: selector,
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
+                channel_hint,
             },
         })
     }
@@ -433,6 +440,7 @@ async fn execute_begin_transaction(
     client: &crate::database_client::DatabaseClient,
     session_name: String,
     options: crate::model::TransactionOptions,
+    channel_hint: usize,
 ) -> crate::Result<crate::model::Transaction> {
     let request = crate::model::BeginTransactionRequest::default()
         .set_session(session_name)
@@ -441,7 +449,7 @@ async fn execute_begin_transaction(
     // TODO(#4972): make request options configurable
     client
         .spanner
-        .begin_transaction(request, crate::RequestOptions::default())
+        .begin_transaction(request, crate::RequestOptions::default(), channel_hint)
         .await
 }
 
@@ -534,6 +542,7 @@ impl ReadContextTransactionSelector {
         &self,
         client: &crate::database_client::DatabaseClient,
         session_name: String,
+        channel_hint: usize,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
@@ -566,28 +575,33 @@ impl ReadContextTransactionSelector {
         // Only the leader thread will reach this point to perform the explicit begin.
         // Waiters are blocked in `poll_selector_status` waiting for the result,
         // and already completed states return early above.
-        let response = match execute_begin_transaction(client, session_name.clone(), options).await
-        {
-            Ok(r) => r,
-            Err(e) => {
-                let mut guard = lazy.lock().expect("transaction state mutex poisoned");
-                let error = Arc::new(e);
-                *guard = TransactionState::Failed(Arc::clone(&error));
-                // Release the lock and notify all the waiting queries that
-                // the transaction has failed.
-                drop(guard);
-                if let Some(notify) = notify_opt {
-                    notify.notify_waiters();
-                }
+        let response =
+            match execute_begin_transaction(client, session_name.clone(), options, channel_hint)
+                .await
+            {
+                Ok(r) => r,
+                Err(e) => {
+                    let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+                    let error = Arc::new(e);
+                    *guard = TransactionState::Failed(Arc::clone(&error));
+                    // Release the lock and notify all the waiting queries that
+                    // the transaction has failed.
+                    drop(guard);
+                    if let Some(notify) = notify_opt {
+                        notify.notify_waiters();
+                    }
 
-                let return_error = if let Some(status) = error.status() {
-                    crate::Error::service(status.clone())
-                } else {
-                    crate::error::internal_error(format!("Transaction failed to start: {}", error))
-                };
-                return Err(return_error);
-            }
-        };
+                    let return_error = if let Some(status) = error.status() {
+                        crate::Error::service(status.clone())
+                    } else {
+                        crate::error::internal_error(format!(
+                            "Transaction failed to start: {}",
+                            error
+                        ))
+                    };
+                    return Err(return_error);
+                }
+            };
 
         self.update(response.id, response.read_timestamp)?;
 
@@ -687,6 +701,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_selector: ReadContextTransactionSelector,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
     pub(crate) transaction_tag: Option<String>,
+    pub(crate) channel_hint: usize,
 }
 
 impl ReadContext {
@@ -721,7 +736,7 @@ impl ReadContext {
         }
 
         self.transaction_selector
-            .begin_explicitly(&self.client, self.session_name.clone())
+            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
             .await?;
         Ok(true)
     }
@@ -733,7 +748,7 @@ macro_rules! execute_stream_with_retry {
         let stream = match $self
             .client
             .spanner
-            .$rpc_method($request.clone(), $gax_options.clone())
+            .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
             .send()
             .await
         {
@@ -744,7 +759,7 @@ macro_rules! execute_stream_with_retry {
                     $self
                         .client
                         .spanner
-                        .$rpc_method($request.clone(), $gax_options.clone())
+                        .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
                         .send()
                         .await?
                 } else {
@@ -753,15 +768,16 @@ macro_rules! execute_stream_with_retry {
             }
         };
 
-        Ok(ResultSet::new(
+        Ok(ResultSet::new(ResultSetParams {
             stream,
-            Some($self.transaction_selector.clone()),
-            $self.precommit_token_tracker.clone(),
-            $self.client.clone(),
-            $self.session_name.clone(),
-            $operation_variant($request),
-            $gax_options,
-        ))
+            transaction_selector: Some($self.transaction_selector.clone()),
+            precommit_token_tracker: $self.precommit_token_tracker.clone(),
+            client: $self.client.clone(),
+            session_name: $self.session_name.clone(),
+            operation: $operation_variant($request),
+            channel_hint: $self.channel_hint,
+            gax_options: $gax_options,
+        }))
     }};
 }
 

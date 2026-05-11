@@ -71,6 +71,7 @@ pub struct ResultSet {
     max_buffered_partial_result_sets: usize,
     retry_count: usize,
     transaction_selector: Option<ReadContextTransactionSelector>,
+    channel_hint: usize,
     gax_options: GaxRequestOptions,
 }
 
@@ -89,6 +90,17 @@ pub(crate) enum StreamOperation {
     Read(crate::model::ReadRequest),
 }
 
+pub(crate) struct ResultSetParams {
+    pub stream: PartialResultSetStream,
+    pub transaction_selector: Option<ReadContextTransactionSelector>,
+    pub precommit_token_tracker: PrecommitTokenTracker,
+    pub client: DatabaseClient,
+    pub session_name: String,
+    pub operation: StreamOperation,
+    pub channel_hint: usize,
+    pub gax_options: GaxRequestOptions,
+}
+
 // The maximum number of PartialResultSets to buffer without a resume token.
 // Spanner will normally include a resume token with each PartialResultSet.
 // This maximum is therefore primarily for safety.
@@ -96,33 +108,26 @@ const MAX_BUFFERED_PARTIAL_RESULT_SETS: usize = 10;
 
 impl ResultSet {
     /// Creates a new result set.
-    pub(crate) fn new(
-        stream: PartialResultSetStream,
-        transaction_selector: Option<ReadContextTransactionSelector>,
-        precommit_token_tracker: PrecommitTokenTracker,
-        client: DatabaseClient,
-        session_name: String,
-        operation: StreamOperation,
-        gax_options: GaxRequestOptions,
-    ) -> Self {
-        let gax_options = Self::apply_defaults(gax_options);
+    pub(crate) fn new(params: ResultSetParams) -> Self {
+        let gax_options = Self::apply_defaults(params.gax_options);
         Self {
-            stream: Some(stream),
+            stream: Some(params.stream),
             buffered_values: Vec::new(),
             chunked: false,
             seen_last: false,
             ready_rows: VecDeque::new(),
             metadata: None,
-            precommit_token_tracker,
-            client,
-            session_name,
-            operation,
+            precommit_token_tracker: params.precommit_token_tracker,
+            client: params.client,
+            session_name: params.session_name,
+            operation: params.operation,
             last_resume_token: Bytes::new(),
             partial_result_sets_buffer: VecDeque::new(),
             safe_to_retry: true,
             max_buffered_partial_result_sets: MAX_BUFFERED_PARTIAL_RESULT_SETS,
             retry_count: 0,
-            transaction_selector,
+            transaction_selector: params.transaction_selector,
+            channel_hint: params.channel_hint,
             stats: None,
             gax_options,
         }
@@ -345,7 +350,7 @@ impl ResultSet {
         self.transaction_selector
             .as_ref()
             .unwrap()
-            .begin_explicitly(&self.client, self.session_name.clone())
+            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
             .await?;
 
         self.partial_result_sets_buffer.clear();
@@ -506,7 +511,7 @@ impl ResultSet {
                 let stream = self
                     .client
                     .spanner
-                    .execute_streaming_sql(req.clone(), self.gax_options.clone())
+                    .execute_streaming_sql(req.clone(), self.gax_options.clone(), self.channel_hint)
                     .send()
                     .await?;
                 self.stream = Some(stream);
@@ -519,7 +524,7 @@ impl ResultSet {
                 let stream = self
                     .client
                     .spanner
-                    .streaming_read(req.clone(), self.gax_options.clone())
+                    .streaming_read(req.clone(), self.gax_options.clone(), self.channel_hint)
                     .send()
                     .await?;
                 self.stream = Some(stream);
