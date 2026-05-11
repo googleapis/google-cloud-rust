@@ -136,7 +136,7 @@ cargo clippy --all-features --no-deps -p ${crate_name} -- <flags from lint.sh>
 For example, with flags like `-D missing_docs -D clippy::exhaustive_enums`:
 
 ```bash
-cargo clippy --all-features --no-deps -p ${crate_name} -- -D missing_docs -D clippy::exhaustive_enums
+cargo clippy --all-features --no-deps -p google-cloud-storage -- -D missing_docs -D clippy::exhaustive_enums
 ```
 
 Please refer to `.gcb/scripts/lint.sh` for the authoritative list of crates and
