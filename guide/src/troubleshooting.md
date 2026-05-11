@@ -5,8 +5,7 @@
 ## Debug logging
 
 The best way to troubleshoot is by enabling logging. See
-[Enabling Logging][enable-logging] for more
-information.
+[Enabling Logging][enable-logging] for more information.
 
 ## How can I trace gRPC issues?
 
@@ -43,14 +42,12 @@ See [Client Configuration: Configuring a Proxy][client-configuration].
 ## Reporting a problem
 
 If your issue is still not resolved, ask for help. If you have a support
-contract with Google, create an issue in the
-[support console][support] instead of filing on GitHub.
-This will ensure a timely response.
+contract with Google, create an issue in the [support console][support] instead
+of filing on GitHub. This will ensure a timely response.
 
 Otherwise, file an issue on GitHub. Although there are multiple GitHub
-repositories associated with the Google Cloud Libraries, we recommend filing
-an issue in
-[https://github.com/googleapis/google-cloud-rust][google-cloud-rust]
+repositories associated with the Google Cloud Libraries, we recommend filing an
+issue in [https://github.com/googleapis/google-cloud-rust][google-cloud-rust]
 unless you are certain that it belongs elsewhere. The maintainers may move it to
 a different repository where appropriate, but you will be notified of this using
 the email associated with your GitHub account.
@@ -59,7 +56,7 @@ When filing an issue, include as much of the following information as possible.
 This will enable us to help you quickly.
 
 [client-configuration]: /configure_client.md
+[enable-logging]: https://docs.cloud.google.com/rust/enable-logging
 [google-cloud-rust]: https://github.com/googleapis/google-cloud-rust
 [support]: https://cloud.google.com/support/
 [tracing_subscriber]: https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/index.html
-[enable-logging]: https://docs.cloud.google.com/rust/enable-logging
