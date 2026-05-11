@@ -13,23 +13,5 @@
 # limitations under the License.
 
 output "services" {
-  value = [
-    google_project_service.aiplatform.id,
-    google_project_service.bigquery.id,
-    google_project_service.compute.id,
-    google_project_service.cloudbuild.id,
-    google_project_service.cloudscheduler.id,
-    google_project_service.dns.id,
-    google_project_service.firestore.id,
-    google_project_service.kms.id,
-    google_project_service.language.id,
-    google_project_service.pubsub.id,
-    google_project_service.secretmanager.id,
-    google_project_service.workflows.id,
-    google_project_service.speech.id,
-    google_project_service.storage.id,
-    google_project_service.sqladmin.id,
-    google_project_service.telemetry.id,
-    google_project_service.cloudtrace.id,
-  ]
+  value = [for s in google_project_service.services : s.id]
 }
