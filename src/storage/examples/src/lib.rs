@@ -23,7 +23,6 @@ use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
-    backoff_policy::BackoffPolicy, error::rpc::Code,
     exponential_backoff::ExponentialBackoffBuilder, retry_policy::RetryPolicyExt,
     retry_state::RetryState,
 };
@@ -797,24 +796,13 @@ pub async fn cleanup_stale_buckets(
     Ok(())
 }
 
-fn delete_bucket_error_should_backoff(e: &google_cloud_gax::error::Error) -> bool {
-    if e.is_transient_and_before_rpc() {
-        return true;
-    }
-    matches!(
-        e.status().map(|s| s.code),
-        Some(
-            Code::ResourceExhausted
-                | Code::Unavailable
-                | Code::DeadlineExceeded
-                | Code::Aborted
-                | Code::Internal
-        )
-    )
+pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
+    empty_bucket_contents(&client, &name).await?;
+    delete_bucket_with_error_backoff(&client, &name).await
 }
 
-/// Delete one bucket, sleeping with exponential backoff (initial delay ≥ 2s,
-/// capped) between attempts on retryable errors. See [`cleanup_stale_buckets`].
+/// Delete one bucket, using the client's retry loop with exponential backoff
+/// (initial delay >= 2s, capped). See [`cleanup_stale_buckets`].
 async fn delete_bucket_with_error_backoff(
     client: &StorageControl,
     name: &str,
@@ -823,24 +811,14 @@ async fn delete_bucket_with_error_backoff(
         .with_initial_delay(Duration::from_secs(2))
         .with_maximum_delay(Duration::from_secs(120))
         .build()?;
-    let mut state = RetryState::new(true);
-    let deadline = std::time::Instant::now() + Duration::from_secs(900);
-    loop {
-        match client.delete_bucket().set_name(name).send().await {
-            Ok(()) => return Ok(()),
-            Err(e) => {
-                if std::time::Instant::now() > deadline {
-                    return Err(e.into());
-                }
-                if !delete_bucket_error_should_backoff(&e) {
-                    return Err(e.into());
-                }
-                let wait = backoff.on_failure(&state);
-                tokio::time::sleep(wait).await;
-                state.attempt_count = state.attempt_count.saturating_add(1);
-            }
-        }
-    }
+    client
+        .delete_bucket()
+        .set_name(name)
+        .with_backoff_policy(backoff)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    Ok(())
 }
 
 /// List and remove objects, managed folders, folders, and anywhere caches so
@@ -851,6 +829,9 @@ async fn empty_bucket_contents(client: &StorageControl, name: &str) -> anyhow::R
     use google_cloud_wkt::FieldMask;
 
     let current = client.get_bucket().set_name(name).send().await?;
+    // Configure the bucket to be garbage collected. Some buckets are created by
+    // sample code, which does not (and should not) include setting labels to
+    // automatically garbage collect the bucket.
     if current
         .labels
         .get("integration-test")
@@ -968,11 +949,6 @@ The default credentials (see below) are configured to use project {project:?}.
 {credentials:?}"#
     );
     Ok(true)
-}
-
-pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
-    empty_bucket_contents(&client, &name).await?;
-    delete_bucket_with_error_backoff(&client, &name).await
 }
 
 fn enable_info_tracing() -> tracing::subscriber::DefaultGuard {
