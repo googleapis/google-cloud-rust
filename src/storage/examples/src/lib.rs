@@ -23,10 +23,8 @@ use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
-    backoff_policy::BackoffPolicy,
-    error::rpc::Code,
-    exponential_backoff::ExponentialBackoffBuilder,
-    retry_policy::RetryPolicyExt,
+    backoff_policy::BackoffPolicy, error::rpc::Code,
+    exponential_backoff::ExponentialBackoffBuilder, retry_policy::RetryPolicyExt,
     retry_state::RetryState,
 };
 use google_cloud_storage::client::{Storage, StorageControl};
