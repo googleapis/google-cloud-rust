@@ -12055,7 +12055,9 @@ impl FetchProcessorTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::FetchProcessorTypesRequest;
-    /// let x = FetchProcessorTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = FetchProcessorTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12153,7 +12155,9 @@ impl ListProcessorTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ListProcessorTypesRequest;
-    /// let x = ListProcessorTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProcessorTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12300,7 +12304,9 @@ impl ListProcessorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ListProcessorsRequest;
-    /// let x = ListProcessorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProcessorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12441,7 +12447,10 @@ impl GetProcessorTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::GetProcessorTypeRequest;
-    /// let x = GetProcessorTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_type_id = "processor_type_id";
+    /// let x = GetProcessorTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processorTypes/{processor_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12480,7 +12489,10 @@ impl GetProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::GetProcessorRequest;
-    /// let x = GetProcessorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = GetProcessorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12519,7 +12531,11 @@ impl GetProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::GetProcessorVersionRequest;
-    /// let x = GetProcessorVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = GetProcessorVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12565,7 +12581,10 @@ impl ListProcessorVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ListProcessorVersionsRequest;
-    /// let x = ListProcessorVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = ListProcessorVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12706,7 +12725,11 @@ impl DeleteProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::DeleteProcessorVersionRequest;
-    /// let x = DeleteProcessorVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = DeleteProcessorVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12805,7 +12828,11 @@ impl DeployProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::DeployProcessorVersionRequest;
-    /// let x = DeployProcessorVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = DeployProcessorVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12928,7 +12955,11 @@ impl UndeployProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::UndeployProcessorVersionRequest;
-    /// let x = UndeployProcessorVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = UndeployProcessorVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13067,7 +13098,9 @@ impl CreateProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::CreateProcessorRequest;
-    /// let x = CreateProcessorRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateProcessorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13139,7 +13172,10 @@ impl DeleteProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::DeleteProcessorRequest;
-    /// let x = DeleteProcessorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = DeleteProcessorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13238,7 +13274,10 @@ impl EnableProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::EnableProcessorRequest;
-    /// let x = EnableProcessorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = EnableProcessorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13361,7 +13400,10 @@ impl DisableProcessorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::DisableProcessorRequest;
-    /// let x = DisableProcessorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = DisableProcessorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13496,7 +13538,10 @@ impl SetDefaultProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionRequest;
-    /// let x = SetDefaultProcessorVersionRequest::new().set_processor("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = SetDefaultProcessorVersionRequest::new().set_processor(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_processor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.processor = v.into();
@@ -13508,7 +13553,11 @@ impl SetDefaultProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionRequest;
-    /// let x = SetDefaultProcessorVersionRequest::new().set_default_processor_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = SetDefaultProcessorVersionRequest::new().set_default_processor_version(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13657,7 +13706,10 @@ impl TrainProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
-    /// let x = TrainProcessorVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = TrainProcessorVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15181,7 +15233,11 @@ impl EvaluateProcessorVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionRequest;
-    /// let x = EvaluateProcessorVersionRequest::new().set_processor_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = EvaluateProcessorVersionRequest::new().set_processor_version(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -15355,7 +15411,12 @@ impl GetEvaluationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::GetEvaluationRequest;
-    /// let x = GetEvaluationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// # let evaluation_id = "evaluation_id";
+    /// let x = GetEvaluationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}/evaluations/{evaluation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15407,7 +15468,11 @@ impl ListEvaluationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ListEvaluationsRequest;
-    /// let x = ListEvaluationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = ListEvaluationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16438,7 +16503,12 @@ impl EvaluationReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::EvaluationReference;
-    /// let x = EvaluationReference::new().set_evaluation("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// # let evaluation_id = "evaluation_id";
+    /// let x = EvaluationReference::new().set_evaluation(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}/evaluations/{evaluation_id}"));
     /// ```
     pub fn set_evaluation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.evaluation = v.into();
@@ -16562,7 +16632,12 @@ impl Evaluation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::Evaluation;
-    /// let x = Evaluation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// # let evaluation_id = "evaluation_id";
+    /// let x = Evaluation::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}/evaluations/{evaluation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17914,7 +17989,11 @@ impl ProcessorVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ProcessorVersion;
-    /// let x = ProcessorVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = ProcessorVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18265,7 +18344,11 @@ pub mod processor_version {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
-        /// let x = DeprecationInfo::new().set_replacement_processor_version("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let processor_id = "processor_id";
+        /// # let processor_version_id = "processor_version_id";
+        /// let x = DeprecationInfo::new().set_replacement_processor_version(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
         /// ```
         pub fn set_replacement_processor_version<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -19046,7 +19129,11 @@ impl ProcessorVersionAlias {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ProcessorVersionAlias;
-    /// let x = ProcessorVersionAlias::new().set_processor_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = ProcessorVersionAlias::new().set_processor_version(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -19122,7 +19209,10 @@ impl Processor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::Processor;
-    /// let x = Processor::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// let x = Processor::new().set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19176,7 +19266,11 @@ impl Processor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::Processor;
-    /// let x = Processor::new().set_default_processor_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_id = "processor_id";
+    /// # let processor_version_id = "processor_version_id";
+    /// let x = Processor::new().set_default_processor_version(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"));
     /// ```
     pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -19522,7 +19616,10 @@ impl ProcessorType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ProcessorType;
-    /// let x = ProcessorType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let processor_type_id = "processor_type_id";
+    /// let x = ProcessorType::new().set_name(format!("projects/{project_id}/locations/{location_id}/processorTypes/{processor_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

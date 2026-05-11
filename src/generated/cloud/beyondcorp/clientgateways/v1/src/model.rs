@@ -74,7 +74,10 @@ impl ClientGateway {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = ClientGateway::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_gateway_id = "client_gateway_id";
+    /// let x = ClientGateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientGateways/{client_gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -400,7 +403,9 @@ impl ListClientGatewaysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysRequest;
-    /// let x = ListClientGatewaysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListClientGatewaysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -577,7 +582,10 @@ impl GetClientGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientgateways_v1::model::GetClientGatewayRequest;
-    /// let x = GetClientGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_gateway_id = "client_gateway_id";
+    /// let x = GetClientGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientGateways/{client_gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -641,7 +649,9 @@ impl CreateClientGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// let x = CreateClientGatewayRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClientGatewayRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -767,7 +777,10 @@ impl DeleteClientGatewayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_beyondcorp_clientgateways_v1::model::DeleteClientGatewayRequest;
-    /// let x = DeleteClientGatewayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_gateway_id = "client_gateway_id";
+    /// let x = DeleteClientGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientGateways/{client_gateway_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -829,8 +842,6 @@ pub struct ClientGatewayOperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

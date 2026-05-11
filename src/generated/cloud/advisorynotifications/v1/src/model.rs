@@ -69,7 +69,10 @@ impl Notification {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_advisorynotifications_v1::model::Notification;
-    /// let x = Notification::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let notification_id = "notification_id";
+    /// let x = Notification::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/notifications/{notification_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -794,7 +797,9 @@ impl ListNotificationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsRequest;
-    /// let x = ListNotificationsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListNotificationsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -979,7 +984,10 @@ impl GetNotificationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_advisorynotifications_v1::model::GetNotificationRequest;
-    /// let x = GetNotificationRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let notification_id = "notification_id";
+    /// let x = GetNotificationRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/notifications/{notification_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1041,7 +1049,9 @@ impl Settings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_advisorynotifications_v1::model::Settings;
-    /// let x = Settings::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = Settings::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1148,7 +1158,9 @@ impl GetSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_advisorynotifications_v1::model::GetSettingsRequest;
-    /// let x = GetSettingsRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = GetSettingsRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/settings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

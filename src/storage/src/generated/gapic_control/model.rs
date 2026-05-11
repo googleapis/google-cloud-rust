@@ -96,7 +96,10 @@ impl Folder {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::Folder;
-    /// let x = Folder::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let folder_id = "folder_id";
+    /// let x = Folder::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -256,7 +259,10 @@ impl GetFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let folder_id = "folder_id";
+    /// let x = GetFolderRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -388,7 +394,9 @@ impl CreateFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// let x = CreateFolderRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = CreateFolderRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -506,7 +514,10 @@ impl DeleteFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let folder_id = "folder_id";
+    /// let x = DeleteFolderRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -650,7 +661,9 @@ impl ListFoldersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ListFoldersRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -868,7 +881,10 @@ impl RenameFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let folder_id = "folder_id";
+    /// let x = RenameFolderRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1006,7 +1022,10 @@ impl DeleteFolderRecursiveRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
-    /// let x = DeleteFolderRecursiveRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let folder_id = "folder_id";
+    /// let x = DeleteFolderRecursiveRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1474,7 +1493,9 @@ impl StorageLayout {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::StorageLayout;
-    /// let x = StorageLayout::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = StorageLayout::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/storageLayout"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1691,7 +1712,9 @@ impl GetStorageLayoutRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetStorageLayoutRequest;
-    /// let x = GetStorageLayoutRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = GetStorageLayoutRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/storageLayout"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1763,7 +1786,10 @@ impl ManagedFolder {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ManagedFolder;
-    /// let x = ManagedFolder::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let managed_folder_id = "managed_folder_id";
+    /// let x = ManagedFolder::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/managedFolders/{managed_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1890,7 +1916,10 @@ impl GetManagedFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let managed_folder_id = "managed_folder_id";
+    /// let x = GetManagedFolderRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/managedFolders/{managed_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2013,7 +2042,9 @@ impl CreateManagedFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::CreateManagedFolderRequest;
-    /// let x = CreateManagedFolderRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = CreateManagedFolderRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2128,7 +2159,10 @@ impl DeleteManagedFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let managed_folder_id = "managed_folder_id";
+    /// let x = DeleteManagedFolderRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/managedFolders/{managed_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2265,7 +2299,9 @@ impl ListManagedFoldersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ListManagedFoldersRequest;
-    /// let x = ListManagedFoldersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ListManagedFoldersRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2856,7 +2892,10 @@ impl AnywhereCache {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::AnywhereCache;
-    /// let x = AnywhereCache::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let anywhere_cache_id = "anywhere_cache_id";
+    /// let x = AnywhereCache::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/anywhereCaches/{anywhere_cache_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3053,7 +3092,9 @@ impl CreateAnywhereCacheRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::CreateAnywhereCacheRequest;
-    /// let x = CreateAnywhereCacheRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = CreateAnywhereCacheRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3256,7 +3297,10 @@ impl DisableAnywhereCacheRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::DisableAnywhereCacheRequest;
-    /// let x = DisableAnywhereCacheRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let anywhere_cache_id = "anywhere_cache_id";
+    /// let x = DisableAnywhereCacheRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/anywhereCaches/{anywhere_cache_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3309,7 +3353,10 @@ impl PauseAnywhereCacheRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::PauseAnywhereCacheRequest;
-    /// let x = PauseAnywhereCacheRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let anywhere_cache_id = "anywhere_cache_id";
+    /// let x = PauseAnywhereCacheRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/anywhereCaches/{anywhere_cache_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3362,7 +3409,10 @@ impl ResumeAnywhereCacheRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ResumeAnywhereCacheRequest;
-    /// let x = ResumeAnywhereCacheRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let anywhere_cache_id = "anywhere_cache_id";
+    /// let x = ResumeAnywhereCacheRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/anywhereCaches/{anywhere_cache_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3414,7 +3464,10 @@ impl GetAnywhereCacheRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetAnywhereCacheRequest;
-    /// let x = GetAnywhereCacheRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let anywhere_cache_id = "anywhere_cache_id";
+    /// let x = GetAnywhereCacheRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/anywhereCaches/{anywhere_cache_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3473,7 +3526,9 @@ impl ListAnywhereCachesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::ListAnywhereCachesRequest;
-    /// let x = ListAnywhereCachesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ListAnywhereCachesRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3647,7 +3702,9 @@ impl IntelligenceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = IntelligenceConfig::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// # let location_id = "location_id";
+    /// let x = IntelligenceConfig::new().set_name(format!("folders/{folder_id}/locations/{location_id}/intelligenceConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5048,7 +5105,9 @@ impl GetOrganizationIntelligenceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetOrganizationIntelligenceConfigRequest;
-    /// let x = GetOrganizationIntelligenceConfigRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// # let location_id = "location_id";
+    /// let x = GetOrganizationIntelligenceConfigRequest::new().set_name(format!("folders/{folder_id}/locations/{location_id}/intelligenceConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5093,7 +5152,9 @@ impl GetFolderIntelligenceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetFolderIntelligenceConfigRequest;
-    /// let x = GetFolderIntelligenceConfigRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// # let location_id = "location_id";
+    /// let x = GetFolderIntelligenceConfigRequest::new().set_name(format!("folders/{folder_id}/locations/{location_id}/intelligenceConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5138,7 +5199,9 @@ impl GetProjectIntelligenceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storage::model::GetProjectIntelligenceConfigRequest;
-    /// let x = GetProjectIntelligenceConfigRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// # let location_id = "location_id";
+    /// let x = GetProjectIntelligenceConfigRequest::new().set_name(format!("folders/{folder_id}/locations/{location_id}/intelligenceConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

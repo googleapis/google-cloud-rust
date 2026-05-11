@@ -64,7 +64,9 @@ impl CreateDataPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::CreateDataPolicyRequest;
-    /// let x = CreateDataPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDataPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -274,7 +276,10 @@ impl AddGranteesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::AddGranteesRequest;
-    /// let x = AddGranteesRequest::new().set_data_policy("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_policy_id = "data_policy_id";
+    /// let x = AddGranteesRequest::new().set_data_policy(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"));
     /// ```
     pub fn set_data_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_policy = v.into();
@@ -340,7 +345,10 @@ impl RemoveGranteesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::RemoveGranteesRequest;
-    /// let x = RemoveGranteesRequest::new().set_data_policy("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_policy_id = "data_policy_id";
+    /// let x = RemoveGranteesRequest::new().set_data_policy(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"));
     /// ```
     pub fn set_data_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_policy = v.into();
@@ -393,7 +401,10 @@ impl DeleteDataPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::DeleteDataPolicyRequest;
-    /// let x = DeleteDataPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_policy_id = "data_policy_id";
+    /// let x = DeleteDataPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -429,7 +440,10 @@ impl GetDataPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::GetDataPolicyRequest;
-    /// let x = GetDataPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_policy_id = "data_policy_id";
+    /// let x = GetDataPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -483,7 +497,9 @@ impl ListDataPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::ListDataPoliciesRequest;
-    /// let x = ListDataPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDataPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -666,7 +682,10 @@ impl DataPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datapolicies_v2::model::DataPolicy;
-    /// let x = DataPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_policy_id = "data_policy_id";
+    /// let x = DataPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

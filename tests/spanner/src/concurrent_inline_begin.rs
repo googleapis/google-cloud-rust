@@ -13,90 +13,25 @@
 // limitations under the License.
 
 use crate::client::{get_database_id, get_emulator_host, provision_emulator, update_database_ddl};
-use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
+use crate::test_proxy::{InterceptionResult, PassThroughProxy};
+use futures::future::BoxFuture;
 use futures::stream::StreamExt;
 use google_cloud_spanner::client::{ResultSet, Row, Spanner, TimestampBound};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use http::{Request, Response, StatusCode};
+use http_body::Frame;
+use http_body_util::BodyExt;
+use http_body_util::Full;
+use http_body_util::StreamBody;
+use prost::Message;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
-use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
 use std::collections::HashMap;
 use std::sync::Arc;
 use time::OffsetDateTime;
-use tokio::net::TcpListener;
 use tokio::sync::{Barrier, Mutex};
-use tokio_stream::wrappers::TcpListenerStream;
-use tonic::transport::{Channel, Server};
-
-/// An interceptor that injects transient (Unavailable) and permanent (Internal) failures
-/// into streaming SQL responses when the query matches specific test strings
-/// (e.g., starting with "SELECT 'Transient-" or equal to "SELECT 'Permanent'").
-pub struct ConcurrentFaultInterceptor {
-    emulator_client: SpannerClient<Channel>,
-    /// Tracks failure counts to allow transient recovery.
-    failure_counts: Arc<Mutex<HashMap<String, u32>>>,
-}
-
-impl ConcurrentFaultInterceptor {
-    pub fn new(emulator_client: SpannerClient<Channel>) -> Self {
-        Self {
-            emulator_client,
-            failure_counts: Arc::new(Mutex::new(HashMap::new())),
-        }
-    }
-}
-
-#[tonic::async_trait]
-impl SpannerInterceptor for ConcurrentFaultInterceptor {
-    fn emulator_client(&self) -> SpannerClient<Channel> {
-        self.emulator_client.clone()
-    }
-
-    async fn execute_streaming_sql(
-        &self,
-        request: tonic::Request<spanner_v1::ExecuteSqlRequest>,
-    ) -> std::result::Result<
-        tonic::Response<crate::test_proxy::ExecuteStreamingSqlStream>,
-        tonic::Status,
-    > {
-        let sql = request.get_ref().sql.clone();
-
-        // Emulates a transient stream failure.
-        if sql.starts_with("SELECT 'Transient-") {
-            let mut counts = self.failure_counts.lock().await;
-            let count = counts.entry(sql.clone()).or_insert(0);
-            if *count == 0 {
-                *count += 1;
-                // Return a stream that fails immediately with Unavailable.
-                let stream = futures::stream::once(async {
-                    Err(tonic::Status::unavailable("Transient stream failure"))
-                });
-                return Ok(tonic::Response::new(stream.boxed()));
-            }
-            // Second attempt succeeds (fall through to emulator).
-        }
-
-        // Emulates a permanent stream failure.
-        if sql == "SELECT 'Permanent'" {
-            // Returns a stream that always fails with an Internal error.
-            let stream = futures::stream::once(async {
-                Err(tonic::Status::internal("Permanent stream failure"))
-            });
-            return Ok(tonic::Response::new(stream.boxed()));
-        }
-
-        // Forward other queries to the emulator.
-        let res = self
-            .emulator_client()
-            .execute_streaming_sql(request)
-            .await?;
-        let (metadata, stream, extensions) = res.into_parts();
-        Ok(tonic::Response::from_parts(
-            metadata,
-            stream.boxed(),
-            extensions,
-        ))
-    }
-}
+use tonic::Status;
+use tonic::body::Body;
+use tonic::transport::Channel;
 
 /// Verifies that concurrent queries using "inline begin" (lazy transaction initialization)
 /// maintain snapshot consistency and handle stream failures correctly.
@@ -156,25 +91,108 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     update_database_ddl(statement).await?;
 
     // 4. Start the Intercepted Server
-    let listener = TcpListener::bind("127.0.0.1:0").await?;
-    let local_addr = listener.local_addr()?;
     let emulator_channel = Channel::from_shared(format!("http://{}", emulator_host))?
         .connect()
         .await?;
-    let interceptor = ConcurrentFaultInterceptor::new(SpannerClient::new(emulator_channel));
-    let service = InterceptedSpanner(interceptor);
 
-    tokio::spawn(async move {
-        Server::builder()
-            .add_service(spanner_v1::spanner_server::SpannerServer::new(service))
-            .serve_with_incoming(TcpListenerStream::new(listener))
-            .await
-            .expect("Server failed");
-    });
+    let failure_counts = Arc::new(Mutex::new(HashMap::new()));
+
+    let interceptor = move |req: http::Request<tonic::body::Body>| {
+        let counts = failure_counts.clone();
+        Box::pin(async move {
+            // Only intercept ExecuteStreamingSql calls.
+            if req.uri().path() == "/google.spanner.v1.Spanner/ExecuteStreamingSql" {
+                let (parts, body) = req.into_parts();
+                // Read the body to inspect the SQL query. This consumes the body, so we must reconstruct it later.
+                let bytes = match http_body_util::BodyExt::collect(body).await {
+                    Ok(c) => c.to_bytes(),
+                    Err(e) => {
+                        let status = Status::internal(format!("Failed to read body: {}", e));
+                        // Return a trailers-only response with error status. In gRPC, errors are returned as
+                        // successful HTTP responses (200 OK) with the error status in the grpc-status header/trailer.
+                        let mut resp = Response::new(Body::empty());
+                        *resp.status_mut() = StatusCode::OK;
+                        status.add_header(resp.headers_mut()).unwrap();
+                        return InterceptionResult::Complete(resp);
+                    }
+                };
+
+                // gRPC over HTTP/2 uses a 5-byte framing header (1 byte compression, 4 bytes length).
+                // Skip it to get the actual Protobuf encoded message.
+                let grpc_data = if bytes.len() >= 5 {
+                    bytes.slice(5..)
+                } else {
+                    bytes.clone()
+                };
+
+                // Decode the Protobuf message to inspect the SQL query.
+                match spanner_v1::ExecuteSqlRequest::decode(grpc_data) {
+                    Ok(request) => {
+                        let sql = request.sql;
+
+                        if sql.starts_with("SELECT 'Transient-") {
+                            let mut counts = counts.lock().await;
+                            let count = counts.entry(sql.clone()).or_insert(0);
+                            if *count == 0 {
+                                *count += 1;
+                                // Return a stream that yields only trailers with Unavailable status.
+                                // This simulates a stream failure that occurs after successful initiation,
+                                // which triggers the client's retry logic.
+                                let stream = futures::stream::once(async {
+                                    let mut headers = http::HeaderMap::new();
+                                    Status::unavailable("Transient stream failure")
+                                        .add_header(&mut headers)
+                                        .unwrap();
+                                    Ok::<_, Status>(Frame::<prost::bytes::Bytes>::trailers(headers))
+                                });
+                                let new_body = Body::new(StreamBody::new(stream));
+                                let mut resp = Response::new(new_body);
+                                *resp.status_mut() = StatusCode::OK;
+                                return InterceptionResult::Complete(resp);
+                            }
+                        }
+
+                        if sql == "SELECT 'Permanent'" {
+                            // Return a stream that yields only trailers with Internal status.
+                            let stream = futures::stream::once(async {
+                                let mut headers = http::HeaderMap::new();
+                                Status::internal("Permanent stream failure")
+                                    .add_header(&mut headers)
+                                    .unwrap();
+                                Ok::<_, Status>(Frame::<prost::bytes::Bytes>::trailers(headers))
+                            });
+                            let new_body = Body::new(StreamBody::new(stream));
+                            let mut resp = Response::new(new_body);
+                            *resp.status_mut() = StatusCode::OK;
+                            return InterceptionResult::Complete(resp);
+                        }
+                    }
+                    Err(e) => {
+                        let status =
+                            Status::internal(format!("Failed to decode ExecuteSqlRequest: {}", e));
+                        let mut resp = Response::new(Body::empty());
+                        *resp.status_mut() = StatusCode::OK;
+                        status.add_header(resp.headers_mut()).unwrap();
+                        return InterceptionResult::Complete(resp);
+                    }
+                }
+
+                // Reconstruct the body for requests that are not intercepted or need to be forwarded.
+                let new_body = Body::new(Full::new(bytes));
+                let req = Request::from_parts(parts, new_body);
+                return InterceptionResult::Continue(req);
+            }
+
+            InterceptionResult::Continue(req)
+        }) as BoxFuture<'static, InterceptionResult>
+    };
+
+    let proxy = PassThroughProxy::new(emulator_channel, interceptor);
+    let proxy_server = proxy.start("127.0.0.1:0").await?;
 
     // 5. Build Client pointing to Interceptor
     let intercepted_spanner = Spanner::builder()
-        .with_endpoint(format!("http://{}", local_addr))
+        .with_endpoint(proxy_server.uri())
         .build()
         .await?;
     let intercepted_db = intercepted_spanner

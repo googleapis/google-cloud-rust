@@ -3639,7 +3639,10 @@ impl Input {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Input;
-    /// let x = Input::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let input_id = "input_id";
+    /// let x = Input::new().set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4334,7 +4337,10 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Channel;
-    /// let x = Channel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = Channel::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5248,7 +5254,10 @@ impl StaticOverlay {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
-    /// let x = StaticOverlay::new().set_asset("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = StaticOverlay::new().set_asset(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
@@ -6258,7 +6267,10 @@ impl InputAttachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::InputAttachment;
-    /// let x = InputAttachment::new().set_input("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let input_id = "input_id";
+    /// let x = InputAttachment::new().set_input(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"));
     /// ```
     pub fn set_input<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input = v.into();
@@ -6768,7 +6780,11 @@ impl Event {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Event;
-    /// let x = Event::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let event_id = "event_id";
+    /// let x = Event::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7426,7 +7442,10 @@ pub mod event {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_video_livestream_v1::model::event::SlateTask;
-        /// let x = SlateTask::new().set_asset("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let asset_id = "asset_id";
+        /// let x = SlateTask::new().set_asset(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
         /// ```
         pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset = v.into();
@@ -7837,7 +7856,11 @@ impl Clip {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Clip;
-    /// let x = Clip::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let clip_id = "clip_id";
+    /// let x = Clip::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/clips/{clip_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8771,7 +8794,11 @@ impl DvrSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DvrSession;
-    /// let x = DvrSession::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let dvr_session_id = "dvr_session_id";
+    /// let x = DvrSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/dvrSessions/{dvr_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9389,7 +9416,10 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Asset;
-    /// let x = Asset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = Asset::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10694,7 +10724,10 @@ impl Pool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Pool;
-    /// let x = Pool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pool_id = "pool_id";
+    /// let x = Pool::new().set_name(format!("projects/{project_id}/locations/{location_id}/pools/{pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10926,7 +10959,9 @@ impl CreateAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::CreateAssetRequest;
-    /// let x = CreateAssetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAssetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11034,7 +11069,10 @@ impl DeleteAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DeleteAssetRequest;
-    /// let x = DeleteAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = DeleteAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11095,7 +11133,9 @@ impl ListAssetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::ListAssetsRequest;
-    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAssetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11273,7 +11313,10 @@ impl GetAssetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetAssetRequest;
-    /// let x = GetAssetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let asset_id = "asset_id";
+    /// let x = GetAssetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11335,7 +11378,9 @@ impl CreateChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::CreateChannelRequest;
-    /// let x = CreateChannelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateChannelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11447,7 +11492,9 @@ impl ListChannelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::ListChannelsRequest;
-    /// let x = ListChannelsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListChannelsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11626,7 +11673,10 @@ impl GetChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetChannelRequest;
-    /// let x = GetChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = GetChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11683,7 +11733,10 @@ impl DeleteChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DeleteChannelRequest;
-    /// let x = DeleteChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = DeleteChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11896,7 +11949,10 @@ impl StartChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::StartChannelRequest;
-    /// let x = StartChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = StartChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11959,7 +12015,10 @@ impl StopChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::StopChannelRequest;
-    /// let x = StopChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = StopChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12027,7 +12086,10 @@ impl StartDistributionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::StartDistributionRequest;
-    /// let x = StartDistributionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = StartDistributionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12112,7 +12174,10 @@ impl StopDistributionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::StopDistributionRequest;
-    /// let x = StopDistributionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = StopDistributionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12203,7 +12268,9 @@ impl CreateInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::CreateInputRequest;
-    /// let x = CreateInputRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInputRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12315,7 +12382,9 @@ impl ListInputsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::ListInputsRequest;
-    /// let x = ListInputsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInputsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12494,7 +12563,10 @@ impl GetInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetInputRequest;
-    /// let x = GetInputRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let input_id = "input_id";
+    /// let x = GetInputRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12545,7 +12617,10 @@ impl DeleteInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DeleteInputRequest;
-    /// let x = DeleteInputRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let input_id = "input_id";
+    /// let x = DeleteInputRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12750,7 +12825,10 @@ impl CreateEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::CreateEventRequest;
-    /// let x = CreateEventRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = CreateEventRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12862,7 +12940,10 @@ impl ListEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::ListEventsRequest;
-    /// let x = ListEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = ListEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13041,7 +13122,11 @@ impl GetEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetEventRequest;
-    /// let x = GetEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let event_id = "event_id";
+    /// let x = GetEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13092,7 +13177,11 @@ impl DeleteEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DeleteEventRequest;
-    /// let x = DeleteEventRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let event_id = "event_id";
+    /// let x = DeleteEventRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/events/{event_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13172,7 +13261,10 @@ impl ListClipsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::ListClipsRequest;
-    /// let x = ListClipsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = ListClipsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13350,7 +13442,11 @@ impl GetClipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetClipRequest;
-    /// let x = GetClipRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let clip_id = "clip_id";
+    /// let x = GetClipRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/clips/{clip_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13412,7 +13508,10 @@ impl CreateClipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::CreateClipRequest;
-    /// let x = CreateClipRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = CreateClipRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13520,7 +13619,11 @@ impl DeleteClipRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DeleteClipRequest;
-    /// let x = DeleteClipRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let clip_id = "clip_id";
+    /// let x = DeleteClipRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/clips/{clip_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13580,7 +13683,10 @@ impl ListDvrSessionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsRequest;
-    /// let x = ListDvrSessionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = ListDvrSessionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13758,7 +13864,11 @@ impl GetDvrSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetDvrSessionRequest;
-    /// let x = GetDvrSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let dvr_session_id = "dvr_session_id";
+    /// let x = GetDvrSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/dvrSessions/{dvr_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13820,7 +13930,10 @@ impl CreateDvrSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::CreateDvrSessionRequest;
-    /// let x = CreateDvrSessionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// let x = CreateDvrSessionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13928,7 +14041,11 @@ impl DeleteDvrSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DeleteDvrSessionRequest;
-    /// let x = DeleteDvrSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let channel_id = "channel_id";
+    /// # let dvr_session_id = "dvr_session_id";
+    /// let x = DeleteDvrSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/dvrSessions/{dvr_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14262,7 +14379,10 @@ impl GetPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::GetPoolRequest;
-    /// let x = GetPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pool_id = "pool_id";
+    /// let x = GetPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/pools/{pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14423,7 +14543,10 @@ impl PreviewInputRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::PreviewInputRequest;
-    /// let x = PreviewInputRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let input_id = "input_id";
+    /// let x = PreviewInputRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

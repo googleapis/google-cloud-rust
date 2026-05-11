@@ -148,7 +148,10 @@ impl GetConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_connection_v1::model::GetConnectionRequest;
-    /// let x = GetConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = GetConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -339,7 +342,10 @@ impl UpdateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_connection_v1::model::UpdateConnectionRequest;
-    /// let x = UpdateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = UpdateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -441,7 +447,10 @@ impl DeleteConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_connection_v1::model::DeleteConnectionRequest;
-    /// let x = DeleteConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = DeleteConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -496,7 +505,10 @@ impl Connection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_connection_v1::model::Connection;
-    /// let x = Connection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_id = "connection_id";
+    /// let x = Connection::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -1201,7 +1201,10 @@ impl CreateUserWorkloadsSecretRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsSecretRequest;
-    /// let x = CreateUserWorkloadsSecretRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = CreateUserWorkloadsSecretRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1270,7 +1273,11 @@ impl GetUserWorkloadsSecretRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::GetUserWorkloadsSecretRequest;
-    /// let x = GetUserWorkloadsSecretRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// # let user_workloads_secret_id = "user_workloads_secret_id";
+    /// let x = GetUserWorkloadsSecretRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsSecrets/{user_workloads_secret_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1313,7 +1320,10 @@ impl ListUserWorkloadsSecretsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsSecretsRequest;
-    /// let x = ListUserWorkloadsSecretsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ListUserWorkloadsSecretsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1429,7 +1439,11 @@ impl DeleteUserWorkloadsSecretRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::DeleteUserWorkloadsSecretRequest;
-    /// let x = DeleteUserWorkloadsSecretRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// # let user_workloads_secret_id = "user_workloads_secret_id";
+    /// let x = DeleteUserWorkloadsSecretRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsSecrets/{user_workloads_secret_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1468,7 +1482,10 @@ impl CreateUserWorkloadsConfigMapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsConfigMapRequest;
-    /// let x = CreateUserWorkloadsConfigMapRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = CreateUserWorkloadsConfigMapRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1537,7 +1554,11 @@ impl GetUserWorkloadsConfigMapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::GetUserWorkloadsConfigMapRequest;
-    /// let x = GetUserWorkloadsConfigMapRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// # let user_workloads_config_map_id = "user_workloads_config_map_id";
+    /// let x = GetUserWorkloadsConfigMapRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsConfigMaps/{user_workloads_config_map_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1580,7 +1601,10 @@ impl ListUserWorkloadsConfigMapsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsConfigMapsRequest;
-    /// let x = ListUserWorkloadsConfigMapsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ListUserWorkloadsConfigMapsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1696,7 +1720,11 @@ impl DeleteUserWorkloadsConfigMapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::DeleteUserWorkloadsConfigMapRequest;
-    /// let x = DeleteUserWorkloadsConfigMapRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// # let user_workloads_config_map_id = "user_workloads_config_map_id";
+    /// let x = DeleteUserWorkloadsConfigMapRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsConfigMaps/{user_workloads_config_map_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1746,7 +1774,11 @@ impl UserWorkloadsSecret {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = UserWorkloadsSecret::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// # let user_workloads_secret_id = "user_workloads_secret_id";
+    /// let x = UserWorkloadsSecret::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsSecrets/{user_workloads_secret_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1890,7 +1922,11 @@ impl UserWorkloadsConfigMap {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = UserWorkloadsConfigMap::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// # let user_workloads_config_map_id = "user_workloads_config_map_id";
+    /// let x = UserWorkloadsConfigMap::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsConfigMaps/{user_workloads_config_map_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2038,7 +2074,10 @@ impl ListWorkloadsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = ListWorkloadsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2992,7 +3031,10 @@ impl FetchDatabasePropertiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::FetchDatabasePropertiesRequest;
-    /// let x = FetchDatabasePropertiesRequest::new().set_environment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = FetchDatabasePropertiesRequest::new().set_environment(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -6984,7 +7026,10 @@ impl Environment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = Environment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let environment_id = "environment_id";
+    /// let x = Environment::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -214,7 +214,11 @@ impl InsightActionLog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_logging_v1::model::InsightActionLog;
-    /// let x = InsightActionLog::new().set_insight("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let insight_type_id = "insight_type_id";
+    /// # let insight_id = "insight_id";
+    /// let x = InsightActionLog::new().set_insight(format!("projects/{project_id}/locations/{location_id}/insightTypes/{insight_type_id}/insights/{insight_id}"));
     /// ```
     pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insight = v.into();

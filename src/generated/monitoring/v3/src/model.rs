@@ -167,7 +167,9 @@ impl AlertPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::AlertPolicy;
-    /// let x = AlertPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let alert_policy_id = "alert_policy_id";
+    /// let x = AlertPolicy::new().set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -728,7 +730,10 @@ pub mod alert_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
-        /// let x = Condition::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let alert_policy_id = "alert_policy_id";
+        /// # let condition_id = "condition_id";
+        /// let x = Condition::new().set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}/conditions/{condition_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -3915,7 +3920,8 @@ impl CreateAlertPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateAlertPolicyRequest;
-    /// let x = CreateAlertPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateAlertPolicyRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3987,7 +3993,9 @@ impl GetAlertPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetAlertPolicyRequest;
-    /// let x = GetAlertPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let alert_policy_id = "alert_policy_id";
+    /// let x = GetAlertPolicyRequest::new().set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4060,7 +4068,8 @@ impl ListAlertPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesRequest;
-    /// let x = ListAlertPoliciesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ListAlertPoliciesRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4358,7 +4367,9 @@ impl DeleteAlertPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::DeleteAlertPolicyRequest;
-    /// let x = DeleteAlertPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let alert_policy_id = "alert_policy_id";
+    /// let x = DeleteAlertPolicyRequest::new().set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5691,7 +5702,9 @@ impl Group {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::Group;
-    /// let x = Group::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = Group::new().set_name(format!("projects/{project_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5793,7 +5806,8 @@ impl ListGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
-    /// let x = ListGroupsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ListGroupsRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5867,7 +5881,9 @@ impl ListGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
-    /// let x = ListGroupsRequest::new().set_children_of_group("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = ListGroupsRequest::new().set_children_of_group(format!("projects/{project_id}/groups/{group_id}"));
     /// assert!(x.children_of_group().is_some());
     /// assert!(x.ancestors_of_group().is_none());
     /// assert!(x.descendants_of_group().is_none());
@@ -5904,7 +5920,9 @@ impl ListGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
-    /// let x = ListGroupsRequest::new().set_ancestors_of_group("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = ListGroupsRequest::new().set_ancestors_of_group(format!("projects/{project_id}/groups/{group_id}"));
     /// assert!(x.ancestors_of_group().is_some());
     /// assert!(x.children_of_group().is_none());
     /// assert!(x.descendants_of_group().is_none());
@@ -5941,7 +5959,9 @@ impl ListGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
-    /// let x = ListGroupsRequest::new().set_descendants_of_group("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = ListGroupsRequest::new().set_descendants_of_group(format!("projects/{project_id}/groups/{group_id}"));
     /// assert!(x.descendants_of_group().is_some());
     /// assert!(x.children_of_group().is_none());
     /// assert!(x.ancestors_of_group().is_none());
@@ -6108,7 +6128,9 @@ impl GetGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetGroupRequest;
-    /// let x = GetGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = GetGroupRequest::new().set_name(format!("projects/{project_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6156,7 +6178,8 @@ impl CreateGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateGroupRequest;
-    /// let x = CreateGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateGroupRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6319,7 +6342,9 @@ impl DeleteGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::DeleteGroupRequest;
-    /// let x = DeleteGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = DeleteGroupRequest::new().set_name(format!("projects/{project_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6396,7 +6421,9 @@ impl ListGroupMembersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
-    /// let x = ListGroupMembersRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let group_id = "group_id";
+    /// let x = ListGroupMembersRequest::new().set_name(format!("projects/{project_id}/groups/{group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9584,7 +9611,9 @@ impl NotificationChannelDescriptor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
-    /// let x = NotificationChannelDescriptor::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let channel_descriptor_id = "channel_descriptor_id";
+    /// let x = NotificationChannelDescriptor::new().set_name(format!("projects/{project_id}/notificationChannelDescriptors/{channel_descriptor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9817,7 +9846,9 @@ impl NotificationChannel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::NotificationChannel;
-    /// let x = NotificationChannel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let notification_channel_id = "notification_channel_id";
+    /// let x = NotificationChannel::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10202,7 +10233,8 @@ impl ListNotificationChannelDescriptorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListNotificationChannelDescriptorsRequest;
-    /// let x = ListNotificationChannelDescriptorsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ListNotificationChannelDescriptorsRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10345,7 +10377,9 @@ impl GetNotificationChannelDescriptorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetNotificationChannelDescriptorRequest;
-    /// let x = GetNotificationChannelDescriptorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let channel_descriptor_id = "channel_descriptor_id";
+    /// let x = GetNotificationChannelDescriptorRequest::new().set_name(format!("projects/{project_id}/notificationChannelDescriptors/{channel_descriptor_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10394,7 +10428,8 @@ impl CreateNotificationChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateNotificationChannelRequest;
-    /// let x = CreateNotificationChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateNotificationChannelRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10502,7 +10537,8 @@ impl ListNotificationChannelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsRequest;
-    /// let x = ListNotificationChannelsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ListNotificationChannelsRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10682,7 +10718,9 @@ impl GetNotificationChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetNotificationChannelRequest;
-    /// let x = GetNotificationChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let notification_channel_id = "notification_channel_id";
+    /// let x = GetNotificationChannelRequest::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10822,7 +10860,9 @@ impl DeleteNotificationChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::DeleteNotificationChannelRequest;
-    /// let x = DeleteNotificationChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let notification_channel_id = "notification_channel_id";
+    /// let x = DeleteNotificationChannelRequest::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10869,7 +10909,9 @@ impl SendNotificationChannelVerificationCodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::SendNotificationChannelVerificationCodeRequest;
-    /// let x = SendNotificationChannelVerificationCodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let notification_channel_id = "notification_channel_id";
+    /// let x = SendNotificationChannelVerificationCodeRequest::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10917,7 +10959,9 @@ impl GetNotificationChannelVerificationCodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeRequest;
-    /// let x = GetNotificationChannelVerificationCodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let notification_channel_id = "notification_channel_id";
+    /// let x = GetNotificationChannelVerificationCodeRequest::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11070,7 +11114,9 @@ impl VerifyNotificationChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::VerifyNotificationChannelRequest;
-    /// let x = VerifyNotificationChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let notification_channel_id = "notification_channel_id";
+    /// let x = VerifyNotificationChannelRequest::new().set_name(format!("projects/{project_id}/notificationChannels/{notification_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11148,7 +11194,9 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("projects/{project_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12670,7 +12718,10 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// let x = ServiceLevelObjective::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// # let service_level_objective_id = "service_level_objective_id";
+    /// let x = ServiceLevelObjective::new().set_name(format!("projects/{project_id}/services/{service_id}/serviceLevelObjectives/{service_level_objective_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14443,7 +14494,8 @@ impl CreateServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateServiceRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14527,7 +14579,9 @@ impl GetServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// let x = GetServiceRequest::new().set_name(format!("projects/{project_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14598,7 +14652,8 @@ impl ListServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListServicesRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14842,7 +14897,9 @@ impl DeleteServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// let x = DeleteServiceRequest::new().set_name(format!("projects/{project_id}/services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14891,7 +14948,9 @@ impl CreateServiceLevelObjectiveRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateServiceLevelObjectiveRequest;
-    /// let x = CreateServiceLevelObjectiveRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// let x = CreateServiceLevelObjectiveRequest::new().set_parent(format!("projects/{project_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14985,7 +15044,10 @@ impl GetServiceLevelObjectiveRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetServiceLevelObjectiveRequest;
-    /// let x = GetServiceLevelObjectiveRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// # let service_level_objective_id = "service_level_objective_id";
+    /// let x = GetServiceLevelObjectiveRequest::new().set_name(format!("projects/{project_id}/services/{service_id}/serviceLevelObjectives/{service_level_objective_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15061,7 +15123,9 @@ impl ListServiceLevelObjectivesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesRequest;
-    /// let x = ListServiceLevelObjectivesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// let x = ListServiceLevelObjectivesRequest::new().set_parent(format!("projects/{project_id}/services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15325,7 +15389,10 @@ impl DeleteServiceLevelObjectiveRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::DeleteServiceLevelObjectiveRequest;
-    /// let x = DeleteServiceLevelObjectiveRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let service_id = "service_id";
+    /// # let service_level_objective_id = "service_level_objective_id";
+    /// let x = DeleteServiceLevelObjectiveRequest::new().set_name(format!("projects/{project_id}/services/{service_id}/serviceLevelObjectives/{service_level_objective_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15384,7 +15451,9 @@ impl Snooze {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::Snooze;
-    /// let x = Snooze::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let snooze_id = "snooze_id";
+    /// let x = Snooze::new().set_name(format!("projects/{project_id}/snoozes/{snooze_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15596,7 +15665,8 @@ impl CreateSnoozeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateSnoozeRequest;
-    /// let x = CreateSnoozeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateSnoozeRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15696,7 +15766,8 @@ impl ListSnoozesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListSnoozesRequest;
-    /// let x = ListSnoozesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListSnoozesRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15848,7 +15919,9 @@ impl GetSnoozeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetSnoozeRequest;
-    /// let x = GetSnoozeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let snooze_id = "snooze_id";
+    /// let x = GetSnoozeRequest::new().set_name(format!("projects/{project_id}/snoozes/{snooze_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16597,7 +16670,9 @@ impl UptimeCheckConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
-    /// let x = UptimeCheckConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let uptime_check_config_id = "uptime_check_config_id";
+    /// let x = UptimeCheckConfig::new().set_name(format!("projects/{project_id}/uptimeCheckConfigs/{uptime_check_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19338,7 +19413,8 @@ impl ListUptimeCheckConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsRequest;
-    /// let x = ListUptimeCheckConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListUptimeCheckConfigsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19507,7 +19583,9 @@ impl GetUptimeCheckConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::GetUptimeCheckConfigRequest;
-    /// let x = GetUptimeCheckConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let uptime_check_config_id = "uptime_check_config_id";
+    /// let x = GetUptimeCheckConfigRequest::new().set_name(format!("projects/{project_id}/uptimeCheckConfigs/{uptime_check_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19551,7 +19629,8 @@ impl CreateUptimeCheckConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateUptimeCheckConfigRequest;
-    /// let x = CreateUptimeCheckConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateUptimeCheckConfigRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19728,7 +19807,9 @@ impl DeleteUptimeCheckConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::DeleteUptimeCheckConfigRequest;
-    /// let x = DeleteUptimeCheckConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let uptime_check_config_id = "uptime_check_config_id";
+    /// let x = DeleteUptimeCheckConfigRequest::new().set_name(format!("projects/{project_id}/uptimeCheckConfigs/{uptime_check_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

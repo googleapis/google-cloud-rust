@@ -1827,7 +1827,10 @@ impl AttributesConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::AttributesConfig;
-    /// let x = AttributesConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = AttributesConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1968,7 +1971,10 @@ impl CompletionConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::CompletionConfig;
-    /// let x = CompletionConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = CompletionConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/completionConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2204,7 +2210,10 @@ impl Catalog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::Catalog;
-    /// let x = Catalog::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = Catalog::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2604,7 +2613,10 @@ impl SetDefaultBranchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::SetDefaultBranchRequest;
-    /// let x = SetDefaultBranchRequest::new().set_catalog("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = SetDefaultBranchRequest::new().set_catalog(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
@@ -2676,7 +2688,10 @@ impl GetDefaultBranchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetDefaultBranchRequest;
-    /// let x = GetDefaultBranchRequest::new().set_catalog("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = GetDefaultBranchRequest::new().set_catalog(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
@@ -2809,7 +2824,10 @@ impl GetCompletionConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetCompletionConfigRequest;
-    /// let x = GetCompletionConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = GetCompletionConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/completionConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2970,7 +2988,10 @@ impl GetAttributesConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetAttributesConfigRequest;
-    /// let x = GetAttributesConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = GetAttributesConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3124,7 +3145,10 @@ impl AddCatalogAttributeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::AddCatalogAttributeRequest;
-    /// let x = AddCatalogAttributeRequest::new().set_attributes_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = AddCatalogAttributeRequest::new().set_attributes_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"));
     /// ```
     pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3206,7 +3230,10 @@ impl RemoveCatalogAttributeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::RemoveCatalogAttributeRequest;
-    /// let x = RemoveCatalogAttributeRequest::new().set_attributes_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = RemoveCatalogAttributeRequest::new().set_attributes_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"));
     /// ```
     pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3279,7 +3306,10 @@ impl ReplaceCatalogAttributeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
-    /// let x = ReplaceCatalogAttributeRequest::new().set_attributes_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ReplaceCatalogAttributeRequest::new().set_attributes_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"));
     /// ```
     pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6943,7 +6973,10 @@ impl CompleteQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
-    /// let x = CompleteQueryRequest::new().set_catalog("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = CompleteQueryRequest::new().set_catalog(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
@@ -7445,7 +7478,11 @@ impl Control {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::Control;
-    /// let x = Control::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let control_id = "control_id";
+    /// let x = Control::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7636,7 +7673,10 @@ impl CreateControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::CreateControlRequest;
-    /// let x = CreateControlRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = CreateControlRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7818,7 +7858,11 @@ impl DeleteControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::DeleteControlRequest;
-    /// let x = DeleteControlRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let control_id = "control_id";
+    /// let x = DeleteControlRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7854,7 +7898,11 @@ impl GetControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetControlRequest;
-    /// let x = GetControlRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let control_id = "control_id";
+    /// let x = GetControlRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7908,7 +7956,10 @@ impl ListControlsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ListControlsRequest;
-    /// let x = ListControlsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ListControlsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9399,8 +9450,6 @@ pub mod conversational_search_response {
         /// previous [ConversationalSearchRequest.search_params.filter][] and
         /// [SearchRequest.filter][google.cloud.retail.v2.SearchRequest.filter],  and
         /// use the merged filter in the follow up requests.
-        ///
-        /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
         pub additional_filter: std::option::Option<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10833,7 +10882,10 @@ impl GetGenerativeQuestionsFeatureConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetGenerativeQuestionsFeatureConfigRequest;
-    /// let x = GetGenerativeQuestionsFeatureConfigRequest::new().set_catalog("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = GetGenerativeQuestionsFeatureConfigRequest::new().set_catalog(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
@@ -10869,7 +10921,10 @@ impl ListGenerativeQuestionConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ListGenerativeQuestionConfigsRequest;
-    /// let x = ListGenerativeQuestionConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ListGenerativeQuestionConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11054,7 +11109,10 @@ impl BatchUpdateGenerativeQuestionConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::BatchUpdateGenerativeQuestionConfigsRequest;
-    /// let x = BatchUpdateGenerativeQuestionConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = BatchUpdateGenerativeQuestionConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12023,7 +12081,10 @@ impl ImportUserEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ImportUserEventsRequest;
-    /// let x = ImportUserEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ImportUserEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12138,7 +12199,10 @@ impl ImportCompletionDataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ImportCompletionDataRequest;
-    /// let x = ImportCompletionDataRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ImportCompletionDataRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13310,7 +13374,11 @@ impl Model {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::Model;
-    /// let x = Model::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let model_id = "model_id";
+    /// let x = Model::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14558,7 +14626,10 @@ impl CreateModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::CreateModelRequest;
-    /// let x = CreateModelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = CreateModelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14737,7 +14808,11 @@ impl GetModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetModelRequest;
-    /// let x = GetModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let model_id = "model_id";
+    /// let x = GetModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14774,7 +14849,11 @@ impl PauseModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::PauseModelRequest;
-    /// let x = PauseModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let model_id = "model_id";
+    /// let x = PauseModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14856,7 +14935,10 @@ impl ListModelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ListModelsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14919,7 +15001,11 @@ impl DeleteModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::DeleteModelRequest;
-    /// let x = DeleteModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let model_id = "model_id";
+    /// let x = DeleteModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15031,7 +15117,11 @@ impl TuneModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::TuneModelRequest;
-    /// let x = TuneModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let model_id = "model_id";
+    /// let x = TuneModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16149,7 +16239,12 @@ impl Product {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::Product;
-    /// let x = Product::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = Product::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17453,7 +17548,12 @@ impl GetProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetProductRequest;
-    /// let x = GetProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = GetProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17657,7 +17757,12 @@ impl DeleteProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::DeleteProductRequest;
-    /// let x = DeleteProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = DeleteProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18336,7 +18441,12 @@ impl AddFulfillmentPlacesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
-    /// let x = AddFulfillmentPlacesRequest::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = AddFulfillmentPlacesRequest::new().set_product(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -18545,7 +18655,12 @@ impl AddLocalInventoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
-    /// let x = AddLocalInventoriesRequest::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = AddLocalInventoriesRequest::new().set_product(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -18763,7 +18878,12 @@ impl RemoveLocalInventoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::RemoveLocalInventoriesRequest;
-    /// let x = RemoveLocalInventoriesRequest::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = RemoveLocalInventoriesRequest::new().set_product(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -18977,7 +19097,12 @@ impl RemoveFulfillmentPlacesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
-    /// let x = RemoveFulfillmentPlacesRequest::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let branch_id = "branch_id";
+    /// # let product_id = "product_id";
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_product(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -19528,7 +19653,10 @@ impl PurgeUserEventsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::PurgeUserEventsRequest;
-    /// let x = PurgeUserEventsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = PurgeUserEventsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24801,7 +24929,11 @@ pub mod experiment_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
-        /// let x = ServingConfigExperiment::new().set_original_serving_config("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let catalog_id = "catalog_id";
+        /// # let serving_config_id = "serving_config_id";
+        /// let x = ServingConfigExperiment::new().set_original_serving_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
         /// ```
         pub fn set_original_serving_config<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -24816,7 +24948,11 @@ pub mod experiment_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
-        /// let x = ServingConfigExperiment::new().set_experiment_serving_config("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let catalog_id = "catalog_id";
+        /// # let serving_config_id = "serving_config_id";
+        /// let x = ServingConfigExperiment::new().set_experiment_serving_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
         /// ```
         pub fn set_experiment_serving_config<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -25139,7 +25275,11 @@ impl ServingConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ServingConfig;
-    /// let x = ServingConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = ServingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25660,7 +25800,10 @@ impl CreateServingConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::CreateServingConfigRequest;
-    /// let x = CreateServingConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = CreateServingConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25845,7 +25988,11 @@ impl DeleteServingConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::DeleteServingConfigRequest;
-    /// let x = DeleteServingConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = DeleteServingConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25881,7 +26028,11 @@ impl GetServingConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::GetServingConfigRequest;
-    /// let x = GetServingConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = GetServingConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25926,7 +26077,10 @@ impl ListServingConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ListServingConfigsRequest;
-    /// let x = ListServingConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = ListServingConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26064,7 +26218,11 @@ impl AddControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::AddControlRequest;
-    /// let x = AddControlRequest::new().set_serving_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = AddControlRequest::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
@@ -26116,7 +26274,11 @@ impl RemoveControlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::RemoveControlRequest;
-    /// let x = RemoveControlRequest::new().set_serving_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let catalog_id = "catalog_id";
+    /// # let serving_config_id = "serving_config_id";
+    /// let x = RemoveControlRequest::new().set_serving_config(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"));
     /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();

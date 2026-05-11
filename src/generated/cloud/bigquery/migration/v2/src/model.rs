@@ -77,7 +77,10 @@ impl MigrationWorkflow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// let x = MigrationWorkflow::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = MigrationWorkflow::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1035,7 +1038,11 @@ impl MigrationSubtask {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// let x = MigrationSubtask::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// # let subtask_id = "subtask_id";
+    /// let x = MigrationSubtask::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}/subtasks/{subtask_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2481,7 +2488,10 @@ impl GetMigrationWorkflowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::GetMigrationWorkflowRequest;
-    /// let x = GetMigrationWorkflowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = GetMigrationWorkflowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2732,7 +2742,10 @@ impl DeleteMigrationWorkflowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::DeleteMigrationWorkflowRequest;
-    /// let x = DeleteMigrationWorkflowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = DeleteMigrationWorkflowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2768,7 +2781,10 @@ impl StartMigrationWorkflowRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::StartMigrationWorkflowRequest;
-    /// let x = StartMigrationWorkflowRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = StartMigrationWorkflowRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2807,7 +2823,11 @@ impl GetMigrationSubtaskRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::GetMigrationSubtaskRequest;
-    /// let x = GetMigrationSubtaskRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// # let subtask_id = "subtask_id";
+    /// let x = GetMigrationSubtaskRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}/subtasks/{subtask_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2895,7 +2915,10 @@ impl ListMigrationSubtasksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// let x = ListMigrationSubtasksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// let x = ListMigrationSubtasksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

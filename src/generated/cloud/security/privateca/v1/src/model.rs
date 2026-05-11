@@ -211,7 +211,11 @@ impl CertificateAuthority {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
-    /// let x = CertificateAuthority::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = CertificateAuthority::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1601,7 +1605,10 @@ impl CaPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CaPool;
-    /// let x = CaPool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = CaPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3053,7 +3060,12 @@ impl CertificateRevocationList {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
-    /// let x = CertificateRevocationList::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// # let certificate_revocation_list_id = "certificate_revocation_list_id";
+    /// let x = CertificateRevocationList::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}/certificateRevocationLists/{certificate_revocation_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3287,7 +3299,11 @@ pub mod certificate_revocation_list {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_security_privateca_v1::model::certificate_revocation_list::RevokedCertificate;
-        /// let x = RevokedCertificate::new().set_certificate("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let ca_pool_id = "ca_pool_id";
+        /// # let certificate_id = "certificate_id";
+        /// let x = RevokedCertificate::new().set_certificate(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificates/{certificate_id}"));
         /// ```
         pub fn set_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.certificate = v.into();
@@ -3579,7 +3595,11 @@ impl Certificate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::Certificate;
-    /// let x = Certificate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_id = "certificate_id";
+    /// let x = Certificate::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificates/{certificate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3591,7 +3611,11 @@ impl Certificate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::Certificate;
-    /// let x = Certificate::new().set_issuer_certificate_authority("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = Certificate::new().set_issuer_certificate_authority(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_issuer_certificate_authority<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3639,7 +3663,10 @@ impl Certificate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::Certificate;
-    /// let x = Certificate::new().set_certificate_template("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_template_id = "certificate_template_id";
+    /// let x = Certificate::new().set_certificate_template(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"));
     /// ```
     pub fn set_certificate_template<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4171,7 +4198,10 @@ impl CertificateTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
-    /// let x = CertificateTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_template_id = "certificate_template_id";
+    /// let x = CertificateTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5017,7 +5047,11 @@ impl SubordinateConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::SubordinateConfig;
-    /// let x = SubordinateConfig::new().set_certificate_authority("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = SubordinateConfig::new().set_certificate_authority(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// assert!(x.certificate_authority().is_some());
     /// assert!(x.pem_issuer_chain().is_none());
     /// ```
@@ -7896,7 +7930,10 @@ impl CreateCertificateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
-    /// let x = CreateCertificateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = CreateCertificateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8023,7 +8060,11 @@ impl GetCertificateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::GetCertificateRequest;
-    /// let x = GetCertificateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_id = "certificate_id";
+    /// let x = GetCertificateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificates/{certificate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8094,7 +8135,10 @@ impl ListCertificatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::ListCertificatesRequest;
-    /// let x = ListCertificatesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = ListCertificatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8309,7 +8353,11 @@ impl RevokeCertificateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::RevokeCertificateRequest;
-    /// let x = RevokeCertificateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_id = "certificate_id";
+    /// let x = RevokeCertificateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificates/{certificate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8531,7 +8579,11 @@ impl ActivateCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::ActivateCertificateAuthorityRequest;
-    /// let x = ActivateCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = ActivateCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8661,7 +8713,10 @@ impl CreateCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CreateCertificateAuthorityRequest;
-    /// let x = CreateCertificateAuthorityRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = CreateCertificateAuthorityRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8784,7 +8839,11 @@ impl DisableCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::DisableCertificateAuthorityRequest;
-    /// let x = DisableCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = DisableCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8865,7 +8924,11 @@ impl EnableCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::EnableCertificateAuthorityRequest;
-    /// let x = EnableCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = EnableCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8919,7 +8982,11 @@ impl FetchCertificateAuthorityCsrRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::FetchCertificateAuthorityCsrRequest;
-    /// let x = FetchCertificateAuthorityCsrRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = FetchCertificateAuthorityCsrRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9001,7 +9068,11 @@ impl GetCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::GetCertificateAuthorityRequest;
-    /// let x = GetCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = GetCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9070,7 +9141,10 @@ impl ListCertificateAuthoritiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesRequest;
-    /// let x = ListCertificateAuthoritiesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = ListCertificateAuthoritiesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9281,7 +9355,11 @@ impl UndeleteCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::UndeleteCertificateAuthorityRequest;
-    /// let x = UndeleteCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = UndeleteCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9365,7 +9443,11 @@ impl DeleteCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::DeleteCertificateAuthorityRequest;
-    /// let x = DeleteCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = DeleteCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9851,7 +9933,10 @@ impl DeleteCaPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::DeleteCaPoolRequest;
-    /// let x = DeleteCaPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = DeleteCaPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9932,7 +10017,10 @@ impl FetchCaCertsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::FetchCaCertsRequest;
-    /// let x = FetchCaCertsRequest::new().set_ca_pool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = FetchCaCertsRequest::new().set_ca_pool(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_pool = v.into();
@@ -10084,7 +10172,10 @@ impl GetCaPoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::GetCaPoolRequest;
-    /// let x = GetCaPoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// let x = GetCaPoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10346,7 +10437,12 @@ impl GetCertificateRevocationListRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::GetCertificateRevocationListRequest;
-    /// let x = GetCertificateRevocationListRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// # let certificate_revocation_list_id = "certificate_revocation_list_id";
+    /// let x = GetCertificateRevocationListRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}/certificateRevocationLists/{certificate_revocation_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10413,7 +10509,11 @@ impl ListCertificateRevocationListsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsRequest;
-    /// let x = ListCertificateRevocationListsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ca_pool_id = "ca_pool_id";
+    /// # let certificate_authority_id = "certificate_authority_id";
+    /// let x = ListCertificateRevocationListsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/caPools/{ca_pool_id}/certificateAuthorities/{certificate_authority_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10878,7 +10978,10 @@ impl DeleteCertificateTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::DeleteCertificateTemplateRequest;
-    /// let x = DeleteCertificateTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_template_id = "certificate_template_id";
+    /// let x = DeleteCertificateTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10934,7 +11037,10 @@ impl GetCertificateTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::GetCertificateTemplateRequest;
-    /// let x = GetCertificateTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_template_id = "certificate_template_id";
+    /// let x = GetCertificateTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateTemplates/{certificate_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

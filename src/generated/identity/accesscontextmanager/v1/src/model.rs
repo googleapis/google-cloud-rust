@@ -205,7 +205,8 @@ impl GetAccessPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::GetAccessPolicyRequest;
-    /// let x = GetAccessPolicyRequest::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = GetAccessPolicyRequest::new().set_name(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -334,7 +335,8 @@ impl DeleteAccessPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteAccessPolicyRequest;
-    /// let x = DeleteAccessPolicyRequest::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = DeleteAccessPolicyRequest::new().set_name(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -388,7 +390,8 @@ impl ListAccessLevelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsRequest;
-    /// let x = ListAccessLevelsRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = ListAccessLevelsRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -554,7 +557,9 @@ impl GetAccessLevelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::GetAccessLevelRequest;
-    /// let x = GetAccessLevelRequest::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// # let access_level_id = "access_level_id";
+    /// let x = GetAccessLevelRequest::new().set_name(format!("accessPolicies/{access_policy_id}/accessLevels/{access_level_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -616,7 +621,8 @@ impl CreateAccessLevelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateAccessLevelRequest;
-    /// let x = CreateAccessLevelRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = CreateAccessLevelRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -784,7 +790,9 @@ impl DeleteAccessLevelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteAccessLevelRequest;
-    /// let x = DeleteAccessLevelRequest::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// # let access_level_id = "access_level_id";
+    /// let x = DeleteAccessLevelRequest::new().set_name(format!("accessPolicies/{access_policy_id}/accessLevels/{access_level_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -841,7 +849,8 @@ impl ReplaceAccessLevelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceAccessLevelsRequest;
-    /// let x = ReplaceAccessLevelsRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = ReplaceAccessLevelsRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -971,7 +980,8 @@ impl ListServicePerimetersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::ListServicePerimetersRequest;
-    /// let x = ListServicePerimetersRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = ListServicePerimetersRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1110,7 +1120,9 @@ impl GetServicePerimeterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::GetServicePerimeterRequest;
-    /// let x = GetServicePerimeterRequest::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// # let service_perimeter_id = "service_perimeter_id";
+    /// let x = GetServicePerimeterRequest::new().set_name(format!("accessPolicies/{access_policy_id}/servicePerimeters/{service_perimeter_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1155,7 +1167,8 @@ impl CreateServicePerimeterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateServicePerimeterRequest;
-    /// let x = CreateServicePerimeterRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = CreateServicePerimeterRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1320,7 +1333,9 @@ impl DeleteServicePerimeterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteServicePerimeterRequest;
-    /// let x = DeleteServicePerimeterRequest::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// # let service_perimeter_id = "service_perimeter_id";
+    /// let x = DeleteServicePerimeterRequest::new().set_name(format!("accessPolicies/{access_policy_id}/servicePerimeters/{service_perimeter_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1377,7 +1392,8 @@ impl ReplaceServicePerimetersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceServicePerimetersRequest;
-    /// let x = ReplaceServicePerimetersRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = ReplaceServicePerimetersRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1512,7 +1528,8 @@ impl CommitServicePerimetersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::CommitServicePerimetersRequest;
-    /// let x = CommitServicePerimetersRequest::new().set_parent("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = CommitServicePerimetersRequest::new().set_parent(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1755,7 +1772,9 @@ impl GetGcpUserAccessBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::GetGcpUserAccessBindingRequest;
-    /// let x = GetGcpUserAccessBindingRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let gcp_user_access_binding_id = "gcp_user_access_binding_id";
+    /// let x = GetGcpUserAccessBindingRequest::new().set_name(format!("organizations/{organization_id}/gcpUserAccessBindings/{gcp_user_access_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1963,7 +1982,9 @@ impl DeleteGcpUserAccessBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteGcpUserAccessBindingRequest;
-    /// let x = DeleteGcpUserAccessBindingRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let gcp_user_access_binding_id = "gcp_user_access_binding_id";
+    /// let x = DeleteGcpUserAccessBindingRequest::new().set_name(format!("organizations/{organization_id}/gcpUserAccessBindings/{gcp_user_access_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2060,7 +2081,9 @@ impl AccessLevel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
-    /// let x = AccessLevel::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// # let access_level_id = "access_level_id";
+    /// let x = AccessLevel::new().set_name(format!("accessPolicies/{access_policy_id}/accessLevels/{access_level_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3001,7 +3024,8 @@ impl AccessPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
-    /// let x = AccessPolicy::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = AccessPolicy::new().set_name(format!("accessPolicies/{access_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3175,7 +3199,9 @@ impl GcpUserAccessBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
-    /// let x = GcpUserAccessBinding::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let gcp_user_access_binding_id = "gcp_user_access_binding_id";
+    /// let x = GcpUserAccessBinding::new().set_name(format!("organizations/{organization_id}/gcpUserAccessBindings/{gcp_user_access_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3295,7 +3321,9 @@ impl ServicePerimeter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
-    /// let x = ServicePerimeter::new().set_name("example");
+    /// # let access_policy_id = "access_policy_id";
+    /// # let service_perimeter_id = "service_perimeter_id";
+    /// let x = ServicePerimeter::new().set_name(format!("accessPolicies/{access_policy_id}/servicePerimeters/{service_perimeter_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

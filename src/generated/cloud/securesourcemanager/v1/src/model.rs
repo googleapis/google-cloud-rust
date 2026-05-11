@@ -103,7 +103,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1054,7 +1057,10 @@ impl Repository {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::Repository;
-    /// let x = Repository::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = Repository::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1078,7 +1084,10 @@ impl Repository {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::Repository;
-    /// let x = Repository::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Repository::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -1580,7 +1589,11 @@ impl Hook {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::Hook;
-    /// let x = Hook::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let hook_id = "hook_id";
+    /// let x = Hook::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2027,7 +2040,11 @@ impl BranchRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
-    /// let x = BranchRule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let branch_rule_id = "branch_rule_id";
+    /// let x = BranchRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/branchRules/{branch_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2373,7 +2390,11 @@ impl PullRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
-    /// let x = PullRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = PullRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3067,7 +3088,11 @@ impl Issue {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::Issue;
-    /// let x = Issue::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = Issue::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3400,7 +3425,12 @@ impl IssueComment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
-    /// let x = IssueComment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// # let comment_id = "comment_id";
+    /// let x = IssueComment::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3525,7 +3555,12 @@ impl PullRequestComment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
-    /// let x = PullRequestComment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// # let comment_id = "comment_id";
+    /// let x = PullRequestComment::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4255,7 +4290,9 @@ impl ListInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4432,7 +4469,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4488,7 +4528,9 @@ impl CreateInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInstanceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4598,7 +4640,10 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4849,7 +4894,9 @@ impl ListRepositoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListRepositoriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4897,7 +4944,10 @@ impl ListRepositoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListRepositoriesRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -5008,7 +5058,10 @@ impl GetRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetRepositoryRequest;
-    /// let x = GetRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = GetRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5052,7 +5105,9 @@ impl CreateRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreateRepositoryRequest;
-    /// let x = CreateRepositoryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateRepositoryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5250,7 +5305,10 @@ impl DeleteRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeleteRepositoryRequest;
-    /// let x = DeleteRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = DeleteRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5304,7 +5362,10 @@ impl ListHooksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListHooksRequest;
-    /// let x = ListHooksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListHooksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5439,7 +5500,11 @@ impl GetHookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetHookRequest;
-    /// let x = GetHookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let hook_id = "hook_id";
+    /// let x = GetHookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5485,7 +5550,10 @@ impl CreateHookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreateHookRequest;
-    /// let x = CreateHookRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateHookRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5663,7 +5731,11 @@ impl DeleteHookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeleteHookRequest;
-    /// let x = DeleteHookRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let hook_id = "hook_id";
+    /// let x = DeleteHookRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5700,7 +5772,11 @@ impl GetBranchRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetBranchRuleRequest;
-    /// let x = GetBranchRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let branch_rule_id = "branch_rule_id";
+    /// let x = GetBranchRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/branchRules/{branch_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5741,7 +5817,10 @@ impl CreateBranchRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreateBranchRuleRequest;
-    /// let x = CreateBranchRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateBranchRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5828,7 +5907,10 @@ impl ListBranchRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListBranchRulesRequest;
-    /// let x = ListBranchRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListBranchRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5891,7 +5973,11 @@ impl DeleteBranchRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeleteBranchRuleRequest;
-    /// let x = DeleteBranchRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let branch_rule_id = "branch_rule_id";
+    /// let x = DeleteBranchRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/branchRules/{branch_rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6128,7 +6214,10 @@ impl CreatePullRequestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestRequest;
-    /// let x = CreatePullRequestRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreatePullRequestRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6198,7 +6287,11 @@ impl GetPullRequestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetPullRequestRequest;
-    /// let x = GetPullRequestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = GetPullRequestRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6241,7 +6334,10 @@ impl ListPullRequestsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestsRequest;
-    /// let x = ListPullRequestsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListPullRequestsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6472,7 +6568,11 @@ impl MergePullRequestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::MergePullRequestRequest;
-    /// let x = MergePullRequestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = MergePullRequestRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6509,7 +6609,11 @@ impl OpenPullRequestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::OpenPullRequestRequest;
-    /// let x = OpenPullRequestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = OpenPullRequestRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6546,7 +6650,11 @@ impl ClosePullRequestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ClosePullRequestRequest;
-    /// let x = ClosePullRequestRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = ClosePullRequestRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6591,7 +6699,11 @@ impl ListPullRequestFileDiffsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestFileDiffsRequest;
-    /// let x = ListPullRequestFileDiffsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = ListPullRequestFileDiffsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6729,7 +6841,10 @@ impl CreateIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreateIssueRequest;
-    /// let x = CreateIssueRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateIssueRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6799,7 +6914,11 @@ impl GetIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetIssueRequest;
-    /// let x = GetIssueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = GetIssueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6845,7 +6964,10 @@ impl ListIssuesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListIssuesRequest;
-    /// let x = ListIssuesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListIssuesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7093,7 +7215,11 @@ impl DeleteIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeleteIssueRequest;
-    /// let x = DeleteIssueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = DeleteIssueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7147,7 +7273,11 @@ impl CloseIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CloseIssueRequest;
-    /// let x = CloseIssueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = CloseIssueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7201,7 +7331,11 @@ impl OpenIssueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::OpenIssueRequest;
-    /// let x = OpenIssueRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = OpenIssueRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7513,7 +7647,10 @@ impl FetchTreeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::FetchTreeRequest;
-    /// let x = FetchTreeRequest::new().set_repository("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = FetchTreeRequest::new().set_repository(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -7675,7 +7812,10 @@ impl FetchBlobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::FetchBlobRequest;
-    /// let x = FetchBlobRequest::new().set_repository("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = FetchBlobRequest::new().set_repository(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -7780,7 +7920,11 @@ impl ListPullRequestCommentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestCommentsRequest;
-    /// let x = ListPullRequestCommentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = ListPullRequestCommentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7919,7 +8063,11 @@ impl CreatePullRequestCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestCommentRequest;
-    /// let x = CreatePullRequestCommentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = CreatePullRequestCommentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7995,7 +8143,11 @@ impl BatchCreatePullRequestCommentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::BatchCreatePullRequestCommentsRequest;
-    /// let x = BatchCreatePullRequestCommentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = BatchCreatePullRequestCommentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8194,7 +8346,12 @@ impl DeletePullRequestCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeletePullRequestCommentRequest;
-    /// let x = DeletePullRequestCommentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// # let comment_id = "comment_id";
+    /// let x = DeletePullRequestCommentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8231,7 +8388,12 @@ impl GetPullRequestCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetPullRequestCommentRequest;
-    /// let x = GetPullRequestCommentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// # let comment_id = "comment_id";
+    /// let x = GetPullRequestCommentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8278,7 +8440,11 @@ impl ResolvePullRequestCommentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ResolvePullRequestCommentsRequest;
-    /// let x = ResolvePullRequestCommentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = ResolvePullRequestCommentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8399,7 +8565,11 @@ impl UnresolvePullRequestCommentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::UnresolvePullRequestCommentsRequest;
-    /// let x = UnresolvePullRequestCommentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let pull_request_id = "pull_request_id";
+    /// let x = UnresolvePullRequestCommentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8512,7 +8682,11 @@ impl CreateIssueCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::CreateIssueCommentRequest;
-    /// let x = CreateIssueCommentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = CreateIssueCommentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8582,7 +8756,12 @@ impl GetIssueCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::GetIssueCommentRequest;
-    /// let x = GetIssueCommentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// # let comment_id = "comment_id";
+    /// let x = GetIssueCommentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8625,7 +8804,11 @@ impl ListIssueCommentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::ListIssueCommentsRequest;
-    /// let x = ListIssueCommentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// let x = ListIssueCommentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8856,7 +9039,12 @@ impl DeleteIssueCommentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securesourcemanager_v1::model::DeleteIssueCommentRequest;
-    /// let x = DeleteIssueCommentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let issue_id = "issue_id";
+    /// # let comment_id = "comment_id";
+    /// let x = DeleteIssueCommentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

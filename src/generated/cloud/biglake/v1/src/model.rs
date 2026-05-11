@@ -167,7 +167,9 @@ impl IcebergCatalog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::IcebergCatalog;
-    /// let x = IcebergCatalog::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = IcebergCatalog::new().set_name(format!("projects/{project_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -722,7 +724,9 @@ impl DeleteIcebergCatalogRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::DeleteIcebergCatalogRequest;
-    /// let x = DeleteIcebergCatalogRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = DeleteIcebergCatalogRequest::new().set_name(format!("projects/{project_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -849,7 +853,9 @@ impl GetIcebergCatalogRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::GetIcebergCatalogRequest;
-    /// let x = GetIcebergCatalogRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = GetIcebergCatalogRequest::new().set_name(format!("projects/{project_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2123,7 +2129,9 @@ impl CreateIcebergNamespaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::CreateIcebergNamespaceRequest;
-    /// let x = CreateIcebergNamespaceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let catalog_id = "catalog_id";
+    /// let x = CreateIcebergNamespaceRequest::new().set_parent(format!("projects/{project_id}/catalogs/{catalog_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

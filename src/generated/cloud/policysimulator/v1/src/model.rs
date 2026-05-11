@@ -928,8 +928,6 @@ pub struct OrgPolicyViolationsPreview {
     /// specific to a resource **and** constraint. If there are multiple
     /// constraints being evaluated (i.e. multiple policies in the overlay), a
     /// single resource may violate multiple constraints.
-    ///
-    /// [google.cloud.policysimulator.v1.OrgPolicyViolation]: crate::model::OrgPolicyViolation
     pub violations_count: i32,
 
     /// Output only. A summary of the state of all resources scanned for compliance
@@ -968,7 +966,10 @@ impl OrgPolicyViolationsPreview {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = OrgPolicyViolationsPreview::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let org_policy_violations_preview_id = "org_policy_violations_preview_id";
+    /// let x = OrgPolicyViolationsPreview::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/orgPolicyViolationsPreviews/{org_policy_violations_preview_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1262,7 +1263,11 @@ impl OrgPolicyViolation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// let x = OrgPolicyViolation::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let org_policy_violations_preview_id = "org_policy_violations_preview_id";
+    /// # let org_policy_violation_id = "org_policy_violation_id";
+    /// let x = OrgPolicyViolation::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/orgPolicyViolationsPreviews/{org_policy_violations_preview_id}/orgPolicyViolations/{org_policy_violation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1904,7 +1909,9 @@ impl ListOrgPolicyViolationsPreviewsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsPreviewsRequest;
-    /// let x = ListOrgPolicyViolationsPreviewsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListOrgPolicyViolationsPreviewsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2046,7 +2053,10 @@ impl GetOrgPolicyViolationsPreviewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::GetOrgPolicyViolationsPreviewRequest;
-    /// let x = GetOrgPolicyViolationsPreviewRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let org_policy_violations_preview_id = "org_policy_violations_preview_id";
+    /// let x = GetOrgPolicyViolationsPreviewRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/orgPolicyViolationsPreviews/{org_policy_violations_preview_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2105,7 +2115,9 @@ impl CreateOrgPolicyViolationsPreviewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewRequest;
-    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2208,7 +2220,10 @@ impl ListOrgPolicyViolationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsRequest;
-    /// let x = ListOrgPolicyViolationsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let org_policy_violations_preview_id = "org_policy_violations_preview_id";
+    /// let x = ListOrgPolicyViolationsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}/orgPolicyViolationsPreviews/{org_policy_violations_preview_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2362,7 +2377,10 @@ impl Replay {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// let x = Replay::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let replay_id = "replay_id";
+    /// let x = Replay::new().set_name(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2812,7 +2830,11 @@ impl ReplayResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// let x = ReplayResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let replay_id = "replay_id";
+    /// # let replay_result_id = "replay_result_id";
+    /// let x = ReplayResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}/results/{replay_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2824,7 +2846,10 @@ impl ReplayResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// let x = ReplayResult::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let replay_id = "replay_id";
+    /// let x = ReplayResult::new().set_parent(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3192,7 +3217,10 @@ impl GetReplayRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::GetReplayRequest;
-    /// let x = GetReplayRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let replay_id = "replay_id";
+    /// let x = GetReplayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3258,7 +3286,10 @@ impl ListReplayResultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ListReplayResultsRequest;
-    /// let x = ListReplayResultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let replay_id = "replay_id";
+    /// let x = ListReplayResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

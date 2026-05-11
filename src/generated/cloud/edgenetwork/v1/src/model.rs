@@ -72,7 +72,10 @@ impl Zone {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Zone;
-    /// let x = Zone::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = Zone::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -226,7 +229,11 @@ impl Network {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Network;
-    /// let x = Network::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = Network::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -408,7 +415,11 @@ impl Subnet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Subnet;
-    /// let x = Subnet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let subnet_id = "subnet_id";
+    /// let x = Subnet::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/subnets/{subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -519,7 +530,11 @@ impl Subnet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Subnet;
-    /// let x = Subnet::new().set_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = Subnet::new().set_network(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -805,7 +820,11 @@ impl Interconnect {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Interconnect;
-    /// let x = Interconnect::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_id = "interconnect_id";
+    /// let x = Interconnect::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnects/{interconnect_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1188,7 +1207,11 @@ impl InterconnectAttachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
-    /// let x = InterconnectAttachment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_attachment_id = "interconnect_attachment_id";
+    /// let x = InterconnectAttachment::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnectAttachments/{interconnect_attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1299,7 +1322,11 @@ impl InterconnectAttachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
-    /// let x = InterconnectAttachment::new().set_interconnect("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_id = "interconnect_id";
+    /// let x = InterconnectAttachment::new().set_interconnect(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnects/{interconnect_id}"));
     /// ```
     pub fn set_interconnect<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.interconnect = v.into();
@@ -1311,7 +1338,11 @@ impl InterconnectAttachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
-    /// let x = InterconnectAttachment::new().set_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = InterconnectAttachment::new().set_network(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -1436,7 +1467,11 @@ impl Router {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Router;
-    /// let x = Router::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let router_id = "router_id";
+    /// let x = Router::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1547,7 +1582,11 @@ impl Router {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::Router;
-    /// let x = Router::new().set_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = Router::new().set_network(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -2901,7 +2940,11 @@ impl RouterStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::RouterStatus;
-    /// let x = RouterStatus::new().set_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = RouterStatus::new().set_network(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -3403,7 +3446,9 @@ impl ListZonesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::ListZonesRequest;
-    /// let x = ListZonesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListZonesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3584,7 +3629,10 @@ impl GetZoneRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::GetZoneRequest;
-    /// let x = GetZoneRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = GetZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3632,7 +3680,10 @@ impl ListNetworksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::ListNetworksRequest;
-    /// let x = ListNetworksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListNetworksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3809,7 +3860,11 @@ impl GetNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::GetNetworkRequest;
-    /// let x = GetNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = GetNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3867,7 +3922,10 @@ impl CreateNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::CreateNetworkRequest;
-    /// let x = CreateNetworkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = CreateNetworkRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3974,7 +4032,11 @@ impl DeleteNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DeleteNetworkRequest;
-    /// let x = DeleteNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = DeleteNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4034,7 +4096,10 @@ impl ListSubnetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::ListSubnetsRequest;
-    /// let x = ListSubnetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListSubnetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4211,7 +4276,11 @@ impl GetSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::GetSubnetRequest;
-    /// let x = GetSubnetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let subnet_id = "subnet_id";
+    /// let x = GetSubnetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/subnets/{subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4269,7 +4338,10 @@ impl CreateSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::CreateSubnetRequest;
-    /// let x = CreateSubnetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = CreateSubnetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4499,7 +4571,11 @@ impl DeleteSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DeleteSubnetRequest;
-    /// let x = DeleteSubnetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let subnet_id = "subnet_id";
+    /// let x = DeleteSubnetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/subnets/{subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4559,7 +4635,10 @@ impl ListInterconnectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsRequest;
-    /// let x = ListInterconnectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListInterconnectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4736,7 +4815,11 @@ impl GetInterconnectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::GetInterconnectRequest;
-    /// let x = GetInterconnectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_id = "interconnect_id";
+    /// let x = GetInterconnectRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnects/{interconnect_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4784,7 +4867,10 @@ impl ListInterconnectAttachmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsRequest;
-    /// let x = ListInterconnectAttachmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListInterconnectAttachmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4963,7 +5049,11 @@ impl GetInterconnectAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::GetInterconnectAttachmentRequest;
-    /// let x = GetInterconnectAttachmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_attachment_id = "interconnect_attachment_id";
+    /// let x = GetInterconnectAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnectAttachments/{interconnect_attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5021,7 +5111,10 @@ impl CreateInterconnectAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
-    /// let x = CreateInterconnectAttachmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = CreateInterconnectAttachmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5131,7 +5224,11 @@ impl DeleteInterconnectAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DeleteInterconnectAttachmentRequest;
-    /// let x = DeleteInterconnectAttachmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_attachment_id = "interconnect_attachment_id";
+    /// let x = DeleteInterconnectAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnectAttachments/{interconnect_attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5191,7 +5288,10 @@ impl ListRoutersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::ListRoutersRequest;
-    /// let x = ListRoutersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = ListRoutersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5368,7 +5468,11 @@ impl GetRouterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::GetRouterRequest;
-    /// let x = GetRouterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let router_id = "router_id";
+    /// let x = GetRouterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5426,7 +5530,10 @@ impl CreateRouterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::CreateRouterRequest;
-    /// let x = CreateRouterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = CreateRouterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5656,7 +5763,11 @@ impl DeleteRouterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DeleteRouterRequest;
-    /// let x = DeleteRouterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let router_id = "router_id";
+    /// let x = DeleteRouterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5706,8 +5817,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -5876,7 +5985,11 @@ impl DiagnoseNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DiagnoseNetworkRequest;
-    /// let x = DiagnoseNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let network_id = "network_id";
+    /// let x = DiagnoseNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6221,7 +6334,11 @@ impl DiagnoseInterconnectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DiagnoseInterconnectRequest;
-    /// let x = DiagnoseInterconnectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let interconnect_id = "interconnect_id";
+    /// let x = DiagnoseInterconnectRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/interconnects/{interconnect_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6349,7 +6466,11 @@ impl DiagnoseRouterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::DiagnoseRouterRequest;
-    /// let x = DiagnoseRouterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// # let router_id = "router_id";
+    /// let x = DiagnoseRouterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}/routers/{router_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6476,7 +6597,10 @@ impl InitializeZoneRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_edgenetwork_v1::model::InitializeZoneRequest;
-    /// let x = InitializeZoneRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let zone_id = "zone_id";
+    /// let x = InitializeZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/zones/{zone_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

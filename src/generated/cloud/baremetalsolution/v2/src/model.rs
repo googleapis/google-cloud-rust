@@ -59,8 +59,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used with the operation.
@@ -323,7 +321,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -578,7 +579,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::Instance;
-    /// let x = Instance::new().set_network_template("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let server_network_template_id = "server_network_template_id";
+    /// let x = Instance::new().set_network_template(format!("projects/{project_id}/locations/{location_id}/serverNetworkTemplate/{server_network_template_id}"));
     /// ```
     pub fn set_network_template<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -855,7 +859,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1168,7 +1175,10 @@ impl RenameInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::RenameInstanceRequest;
-    /// let x = RenameInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = RenameInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1215,7 +1225,10 @@ impl ResetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ResetInstanceRequest;
-    /// let x = ResetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ResetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1250,7 +1263,10 @@ impl StartInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::StartInstanceRequest;
-    /// let x = StartInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = StartInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1305,7 +1321,10 @@ impl StopInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::StopInstanceRequest;
-    /// let x = StopInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = StopInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1360,7 +1379,10 @@ impl EnableInteractiveSerialConsoleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::EnableInteractiveSerialConsoleRequest;
-    /// let x = EnableInteractiveSerialConsoleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = EnableInteractiveSerialConsoleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1415,7 +1437,10 @@ impl DisableInteractiveSerialConsoleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::DisableInteractiveSerialConsoleRequest;
-    /// let x = DisableInteractiveSerialConsoleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DisableInteractiveSerialConsoleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1476,7 +1501,10 @@ impl DetachLunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::DetachLunRequest;
-    /// let x = DetachLunRequest::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DetachLunRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -1488,7 +1516,11 @@ impl DetachLunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::DetachLunRequest;
-    /// let x = DetachLunRequest::new().set_lun("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let lun_id = "lun_id";
+    /// let x = DetachLunRequest::new().set_lun(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/luns/{lun_id}"));
     /// ```
     pub fn set_lun<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lun = v.into();
@@ -1545,7 +1577,10 @@ impl ServerNetworkTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ServerNetworkTemplate;
-    /// let x = ServerNetworkTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let server_network_template_id = "server_network_template_id";
+    /// let x = ServerNetworkTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/serverNetworkTemplate/{server_network_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1878,7 +1913,11 @@ impl Lun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::Lun;
-    /// let x = Lun::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let lun_id = "lun_id";
+    /// let x = Lun::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/luns/{lun_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1945,7 +1984,10 @@ impl Lun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::Lun;
-    /// let x = Lun::new().set_storage_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = Lun::new().set_storage_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_storage_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_volume = v.into();
@@ -2499,7 +2541,11 @@ impl GetLunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetLunRequest;
-    /// let x = GetLunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let lun_id = "lun_id";
+    /// let x = GetLunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/luns/{lun_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2541,7 +2587,10 @@ impl ListLunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ListLunsRequest;
-    /// let x = ListLunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = ListLunsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2694,7 +2743,11 @@ impl EvictLunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::EvictLunRequest;
-    /// let x = EvictLunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let lun_id = "lun_id";
+    /// let x = EvictLunRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/luns/{lun_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2780,7 +2833,10 @@ impl Network {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::Network;
-    /// let x = Network::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_id = "network_id";
+    /// let x = Network::new().set_name(format!("projects/{project_id}/locations/{location_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4038,7 +4094,10 @@ impl GetNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetNetworkRequest;
-    /// let x = GetNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_id = "network_id";
+    /// let x = GetNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4510,7 +4569,10 @@ impl NetworkMountPoint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
-    /// let x = NetworkMountPoint::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = NetworkMountPoint::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -4588,7 +4650,10 @@ impl RenameNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::RenameNetworkRequest;
-    /// let x = RenameNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_id = "network_id";
+    /// let x = RenameNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/networks/{network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4662,7 +4727,10 @@ impl NfsShare {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
-    /// let x = NfsShare::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let nfs_share_id = "nfs_share_id";
+    /// let x = NfsShare::new().set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4716,7 +4784,10 @@ impl NfsShare {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
-    /// let x = NfsShare::new().set_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = NfsShare::new().set_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume = v.into();
@@ -4854,7 +4925,10 @@ pub mod nfs_share {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
-        /// let x = AllowedClient::new().set_network("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let network_id = "network_id";
+        /// let x = AllowedClient::new().set_network(format!("projects/{project_id}/locations/{location_id}/networks/{network_id}"));
         /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
@@ -5394,7 +5468,10 @@ impl GetNfsShareRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetNfsShareRequest;
-    /// let x = GetNfsShareRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let nfs_share_id = "nfs_share_id";
+    /// let x = GetNfsShareRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5706,7 +5783,10 @@ impl RenameNfsShareRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::RenameNfsShareRequest;
-    /// let x = RenameNfsShareRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let nfs_share_id = "nfs_share_id";
+    /// let x = RenameNfsShareRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5824,7 +5904,10 @@ impl DeleteNfsShareRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::DeleteNfsShareRequest;
-    /// let x = DeleteNfsShareRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let nfs_share_id = "nfs_share_id";
+    /// let x = DeleteNfsShareRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5873,7 +5956,10 @@ impl OSImage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::OSImage;
-    /// let x = OSImage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let os_image_id = "os_image_id";
+    /// let x = OSImage::new().set_name(format!("projects/{project_id}/locations/{location_id}/osImages/{os_image_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6153,7 +6239,10 @@ impl ProvisioningConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
-    /// let x = ProvisioningConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let provisioning_config_id = "provisioning_config_id";
+    /// let x = ProvisioningConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/provisioningConfigs/{provisioning_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6746,7 +6835,10 @@ impl ProvisioningQuota {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
-    /// let x = ProvisioningQuota::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let provisioning_quota_id = "provisioning_quota_id";
+    /// let x = ProvisioningQuota::new().set_name(format!("projects/{project_id}/locations/{location_id}/provisioningQuotas/{provisioning_quota_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7376,7 +7468,10 @@ impl InstanceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
-    /// let x = InstanceConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_config_id = "instance_config_id";
+    /// let x = InstanceConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/instanceConfigs/{instance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7873,7 +7968,10 @@ impl VolumeConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
-    /// let x = VolumeConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_config_id = "volume_config_id";
+    /// let x = VolumeConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumeConfigs/{volume_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8783,7 +8881,10 @@ impl NetworkConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let network_config_id = "network_config_id";
+    /// let x = NetworkConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkConfigs/{network_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9460,7 +9561,10 @@ impl InstanceQuota {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::InstanceQuota;
-    /// let x = InstanceQuota::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_quota_id = "instance_quota_id";
+    /// let x = InstanceQuota::new().set_name(format!("projects/{project_id}/locations/{location_id}/instanceQuotas/{instance_quota_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9544,7 +9648,10 @@ impl GetProvisioningConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetProvisioningConfigRequest;
-    /// let x = GetProvisioningConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let provisioning_config_id = "provisioning_config_id";
+    /// let x = GetProvisioningConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/provisioningConfigs/{provisioning_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9779,7 +9886,10 @@ impl SSHKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::SSHKey;
-    /// let x = SSHKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ssh_key_id = "ssh_key_id";
+    /// let x = SSHKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/sshKeys/{ssh_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10058,7 +10168,10 @@ impl DeleteSSHKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::DeleteSSHKeyRequest;
-    /// let x = DeleteSSHKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ssh_key_id = "ssh_key_id";
+    /// let x = DeleteSSHKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sshKeys/{ssh_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10179,7 +10292,10 @@ impl Volume {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::Volume;
-    /// let x = Volume::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = Volume::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11371,7 +11487,10 @@ impl GetVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetVolumeRequest;
-    /// let x = GetVolumeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = GetVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11682,7 +11801,10 @@ impl RenameVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::RenameVolumeRequest;
-    /// let x = RenameVolumeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = RenameVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11729,7 +11851,10 @@ impl EvictVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::EvictVolumeRequest;
-    /// let x = EvictVolumeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = EvictVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11767,7 +11892,10 @@ impl ResizeVolumeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ResizeVolumeRequest;
-    /// let x = ResizeVolumeRequest::new().set_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = ResizeVolumeRequest::new().set_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume = v.into();
@@ -11830,7 +11958,11 @@ impl VolumeSnapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
-    /// let x = VolumeSnapshot::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = VolumeSnapshot::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11899,7 +12031,10 @@ impl VolumeSnapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
-    /// let x = VolumeSnapshot::new().set_storage_volume("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = VolumeSnapshot::new().set_storage_volume(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_storage_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_volume = v.into();
@@ -12089,7 +12224,11 @@ impl GetVolumeSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::GetVolumeSnapshotRequest;
-    /// let x = GetVolumeSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = GetVolumeSnapshotRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12131,7 +12270,10 @@ impl ListVolumeSnapshotsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsRequest;
-    /// let x = ListVolumeSnapshotsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = ListVolumeSnapshotsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12284,7 +12426,11 @@ impl DeleteVolumeSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::DeleteVolumeSnapshotRequest;
-    /// let x = DeleteVolumeSnapshotRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = DeleteVolumeSnapshotRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12322,7 +12468,10 @@ impl CreateVolumeSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::CreateVolumeSnapshotRequest;
-    /// let x = CreateVolumeSnapshotRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = CreateVolumeSnapshotRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12391,7 +12540,11 @@ impl RestoreVolumeSnapshotRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_baremetalsolution_v2::model::RestoreVolumeSnapshotRequest;
-    /// let x = RestoreVolumeSnapshotRequest::new().set_volume_snapshot("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// # let snapshot_id = "snapshot_id";
+    /// let x = RestoreVolumeSnapshotRequest::new().set_volume_snapshot(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"));
     /// ```
     pub fn set_volume_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_snapshot = v.into();

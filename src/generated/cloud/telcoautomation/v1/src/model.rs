@@ -76,7 +76,10 @@ impl OrchestrationCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
-    /// let x = OrchestrationCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = OrchestrationCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -441,7 +444,10 @@ impl EdgeSlm {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
-    /// let x = EdgeSlm::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let edge_slm_id = "edge_slm_id";
+    /// let x = EdgeSlm::new().set_name(format!("projects/{project_id}/locations/{location_id}/edgeSlms/{edge_slm_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -453,7 +459,10 @@ impl EdgeSlm {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
-    /// let x = EdgeSlm::new().set_orchestration_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = EdgeSlm::new().set_orchestration_cluster(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_orchestration_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -966,7 +975,11 @@ impl Blueprint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::Blueprint;
-    /// let x = Blueprint::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = Blueprint::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1428,7 +1441,10 @@ impl PublicBlueprint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
-    /// let x = PublicBlueprint::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let public_lueprint_id = "public_lueprint_id";
+    /// let x = PublicBlueprint::new().set_name(format!("projects/{project_id}/locations/{location_id}/publicBlueprints/{public_lueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1585,7 +1601,11 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::Deployment;
-    /// let x = Deployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2056,7 +2076,12 @@ impl HydratedDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::HydratedDeployment;
-    /// let x = HydratedDeployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let hydrated_deployment_id = "hydrated_deployment_id";
+    /// let x = HydratedDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}/hydratedDeployments/{hydrated_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2298,7 +2323,9 @@ impl ListOrchestrationClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersRequest;
-    /// let x = ListOrchestrationClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListOrchestrationClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2475,7 +2502,10 @@ impl GetOrchestrationClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::GetOrchestrationClusterRequest;
-    /// let x = GetOrchestrationClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = GetOrchestrationClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2533,7 +2563,9 @@ impl CreateOrchestrationClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::CreateOrchestrationClusterRequest;
-    /// let x = CreateOrchestrationClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateOrchestrationClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2643,7 +2675,10 @@ impl DeleteOrchestrationClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::DeleteOrchestrationClusterRequest;
-    /// let x = DeleteOrchestrationClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = DeleteOrchestrationClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2703,7 +2738,9 @@ impl ListEdgeSlmsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsRequest;
-    /// let x = ListEdgeSlmsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEdgeSlmsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2880,7 +2917,10 @@ impl GetEdgeSlmRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::GetEdgeSlmRequest;
-    /// let x = GetEdgeSlmRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let edge_slm_id = "edge_slm_id";
+    /// let x = GetEdgeSlmRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/edgeSlms/{edge_slm_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2938,7 +2978,9 @@ impl CreateEdgeSlmRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::CreateEdgeSlmRequest;
-    /// let x = CreateEdgeSlmRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEdgeSlmRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3045,7 +3087,10 @@ impl DeleteEdgeSlmRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::DeleteEdgeSlmRequest;
-    /// let x = DeleteEdgeSlmRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let edge_slm_id = "edge_slm_id";
+    /// let x = DeleteEdgeSlmRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/edgeSlms/{edge_slm_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3100,7 +3145,10 @@ impl CreateBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::CreateBlueprintRequest;
-    /// let x = CreateBlueprintRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = CreateBlueprintRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3281,7 +3329,11 @@ impl GetBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::GetBlueprintRequest;
-    /// let x = GetBlueprintRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = GetBlueprintRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3333,7 +3385,11 @@ impl DeleteBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::DeleteBlueprintRequest;
-    /// let x = DeleteBlueprintRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = DeleteBlueprintRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3382,7 +3438,10 @@ impl ListBlueprintsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsRequest;
-    /// let x = ListBlueprintsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = ListBlueprintsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3529,7 +3588,11 @@ impl ApproveBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ApproveBlueprintRequest;
-    /// let x = ApproveBlueprintRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = ApproveBlueprintRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3564,7 +3627,11 @@ impl ProposeBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ProposeBlueprintRequest;
-    /// let x = ProposeBlueprintRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = ProposeBlueprintRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3599,7 +3666,11 @@ impl RejectBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::RejectBlueprintRequest;
-    /// let x = RejectBlueprintRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = RejectBlueprintRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3641,7 +3712,11 @@ impl ListBlueprintRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListBlueprintRevisionsRequest;
-    /// let x = ListBlueprintRevisionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = ListBlueprintRevisionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3795,7 +3870,10 @@ impl SearchBlueprintRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsRequest;
-    /// let x = SearchBlueprintRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = SearchBlueprintRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3941,7 +4019,11 @@ impl DiscardBlueprintChangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::DiscardBlueprintChangesRequest;
-    /// let x = DiscardBlueprintChangesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let blueprint_id = "blueprint_id";
+    /// let x = DiscardBlueprintChangesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/blueprints/{blueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4005,7 +4087,9 @@ impl ListPublicBlueprintsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListPublicBlueprintsRequest;
-    /// let x = ListPublicBlueprintsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPublicBlueprintsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4139,7 +4223,10 @@ impl GetPublicBlueprintRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::GetPublicBlueprintRequest;
-    /// let x = GetPublicBlueprintRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let public_lueprint_id = "public_lueprint_id";
+    /// let x = GetPublicBlueprintRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/publicBlueprints/{public_lueprint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4182,7 +4269,10 @@ impl CreateDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::CreateDeploymentRequest;
-    /// let x = CreateDeploymentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = CreateDeploymentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4364,7 +4454,11 @@ impl GetDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::GetDeploymentRequest;
-    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GetDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4413,7 +4507,11 @@ impl RemoveDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::RemoveDeploymentRequest;
-    /// let x = RemoveDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = RemoveDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4462,7 +4560,10 @@ impl ListDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsRequest;
-    /// let x = ListDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = ListDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4615,7 +4716,11 @@ impl ListDeploymentRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListDeploymentRevisionsRequest;
-    /// let x = ListDeploymentRevisionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ListDeploymentRevisionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4770,7 +4875,10 @@ impl SearchDeploymentRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsRequest;
-    /// let x = SearchDeploymentRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// let x = SearchDeploymentRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4916,7 +5024,11 @@ impl DiscardDeploymentChangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::DiscardDeploymentChangesRequest;
-    /// let x = DiscardDeploymentChangesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DiscardDeploymentChangesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4973,7 +5085,11 @@ impl ApplyDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ApplyDeploymentRequest;
-    /// let x = ApplyDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ApplyDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5008,7 +5124,11 @@ impl ComputeDeploymentStatusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ComputeDeploymentStatusRequest;
-    /// let x = ComputeDeploymentStatusRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ComputeDeploymentStatusRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5127,7 +5247,11 @@ impl RollbackDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::RollbackDeploymentRequest;
-    /// let x = RollbackDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = RollbackDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5177,8 +5301,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -5347,7 +5469,12 @@ impl GetHydratedDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::GetHydratedDeploymentRequest;
-    /// let x = GetHydratedDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let hydrated_deployment_id = "hydrated_deployment_id";
+    /// let x = GetHydratedDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}/hydratedDeployments/{hydrated_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5392,7 +5519,11 @@ impl ListHydratedDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ListHydratedDeploymentsRequest;
-    /// let x = ListHydratedDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = ListHydratedDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5619,7 +5750,12 @@ impl ApplyHydratedDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_telcoautomation_v1::model::ApplyHydratedDeploymentRequest;
-    /// let x = ApplyHydratedDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let orchestration_cluster_id = "orchestration_cluster_id";
+    /// # let deployment_id = "deployment_id";
+    /// # let hydrated_deployment_id = "hydrated_deployment_id";
+    /// let x = ApplyHydratedDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/orchestrationClusters/{orchestration_cluster_id}/deployments/{deployment_id}/hydratedDeployments/{hydrated_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

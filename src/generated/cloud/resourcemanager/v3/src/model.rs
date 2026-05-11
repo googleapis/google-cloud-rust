@@ -97,7 +97,8 @@ impl Folder {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = Folder::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = Folder::new().set_name(format!("folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -420,7 +421,8 @@ impl GetFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = GetFolderRequest::new().set_name(format!("folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1038,7 +1040,8 @@ impl MoveFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::MoveFolderRequest;
-    /// let x = MoveFolderRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = MoveFolderRequest::new().set_name(format!("folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1157,7 +1160,8 @@ impl DeleteFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = DeleteFolderRequest::new().set_name(format!("folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1214,7 +1218,8 @@ impl UndeleteFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::UndeleteFolderRequest;
-    /// let x = UndeleteFolderRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = UndeleteFolderRequest::new().set_name(format!("folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1304,7 +1309,8 @@ impl Organization {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// let x = Organization::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// let x = Organization::new().set_name(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1689,7 +1695,8 @@ impl GetOrganizationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetOrganizationRequest;
-    /// let x = GetOrganizationRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// let x = GetOrganizationRequest::new().set_name(format!("organizations/{organization_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1988,7 +1995,8 @@ impl Project {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = Project::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2355,7 +2363,8 @@ impl GetProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetProjectRequest;
-    /// let x = GetProjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetProjectRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3063,7 +3072,8 @@ impl MoveProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::MoveProjectRequest;
-    /// let x = MoveProjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = MoveProjectRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3137,7 +3147,8 @@ impl DeleteProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::DeleteProjectRequest;
-    /// let x = DeleteProjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = DeleteProjectRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3197,7 +3208,8 @@ impl UndeleteProjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::UndeleteProjectRequest;
-    /// let x = UndeleteProjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = UndeleteProjectRequest::new().set_name(format!("projects/{project_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3274,7 +3286,8 @@ impl TagBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = TagBinding::new().set_name("example");
+    /// # let tag_binding_id = "tag_binding_id";
+    /// let x = TagBinding::new().set_name(format!("tagBindings/{tag_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3462,7 +3475,8 @@ impl DeleteTagBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::DeleteTagBindingRequest;
-    /// let x = DeleteTagBindingRequest::new().set_name("example");
+    /// # let tag_binding_id = "tag_binding_id";
+    /// let x = DeleteTagBindingRequest::new().set_name(format!("tagBindings/{tag_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3836,7 +3850,8 @@ impl EffectiveTag {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_tag_value("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = EffectiveTag::new().set_tag_value(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_value = v.into();
@@ -3863,7 +3878,8 @@ impl EffectiveTag {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_tag_key("example");
+    /// # let tag_key_id = "tag_key_id";
+    /// let x = EffectiveTag::new().set_tag_key(format!("tagKeys/{tag_key_id}"));
     /// ```
     pub fn set_tag_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_key = v.into();
@@ -3965,7 +3981,9 @@ impl TagHold {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = TagHold::new().set_name("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// # let tag_hold_id = "tag_hold_id";
+    /// let x = TagHold::new().set_name(format!("tagValues/{tag_value_id}/tagHolds/{tag_hold_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4077,7 +4095,8 @@ impl CreateTagHoldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::CreateTagHoldRequest;
-    /// let x = CreateTagHoldRequest::new().set_parent("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = CreateTagHoldRequest::new().set_parent(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4184,7 +4203,9 @@ impl DeleteTagHoldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::DeleteTagHoldRequest;
-    /// let x = DeleteTagHoldRequest::new().set_name("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// # let tag_hold_id = "tag_hold_id";
+    /// let x = DeleteTagHoldRequest::new().set_name(format!("tagValues/{tag_value_id}/tagHolds/{tag_hold_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4276,7 +4297,8 @@ impl ListTagHoldsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsRequest;
-    /// let x = ListTagHoldsRequest::new().set_parent("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = ListTagHoldsRequest::new().set_parent(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4483,7 +4505,8 @@ impl TagKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_name("example");
+    /// # let tag_key_id = "tag_key_id";
+    /// let x = TagKey::new().set_name(format!("tagKeys/{tag_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4824,7 +4847,8 @@ impl GetTagKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetTagKeyRequest;
-    /// let x = GetTagKeyRequest::new().set_name("example");
+    /// # let tag_key_id = "tag_key_id";
+    /// let x = GetTagKeyRequest::new().set_name(format!("tagKeys/{tag_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4862,7 +4886,8 @@ impl GetNamespacedTagKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetNamespacedTagKeyRequest;
-    /// let x = GetNamespacedTagKeyRequest::new().set_name("example");
+    /// # let tag_key_id = "tag_key_id";
+    /// let x = GetNamespacedTagKeyRequest::new().set_name(format!("tagKeys/{tag_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5133,7 +5158,8 @@ impl DeleteTagKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::DeleteTagKeyRequest;
-    /// let x = DeleteTagKeyRequest::new().set_name("example");
+    /// # let tag_key_id = "tag_key_id";
+    /// let x = DeleteTagKeyRequest::new().set_name(format!("tagKeys/{tag_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5248,7 +5274,8 @@ impl TagValue {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_name("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = TagValue::new().set_name(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5557,7 +5584,8 @@ impl GetTagValueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetTagValueRequest;
-    /// let x = GetTagValueRequest::new().set_name("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = GetTagValueRequest::new().set_name(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5601,7 +5629,8 @@ impl GetNamespacedTagValueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::GetNamespacedTagValueRequest;
-    /// let x = GetNamespacedTagValueRequest::new().set_name("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = GetNamespacedTagValueRequest::new().set_name(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5869,7 +5898,8 @@ impl DeleteTagValueRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_resourcemanager_v3::model::DeleteTagValueRequest;
-    /// let x = DeleteTagValueRequest::new().set_name("example");
+    /// # let tag_value_id = "tag_value_id";
+    /// let x = DeleteTagValueRequest::new().set_name(format!("tagValues/{tag_value_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -148,7 +148,11 @@ impl Agent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Agent;
-    /// let x = Agent::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = Agent::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -860,7 +864,11 @@ pub mod agent {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_ces_v1::model::agent::AgentToolset;
-        /// let x = AgentToolset::new().set_toolset("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let app_id = "app_id";
+        /// # let toolset_id = "toolset_id";
+        /// let x = AgentToolset::new().set_toolset(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"));
         /// ```
         pub fn set_toolset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.toolset = v.into();
@@ -954,7 +962,9 @@ impl ListAppsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListAppsRequest;
-    /// let x = ListAppsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAppsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1142,7 +1152,10 @@ impl GetAppRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetAppRequest;
-    /// let x = GetAppRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = GetAppRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1188,7 +1201,9 @@ impl CreateAppRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateAppRequest;
-    /// let x = CreateAppRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAppRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1373,7 +1388,10 @@ impl DeleteAppRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteAppRequest;
-    /// let x = DeleteAppRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = DeleteAppRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1437,7 +1455,10 @@ impl ExportAppRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ExportAppRequest;
-    /// let x = ExportAppRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ExportAppRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1480,7 +1501,11 @@ impl ExportAppRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ExportAppRequest;
-    /// let x = ExportAppRequest::new().set_app_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = ExportAppRequest::new().set_app_version(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_app_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_version = v.into();
@@ -1810,7 +1835,9 @@ impl ImportAppRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ImportAppRequest;
-    /// let x = ImportAppRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ImportAppRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2228,7 +2255,10 @@ impl ImportAppResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ImportAppResponse;
-    /// let x = ImportAppResponse::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ImportAppResponse::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2305,7 +2335,10 @@ impl ListAgentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListAgentsRequest;
-    /// let x = ListAgentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListAgentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2473,7 +2506,11 @@ impl GetAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetAgentRequest;
-    /// let x = GetAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = GetAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2519,7 +2556,10 @@ impl CreateAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateAgentRequest;
-    /// let x = CreateAgentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateAgentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2713,7 +2753,11 @@ impl DeleteAgentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteAgentRequest;
-    /// let x = DeleteAgentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = DeleteAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2926,7 +2970,10 @@ impl ListExamplesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListExamplesRequest;
-    /// let x = ListExamplesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListExamplesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3094,7 +3141,11 @@ impl GetExampleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetExampleRequest;
-    /// let x = GetExampleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let example_id = "example_id";
+    /// let x = GetExampleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3140,7 +3191,10 @@ impl CreateExampleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateExampleRequest;
-    /// let x = CreateExampleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateExampleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3325,7 +3379,11 @@ impl DeleteExampleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteExampleRequest;
-    /// let x = DeleteExampleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let example_id = "example_id";
+    /// let x = DeleteExampleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3397,7 +3455,10 @@ impl ListToolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListToolsRequest;
-    /// let x = ListToolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListToolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3565,7 +3626,11 @@ impl GetToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetToolRequest;
-    /// let x = GetToolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = GetToolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3611,7 +3676,10 @@ impl CreateToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateToolRequest;
-    /// let x = CreateToolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateToolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3805,7 +3873,11 @@ impl DeleteToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteToolRequest;
-    /// let x = DeleteToolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = DeleteToolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3893,7 +3965,10 @@ impl ListConversationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListConversationsRequest;
-    /// let x = ListConversationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListConversationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4094,7 +4169,11 @@ impl GetConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetConversationRequest;
-    /// let x = GetConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = GetConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4156,7 +4235,11 @@ impl DeleteConversationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteConversationRequest;
-    /// let x = DeleteConversationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = DeleteConversationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4218,7 +4301,10 @@ impl BatchDeleteConversationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::BatchDeleteConversationsRequest;
-    /// let x = BatchDeleteConversationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = BatchDeleteConversationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4379,7 +4465,10 @@ impl ListGuardrailsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListGuardrailsRequest;
-    /// let x = ListGuardrailsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListGuardrailsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4547,7 +4636,11 @@ impl GetGuardrailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetGuardrailRequest;
-    /// let x = GetGuardrailRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let guardrail_id = "guardrail_id";
+    /// let x = GetGuardrailRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/guardrails/{guardrail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4593,7 +4686,10 @@ impl CreateGuardrailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateGuardrailRequest;
-    /// let x = CreateGuardrailRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateGuardrailRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4787,7 +4883,11 @@ impl DeleteGuardrailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteGuardrailRequest;
-    /// let x = DeleteGuardrailRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let guardrail_id = "guardrail_id";
+    /// let x = DeleteGuardrailRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/guardrails/{guardrail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4868,7 +4968,10 @@ impl ListDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListDeploymentsRequest;
-    /// let x = ListDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5022,7 +5125,11 @@ impl GetDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetDeploymentRequest;
-    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GetDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5070,7 +5177,10 @@ impl CreateDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateDeploymentRequest;
-    /// let x = CreateDeploymentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateDeploymentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5255,7 +5365,11 @@ impl DeleteDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteDeploymentRequest;
-    /// let x = DeleteDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = DeleteDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5327,7 +5441,10 @@ impl ListToolsetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListToolsetsRequest;
-    /// let x = ListToolsetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListToolsetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5495,7 +5612,11 @@ impl GetToolsetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetToolsetRequest;
-    /// let x = GetToolsetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let toolset_id = "toolset_id";
+    /// let x = GetToolsetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5541,7 +5662,10 @@ impl CreateToolsetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateToolsetRequest;
-    /// let x = CreateToolsetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateToolsetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5735,7 +5859,11 @@ impl DeleteToolsetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteToolsetRequest;
-    /// let x = DeleteToolsetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let toolset_id = "toolset_id";
+    /// let x = DeleteToolsetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5819,7 +5947,10 @@ impl ListAppVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListAppVersionsRequest;
-    /// let x = ListAppVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListAppVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5987,7 +6118,11 @@ impl GetAppVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetAppVersionRequest;
-    /// let x = GetAppVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = GetAppVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6031,7 +6166,11 @@ impl DeleteAppVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::DeleteAppVersionRequest;
-    /// let x = DeleteAppVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = DeleteAppVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6089,7 +6228,10 @@ impl CreateAppVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::CreateAppVersionRequest;
-    /// let x = CreateAppVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = CreateAppVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6172,7 +6314,11 @@ impl RestoreAppVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::RestoreAppVersionRequest;
-    /// let x = RestoreAppVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = RestoreAppVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6270,7 +6416,10 @@ impl ListChangelogsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ListChangelogsRequest;
-    /// let x = ListChangelogsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ListChangelogsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6438,7 +6587,11 @@ impl GetChangelogRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GetChangelogRequest;
-    /// let x = GetChangelogRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let changelog_id = "changelog_id";
+    /// let x = GetChangelogRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/changelogs/{changelog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6504,7 +6657,11 @@ impl AgentTool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::AgentTool;
-    /// let x = AgentTool::new().set_root_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = AgentTool::new().set_root_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_root_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_agent = v.into();
@@ -6617,7 +6774,11 @@ impl TransferRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::TransferRule;
-    /// let x = TransferRule::new().set_child_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = TransferRule::new().set_child_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_child_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.child_agent = v.into();
@@ -7227,7 +7388,10 @@ impl App {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::App;
-    /// let x = App::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = App::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7275,7 +7439,11 @@ impl App {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::App;
-    /// let x = App::new().set_root_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = App::new().set_root_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_root_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_agent = v.into();
@@ -11088,7 +11256,11 @@ impl AppVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::AppVersion;
-    /// let x = AppVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = AppVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12478,7 +12650,11 @@ impl Changelog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Changelog;
-    /// let x = Changelog::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let changelog_id = "changelog_id";
+    /// let x = Changelog::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/changelogs/{changelog_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13367,7 +13543,11 @@ pub mod trigger_action {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_ces_v1::model::trigger_action::TransferAgent;
-        /// let x = TransferAgent::new().set_agent("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let app_id = "app_id";
+        /// # let agent_id = "agent_id";
+        /// let x = TransferAgent::new().set_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
         /// ```
         pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.agent = v.into();
@@ -15534,7 +15714,11 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Conversation;
-    /// let x = Conversation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let conversation_id = "conversation_id";
+    /// let x = Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/conversations/{conversation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15705,7 +15889,11 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Conversation;
-    /// let x = Conversation::new().set_entry_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = Conversation::new().set_entry_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_entry_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_agent = v.into();
@@ -15717,7 +15905,11 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Conversation;
-    /// let x = Conversation::new().set_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Conversation::new().set_deployment(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment = v.into();
@@ -15729,7 +15921,11 @@ impl Conversation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Conversation;
-    /// let x = Conversation::new().set_app_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = Conversation::new().set_app_version(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_app_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_version = v.into();
@@ -18630,7 +18826,11 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Deployment;
-    /// let x = Deployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18654,7 +18854,11 @@ impl Deployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Deployment;
-    /// let x = Deployment::new().set_app_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let version_id = "version_id";
+    /// let x = Deployment::new().set_app_version(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
     /// ```
     pub fn set_app_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_version = v.into();
@@ -18833,7 +19037,11 @@ impl Example {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Example;
-    /// let x = Example::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let example_id = "example_id";
+    /// let x = Example::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18869,7 +19077,11 @@ impl Example {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Example;
-    /// let x = Example::new().set_entry_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = Example::new().set_entry_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_entry_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_agent = v.into();
@@ -19814,7 +20026,11 @@ impl ToolCall {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ToolCall;
-    /// let x = ToolCall::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ToolCall::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// assert!(x.tool().is_some());
     /// assert!(x.toolset_tool().is_none());
     /// ```
@@ -20014,7 +20230,11 @@ impl ToolResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ToolResponse;
-    /// let x = ToolResponse::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ToolResponse::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// assert!(x.tool().is_some());
     /// assert!(x.toolset_tool().is_none());
     /// ```
@@ -20113,7 +20333,11 @@ impl AgentTransfer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::AgentTransfer;
-    /// let x = AgentTransfer::new().set_target_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = AgentTransfer::new().set_target_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_target_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_agent = v.into();
@@ -20788,7 +21012,11 @@ impl Guardrail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Guardrail;
-    /// let x = Guardrail::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let guardrail_id = "guardrail_id";
+    /// let x = Guardrail::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/guardrails/{guardrail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23146,7 +23374,10 @@ impl Omnichannel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Omnichannel;
-    /// let x = Omnichannel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let omnichannel_id = "omnichannel_id";
+    /// let x = Omnichannel::new().set_name(format!("projects/{project_id}/locations/{location_id}/omnichannels/{omnichannel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23772,7 +24003,10 @@ pub mod omnichannel_integration_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_ces_v1::model::omnichannel_integration_config::CesAppConfig;
-        /// let x = CesAppConfig::new().set_app("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let app_id = "app_id";
+        /// let x = CesAppConfig::new().set_app(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
         /// ```
         pub fn set_app<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.app = v.into();
@@ -25214,7 +25448,9 @@ impl SecuritySettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SecuritySettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/securitySettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25858,7 +26094,11 @@ impl SessionConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::SessionConfig;
-    /// let x = SessionConfig::new().set_entry_agent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let agent_id = "agent_id";
+    /// let x = SessionConfig::new().set_entry_agent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"));
     /// ```
     pub fn set_entry_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_agent = v.into();
@@ -28067,7 +28307,11 @@ impl Tool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Tool;
-    /// let x = Tool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = Tool::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -28828,7 +29072,10 @@ impl ExecuteToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ExecuteToolRequest;
-    /// let x = ExecuteToolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = ExecuteToolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -28911,7 +29158,11 @@ impl ExecuteToolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ExecuteToolRequest;
-    /// let x = ExecuteToolRequest::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ExecuteToolRequest::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// assert!(x.tool().is_some());
     /// assert!(x.toolset_tool().is_none());
     /// ```
@@ -29235,7 +29486,11 @@ impl ExecuteToolResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ExecuteToolResponse;
-    /// let x = ExecuteToolResponse::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = ExecuteToolResponse::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// assert!(x.tool().is_some());
     /// assert!(x.toolset_tool().is_none());
     /// ```
@@ -29337,7 +29592,10 @@ impl RetrieveToolSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::RetrieveToolSchemaRequest;
-    /// let x = RetrieveToolSchemaRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// let x = RetrieveToolSchemaRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -29389,7 +29647,11 @@ impl RetrieveToolSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::RetrieveToolSchemaRequest;
-    /// let x = RetrieveToolSchemaRequest::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = RetrieveToolSchemaRequest::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// assert!(x.tool().is_some());
     /// assert!(x.toolset_tool().is_none());
     /// ```
@@ -29602,7 +29864,11 @@ impl RetrieveToolSchemaResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::RetrieveToolSchemaResponse;
-    /// let x = RetrieveToolSchemaResponse::new().set_tool("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = RetrieveToolSchemaResponse::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
     /// assert!(x.tool().is_some());
     /// assert!(x.toolset_tool().is_none());
     /// ```
@@ -29704,7 +29970,11 @@ impl RetrieveToolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::RetrieveToolsRequest;
-    /// let x = RetrieveToolsRequest::new().set_toolset("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let toolset_id = "toolset_id";
+    /// let x = RetrieveToolsRequest::new().set_toolset(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"));
     /// ```
     pub fn set_toolset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.toolset = v.into();
@@ -29834,7 +30104,11 @@ impl Toolset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::Toolset;
-    /// let x = Toolset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let toolset_id = "toolset_id";
+    /// let x = Toolset::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -30183,7 +30457,11 @@ impl ToolsetTool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::ToolsetTool;
-    /// let x = ToolsetTool::new().set_toolset("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let toolset_id = "toolset_id";
+    /// let x = ToolsetTool::new().set_toolset(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"));
     /// ```
     pub fn set_toolset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.toolset = v.into();
@@ -30258,7 +30536,11 @@ impl GenerateChatTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ces_v1::model::GenerateChatTokenRequest;
-    /// let x = GenerateChatTokenRequest::new().set_deployment("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let deployment_id = "deployment_id";
+    /// let x = GenerateChatTokenRequest::new().set_deployment(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"));
     /// ```
     pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment = v.into();

@@ -159,7 +159,10 @@ impl Repository {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::Repository;
-    /// let x = Repository::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = Repository::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1187,7 +1190,10 @@ impl MoveRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::MoveRepositoryRequest;
-    /// let x = MoveRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = MoveRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1256,7 +1262,10 @@ impl GetRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetRepositoryRequest;
-    /// let x = GetRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = GetRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1481,7 +1490,10 @@ impl DeleteRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteRepositoryRequest;
-    /// let x = DeleteRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = DeleteRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1543,7 +1555,10 @@ impl CommitRepositoryChangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesRequest;
-    /// let x = CommitRepositoryChangesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CommitRepositoryChangesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1924,7 +1939,10 @@ impl ReadRepositoryFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ReadRepositoryFileRequest;
-    /// let x = ReadRepositoryFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ReadRepositoryFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2040,7 +2058,10 @@ impl QueryRepositoryDirectoryContentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsRequest;
-    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2213,7 +2234,10 @@ impl FetchRepositoryHistoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::FetchRepositoryHistoryRequest;
-    /// let x = FetchRepositoryHistoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = FetchRepositoryHistoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2540,7 +2564,10 @@ impl ComputeRepositoryAccessTokenStatusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ComputeRepositoryAccessTokenStatusRequest;
-    /// let x = ComputeRepositoryAccessTokenStatusRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ComputeRepositoryAccessTokenStatusRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2773,7 +2800,10 @@ impl FetchRemoteBranchesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::FetchRemoteBranchesRequest;
-    /// let x = FetchRemoteBranchesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = FetchRemoteBranchesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2868,7 +2898,11 @@ impl Workspace {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::Workspace;
-    /// let x = Workspace::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = Workspace::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3086,7 +3120,10 @@ impl ListWorkspacesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ListWorkspacesRequest;
-    /// let x = ListWorkspacesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListWorkspacesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3264,7 +3301,11 @@ impl GetWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetWorkspaceRequest;
-    /// let x = GetWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = GetWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3307,7 +3348,10 @@ impl CreateWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CreateWorkspaceRequest;
-    /// let x = CreateWorkspaceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateWorkspaceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3387,7 +3431,11 @@ impl DeleteWorkspaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteWorkspaceRequest;
-    /// let x = DeleteWorkspaceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = DeleteWorkspaceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3480,7 +3528,11 @@ impl PullGitCommitsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::PullGitCommitsRequest;
-    /// let x = PullGitCommitsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = PullGitCommitsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3585,7 +3637,11 @@ impl PushGitCommitsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::PushGitCommitsRequest;
-    /// let x = PushGitCommitsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = PushGitCommitsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3652,7 +3708,11 @@ impl FetchFileGitStatusesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::FetchFileGitStatusesRequest;
-    /// let x = FetchFileGitStatusesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = FetchFileGitStatusesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3961,7 +4021,11 @@ impl FetchGitAheadBehindRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::FetchGitAheadBehindRequest;
-    /// let x = FetchGitAheadBehindRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = FetchGitAheadBehindRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4068,7 +4132,11 @@ impl CommitWorkspaceChangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CommitWorkspaceChangesRequest;
-    /// let x = CommitWorkspaceChangesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = CommitWorkspaceChangesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4192,7 +4260,11 @@ impl ResetWorkspaceChangesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ResetWorkspaceChangesRequest;
-    /// let x = ResetWorkspaceChangesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = ResetWorkspaceChangesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4280,7 +4352,11 @@ impl FetchFileDiffRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::FetchFileDiffRequest;
-    /// let x = FetchFileDiffRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = FetchFileDiffRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -4385,7 +4461,11 @@ impl QueryDirectoryContentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsRequest;
-    /// let x = QueryDirectoryContentsRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = QueryDirectoryContentsRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -4794,7 +4874,11 @@ impl SearchFilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::SearchFilesRequest;
-    /// let x = SearchFilesRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = SearchFilesRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5146,7 +5230,11 @@ impl MakeDirectoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::MakeDirectoryRequest;
-    /// let x = MakeDirectoryRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = MakeDirectoryRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5217,7 +5305,11 @@ impl RemoveDirectoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::RemoveDirectoryRequest;
-    /// let x = RemoveDirectoryRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = RemoveDirectoryRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5292,7 +5384,11 @@ impl MoveDirectoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::MoveDirectoryRequest;
-    /// let x = MoveDirectoryRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = MoveDirectoryRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5379,7 +5475,11 @@ impl ReadFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ReadFileRequest;
-    /// let x = ReadFileRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = ReadFileRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5477,7 +5577,11 @@ impl RemoveFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::RemoveFileRequest;
-    /// let x = RemoveFileRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = RemoveFileRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5552,7 +5656,11 @@ impl MoveFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::MoveFileRequest;
-    /// let x = MoveFileRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = MoveFileRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5637,7 +5745,11 @@ impl WriteFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WriteFileRequest;
-    /// let x = WriteFileRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = WriteFileRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5716,7 +5828,11 @@ impl InstallNpmPackagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::InstallNpmPackagesRequest;
-    /// let x = InstallNpmPackagesRequest::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = InstallNpmPackagesRequest::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -5816,7 +5932,11 @@ impl ReleaseConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ReleaseConfig;
-    /// let x = ReleaseConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let release_config_id = "release_config_id";
+    /// let x = ReleaseConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5919,7 +6039,11 @@ impl ReleaseConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ReleaseConfig;
-    /// let x = ReleaseConfig::new().set_release_compilation_result("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let compilation_result_id = "compilation_result_id";
+    /// let x = ReleaseConfig::new().set_release_compilation_result(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
     /// ```
     pub fn set_release_compilation_result<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6083,7 +6207,11 @@ pub mod release_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
-        /// let x = ScheduledReleaseRecord::new().set_compilation_result("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let repository_id = "repository_id";
+        /// # let compilation_result_id = "compilation_result_id";
+        /// let x = ScheduledReleaseRecord::new().set_compilation_result(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
         /// assert!(x.compilation_result().is_some());
         /// assert!(x.error_status().is_none());
         /// ```
@@ -6204,7 +6332,10 @@ impl ListReleaseConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ListReleaseConfigsRequest;
-    /// let x = ListReleaseConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListReleaseConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6358,7 +6489,11 @@ impl GetReleaseConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetReleaseConfigRequest;
-    /// let x = GetReleaseConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let release_config_id = "release_config_id";
+    /// let x = GetReleaseConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6401,7 +6536,10 @@ impl CreateReleaseConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CreateReleaseConfigRequest;
-    /// let x = CreateReleaseConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateReleaseConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6577,7 +6715,11 @@ impl DeleteReleaseConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteReleaseConfigRequest;
-    /// let x = DeleteReleaseConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let release_config_id = "release_config_id";
+    /// let x = DeleteReleaseConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6645,7 +6787,11 @@ impl CompilationResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CompilationResult;
-    /// let x = CompilationResult::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let compilation_result_id = "compilation_result_id";
+    /// let x = CompilationResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6942,7 +7088,11 @@ impl CompilationResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CompilationResult;
-    /// let x = CompilationResult::new().set_workspace("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workspace_id = "workspace_id";
+    /// let x = CompilationResult::new().set_workspace(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workspaces/{workspace_id}"));
     /// assert!(x.workspace().is_some());
     /// assert!(x.git_commitish().is_none());
     /// assert!(x.release_config().is_none());
@@ -6976,7 +7126,11 @@ impl CompilationResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CompilationResult;
-    /// let x = CompilationResult::new().set_release_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let release_config_id = "release_config_id";
+    /// let x = CompilationResult::new().set_release_config(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"));
     /// assert!(x.release_config().is_some());
     /// assert!(x.git_commitish().is_none());
     /// assert!(x.workspace().is_none());
@@ -7503,7 +7657,10 @@ impl ListCompilationResultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ListCompilationResultsRequest;
-    /// let x = ListCompilationResultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListCompilationResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7681,7 +7838,11 @@ impl GetCompilationResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetCompilationResultRequest;
-    /// let x = GetCompilationResultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let compilation_result_id = "compilation_result_id";
+    /// let x = GetCompilationResultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7720,7 +7881,10 @@ impl CreateCompilationResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CreateCompilationResultRequest;
-    /// let x = CreateCompilationResultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateCompilationResultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10673,7 +10837,11 @@ impl QueryCompilationResultActionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsRequest;
-    /// let x = QueryCompilationResultActionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let compilation_result_id = "compilation_result_id";
+    /// let x = QueryCompilationResultActionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10859,7 +11027,11 @@ impl WorkflowConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowConfig;
-    /// let x = WorkflowConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_config_id = "workflow_config_id";
+    /// let x = WorkflowConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10871,7 +11043,11 @@ impl WorkflowConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowConfig;
-    /// let x = WorkflowConfig::new().set_release_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let release_config_id = "release_config_id";
+    /// let x = WorkflowConfig::new().set_release_config(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/releaseConfigs/{release_config_id}"));
     /// ```
     pub fn set_release_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_config = v.into();
@@ -11177,7 +11353,11 @@ pub mod workflow_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
-        /// let x = ScheduledExecutionRecord::new().set_workflow_invocation("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let repository_id = "repository_id";
+        /// # let workflow_invocation_id = "workflow_invocation_id";
+        /// let x = ScheduledExecutionRecord::new().set_workflow_invocation(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"));
         /// assert!(x.workflow_invocation().is_some());
         /// assert!(x.error_status().is_none());
         /// ```
@@ -11615,7 +11795,10 @@ impl ListWorkflowConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsRequest;
-    /// let x = ListWorkflowConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListWorkflowConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11769,7 +11952,11 @@ impl GetWorkflowConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetWorkflowConfigRequest;
-    /// let x = GetWorkflowConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_config_id = "workflow_config_id";
+    /// let x = GetWorkflowConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11812,7 +11999,10 @@ impl CreateWorkflowConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CreateWorkflowConfigRequest;
-    /// let x = CreateWorkflowConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateWorkflowConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11988,7 +12178,11 @@ impl DeleteWorkflowConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteWorkflowConfigRequest;
-    /// let x = DeleteWorkflowConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_config_id = "workflow_config_id";
+    /// let x = DeleteWorkflowConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12054,7 +12248,11 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// let x = WorkflowInvocation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_invocation_id = "workflow_invocation_id";
+    /// let x = WorkflowInvocation::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12150,7 +12348,11 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// let x = WorkflowInvocation::new().set_resolved_compilation_result("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let compilation_result_id = "compilation_result_id";
+    /// let x = WorkflowInvocation::new().set_resolved_compilation_result(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
     /// ```
     pub fn set_resolved_compilation_result<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12302,7 +12504,11 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// let x = WorkflowInvocation::new().set_compilation_result("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let compilation_result_id = "compilation_result_id";
+    /// let x = WorkflowInvocation::new().set_compilation_result(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/compilationResults/{compilation_result_id}"));
     /// assert!(x.compilation_result().is_some());
     /// assert!(x.workflow_config().is_none());
     /// ```
@@ -12338,7 +12544,11 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// let x = WorkflowInvocation::new().set_workflow_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_config_id = "workflow_config_id";
+    /// let x = WorkflowInvocation::new().set_workflow_config(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowConfigs/{workflow_config_id}"));
     /// assert!(x.workflow_config().is_some());
     /// assert!(x.compilation_result().is_none());
     /// ```
@@ -12572,7 +12782,10 @@ impl ListWorkflowInvocationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsRequest;
-    /// let x = ListWorkflowInvocationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListWorkflowInvocationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12750,7 +12963,11 @@ impl GetWorkflowInvocationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetWorkflowInvocationRequest;
-    /// let x = GetWorkflowInvocationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_invocation_id = "workflow_invocation_id";
+    /// let x = GetWorkflowInvocationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12789,7 +13006,10 @@ impl CreateWorkflowInvocationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CreateWorkflowInvocationRequest;
-    /// let x = CreateWorkflowInvocationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateWorkflowInvocationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12857,7 +13077,11 @@ impl DeleteWorkflowInvocationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteWorkflowInvocationRequest;
-    /// let x = DeleteWorkflowInvocationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_invocation_id = "workflow_invocation_id";
+    /// let x = DeleteWorkflowInvocationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12892,7 +13116,11 @@ impl CancelWorkflowInvocationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::CancelWorkflowInvocationRequest;
-    /// let x = CancelWorkflowInvocationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_invocation_id = "workflow_invocation_id";
+    /// let x = CancelWorkflowInvocationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14225,7 +14453,11 @@ impl QueryWorkflowInvocationActionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::QueryWorkflowInvocationActionsRequest;
-    /// let x = QueryWorkflowInvocationActionsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let workflow_invocation_id = "workflow_invocation_id";
+    /// let x = QueryWorkflowInvocationActionsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/workflowInvocations/{workflow_invocation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14370,7 +14602,9 @@ impl Config {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::Config;
-    /// let x = Config::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Config::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14451,7 +14685,9 @@ impl GetConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetConfigRequest;
-    /// let x = GetConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14610,7 +14846,10 @@ impl Folder {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::Folder;
-    /// let x = Folder::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let folder_id = "folder_id";
+    /// let x = Folder::new().set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14892,7 +15131,10 @@ impl MoveFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::MoveFolderRequest;
-    /// let x = MoveFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let folder_id = "folder_id";
+    /// let x = MoveFolderRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14961,7 +15203,10 @@ impl GetFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let folder_id = "folder_id";
+    /// let x = GetFolderRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15091,7 +15336,10 @@ impl DeleteFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let folder_id = "folder_id";
+    /// let x = DeleteFolderRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15136,7 +15384,10 @@ impl DeleteFolderTreeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteFolderTreeRequest;
-    /// let x = DeleteFolderTreeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let folder_id = "folder_id";
+    /// let x = DeleteFolderTreeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15193,7 +15444,10 @@ impl DeleteTeamFolderTreeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteTeamFolderTreeRequest;
-    /// let x = DeleteTeamFolderTreeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let team_folder_id = "team_folder_id";
+    /// let x = DeleteTeamFolderTreeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15571,7 +15825,10 @@ impl QueryFolderContentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::QueryFolderContentsRequest;
-    /// let x = QueryFolderContentsRequest::new().set_folder("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let folder_id = "folder_id";
+    /// let x = QueryFolderContentsRequest::new().set_folder(format!("projects/{project_id}/locations/{location_id}/folders/{folder_id}"));
     /// ```
     pub fn set_folder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.folder = v.into();
@@ -16235,7 +16492,10 @@ impl TeamFolder {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::TeamFolder;
-    /// let x = TeamFolder::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let team_folder_id = "team_folder_id";
+    /// let x = TeamFolder::new().set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16482,7 +16742,10 @@ impl GetTeamFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::GetTeamFolderRequest;
-    /// let x = GetTeamFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let team_folder_id = "team_folder_id";
+    /// let x = GetTeamFolderRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16610,7 +16873,10 @@ impl DeleteTeamFolderRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::DeleteTeamFolderRequest;
-    /// let x = DeleteTeamFolderRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let team_folder_id = "team_folder_id";
+    /// let x = DeleteTeamFolderRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16677,7 +16943,10 @@ impl QueryTeamFolderContentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsRequest;
-    /// let x = QueryTeamFolderContentsRequest::new().set_team_folder("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let team_folder_id = "team_folder_id";
+    /// let x = QueryTeamFolderContentsRequest::new().set_team_folder(format!("projects/{project_id}/locations/{location_id}/teamFolders/{team_folder_id}"));
     /// ```
     pub fn set_team_folder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.team_folder = v.into();

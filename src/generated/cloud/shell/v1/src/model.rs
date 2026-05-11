@@ -96,7 +96,9 @@ impl Environment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_shell_v1::model::Environment;
-    /// let x = Environment::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let environment_id = "environment_id";
+    /// let x = Environment::new().set_name(format!("users/{user_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -398,7 +400,9 @@ impl GetEnvironmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_shell_v1::model::GetEnvironmentRequest;
-    /// let x = GetEnvironmentRequest::new().set_name("example");
+    /// # let user_id = "user_id";
+    /// # let environment_id = "environment_id";
+    /// let x = GetEnvironmentRequest::new().set_name(format!("users/{user_id}/environments/{environment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

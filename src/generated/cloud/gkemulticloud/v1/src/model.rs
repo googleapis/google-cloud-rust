@@ -172,7 +172,10 @@ impl AttachedCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AttachedCluster;
-    /// let x = AttachedCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let attached_cluster_id = "attached_cluster_id";
+    /// let x = AttachedCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1177,7 +1180,9 @@ impl AttachedServerConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AttachedServerConfig;
-    /// let x = AttachedServerConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = AttachedServerConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/attachedServerConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2056,7 +2061,9 @@ impl GenerateAttachedClusterInstallManifestRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterInstallManifestRequest;
-    /// let x = GenerateAttachedClusterInstallManifestRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GenerateAttachedClusterInstallManifestRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2222,7 +2229,9 @@ impl CreateAttachedClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::CreateAttachedClusterRequest;
-    /// let x = CreateAttachedClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAttachedClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2349,7 +2358,9 @@ impl ImportAttachedClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ImportAttachedClusterRequest;
-    /// let x = ImportAttachedClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ImportAttachedClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2610,7 +2621,10 @@ impl GetAttachedClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAttachedClusterRequest;
-    /// let x = GetAttachedClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let attached_cluster_id = "attached_cluster_id";
+    /// let x = GetAttachedClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2671,7 +2685,9 @@ impl ListAttachedClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ListAttachedClustersRequest;
-    /// let x = ListAttachedClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAttachedClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2851,7 +2867,10 @@ impl DeleteAttachedClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::DeleteAttachedClusterRequest;
-    /// let x = DeleteAttachedClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let attached_cluster_id = "attached_cluster_id";
+    /// let x = DeleteAttachedClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2945,7 +2964,9 @@ impl GetAttachedServerConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAttachedServerConfigRequest;
-    /// let x = GetAttachedServerConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetAttachedServerConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/attachedServerConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3004,7 +3025,10 @@ impl GenerateAttachedClusterAgentTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterAgentTokenRequest;
-    /// let x = GenerateAttachedClusterAgentTokenRequest::new().set_attached_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let attached_cluster_id = "attached_cluster_id";
+    /// let x = GenerateAttachedClusterAgentTokenRequest::new().set_attached_cluster(format!("projects/{project_id}/locations/{location_id}/attachedClusters/{attached_cluster_id}"));
     /// ```
     pub fn set_attached_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3296,7 +3320,10 @@ impl AwsCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsCluster;
-    /// let x = AwsCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = AwsCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5120,7 +5147,11 @@ impl AwsNodePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsNodePool;
-    /// let x = AwsNodePool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// # let aws_node_pool_id = "aws_node_pool_id";
+    /// let x = AwsNodePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6590,7 +6621,9 @@ impl AwsServerConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsServerConfig;
-    /// let x = AwsServerConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = AwsServerConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsServerConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7336,7 +7369,9 @@ impl CreateAwsClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::CreateAwsClusterRequest;
-    /// let x = CreateAwsClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAwsClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7582,7 +7617,10 @@ impl GetAwsClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAwsClusterRequest;
-    /// let x = GetAwsClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = GetAwsClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7644,7 +7682,9 @@ impl ListAwsClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ListAwsClustersRequest;
-    /// let x = ListAwsClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAwsClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7825,7 +7865,10 @@ impl DeleteAwsClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::DeleteAwsClusterRequest;
-    /// let x = DeleteAwsClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = DeleteAwsClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7941,7 +7984,10 @@ impl CreateAwsNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::CreateAwsNodePoolRequest;
-    /// let x = CreateAwsNodePoolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = CreateAwsNodePoolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8197,7 +8243,11 @@ impl RollbackAwsNodePoolUpdateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::RollbackAwsNodePoolUpdateRequest;
-    /// let x = RollbackAwsNodePoolUpdateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// # let aws_node_pool_id = "aws_node_pool_id";
+    /// let x = RollbackAwsNodePoolUpdateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8255,7 +8305,11 @@ impl GetAwsNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAwsNodePoolRequest;
-    /// let x = GetAwsNodePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// # let aws_node_pool_id = "aws_node_pool_id";
+    /// let x = GetAwsNodePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8318,7 +8372,10 @@ impl ListAwsNodePoolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ListAwsNodePoolsRequest;
-    /// let x = ListAwsNodePoolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = ListAwsNodePoolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8500,7 +8557,11 @@ impl DeleteAwsNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::DeleteAwsNodePoolRequest;
-    /// let x = DeleteAwsNodePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// # let aws_node_pool_id = "aws_node_pool_id";
+    /// let x = DeleteAwsNodePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}/awsNodePools/{aws_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8587,7 +8648,10 @@ impl GetAwsOpenIdConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAwsOpenIdConfigRequest;
-    /// let x = GetAwsOpenIdConfigRequest::new().set_aws_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = GetAwsOpenIdConfigRequest::new().set_aws_cluster(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_aws_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aws_cluster = v.into();
@@ -8628,7 +8692,10 @@ impl GetAwsJsonWebKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAwsJsonWebKeysRequest;
-    /// let x = GetAwsJsonWebKeysRequest::new().set_aws_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = GetAwsJsonWebKeysRequest::new().set_aws_cluster(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_aws_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aws_cluster = v.into();
@@ -8674,7 +8741,9 @@ impl GetAwsServerConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAwsServerConfigRequest;
-    /// let x = GetAwsServerConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetAwsServerConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/awsServerConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8720,7 +8789,10 @@ impl GenerateAwsAccessTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAwsAccessTokenRequest;
-    /// let x = GenerateAwsAccessTokenRequest::new().set_aws_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = GenerateAwsAccessTokenRequest::new().set_aws_cluster(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_aws_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aws_cluster = v.into();
@@ -8855,7 +8927,10 @@ impl GenerateAwsClusterAgentTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAwsClusterAgentTokenRequest;
-    /// let x = GenerateAwsClusterAgentTokenRequest::new().set_aws_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let aws_cluster_id = "aws_cluster_id";
+    /// let x = GenerateAwsClusterAgentTokenRequest::new().set_aws_cluster(format!("projects/{project_id}/locations/{location_id}/awsClusters/{aws_cluster_id}"));
     /// ```
     pub fn set_aws_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aws_cluster = v.into();
@@ -9187,7 +9262,10 @@ impl AzureCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureCluster;
-    /// let x = AzureCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = AzureCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10762,7 +10840,10 @@ impl AzureClient {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureClient;
-    /// let x = AzureClient::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_client_id = "azure_client_id";
+    /// let x = AzureClient::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClients/{azure_client_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11218,7 +11299,11 @@ impl AzureNodePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureNodePool;
-    /// let x = AzureNodePool::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// # let azure_node_pool_id = "azure_node_pool_id";
+    /// let x = AzureNodePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}/azureNodePools/{azure_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12355,7 +12440,9 @@ impl AzureServerConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureServerConfig;
-    /// let x = AzureServerConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = AzureServerConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureServerConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12778,7 +12865,9 @@ impl CreateAzureClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::CreateAzureClusterRequest;
-    /// let x = CreateAzureClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAzureClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13017,7 +13106,10 @@ impl GetAzureClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAzureClusterRequest;
-    /// let x = GetAzureClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = GetAzureClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13079,7 +13171,9 @@ impl ListAzureClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ListAzureClustersRequest;
-    /// let x = ListAzureClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAzureClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13260,7 +13354,10 @@ impl DeleteAzureClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::DeleteAzureClusterRequest;
-    /// let x = DeleteAzureClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = DeleteAzureClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13376,7 +13473,10 @@ impl CreateAzureNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::CreateAzureNodePoolRequest;
-    /// let x = CreateAzureNodePoolRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = CreateAzureNodePoolRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13606,7 +13706,11 @@ impl GetAzureNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAzureNodePoolRequest;
-    /// let x = GetAzureNodePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// # let azure_node_pool_id = "azure_node_pool_id";
+    /// let x = GetAzureNodePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}/azureNodePools/{azure_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13669,7 +13773,10 @@ impl ListAzureNodePoolsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ListAzureNodePoolsRequest;
-    /// let x = ListAzureNodePoolsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = ListAzureNodePoolsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13852,7 +13959,11 @@ impl DeleteAzureNodePoolRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::DeleteAzureNodePoolRequest;
-    /// let x = DeleteAzureNodePoolRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// # let azure_node_pool_id = "azure_node_pool_id";
+    /// let x = DeleteAzureNodePoolRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}/azureNodePools/{azure_node_pool_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13939,7 +14050,10 @@ impl GetAzureOpenIdConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAzureOpenIdConfigRequest;
-    /// let x = GetAzureOpenIdConfigRequest::new().set_azure_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = GetAzureOpenIdConfigRequest::new().set_azure_cluster(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_azure_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.azure_cluster = v.into();
@@ -13980,7 +14094,10 @@ impl GetAzureJsonWebKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAzureJsonWebKeysRequest;
-    /// let x = GetAzureJsonWebKeysRequest::new().set_azure_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = GetAzureJsonWebKeysRequest::new().set_azure_cluster(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_azure_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.azure_cluster = v.into();
@@ -14026,7 +14143,9 @@ impl GetAzureServerConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAzureServerConfigRequest;
-    /// let x = GetAzureServerConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetAzureServerConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureServerConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14093,7 +14212,9 @@ impl CreateAzureClientRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::CreateAzureClientRequest;
-    /// let x = CreateAzureClientRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAzureClientRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14197,7 +14318,10 @@ impl GetAzureClientRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GetAzureClientRequest;
-    /// let x = GetAzureClientRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_client_id = "azure_client_id";
+    /// let x = GetAzureClientRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClients/{azure_client_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14259,7 +14383,9 @@ impl ListAzureClientsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::ListAzureClientsRequest;
-    /// let x = ListAzureClientsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAzureClientsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14422,7 +14548,10 @@ impl DeleteAzureClientRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::DeleteAzureClientRequest;
-    /// let x = DeleteAzureClientRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_client_id = "azure_client_id";
+    /// let x = DeleteAzureClientRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/azureClients/{azure_client_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14492,7 +14621,10 @@ impl GenerateAzureAccessTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAzureAccessTokenRequest;
-    /// let x = GenerateAzureAccessTokenRequest::new().set_azure_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = GenerateAzureAccessTokenRequest::new().set_azure_cluster(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_azure_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.azure_cluster = v.into();
@@ -14627,7 +14759,10 @@ impl GenerateAzureClusterAgentTokenRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAzureClusterAgentTokenRequest;
-    /// let x = GenerateAzureClusterAgentTokenRequest::new().set_azure_cluster("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let azure_cluster_id = "azure_cluster_id";
+    /// let x = GenerateAzureClusterAgentTokenRequest::new().set_azure_cluster(format!("projects/{project_id}/locations/{location_id}/azureClusters/{azure_cluster_id}"));
     /// ```
     pub fn set_azure_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.azure_cluster = v.into();

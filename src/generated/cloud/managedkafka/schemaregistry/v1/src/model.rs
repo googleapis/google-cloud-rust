@@ -58,7 +58,10 @@ impl GetSchemaRegistryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaRegistryRequest;
-    /// let x = GetSchemaRegistryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = GetSchemaRegistryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -270,7 +273,10 @@ impl DeleteSchemaRegistryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSchemaRegistryRequest;
-    /// let x = DeleteSchemaRegistryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = DeleteSchemaRegistryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -306,7 +312,11 @@ impl GetContextRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetContextRequest;
-    /// let x = GetContextRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let context_id = "context_id";
+    /// let x = GetContextRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/contexts/{context_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -342,7 +352,10 @@ impl ListContextsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListContextsRequest;
-    /// let x = ListContextsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = ListContextsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -383,7 +396,11 @@ impl GetSchemaRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaRequest;
-    /// let x = GetSchemaRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let schema_id = "schema_id";
+    /// let x = GetSchemaRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/schemas/ids/{schema_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -497,7 +514,11 @@ impl ListSchemaVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaVersionsRequest;
-    /// let x = ListSchemaVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let schema_id = "schema_id";
+    /// let x = ListSchemaVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/schemas/ids/{schema_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -821,7 +842,11 @@ impl ListVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// let x = ListVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -897,7 +922,11 @@ impl DeleteSubjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSubjectRequest;
-    /// let x = DeleteSubjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// let x = DeleteSubjectRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -971,7 +1000,12 @@ impl GetVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetVersionRequest;
-    /// let x = GetVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// # let version_id = "version_id";
+    /// let x = GetVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1065,7 +1099,11 @@ impl CreateVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
-    /// let x = CreateVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// let x = CreateVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1320,7 +1358,11 @@ impl LookupVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
-    /// let x = LookupVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// let x = LookupVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1498,7 +1540,12 @@ impl DeleteVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteVersionRequest;
-    /// let x = DeleteVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// # let version_id = "version_id";
+    /// let x = DeleteVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1567,7 +1614,12 @@ impl ListReferencedSchemasRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListReferencedSchemasRequest;
-    /// let x = ListReferencedSchemasRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// # let version_id = "version_id";
+    /// let x = ListReferencedSchemasRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}/versions/{version_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1822,7 +1874,10 @@ impl GetSchemaConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaConfigRequest;
-    /// let x = GetSchemaConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = GetSchemaConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1906,7 +1961,10 @@ impl UpdateSchemaConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaConfigRequest;
-    /// let x = UpdateSchemaConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = UpdateSchemaConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2012,7 +2070,10 @@ impl DeleteSchemaConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSchemaConfigRequest;
-    /// let x = DeleteSchemaConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = DeleteSchemaConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/config"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2050,7 +2111,10 @@ impl GetSchemaModeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaModeRequest;
-    /// let x = GetSchemaModeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = GetSchemaModeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/mode"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2091,7 +2155,10 @@ impl UpdateSchemaModeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaModeRequest;
-    /// let x = UpdateSchemaModeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = UpdateSchemaModeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/mode"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2148,7 +2215,10 @@ impl DeleteSchemaModeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSchemaModeRequest;
-    /// let x = DeleteSchemaModeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = DeleteSchemaModeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/mode"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2191,7 +2261,10 @@ impl SchemaRegistry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaRegistry;
-    /// let x = SchemaRegistry::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// let x = SchemaRegistry::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2253,7 +2326,11 @@ impl Context {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::Context;
-    /// let x = Context::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let context_id = "context_id";
+    /// let x = Context::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/contexts/{context_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2609,7 +2686,11 @@ impl SchemaSubject {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaSubject;
-    /// let x = SchemaSubject::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let schema_registry_id = "schema_registry_id";
+    /// # let subject_id = "subject_id";
+    /// let x = SchemaSubject::new().set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}/subjects/{subject_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

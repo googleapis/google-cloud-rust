@@ -99,7 +99,8 @@ impl BillingAccount {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// let x = BillingAccount::new().set_name(format!("billingAccounts/{billing_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -217,7 +218,8 @@ impl ProjectBillingInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = ProjectBillingInfo::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ProjectBillingInfo::new().set_name(format!("projects/{project_id}/billingInfo"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -292,7 +294,8 @@ impl GetBillingAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::GetBillingAccountRequest;
-    /// let x = GetBillingAccountRequest::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// let x = GetBillingAccountRequest::new().set_name(format!("billingAccounts/{billing_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -584,7 +587,8 @@ impl UpdateBillingAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::UpdateBillingAccountRequest;
-    /// let x = UpdateBillingAccountRequest::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// let x = UpdateBillingAccountRequest::new().set_name(format!("billingAccounts/{billing_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -696,7 +700,8 @@ impl ListProjectBillingInfoRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::ListProjectBillingInfoRequest;
-    /// let x = ListProjectBillingInfoRequest::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// let x = ListProjectBillingInfoRequest::new().set_name(format!("billingAccounts/{billing_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -951,7 +956,8 @@ impl MoveBillingAccountRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::MoveBillingAccountRequest;
-    /// let x = MoveBillingAccountRequest::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// let x = MoveBillingAccountRequest::new().set_name(format!("billingAccounts/{billing_account_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1013,7 +1019,8 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::Service;
-    /// let x = Service::new().set_name("example");
+    /// # let service_id = "service_id";
+    /// let x = Service::new().set_name(format!("services/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1114,7 +1121,9 @@ impl Sku {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::Sku;
-    /// let x = Sku::new().set_name("example");
+    /// # let service_id = "service_id";
+    /// # let sku_id = "sku_id";
+    /// let x = Sku::new().set_name(format!("services/{service_id}/skus/{sku_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2517,7 +2526,8 @@ impl ListSkusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// let x = ListSkusRequest::new().set_parent("example");
+    /// # let service_id = "service_id";
+    /// let x = ListSkusRequest::new().set_parent(format!("services/{service_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

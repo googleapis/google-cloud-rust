@@ -65,7 +65,12 @@ impl AccessApprovalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::AccessApprovalRequest;
-    /// let x = AccessApprovalRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// # let access_approval_request_id = "access_approval_request_id";
+    /// let x = AccessApprovalRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/accessApprovalRequests/{access_approval_request_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -217,7 +222,11 @@ impl ListAccessApprovalRequestsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::ListAccessApprovalRequestsRequest;
-    /// let x = ListAccessApprovalRequestsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = ListAccessApprovalRequestsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -843,7 +852,11 @@ impl Workload {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::Workload;
-    /// let x = Workload::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = Workload::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1220,7 +1233,10 @@ impl ListWorkloadsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// let x = ListWorkloadsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1399,7 +1415,11 @@ impl GetWorkloadRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::GetWorkloadRequest;
-    /// let x = GetWorkloadRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = GetWorkloadRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1766,7 +1786,10 @@ impl Customer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::Customer;
-    /// let x = Customer::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// let x = Customer::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1888,7 +1911,9 @@ impl ListCustomersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::ListCustomersRequest;
-    /// let x = ListCustomersRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCustomersRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2075,7 +2100,9 @@ impl CreateCustomerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::CreateCustomerRequest;
-    /// let x = CreateCustomerRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCustomerRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2156,7 +2183,10 @@ impl GetCustomerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::GetCustomerRequest;
-    /// let x = GetCustomerRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// let x = GetCustomerRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2602,7 +2632,10 @@ impl DeleteCustomerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::DeleteCustomerRequest;
-    /// let x = DeleteCustomerRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// let x = DeleteCustomerRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2641,7 +2674,11 @@ impl EkmConnections {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::EkmConnections;
-    /// let x = EkmConnections::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = EkmConnections::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/ekmConnections"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2699,7 +2736,11 @@ impl GetEkmConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::GetEkmConnectionsRequest;
-    /// let x = GetEkmConnectionsRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = GetEkmConnectionsRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/ekmConnections"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3042,7 +3083,11 @@ impl PartnerPermissions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::PartnerPermissions;
-    /// let x = PartnerPermissions::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = PartnerPermissions::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/partnerPermissions"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3275,7 +3320,11 @@ impl GetPartnerPermissionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::GetPartnerPermissionsRequest;
-    /// let x = GetPartnerPermissionsRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = GetPartnerPermissionsRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/partnerPermissions"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3333,7 +3382,9 @@ impl Partner {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::Partner;
-    /// let x = Partner::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = Partner::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/partner"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3511,7 +3562,9 @@ impl GetPartnerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::GetPartnerRequest;
-    /// let x = GetPartnerRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = GetPartnerRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/partner"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3850,7 +3903,12 @@ impl Violation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::Violation;
-    /// let x = Violation::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// # let violation_id = "violation_id";
+    /// let x = Violation::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/violations/{violation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4818,7 +4876,11 @@ impl ListViolationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::ListViolationsRequest;
-    /// let x = ListViolationsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// let x = ListViolationsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5031,7 +5093,12 @@ impl GetViolationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::GetViolationRequest;
-    /// let x = GetViolationRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let customer_id = "customer_id";
+    /// # let workload_id = "workload_id";
+    /// # let violation_id = "violation_id";
+    /// let x = GetViolationRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/customers/{customer_id}/workloads/{workload_id}/violations/{violation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

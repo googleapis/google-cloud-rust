@@ -68,7 +68,9 @@ impl DiscoverConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// let x = DiscoverConnectionProfileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = DiscoverConnectionProfileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1108,7 +1110,9 @@ impl ListConnectionProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConnectionProfilesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1286,7 +1290,10 @@ impl GetConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::GetConnectionProfileRequest;
-    /// let x = GetConnectionProfileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = GetConnectionProfileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1349,7 +1356,9 @@ impl CreateConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConnectionProfileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1637,7 +1646,10 @@ impl DeleteConnectionProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::DeleteConnectionProfileRequest;
-    /// let x = DeleteConnectionProfileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = DeleteConnectionProfileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1702,7 +1714,9 @@ impl ListStreamsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListStreamsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1880,7 +1894,10 @@ impl GetStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::GetStreamRequest;
-    /// let x = GetStreamRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// let x = GetStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1943,7 +1960,9 @@ impl CreateStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateStreamRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2228,7 +2247,10 @@ impl DeleteStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::DeleteStreamRequest;
-    /// let x = DeleteStreamRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// let x = DeleteStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2283,7 +2305,10 @@ impl RunStreamRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::RunStreamRequest;
-    /// let x = RunStreamRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// let x = RunStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2363,7 +2388,11 @@ impl GetStreamObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::GetStreamObjectRequest;
-    /// let x = GetStreamObjectRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// # let object_id = "object_id";
+    /// let x = GetStreamObjectRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}/objects/{object_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2402,7 +2431,10 @@ impl LookupStreamObjectRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::LookupStreamObjectRequest;
-    /// let x = LookupStreamObjectRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// let x = LookupStreamObjectRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2471,7 +2503,11 @@ impl StartBackfillJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::StartBackfillJobRequest;
-    /// let x = StartBackfillJobRequest::new().set_object("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// # let object_id = "object_id";
+    /// let x = StartBackfillJobRequest::new().set_object(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}/objects/{object_id}"));
     /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
@@ -2564,7 +2600,11 @@ impl StopBackfillJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::StopBackfillJobRequest;
-    /// let x = StopBackfillJobRequest::new().set_object("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// # let object_id = "object_id";
+    /// let x = StopBackfillJobRequest::new().set_object(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}/objects/{object_id}"));
     /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
@@ -2667,7 +2707,10 @@ impl ListStreamObjectsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::ListStreamObjectsRequest;
-    /// let x = ListStreamObjectsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// let x = ListStreamObjectsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3040,7 +3083,9 @@ impl CreatePrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePrivateConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3180,7 +3225,9 @@ impl ListPrivateConnectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPrivateConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3377,7 +3424,10 @@ impl DeletePrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::DeletePrivateConnectionRequest;
-    /// let x = DeletePrivateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = DeletePrivateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3436,7 +3486,10 @@ impl GetPrivateConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::GetPrivateConnectionRequest;
-    /// let x = GetPrivateConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = GetPrivateConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3492,7 +3545,10 @@ impl CreateRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::CreateRouteRequest;
-    /// let x = CreateRouteRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = CreateRouteRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3604,7 +3660,10 @@ impl ListRoutesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::ListRoutesRequest;
-    /// let x = ListRoutesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = ListRoutesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3797,7 +3856,11 @@ impl DeleteRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::DeleteRouteRequest;
-    /// let x = DeleteRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// # let route_id = "route_id";
+    /// let x = DeleteRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}/routes/{route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3844,7 +3907,11 @@ impl GetRouteRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::GetRouteRequest;
-    /// let x = GetRouteRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// # let route_id = "route_id";
+    /// let x = GetRouteRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}/routes/{route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5812,7 +5879,10 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = PrivateConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6285,7 +6355,10 @@ impl PrivateConnectivity {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::PrivateConnectivity;
-    /// let x = PrivateConnectivity::new().set_private_connection("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// let x = PrivateConnectivity::new().set_private_connection(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"));
     /// ```
     pub fn set_private_connection<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6342,7 +6415,11 @@ impl Route {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::Route;
-    /// let x = Route::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let private_connection_id = "private_connection_id";
+    /// # let route_id = "route_id";
+    /// let x = Route::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}/routes/{route_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7192,7 +7269,10 @@ impl ConnectionProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = ConnectionProfile::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11228,7 +11308,10 @@ impl SourceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// let x = SourceConfig::new().set_source_connection_profile("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = SourceConfig::new().set_source_connection_profile(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13148,7 +13231,10 @@ impl DestinationConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::DestinationConfig;
-    /// let x = DestinationConfig::new().set_destination_connection_profile("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let connection_profile_id = "connection_profile_id";
+    /// let x = DestinationConfig::new().set_destination_connection_profile(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"));
     /// ```
     pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13355,7 +13441,10 @@ impl Stream {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// let x = Stream::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14399,7 +14488,11 @@ impl StreamObject {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StreamObject::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let stream_id = "stream_id";
+    /// # let object_id = "object_id";
+    /// let x = StreamObject::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}/objects/{object_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -87,7 +87,10 @@ impl AddressGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::AddressGroup;
-    /// let x = AddressGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = AddressGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -754,7 +757,10 @@ impl GetAddressGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetAddressGroupRequest;
-    /// let x = GetAddressGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = GetAddressGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -814,7 +820,9 @@ impl CreateAddressGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateAddressGroupRequest;
-    /// let x = CreateAddressGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAddressGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1048,7 +1056,10 @@ impl DeleteAddressGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteAddressGroupRequest;
-    /// let x = DeleteAddressGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = DeleteAddressGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1114,7 +1125,10 @@ impl AddAddressGroupItemsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::AddAddressGroupItemsRequest;
-    /// let x = AddAddressGroupItemsRequest::new().set_address_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = AddAddressGroupItemsRequest::new().set_address_group(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_address_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address_group = v.into();
@@ -1197,7 +1211,10 @@ impl RemoveAddressGroupItemsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::RemoveAddressGroupItemsRequest;
-    /// let x = RemoveAddressGroupItemsRequest::new().set_address_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = RemoveAddressGroupItemsRequest::new().set_address_group(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_address_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address_group = v.into();
@@ -1280,7 +1297,10 @@ impl CloneAddressGroupItemsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CloneAddressGroupItemsRequest;
-    /// let x = CloneAddressGroupItemsRequest::new().set_address_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = CloneAddressGroupItemsRequest::new().set_address_group(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_address_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address_group = v.into();
@@ -1292,7 +1312,10 @@ impl CloneAddressGroupItemsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CloneAddressGroupItemsRequest;
-    /// let x = CloneAddressGroupItemsRequest::new().set_source_address_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = CloneAddressGroupItemsRequest::new().set_source_address_group(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_source_address_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1356,7 +1379,10 @@ impl ListAddressGroupReferencesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListAddressGroupReferencesRequest;
-    /// let x = ListAddressGroupReferencesRequest::new().set_address_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let address_group_id = "address_group_id";
+    /// let x = ListAddressGroupReferencesRequest::new().set_address_group(format!("projects/{project_id}/locations/{location_id}/addressGroups/{address_group_id}"));
     /// ```
     pub fn set_address_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address_group = v.into();
@@ -1601,7 +1627,10 @@ impl AuthorizationPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::AuthorizationPolicy;
-    /// let x = AuthorizationPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authorization_policy_id = "authorization_policy_id";
+    /// let x = AuthorizationPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/authorizationPolicies/{authorization_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2468,7 +2497,10 @@ impl GetAuthorizationPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetAuthorizationPolicyRequest;
-    /// let x = GetAuthorizationPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authorization_policy_id = "authorization_policy_id";
+    /// let x = GetAuthorizationPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/authorizationPolicies/{authorization_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2513,7 +2545,9 @@ impl CreateAuthorizationPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateAuthorizationPolicyRequest;
-    /// let x = CreateAuthorizationPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAuthorizationPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2693,7 +2727,10 @@ impl DeleteAuthorizationPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteAuthorizationPolicyRequest;
-    /// let x = DeleteAuthorizationPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authorization_policy_id = "authorization_policy_id";
+    /// let x = DeleteAuthorizationPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/authorizationPolicies/{authorization_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2794,7 +2831,10 @@ impl AuthzPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
-    /// let x = AuthzPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authz_policy_id = "authz_policy_id";
+    /// let x = AuthzPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzPolicies/{authz_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5467,7 +5507,9 @@ impl CreateAuthzPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateAuthzPolicyRequest;
-    /// let x = CreateAuthzPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAuthzPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5574,7 +5616,9 @@ impl ListAuthzPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesRequest;
-    /// let x = ListAuthzPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAuthzPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5753,7 +5797,10 @@ impl GetAuthzPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetAuthzPolicyRequest;
-    /// let x = GetAuthzPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authz_policy_id = "authz_policy_id";
+    /// let x = GetAuthzPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzPolicies/{authz_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5928,7 +5975,10 @@ impl DeleteAuthzPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteAuthzPolicyRequest;
-    /// let x = DeleteAuthzPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let authz_policy_id = "authz_policy_id";
+    /// let x = DeleteAuthzPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzPolicies/{authz_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6030,7 +6080,10 @@ impl BackendAuthenticationConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
-    /// let x = BackendAuthenticationConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backend_authentication_config_id = "backend_authentication_config_id";
+    /// let x = BackendAuthenticationConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/backendAuthenticationConfigs/{backend_authentication_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6538,7 +6591,10 @@ impl GetBackendAuthenticationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetBackendAuthenticationConfigRequest;
-    /// let x = GetBackendAuthenticationConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backend_authentication_config_id = "backend_authentication_config_id";
+    /// let x = GetBackendAuthenticationConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backendAuthenticationConfigs/{backend_authentication_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6584,7 +6640,9 @@ impl CreateBackendAuthenticationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateBackendAuthenticationConfigRequest;
-    /// let x = CreateBackendAuthenticationConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackendAuthenticationConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6777,7 +6835,10 @@ impl DeleteBackendAuthenticationConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteBackendAuthenticationConfigRequest;
-    /// let x = DeleteBackendAuthenticationConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backend_authentication_config_id = "backend_authentication_config_id";
+    /// let x = DeleteBackendAuthenticationConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backendAuthenticationConfigs/{backend_authentication_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6853,7 +6914,10 @@ impl ClientTlsPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ClientTlsPolicy;
-    /// let x = ClientTlsPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_tls_policy_id = "client_tls_policy_id";
+    /// let x = ClientTlsPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientTlsPolicies/{client_tls_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7200,7 +7264,10 @@ impl GetClientTlsPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetClientTlsPolicyRequest;
-    /// let x = GetClientTlsPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_tls_policy_id = "client_tls_policy_id";
+    /// let x = GetClientTlsPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientTlsPolicies/{client_tls_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7245,7 +7312,9 @@ impl CreateClientTlsPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateClientTlsPolicyRequest;
-    /// let x = CreateClientTlsPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClientTlsPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7426,7 +7495,10 @@ impl DeleteClientTlsPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteClientTlsPolicyRequest;
-    /// let x = DeleteClientTlsPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let client_tls_policy_id = "client_tls_policy_id";
+    /// let x = DeleteClientTlsPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clientTlsPolicies/{client_tls_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7464,8 +7536,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -7657,7 +7727,10 @@ impl DnsThreatDetector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
-    /// let x = DnsThreatDetector::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dns_threat_detector_id = "dns_threat_detector_id";
+    /// let x = DnsThreatDetector::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsThreatDetectors/{dns_threat_detector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7952,7 +8025,9 @@ impl ListDnsThreatDetectorsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsRequest;
-    /// let x = ListDnsThreatDetectorsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDnsThreatDetectorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8105,7 +8180,10 @@ impl GetDnsThreatDetectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetDnsThreatDetectorRequest;
-    /// let x = GetDnsThreatDetectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dns_threat_detector_id = "dns_threat_detector_id";
+    /// let x = GetDnsThreatDetectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsThreatDetectors/{dns_threat_detector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8147,7 +8225,9 @@ impl CreateDnsThreatDetectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateDnsThreatDetectorRequest;
-    /// let x = CreateDnsThreatDetectorRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDnsThreatDetectorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8326,7 +8406,10 @@ impl DeleteDnsThreatDetectorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteDnsThreatDetectorRequest;
-    /// let x = DeleteDnsThreatDetectorRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dns_threat_detector_id = "dns_threat_detector_id";
+    /// let x = DeleteDnsThreatDetectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsThreatDetectors/{dns_threat_detector_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8408,7 +8491,10 @@ impl FirewallEndpoint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
-    /// let x = FirewallEndpoint::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let firewall_endpoint_id = "firewall_endpoint_id";
+    /// let x = FirewallEndpoint::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/firewallEndpoints/{firewall_endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8734,7 +8820,10 @@ pub mod firewall_endpoint {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::firewall_endpoint::AssociationReference;
-        /// let x = AssociationReference::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let firewall_endpoint_association_id = "firewall_endpoint_association_id";
+        /// let x = AssociationReference::new().set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -8977,7 +9066,9 @@ impl ListFirewallEndpointsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsRequest;
-    /// let x = ListFirewallEndpointsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFirewallEndpointsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9154,7 +9245,10 @@ impl GetFirewallEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetFirewallEndpointRequest;
-    /// let x = GetFirewallEndpointRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let firewall_endpoint_id = "firewall_endpoint_id";
+    /// let x = GetFirewallEndpointRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/firewallEndpoints/{firewall_endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9212,7 +9306,9 @@ impl CreateFirewallEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointRequest;
-    /// let x = CreateFirewallEndpointRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFirewallEndpointRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9445,7 +9541,10 @@ impl DeleteFirewallEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteFirewallEndpointRequest;
-    /// let x = DeleteFirewallEndpointRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let firewall_endpoint_id = "firewall_endpoint_id";
+    /// let x = DeleteFirewallEndpointRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/firewallEndpoints/{firewall_endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9521,7 +9620,10 @@ impl FirewallEndpointAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
-    /// let x = FirewallEndpointAssociation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let firewall_endpoint_association_id = "firewall_endpoint_association_id";
+    /// let x = FirewallEndpointAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9665,7 +9767,10 @@ impl FirewallEndpointAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
-    /// let x = FirewallEndpointAssociation::new().set_tls_inspection_policy("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_inspection_policy_id = "tls_inspection_policy_id";
+    /// let x = FirewallEndpointAssociation::new().set_tls_inspection_policy(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"));
     /// ```
     pub fn set_tls_inspection_policy<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9899,7 +10004,9 @@ impl ListFirewallEndpointAssociationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsRequest;
-    /// let x = ListFirewallEndpointAssociationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFirewallEndpointAssociationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10078,7 +10185,10 @@ impl GetFirewallEndpointAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetFirewallEndpointAssociationRequest;
-    /// let x = GetFirewallEndpointAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let firewall_endpoint_association_id = "firewall_endpoint_association_id";
+    /// let x = GetFirewallEndpointAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10137,7 +10247,9 @@ impl CreateFirewallEndpointAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointAssociationRequest;
-    /// let x = CreateFirewallEndpointAssociationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10250,7 +10362,10 @@ impl DeleteFirewallEndpointAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteFirewallEndpointAssociationRequest;
-    /// let x = DeleteFirewallEndpointAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let firewall_endpoint_association_id = "firewall_endpoint_association_id";
+    /// let x = DeleteFirewallEndpointAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/firewallEndpointAssociations/{firewall_endpoint_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10441,7 +10556,10 @@ impl GatewaySecurityPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
-    /// let x = GatewaySecurityPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// let x = GatewaySecurityPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10531,7 +10649,10 @@ impl GatewaySecurityPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
-    /// let x = GatewaySecurityPolicy::new().set_tls_inspection_policy("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_inspection_policy_id = "tls_inspection_policy_id";
+    /// let x = GatewaySecurityPolicy::new().set_tls_inspection_policy(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"));
     /// ```
     pub fn set_tls_inspection_policy<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -10579,7 +10700,9 @@ impl CreateGatewaySecurityPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRequest;
-    /// let x = CreateGatewaySecurityPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateGatewaySecurityPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10831,7 +10954,10 @@ impl GetGatewaySecurityPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetGatewaySecurityPolicyRequest;
-    /// let x = GetGatewaySecurityPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// let x = GetGatewaySecurityPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10867,7 +10993,10 @@ impl DeleteGatewaySecurityPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteGatewaySecurityPolicyRequest;
-    /// let x = DeleteGatewaySecurityPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// let x = DeleteGatewaySecurityPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11033,7 +11162,11 @@ impl GatewaySecurityPolicyRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
-    /// let x = GatewaySecurityPolicyRule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// # let rule_id = "rule_id";
+    /// let x = GatewaySecurityPolicyRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11435,7 +11568,10 @@ impl CreateGatewaySecurityPolicyRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRuleRequest;
-    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11520,7 +11656,11 @@ impl GetGatewaySecurityPolicyRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetGatewaySecurityPolicyRuleRequest;
-    /// let x = GetGatewaySecurityPolicyRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// # let rule_id = "rule_id";
+    /// let x = GetGatewaySecurityPolicyRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11662,7 +11802,10 @@ impl ListGatewaySecurityPolicyRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesRequest;
-    /// let x = ListGatewaySecurityPolicyRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// let x = ListGatewaySecurityPolicyRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11821,7 +11964,11 @@ impl DeleteGatewaySecurityPolicyRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteGatewaySecurityPolicyRuleRequest;
-    /// let x = DeleteGatewaySecurityPolicyRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gateway_security_policy_id = "gateway_security_policy_id";
+    /// # let rule_id = "rule_id";
+    /// let x = DeleteGatewaySecurityPolicyRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/gatewaySecurityPolicies/{gateway_security_policy_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11904,7 +12051,10 @@ impl InterceptEndpointGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
-    /// let x = InterceptEndpointGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_id = "intercept_endpoint_group_id";
+    /// let x = InterceptEndpointGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12003,7 +12153,10 @@ impl InterceptEndpointGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
-    /// let x = InterceptEndpointGroup::new().set_intercept_deployment_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_group_id = "intercept_deployment_group_id";
+    /// let x = InterceptEndpointGroup::new().set_intercept_deployment_group(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"));
     /// ```
     pub fn set_intercept_deployment_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12148,7 +12301,10 @@ pub mod intercept_endpoint_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::ConnectedDeploymentGroup;
-        /// let x = ConnectedDeploymentGroup::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let intercept_deployment_group_id = "intercept_deployment_group_id";
+        /// let x = ConnectedDeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -12215,7 +12371,10 @@ pub mod intercept_endpoint_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::AssociationDetails;
-        /// let x = AssociationDetails::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let intercept_endpoint_group_association_id = "intercept_endpoint_group_association_id";
+        /// let x = AssociationDetails::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -12474,7 +12633,9 @@ impl ListInterceptEndpointGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsRequest;
-    /// let x = ListInterceptEndpointGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInterceptEndpointGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12637,7 +12798,10 @@ impl GetInterceptEndpointGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetInterceptEndpointGroupRequest;
-    /// let x = GetInterceptEndpointGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_id = "intercept_endpoint_group_id";
+    /// let x = GetInterceptEndpointGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12685,7 +12849,9 @@ impl CreateInterceptEndpointGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupRequest;
-    /// let x = CreateInterceptEndpointGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12897,7 +13063,10 @@ impl DeleteInterceptEndpointGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteInterceptEndpointGroupRequest;
-    /// let x = DeleteInterceptEndpointGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_id = "intercept_endpoint_group_id";
+    /// let x = DeleteInterceptEndpointGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13001,7 +13170,10 @@ impl InterceptEndpointGroupAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
-    /// let x = InterceptEndpointGroupAssociation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_association_id = "intercept_endpoint_group_association_id";
+    /// let x = InterceptEndpointGroupAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13100,7 +13272,10 @@ impl InterceptEndpointGroupAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
-    /// let x = InterceptEndpointGroupAssociation::new().set_intercept_endpoint_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_id = "intercept_endpoint_group_id";
+    /// let x = InterceptEndpointGroupAssociation::new().set_intercept_endpoint_group(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"));
     /// ```
     pub fn set_intercept_endpoint_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13636,7 +13811,9 @@ impl ListInterceptEndpointGroupAssociationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsRequest;
-    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13800,7 +13977,10 @@ impl GetInterceptEndpointGroupAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetInterceptEndpointGroupAssociationRequest;
-    /// let x = GetInterceptEndpointGroupAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_association_id = "intercept_endpoint_group_association_id";
+    /// let x = GetInterceptEndpointGroupAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13850,7 +14030,9 @@ impl CreateInterceptEndpointGroupAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupAssociationRequest;
-    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14072,7 +14254,10 @@ impl DeleteInterceptEndpointGroupAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteInterceptEndpointGroupAssociationRequest;
-    /// let x = DeleteInterceptEndpointGroupAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_association_id = "intercept_endpoint_group_association_id";
+    /// let x = DeleteInterceptEndpointGroupAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14167,7 +14352,10 @@ impl InterceptDeploymentGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
-    /// let x = InterceptDeploymentGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_group_id = "intercept_deployment_group_id";
+    /// let x = InterceptDeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14417,7 +14605,10 @@ pub mod intercept_deployment_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::intercept_deployment_group::ConnectedEndpointGroup;
-        /// let x = ConnectedEndpointGroup::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let intercept_endpoint_group_id = "intercept_endpoint_group_id";
+        /// let x = ConnectedEndpointGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -14456,7 +14647,10 @@ pub mod intercept_deployment_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::intercept_deployment_group::Deployment;
-        /// let x = Deployment::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let intercept_deployment_id = "intercept_deployment_id";
+        /// let x = Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -14671,7 +14865,9 @@ impl ListInterceptDeploymentGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsRequest;
-    /// let x = ListInterceptDeploymentGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInterceptDeploymentGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14834,7 +15030,10 @@ impl GetInterceptDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetInterceptDeploymentGroupRequest;
-    /// let x = GetInterceptDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_group_id = "intercept_deployment_group_id";
+    /// let x = GetInterceptDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14882,7 +15081,9 @@ impl CreateInterceptDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentGroupRequest;
-    /// let x = CreateInterceptDeploymentGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15095,7 +15296,10 @@ impl DeleteInterceptDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteInterceptDeploymentGroupRequest;
-    /// let x = DeleteInterceptDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_group_id = "intercept_deployment_group_id";
+    /// let x = DeleteInterceptDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15185,7 +15389,10 @@ impl InterceptDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
-    /// let x = InterceptDeployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_id = "intercept_deployment_id";
+    /// let x = InterceptDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15296,7 +15503,10 @@ impl InterceptDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
-    /// let x = InterceptDeployment::new().set_intercept_deployment_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_group_id = "intercept_deployment_group_id";
+    /// let x = InterceptDeployment::new().set_intercept_deployment_group(format!("projects/{project_id}/locations/{location_id}/interceptDeploymentGroups/{intercept_deployment_group_id}"));
     /// ```
     pub fn set_intercept_deployment_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -15562,7 +15772,9 @@ impl ListInterceptDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsRequest;
-    /// let x = ListInterceptDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInterceptDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -15743,7 +15955,10 @@ impl GetInterceptDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetInterceptDeploymentRequest;
-    /// let x = GetInterceptDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_id = "intercept_deployment_id";
+    /// let x = GetInterceptDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15791,7 +16006,9 @@ impl CreateInterceptDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentRequest;
-    /// let x = CreateInterceptDeploymentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInterceptDeploymentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16003,7 +16220,10 @@ impl DeleteInterceptDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteInterceptDeploymentRequest;
-    /// let x = DeleteInterceptDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_deployment_id = "intercept_deployment_id";
+    /// let x = DeleteInterceptDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/interceptDeployments/{intercept_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16298,7 +16518,10 @@ impl MirroringEndpointGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
-    /// let x = MirroringEndpointGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_id = "mirroring_endpoint_group_id";
+    /// let x = MirroringEndpointGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16397,7 +16620,10 @@ impl MirroringEndpointGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
-    /// let x = MirroringEndpointGroup::new().set_mirroring_deployment_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_group_id = "mirroring_deployment_group_id";
+    /// let x = MirroringEndpointGroup::new().set_mirroring_deployment_group(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"));
     /// ```
     pub fn set_mirroring_deployment_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16547,7 +16773,10 @@ pub mod mirroring_endpoint_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::ConnectedDeploymentGroup;
-        /// let x = ConnectedDeploymentGroup::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let mirroring_deployment_group_id = "mirroring_deployment_group_id";
+        /// let x = ConnectedDeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -16614,7 +16843,10 @@ pub mod mirroring_endpoint_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::AssociationDetails;
-        /// let x = AssociationDetails::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let mirroring_endpoint_group_association_id = "mirroring_endpoint_group_association_id";
+        /// let x = AssociationDetails::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -16997,7 +17229,9 @@ impl ListMirroringEndpointGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsRequest;
-    /// let x = ListMirroringEndpointGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMirroringEndpointGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17160,7 +17394,10 @@ impl GetMirroringEndpointGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetMirroringEndpointGroupRequest;
-    /// let x = GetMirroringEndpointGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_id = "mirroring_endpoint_group_id";
+    /// let x = GetMirroringEndpointGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17208,7 +17445,9 @@ impl CreateMirroringEndpointGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupRequest;
-    /// let x = CreateMirroringEndpointGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17420,7 +17659,10 @@ impl DeleteMirroringEndpointGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteMirroringEndpointGroupRequest;
-    /// let x = DeleteMirroringEndpointGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_id = "mirroring_endpoint_group_id";
+    /// let x = DeleteMirroringEndpointGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17519,7 +17761,10 @@ impl MirroringEndpointGroupAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
-    /// let x = MirroringEndpointGroupAssociation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_association_id = "mirroring_endpoint_group_association_id";
+    /// let x = MirroringEndpointGroupAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17618,7 +17863,10 @@ impl MirroringEndpointGroupAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
-    /// let x = MirroringEndpointGroupAssociation::new().set_mirroring_endpoint_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_id = "mirroring_endpoint_group_id";
+    /// let x = MirroringEndpointGroupAssociation::new().set_mirroring_endpoint_group(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"));
     /// ```
     pub fn set_mirroring_endpoint_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -18142,7 +18390,9 @@ impl ListMirroringEndpointGroupAssociationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsRequest;
-    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18306,7 +18556,10 @@ impl GetMirroringEndpointGroupAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetMirroringEndpointGroupAssociationRequest;
-    /// let x = GetMirroringEndpointGroupAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_association_id = "mirroring_endpoint_group_association_id";
+    /// let x = GetMirroringEndpointGroupAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18356,7 +18609,9 @@ impl CreateMirroringEndpointGroupAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupAssociationRequest;
-    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18578,7 +18833,10 @@ impl DeleteMirroringEndpointGroupAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteMirroringEndpointGroupAssociationRequest;
-    /// let x = DeleteMirroringEndpointGroupAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_association_id = "mirroring_endpoint_group_association_id";
+    /// let x = DeleteMirroringEndpointGroupAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18673,7 +18931,10 @@ impl MirroringDeploymentGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
-    /// let x = MirroringDeploymentGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_group_id = "mirroring_deployment_group_id";
+    /// let x = MirroringDeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18923,7 +19184,10 @@ pub mod mirroring_deployment_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::mirroring_deployment_group::ConnectedEndpointGroup;
-        /// let x = ConnectedEndpointGroup::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let mirroring_endpoint_group_id = "mirroring_endpoint_group_id";
+        /// let x = ConnectedEndpointGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -18962,7 +19226,10 @@ pub mod mirroring_deployment_group {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networksecurity_v1::model::mirroring_deployment_group::Deployment;
-        /// let x = Deployment::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let mirroring_deployment_id = "mirroring_deployment_id";
+        /// let x = Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -19184,7 +19451,9 @@ impl ListMirroringDeploymentGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsRequest;
-    /// let x = ListMirroringDeploymentGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMirroringDeploymentGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19347,7 +19616,10 @@ impl GetMirroringDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetMirroringDeploymentGroupRequest;
-    /// let x = GetMirroringDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_group_id = "mirroring_deployment_group_id";
+    /// let x = GetMirroringDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19395,7 +19667,9 @@ impl CreateMirroringDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentGroupRequest;
-    /// let x = CreateMirroringDeploymentGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19608,7 +19882,10 @@ impl DeleteMirroringDeploymentGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteMirroringDeploymentGroupRequest;
-    /// let x = DeleteMirroringDeploymentGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_group_id = "mirroring_deployment_group_id";
+    /// let x = DeleteMirroringDeploymentGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19698,7 +19975,10 @@ impl MirroringDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
-    /// let x = MirroringDeployment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_id = "mirroring_deployment_id";
+    /// let x = MirroringDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19809,7 +20089,10 @@ impl MirroringDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
-    /// let x = MirroringDeployment::new().set_mirroring_deployment_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_group_id = "mirroring_deployment_group_id";
+    /// let x = MirroringDeployment::new().set_mirroring_deployment_group(format!("projects/{project_id}/locations/{location_id}/mirroringDeploymentGroups/{mirroring_deployment_group_id}"));
     /// ```
     pub fn set_mirroring_deployment_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -20075,7 +20358,9 @@ impl ListMirroringDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsRequest;
-    /// let x = ListMirroringDeploymentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListMirroringDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20256,7 +20541,10 @@ impl GetMirroringDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetMirroringDeploymentRequest;
-    /// let x = GetMirroringDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_id = "mirroring_deployment_id";
+    /// let x = GetMirroringDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20304,7 +20592,9 @@ impl CreateMirroringDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentRequest;
-    /// let x = CreateMirroringDeploymentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateMirroringDeploymentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20516,7 +20806,10 @@ impl DeleteMirroringDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteMirroringDeploymentRequest;
-    /// let x = DeleteMirroringDeploymentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_deployment_id = "mirroring_deployment_id";
+    /// let x = DeleteMirroringDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/mirroringDeployments/{mirroring_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20800,7 +21093,10 @@ impl SecurityProfileGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
-    /// let x = SecurityProfileGroup::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_group_id = "security_profile_group_id";
+    /// let x = SecurityProfileGroup::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20935,7 +21231,10 @@ impl SecurityProfileGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
-    /// let x = SecurityProfileGroup::new().set_threat_prevention_profile("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = SecurityProfileGroup::new().set_threat_prevention_profile(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_threat_prevention_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -20950,7 +21249,10 @@ impl SecurityProfileGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
-    /// let x = SecurityProfileGroup::new().set_custom_mirroring_profile("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = SecurityProfileGroup::new().set_custom_mirroring_profile(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_custom_mirroring_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -20965,7 +21267,10 @@ impl SecurityProfileGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
-    /// let x = SecurityProfileGroup::new().set_custom_intercept_profile("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = SecurityProfileGroup::new().set_custom_intercept_profile(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_custom_intercept_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -20980,7 +21285,10 @@ impl SecurityProfileGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
-    /// let x = SecurityProfileGroup::new().set_url_filtering_profile("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = SecurityProfileGroup::new().set_url_filtering_profile(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_url_filtering_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -21048,7 +21356,10 @@ impl SecurityProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
-    /// let x = SecurityProfile::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = SecurityProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21577,7 +21888,10 @@ impl CustomInterceptProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CustomInterceptProfile;
-    /// let x = CustomInterceptProfile::new().set_intercept_endpoint_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intercept_endpoint_group_id = "intercept_endpoint_group_id";
+    /// let x = CustomInterceptProfile::new().set_intercept_endpoint_group(format!("projects/{project_id}/locations/{location_id}/interceptEndpointGroups/{intercept_endpoint_group_id}"));
     /// ```
     pub fn set_intercept_endpoint_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -21618,7 +21932,10 @@ impl CustomMirroringProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CustomMirroringProfile;
-    /// let x = CustomMirroringProfile::new().set_mirroring_endpoint_group("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let mirroring_endpoint_group_id = "mirroring_endpoint_group_id";
+    /// let x = CustomMirroringProfile::new().set_mirroring_endpoint_group(format!("projects/{project_id}/locations/{location_id}/mirroringEndpointGroups/{mirroring_endpoint_group_id}"));
     /// ```
     pub fn set_mirroring_endpoint_group<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -21667,7 +21984,9 @@ impl ListSecurityProfileGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListSecurityProfileGroupsRequest;
-    /// let x = ListSecurityProfileGroupsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSecurityProfileGroupsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21803,7 +22122,10 @@ impl GetSecurityProfileGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetSecurityProfileGroupRequest;
-    /// let x = GetSecurityProfileGroupRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_group_id = "security_profile_group_id";
+    /// let x = GetSecurityProfileGroupRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21848,7 +22170,9 @@ impl CreateSecurityProfileGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileGroupRequest;
-    /// let x = CreateSecurityProfileGroupRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSecurityProfileGroupRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22032,7 +22356,10 @@ impl DeleteSecurityProfileGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteSecurityProfileGroupRequest;
-    /// let x = DeleteSecurityProfileGroupRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_group_id = "security_profile_group_id";
+    /// let x = DeleteSecurityProfileGroupRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22090,7 +22417,9 @@ impl ListSecurityProfilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ListSecurityProfilesRequest;
-    /// let x = ListSecurityProfilesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSecurityProfilesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22226,7 +22555,10 @@ impl GetSecurityProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetSecurityProfileRequest;
-    /// let x = GetSecurityProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = GetSecurityProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22271,7 +22603,9 @@ impl CreateSecurityProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileRequest;
-    /// let x = CreateSecurityProfileRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSecurityProfileRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22454,7 +22788,10 @@ impl DeleteSecurityProfileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteSecurityProfileRequest;
-    /// let x = DeleteSecurityProfileRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_profile_id = "security_profile_id";
+    /// let x = DeleteSecurityProfileRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23120,7 +23457,10 @@ impl ServerTlsPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::ServerTlsPolicy;
-    /// let x = ServerTlsPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let server_tls_policy_id = "server_tls_policy_id";
+    /// let x = ServerTlsPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/serverTlsPolicies/{server_tls_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23781,7 +24121,10 @@ impl GetServerTlsPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetServerTlsPolicyRequest;
-    /// let x = GetServerTlsPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let server_tls_policy_id = "server_tls_policy_id";
+    /// let x = GetServerTlsPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serverTlsPolicies/{server_tls_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23826,7 +24169,9 @@ impl CreateServerTlsPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateServerTlsPolicyRequest;
-    /// let x = CreateServerTlsPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateServerTlsPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24007,7 +24352,10 @@ impl DeleteServerTlsPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteServerTlsPolicyRequest;
-    /// let x = DeleteServerTlsPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let server_tls_policy_id = "server_tls_policy_id";
+    /// let x = DeleteServerTlsPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/serverTlsPolicies/{server_tls_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24468,7 +24816,10 @@ impl TlsInspectionPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
-    /// let x = TlsInspectionPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_inspection_policy_id = "tls_inspection_policy_id";
+    /// let x = TlsInspectionPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25010,7 +25361,9 @@ impl CreateTlsInspectionPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateTlsInspectionPolicyRequest;
-    /// let x = CreateTlsInspectionPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTlsInspectionPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25260,7 +25613,10 @@ impl GetTlsInspectionPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetTlsInspectionPolicyRequest;
-    /// let x = GetTlsInspectionPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_inspection_policy_id = "tls_inspection_policy_id";
+    /// let x = GetTlsInspectionPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25302,7 +25658,10 @@ impl DeleteTlsInspectionPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteTlsInspectionPolicyRequest;
-    /// let x = DeleteTlsInspectionPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tls_inspection_policy_id = "tls_inspection_policy_id";
+    /// let x = DeleteTlsInspectionPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsInspectionPolicies/{tls_inspection_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25462,7 +25821,10 @@ impl UrlList {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::UrlList;
-    /// let x = UrlList::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let url_list_id = "url_list_id";
+    /// let x = UrlList::new().set_name(format!("projects/{project_id}/locations/{location_id}/urlLists/{url_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25759,7 +26121,10 @@ impl GetUrlListRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::GetUrlListRequest;
-    /// let x = GetUrlListRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let url_list_id = "url_list_id";
+    /// let x = GetUrlListRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/urlLists/{url_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25803,7 +26168,9 @@ impl CreateUrlListRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::CreateUrlListRequest;
-    /// let x = CreateUrlListRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateUrlListRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25981,7 +26348,10 @@ impl DeleteUrlListRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networksecurity_v1::model::DeleteUrlListRequest;
-    /// let x = DeleteUrlListRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let url_list_id = "url_list_id";
+    /// let x = DeleteUrlListRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/urlLists/{url_list_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

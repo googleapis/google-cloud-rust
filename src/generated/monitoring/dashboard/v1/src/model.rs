@@ -59,7 +59,9 @@ impl AlertChart {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::AlertChart;
-    /// let x = AlertChart::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let alert_policy_id = "alert_policy_id";
+    /// let x = AlertChart::new().set_name(format!("projects/{project_id}/alertPolicies/{alert_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1565,7 +1567,9 @@ impl Dashboard {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
-    /// let x = Dashboard::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = Dashboard::new().set_name(format!("projects/{project_id}/dashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2406,7 +2410,9 @@ impl GetDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::GetDashboardRequest;
-    /// let x = GetDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = GetDashboardRequest::new().set_name(format!("projects/{project_id}/dashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2445,7 +2451,9 @@ impl DeleteDashboardRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::DeleteDashboardRequest;
-    /// let x = DeleteDashboardRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let dashboard_id = "dashboard_id";
+    /// let x = DeleteDashboardRequest::new().set_name(format!("projects/{project_id}/dashboards/{dashboard_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

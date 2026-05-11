@@ -109,7 +109,10 @@ impl AutoscalingPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::AutoscalingPolicy;
-    /// let x = AutoscalingPolicy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autoscaling_policy_id = "autoscaling_policy_id";
+    /// let x = AutoscalingPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoscalingPolicies/{autoscaling_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -856,7 +859,9 @@ impl CreateAutoscalingPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::CreateAutoscalingPolicyRequest;
-    /// let x = CreateAutoscalingPolicyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAutoscalingPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -934,7 +939,10 @@ impl GetAutoscalingPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::GetAutoscalingPolicyRequest;
-    /// let x = GetAutoscalingPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autoscaling_policy_id = "autoscaling_policy_id";
+    /// let x = GetAutoscalingPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoscalingPolicies/{autoscaling_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1037,7 +1045,10 @@ impl DeleteAutoscalingPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DeleteAutoscalingPolicyRequest;
-    /// let x = DeleteAutoscalingPolicyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autoscaling_policy_id = "autoscaling_policy_id";
+    /// let x = DeleteAutoscalingPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoscalingPolicies/{autoscaling_policy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1090,7 +1101,9 @@ impl ListAutoscalingPoliciesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::ListAutoscalingPoliciesRequest;
-    /// let x = ListAutoscalingPoliciesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAutoscalingPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1247,7 +1260,9 @@ impl CreateBatchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::CreateBatchRequest;
-    /// let x = CreateBatchRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBatchRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1341,7 +1356,10 @@ impl GetBatchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::GetBatchRequest;
-    /// let x = GetBatchRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let batch_id = "batch_id";
+    /// let x = GetBatchRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/batches/{batch_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1407,7 +1425,9 @@ impl ListBatchesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::ListBatchesRequest;
-    /// let x = ListBatchesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBatchesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1589,7 +1609,10 @@ impl DeleteBatchRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DeleteBatchRequest;
-    /// let x = DeleteBatchRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let batch_id = "batch_id";
+    /// let x = DeleteBatchRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/batches/{batch_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1671,7 +1694,10 @@ impl Batch {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::Batch;
-    /// let x = Batch::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let batch_id = "batch_id";
+    /// let x = Batch::new().set_name(format!("projects/{project_id}/locations/{location_id}/batches/{batch_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7245,7 +7271,11 @@ impl NodeGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::NodeGroup;
-    /// let x = NodeGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_group_id = "node_group_id";
+    /// let x = NodeGroup::new().set_name(format!("projects/{project_id}/regions/{region_id}/clusters/{cluster_id}/nodeGroups/{node_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16435,7 +16465,10 @@ impl CreateNodeGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::CreateNodeGroupRequest;
-    /// let x = CreateNodeGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = CreateNodeGroupRequest::new().set_parent(format!("projects/{project_id}/regions/{region_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -16661,7 +16694,11 @@ impl GetNodeGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::GetNodeGroupRequest;
-    /// let x = GetNodeGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let node_group_id = "node_group_id";
+    /// let x = GetNodeGroupRequest::new().set_name(format!("projects/{project_id}/regions/{region_id}/clusters/{cluster_id}/nodeGroups/{node_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18187,7 +18224,9 @@ impl CreateSessionTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::CreateSessionTemplateRequest;
-    /// let x = CreateSessionTemplateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSessionTemplateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18311,7 +18350,10 @@ impl GetSessionTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::GetSessionTemplateRequest;
-    /// let x = GetSessionTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = GetSessionTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18360,7 +18402,9 @@ impl ListSessionTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::ListSessionTemplatesRequest;
-    /// let x = ListSessionTemplatesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSessionTemplatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18506,7 +18550,10 @@ impl DeleteSessionTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DeleteSessionTemplateRequest;
-    /// let x = DeleteSessionTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = DeleteSessionTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18575,7 +18622,10 @@ impl SessionTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::SessionTemplate;
-    /// let x = SessionTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = SessionTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18945,7 +18995,9 @@ impl CreateSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::CreateSessionRequest;
-    /// let x = CreateSessionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSessionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19037,7 +19089,10 @@ impl GetSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::GetSessionRequest;
-    /// let x = GetSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// let x = GetSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19097,7 +19152,9 @@ impl ListSessionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::ListSessionsRequest;
-    /// let x = ListSessionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSessionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19255,7 +19312,10 @@ impl TerminateSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::TerminateSessionRequest;
-    /// let x = TerminateSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// let x = TerminateSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19314,7 +19374,10 @@ impl DeleteSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DeleteSessionRequest;
-    /// let x = DeleteSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// let x = DeleteSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19421,7 +19484,10 @@ impl Session {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::Session;
-    /// let x = Session::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// let x = Session::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19704,7 +19770,10 @@ impl Session {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::Session;
-    /// let x = Session::new().set_session_template("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = Session::new().set_session_template(format!("projects/{project_id}/locations/{location_id}/sessionTemplates/{template_id}"));
     /// ```
     pub fn set_session_template<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -23023,7 +23092,10 @@ impl WorkflowTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::WorkflowTemplate;
-    /// let x = WorkflowTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let workflow_template_id = "workflow_template_id";
+    /// let x = WorkflowTemplate::new().set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25662,7 +25734,9 @@ impl CreateWorkflowTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::CreateWorkflowTemplateRequest;
-    /// let x = CreateWorkflowTemplateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// let x = CreateWorkflowTemplateRequest::new().set_parent(format!("projects/{project_id}/regions/{region_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -25746,7 +25820,10 @@ impl GetWorkflowTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::GetWorkflowTemplateRequest;
-    /// let x = GetWorkflowTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let workflow_template_id = "workflow_template_id";
+    /// let x = GetWorkflowTemplateRequest::new().set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25826,7 +25903,10 @@ impl InstantiateWorkflowTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::InstantiateWorkflowTemplateRequest;
-    /// let x = InstantiateWorkflowTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let workflow_template_id = "workflow_template_id";
+    /// let x = InstantiateWorkflowTemplateRequest::new().set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25930,7 +26010,9 @@ impl InstantiateInlineWorkflowTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::InstantiateInlineWorkflowTemplateRequest;
-    /// let x = InstantiateInlineWorkflowTemplateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// let x = InstantiateInlineWorkflowTemplateRequest::new().set_parent(format!("projects/{project_id}/regions/{region_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26085,7 +26167,9 @@ impl ListWorkflowTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::ListWorkflowTemplatesRequest;
-    /// let x = ListWorkflowTemplatesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// let x = ListWorkflowTemplatesRequest::new().set_parent(format!("projects/{project_id}/regions/{region_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -26259,7 +26343,10 @@ impl DeleteWorkflowTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DeleteWorkflowTemplateRequest;
-    /// let x = DeleteWorkflowTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let region_id = "region_id";
+    /// # let workflow_template_id = "workflow_template_id";
+    /// let x = DeleteWorkflowTemplateRequest::new().set_name(format!("projects/{project_id}/regions/{region_id}/workflowTemplates/{workflow_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

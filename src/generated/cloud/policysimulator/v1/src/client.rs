@@ -257,8 +257,6 @@ impl OrgPolicyViolationsPreviewService {
     /// in an
     /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
     ///
-    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
