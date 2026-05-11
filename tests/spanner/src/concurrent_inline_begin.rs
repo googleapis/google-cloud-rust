@@ -15,12 +15,10 @@
 use crate::client::{get_database_id, get_emulator_host, provision_emulator, update_database_ddl};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
-use futures::stream::StreamExt;
 use google_cloud_spanner::client::{ResultSet, Row, Spanner, TimestampBound};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use http::{Request, Response, StatusCode};
 use http_body::Frame;
-use http_body_util::BodyExt;
 use http_body_util::Full;
 use http_body_util::StreamBody;
 use prost::Message;
