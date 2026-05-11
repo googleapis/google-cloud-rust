@@ -2546,7 +2546,10 @@ impl Company {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Company;
-    /// let x = Company::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let company_id = "company_id";
+    /// let x = Company::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2830,7 +2833,9 @@ impl CreateCompanyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CreateCompanyRequest;
-    /// let x = CreateCompanyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = CreateCompanyRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2902,7 +2907,10 @@ impl GetCompanyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::GetCompanyRequest;
-    /// let x = GetCompanyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let company_id = "company_id";
+    /// let x = GetCompanyRequest::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3047,7 +3055,10 @@ impl DeleteCompanyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::DeleteCompanyRequest;
-    /// let x = DeleteCompanyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let company_id = "company_id";
+    /// let x = DeleteCompanyRequest::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3103,7 +3114,9 @@ impl ListCompaniesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::ListCompaniesRequest;
-    /// let x = ListCompaniesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = ListCompaniesRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3325,7 +3338,9 @@ impl CompleteQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
-    /// let x = CompleteQueryRequest::new().set_tenant("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = CompleteQueryRequest::new().set_tenant(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_tenant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tenant = v.into();
@@ -3378,7 +3393,10 @@ impl CompleteQueryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
-    /// let x = CompleteQueryRequest::new().set_company("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let company_id = "company_id";
+    /// let x = CompleteQueryRequest::new().set_company(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"));
     /// ```
     pub fn set_company<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.company = v.into();
@@ -4489,7 +4507,9 @@ impl CreateClientEventRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CreateClientEventRequest;
-    /// let x = CreateClientEventRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = CreateClientEventRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6527,7 +6547,10 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Job;
-    /// let x = Job::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let job_id = "job_id";
+    /// let x = Job::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6539,7 +6562,10 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Job;
-    /// let x = Job::new().set_company("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let company_id = "company_id";
+    /// let x = Job::new().set_company(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"));
     /// ```
     pub fn set_company<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.company = v.into();
@@ -7438,7 +7464,9 @@ impl CreateJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CreateJobRequest;
-    /// let x = CreateJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = CreateJobRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7510,7 +7538,10 @@ impl GetJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let job_id = "job_id";
+    /// let x = GetJobRequest::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7653,7 +7684,10 @@ impl DeleteJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::DeleteJobRequest;
-    /// let x = DeleteJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// # let job_id = "job_id";
+    /// let x = DeleteJobRequest::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7740,7 +7774,9 @@ impl ListJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = ListJobsRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8276,7 +8312,9 @@ impl SearchJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::SearchJobsRequest;
-    /// let x = SearchJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = SearchJobsRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10043,7 +10081,9 @@ impl BatchCreateJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::BatchCreateJobsRequest;
-    /// let x = BatchCreateJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = BatchCreateJobsRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10129,7 +10169,9 @@ impl BatchUpdateJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::BatchUpdateJobsRequest;
-    /// let x = BatchUpdateJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = BatchUpdateJobsRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10232,7 +10274,9 @@ impl BatchDeleteJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::BatchDeleteJobsRequest;
-    /// let x = BatchDeleteJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = BatchDeleteJobsRequest::new().set_parent(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10564,7 +10608,9 @@ impl Tenant {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Tenant;
-    /// let x = Tenant::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = Tenant::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10688,7 +10734,9 @@ impl GetTenantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::GetTenantRequest;
-    /// let x = GetTenantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = GetTenantRequest::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10831,7 +10879,9 @@ impl DeleteTenantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::DeleteTenantRequest;
-    /// let x = DeleteTenantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let tenant_id = "tenant_id";
+    /// let x = DeleteTenantRequest::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

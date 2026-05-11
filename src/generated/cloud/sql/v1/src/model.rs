@@ -957,7 +957,8 @@ impl CreateBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateBackupRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1026,7 +1027,9 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1082,7 +1085,8 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1350,7 +1354,9 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1464,7 +1470,9 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9142,7 +9150,9 @@ impl InstancesRestoreBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::InstancesRestoreBackupRequest;
-    /// let x = InstancesRestoreBackupRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let backup_id = "backup_id";
+    /// let x = InstancesRestoreBackupRequest::new().set_backup(format!("projects/{project_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();

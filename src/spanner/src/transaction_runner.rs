@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::database_client::DatabaseClient;
+use crate::model::CommitResponse;
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::read_write::ReadLockMode;
@@ -20,6 +21,7 @@ use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBu
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
 };
+use std::time::Duration as StdDuration;
 use wkt::Duration;
 
 /// A builder for a [TransactionRunner] for a read/write transaction.
@@ -46,6 +48,7 @@ use wkt::Duration;
 pub struct TransactionRunnerBuilder {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
+    timeout: Option<StdDuration>,
 }
 
 impl TransactionRunnerBuilder {
@@ -53,7 +56,33 @@ impl TransactionRunnerBuilder {
         Self {
             builder: ReadWriteTransactionBuilder::new(client),
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
+            timeout: None,
         }
+    }
+
+    /// Sets the timeout for the entire transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_transaction_timeout(Duration::from_secs(5))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This timeout applies to the total time spent executing the transaction, including
+    /// all statements and automatic retries. Each individual RPC within the transaction
+    /// is automatically assigned a deadline derived from the remaining time of this
+    /// overall timeout.
+    pub fn with_transaction_timeout(mut self, timeout: StdDuration) -> Self {
+        self.timeout = Some(timeout);
+        self
     }
 
     /// Sets the isolation level for the transaction.
@@ -200,6 +229,37 @@ impl TransactionRunnerBuilder {
         self
     }
 
+    /// Sets whether to return commit stats for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_return_commit_stats(true)
+    ///     .build()
+    ///     .await?;
+    ///
+    /// let result = runner.run(async |transaction| {
+    ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
+    ///     transaction.execute_update(statement).await?;
+    ///     Ok(42)
+    /// }).await?;
+    ///
+    /// if let Some(stats) = result.commit_response.commit_stats {
+    ///     println!("Mutation count: {}", stats.mutation_count);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
+    pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
+        self.builder = self.builder.with_return_commit_stats(return_stats);
+        self
+    }
+
     /// Sets the retry policy for the transaction.
     ///
     /// # Example
@@ -250,14 +310,26 @@ impl TransactionRunnerBuilder {
         Ok(TransactionRunner {
             builder: self.builder,
             retry_policy: self.retry_policy,
+            timeout: self.timeout,
         })
     }
+}
+
+/// Result of a read/write transaction executed by a [TransactionRunner].
+#[derive(Debug)]
+#[non_exhaustive]
+pub struct TransactionResult<T> {
+    /// The result returned by the closure executed within the transaction.
+    pub result: T,
+    /// The response from the commit RPC.
+    pub commit_response: CommitResponse,
 }
 
 /// A runner for read/write transactions. Aborted transactions are automatically retried.
 pub struct TransactionRunner {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
+    timeout: Option<StdDuration>,
 }
 
 impl TransactionRunner {
@@ -274,7 +346,7 @@ impl TransactionRunner {
     /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
     ///     transaction.execute_update(statement).await?;
-    ///     Ok(42) // This will be returned by runner.run()
+    ///     Ok(42)
     /// }).await?;
     /// # Ok(())
     /// # }
@@ -286,21 +358,22 @@ impl TransactionRunner {
     /// The transaction is automatically committed if the closure returns `Ok`.
     /// If the closure returns `Err`, the transaction will be rolled back and
     /// the error will be propagated.
-    pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<T>
+    pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<TransactionResult<T>>
     where
         F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
     {
         let start_time = tokio::time::Instant::now();
         let mut attempts: u32 = 0;
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
+        let deadline = self.timeout.map(|t| start_time + t);
 
         loop {
             attempts += 1;
 
             let mut current_tx_id = None;
             let attempt_result = async {
-                let transaction = self.builder.begin_transaction().await?;
-                current_tx_id = transaction.transaction_id().ok();
+                let transaction = self.builder.begin_transaction(deadline).await?;
+                current_tx_id = transaction.transaction_id().await.ok();
 
                 let result = match work(transaction.clone()).await {
                     Ok(res) => res,
@@ -313,8 +386,11 @@ impl TransactionRunner {
                     }
                 };
 
-                transaction.commit().await?;
-                Ok::<T, crate::Error>(result)
+                let commit_response = transaction.commit().await?;
+                Ok::<TransactionResult<T>, crate::Error>(TransactionResult {
+                    result,
+                    commit_response,
+                })
             }
             .await;
 
@@ -346,6 +422,8 @@ mod tests {
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
+    use spanner_grpc_mock::google::spanner::v1::CommitResponse;
+    use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
 
     fn expect_begin_transaction(
@@ -382,6 +460,7 @@ mod tests {
                 Ok(count)
             })
             .await
+            .map(|res| res.result)
     }
 
     fn commit_response() -> Result<tonic::Response<v1::CommitResponse>, tonic::Status> {
@@ -438,6 +517,57 @@ mod tests {
 
         let res = execute_test_runner(mock).await.unwrap();
         assert_eq!(res, 1);
+    }
+
+    #[tokio::test]
+    async fn run_success_with_commit_stats() {
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "UPDATE Users SET active = true");
+            row_count_exact_response(1)
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.return_commit_stats);
+            Ok(tonic::Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                commit_stats: Some(CommitStats { mutation_count: 5 }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_return_commit_stats(true)
+            .build()
+            .await
+            .unwrap();
+
+        let res = runner
+            .run(async |tx| {
+                let count = tx.execute_update("UPDATE Users SET active = true").await?;
+                Ok(count)
+            })
+            .await
+            .unwrap();
+
+        assert_eq!(res.result, 1);
+        assert!(res.commit_response.commit_stats.is_some());
+        assert_eq!(
+            res.commit_response
+                .commit_stats
+                .expect("Commit stats should be present")
+                .mutation_count,
+            5
+        );
     }
 
     #[tokio::test]
@@ -712,7 +842,7 @@ mod tests {
             .await
             .expect("transaction failed");
 
-        assert_eq!(res, vec![5]);
+        assert_eq!(res.result, vec![5]);
         assert_eq!(attempt_counter, 2);
     }
 
@@ -772,7 +902,7 @@ mod tests {
             })
             .await?;
 
-        assert_eq!(res, 5);
+        assert_eq!(res.result, 5);
 
         Ok(())
     }
@@ -813,7 +943,7 @@ mod tests {
             })
             .await?;
 
-        assert_eq!(res, 5);
+        assert_eq!(res.result, 5);
 
         Ok(())
     }
@@ -852,7 +982,7 @@ mod tests {
                 Ok(count)
             })
             .await?;
-        assert_eq!(res, 1);
+        assert_eq!(res.result, 1);
         Ok(())
     }
 }

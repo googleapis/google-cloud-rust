@@ -256,7 +256,10 @@ impl GetCertificateIssuanceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::GetCertificateIssuanceConfigRequest;
-    /// let x = GetCertificateIssuanceConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_issuance_config_id = "certificate_issuance_config_id";
+    /// let x = GetCertificateIssuanceConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -382,7 +385,10 @@ impl DeleteCertificateIssuanceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateIssuanceConfigRequest;
-    /// let x = DeleteCertificateIssuanceConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_issuance_config_id = "certificate_issuance_config_id";
+    /// let x = DeleteCertificateIssuanceConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -447,7 +453,10 @@ impl CertificateIssuanceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
-    /// let x = CertificateIssuanceConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_issuance_config_id = "certificate_issuance_config_id";
+    /// let x = CertificateIssuanceConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1145,7 +1154,10 @@ impl GetCertificateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::GetCertificateRequest;
-    /// let x = GetCertificateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_id = "certificate_id";
+    /// let x = GetCertificateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificates/{certificate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1362,7 +1374,10 @@ impl DeleteCertificateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateRequest;
-    /// let x = DeleteCertificateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_id = "certificate_id";
+    /// let x = DeleteCertificateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificates/{certificate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1594,7 +1609,10 @@ impl GetCertificateMapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::GetCertificateMapRequest;
-    /// let x = GetCertificateMapRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// let x = GetCertificateMapRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1814,7 +1832,10 @@ impl DeleteCertificateMapRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateMapRequest;
-    /// let x = DeleteCertificateMapRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// let x = DeleteCertificateMapRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1871,7 +1892,10 @@ impl ListCertificateMapEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesRequest;
-    /// let x = ListCertificateMapEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// let x = ListCertificateMapEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2051,7 +2075,11 @@ impl GetCertificateMapEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::GetCertificateMapEntryRequest;
-    /// let x = GetCertificateMapEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// # let certificate_map_entry_id = "certificate_map_entry_id";
+    /// let x = GetCertificateMapEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}/certificateMapEntries/{certificate_map_entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2093,7 +2121,10 @@ impl CreateCertificateMapEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapEntryRequest;
-    /// let x = CreateCertificateMapEntryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// let x = CreateCertificateMapEntryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2271,7 +2302,11 @@ impl DeleteCertificateMapEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateMapEntryRequest;
-    /// let x = DeleteCertificateMapEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// # let certificate_map_entry_id = "certificate_map_entry_id";
+    /// let x = DeleteCertificateMapEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}/certificateMapEntries/{certificate_map_entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2503,7 +2538,10 @@ impl GetDnsAuthorizationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::GetDnsAuthorizationRequest;
-    /// let x = GetDnsAuthorizationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dns_authorization_id = "dns_authorization_id";
+    /// let x = GetDnsAuthorizationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsAuthorizations/{dns_authorization_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2723,7 +2761,10 @@ impl DeleteDnsAuthorizationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DeleteDnsAuthorizationRequest;
-    /// let x = DeleteDnsAuthorizationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dns_authorization_id = "dns_authorization_id";
+    /// let x = DeleteDnsAuthorizationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsAuthorizations/{dns_authorization_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2761,8 +2802,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
@@ -2962,7 +3001,10 @@ impl Certificate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::Certificate;
-    /// let x = Certificate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_id = "certificate_id";
+    /// let x = Certificate::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificates/{certificate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3401,7 +3443,10 @@ pub mod certificate {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
-        /// let x = ManagedCertificate::new().set_issuance_config("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let certificate_issuance_config_id = "certificate_issuance_config_id";
+        /// let x = ManagedCertificate::new().set_issuance_config(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"));
         /// ```
         pub fn set_issuance_config<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -4434,7 +4479,10 @@ impl CertificateMap {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
-    /// let x = CertificateMap::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// let x = CertificateMap::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4844,7 +4892,11 @@ impl CertificateMapEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
-    /// let x = CertificateMapEntry::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let certificate_map_id = "certificate_map_id";
+    /// # let certificate_map_entry_id = "certificate_map_entry_id";
+    /// let x = CertificateMapEntry::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}/certificateMapEntries/{certificate_map_entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5273,7 +5325,10 @@ impl DnsAuthorization {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
-    /// let x = DnsAuthorization::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dns_authorization_id = "dns_authorization_id";
+    /// let x = DnsAuthorization::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsAuthorizations/{dns_authorization_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5875,7 +5930,10 @@ impl GetTrustConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::GetTrustConfigRequest;
-    /// let x = GetTrustConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let trust_config_id = "trust_config_id";
+    /// let x = GetTrustConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/trustConfigs/{trust_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6098,7 +6156,10 @@ impl DeleteTrustConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::DeleteTrustConfigRequest;
-    /// let x = DeleteTrustConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let trust_config_id = "trust_config_id";
+    /// let x = DeleteTrustConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/trustConfigs/{trust_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6172,7 +6233,10 @@ impl TrustConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
-    /// let x = TrustConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let trust_config_id = "trust_config_id";
+    /// let x = TrustConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/trustConfigs/{trust_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

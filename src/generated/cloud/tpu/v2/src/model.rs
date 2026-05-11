@@ -877,7 +877,10 @@ impl Node {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::Node;
-    /// let x = Node::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_id = "node_id";
+    /// let x = Node::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1953,7 +1956,10 @@ impl QueuedResource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::QueuedResource;
-    /// let x = QueuedResource::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queued_resource_id = "queued_resource_id";
+    /// let x = QueuedResource::new().set_name(format!("projects/{project_id}/locations/{location_id}/queuedResources/{queued_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3992,7 +3998,9 @@ impl ListNodesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::ListNodesRequest;
-    /// let x = ListNodesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListNodesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4149,7 +4157,10 @@ impl GetNodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::GetNodeRequest;
-    /// let x = GetNodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_id = "node_id";
+    /// let x = GetNodeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4274,7 +4285,10 @@ impl DeleteNodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::DeleteNodeRequest;
-    /// let x = DeleteNodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_id = "node_id";
+    /// let x = DeleteNodeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4311,7 +4325,10 @@ impl StopNodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::StopNodeRequest;
-    /// let x = StopNodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_id = "node_id";
+    /// let x = StopNodeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4348,7 +4365,10 @@ impl StartNodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::StartNodeRequest;
-    /// let x = StartNodeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_id = "node_id";
+    /// let x = StartNodeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4489,7 +4509,9 @@ impl ListQueuedResourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::ListQueuedResourcesRequest;
-    /// let x = ListQueuedResourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListQueuedResourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4647,7 +4669,10 @@ impl GetQueuedResourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::GetQueuedResourceRequest;
-    /// let x = GetQueuedResourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queued_resource_id = "queued_resource_id";
+    /// let x = GetQueuedResourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queuedResources/{queued_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4803,7 +4828,10 @@ impl DeleteQueuedResourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::DeleteQueuedResourceRequest;
-    /// let x = DeleteQueuedResourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queued_resource_id = "queued_resource_id";
+    /// let x = DeleteQueuedResourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queuedResources/{queued_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4865,7 +4893,10 @@ impl ResetQueuedResourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::ResetQueuedResourceRequest;
-    /// let x = ResetQueuedResourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queued_resource_id = "queued_resource_id";
+    /// let x = ResetQueuedResourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/queuedResources/{queued_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5038,7 +5069,10 @@ impl AcceleratorType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::AcceleratorType;
-    /// let x = AcceleratorType::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let accelerator_type_id = "accelerator_type_id";
+    /// let x = AcceleratorType::new().set_name(format!("projects/{project_id}/locations/{location_id}/acceleratorTypes/{accelerator_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5109,7 +5143,10 @@ impl GetAcceleratorTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::GetAcceleratorTypeRequest;
-    /// let x = GetAcceleratorTypeRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let accelerator_type_id = "accelerator_type_id";
+    /// let x = GetAcceleratorTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/acceleratorTypes/{accelerator_type_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5159,7 +5196,9 @@ impl ListAcceleratorTypesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesRequest;
-    /// let x = ListAcceleratorTypesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAcceleratorTypesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5342,7 +5381,10 @@ impl RuntimeVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::RuntimeVersion;
-    /// let x = RuntimeVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let runtime_version_id = "runtime_version_id";
+    /// let x = RuntimeVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/runtimeVersions/{runtime_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5391,7 +5433,10 @@ impl GetRuntimeVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::GetRuntimeVersionRequest;
-    /// let x = GetRuntimeVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let runtime_version_id = "runtime_version_id";
+    /// let x = GetRuntimeVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/runtimeVersions/{runtime_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5441,7 +5486,9 @@ impl ListRuntimeVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsRequest;
-    /// let x = ListRuntimeVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListRuntimeVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6075,7 +6122,10 @@ impl GetGuestAttributesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tpu_v2::model::GetGuestAttributesRequest;
-    /// let x = GetGuestAttributesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let node_id = "node_id";
+    /// let x = GetGuestAttributesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -472,7 +472,10 @@ impl ManagementServer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ManagementServer;
-    /// let x = ManagementServer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let managementserver_id = "managementserver_id";
+    /// let x = ManagementServer::new().set_name(format!("projects/{project_id}/locations/{location_id}/managementServers/{managementserver_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1175,7 +1178,9 @@ impl ListManagementServersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
-    /// let x = ListManagementServersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListManagementServersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1398,7 +1403,10 @@ impl GetManagementServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetManagementServerRequest;
-    /// let x = GetManagementServerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let managementserver_id = "managementserver_id";
+    /// let x = GetManagementServerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/managementServers/{managementserver_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1460,7 +1468,9 @@ impl CreateManagementServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::CreateManagementServerRequest;
-    /// let x = CreateManagementServerRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateManagementServerRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1570,7 +1580,10 @@ impl DeleteManagementServerRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DeleteManagementServerRequest;
-    /// let x = DeleteManagementServerRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let managementserver_id = "managementserver_id";
+    /// let x = DeleteManagementServerRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/managementServers/{managementserver_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2115,7 +2128,10 @@ impl BackupPlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = BackupPlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2290,7 +2306,10 @@ impl BackupPlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_backup_vault("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// let x = BackupPlan::new().set_backup_vault(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"));
     /// ```
     pub fn set_backup_vault<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault = v.into();
@@ -3417,7 +3436,9 @@ impl CreateBackupPlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::CreateBackupPlanRequest;
-    /// let x = CreateBackupPlanRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackupPlanRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3539,7 +3560,9 @@ impl ListBackupPlansRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListBackupPlansRequest;
-    /// let x = ListBackupPlansRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupPlansRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3732,7 +3755,10 @@ impl GetBackupPlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetBackupPlanRequest;
-    /// let x = GetBackupPlanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = GetBackupPlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3784,7 +3810,10 @@ impl DeleteBackupPlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanRequest;
-    /// let x = DeleteBackupPlanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = DeleteBackupPlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3975,7 +4004,11 @@ impl BackupPlanRevision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
-    /// let x = BackupPlanRevision::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let revision_id = "revision_id";
+    /// let x = BackupPlanRevision::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4261,7 +4294,11 @@ impl GetBackupPlanRevisionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetBackupPlanRevisionRequest;
-    /// let x = GetBackupPlanRevisionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetBackupPlanRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/revisions/{revision_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4319,7 +4356,10 @@ impl ListBackupPlanRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsRequest;
-    /// let x = ListBackupPlanRevisionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = ListBackupPlanRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4538,7 +4578,10 @@ impl BackupPlanAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
-    /// let x = BackupPlanAssociation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_association_id = "backup_plan_association_id";
+    /// let x = BackupPlanAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4574,7 +4617,10 @@ impl BackupPlanAssociation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
-    /// let x = BackupPlanAssociation::new().set_backup_plan("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = BackupPlanAssociation::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
@@ -5355,7 +5401,9 @@ impl CreateBackupPlanAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::CreateBackupPlanAssociationRequest;
-    /// let x = CreateBackupPlanAssociationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackupPlanAssociationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5465,7 +5513,9 @@ impl ListBackupPlanAssociationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsRequest;
-    /// let x = ListBackupPlanAssociationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupPlanAssociationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5679,7 +5729,9 @@ impl FetchBackupPlanAssociationsForResourceTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
-    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5852,7 +5904,10 @@ impl GetBackupPlanAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetBackupPlanAssociationRequest;
-    /// let x = GetBackupPlanAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_association_id = "backup_plan_association_id";
+    /// let x = GetBackupPlanAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5903,7 +5958,10 @@ impl DeleteBackupPlanAssociationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanAssociationRequest;
-    /// let x = DeleteBackupPlanAssociationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_association_id = "backup_plan_association_id";
+    /// let x = DeleteBackupPlanAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6094,7 +6152,10 @@ impl TriggerBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::TriggerBackupRequest;
-    /// let x = TriggerBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_association_id = "backup_plan_association_id";
+    /// let x = TriggerBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6222,7 +6283,10 @@ impl BackupVault {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupVault;
-    /// let x = BackupVault::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// let x = BackupVault::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7240,7 +7304,11 @@ impl DataSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DataSource;
-    /// let x = DataSource::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = DataSource::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8222,7 +8290,10 @@ impl GcpBackupConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
-    /// let x = GcpBackupConfig::new().set_backup_plan("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = GcpBackupConfig::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
@@ -8249,7 +8320,10 @@ impl GcpBackupConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
-    /// let x = GcpBackupConfig::new().set_backup_plan_association("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_association_id = "backup_plan_association_id";
+    /// let x = GcpBackupConfig::new().set_backup_plan_association(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"));
     /// ```
     pub fn set_backup_plan_association<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9411,7 +9485,12 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10280,7 +10359,10 @@ pub mod backup {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
-        /// let x = GCPBackupPlanInfo::new().set_backup_plan("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let backup_plan_id = "backup_plan_id";
+        /// let x = GCPBackupPlanInfo::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
         /// ```
         pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.backup_plan = v.into();
@@ -10719,7 +10801,9 @@ impl CreateBackupVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
-    /// let x = CreateBackupVaultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBackupVaultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10845,7 +10929,9 @@ impl ListBackupVaultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
-    /// let x = ListBackupVaultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupVaultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11061,7 +11147,9 @@ impl FetchUsableBackupVaultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsRequest;
-    /// let x = FetchUsableBackupVaultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = FetchUsableBackupVaultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11280,7 +11368,11 @@ impl FetchBackupsForResourceTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::FetchBackupsForResourceTypeRequest;
-    /// let x = FetchBackupsForResourceTypeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = FetchBackupsForResourceTypeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11471,7 +11563,10 @@ impl GetBackupVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetBackupVaultRequest;
-    /// let x = GetBackupVaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// let x = GetBackupVaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11730,7 +11825,10 @@ impl DeleteBackupVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
-    /// let x = DeleteBackupVaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// let x = DeleteBackupVaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11855,7 +11953,10 @@ impl ListDataSourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListDataSourcesRequest;
-    /// let x = ListDataSourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// let x = ListDataSourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12040,7 +12141,11 @@ impl GetDataSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetDataSourceRequest;
-    /// let x = GetDataSourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = GetDataSourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12235,7 +12340,11 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12438,7 +12547,12 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12625,7 +12739,12 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12711,7 +12830,12 @@ impl RestoreBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
-    /// let x = RestoreBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23012,7 +23136,10 @@ impl DataSourceReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DataSourceReference;
-    /// let x = DataSourceReference::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_source_reference_id = "data_source_reference_id";
+    /// let x = DataSourceReference::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataSourceReferences/{data_source_reference_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23024,7 +23151,11 @@ impl DataSourceReference {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::DataSourceReference;
-    /// let x = DataSourceReference::new().set_data_source("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = DataSourceReference::new().set_data_source(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
     /// ```
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
@@ -23471,7 +23602,10 @@ impl GetDataSourceReferenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::GetDataSourceReferenceRequest;
-    /// let x = GetDataSourceReferenceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_source_reference_id = "data_source_reference_id";
+    /// let x = GetDataSourceReferenceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataSourceReferences/{data_source_reference_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23540,7 +23674,9 @@ impl ListDataSourceReferencesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ListDataSourceReferencesRequest;
-    /// let x = ListDataSourceReferencesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDataSourceReferencesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23762,7 +23898,9 @@ impl FetchDataSourceReferencesForResourceTypeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
-    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24153,7 +24291,10 @@ impl ResourceBackupConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
-    /// let x = ResourceBackupConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let resource_backup_config_id = "resource_backup_config_id";
+    /// let x = ResourceBackupConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/resourceBackupConfigs/{resource_backup_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

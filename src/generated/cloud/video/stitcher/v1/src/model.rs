@@ -61,7 +61,11 @@ impl LiveAdTagDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::LiveAdTagDetail;
-    /// let x = LiveAdTagDetail::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_session_id = "live_session_id";
+    /// # let live_ad_tag_detail_id = "live_ad_tag_detail_id";
+    /// let x = LiveAdTagDetail::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}/liveAdTagDetails/{live_ad_tag_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -124,7 +128,11 @@ impl VodAdTagDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::VodAdTagDetail;
-    /// let x = VodAdTagDetail::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// # let vod_ad_tag_detail_id = "vod_ad_tag_detail_id";
+    /// let x = VodAdTagDetail::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}/vodAdTagDetails/{vod_ad_tag_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -506,7 +514,10 @@ impl CdnKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CdnKey;
-    /// let x = CdnKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cdn_key_id = "cdn_key_id";
+    /// let x = CdnKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/cdnKeys/{cdn_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2160,7 +2171,10 @@ impl LiveConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
-    /// let x = LiveConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_config_id = "live_config_id";
+    /// let x = LiveConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2264,7 +2278,10 @@ impl LiveConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
-    /// let x = LiveConfig::new().set_default_slate("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let slate_id = "slate_id";
+    /// let x = LiveConfig::new().set_default_slate(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"));
     /// ```
     pub fn set_default_slate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_slate = v.into();
@@ -2860,7 +2877,10 @@ impl VodSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::VodSession;
-    /// let x = VodSession::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// let x = VodSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3057,7 +3077,10 @@ impl VodSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::VodSession;
-    /// let x = VodSession::new().set_vod_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_config_id = "vod_config_id";
+    /// let x = VodSession::new().set_vod_config(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"));
     /// ```
     pub fn set_vod_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vod_config = v.into();
@@ -3588,7 +3611,10 @@ impl LiveSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::LiveSession;
-    /// let x = LiveSession::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_session_id = "live_session_id";
+    /// let x = LiveSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3699,7 +3725,10 @@ impl LiveSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::LiveSession;
-    /// let x = LiveSession::new().set_live_config("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_config_id = "live_config_id";
+    /// let x = LiveSession::new().set_live_config(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"));
     /// ```
     pub fn set_live_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.live_config = v.into();
@@ -4086,7 +4115,10 @@ impl Slate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::Slate;
-    /// let x = Slate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let slate_id = "slate_id";
+    /// let x = Slate::new().set_name(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4232,7 +4264,11 @@ impl VodStitchDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::VodStitchDetail;
-    /// let x = VodStitchDetail::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// # let vod_stitch_detail_id = "vod_stitch_detail_id";
+    /// let x = VodStitchDetail::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}/vodStitchDetails/{vod_stitch_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4427,7 +4463,9 @@ impl CreateCdnKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CreateCdnKeyRequest;
-    /// let x = CreateCdnKeyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCdnKeyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4521,7 +4559,9 @@ impl ListCdnKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysRequest;
-    /// let x = ListCdnKeysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCdnKeysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4699,7 +4739,10 @@ impl GetCdnKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetCdnKeyRequest;
-    /// let x = GetCdnKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cdn_key_id = "cdn_key_id";
+    /// let x = GetCdnKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cdnKeys/{cdn_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4735,7 +4778,10 @@ impl DeleteCdnKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::DeleteCdnKeyRequest;
-    /// let x = DeleteCdnKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cdn_key_id = "cdn_key_id";
+    /// let x = DeleteCdnKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cdnKeys/{cdn_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4868,7 +4914,9 @@ impl CreateVodSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CreateVodSessionRequest;
-    /// let x = CreateVodSessionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateVodSessionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4937,7 +4985,10 @@ impl GetVodSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetVodSessionRequest;
-    /// let x = GetVodSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// let x = GetVodSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4979,7 +5030,10 @@ impl ListVodStitchDetailsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListVodStitchDetailsRequest;
-    /// let x = ListVodStitchDetailsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// let x = ListVodStitchDetailsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5114,7 +5168,11 @@ impl GetVodStitchDetailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetVodStitchDetailRequest;
-    /// let x = GetVodStitchDetailRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// # let vod_stitch_detail_id = "vod_stitch_detail_id";
+    /// let x = GetVodStitchDetailRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}/vodStitchDetails/{vod_stitch_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5156,7 +5214,10 @@ impl ListVodAdTagDetailsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListVodAdTagDetailsRequest;
-    /// let x = ListVodAdTagDetailsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// let x = ListVodAdTagDetailsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5291,7 +5352,11 @@ impl GetVodAdTagDetailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetVodAdTagDetailRequest;
-    /// let x = GetVodAdTagDetailRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_session_id = "vod_session_id";
+    /// # let vod_ad_tag_detail_id = "vod_ad_tag_detail_id";
+    /// let x = GetVodAdTagDetailRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodSessions/{vod_session_id}/vodAdTagDetails/{vod_ad_tag_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5333,7 +5398,10 @@ impl ListLiveAdTagDetailsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListLiveAdTagDetailsRequest;
-    /// let x = ListLiveAdTagDetailsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_session_id = "live_session_id";
+    /// let x = ListLiveAdTagDetailsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5467,7 +5535,11 @@ impl GetLiveAdTagDetailRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetLiveAdTagDetailRequest;
-    /// let x = GetLiveAdTagDetailRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_session_id = "live_session_id";
+    /// # let live_ad_tag_detail_id = "live_ad_tag_detail_id";
+    /// let x = GetLiveAdTagDetailRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}/liveAdTagDetails/{live_ad_tag_detail_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5527,7 +5599,9 @@ impl CreateSlateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CreateSlateRequest;
-    /// let x = CreateSlateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSlateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5620,7 +5694,10 @@ impl GetSlateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetSlateRequest;
-    /// let x = GetSlateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let slate_id = "slate_id";
+    /// let x = GetSlateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5669,7 +5746,9 @@ impl ListSlatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListSlatesRequest;
-    /// let x = ListSlatesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSlatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5939,7 +6018,10 @@ impl DeleteSlateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::DeleteSlateRequest;
-    /// let x = DeleteSlateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let slate_id = "slate_id";
+    /// let x = DeleteSlateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/slates/{slate_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5978,7 +6060,9 @@ impl CreateLiveSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CreateLiveSessionRequest;
-    /// let x = CreateLiveSessionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateLiveSessionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6047,7 +6131,10 @@ impl GetLiveSessionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetLiveSessionRequest;
-    /// let x = GetLiveSessionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_session_id = "live_session_id";
+    /// let x = GetLiveSessionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveSessions/{live_session_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6104,7 +6191,9 @@ impl CreateLiveConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CreateLiveConfigRequest;
-    /// let x = CreateLiveConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateLiveConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6212,7 +6301,9 @@ impl ListLiveConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsRequest;
-    /// let x = ListLiveConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListLiveConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6391,7 +6482,10 @@ impl GetLiveConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetLiveConfigRequest;
-    /// let x = GetLiveConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_config_id = "live_config_id";
+    /// let x = GetLiveConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6427,7 +6521,10 @@ impl DeleteLiveConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::DeleteLiveConfigRequest;
-    /// let x = DeleteLiveConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let live_config_id = "live_config_id";
+    /// let x = DeleteLiveConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/liveConfigs/{live_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6579,7 +6676,9 @@ impl CreateVodConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::CreateVodConfigRequest;
-    /// let x = CreateVodConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateVodConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6688,7 +6787,9 @@ impl ListVodConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsRequest;
-    /// let x = ListVodConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListVodConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6866,7 +6967,10 @@ impl GetVodConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::GetVodConfigRequest;
-    /// let x = GetVodConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_config_id = "vod_config_id";
+    /// let x = GetVodConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6902,7 +7006,10 @@ impl DeleteVodConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::DeleteVodConfigRequest;
-    /// let x = DeleteVodConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_config_id = "vod_config_id";
+    /// let x = DeleteVodConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7170,7 +7277,10 @@ impl VodConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_stitcher_v1::model::VodConfig;
-    /// let x = VodConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let vod_config_id = "vod_config_id";
+    /// let x = VodConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vodConfigs/{vod_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

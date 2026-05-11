@@ -95,18 +95,16 @@ where
         + 'static,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    let lro_span = options.tracing.map(|t| {
+    let longrunning_span = options.tracing.map(|t| {
         tracing::info_span!(
             "LRO Wait",
             "gcp.rpc.method" = t.method_name,
-            "gcp.lro.operation_name" = tracing::field::Empty
+            "gcp.longrunning.operation_name" = tracing::field::Empty
         )
     });
 
     #[cfg(not(google_cloud_unstable_tracing))]
-    {
-        let _ = options.tracing;
-    }
+    let _ = options;
 
     PollerImpl::new(
         polling_error_policy,
@@ -114,7 +112,7 @@ where
         start,
         query,
         #[cfg(google_cloud_unstable_tracing)]
-        lro_span,
+        longrunning_span,
     )
 }
 
@@ -296,7 +294,7 @@ struct PollerImpl<S, Q> {
     state: PollingState,
     #[cfg(google_cloud_unstable_tracing)]
     #[expect(dead_code)]
-    lro_span: Option<tracing::Span>,
+    longrunning_span: Option<tracing::Span>,
 }
 
 impl<S, Q> PollerImpl<S, Q> {
@@ -305,7 +303,7 @@ impl<S, Q> PollerImpl<S, Q> {
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
         start: S,
         query: Q,
-        #[cfg(google_cloud_unstable_tracing)] lro_span: Option<tracing::Span>,
+        #[cfg(google_cloud_unstable_tracing)] longrunning_span: Option<tracing::Span>,
     ) -> Self {
         Self {
             error_policy,
@@ -315,7 +313,7 @@ impl<S, Q> PollerImpl<S, Q> {
             operation: None,
             state: PollingState::default(),
             #[cfg(google_cloud_unstable_tracing)]
-            lro_span,
+            longrunning_span,
         }
     }
 }

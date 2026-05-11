@@ -1478,7 +1478,9 @@ impl CreateEntryGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreateEntryGroupRequest;
-    /// let x = CreateEntryGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEntryGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1663,7 +1665,10 @@ impl GetEntryGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::GetEntryGroupRequest;
-    /// let x = GetEntryGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = GetEntryGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1737,7 +1742,10 @@ impl DeleteEntryGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeleteEntryGroupRequest;
-    /// let x = DeleteEntryGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = DeleteEntryGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1799,7 +1807,9 @@ impl ListEntryGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ListEntryGroupsRequest;
-    /// let x = ListEntryGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEntryGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1952,7 +1962,10 @@ impl CreateEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreateEntryRequest;
-    /// let x = CreateEntryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = CreateEntryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2158,7 +2171,11 @@ impl DeleteEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeleteEntryRequest;
-    /// let x = DeleteEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = DeleteEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2196,7 +2213,11 @@ impl GetEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::GetEntryRequest;
-    /// let x = GetEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = GetEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2583,7 +2604,10 @@ impl Entry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::Entry;
-    /// let x = Entry::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = Entry::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6808,7 +6832,10 @@ impl EntryGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::EntryGroup;
-    /// let x = EntryGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = EntryGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6926,7 +6953,9 @@ impl CreateTagTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreateTagTemplateRequest;
-    /// let x = CreateTagTemplateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTagTemplateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7009,7 +7038,10 @@ impl GetTagTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::GetTagTemplateRequest;
-    /// let x = GetTagTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// let x = GetTagTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7155,7 +7187,10 @@ impl DeleteTagTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeleteTagTemplateRequest;
-    /// let x = DeleteTagTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// let x = DeleteTagTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7214,7 +7249,11 @@ impl CreateTagRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreateTagRequest;
-    /// let x = CreateTagRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = CreateTagRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7385,7 +7424,11 @@ impl DeleteTagRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeleteTagRequest;
-    /// let x = DeleteTagRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = DeleteTagRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7437,7 +7480,10 @@ impl CreateTagTemplateFieldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreateTagTemplateFieldRequest;
-    /// let x = CreateTagTemplateFieldRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// let x = CreateTagTemplateFieldRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7544,7 +7590,11 @@ impl UpdateTagTemplateFieldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::UpdateTagTemplateFieldRequest;
-    /// let x = UpdateTagTemplateFieldRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// # let field_id = "field_id";
+    /// let x = UpdateTagTemplateFieldRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}/fields/{field_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7652,7 +7702,11 @@ impl RenameTagTemplateFieldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::RenameTagTemplateFieldRequest;
-    /// let x = RenameTagTemplateFieldRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// # let field_id = "field_id";
+    /// let x = RenameTagTemplateFieldRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}/fields/{field_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7767,7 +7821,11 @@ impl DeleteTagTemplateFieldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeleteTagTemplateFieldRequest;
-    /// let x = DeleteTagTemplateFieldRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// # let field_id = "field_id";
+    /// let x = DeleteTagTemplateFieldRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}/fields/{field_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7831,7 +7889,11 @@ impl ListTagsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ListTagsRequest;
-    /// let x = ListTagsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = ListTagsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7989,7 +8051,11 @@ impl ReconcileTagsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ReconcileTagsRequest;
-    /// let x = ReconcileTagsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = ReconcileTagsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8001,7 +8067,10 @@ impl ReconcileTagsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ReconcileTagsRequest;
-    /// let x = ReconcileTagsRequest::new().set_tag_template("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// let x = ReconcileTagsRequest::new().set_tag_template(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"));
     /// ```
     pub fn set_tag_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_template = v.into();
@@ -8383,7 +8452,10 @@ impl ListEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ListEntriesRequest;
-    /// let x = ListEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = ListEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8556,7 +8628,11 @@ impl StarEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::StarEntryRequest;
-    /// let x = StarEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = StarEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8618,7 +8694,11 @@ impl UnstarEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::UnstarEntryRequest;
-    /// let x = UnstarEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = UnstarEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8688,7 +8768,10 @@ impl ImportEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ImportEntriesRequest;
-    /// let x = ImportEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// let x = ImportEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9128,7 +9211,11 @@ impl ModifyEntryOverviewRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ModifyEntryOverviewRequest;
-    /// let x = ModifyEntryOverviewRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = ModifyEntryOverviewRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9202,7 +9289,11 @@ impl ModifyEntryContactsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ModifyEntryContactsRequest;
-    /// let x = ModifyEntryContactsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = ModifyEntryContactsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10990,7 +11081,10 @@ impl Taxonomy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::Taxonomy;
-    /// let x = Taxonomy::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = Taxonomy::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11374,7 +11468,11 @@ impl PolicyTag {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::PolicyTag;
-    /// let x = PolicyTag::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// # let policy_tag_id = "policy_tag_id";
+    /// let x = PolicyTag::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policy_tag_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11471,7 +11569,9 @@ impl CreateTaxonomyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreateTaxonomyRequest;
-    /// let x = CreateTaxonomyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTaxonomyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11544,7 +11644,10 @@ impl DeleteTaxonomyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeleteTaxonomyRequest;
-    /// let x = DeleteTaxonomyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = DeleteTaxonomyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11696,7 +11799,9 @@ impl ListTaxonomiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ListTaxonomiesRequest;
-    /// let x = ListTaxonomiesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTaxonomiesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11848,7 +11953,10 @@ impl GetTaxonomyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::GetTaxonomyRequest;
-    /// let x = GetTaxonomyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = GetTaxonomyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11889,7 +11997,10 @@ impl CreatePolicyTagRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CreatePolicyTagRequest;
-    /// let x = CreatePolicyTagRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = CreatePolicyTagRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11962,7 +12073,11 @@ impl DeletePolicyTagRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::DeletePolicyTagRequest;
-    /// let x = DeletePolicyTagRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// # let policy_tag_id = "policy_tag_id";
+    /// let x = DeletePolicyTagRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policy_tag_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12112,7 +12227,10 @@ impl ListPolicyTagsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ListPolicyTagsRequest;
-    /// let x = ListPolicyTagsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = ListPolicyTagsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12252,7 +12370,11 @@ impl GetPolicyTagRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::GetPolicyTagRequest;
-    /// let x = GetPolicyTagRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// # let policy_tag_id = "policy_tag_id";
+    /// let x = GetPolicyTagRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policy_tag_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12490,7 +12612,10 @@ impl ReplaceTaxonomyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ReplaceTaxonomyRequest;
-    /// let x = ReplaceTaxonomyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = ReplaceTaxonomyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12565,7 +12690,9 @@ impl ImportTaxonomiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ImportTaxonomiesRequest;
-    /// let x = ImportTaxonomiesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ImportTaxonomiesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12764,7 +12891,10 @@ impl CrossRegionalSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::CrossRegionalSource;
-    /// let x = CrossRegionalSource::new().set_taxonomy("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let taxonomy_id = "taxonomy_id";
+    /// let x = CrossRegionalSource::new().set_taxonomy(format!("projects/{project_id}/locations/{location_id}/taxonomies/{taxonomy_id}"));
     /// ```
     pub fn set_taxonomy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.taxonomy = v.into();
@@ -12857,7 +12987,9 @@ impl ExportTaxonomiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ExportTaxonomiesRequest;
-    /// let x = ExportTaxonomiesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ExportTaxonomiesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14314,7 +14446,11 @@ impl TableSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::TableSpec;
-    /// let x = TableSpec::new().set_grouped_entry("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = TableSpec::new().set_grouped_entry(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_grouped_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.grouped_entry = v.into();
@@ -14369,7 +14505,11 @@ impl BigQueryDateShardedSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::BigQueryDateShardedSpec;
-    /// let x = BigQueryDateShardedSpec::new().set_dataset("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// let x = BigQueryDateShardedSpec::new().set_dataset(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
     /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
@@ -14481,7 +14621,12 @@ impl Tag {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::Tag;
-    /// let x = Tag::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entry_group_id = "entry_group_id";
+    /// # let entry_id = "entry_id";
+    /// # let tag_id = "tag_id";
+    /// let x = Tag::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}/tags/{tag_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15063,7 +15208,10 @@ impl TagTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::TagTemplate;
-    /// let x = TagTemplate::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// let x = TagTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15342,7 +15490,11 @@ impl TagTemplateField {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::TagTemplateField;
-    /// let x = TagTemplateField::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let tag_template_id = "tag_template_id";
+    /// # let field_id = "field_id";
+    /// let x = TagTemplateField::new().set_name(format!("projects/{project_id}/locations/{location_id}/tagTemplates/{tag_template_id}/fields/{field_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

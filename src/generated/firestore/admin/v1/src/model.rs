@@ -91,7 +91,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -103,7 +106,9 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::Backup;
-    /// let x = Backup::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = Backup::new().set_database(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -602,7 +607,9 @@ impl Database {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::Database;
-    /// let x = Database::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = Database::new().set_name(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1334,7 +1341,10 @@ pub mod database {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_firestore_admin_v1::model::database::source_info::BackupSource;
-            /// let x = BackupSource::new().set_backup("example");
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let backup_id = "backup_id";
+            /// let x = BackupSource::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
             /// ```
             pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.backup = v.into();
@@ -2724,7 +2734,11 @@ impl Field {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::Field;
-    /// let x = Field::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let collection_id = "collection_id";
+    /// # let field_id = "field_id";
+    /// let x = Field::new().set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3188,7 +3202,8 @@ impl ListDatabasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListDatabasesRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3252,7 +3267,8 @@ impl CreateDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::CreateDatabaseRequest;
-    /// let x = CreateDatabaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateDatabaseRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3429,7 +3445,9 @@ impl GetDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::GetDatabaseRequest;
-    /// let x = GetDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = GetDatabaseRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3588,7 +3606,9 @@ impl DeleteDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::DeleteDatabaseRequest;
-    /// let x = DeleteDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = DeleteDatabaseRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3670,7 +3690,9 @@ impl CreateUserCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::CreateUserCredsRequest;
-    /// let x = CreateUserCredsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = CreateUserCredsRequest::new().set_parent(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3754,7 +3776,10 @@ impl GetUserCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::GetUserCredsRequest;
-    /// let x = GetUserCredsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let user_creds_id = "user_creds_id";
+    /// let x = GetUserCredsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3793,7 +3818,9 @@ impl ListUserCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::ListUserCredsRequest;
-    /// let x = ListUserCredsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = ListUserCredsRequest::new().set_parent(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3880,7 +3907,10 @@ impl EnableUserCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::EnableUserCredsRequest;
-    /// let x = EnableUserCredsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let user_creds_id = "user_creds_id";
+    /// let x = EnableUserCredsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3919,7 +3949,10 @@ impl DisableUserCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::DisableUserCredsRequest;
-    /// let x = DisableUserCredsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let user_creds_id = "user_creds_id";
+    /// let x = DisableUserCredsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3958,7 +3991,10 @@ impl ResetUserPasswordRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::ResetUserPasswordRequest;
-    /// let x = ResetUserPasswordRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let user_creds_id = "user_creds_id";
+    /// let x = ResetUserPasswordRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3997,7 +4033,10 @@ impl DeleteUserCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::DeleteUserCredsRequest;
-    /// let x = DeleteUserCredsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let user_creds_id = "user_creds_id";
+    /// let x = DeleteUserCredsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4040,7 +4079,9 @@ impl CreateBackupScheduleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::CreateBackupScheduleRequest;
-    /// let x = CreateBackupScheduleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = CreateBackupScheduleRequest::new().set_parent(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4114,7 +4155,10 @@ impl GetBackupScheduleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::GetBackupScheduleRequest;
-    /// let x = GetBackupScheduleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let backup_schedule_id = "backup_schedule_id";
+    /// let x = GetBackupScheduleRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/backupSchedules/{backup_schedule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4249,7 +4293,9 @@ impl ListBackupSchedulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::ListBackupSchedulesRequest;
-    /// let x = ListBackupSchedulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = ListBackupSchedulesRequest::new().set_parent(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4335,7 +4381,10 @@ impl DeleteBackupScheduleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::DeleteBackupScheduleRequest;
-    /// let x = DeleteBackupScheduleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let backup_schedule_id = "backup_schedule_id";
+    /// let x = DeleteBackupScheduleRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/backupSchedules/{backup_schedule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4615,7 +4664,11 @@ impl GetIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::GetIndexRequest;
-    /// let x = GetIndexRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let collection_id = "collection_id";
+    /// # let index_id = "index_id";
+    /// let x = GetIndexRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4654,7 +4707,11 @@ impl DeleteIndexRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::DeleteIndexRequest;
-    /// let x = DeleteIndexRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let collection_id = "collection_id";
+    /// # let index_id = "index_id";
+    /// let x = DeleteIndexRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4789,7 +4846,11 @@ impl GetFieldRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::GetFieldRequest;
-    /// let x = GetFieldRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let collection_id = "collection_id";
+    /// # let field_id = "field_id";
+    /// let x = GetFieldRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5035,7 +5096,9 @@ impl ExportDocumentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
-    /// let x = ExportDocumentsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = ExportDocumentsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5178,7 +5241,9 @@ impl ImportDocumentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsRequest;
-    /// let x = ImportDocumentsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = ImportDocumentsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5293,7 +5358,9 @@ impl BulkDeleteDocumentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsRequest;
-    /// let x = BulkDeleteDocumentsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = BulkDeleteDocumentsRequest::new().set_name(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5390,7 +5457,10 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5574,7 +5644,10 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5648,7 +5721,8 @@ impl RestoreDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
-    /// let x = RestoreDatabaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = RestoreDatabaseRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5672,7 +5746,10 @@ impl RestoreDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
-    /// let x = RestoreDatabaseRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreDatabaseRequest::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -5798,7 +5875,8 @@ impl CloneDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
-    /// let x = CloneDatabaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CloneDatabaseRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5989,7 +6067,11 @@ impl Index {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::Index;
-    /// let x = Index::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let collection_id = "collection_id";
+    /// # let index_id = "index_id";
+    /// let x = Index::new().set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9980,7 +10062,9 @@ impl RestoreDatabaseMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
-    /// let x = RestoreDatabaseMetadata::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = RestoreDatabaseMetadata::new().set_database(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -9992,7 +10076,10 @@ impl RestoreDatabaseMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
-    /// let x = RestoreDatabaseMetadata::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RestoreDatabaseMetadata::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -10162,7 +10249,9 @@ impl CloneDatabaseMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
-    /// let x = CloneDatabaseMetadata::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = CloneDatabaseMetadata::new().set_database(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -10346,7 +10435,10 @@ impl BackupSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
-    /// let x = BackupSchedule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let backup_schedule_id = "backup_schedule_id";
+    /// let x = BackupSchedule::new().set_name(format!("projects/{project_id}/databases/{database_id}/backupSchedules/{backup_schedule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10678,7 +10770,9 @@ impl PitrSnapshot {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::PitrSnapshot;
-    /// let x = PitrSnapshot::new().set_database("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// let x = PitrSnapshot::new().set_database(format!("projects/{project_id}/databases/{database_id}"));
     /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -10777,7 +10871,10 @@ impl UserCreds {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::UserCreds;
-    /// let x = UserCreds::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let database_id = "database_id";
+    /// # let user_creds_id = "user_creds_id";
+    /// let x = UserCreds::new().set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

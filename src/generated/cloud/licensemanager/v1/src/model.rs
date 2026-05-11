@@ -83,7 +83,10 @@ impl Configuration {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::Configuration;
-    /// let x = Configuration::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = Configuration::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -107,7 +110,10 @@ impl Configuration {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::Configuration;
-    /// let x = Configuration::new().set_product("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = Configuration::new().set_product(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
@@ -737,7 +743,10 @@ impl Product {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::Product;
-    /// let x = Product::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = Product::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1025,7 +1034,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1406,7 +1418,10 @@ impl Usage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::Usage;
-    /// let x = Usage::new().set_lima_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Usage::new().set_lima_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_lima_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lima_instance = v.into();
@@ -1466,7 +1481,9 @@ impl ListConfigurationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::ListConfigurationsRequest;
-    /// let x = ListConfigurationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListConfigurationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1643,7 +1660,10 @@ impl GetConfigurationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::GetConfigurationRequest;
-    /// let x = GetConfigurationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = GetConfigurationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1699,7 +1719,9 @@ impl CreateConfigurationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::CreateConfigurationRequest;
-    /// let x = CreateConfigurationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateConfigurationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1932,7 +1954,10 @@ impl DeleteConfigurationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::DeleteConfigurationRequest;
-    /// let x = DeleteConfigurationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = DeleteConfigurationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1992,7 +2017,9 @@ impl ListInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2169,7 +2196,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2212,7 +2242,10 @@ impl QueryConfigurationLicenseUsageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageRequest;
-    /// let x = QueryConfigurationLicenseUsageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2436,7 +2469,10 @@ impl DeactivateConfigurationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::DeactivateConfigurationRequest;
-    /// let x = DeactivateConfigurationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = DeactivateConfigurationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2498,7 +2534,10 @@ impl ReactivateConfigurationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::ReactivateConfigurationRequest;
-    /// let x = ReactivateConfigurationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = ReactivateConfigurationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2566,7 +2605,10 @@ impl AggregateUsageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
-    /// let x = AggregateUsageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let configuration_id = "configuration_id";
+    /// let x = AggregateUsageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/configurations/{configuration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2822,7 +2864,9 @@ impl ListProductsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::ListProductsRequest;
-    /// let x = ListProductsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListProductsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2999,7 +3043,10 @@ impl GetProductRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_licensemanager_v1::model::GetProductRequest;
-    /// let x = GetProductRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let product_id = "product_id";
+    /// let x = GetProductRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

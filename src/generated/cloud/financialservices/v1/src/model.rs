@@ -99,7 +99,11 @@ impl BacktestResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let backtest_result_id = "backtest_result_id";
+    /// let x = BacktestResult::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -216,7 +220,11 @@ impl BacktestResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_dataset("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = BacktestResult::new().set_dataset(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
@@ -228,7 +236,11 @@ impl BacktestResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_model("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let model_id = "model_id";
+    /// let x = BacktestResult::new().set_model(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"));
     /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -573,7 +585,10 @@ impl ListBacktestResultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ListBacktestResultsRequest;
-    /// let x = ListBacktestResultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListBacktestResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -752,7 +767,11 @@ impl GetBacktestResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetBacktestResultRequest;
-    /// let x = GetBacktestResultRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let backtest_result_id = "backtest_result_id";
+    /// let x = GetBacktestResultRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -808,7 +827,10 @@ impl CreateBacktestResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
-    /// let x = CreateBacktestResultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateBacktestResultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1042,7 +1064,11 @@ impl DeleteBacktestResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::DeleteBacktestResultRequest;
-    /// let x = DeleteBacktestResultRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let backtest_result_id = "backtest_result_id";
+    /// let x = DeleteBacktestResultRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1092,7 +1118,11 @@ impl ExportBacktestResultMetadataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ExportBacktestResultMetadataRequest;
-    /// let x = ExportBacktestResultMetadataRequest::new().set_backtest_result("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let backtest_result_id = "backtest_result_id";
+    /// let x = ExportBacktestResultMetadataRequest::new().set_backtest_result(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"));
     /// ```
     pub fn set_backtest_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backtest_result = v.into();
@@ -1417,7 +1447,11 @@ impl Dataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = Dataset::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = Dataset::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1811,7 +1845,10 @@ impl ListDatasetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ListDatasetsRequest;
-    /// let x = ListDatasetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListDatasetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1989,7 +2026,11 @@ impl GetDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetDatasetRequest;
-    /// let x = GetDatasetRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = GetDatasetRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2045,7 +2086,10 @@ impl CreateDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::CreateDatasetRequest;
-    /// let x = CreateDatasetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateDatasetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2276,7 +2320,11 @@ impl DeleteDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::DeleteDatasetRequest;
-    /// let x = DeleteDatasetRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = DeleteDatasetRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2366,7 +2414,11 @@ impl EngineConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = EngineConfig::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_config_id = "engine_config_id";
+    /// let x = EngineConfig::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2483,7 +2535,11 @@ impl EngineConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = EngineConfig::new().set_engine_version("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_version_id = "engine_version_id";
+    /// let x = EngineConfig::new().set_engine_version(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineVersions/{engine_version_id}"));
     /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
@@ -2667,7 +2723,11 @@ pub mod engine_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_financialservices_v1::model::engine_config::Tuning;
-        /// let x = Tuning::new().set_primary_dataset("example");
+        /// # let project_num_id = "project_num_id";
+        /// # let location_id = "location_id";
+        /// # let instance_id = "instance_id";
+        /// # let dataset_id = "dataset_id";
+        /// let x = Tuning::new().set_primary_dataset(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
         /// ```
         pub fn set_primary_dataset<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -3146,7 +3206,10 @@ impl ListEngineConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ListEngineConfigsRequest;
-    /// let x = ListEngineConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListEngineConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3324,7 +3387,11 @@ impl GetEngineConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetEngineConfigRequest;
-    /// let x = GetEngineConfigRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_config_id = "engine_config_id";
+    /// let x = GetEngineConfigRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3380,7 +3447,10 @@ impl CreateEngineConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
-    /// let x = CreateEngineConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateEngineConfigRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3614,7 +3684,11 @@ impl DeleteEngineConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::DeleteEngineConfigRequest;
-    /// let x = DeleteEngineConfigRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_config_id = "engine_config_id";
+    /// let x = DeleteEngineConfigRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3664,7 +3738,11 @@ impl ExportEngineConfigMetadataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ExportEngineConfigMetadataRequest;
-    /// let x = ExportEngineConfigMetadataRequest::new().set_engine_config("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_config_id = "engine_config_id";
+    /// let x = ExportEngineConfigMetadataRequest::new().set_engine_config(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"));
     /// ```
     pub fn set_engine_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_config = v.into();
@@ -3774,7 +3852,11 @@ impl EngineVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// let x = EngineVersion::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_version_id = "engine_version_id";
+    /// let x = EngineVersion::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineVersions/{engine_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4081,7 +4163,10 @@ impl ListEngineVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ListEngineVersionsRequest;
-    /// let x = ListEngineVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListEngineVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4259,7 +4344,11 @@ impl GetEngineVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetEngineVersionRequest;
-    /// let x = GetEngineVersionRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_version_id = "engine_version_id";
+    /// let x = GetEngineVersionRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineVersions/{engine_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4320,7 +4409,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4818,7 +4910,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5106,7 +5201,10 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5173,7 +5271,10 @@ impl ImportRegisteredPartiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesRequest;
-    /// let x = ImportRegisteredPartiesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ImportRegisteredPartiesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5544,7 +5645,10 @@ impl ExportRegisteredPartiesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ExportRegisteredPartiesRequest;
-    /// let x = ExportRegisteredPartiesRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ExportRegisteredPartiesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5687,7 +5791,11 @@ impl Model {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let model_id = "model_id";
+    /// let x = Model::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5801,7 +5909,11 @@ impl Model {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_engine_version("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_version_id = "engine_version_id";
+    /// let x = Model::new().set_engine_version(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineVersions/{engine_version_id}"));
     /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
@@ -5813,7 +5925,11 @@ impl Model {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_engine_config("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let engine_config_id = "engine_config_id";
+    /// let x = Model::new().set_engine_config(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"));
     /// ```
     pub fn set_engine_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_config = v.into();
@@ -5825,7 +5941,11 @@ impl Model {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_primary_dataset("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = Model::new().set_primary_dataset(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_primary_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_dataset = v.into();
@@ -6080,7 +6200,10 @@ impl ListModelsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListModelsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6258,7 +6381,11 @@ impl GetModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetModelRequest;
-    /// let x = GetModelRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let model_id = "model_id";
+    /// let x = GetModelRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6314,7 +6441,10 @@ impl CreateModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::CreateModelRequest;
-    /// let x = CreateModelRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateModelRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6545,7 +6675,11 @@ impl DeleteModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::DeleteModelRequest;
-    /// let x = DeleteModelRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let model_id = "model_id";
+    /// let x = DeleteModelRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6595,7 +6729,11 @@ impl ExportModelMetadataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ExportModelMetadataRequest;
-    /// let x = ExportModelMetadataRequest::new().set_model("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let model_id = "model_id";
+    /// let x = ExportModelMetadataRequest::new().set_model(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"));
     /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -6734,7 +6872,11 @@ impl PredictionResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let prediction_result_id = "prediction_result_id";
+    /// let x = PredictionResult::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6851,7 +6993,11 @@ impl PredictionResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_dataset("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = PredictionResult::new().set_dataset(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
@@ -6863,7 +7009,11 @@ impl PredictionResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_model("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let model_id = "model_id";
+    /// let x = PredictionResult::new().set_model(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"));
     /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -7260,7 +7410,10 @@ impl ListPredictionResultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ListPredictionResultsRequest;
-    /// let x = ListPredictionResultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListPredictionResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7439,7 +7592,11 @@ impl GetPredictionResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::GetPredictionResultRequest;
-    /// let x = GetPredictionResultRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let prediction_result_id = "prediction_result_id";
+    /// let x = GetPredictionResultRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7495,7 +7652,10 @@ impl CreatePredictionResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
-    /// let x = CreatePredictionResultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreatePredictionResultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7729,7 +7889,11 @@ impl DeletePredictionResultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::DeletePredictionResultRequest;
-    /// let x = DeletePredictionResultRequest::new().set_name("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let prediction_result_id = "prediction_result_id";
+    /// let x = DeletePredictionResultRequest::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7779,7 +7943,11 @@ impl ExportPredictionResultMetadataRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::ExportPredictionResultMetadataRequest;
-    /// let x = ExportPredictionResultMetadataRequest::new().set_prediction_result("example");
+    /// # let project_num_id = "project_num_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let prediction_result_id = "prediction_result_id";
+    /// let x = ExportPredictionResultMetadataRequest::new().set_prediction_result(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"));
     /// ```
     pub fn set_prediction_result<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7879,8 +8047,6 @@ pub struct OperationMetadata {
     /// Successfully cancelled operations have a [Operation.error][] value
     /// with a [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding
     /// to `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

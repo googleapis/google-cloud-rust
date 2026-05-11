@@ -629,7 +629,9 @@ impl DataSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let data_source_id = "data_source_id";
+    /// let x = DataSource::new().set_name(format!("projects/{project_id}/dataSources/{data_source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1219,7 +1221,9 @@ impl GetDataSourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::GetDataSourceRequest;
-    /// let x = GetDataSourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let data_source_id = "data_source_id";
+    /// let x = GetDataSourceRequest::new().set_name(format!("projects/{project_id}/dataSources/{data_source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1266,7 +1270,8 @@ impl ListDataSourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::ListDataSourcesRequest;
-    /// let x = ListDataSourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListDataSourcesRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1464,7 +1469,8 @@ impl CreateTransferConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// let x = CreateTransferConfigRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateTransferConfigRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1763,7 +1769,9 @@ impl GetTransferConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::GetTransferConfigRequest;
-    /// let x = GetTransferConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// let x = GetTransferConfigRequest::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1801,7 +1809,9 @@ impl DeleteTransferConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::DeleteTransferConfigRequest;
-    /// let x = DeleteTransferConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// let x = DeleteTransferConfigRequest::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1839,7 +1849,10 @@ impl GetTransferRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::GetTransferRunRequest;
-    /// let x = GetTransferRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// # let run_id = "run_id";
+    /// let x = GetTransferRunRequest::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}/runs/{run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1877,7 +1890,10 @@ impl DeleteTransferRunRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::DeleteTransferRunRequest;
-    /// let x = DeleteTransferRunRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// # let run_id = "run_id";
+    /// let x = DeleteTransferRunRequest::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}/runs/{run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1927,7 +1943,8 @@ impl ListTransferConfigsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsRequest;
-    /// let x = ListTransferConfigsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListTransferConfigsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2099,7 +2116,9 @@ impl ListTransferRunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsRequest;
-    /// let x = ListTransferRunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// let x = ListTransferRunsRequest::new().set_parent(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2422,7 +2441,10 @@ impl ListTransferLogsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsRequest;
-    /// let x = ListTransferLogsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// # let run_id = "run_id";
+    /// let x = ListTransferLogsRequest::new().set_parent(format!("projects/{project_id}/transferConfigs/{transfer_config_id}/runs/{run_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2587,7 +2609,9 @@ impl CheckValidCredsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::CheckValidCredsRequest;
-    /// let x = CheckValidCredsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let data_source_id = "data_source_id";
+    /// let x = CheckValidCredsRequest::new().set_name(format!("projects/{project_id}/dataSources/{data_source_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2667,7 +2691,9 @@ impl ScheduleTransferRunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsRequest;
-    /// let x = ScheduleTransferRunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// let x = ScheduleTransferRunsRequest::new().set_parent(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2819,7 +2845,9 @@ impl StartManualTransferRunsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::StartManualTransferRunsRequest;
-    /// let x = StartManualTransferRunsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// let x = StartManualTransferRunsRequest::new().set_parent(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3939,7 +3967,9 @@ impl TransferConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// let x = TransferConfig::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4573,7 +4603,10 @@ impl TransferRun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let transfer_config_id = "transfer_config_id";
+    /// # let run_id = "run_id";
+    /// let x = TransferRun::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}/runs/{run_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

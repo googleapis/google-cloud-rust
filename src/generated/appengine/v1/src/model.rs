@@ -7341,7 +7341,11 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_appengine_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let app_id = "app_id";
+    /// # let service_id = "service_id";
+    /// # let version_id = "version_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("apps/{app_id}/services/{service_id}/versions/{version_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

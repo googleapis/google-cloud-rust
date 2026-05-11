@@ -162,7 +162,10 @@ impl GetKeyHandleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetKeyHandleRequest;
-    /// let x = GetKeyHandleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_handle_id = "key_handle_id";
+    /// let x = GetKeyHandleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyHandles/{key_handle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -229,7 +232,10 @@ impl KeyHandle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::KeyHandle;
-    /// let x = KeyHandle::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_handle_id = "key_handle_id";
+    /// let x = KeyHandle::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyHandles/{key_handle_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -241,7 +247,11 @@ impl KeyHandle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::KeyHandle;
-    /// let x = KeyHandle::new().set_kms_key("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = KeyHandle::new().set_kms_key(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
@@ -611,7 +621,8 @@ impl GetAutokeyConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetAutokeyConfigRequest;
-    /// let x = GetAutokeyConfigRequest::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = GetAutokeyConfigRequest::new().set_name(format!("folders/{folder_id}/autokeyConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -681,7 +692,8 @@ impl AutokeyConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::AutokeyConfig;
-    /// let x = AutokeyConfig::new().set_name("example");
+    /// # let folder_id = "folder_id";
+    /// let x = AutokeyConfig::new().set_name(format!("folders/{folder_id}/autokeyConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1409,7 +1421,10 @@ impl GetEkmConnectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetEkmConnectionRequest;
-    /// let x = GetEkmConnectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ekm_connection_id = "ekm_connection_id";
+    /// let x = GetEkmConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/ekmConnections/{ekm_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1649,7 +1664,9 @@ impl GetEkmConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetEkmConfigRequest;
-    /// let x = GetEkmConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetEkmConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/ekmConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2067,7 +2084,10 @@ impl EkmConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::EkmConnection;
-    /// let x = EkmConnection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ekm_connection_id = "ekm_connection_id";
+    /// let x = EkmConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/ekmConnections/{ekm_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2517,7 +2537,9 @@ impl EkmConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::EkmConfig;
-    /// let x = EkmConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = EkmConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/ekmConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2529,7 +2551,10 @@ impl EkmConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::EkmConfig;
-    /// let x = EkmConfig::new().set_default_ekm_connection("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ekm_connection_id = "ekm_connection_id";
+    /// let x = EkmConfig::new().set_default_ekm_connection(format!("projects/{project_id}/locations/{location_id}/ekmConnections/{ekm_connection_id}"));
     /// ```
     pub fn set_default_ekm_connection<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2574,7 +2599,10 @@ impl VerifyConnectivityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::VerifyConnectivityRequest;
-    /// let x = VerifyConnectivityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ekm_connection_id = "ekm_connection_id";
+    /// let x = VerifyConnectivityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/ekmConnections/{ekm_connection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2673,7 +2701,6 @@ pub struct SingleTenantHsmInstance {
     /// become disabled.
     ///
     /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
-    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
     pub disable_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Immutable. Indicates whether key portability is enabled for the
@@ -2698,7 +2725,10 @@ impl SingleTenantHsmInstance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
-    /// let x = SingleTenantHsmInstance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// let x = SingleTenantHsmInstance::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3310,7 +3340,11 @@ impl SingleTenantHsmInstanceProposal {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
-    /// let x = SingleTenantHsmInstanceProposal::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// # let proposal_id = "proposal_id";
+    /// let x = SingleTenantHsmInstanceProposal::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}/proposals/{proposal_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5302,7 +5336,10 @@ impl GetSingleTenantHsmInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetSingleTenantHsmInstanceRequest;
-    /// let x = GetSingleTenantHsmInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// let x = GetSingleTenantHsmInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5484,7 +5521,10 @@ impl CreateSingleTenantHsmInstanceProposalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceProposalRequest;
-    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5605,7 +5645,11 @@ impl GetSingleTenantHsmInstanceProposalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetSingleTenantHsmInstanceProposalRequest;
-    /// let x = GetSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// # let proposal_id = "proposal_id";
+    /// let x = GetSingleTenantHsmInstanceProposalRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}/proposals/{proposal_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5655,7 +5699,11 @@ impl ApproveSingleTenantHsmInstanceProposalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ApproveSingleTenantHsmInstanceProposalRequest;
-    /// let x = ApproveSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// # let proposal_id = "proposal_id";
+    /// let x = ApproveSingleTenantHsmInstanceProposalRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}/proposals/{proposal_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5984,7 +6032,11 @@ impl ExecuteSingleTenantHsmInstanceProposalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ExecuteSingleTenantHsmInstanceProposalRequest;
-    /// let x = ExecuteSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// # let proposal_id = "proposal_id";
+    /// let x = ExecuteSingleTenantHsmInstanceProposalRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}/proposals/{proposal_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6115,7 +6167,10 @@ impl ListSingleTenantHsmInstanceProposalsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
-    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6330,7 +6385,11 @@ impl DeleteSingleTenantHsmInstanceProposalRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DeleteSingleTenantHsmInstanceProposalRequest;
-    /// let x = DeleteSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let single_tenant_hsm_instance_id = "single_tenant_hsm_instance_id";
+    /// # let proposal_id = "proposal_id";
+    /// let x = DeleteSingleTenantHsmInstanceProposalRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/singleTenantHsmInstances/{single_tenant_hsm_instance_id}/proposals/{proposal_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6379,7 +6438,10 @@ impl KeyRing {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::KeyRing;
-    /// let x = KeyRing::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// let x = KeyRing::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6588,7 +6650,11 @@ impl CryptoKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::CryptoKey;
-    /// let x = CryptoKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = CryptoKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7746,7 +7812,12 @@ impl CryptoKeyVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
-    /// let x = CryptoKeyVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = CryptoKeyVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9318,7 +9389,12 @@ impl PublicKey {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::PublicKey;
-    /// let x = PublicKey::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = PublicKey::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}/publicKey"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9727,7 +9803,11 @@ impl ImportJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ImportJob;
-    /// let x = ImportJob::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = ImportJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10590,7 +10670,10 @@ impl RetiredResource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::RetiredResource;
-    /// let x = RetiredResource::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let retired_resource_id = "retired_resource_id";
+    /// let x = RetiredResource::new().set_name(format!("projects/{project_id}/locations/{location_id}/retiredResources/{retired_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10844,7 +10927,10 @@ impl ListCryptoKeysRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
-    /// let x = ListCryptoKeysRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// let x = ListCryptoKeysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10985,7 +11071,11 @@ impl ListCryptoKeyVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
-    /// let x = ListCryptoKeyVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = ListCryptoKeyVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11122,7 +11212,10 @@ impl ListImportJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ListImportJobsRequest;
-    /// let x = ListImportJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// let x = ListImportJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11231,7 +11324,9 @@ impl ListRetiredResourcesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
-    /// let x = ListRetiredResourcesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListRetiredResourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11823,7 +11918,10 @@ impl GetKeyRingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetKeyRingRequest;
-    /// let x = GetKeyRingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// let x = GetKeyRingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11865,7 +11963,11 @@ impl GetCryptoKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetCryptoKeyRequest;
-    /// let x = GetCryptoKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = GetCryptoKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11907,7 +12009,12 @@ impl GetCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetCryptoKeyVersionRequest;
-    /// let x = GetCryptoKeyVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = GetCryptoKeyVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11962,7 +12069,12 @@ impl GetPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetPublicKeyRequest;
-    /// let x = GetPublicKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = GetPublicKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12024,7 +12136,11 @@ impl GetImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetImportJobRequest;
-    /// let x = GetImportJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let import_job_id = "import_job_id";
+    /// let x = GetImportJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/importJobs/{import_job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12066,7 +12182,10 @@ impl GetRetiredResourceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::GetRetiredResourceRequest;
-    /// let x = GetRetiredResourceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let retired_resource_id = "retired_resource_id";
+    /// let x = GetRetiredResourceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/retiredResources/{retired_resource_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12230,7 +12349,10 @@ impl CreateCryptoKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
-    /// let x = CreateCryptoKeyRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// let x = CreateCryptoKeyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12337,7 +12459,11 @@ impl CreateCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::CreateCryptoKeyVersionRequest;
-    /// let x = CreateCryptoKeyVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = CreateCryptoKeyVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12412,7 +12538,11 @@ impl DeleteCryptoKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DeleteCryptoKeyRequest;
-    /// let x = DeleteCryptoKeyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = DeleteCryptoKeyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12454,7 +12584,12 @@ impl DeleteCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DeleteCryptoKeyVersionRequest;
-    /// let x = DeleteCryptoKeyVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = DeleteCryptoKeyVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12597,7 +12732,11 @@ impl ImportCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
-    /// let x = ImportCryptoKeyVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = ImportCryptoKeyVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12609,7 +12748,12 @@ impl ImportCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
-    /// let x = ImportCryptoKeyVersionRequest::new().set_crypto_key_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = ImportCryptoKeyVersionRequest::new().set_crypto_key_version(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12790,7 +12934,10 @@ impl CreateImportJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::CreateImportJobRequest;
-    /// let x = CreateImportJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// let x = CreateImportJobRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13077,7 +13224,11 @@ impl UpdateCryptoKeyPrimaryVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::UpdateCryptoKeyPrimaryVersionRequest;
-    /// let x = UpdateCryptoKeyPrimaryVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = UpdateCryptoKeyPrimaryVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13133,7 +13284,12 @@ impl DestroyCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DestroyCryptoKeyVersionRequest;
-    /// let x = DestroyCryptoKeyVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = DestroyCryptoKeyVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13174,7 +13330,12 @@ impl RestoreCryptoKeyVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::RestoreCryptoKeyVersionRequest;
-    /// let x = RestoreCryptoKeyVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = RestoreCryptoKeyVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13513,7 +13674,11 @@ impl DecryptRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DecryptRequest;
-    /// let x = DecryptRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// let x = DecryptRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14298,7 +14463,12 @@ impl AsymmetricSignRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
-    /// let x = AsymmetricSignRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = AsymmetricSignRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14483,7 +14653,12 @@ impl AsymmetricDecryptRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::AsymmetricDecryptRequest;
-    /// let x = AsymmetricDecryptRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = AsymmetricDecryptRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14597,7 +14772,12 @@ impl MacSignRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::MacSignRequest;
-    /// let x = MacSignRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = MacSignRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14741,7 +14921,12 @@ impl MacVerifyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::MacVerifyRequest;
-    /// let x = MacVerifyRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = MacVerifyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14905,7 +15090,12 @@ impl DecapsulateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DecapsulateRequest;
-    /// let x = DecapsulateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = DecapsulateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17163,7 +17353,10 @@ impl DeleteCryptoKeyMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_v1::model::DeleteCryptoKeyMetadata;
-    /// let x = DeleteCryptoKeyMetadata::new().set_retired_resource("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let retired_resource_id = "retired_resource_id";
+    /// let x = DeleteCryptoKeyMetadata::new().set_retired_resource(format!("projects/{project_id}/locations/{location_id}/retiredResources/{retired_resource_id}"));
     /// ```
     pub fn set_retired_resource<T: std::convert::Into<std::string::String>>(
         mut self,

@@ -339,8 +339,6 @@ pub struct Sentence {
     /// For calls to [AnalyzeSentiment][] or if
     /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment]
     /// is set to true, this field will contain the sentiment for the sentence.
-    ///
-    /// [google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment]: crate::model::annotate_text_request::Features::extract_document_sentiment
     pub sentiment: std::option::Option<crate::model::Sentiment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

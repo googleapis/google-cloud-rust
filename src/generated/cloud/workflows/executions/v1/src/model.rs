@@ -109,7 +109,11 @@ impl Execution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_executions_v1::model::Execution;
-    /// let x = Execution::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// # let execution_id = "execution_id";
+    /// let x = Execution::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1631,7 +1635,11 @@ impl GetExecutionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_executions_v1::model::GetExecutionRequest;
-    /// let x = GetExecutionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// # let execution_id = "execution_id";
+    /// let x = GetExecutionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1686,7 +1694,11 @@ impl CancelExecutionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workflows_executions_v1::model::CancelExecutionRequest;
-    /// let x = CancelExecutionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let workflow_id = "workflow_id";
+    /// # let execution_id = "execution_id";
+    /// let x = CancelExecutionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}/executions/{execution_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

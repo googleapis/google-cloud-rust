@@ -117,7 +117,10 @@ impl AutonomousDatabase {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = AutonomousDatabase::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -255,7 +258,10 @@ impl AutonomousDatabase {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_odb_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = AutonomousDatabase::new().set_odb_network(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
@@ -267,7 +273,11 @@ impl AutonomousDatabase {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_odb_subnet("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = AutonomousDatabase::new().set_odb_subnet(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
@@ -407,7 +417,10 @@ impl SourceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
-    /// let x = SourceConfig::new().set_autonomous_database("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = SourceConfig::new().set_autonomous_database(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5484,7 +5497,10 @@ impl AutonomousDatabaseCharacterSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseCharacterSet;
-    /// let x = AutonomousDatabaseCharacterSet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_character_set_id = "autonomous_database_character_set_id";
+    /// let x = AutonomousDatabaseCharacterSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabaseCharacterSets/{autonomous_database_character_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5706,7 +5722,10 @@ impl AutonomousDatabaseBackup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = AutonomousDatabaseBackup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_backup_id = "autonomous_database_backup_id";
+    /// let x = AutonomousDatabaseBackup::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabaseBackups/{autonomous_database_backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5718,7 +5737,10 @@ impl AutonomousDatabaseBackup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = AutonomousDatabaseBackup::new().set_autonomous_database("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = AutonomousDatabaseBackup::new().set_autonomous_database(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6556,7 +6578,10 @@ impl AutonomousDbVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::AutonomousDbVersion;
-    /// let x = AutonomousDbVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_db_version_id = "autonomous_db_version_id";
+    /// let x = AutonomousDbVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDbVersions/{autonomous_db_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6997,7 +7022,10 @@ impl Database {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_id = "database_id";
+    /// let x = Database::new().set_name(format!("projects/{project_id}/locations/{location_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8454,7 +8482,10 @@ impl GetDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetDatabaseRequest;
-    /// let x = GetDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_id = "database_id";
+    /// let x = GetDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/databases/{database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8506,7 +8537,9 @@ impl ListDatabasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDatabasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8660,7 +8693,10 @@ impl DatabaseCharacterSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DatabaseCharacterSet;
-    /// let x = DatabaseCharacterSet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_character_set_id = "database_character_set_id";
+    /// let x = DatabaseCharacterSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseCharacterSets/{database_character_set_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8886,7 +8922,9 @@ impl ListDatabaseCharacterSetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsRequest;
-    /// let x = ListDatabaseCharacterSetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDatabaseCharacterSetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9036,7 +9074,11 @@ impl DbNode {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbNode;
-    /// let x = DbNode::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// # let db_node_id = "db_node_id";
+    /// let x = DbNode::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}/dbNodes/{db_node_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9481,7 +9523,11 @@ impl DbServer {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbServer;
-    /// let x = DbServer::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// # let db_server_id = "db_server_id";
+    /// let x = DbServer::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}/dbServers/{db_server_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9940,7 +9986,10 @@ impl DbSystem {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_system_id = "db_system_id";
+    /// let x = DbSystem::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystems/{db_system_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10018,7 +10067,10 @@ impl DbSystem {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_odb_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = DbSystem::new().set_odb_network(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
@@ -10030,7 +10082,11 @@ impl DbSystem {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_odb_subnet("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = DbSystem::new().set_odb_subnet(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
@@ -11552,7 +11608,9 @@ impl CreateDbSystemRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateDbSystemRequest;
-    /// let x = CreateDbSystemRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDbSystemRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11655,7 +11713,10 @@ impl DeleteDbSystemRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteDbSystemRequest;
-    /// let x = DeleteDbSystemRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_system_id = "db_system_id";
+    /// let x = DeleteDbSystemRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystems/{db_system_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11703,7 +11764,10 @@ impl GetDbSystemRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetDbSystemRequest;
-    /// let x = GetDbSystemRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_system_id = "db_system_id";
+    /// let x = GetDbSystemRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystems/{db_system_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11753,7 +11817,9 @@ impl ListDbSystemsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsRequest;
-    /// let x = ListDbSystemsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDbSystemsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11913,7 +11979,10 @@ impl DbSystemInitialStorageSize {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSize;
-    /// let x = DbSystemInitialStorageSize::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_system_initial_storage_size_id = "db_system_initial_storage_size_id";
+    /// let x = DbSystemInitialStorageSize::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystemInitialStorageSizes/{db_system_initial_storage_size_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12425,7 +12494,9 @@ impl ListDbSystemInitialStorageSizesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDbSystemInitialStorageSizesRequest;
-    /// let x = ListDbSystemInitialStorageSizesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDbSystemInitialStorageSizesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12595,7 +12666,10 @@ impl DbSystemShape {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_system_shape_id = "db_system_shape_id";
+    /// let x = DbSystemShape::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystemShapes/{db_system_shape_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12766,7 +12840,10 @@ impl DbVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbVersion;
-    /// let x = DbVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_version_id = "db_version_id";
+    /// let x = DbVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbVersions/{db_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12950,7 +13027,9 @@ impl ListDbVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsRequest;
-    /// let x = ListDbVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDbVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13105,7 +13184,10 @@ impl Entitlement {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// let x = Entitlement::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = Entitlement::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13509,7 +13591,10 @@ impl CloudExadataInfrastructure {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CloudExadataInfrastructure::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = CloudExadataInfrastructure::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14968,7 +15053,10 @@ impl ExadbVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exadb_vm_cluster_id = "exadb_vm_cluster_id";
+    /// let x = ExadbVmCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15046,7 +15134,10 @@ impl ExadbVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_odb_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = ExadbVmCluster::new().set_odb_network(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
@@ -15058,7 +15149,11 @@ impl ExadbVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_odb_subnet("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = ExadbVmCluster::new().set_odb_subnet(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
@@ -15070,7 +15165,11 @@ impl ExadbVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_backup_odb_subnet("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = ExadbVmCluster::new().set_backup_odb_subnet(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_backup_odb_subnet<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -15382,7 +15481,10 @@ impl ExadbVmClusterProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_exascale_db_storage_vault("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exascale_db_storage_vault_id = "exascale_db_storage_vault_id";
+    /// let x = ExadbVmClusterProperties::new().set_exascale_db_storage_vault(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"));
     /// ```
     pub fn set_exascale_db_storage_vault<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16080,7 +16182,10 @@ impl ExascaleDbStorageVault {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ExascaleDbStorageVault::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exascale_db_storage_vault_id = "exascale_db_storage_vault_id";
+    /// let x = ExascaleDbStorageVault::new().set_name(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16856,7 +16961,10 @@ impl GetExascaleDbStorageVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetExascaleDbStorageVaultRequest;
-    /// let x = GetExascaleDbStorageVaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exascale_db_storage_vault_id = "exascale_db_storage_vault_id";
+    /// let x = GetExascaleDbStorageVaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -16908,7 +17016,9 @@ impl ListExascaleDbStorageVaultsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsRequest;
-    /// let x = ListExascaleDbStorageVaultsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListExascaleDbStorageVaultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17095,7 +17205,9 @@ impl CreateExascaleDbStorageVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateExascaleDbStorageVaultRequest;
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateExascaleDbStorageVaultRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17201,7 +17313,10 @@ impl DeleteExascaleDbStorageVaultRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteExascaleDbStorageVaultRequest;
-    /// let x = DeleteExascaleDbStorageVaultRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exascale_db_storage_vault_id = "exascale_db_storage_vault_id";
+    /// let x = DeleteExascaleDbStorageVaultRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17254,7 +17369,10 @@ impl GiVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GiVersion;
-    /// let x = GiVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gi_version_id = "gi_version_id";
+    /// let x = GiVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/giVersions/{gi_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17351,7 +17469,11 @@ impl MinorVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::MinorVersion;
-    /// let x = MinorVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gi_version_id = "gi_version_id";
+    /// # let minor_version_id = "minor_version_id";
+    /// let x = MinorVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/giVersions/{gi_version_id}/minorVersions/{minor_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17427,7 +17549,10 @@ impl ListMinorVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsRequest;
-    /// let x = ListMinorVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let gi_version_id = "gi_version_id";
+    /// let x = ListMinorVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/giVersions/{gi_version_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -17595,7 +17720,10 @@ impl OdbNetwork {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = OdbNetwork::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = OdbNetwork::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -17910,7 +18038,9 @@ impl CreateOdbNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateOdbNetworkRequest;
-    /// let x = CreateOdbNetworkRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateOdbNetworkRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18013,7 +18143,10 @@ impl DeleteOdbNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteOdbNetworkRequest;
-    /// let x = DeleteOdbNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = DeleteOdbNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18075,7 +18208,9 @@ impl ListOdbNetworksRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksRequest;
-    /// let x = ListOdbNetworksRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListOdbNetworksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18254,7 +18389,10 @@ impl GetOdbNetworkRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetOdbNetworkRequest;
-    /// let x = GetOdbNetworkRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = GetOdbNetworkRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18305,7 +18443,11 @@ impl OdbSubnet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = OdbSubnet::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = OdbSubnet::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18745,7 +18887,10 @@ impl CreateOdbSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateOdbSubnetRequest;
-    /// let x = CreateOdbSubnetRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = CreateOdbSubnetRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -18848,7 +18993,11 @@ impl DeleteOdbSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteOdbSubnetRequest;
-    /// let x = DeleteOdbSubnetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = DeleteOdbSubnetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -18910,7 +19059,10 @@ impl ListOdbSubnetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsRequest;
-    /// let x = ListOdbSubnetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = ListOdbSubnetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19089,7 +19241,11 @@ impl GetOdbSubnetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetOdbSubnetRequest;
-    /// let x = GetOdbSubnetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = GetOdbSubnetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19139,7 +19295,9 @@ impl ListCloudExadataInfrastructuresRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresRequest;
-    /// let x = ListCloudExadataInfrastructuresRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCloudExadataInfrastructuresRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19300,7 +19458,10 @@ impl GetCloudExadataInfrastructureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetCloudExadataInfrastructureRequest;
-    /// let x = GetCloudExadataInfrastructureRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = GetCloudExadataInfrastructureRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19355,7 +19516,9 @@ impl CreateCloudExadataInfrastructureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateCloudExadataInfrastructureRequest;
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCloudExadataInfrastructureRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19467,7 +19630,10 @@ impl DeleteCloudExadataInfrastructureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteCloudExadataInfrastructureRequest;
-    /// let x = DeleteCloudExadataInfrastructureRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = DeleteCloudExadataInfrastructureRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19538,7 +19704,9 @@ impl ListCloudVmClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersRequest;
-    /// let x = ListCloudVmClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCloudVmClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19684,7 +19852,10 @@ impl GetCloudVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetCloudVmClusterRequest;
-    /// let x = GetCloudVmClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// let x = GetCloudVmClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19739,7 +19910,9 @@ impl CreateCloudVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateCloudVmClusterRequest;
-    /// let x = CreateCloudVmClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCloudVmClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19850,7 +20023,10 @@ impl DeleteCloudVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteCloudVmClusterRequest;
-    /// let x = DeleteCloudVmClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// let x = DeleteCloudVmClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19918,7 +20094,9 @@ impl ListEntitlementsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListEntitlementsRequest;
-    /// let x = ListEntitlementsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEntitlementsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20060,7 +20238,10 @@ impl ListDbServersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDbServersRequest;
-    /// let x = ListDbServersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = ListDbServersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20203,7 +20384,10 @@ impl ListDbNodesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDbNodesRequest;
-    /// let x = ListDbNodesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// let x = ListDbNodesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20351,7 +20535,9 @@ impl ListGiVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsRequest;
-    /// let x = ListGiVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListGiVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20510,7 +20696,9 @@ impl ListDbSystemShapesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesRequest;
-    /// let x = ListDbSystemShapesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDbSystemShapesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20658,8 +20846,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -20859,7 +21045,9 @@ impl ListAutonomousDatabasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesRequest;
-    /// let x = ListAutonomousDatabasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAutonomousDatabasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21017,7 +21205,10 @@ impl GetAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetAutonomousDatabaseRequest;
-    /// let x = GetAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = GetAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21072,7 +21263,9 @@ impl CreateAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateAutonomousDatabaseRequest;
-    /// let x = CreateAutonomousDatabaseRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAutonomousDatabaseRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21296,7 +21489,10 @@ impl DeleteAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteAutonomousDatabaseRequest;
-    /// let x = DeleteAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = DeleteAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21347,7 +21543,10 @@ impl RestoreAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::RestoreAutonomousDatabaseRequest;
-    /// let x = RestoreAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = RestoreAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21416,7 +21615,10 @@ impl StopAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::StopAutonomousDatabaseRequest;
-    /// let x = StopAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = StopAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21452,7 +21654,10 @@ impl StartAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::StartAutonomousDatabaseRequest;
-    /// let x = StartAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = StartAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21488,7 +21693,10 @@ impl RestartAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::RestartAutonomousDatabaseRequest;
-    /// let x = RestartAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = RestartAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21527,7 +21735,10 @@ impl SwitchoverAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::SwitchoverAutonomousDatabaseRequest;
-    /// let x = SwitchoverAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = SwitchoverAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21539,7 +21750,10 @@ impl SwitchoverAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::SwitchoverAutonomousDatabaseRequest;
-    /// let x = SwitchoverAutonomousDatabaseRequest::new().set_peer_autonomous_database("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = SwitchoverAutonomousDatabaseRequest::new().set_peer_autonomous_database(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_peer_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -21581,7 +21795,10 @@ impl FailoverAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::FailoverAutonomousDatabaseRequest;
-    /// let x = FailoverAutonomousDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = FailoverAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21593,7 +21810,10 @@ impl FailoverAutonomousDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::FailoverAutonomousDatabaseRequest;
-    /// let x = FailoverAutonomousDatabaseRequest::new().set_peer_autonomous_database("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = FailoverAutonomousDatabaseRequest::new().set_peer_autonomous_database(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_peer_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -21644,7 +21864,10 @@ impl GenerateAutonomousDatabaseWalletRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GenerateAutonomousDatabaseWalletRequest;
-    /// let x = GenerateAutonomousDatabaseWalletRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = GenerateAutonomousDatabaseWalletRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21761,7 +21984,9 @@ impl ListAutonomousDbVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDbVersionsRequest;
-    /// let x = ListAutonomousDbVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAutonomousDbVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21909,7 +22134,9 @@ impl ListAutonomousDatabaseCharacterSetsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsRequest;
-    /// let x = ListAutonomousDatabaseCharacterSetsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAutonomousDatabaseCharacterSetsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22075,7 +22302,9 @@ impl ListAutonomousDatabaseBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsRequest;
-    /// let x = ListAutonomousDatabaseBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAutonomousDatabaseBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22247,7 +22476,9 @@ impl CreateExadbVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CreateExadbVmClusterRequest;
-    /// let x = CreateExadbVmClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateExadbVmClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22353,7 +22584,10 @@ impl DeleteExadbVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DeleteExadbVmClusterRequest;
-    /// let x = DeleteExadbVmClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exadb_vm_cluster_id = "exadb_vm_cluster_id";
+    /// let x = DeleteExadbVmClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22401,7 +22635,10 @@ impl GetExadbVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetExadbVmClusterRequest;
-    /// let x = GetExadbVmClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exadb_vm_cluster_id = "exadb_vm_cluster_id";
+    /// let x = GetExadbVmClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22451,7 +22688,9 @@ impl ListExadbVmClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersRequest;
-    /// let x = ListExadbVmClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListExadbVmClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -22741,7 +22980,10 @@ impl RemoveVirtualMachineExadbVmClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::RemoveVirtualMachineExadbVmClusterRequest;
-    /// let x = RemoveVirtualMachineExadbVmClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exadb_vm_cluster_id = "exadb_vm_cluster_id";
+    /// let x = RemoveVirtualMachineExadbVmClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22818,7 +23060,10 @@ impl PluggableDatabase {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// let x = PluggableDatabase::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pluggable_database_id = "pluggable_database_id";
+    /// let x = PluggableDatabase::new().set_name(format!("projects/{project_id}/locations/{location_id}/pluggableDatabases/{pluggable_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24358,7 +24603,10 @@ impl GetPluggableDatabaseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::GetPluggableDatabaseRequest;
-    /// let x = GetPluggableDatabaseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let pluggable_database_id = "pluggable_database_id";
+    /// let x = GetPluggableDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/pluggableDatabases/{pluggable_database_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24411,7 +24659,9 @@ impl ListPluggableDatabasesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesRequest;
-    /// let x = ListPluggableDatabasesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPluggableDatabasesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24611,7 +24861,10 @@ impl CloudVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// let x = CloudVmCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24623,7 +24876,10 @@ impl CloudVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_exadata_infrastructure("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = CloudVmCluster::new().set_exadata_infrastructure(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
     /// ```
     pub fn set_exadata_infrastructure<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -24788,7 +25044,10 @@ impl CloudVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_odb_network("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = CloudVmCluster::new().set_odb_network(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
     /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
@@ -24800,7 +25059,11 @@ impl CloudVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_odb_subnet("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = CloudVmCluster::new().set_odb_subnet(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
@@ -24812,7 +25075,11 @@ impl CloudVmCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_backup_odb_subnet("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_subnet_id = "odb_subnet_id";
+    /// let x = CloudVmCluster::new().set_backup_odb_subnet(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"));
     /// ```
     pub fn set_backup_odb_subnet<T: std::convert::Into<std::string::String>>(
         mut self,

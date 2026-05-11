@@ -186,7 +186,9 @@ impl Secret {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
-    /// let x = Secret::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = Secret::new().set_name(format!("projects/{project_id}/secrets/{secret_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -700,7 +702,10 @@ impl SecretVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
-    /// let x = SecretVersion::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = SecretVersion::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1977,7 +1982,9 @@ impl Topic {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Topic;
-    /// let x = Topic::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let topic_id = "topic_id";
+    /// let x = Topic::new().set_name(format!("projects/{project_id}/topics/{topic_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2254,7 +2261,8 @@ impl ListSecretsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
-    /// let x = ListSecretsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = ListSecretsRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2450,7 +2458,8 @@ impl CreateSecretRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
-    /// let x = CreateSecretRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// let x = CreateSecretRequest::new().set_parent(format!("projects/{project_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2545,7 +2554,9 @@ impl AddSecretVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
-    /// let x = AddSecretVersionRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = AddSecretVersionRequest::new().set_parent(format!("projects/{project_id}/secrets/{secret_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2620,7 +2631,9 @@ impl GetSecretRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::GetSecretRequest;
-    /// let x = GetSecretRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = GetSecretRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2680,7 +2693,9 @@ impl ListSecretVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
-    /// let x = ListSecretVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = ListSecretVersionsRequest::new().set_parent(format!("projects/{project_id}/secrets/{secret_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2870,7 +2885,10 @@ impl GetSecretVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::GetSecretVersionRequest;
-    /// let x = GetSecretVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = GetSecretVersionRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3016,7 +3034,10 @@ impl AccessSecretVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionRequest;
-    /// let x = AccessSecretVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = AccessSecretVersionRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3062,7 +3083,10 @@ impl AccessSecretVersionResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
-    /// let x = AccessSecretVersionResponse::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = AccessSecretVersionResponse::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3144,7 +3168,9 @@ impl DeleteSecretRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
-    /// let x = DeleteSecretRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = DeleteSecretRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3207,7 +3233,10 @@ impl DisableSecretVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
-    /// let x = DisableSecretVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = DisableSecretVersionRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3270,7 +3299,10 @@ impl EnableSecretVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
-    /// let x = EnableSecretVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = EnableSecretVersionRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3333,7 +3365,10 @@ impl DestroySecretVersionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
-    /// let x = DestroySecretVersionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// # let secret_version_id = "secret_version_id";
+    /// let x = DestroySecretVersionRequest::new().set_name(format!("projects/{project_id}/secrets/{secret_id}/versions/{secret_version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

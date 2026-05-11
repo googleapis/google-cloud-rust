@@ -119,7 +119,10 @@ impl Registration {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::Registration;
-    /// let x = Registration::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = Registration::new().set_name(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3141,7 +3144,10 @@ impl GetRegistrationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::GetRegistrationRequest;
-    /// let x = GetRegistrationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = GetRegistrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3279,7 +3285,10 @@ impl ConfigureManagementSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::ConfigureManagementSettingsRequest;
-    /// let x = ConfigureManagementSettingsRequest::new().set_registration("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = ConfigureManagementSettingsRequest::new().set_registration(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
@@ -3398,7 +3407,10 @@ impl ConfigureDnsSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// let x = ConfigureDnsSettingsRequest::new().set_registration("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = ConfigureDnsSettingsRequest::new().set_registration(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
@@ -3527,7 +3539,10 @@ impl ConfigureContactSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// let x = ConfigureContactSettingsRequest::new().set_registration("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = ConfigureContactSettingsRequest::new().set_registration(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
@@ -3661,7 +3676,10 @@ impl ExportRegistrationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::ExportRegistrationRequest;
-    /// let x = ExportRegistrationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = ExportRegistrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3697,7 +3715,10 @@ impl DeleteRegistrationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::DeleteRegistrationRequest;
-    /// let x = DeleteRegistrationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = DeleteRegistrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3733,7 +3754,10 @@ impl RetrieveAuthorizationCodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::RetrieveAuthorizationCodeRequest;
-    /// let x = RetrieveAuthorizationCodeRequest::new().set_registration("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = RetrieveAuthorizationCodeRequest::new().set_registration(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
@@ -3769,7 +3793,10 @@ impl ResetAuthorizationCodeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::ResetAuthorizationCodeRequest;
-    /// let x = ResetAuthorizationCodeRequest::new().set_registration("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let registration_id = "registration_id";
+    /// let x = ResetAuthorizationCodeRequest::new().set_registration(format!("projects/{project_id}/locations/{location_id}/registrations/{registration_id}"));
     /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();

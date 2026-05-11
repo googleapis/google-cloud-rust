@@ -76,7 +76,11 @@ impl AptArtifact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = AptArtifact::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let apt_artifact_id = "apt_artifact_id";
+    /// let x = AptArtifact::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/aptArtifacts/{apt_artifact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -767,7 +771,11 @@ impl DockerImage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = DockerImage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let docker_image_id = "docker_image_id";
+    /// let x = DockerImage::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/dockerImages/{docker_image_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1283,7 +1291,11 @@ impl GetDockerImageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetDockerImageRequest;
-    /// let x = GetDockerImageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let docker_image_id = "docker_image_id";
+    /// let x = GetDockerImageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/dockerImages/{docker_image_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1347,7 +1359,11 @@ impl MavenArtifact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = MavenArtifact::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let maven_artifact_id = "maven_artifact_id";
+    /// let x = MavenArtifact::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/mavenArtifacts/{maven_artifact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1503,7 +1519,10 @@ impl ListMavenArtifactsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListMavenArtifactsRequest;
-    /// let x = ListMavenArtifactsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListMavenArtifactsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1637,7 +1656,11 @@ impl GetMavenArtifactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetMavenArtifactRequest;
-    /// let x = GetMavenArtifactRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let maven_artifact_id = "maven_artifact_id";
+    /// let x = GetMavenArtifactRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/mavenArtifacts/{maven_artifact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1693,7 +1716,11 @@ impl NpmPackage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// let x = NpmPackage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let npm_package_id = "npm_package_id";
+    /// let x = NpmPackage::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/npmPackages/{npm_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1842,7 +1869,10 @@ impl ListNpmPackagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListNpmPackagesRequest;
-    /// let x = ListNpmPackagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListNpmPackagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1976,7 +2006,11 @@ impl GetNpmPackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetNpmPackageRequest;
-    /// let x = GetNpmPackageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let npm_package_id = "npm_package_id";
+    /// let x = GetNpmPackageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/npmPackages/{npm_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2036,7 +2070,11 @@ impl PythonPackage {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// let x = PythonPackage::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let python_package_id = "python_package_id";
+    /// let x = PythonPackage::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pythonPackages/{python_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2180,7 +2218,10 @@ impl ListPythonPackagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListPythonPackagesRequest;
-    /// let x = ListPythonPackagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListPythonPackagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2314,7 +2355,11 @@ impl GetPythonPackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetPythonPackageRequest;
-    /// let x = GetPythonPackageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let python_package_id = "python_package_id";
+    /// let x = GetPythonPackageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pythonPackages/{python_package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2387,7 +2432,11 @@ impl Attachment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let attachment_id = "attachment_id";
+    /// let x = Attachment::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/attachments/{attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2594,7 +2643,10 @@ impl ListAttachmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListAttachmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2740,7 +2792,11 @@ impl GetAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetAttachmentRequest;
-    /// let x = GetAttachmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let attachment_id = "attachment_id";
+    /// let x = GetAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/attachments/{attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2782,7 +2838,10 @@ impl CreateAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::CreateAttachmentRequest;
-    /// let x = CreateAttachmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateAttachmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2862,7 +2921,11 @@ impl DeleteAttachmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::DeleteAttachmentRequest;
-    /// let x = DeleteAttachmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let attachment_id = "attachment_id";
+    /// let x = DeleteAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/attachments/{attachment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2904,7 +2967,10 @@ impl ExportArtifactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ExportArtifactRequest;
-    /// let x = ExportArtifactRequest::new().set_repository("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ExportArtifactRequest::new().set_repository(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -2956,7 +3022,12 @@ impl ExportArtifactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ExportArtifactRequest;
-    /// let x = ExportArtifactRequest::new().set_source_version("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// # let version_id = "version_id";
+    /// let x = ExportArtifactRequest::new().set_source_version(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}/versions/{version_id}"));
     /// assert!(x.source_version().is_some());
     /// assert!(x.source_tag().is_none());
     /// ```
@@ -2989,7 +3060,12 @@ impl ExportArtifactRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ExportArtifactRequest;
-    /// let x = ExportArtifactRequest::new().set_source_tag("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// # let tag_id = "tag_id";
+    /// let x = ExportArtifactRequest::new().set_source_tag(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}/tags/{tag_id}"));
     /// assert!(x.source_tag().is_some());
     /// assert!(x.source_version().is_none());
     /// ```
@@ -3226,7 +3302,11 @@ pub mod export_artifact_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_artifactregistry_v1::model::export_artifact_metadata::ExportedFile;
-        /// let x = ExportedFile::new().set_name("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let repository_id = "repository_id";
+        /// # let file_id = "file_id";
+        /// let x = ExportedFile::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"));
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -3581,7 +3661,11 @@ impl File {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::File;
-    /// let x = File::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let file_id = "file_id";
+    /// let x = File::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3844,7 +3928,10 @@ impl ListFilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListFilesRequest;
-    /// let x = ListFilesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListFilesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4002,7 +4089,11 @@ impl GetFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetFileRequest;
-    /// let x = GetFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let file_id = "file_id";
+    /// let x = GetFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4037,7 +4128,11 @@ impl DeleteFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::DeleteFileRequest;
-    /// let x = DeleteFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let file_id = "file_id";
+    /// let x = DeleteFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4179,7 +4274,11 @@ impl GenericArtifact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// let x = GenericArtifact::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let generic_artifact_id = "generic_artifact_id";
+    /// let x = GenericArtifact::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/genericArtifacts/{generic_artifact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4302,7 +4401,11 @@ impl GoModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// let x = GoModule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let go_module_id = "go_module_id";
+    /// let x = GoModule::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/goModules/{go_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4422,7 +4525,11 @@ impl KfpArtifact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::KfpArtifact;
-    /// let x = KfpArtifact::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let kfp_artifact_id = "kfp_artifact_id";
+    /// let x = KfpArtifact::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/kfpArtifacts/{kfp_artifact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4484,7 +4591,11 @@ impl Package {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = Package::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// let x = Package::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4674,7 +4785,10 @@ impl ListPackagesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListPackagesRequest;
-    /// let x = ListPackagesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListPackagesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4832,7 +4946,11 @@ impl GetPackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetPackageRequest;
-    /// let x = GetPackageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// let x = GetPackageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4867,7 +4985,11 @@ impl DeletePackageRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::DeletePackageRequest;
-    /// let x = DeletePackageRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// let x = DeletePackageRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5015,7 +5137,10 @@ impl UpstreamPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::UpstreamPolicy;
-    /// let x = UpstreamPolicy::new().set_repository("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = UpstreamPolicy::new().set_repository(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -8758,7 +8883,10 @@ impl Repository {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = Repository::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10314,7 +10442,9 @@ impl ListRepositoriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListRepositoriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10472,7 +10602,10 @@ impl GetRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetRepositoryRequest;
-    /// let x = GetRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = GetRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10514,7 +10647,9 @@ impl CreateRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::CreateRepositoryRequest;
-    /// let x = CreateRepositoryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateRepositoryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10688,7 +10823,10 @@ impl DeleteRepositoryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::DeleteRepositoryRequest;
-    /// let x = DeleteRepositoryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = DeleteRepositoryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10740,7 +10878,11 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = Rule::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let rule_id = "rule_id";
+    /// let x = Rule::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11121,7 +11263,10 @@ impl ListRulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ListRulesRequest;
-    /// let x = ListRulesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = ListRulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11255,7 +11400,11 @@ impl GetRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetRuleRequest;
-    /// let x = GetRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let rule_id = "rule_id";
+    /// let x = GetRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11296,7 +11445,10 @@ impl CreateRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::CreateRuleRequest;
-    /// let x = CreateRuleRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = CreateRuleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11470,7 +11622,11 @@ impl DeleteRuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::DeleteRuleRequest;
-    /// let x = DeleteRuleRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let rule_id = "rule_id";
+    /// let x = DeleteRuleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/rules/{rule_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11538,7 +11694,8 @@ impl ProjectSettings {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ProjectSettings;
-    /// let x = ProjectSettings::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = ProjectSettings::new().set_name(format!("projects/{project_id}/projectSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11779,7 +11936,8 @@ impl GetProjectSettingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetProjectSettingsRequest;
-    /// let x = GetProjectSettingsRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// let x = GetProjectSettingsRequest::new().set_name(format!("projects/{project_id}/projectSettings"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11917,7 +12075,12 @@ impl Tag {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = Tag::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// # let tag_id = "tag_id";
+    /// let x = Tag::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}/tags/{tag_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12433,7 +12596,12 @@ impl Version {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = Version::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// # let version_id = "version_id";
+    /// let x = Version::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}/versions/{version_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12986,7 +13154,11 @@ impl BatchDeleteVersionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::BatchDeleteVersionsRequest;
-    /// let x = BatchDeleteVersionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let package_id = "package_id";
+    /// let x = BatchDeleteVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13194,7 +13366,9 @@ impl VPCSCConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::VPCSCConfig;
-    /// let x = VPCSCConfig::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = VPCSCConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcscConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13388,7 +13562,9 @@ impl GetVPCSCConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::GetVPCSCConfigRequest;
-    /// let x = GetVPCSCConfigRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetVPCSCConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcscConfig"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13524,7 +13700,11 @@ impl YumArtifact {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::YumArtifact;
-    /// let x = YumArtifact::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// # let yum_artifact_id = "yum_artifact_id";
+    /// let x = YumArtifact::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/yumArtifacts/{yum_artifact_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

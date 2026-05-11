@@ -212,7 +212,10 @@ impl Reservation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
-    /// let x = Reservation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = Reservation::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1124,7 +1127,10 @@ impl ReservationGroup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
-    /// let x = ReservationGroup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_group_id = "reservation_group_id";
+    /// let x = ReservationGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservationGroups/{reservation_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1222,7 +1228,10 @@ impl CapacityCommitment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
-    /// let x = CapacityCommitment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let capacity_commitment_id = "capacity_commitment_id";
+    /// let x = CapacityCommitment::new().set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1830,7 +1839,9 @@ impl CreateReservationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationRequest;
-    /// let x = CreateReservationRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateReservationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1920,7 +1931,9 @@ impl ListReservationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::ListReservationsRequest;
-    /// let x = ListReservationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListReservationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2061,7 +2074,10 @@ impl GetReservationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::GetReservationRequest;
-    /// let x = GetReservationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = GetReservationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2100,7 +2116,10 @@ impl DeleteReservationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::DeleteReservationRequest;
-    /// let x = DeleteReservationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = DeleteReservationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2236,7 +2255,10 @@ impl FailoverReservationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::FailoverReservationRequest;
-    /// let x = FailoverReservationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = FailoverReservationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2300,7 +2322,9 @@ impl CreateReservationGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationGroupRequest;
-    /// let x = CreateReservationGroupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateReservationGroupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2387,7 +2411,10 @@ impl GetReservationGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::GetReservationGroupRequest;
-    /// let x = GetReservationGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_group_id = "reservation_group_id";
+    /// let x = GetReservationGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservationGroups/{reservation_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2432,7 +2459,9 @@ impl ListReservationGroupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::ListReservationGroupsRequest;
-    /// let x = ListReservationGroupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListReservationGroupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2573,7 +2602,10 @@ impl DeleteReservationGroupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::DeleteReservationGroupRequest;
-    /// let x = DeleteReservationGroupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_group_id = "reservation_group_id";
+    /// let x = DeleteReservationGroupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservationGroups/{reservation_group_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2626,7 +2658,9 @@ impl CreateCapacityCommitmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CreateCapacityCommitmentRequest;
-    /// let x = CreateCapacityCommitmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCapacityCommitmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2734,7 +2768,9 @@ impl ListCapacityCommitmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::ListCapacityCommitmentsRequest;
-    /// let x = ListCapacityCommitmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCapacityCommitmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2875,7 +2911,10 @@ impl GetCapacityCommitmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::GetCapacityCommitmentRequest;
-    /// let x = GetCapacityCommitmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let capacity_commitment_id = "capacity_commitment_id";
+    /// let x = GetCapacityCommitmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2919,7 +2958,10 @@ impl DeleteCapacityCommitmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::DeleteCapacityCommitmentRequest;
-    /// let x = DeleteCapacityCommitmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let capacity_commitment_id = "capacity_commitment_id";
+    /// let x = DeleteCapacityCommitmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3068,7 +3110,10 @@ impl SplitCapacityCommitmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentRequest;
-    /// let x = SplitCapacityCommitmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let capacity_commitment_id = "capacity_commitment_id";
+    /// let x = SplitCapacityCommitmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3227,7 +3272,9 @@ impl MergeCapacityCommitmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::MergeCapacityCommitmentsRequest;
-    /// let x = MergeCapacityCommitmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = MergeCapacityCommitmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3341,7 +3388,11 @@ impl Assignment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
-    /// let x = Assignment::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// # let assignment_id = "assignment_id";
+    /// let x = Assignment::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}/assignments/{assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3828,7 +3879,10 @@ impl CreateAssignmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CreateAssignmentRequest;
-    /// let x = CreateAssignmentRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = CreateAssignmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3923,7 +3977,10 @@ impl ListAssignmentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::ListAssignmentsRequest;
-    /// let x = ListAssignmentsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = ListAssignmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4066,7 +4123,11 @@ impl DeleteAssignmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::DeleteAssignmentRequest;
-    /// let x = DeleteAssignmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// # let assignment_id = "assignment_id";
+    /// let x = DeleteAssignmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}/assignments/{assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4466,7 +4527,11 @@ impl MoveAssignmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::MoveAssignmentRequest;
-    /// let x = MoveAssignmentRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// # let assignment_id = "assignment_id";
+    /// let x = MoveAssignmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}/assignments/{assignment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4478,7 +4543,10 @@ impl MoveAssignmentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::MoveAssignmentRequest;
-    /// let x = MoveAssignmentRequest::new().set_destination_id("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let reservation_id = "reservation_id";
+    /// let x = MoveAssignmentRequest::new().set_destination_id(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"));
     /// ```
     pub fn set_destination_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_id = v.into();
@@ -4697,7 +4765,9 @@ impl BiReservation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::BiReservation;
-    /// let x = BiReservation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = BiReservation::new().set_name(format!("projects/{project_id}/locations/{location_id}/biReservation"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4800,7 +4870,9 @@ impl GetBiReservationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::GetBiReservationRequest;
-    /// let x = GetBiReservationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetBiReservationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/biReservation"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

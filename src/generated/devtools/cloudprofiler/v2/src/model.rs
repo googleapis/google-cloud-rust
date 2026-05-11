@@ -348,7 +348,9 @@ impl Profile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_profiler_v2::model::Profile;
-    /// let x = Profile::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let profile_id = "profile_id";
+    /// let x = Profile::new().set_name(format!("projects/{project_id}/profiles/{profile_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

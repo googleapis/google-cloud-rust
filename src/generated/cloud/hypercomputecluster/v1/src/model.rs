@@ -109,7 +109,10 @@ impl Cluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_hypercomputecluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -383,7 +386,9 @@ impl ListClustersRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_hypercomputecluster_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListClustersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -568,7 +573,10 @@ impl GetClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_hypercomputecluster_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -620,7 +628,9 @@ impl CreateClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_hypercomputecluster_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateClusterRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -835,7 +845,10 @@ impl DeleteClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_hypercomputecluster_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = DeleteClusterRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

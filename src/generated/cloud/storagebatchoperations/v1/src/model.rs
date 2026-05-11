@@ -69,7 +69,9 @@ impl ListJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -247,7 +249,10 @@ impl GetJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = GetJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -298,7 +303,9 @@ impl CreateJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::CreateJobRequest;
-    /// let x = CreateJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateJobRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -398,7 +405,10 @@ impl CancelJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::CancelJobRequest;
-    /// let x = CancelJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = CancelJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -459,7 +469,10 @@ impl DeleteJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::DeleteJobRequest;
-    /// let x = DeleteJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = DeleteJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -550,7 +563,10 @@ impl ListBucketOperationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsRequest;
-    /// let x = ListBucketOperationsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = ListBucketOperationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -729,7 +745,11 @@ impl GetBucketOperationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::GetBucketOperationRequest;
-    /// let x = GetBucketOperationRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let bucket_operation_id = "bucket_operation_id";
+    /// let x = GetBucketOperationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/bucketOperations/{bucket_operation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -992,7 +1012,10 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::Job;
-    /// let x = Job::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1756,7 +1779,11 @@ impl BucketOperation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
-    /// let x = BucketOperation::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// # let bucket_operation_id = "bucket_operation_id";
+    /// let x = BucketOperation::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/bucketOperations/{bucket_operation_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

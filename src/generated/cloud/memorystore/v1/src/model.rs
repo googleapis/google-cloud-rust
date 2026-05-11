@@ -209,7 +209,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1060,7 +1063,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::Instance;
-    /// let x = Instance::new().set_backup_collection("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// let x = Instance::new().set_backup_collection(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}"));
     /// ```
     pub fn set_backup_collection<T>(mut self, v: T) -> Self
     where
@@ -1075,7 +1081,10 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::Instance;
-    /// let x = Instance::new().set_or_clear_backup_collection(Some("example"));
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// let x = Instance::new().set_or_clear_backup_collection(Some(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}")));
     /// let x = Instance::new().set_or_clear_backup_collection(None::<String>);
     /// ```
     pub fn set_or_clear_backup_collection<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3279,7 +3288,10 @@ impl BackupCollection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// let x = BackupCollection::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3303,7 +3315,10 @@ impl BackupCollection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = BackupCollection::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -3497,7 +3512,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3542,7 +3561,10 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::Backup;
-    /// let x = Backup::new().set_instance("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = Backup::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
@@ -4363,7 +4385,10 @@ pub mod cross_instance_replication_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
-        /// let x = RemoteInstance::new().set_instance("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let instance_id = "instance_id";
+        /// let x = RemoteInstance::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
         /// ```
         pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.instance = v.into();
@@ -6459,7 +6484,10 @@ impl RescheduleMaintenanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::RescheduleMaintenanceRequest;
-    /// let x = RescheduleMaintenanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = RescheduleMaintenanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6699,7 +6727,9 @@ impl ListInstancesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListInstancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6880,7 +6910,10 @@ impl GetInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6946,7 +6979,9 @@ impl CreateInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateInstanceRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7174,7 +7209,10 @@ impl DeleteInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = DeleteInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7239,7 +7277,9 @@ impl ListBackupCollectionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsRequest;
-    /// let x = ListBackupCollectionsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBackupCollectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7404,7 +7444,10 @@ impl GetBackupCollectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::GetBackupCollectionRequest;
-    /// let x = GetBackupCollectionRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// let x = GetBackupCollectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7455,7 +7498,10 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7610,7 +7656,11 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7649,7 +7699,11 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7700,7 +7754,11 @@ impl ExportBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::ExportBackupRequest;
-    /// let x = ExportBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_collection_id = "backup_collection_id";
+    /// # let backup_id = "backup_id";
+    /// let x = ExportBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7812,7 +7870,10 @@ impl BackupInstanceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::BackupInstanceRequest;
-    /// let x = BackupInstanceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = BackupInstanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7913,7 +7974,10 @@ impl GetCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::GetCertificateAuthorityRequest;
-    /// let x = GetCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = GetCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7953,7 +8017,10 @@ impl CertificateAuthority {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::CertificateAuthority;
-    /// let x = CertificateAuthority::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CertificateAuthority::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/certificateAuthority"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8171,7 +8238,9 @@ impl SharedRegionalCertificateAuthority {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::SharedRegionalCertificateAuthority;
-    /// let x = SharedRegionalCertificateAuthority::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SharedRegionalCertificateAuthority::new().set_name(format!("projects/{project_id}/locations/{location_id}/sharedRegionalCertificateAuthority"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8377,7 +8446,9 @@ impl GetSharedRegionalCertificateAuthorityRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::GetSharedRegionalCertificateAuthorityRequest;
-    /// let x = GetSharedRegionalCertificateAuthorityRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetSharedRegionalCertificateAuthorityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sharedRegionalCertificateAuthority"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8415,8 +8486,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

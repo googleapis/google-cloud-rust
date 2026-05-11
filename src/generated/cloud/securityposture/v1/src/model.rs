@@ -1016,8 +1016,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1246,7 +1244,10 @@ impl Posture {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::Posture;
-    /// let x = Posture::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_id = "posture_id";
+    /// let x = Posture::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2088,7 +2089,9 @@ impl ListPosturesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::ListPosturesRequest;
-    /// let x = ListPosturesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPosturesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2248,7 +2251,10 @@ impl ListPostureRevisionsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::ListPostureRevisionsRequest;
-    /// let x = ListPostureRevisionsRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_id = "posture_id";
+    /// let x = ListPostureRevisionsRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2384,7 +2390,10 @@ impl GetPostureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::GetPostureRequest;
-    /// let x = GetPostureRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_id = "posture_id";
+    /// let x = GetPostureRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2438,7 +2447,9 @@ impl CreatePostureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::CreatePostureRequest;
-    /// let x = CreatePostureRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePostureRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2632,7 +2643,10 @@ impl DeletePostureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::DeletePostureRequest;
-    /// let x = DeletePostureRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_id = "posture_id";
+    /// let x = DeletePostureRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postures/{posture_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2693,7 +2707,9 @@ impl ExtractPostureRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::ExtractPostureRequest;
-    /// let x = ExtractPostureRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ExtractPostureRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2817,7 +2833,10 @@ impl PostureDeployment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::PostureDeployment;
-    /// let x = PostureDeployment::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_deployment_id = "posture_deployment_id";
+    /// let x = PostureDeployment::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postureDeployments/{posture_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3258,7 +3277,9 @@ impl ListPostureDeploymentsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsRequest;
-    /// let x = ListPostureDeploymentsRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPostureDeploymentsRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3423,7 +3444,10 @@ impl GetPostureDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::GetPostureDeploymentRequest;
-    /// let x = GetPostureDeploymentRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_deployment_id = "posture_deployment_id";
+    /// let x = GetPostureDeploymentRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postureDeployments/{posture_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3466,7 +3490,9 @@ impl CreatePostureDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::CreatePostureDeploymentRequest;
-    /// let x = CreatePostureDeploymentRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreatePostureDeploymentRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3648,7 +3674,10 @@ impl DeletePostureDeploymentRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::DeletePostureDeploymentRequest;
-    /// let x = DeletePostureDeploymentRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_deployment_id = "posture_deployment_id";
+    /// let x = DeletePostureDeploymentRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postureDeployments/{posture_deployment_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3710,7 +3739,10 @@ impl PostureTemplate {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::PostureTemplate;
-    /// let x = PostureTemplate::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_template_id = "posture_template_id";
+    /// let x = PostureTemplate::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postureTemplates/{posture_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3958,7 +3990,9 @@ impl ListPostureTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesRequest;
-    /// let x = ListPostureTemplatesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListPostureTemplatesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4107,7 +4141,10 @@ impl GetPostureTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::GetPostureTemplateRequest;
-    /// let x = GetPostureTemplateRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let posture_template_id = "posture_template_id";
+    /// let x = GetPostureTemplateRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/postureTemplates/{posture_template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

@@ -62,7 +62,9 @@ impl CheckOnboardingStatusRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::CheckOnboardingStatusRequest;
-    /// let x = CheckOnboardingStatusRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CheckOnboardingStatusRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -374,7 +376,10 @@ impl Entitlement {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
-    /// let x = Entitlement::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = Entitlement::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1700,7 +1705,9 @@ impl ListEntitlementsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsRequest;
-    /// let x = ListEntitlementsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEntitlementsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1892,7 +1899,9 @@ impl SearchEntitlementsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsRequest;
-    /// let x = SearchEntitlementsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SearchEntitlementsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2194,7 +2203,10 @@ impl GetEntitlementRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::GetEntitlementRequest;
-    /// let x = GetEntitlementRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = GetEntitlementRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2263,7 +2275,9 @@ impl CreateEntitlementRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::CreateEntitlementRequest;
-    /// let x = CreateEntitlementRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEntitlementRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2374,7 +2388,10 @@ impl DeleteEntitlementRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::DeleteEntitlementRequest;
-    /// let x = DeleteEntitlementRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = DeleteEntitlementRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2582,7 +2599,11 @@ impl Grant {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
-    /// let x = Grant::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// # let grant_id = "grant_id";
+    /// let x = Grant::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}/grants/{grant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4521,7 +4542,10 @@ impl ListGrantsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsRequest;
-    /// let x = ListGrantsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = ListGrantsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4712,7 +4736,10 @@ impl SearchGrantsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsRequest;
-    /// let x = SearchGrantsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = SearchGrantsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5024,7 +5051,11 @@ impl GetGrantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::GetGrantRequest;
-    /// let x = GetGrantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// # let grant_id = "grant_id";
+    /// let x = GetGrantRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}/grants/{grant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5064,7 +5095,11 @@ impl ApproveGrantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::ApproveGrantRequest;
-    /// let x = ApproveGrantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// # let grant_id = "grant_id";
+    /// let x = ApproveGrantRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}/grants/{grant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5116,7 +5151,11 @@ impl DenyGrantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::DenyGrantRequest;
-    /// let x = DenyGrantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// # let grant_id = "grant_id";
+    /// let x = DenyGrantRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}/grants/{grant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5166,7 +5205,11 @@ impl RevokeGrantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::RevokeGrantRequest;
-    /// let x = RevokeGrantRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// # let grant_id = "grant_id";
+    /// let x = RevokeGrantRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}/grants/{grant_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5232,7 +5275,10 @@ impl CreateGrantRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privilegedaccessmanager_v1::model::CreateGrantRequest;
-    /// let x = CreateGrantRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let entitlement_id = "entitlement_id";
+    /// let x = CreateGrantRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5315,8 +5361,6 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

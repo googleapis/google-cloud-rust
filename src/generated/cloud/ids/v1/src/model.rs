@@ -87,7 +87,10 @@ impl Endpoint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ids_v1::model::Endpoint;
-    /// let x = Endpoint::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let endpoint_id = "endpoint_id";
+    /// let x = Endpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -622,7 +625,9 @@ impl ListEndpointsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ids_v1::model::ListEndpointsRequest;
-    /// let x = ListEndpointsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEndpointsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -801,7 +806,10 @@ impl GetEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ids_v1::model::GetEndpointRequest;
-    /// let x = GetEndpointRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let endpoint_id = "endpoint_id";
+    /// let x = GetEndpointRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -862,7 +870,9 @@ impl CreateEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ids_v1::model::CreateEndpointRequest;
-    /// let x = CreateEndpointRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEndpointRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -969,7 +979,10 @@ impl DeleteEndpointRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_ids_v1::model::DeleteEndpointRequest;
-    /// let x = DeleteEndpointRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let endpoint_id = "endpoint_id";
+    /// let x = DeleteEndpointRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1018,8 +1031,6 @@ pub struct OperationMetadata {
     /// of the operation. Operations that have successfully been cancelled
     /// have [Operation.error][] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
-    ///
-    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

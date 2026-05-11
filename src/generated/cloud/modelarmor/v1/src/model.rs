@@ -69,7 +69,10 @@ impl Template {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::Template;
-    /// let x = Template::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = Template::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -679,7 +682,9 @@ impl FloorSetting {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::FloorSetting;
-    /// let x = FloorSetting::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = FloorSetting::new().set_name(format!("projects/{project_id}/locations/{location_id}/floorSetting"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1329,7 +1334,9 @@ impl ListTemplatesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::ListTemplatesRequest;
-    /// let x = ListTemplatesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTemplatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1506,7 +1513,10 @@ impl GetTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::GetTemplateRequest;
-    /// let x = GetTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = GetTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1564,7 +1574,9 @@ impl CreateTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::CreateTemplateRequest;
-    /// let x = CreateTemplateRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTemplateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1794,7 +1806,10 @@ impl DeleteTemplateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::DeleteTemplateRequest;
-    /// let x = DeleteTemplateRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = DeleteTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1842,7 +1857,9 @@ impl GetFloorSettingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::GetFloorSettingRequest;
-    /// let x = GetFloorSettingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetFloorSettingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/floorSetting"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3078,7 +3095,10 @@ impl SanitizeUserPromptRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
-    /// let x = SanitizeUserPromptRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = SanitizeUserPromptRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3193,7 +3213,10 @@ impl SanitizeModelResponseRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
-    /// let x = SanitizeModelResponseRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = SanitizeModelResponseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

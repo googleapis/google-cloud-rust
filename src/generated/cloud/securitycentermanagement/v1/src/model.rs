@@ -102,7 +102,10 @@ impl SecurityCenterService {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::SecurityCenterService;
-    /// let x = SecurityCenterService::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = SecurityCenterService::new().set_name(format!("projects/{project_id}/locations/{location_id}/securityCenterServices/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -516,7 +519,10 @@ impl EffectiveSecurityHealthAnalyticsCustomModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::EffectiveSecurityHealthAnalyticsCustomModule;
-    /// let x = EffectiveSecurityHealthAnalyticsCustomModule::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let effective_security_health_analytics_custom_module_id = "effective_security_health_analytics_custom_module_id";
+    /// let x = EffectiveSecurityHealthAnalyticsCustomModule::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/effectiveSecurityHealthAnalyticsCustomModules/{effective_security_health_analytics_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -773,7 +779,9 @@ impl ListEffectiveSecurityHealthAnalyticsCustomModulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest;
-    /// let x = ListEffectiveSecurityHealthAnalyticsCustomModulesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEffectiveSecurityHealthAnalyticsCustomModulesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -922,7 +930,10 @@ impl GetEffectiveSecurityHealthAnalyticsCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest;
-    /// let x = GetEffectiveSecurityHealthAnalyticsCustomModuleRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let effective_security_health_analytics_custom_module_id = "effective_security_health_analytics_custom_module_id";
+    /// let x = GetEffectiveSecurityHealthAnalyticsCustomModuleRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/effectiveSecurityHealthAnalyticsCustomModules/{effective_security_health_analytics_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -991,7 +1002,10 @@ impl SecurityHealthAnalyticsCustomModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::SecurityHealthAnalyticsCustomModule;
-    /// let x = SecurityHealthAnalyticsCustomModule::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_health_analytics_custom_module_id = "security_health_analytics_custom_module_id";
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1080,7 +1094,10 @@ impl SecurityHealthAnalyticsCustomModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::SecurityHealthAnalyticsCustomModule;
-    /// let x = SecurityHealthAnalyticsCustomModule::new().set_ancestor_module("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_health_analytics_custom_module_id = "security_health_analytics_custom_module_id";
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_ancestor_module(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"));
     /// ```
     pub fn set_ancestor_module<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ancestor_module = v.into();
@@ -1824,7 +1841,9 @@ impl ListSecurityHealthAnalyticsCustomModulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListSecurityHealthAnalyticsCustomModulesRequest;
-    /// let x = ListSecurityHealthAnalyticsCustomModulesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSecurityHealthAnalyticsCustomModulesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1983,7 +2002,9 @@ impl ListDescendantSecurityHealthAnalyticsCustomModulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListDescendantSecurityHealthAnalyticsCustomModulesRequest;
-    /// let x = ListDescendantSecurityHealthAnalyticsCustomModulesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDescendantSecurityHealthAnalyticsCustomModulesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2127,7 +2148,10 @@ impl GetSecurityHealthAnalyticsCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::GetSecurityHealthAnalyticsCustomModuleRequest;
-    /// let x = GetSecurityHealthAnalyticsCustomModuleRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_health_analytics_custom_module_id = "security_health_analytics_custom_module_id";
+    /// let x = GetSecurityHealthAnalyticsCustomModuleRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2189,7 +2213,9 @@ impl CreateSecurityHealthAnalyticsCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::CreateSecurityHealthAnalyticsCustomModuleRequest;
-    /// let x = CreateSecurityHealthAnalyticsCustomModuleRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSecurityHealthAnalyticsCustomModuleRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2427,7 +2453,10 @@ impl DeleteSecurityHealthAnalyticsCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::DeleteSecurityHealthAnalyticsCustomModuleRequest;
-    /// let x = DeleteSecurityHealthAnalyticsCustomModuleRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let security_health_analytics_custom_module_id = "security_health_analytics_custom_module_id";
+    /// let x = DeleteSecurityHealthAnalyticsCustomModuleRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2764,7 +2793,10 @@ impl SimulatedFinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::SimulatedFinding;
-    /// let x = SimulatedFinding::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let source_id = "source_id";
+    /// # let finding_id = "finding_id";
+    /// let x = SimulatedFinding::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3716,7 +3748,10 @@ impl EffectiveEventThreatDetectionCustomModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::EffectiveEventThreatDetectionCustomModule;
-    /// let x = EffectiveEventThreatDetectionCustomModule::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let effective_event_threat_detection_custom_module_id = "effective_event_threat_detection_custom_module_id";
+    /// let x = EffectiveEventThreatDetectionCustomModule::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/effectiveEventThreatDetectionCustomModules/{effective_event_threat_detection_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3997,7 +4032,9 @@ impl ListEffectiveEventThreatDetectionCustomModulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListEffectiveEventThreatDetectionCustomModulesRequest;
-    /// let x = ListEffectiveEventThreatDetectionCustomModulesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEffectiveEventThreatDetectionCustomModulesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4146,7 +4183,10 @@ impl GetEffectiveEventThreatDetectionCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::GetEffectiveEventThreatDetectionCustomModuleRequest;
-    /// let x = GetEffectiveEventThreatDetectionCustomModuleRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let effective_event_threat_detection_custom_module_id = "effective_event_threat_detection_custom_module_id";
+    /// let x = GetEffectiveEventThreatDetectionCustomModuleRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/effectiveEventThreatDetectionCustomModules/{effective_event_threat_detection_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4218,7 +4258,10 @@ impl EventThreatDetectionCustomModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::EventThreatDetectionCustomModule;
-    /// let x = EventThreatDetectionCustomModule::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let event_threat_detection_custom_module_id = "event_threat_detection_custom_module_id";
+    /// let x = EventThreatDetectionCustomModule::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4263,7 +4306,10 @@ impl EventThreatDetectionCustomModule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::EventThreatDetectionCustomModule;
-    /// let x = EventThreatDetectionCustomModule::new().set_ancestor_module("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let event_threat_detection_custom_module_id = "event_threat_detection_custom_module_id";
+    /// let x = EventThreatDetectionCustomModule::new().set_ancestor_module(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"));
     /// ```
     pub fn set_ancestor_module<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ancestor_module = v.into();
@@ -4567,7 +4613,9 @@ impl ListEventThreatDetectionCustomModulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListEventThreatDetectionCustomModulesRequest;
-    /// let x = ListEventThreatDetectionCustomModulesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListEventThreatDetectionCustomModulesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4727,7 +4775,9 @@ impl ListDescendantEventThreatDetectionCustomModulesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListDescendantEventThreatDetectionCustomModulesRequest;
-    /// let x = ListDescendantEventThreatDetectionCustomModulesRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDescendantEventThreatDetectionCustomModulesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4875,7 +4925,10 @@ impl GetEventThreatDetectionCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::GetEventThreatDetectionCustomModuleRequest;
-    /// let x = GetEventThreatDetectionCustomModuleRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let event_threat_detection_custom_module_id = "event_threat_detection_custom_module_id";
+    /// let x = GetEventThreatDetectionCustomModuleRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4940,7 +4993,9 @@ impl CreateEventThreatDetectionCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::CreateEventThreatDetectionCustomModuleRequest;
-    /// let x = CreateEventThreatDetectionCustomModuleRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateEventThreatDetectionCustomModuleRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5169,7 +5224,10 @@ impl DeleteEventThreatDetectionCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::DeleteEventThreatDetectionCustomModuleRequest;
-    /// let x = DeleteEventThreatDetectionCustomModuleRequest::new().set_name("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let event_threat_detection_custom_module_id = "event_threat_detection_custom_module_id";
+    /// let x = DeleteEventThreatDetectionCustomModuleRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5229,7 +5287,9 @@ impl ValidateEventThreatDetectionCustomModuleRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ValidateEventThreatDetectionCustomModuleRequest;
-    /// let x = ValidateEventThreatDetectionCustomModuleRequest::new().set_parent("example");
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ValidateEventThreatDetectionCustomModuleRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5555,7 +5615,10 @@ impl GetSecurityCenterServiceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::GetSecurityCenterServiceRequest;
-    /// let x = GetSecurityCenterServiceRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = GetSecurityCenterServiceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/securityCenterServices/{service_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5625,7 +5688,9 @@ impl ListSecurityCenterServicesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securitycentermanagement_v1::model::ListSecurityCenterServicesRequest;
-    /// let x = ListSecurityCenterServicesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSecurityCenterServicesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();

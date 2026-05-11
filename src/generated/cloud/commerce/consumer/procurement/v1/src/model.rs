@@ -293,7 +293,9 @@ impl LicensePool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
-    /// let x = LicensePool::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// # let order_id = "order_id";
+    /// let x = LicensePool::new().set_name(format!("billingAccounts/{billing_account_id}/orders/{order_id}/licensePool"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -968,7 +970,9 @@ impl Order {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
-    /// let x = Order::new().set_name("example");
+    /// # let billing_account_id = "billing_account_id";
+    /// # let order_id = "order_id";
+    /// let x = Order::new().set_name(format!("billingAccounts/{billing_account_id}/orders/{order_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

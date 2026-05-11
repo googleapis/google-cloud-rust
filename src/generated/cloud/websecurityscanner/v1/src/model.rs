@@ -185,7 +185,11 @@ impl Finding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_websecurityscanner_v1::model::Finding;
-    /// let x = Finding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let scan_config_id = "scan_config_id";
+    /// # let scan_run_id = "scan_run_id";
+    /// # let finding_id = "finding_id";
+    /// let x = Finding::new().set_name(format!("projects/{project_id}/scanConfigs/{scan_config_id}/scanRuns/{scan_run_id}/findings/{finding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

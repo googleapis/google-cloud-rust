@@ -69,7 +69,10 @@ impl Challenge {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
-    /// let x = Challenge::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let uuid_id = "uuid_id";
+    /// let x = Challenge::new().set_name(format!("projects/{project_id}/locations/{location_id}/challenges/{uuid_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -298,7 +301,10 @@ impl VerifyAttestationRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
-    /// let x = VerifyAttestationRequest::new().set_challenge("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let uuid_id = "uuid_id";
+    /// let x = VerifyAttestationRequest::new().set_challenge(format!("projects/{project_id}/locations/{location_id}/challenges/{uuid_id}"));
     /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();
@@ -2384,7 +2390,10 @@ impl VerifyConfidentialSpaceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
-    /// let x = VerifyConfidentialSpaceRequest::new().set_challenge("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let uuid_id = "uuid_id";
+    /// let x = VerifyConfidentialSpaceRequest::new().set_challenge(format!("projects/{project_id}/locations/{location_id}/challenges/{uuid_id}"));
     /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();
@@ -3021,7 +3030,10 @@ impl VerifyConfidentialGkeRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
-    /// let x = VerifyConfidentialGkeRequest::new().set_challenge("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let uuid_id = "uuid_id";
+    /// let x = VerifyConfidentialGkeRequest::new().set_challenge(format!("projects/{project_id}/locations/{location_id}/challenges/{uuid_id}"));
     /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();

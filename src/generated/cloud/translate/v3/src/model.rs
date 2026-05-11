@@ -78,7 +78,10 @@ impl AdaptiveMtDataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
-    /// let x = AdaptiveMtDataset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = AdaptiveMtDataset::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -306,7 +309,10 @@ impl DeleteAdaptiveMtDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::DeleteAdaptiveMtDatasetRequest;
-    /// let x = DeleteAdaptiveMtDatasetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = DeleteAdaptiveMtDatasetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -342,7 +348,10 @@ impl GetAdaptiveMtDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GetAdaptiveMtDatasetRequest;
-    /// let x = GetAdaptiveMtDatasetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = GetAdaptiveMtDatasetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -575,7 +584,10 @@ impl AdaptiveMtTranslateRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
-    /// let x = AdaptiveMtTranslateRequest::new().set_dataset("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = AdaptiveMtTranslateRequest::new().set_dataset(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"));
     /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
@@ -916,7 +928,10 @@ pub mod adaptive_mt_translate_request {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
-        /// let x = GlossaryConfig::new().set_glossary("example");
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let glossary_id = "glossary_id";
+        /// let x = GlossaryConfig::new().set_glossary(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
         /// ```
         pub fn set_glossary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.glossary = v.into();
@@ -1113,7 +1128,11 @@ impl AdaptiveMtFile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
-    /// let x = AdaptiveMtFile::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let file_id = "file_id";
+    /// let x = AdaptiveMtFile::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1239,7 +1258,11 @@ impl GetAdaptiveMtFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GetAdaptiveMtFileRequest;
-    /// let x = GetAdaptiveMtFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let file_id = "file_id";
+    /// let x = GetAdaptiveMtFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1275,7 +1298,11 @@ impl DeleteAdaptiveMtFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::DeleteAdaptiveMtFileRequest;
-    /// let x = DeleteAdaptiveMtFileRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let file_id = "file_id";
+    /// let x = DeleteAdaptiveMtFileRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1314,7 +1341,10 @@ impl ImportAdaptiveMtFileRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileRequest;
-    /// let x = ImportAdaptiveMtFileRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = ImportAdaptiveMtFileRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1539,7 +1569,10 @@ impl ListAdaptiveMtFilesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::ListAdaptiveMtFilesRequest;
-    /// let x = ListAdaptiveMtFilesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = ListAdaptiveMtFilesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1687,7 +1720,12 @@ impl AdaptiveMtSentence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
-    /// let x = AdaptiveMtSentence::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let file_id = "file_id";
+    /// # let sentence_id = "sentence_id";
+    /// let x = AdaptiveMtSentence::new().set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}/adaptiveMtSentences/{sentence_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1826,7 +1864,11 @@ impl ListAdaptiveMtSentencesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::ListAdaptiveMtSentencesRequest;
-    /// let x = ListAdaptiveMtSentencesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let file_id = "file_id";
+    /// let x = ListAdaptiveMtSentencesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2666,7 +2708,10 @@ impl DeleteDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::DeleteDatasetRequest;
-    /// let x = DeleteDatasetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = DeleteDatasetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2847,7 +2892,10 @@ impl GetDatasetRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GetDatasetRequest;
-    /// let x = GetDatasetRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = GetDatasetRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3260,7 +3308,10 @@ impl ListExamplesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::ListExamplesRequest;
-    /// let x = ListExamplesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = ListExamplesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3417,7 +3468,11 @@ impl Example {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::Example;
-    /// let x = Example::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let example_id = "example_id";
+    /// let x = Example::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/examples/{example_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3660,7 +3715,10 @@ impl Dataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::Dataset;
-    /// let x = Dataset::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let dataset_id = "dataset_id";
+    /// let x = Dataset::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4231,7 +4289,10 @@ impl GetModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GetModelRequest;
-    /// let x = GetModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let model_id = "model_id";
+    /// let x = GetModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4266,7 +4327,10 @@ impl DeleteModelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::DeleteModelRequest;
-    /// let x = DeleteModelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let model_id = "model_id";
+    /// let x = DeleteModelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4480,7 +4544,10 @@ impl Model {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::Model;
-    /// let x = Model::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let model_id = "model_id";
+    /// let x = Model::new().set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4820,7 +4887,11 @@ impl GlossaryEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GlossaryEntry;
-    /// let x = GlossaryEntry::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_entry_id = "glossary_entry_id";
+    /// let x = GlossaryEntry::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/glossaryEntries/{glossary_entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8483,7 +8554,10 @@ impl Glossary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::Glossary;
-    /// let x = Glossary::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = Glossary::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9020,7 +9094,10 @@ impl GetGlossaryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GetGlossaryRequest;
-    /// let x = GetGlossaryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = GetGlossaryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9055,7 +9132,10 @@ impl DeleteGlossaryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::DeleteGlossaryRequest;
-    /// let x = DeleteGlossaryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = DeleteGlossaryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9265,7 +9345,11 @@ impl GetGlossaryEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::GetGlossaryEntryRequest;
-    /// let x = GetGlossaryEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_entry_id = "glossary_entry_id";
+    /// let x = GetGlossaryEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/glossaryEntries/{glossary_entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9300,7 +9384,11 @@ impl DeleteGlossaryEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::DeleteGlossaryEntryRequest;
-    /// let x = DeleteGlossaryEntryRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// # let glossary_entry_id = "glossary_entry_id";
+    /// let x = DeleteGlossaryEntryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/glossaryEntries/{glossary_entry_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9346,7 +9434,10 @@ impl ListGlossaryEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::ListGlossaryEntriesRequest;
-    /// let x = ListGlossaryEntriesRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = ListGlossaryEntriesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9483,7 +9574,10 @@ impl CreateGlossaryEntryRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::CreateGlossaryEntryRequest;
-    /// let x = CreateGlossaryEntryRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = CreateGlossaryEntryRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -11690,7 +11784,10 @@ impl TranslateTextGlossaryConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
-    /// let x = TranslateTextGlossaryConfig::new().set_glossary("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let glossary_id = "glossary_id";
+    /// let x = TranslateTextGlossaryConfig::new().set_glossary(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"));
     /// ```
     pub fn set_glossary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.glossary = v.into();

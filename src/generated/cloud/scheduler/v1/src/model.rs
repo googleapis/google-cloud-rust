@@ -78,7 +78,9 @@ impl ListJobsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListJobsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -228,7 +230,10 @@ impl GetJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = GetJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -277,7 +282,9 @@ impl CreateJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::CreateJobRequest;
-    /// let x = CreateJobRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateJobRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -450,7 +457,10 @@ impl DeleteJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::DeleteJobRequest;
-    /// let x = DeleteJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = DeleteJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -489,7 +499,10 @@ impl PauseJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::PauseJobRequest;
-    /// let x = PauseJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = PauseJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -528,7 +541,10 @@ impl ResumeJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::ResumeJobRequest;
-    /// let x = ResumeJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = ResumeJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -567,7 +583,10 @@ impl RunJobRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::RunJobRequest;
-    /// let x = RunJobRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = RunJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -735,7 +754,10 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::Job;
-    /// let x = Job::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let job_id = "job_id";
+    /// let x = Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

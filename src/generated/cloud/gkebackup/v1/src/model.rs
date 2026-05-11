@@ -221,7 +221,11 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1284,7 +1288,10 @@ impl BackupChannel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// let x = BackupChannel::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1563,7 +1570,10 @@ impl BackupPlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = BackupPlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1887,7 +1897,10 @@ impl BackupPlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_backup_channel("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// let x = BackupPlan::new().set_backup_channel(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"));
     /// ```
     pub fn set_backup_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_channel = v.into();
@@ -3086,7 +3099,11 @@ impl BackupPlanBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// # let backup_plan_binding_id = "backup_plan_binding_id";
+    /// let x = BackupPlanBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}/backupPlanBindings/{backup_plan_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3176,7 +3193,10 @@ impl BackupPlanBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_backup_plan("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = BackupPlanBinding::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
@@ -4836,7 +4856,10 @@ impl GetBackupPlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetBackupPlanRequest;
-    /// let x = GetBackupPlanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = GetBackupPlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4980,7 +5003,10 @@ impl DeleteBackupPlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::DeleteBackupPlanRequest;
-    /// let x = DeleteBackupPlanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = DeleteBackupPlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5337,7 +5363,10 @@ impl GetBackupChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetBackupChannelRequest;
-    /// let x = GetBackupChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// let x = GetBackupChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5486,7 +5515,10 @@ impl DeleteBackupChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::DeleteBackupChannelRequest;
-    /// let x = DeleteBackupChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// let x = DeleteBackupChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5573,7 +5605,10 @@ impl ListBackupPlanBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsRequest;
-    /// let x = ListBackupPlanBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// let x = ListBackupPlanBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5758,7 +5793,11 @@ impl GetBackupPlanBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetBackupPlanBindingRequest;
-    /// let x = GetBackupPlanBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_channel_id = "backup_channel_id";
+    /// # let backup_plan_binding_id = "backup_plan_binding_id";
+    /// let x = GetBackupPlanBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupChannels/{backup_channel_id}/backupPlanBindings/{backup_plan_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5807,7 +5846,10 @@ impl CreateBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = CreateBackupRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5918,7 +5960,10 @@ impl ListBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = ListBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6113,7 +6158,11 @@ impl GetBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6261,7 +6310,11 @@ impl DeleteBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// let x = DeleteBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6347,7 +6400,11 @@ impl ListVolumeBackupsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsRequest;
-    /// let x = ListVolumeBackupsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// let x = ListVolumeBackupsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6511,7 +6568,12 @@ impl GetVolumeBackupRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetVolumeBackupRequest;
-    /// let x = GetVolumeBackupRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// # let volume_backup_id = "volume_backup_id";
+    /// let x = GetVolumeBackupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}/volumeBackups/{volume_backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6851,7 +6913,10 @@ impl GetRestorePlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetRestorePlanRequest;
-    /// let x = GetRestorePlanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// let x = GetRestorePlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6999,7 +7064,10 @@ impl DeleteRestorePlanRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::DeleteRestorePlanRequest;
-    /// let x = DeleteRestorePlanRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// let x = DeleteRestorePlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7368,7 +7436,10 @@ impl GetRestoreChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetRestoreChannelRequest;
-    /// let x = GetRestoreChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// let x = GetRestoreChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7514,7 +7585,10 @@ impl DeleteRestoreChannelRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::DeleteRestoreChannelRequest;
-    /// let x = DeleteRestoreChannelRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// let x = DeleteRestoreChannelRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7589,7 +7663,10 @@ impl ListRestorePlanBindingsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsRequest;
-    /// let x = ListRestorePlanBindingsRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// let x = ListRestorePlanBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7774,7 +7851,11 @@ impl GetRestorePlanBindingRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetRestorePlanBindingRequest;
-    /// let x = GetRestorePlanBindingRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// # let restore_plan_binding_id = "restore_plan_binding_id";
+    /// let x = GetRestorePlanBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}/restorePlanBindings/{restore_plan_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7823,7 +7904,10 @@ impl CreateRestoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::CreateRestoreRequest;
-    /// let x = CreateRestoreRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// let x = CreateRestoreRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7930,7 +8014,10 @@ impl ListRestoresRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ListRestoresRequest;
-    /// let x = ListRestoresRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// let x = ListRestoresRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8113,7 +8200,11 @@ impl GetRestoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetRestoreRequest;
-    /// let x = GetRestoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// # let restore_id = "restore_id";
+    /// let x = GetRestoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8261,7 +8352,11 @@ impl DeleteRestoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::DeleteRestoreRequest;
-    /// let x = DeleteRestoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// # let restore_id = "restore_id";
+    /// let x = DeleteRestoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8347,7 +8442,11 @@ impl ListVolumeRestoresRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresRequest;
-    /// let x = ListVolumeRestoresRequest::new().set_parent("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// # let restore_id = "restore_id";
+    /// let x = ListVolumeRestoresRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"));
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8511,7 +8610,12 @@ impl GetVolumeRestoreRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetVolumeRestoreRequest;
-    /// let x = GetVolumeRestoreRequest::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// # let restore_id = "restore_id";
+    /// # let volume_restore_id = "volume_restore_id";
+    /// let x = GetVolumeRestoreRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}/volumeRestores/{volume_restore_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8548,7 +8652,11 @@ impl GetBackupIndexDownloadUrlRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::GetBackupIndexDownloadUrlRequest;
-    /// let x = GetBackupIndexDownloadUrlRequest::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// let x = GetBackupIndexDownloadUrlRequest::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -8719,7 +8827,11 @@ impl Restore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// # let restore_id = "restore_id";
+    /// let x = Restore::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8821,7 +8933,11 @@ impl Restore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_backup("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// let x = Restore::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}"));
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -11767,7 +11883,10 @@ impl RestoreChannel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// let x = RestoreChannel::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12021,7 +12140,10 @@ impl RestorePlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// let x = RestorePlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12123,7 +12245,10 @@ impl RestorePlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_backup_plan("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = RestorePlan::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
@@ -12243,7 +12368,10 @@ impl RestorePlan {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_restore_channel("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// let x = RestorePlan::new().set_restore_channel(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}"));
     /// ```
     pub fn set_restore_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_channel = v.into();
@@ -12463,7 +12591,11 @@ impl RestorePlanBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_channel_id = "restore_channel_id";
+    /// # let restore_plan_binding_id = "restore_plan_binding_id";
+    /// let x = RestorePlanBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreChannels/{restore_channel_id}/restorePlanBindings/{restore_plan_binding_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12553,7 +12685,10 @@ impl RestorePlanBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_restore_plan("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// let x = RestorePlanBinding::new().set_restore_plan(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}"));
     /// ```
     pub fn set_restore_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_plan = v.into();
@@ -12577,7 +12712,10 @@ impl RestorePlanBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_backup_plan("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = RestorePlanBinding::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
     /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
@@ -12675,7 +12813,12 @@ impl VolumeBackup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// # let backup_id = "backup_id";
+    /// # let volume_backup_id = "volume_backup_id";
+    /// let x = VolumeBackup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/backups/{backup_id}/volumeBackups/{volume_backup_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13326,7 +13469,12 @@ impl VolumeRestore {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_name("example");
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_plan_id = "restore_plan_id";
+    /// # let restore_id = "restore_id";
+    /// # let volume_restore_id = "volume_restore_id";
+    /// let x = VolumeRestore::new().set_name(format!("projects/{project_id}/locations/{location_id}/restorePlans/{restore_plan_id}/restores/{restore_id}/volumeRestores/{volume_restore_id}"));
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
