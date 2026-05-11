@@ -26,7 +26,6 @@
 //! </div>
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
-#![warn(missing_docs)]
 
 /// An alias of [std::result::Result] where the error is always [Error][crate::error::Error].
 ///

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![warn(missing_docs)]
-
 //! Google Cloud Client Libraries for Rust - Cloud Firestore API
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
