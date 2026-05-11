@@ -18,7 +18,11 @@
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
-//!
+
+// TODO(#5537) - fix missing docs and remove this.
+#![allow(missing_docs, reason = "docs not yet complete")]
+// TODO(#5566) - stabilize API and remove this.
+#![allow(clippy::exhaustive_enums, reason = "API not yet stable")]
 
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
