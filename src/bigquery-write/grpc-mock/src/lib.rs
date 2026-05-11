@@ -24,7 +24,7 @@
 //!
 //! # Example
 //! ```no_rust
-//! use bigquery_grpc_mock::{start, MockBigQueryWrite};
+//! use bigquery_write_grpc_mock::{start, MockBigQueryWrite};
 //! use google_cloud_big_query_write::client::BigQueryWrite;
 //! use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 //!
@@ -56,7 +56,7 @@ use tokio::task::JoinHandle;
 ///
 /// # Example
 /// ```no_rust
-/// use bigquery_grpc_mock::MockBigQueryWrite;
+/// use bigquery_write_grpc_mock::MockBigQueryWrite;
 /// let mut mock = MockBigQueryWrite::new();
 /// let (tx, rx) = tokio::sync::mpsc::channel(128);
 /// mock.expect_streaming_rpc() // Made up bidirectional streaming RPC.
@@ -69,7 +69,7 @@ pub use mocks::MockBigQueryWrite;
 ///
 /// # Example
 /// ```
-/// use bigquery_grpc_mock::{start, MockBigQueryWrite};
+/// use bigquery_write_grpc_mock::{start, MockBigQueryWrite};
 /// # async fn test() -> anyhow::Result<()> {
 /// let mut mock = MockBigQueryWrite::new();
 /// mock.expect_get_write_stream()

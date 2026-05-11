@@ -73,8 +73,8 @@ pub(super) mod tests {
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
-    use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
-    use bigquery_grpc_mock::{MockBigQueryWrite, start};
+    use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1;
+    use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
