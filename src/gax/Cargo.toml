@@ -37,7 +37,6 @@ features = ["unstable-stream"]
 workspace = true
 
 [dependencies]
-base64.workspace      = true
 bytes.workspace       = true
 futures.workspace     = true
 http.workspace        = true

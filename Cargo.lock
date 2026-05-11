@@ -2933,7 +2933,6 @@ name = "google-cloud-gax"
 version = "1.11.0"
 dependencies = [
  "anyhow",
- "base64",
  "bytes",
  "futures",
  "google-cloud-rpc",
@@ -4787,7 +4786,6 @@ dependencies = [
  "http-body",
  "http-body-util",
  "httptest",
- "hyper",
  "md5",
  "mockall",
  "multer",
