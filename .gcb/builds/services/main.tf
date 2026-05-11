@@ -14,9 +14,33 @@
 
 variable "project" {}
 
-resource "google_project_service" "aiplatform" {
+locals {
+  services = [
+    "aiplatform.googleapis.com",
+    "bigquery.googleapis.com",
+    "compute.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "cloudscheduler.googleapis.com",
+    "dns.googleapis.com",
+    "firestore.googleapis.com",
+    "cloudkms.googleapis.com",
+    "language.googleapis.com",
+    "pubsub.googleapis.com",
+    "secretmanager.googleapis.com",
+    "workflows.googleapis.com",
+    "speech.googleapis.com",
+    "storage.googleapis.com",
+    "sqladmin.googleapis.com",
+    "telemetry.googleapis.com",
+    "cloudtrace.googleapis.com",
+  ]
+}
+
+resource "google_project_service" "services" {
+  for_each = toset(local.services)
+
   project = var.project
-  service = "aiplatform.googleapis.com"
+  service = each.value
 
   timeouts {
     create = "30m"
@@ -26,194 +50,87 @@ resource "google_project_service" "aiplatform" {
   disable_dependent_services = true
 }
 
-resource "google_project_service" "bigquery" {
-  project = var.project
-  service = "bigquery.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.aiplatform
+  to   = google_project_service.services["aiplatform.googleapis.com"]
 }
 
-resource "google_project_service" "compute" {
-  project = var.project
-  service = "compute.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.bigquery
+  to   = google_project_service.services["bigquery.googleapis.com"]
 }
 
-resource "google_project_service" "cloudbuild" {
-  project = var.project
-  service = "cloudbuild.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.compute
+  to   = google_project_service.services["compute.googleapis.com"]
 }
 
-resource "google_project_service" "cloudscheduler" {
-  project = var.project
-  service = "cloudscheduler.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.cloudbuild
+  to   = google_project_service.services["cloudbuild.googleapis.com"]
 }
 
-resource "google_project_service" "dns" {
-  project = var.project
-  service = "dns.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.cloudscheduler
+  to   = google_project_service.services["cloudscheduler.googleapis.com"]
 }
 
-resource "google_project_service" "firestore" {
-  project = var.project
-  service = "firestore.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.dns
+  to   = google_project_service.services["dns.googleapis.com"]
 }
 
-resource "google_project_service" "kms" {
-  project = var.project
-  service = "cloudkms.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.firestore
+  to   = google_project_service.services["firestore.googleapis.com"]
 }
 
-resource "google_project_service" "language" {
-  project = var.project
-  service = "language.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.kms
+  to   = google_project_service.services["cloudkms.googleapis.com"]
 }
 
-resource "google_project_service" "pubsub" {
-  project = var.project
-  service = "pubsub.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.language
+  to   = google_project_service.services["language.googleapis.com"]
 }
 
-resource "google_project_service" "secretmanager" {
-  project = var.project
-  service = "secretmanager.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.pubsub
+  to   = google_project_service.services["pubsub.googleapis.com"]
 }
 
-resource "google_project_service" "workflows" {
-  project = var.project
-  service = "workflows.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.secretmanager
+  to   = google_project_service.services["secretmanager.googleapis.com"]
 }
 
-resource "google_project_service" "speech" {
-  project = var.project
-  service = "speech.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.workflows
+  to   = google_project_service.services["workflows.googleapis.com"]
 }
 
-resource "google_project_service" "storage" {
-  project = var.project
-  service = "storage.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.speech
+  to   = google_project_service.services["speech.googleapis.com"]
 }
 
-resource "google_project_service" "sqladmin" {
-  project = var.project
-  service = "sqladmin.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.storage
+  to   = google_project_service.services["storage.googleapis.com"]
 }
 
-resource "google_project_service" "telemetry" {
-  project = var.project
-  service = "telemetry.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.sqladmin
+  to   = google_project_service.services["sqladmin.googleapis.com"]
 }
 
-resource "google_project_service" "cloudtrace" {
-  project = var.project
-  service = "cloudtrace.googleapis.com"
+moved {
+  from = google_project_service.telemetry
+  to   = google_project_service.services["telemetry.googleapis.com"]
+}
 
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
-  disable_dependent_services = true
+moved {
+  from = google_project_service.cloudtrace
+  to   = google_project_service.services["cloudtrace.googleapis.com"]
 }
