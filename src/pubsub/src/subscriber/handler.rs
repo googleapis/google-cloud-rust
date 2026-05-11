@@ -352,13 +352,13 @@ impl ExactlyOnce {
     ///
     /// Note that the acknowledgement is best effort. The message may still be
     /// redelivered to this client, or another client.
-    pub(crate) fn ack(mut self) {
+    fn ack(mut self) {
         if let Some(inner) = self.inner.take() {
             inner.ack();
         }
     }
 
-    pub(crate) fn nack(mut self) {
+    fn nack(mut self) {
         if let Some(inner) = self.inner.take() {
             inner.nack();
         }
