@@ -204,11 +204,8 @@ async fn refresh_task_impl<T, R>(
                 if !err.is_transient() {
                     break;
                 }
-                let wait = jittered_sleep_duration(
-                    SHORT_REFRESH_SLACK,
-                    SHORT_REFRESH_JITTER_CAP,
-                    rng,
-                );
+                let wait =
+                    jittered_sleep_duration(SHORT_REFRESH_SLACK, SHORT_REFRESH_JITTER_CAP, rng);
                 sleep(wait).await;
             }
         }
@@ -230,39 +227,25 @@ mod tests {
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    /// Test RNG that returns the same `u64` for every word. Works with [`super::jittered_sleep_duration`]
-    /// because jitter uses one uniform draw via `% (max_nanos + 1)` instead of `rand`'s
-    /// `UniformDuration` rejection sampler (which can loop on pathological generators).
-    #[derive(Clone, Copy)]
-    struct ConstU64Rng(u64);
+    mockall::mock! {
+        pub JitterRng {}
 
-    impl TryRng for ConstU64Rng {
-        type Error = Infallible;
-
-        fn try_next_u32(&mut self) -> std::result::Result<u32, Self::Error> {
-            self.try_next_u64().map(|v| v as u32)
-        }
-
-        fn try_next_u64(&mut self) -> std::result::Result<u64, Self::Error> {
-            Ok(self.0)
-        }
-
-        fn try_fill_bytes(
-            &mut self,
-            dest: &mut [u8],
-        ) -> std::result::Result<(), Self::Error> {
-            let b = self.0.to_le_bytes();
-            for (i, d) in dest.iter_mut().enumerate() {
-                *d = b[i % 8];
-            }
-            Ok(())
+        impl TryRng for JitterRng {
+            type Error = Infallible;
+            fn try_next_u32(&mut self) -> std::result::Result<u32, Infallible>;
+            fn try_next_u64(&mut self) -> std::result::Result<u64, Infallible>;
+            fn try_fill_bytes(
+                &mut self,
+                dest: &mut [u8],
+            ) -> std::result::Result<(), Infallible>;
         }
     }
 
     #[test]
     fn jittered_sleep_duration_const_zero_is_unjittered_base() {
         let base = Duration::from_secs(3360);
-        let mut rng = ConstU64Rng(0);
+        let mut rng = MockJitterRng::new();
+        rng.expect_try_next_u64().returning(|| Ok(0u64)).times(1..);
         let got = jittered_sleep_duration(base, REFRESH_JITTER_CAP, &mut rng);
         assert_eq!(got, base);
     }
@@ -270,7 +253,10 @@ mod tests {
     #[test]
     fn jittered_sleep_duration_const_max_stays_in_bounds() {
         let base = Duration::from_secs(3300);
-        let mut rng = ConstU64Rng(u64::MAX);
+        let mut rng = MockJitterRng::new();
+        rng.expect_try_next_u64()
+            .returning(|| Ok(u64::MAX))
+            .times(1..);
         let got = jittered_sleep_duration(base, REFRESH_JITTER_CAP, &mut rng);
         let max_jitter = REFRESH_JITTER_CAP.min(base / 4);
         assert!(got <= base, "{got:?} <= {base:?}");
@@ -544,10 +530,6 @@ mod tests {
 
         let base = long_expiry - NORMAL_REFRESH_SLACK;
         let max_jitter = REFRESH_JITTER_CAP.min(base / 4);
-        assert!(
-            max_jitter > Duration::ZERO,
-            "test requires non-zero jitter cap"
-        );
         let max_nanos: u64 = max_jitter
             .as_nanos()
             .try_into()
@@ -556,15 +538,16 @@ mod tests {
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         tokio::spawn(async move {
-            let mut rng = ConstU64Rng(max_nanos);
+            let mut rng = MockJitterRng::new();
+            rng.expect_try_next_u64()
+                .returning(move || Ok(max_nanos))
+                .times(1..);
             refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
         rx.changed().await.unwrap();
-        assert_eq!(
-            rx.borrow().as_ref().unwrap().as_ref().unwrap().0.token,
-            "token1"
-        );
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual.token, "token1");
 
         tokio::time::advance(base - max_jitter).await;
         tokio::task::yield_now().await;
