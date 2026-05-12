@@ -144,8 +144,13 @@ where
 {
     let end = offset + data.len() as u64;
     if (offset..end).contains(&current) {
-        let data = data.clone().split_off((current - offset) as usize);
-        updater(&data);
+        let skip = (current - offset) as usize;
+        if skip == 0 {
+            updater(data);
+        } else {
+            let data = data.clone().split_off(skip);
+            updater(&data);
+        }
         end
     } else {
         current
