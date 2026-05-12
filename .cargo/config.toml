@@ -22,6 +22,8 @@ clippy-strict = [
   "-p",
   "google-cloud-bigquery",
   "-p",
+  "google-cloud-bigquery-write",
+  "-p",
   "google-cloud-bigtable",
   "-p",
   "google-cloud-datastore",
