@@ -12,10 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Build script for `google-cloud-auth` to generate environment variables
+//! at compile time, such as the active rustc version and package version.
+
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 
+/// The main entry point for the build script.
 fn main() {
     let out_dir = std::env::var_os("OUT_DIR").expect("OUT_DIR not specified");
     let out_path = Path::new(&out_dir).to_owned();

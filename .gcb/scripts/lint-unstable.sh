@@ -24,5 +24,8 @@ set +v
 echo "==== cargo clippy ===="
 cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
 
+echo "==== cargo clippy strict (handwritten crates non-test mode) ===="
+cargo clippy --all-features --no-deps -p google-cloud-auth -p google-cloud-bigquery -p google-cloud-bigtable -p google-cloud-datastore -p google-cloud-firestore -p google-cloud-gax -p google-cloud-lro -p google-cloud-pubsub -p google-cloud-spanner -p google-cloud-storage -p google-cloud-wkt -- -D missing_docs -D clippy::exhaustive_enums
+
 echo "==== DONE ===="
 /workspace/.bin/sccache --show-stats

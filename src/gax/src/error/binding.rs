@@ -52,6 +52,7 @@ pub struct PathMismatch {
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
 #[derive(Debug, PartialEq)]
+#[allow(clippy::exhaustive_enums)]
 pub enum SubstitutionFail {
     /// A required field was not set
     Unset,

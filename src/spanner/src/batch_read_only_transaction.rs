@@ -18,7 +18,7 @@ use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
 };
-use crate::result_set::{ResultSet, StreamOperation};
+use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
@@ -163,7 +163,11 @@ impl BatchReadOnlyTransaction {
             .context
             .client
             .spanner
-            .partition_query(request, crate::RequestOptions::default())
+            .partition_query(
+                request,
+                crate::RequestOptions::default(),
+                self.inner.context.channel_hint,
+            )
             .await?;
 
         Ok(response
@@ -222,7 +226,11 @@ impl BatchReadOnlyTransaction {
             .context
             .client
             .spanner
-            .partition_read(request, crate::RequestOptions::default())
+            .partition_read(
+                request,
+                crate::RequestOptions::default(),
+                self.inner.context.channel_hint,
+            )
             .await?;
 
         Ok(response
@@ -368,26 +376,28 @@ impl Partition {
         req: &crate::model::ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
+        let channel_hint = client.spanner.next_channel_hint();
         let stream = client
             .spanner
-            .execute_streaming_sql(req.clone(), gax_options.clone())
+            .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
             .send()
             .await?;
 
-        Ok(ResultSet::new(
+        Ok(ResultSet::new(ResultSetParams {
             stream,
-            Some(ReadContextTransactionSelector::Fixed(
+            transaction_selector: Some(ReadContextTransactionSelector::Fixed(
                 req.transaction
                     .clone()
                     .expect("transaction must be set in partition request"),
                 None,
             )),
-            PrecommitTokenTracker::new_noop(),
-            client.clone(),
-            req.session.clone(),
-            StreamOperation::Query(req.clone()),
+            precommit_token_tracker: PrecommitTokenTracker::new_noop(),
+            client: client.clone(),
+            session_name: req.session.clone(),
+            operation: StreamOperation::Query(req.clone()),
+            channel_hint,
             gax_options,
-        ))
+        }))
     }
 
     async fn execute_read(
@@ -395,26 +405,28 @@ impl Partition {
         req: &crate::model::ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
+        let channel_hint = client.spanner.next_channel_hint();
         let stream = client
             .spanner
-            .streaming_read(req.clone(), gax_options.clone())
+            .streaming_read(req.clone(), gax_options.clone(), channel_hint)
             .send()
             .await?;
 
-        Ok(ResultSet::new(
+        Ok(ResultSet::new(ResultSetParams {
             stream,
-            Some(ReadContextTransactionSelector::Fixed(
+            transaction_selector: Some(ReadContextTransactionSelector::Fixed(
                 req.transaction
                     .clone()
                     .expect("transaction must be set in partition request"),
                 None,
             )),
-            PrecommitTokenTracker::new_noop(),
-            client.clone(),
-            req.session.clone(),
-            StreamOperation::Read(req.clone()),
+            precommit_token_tracker: PrecommitTokenTracker::new_noop(),
+            client: client.clone(),
+            session_name: req.session.clone(),
+            operation: StreamOperation::Read(req.clone()),
+            channel_hint,
             gax_options,
-        ))
+        }))
     }
 }
 

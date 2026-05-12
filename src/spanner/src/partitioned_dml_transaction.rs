@@ -173,13 +173,18 @@ impl PartitionedDmlTransaction {
             ..Default::default()
         };
         let base_request = statement.into_request();
+        let channel_hint = self.client.spanner.next_channel_hint();
 
         // Execute the statement and retry if the transaction is aborted by Spanner.
         retry_aborted(&*self.retry_policy, || async {
             let transaction = self
                 .client
                 .spanner
-                .begin_transaction(begin_request.clone(), crate::RequestOptions::default())
+                .begin_transaction(
+                    begin_request.clone(),
+                    crate::RequestOptions::default(),
+                    channel_hint,
+                )
                 .await?;
 
             let execute_request = base_request
@@ -190,10 +195,11 @@ impl PartitionedDmlTransaction {
                     ..Default::default()
                 });
 
-            let stream_builder = self
-                .client
-                .spanner
-                .execute_streaming_sql(execute_request.clone(), crate::RequestOptions::default());
+            let stream_builder = self.client.spanner.execute_streaming_sql(
+                execute_request.clone(),
+                crate::RequestOptions::default(),
+                channel_hint,
+            );
             let stream = stream_builder.send().await?;
 
             extract_lower_bound_update_count_from_stream(stream).await

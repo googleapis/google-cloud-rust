@@ -40,7 +40,6 @@ chrono                     = { workspace = true, features = ["clock"] }
 http.workspace             = true
 futures.workspace          = true
 http-body.workspace        = true
-hyper.workspace            = true
 md5.workspace              = true
 percent-encoding.workspace = true
 pin-project.workspace      = true

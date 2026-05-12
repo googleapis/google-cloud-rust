@@ -100,6 +100,7 @@ use tokio::time::Instant;
 /// [JWT]: https://google.aip.dev/auth/4111
 /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
 #[derive(Clone, Debug, PartialEq)]
+#[allow(clippy::exhaustive_enums)]
 pub enum AccessSpecifier {
     /// Use [AccessSpecifier::Audience] for setting audience in the token.
     /// `aud` is a [JWT] claim specifying intended recipient of the token,

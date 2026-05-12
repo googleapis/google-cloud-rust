@@ -71,6 +71,7 @@ impl EntityTag {
 /// indicate that the caller's cached version (identified by a previously provided [EntityTag])
 /// is still valid.
 #[derive(Clone, PartialEq, Debug)]
+#[allow(clippy::exhaustive_enums)]
 pub enum CacheableResource<T> {
     /// Indicates that the resource has not been modified and the cached version is still valid.
     NotModified,

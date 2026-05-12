@@ -89,6 +89,7 @@ struct ResultSetWorker {
     max_buffered_partial_result_sets: Arc<AtomicUsize>,
     retry_count: usize,
     transaction_selector: Option<ReadContextTransactionSelector>,
+    channel_hint: usize,
     gax_options: GaxRequestOptions,
     local_metadata: Option<ResultSetMetadata>,
     row_sender: mpsc::Sender<crate::Result<Row>>,
@@ -109,6 +110,17 @@ pub(crate) enum StreamOperation {
     Read(crate::model::ReadRequest),
 }
 
+pub(crate) struct ResultSetParams {
+    pub stream: PartialResultSetStream,
+    pub transaction_selector: Option<ReadContextTransactionSelector>,
+    pub precommit_token_tracker: PrecommitTokenTracker,
+    pub client: DatabaseClient,
+    pub session_name: String,
+    pub operation: StreamOperation,
+    pub channel_hint: usize,
+    pub gax_options: GaxRequestOptions,
+}
+
 // The maximum number of PartialResultSets to buffer without a resume token.
 // Spanner will normally include a resume token with each PartialResultSet.
 // This maximum is therefore primarily for safety.
@@ -116,15 +128,18 @@ const MAX_BUFFERED_PARTIAL_RESULT_SETS: usize = 10;
 
 impl ResultSet {
     /// Creates a new result set.
-    pub(crate) fn new(
-        stream: PartialResultSetStream,
-        transaction_selector: Option<ReadContextTransactionSelector>,
-        precommit_token_tracker: PrecommitTokenTracker,
-        client: DatabaseClient,
-        session_name: String,
-        operation: StreamOperation,
-        gax_options: GaxRequestOptions,
-    ) -> Self {
+    pub(crate) fn new(params: ResultSetParams) -> Self {
+        let ResultSetParams {
+            stream,
+            transaction_selector,
+            precommit_token_tracker,
+            client,
+            session_name,
+            operation,
+            channel_hint,
+            gax_options,
+        } = params;
+
         let gax_options = Self::apply_defaults(gax_options);
         // Use a small buffer size of 4 to provide some backpressure while
         // allowing the worker to decode the next few rows ahead of time.
@@ -155,6 +170,7 @@ impl ResultSet {
             max_buffered_partial_result_sets: Arc::clone(&max_buffered_partial_result_sets),
             retry_count: 0,
             transaction_selector,
+            channel_hint,
             gax_options,
             local_metadata: None,
             row_sender,
@@ -449,7 +465,7 @@ impl ResultSetWorker {
         self.transaction_selector
             .as_ref()
             .unwrap()
-            .begin_explicitly(&self.client, self.session_name.clone())
+            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
             .await?;
 
         self.partial_result_sets_buffer.clear();
@@ -616,7 +632,7 @@ impl ResultSetWorker {
                 let stream = self
                     .client
                     .spanner
-                    .execute_streaming_sql(req.clone(), self.gax_options.clone())
+                    .execute_streaming_sql(req.clone(), self.gax_options.clone(), self.channel_hint)
                     .send()
                     .await?;
                 self.stream = Some(stream);
@@ -629,7 +645,7 @@ impl ResultSetWorker {
                 let stream = self
                     .client
                     .spanner
-                    .streaming_read(req.clone(), self.gax_options.clone())
+                    .streaming_read(req.clone(), self.gax_options.clone(), self.channel_hint)
                     .send()
                     .await?;
                 self.stream = Some(stream);
@@ -1577,19 +1593,20 @@ pub(crate) mod tests {
 
         let stream = db_client
             .spanner
-            .execute_streaming_sql(req.clone(), GaxRequestOptions::default())
+            .execute_streaming_sql(req.clone(), GaxRequestOptions::default(), 0)
             .send()
             .await?;
 
-        let mut rs = ResultSet::new(
+        let mut rs = ResultSet::new(ResultSetParams {
             stream,
-            None,
-            tracker.clone(),
-            db_client,
-            "session".to_string(),
-            StreamOperation::Query(req),
-            GaxRequestOptions::default(),
-        );
+            transaction_selector: None,
+            precommit_token_tracker: tracker.clone(),
+            client: db_client,
+            session_name: "session".to_string(),
+            operation: StreamOperation::Query(req),
+            channel_hint: 0,
+            gax_options: GaxRequestOptions::default(),
+        });
 
         // Read a row to trigger precommit token extraction
         assert!(

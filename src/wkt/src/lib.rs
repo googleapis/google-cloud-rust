@@ -19,7 +19,6 @@
 //! native or commonly used Rust types.
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
-#![warn(missing_docs)]
 
 mod any;
 pub use crate::any::*;

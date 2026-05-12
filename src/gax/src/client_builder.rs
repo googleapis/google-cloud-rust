@@ -386,6 +386,16 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self
     }
 
+    /// Configure the per-attempt timeout used as the client default.
+    ///
+    /// When set, this timeout will be used for each attempt of a request unless
+    /// a per-request attempt timeout is provided via RequestOptions. Per-request
+    /// settings take precedence.
+    pub fn with_attempt_timeout<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
+        self.config.attempt_timeout = Some(v.into());
+        self
+    }
+
     /// Configure the retry throttler.
     ///
     /// Advanced applications may want to configure a retry throttler to
@@ -514,6 +524,7 @@ pub mod internal {
         pub retry_throttler: SharedRetryThrottler,
         pub polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
         pub polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+        pub attempt_timeout: Option<std::time::Duration>,
         pub disable_automatic_decompression: bool,
         pub disable_follow_redirects: bool,
         pub grpc_subchannel_count: Option<usize>,
@@ -535,6 +546,7 @@ pub mod internal {
                 retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
                 polling_error_policy: None,
                 polling_backoff_policy: None,
+                attempt_timeout: None,
                 disable_automatic_decompression: false,
                 disable_follow_redirects: false,
                 grpc_subchannel_count: None,
@@ -643,6 +655,7 @@ pub mod examples {
     #[cfg(test)]
     mod tests {
         use super::*;
+        use std::time::Duration;
 
         #[tokio::test]
         async fn build_default() {
@@ -747,6 +760,18 @@ pub mod examples {
                 config.universe_domain,
                 Some("some-universe-domain.com".to_string())
             );
+        }
+
+        #[tokio::test]
+        async fn attempt_timeout() {
+            let timeout = Duration::from_secs(42);
+            let client = Client::builder()
+                .with_attempt_timeout(timeout)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert_eq!(config.attempt_timeout, Some(timeout));
         }
 
         #[tokio::test]
