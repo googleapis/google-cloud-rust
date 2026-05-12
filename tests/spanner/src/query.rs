@@ -159,7 +159,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
     let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
 
     assert!(rs.next().await.transpose()?.is_some());
-    let metadata = rs.metadata()?;
+    let metadata = rs.metadata().await?;
     assert_eq!(
         metadata.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -177,7 +177,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     assert!(rs_zero_rows.next().await.transpose()?.is_none());
-    let metadata_zero_rows = rs_zero_rows.metadata()?;
+    let metadata_zero_rows = rs_zero_rows.metadata().await?;
     assert_eq!(
         metadata_zero_rows.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -190,7 +190,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     let row_dup = rs_dup.next().await.transpose()?.unwrap();
-    let metadata_dup = rs_dup.metadata()?;
+    let metadata_dup = rs_dup.metadata().await?;
     assert_eq!(
         metadata_dup.column_names(),
         &["dup".to_string(), "dup".to_string()]
@@ -251,6 +251,35 @@ async fn test_multi_use_read_only_transaction(
     assert_eq!(val2, "2");
     let next2 = rs2.next().await.transpose()?;
     assert!(next2.is_none(), "{next2:?}");
+
+    Ok(())
+}
+
+pub async fn multi_use_read_only_transaction_interleaved(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let tx = db_client
+        .read_only_transaction()
+        .with_explicit_begin_transaction(false)
+        .build()
+        .await?;
+
+    // This test verifies that if the first query that includes the BeginTransaction
+    // option does not call ResultSet#next(), then the transaction ID is still received.
+    // This means that the second query on this transaction is not blocked.
+    let mut rs1 = tx
+        .execute_query(Statement::builder("SELECT 1 AS col_int").build())
+        .await?;
+
+    let mut rs2 = tx
+        .execute_query(Statement::builder("SELECT 2 AS col_int").build())
+        .await?;
+
+    let row2 = rs2.next().await.transpose()?.expect("should yield a row");
+    assert_eq!(row2.raw_values()[0].as_string(), "2");
+
+    let row1 = rs1.next().await.transpose()?.expect("should yield a row");
+    assert_eq!(row1.raw_values()[0].as_string(), "1");
 
     Ok(())
 }
@@ -559,7 +588,7 @@ pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let next = rs.next().await.transpose()?;
     assert!(next.is_none());
 
-    let metadata = rs.metadata()?;
+    let metadata = rs.metadata().await?;
     assert_eq!(metadata.column_names(), &["num".to_string()]);
 
     let stats = rs.stats();
@@ -608,7 +637,7 @@ pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
             let next = rs.next().await.transpose()?;
             assert!(next.is_none());
 
-            let metadata = rs.metadata().expect("metadata should be available");
+            let metadata = rs.metadata().await.expect("metadata should be available");
             assert!(metadata.column_names().is_empty());
 
             // Verify undeclared parameters
