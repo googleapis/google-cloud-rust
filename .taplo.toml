@@ -12,11 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[formatting]
-align_entries  = true
-column_width   = 120
-reorder_arrays = true
-
 # The CI builds exclude these explicitly. Having them here makes it easier to
 # format everything we care about. 
 #
@@ -25,3 +20,16 @@ reorder_arrays = true
 # ```
 #
 exclude = ['generator/testdata/**']
+
+[formatting]
+align_entries  = true
+column_width   = 120
+reorder_arrays = true
+
+# Prevent Taplo from alphabetizing arrays under the [alias] table. Long CLI
+# commands are split across multiple lines for readability, and because
+# command-line flags are order-dependent, sorting them would break the command.
+[[rule]]
+keys = ["alias"]
+[rule.formatting]
+reorder_arrays = false
