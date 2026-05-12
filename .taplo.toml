@@ -24,4 +24,4 @@ reorder_arrays = true
 # taplo format .
 # ```
 #
-exclude = ['generator/testdata/**']
+exclude = ['generator/testdata/**', 'cargo/config.toml']
