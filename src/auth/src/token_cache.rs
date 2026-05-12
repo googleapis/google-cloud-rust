@@ -551,9 +551,7 @@ mod tests {
             refresh_task_impl(Arc::new(mock), tx, &mut rng).await;
         });
 
-        rx.changed()
-            .await
-            .map_err(|e| -> Box<dyn std::error::Error> { Box::new(e) })?;
+        rx.changed().await?;
 
         let actual = rx.borrow().clone();
         assert!(
@@ -564,10 +562,7 @@ mod tests {
         tokio::time::advance(base - max_jitter).await;
         tokio::task::yield_now().await;
 
-        tokio::time::timeout(Duration::from_secs(5), rx.changed())
-            .await
-            .map_err(|e| -> Box<dyn std::error::Error> { Box::new(e) })?
-            .map_err(|e| -> Box<dyn std::error::Error> { Box::new(e) })?;
+        tokio::time::timeout(Duration::from_secs(5), rx.changed()).await??;
 
         let actual = rx.borrow().clone();
         assert!(
