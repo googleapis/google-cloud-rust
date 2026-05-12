@@ -123,16 +123,22 @@ fn jittered_sleep_duration<R: RngExt + ?Sized>(
     }
 }
 
+/// Returns an RNG for [`refresh_task_impl`] when the refresh loop runs under `tokio::spawn`.
+///
+/// `rand::rng()` yields `ThreadRng`, which is not `Send`. This task holds `&mut rng` across `.await`,
+/// so the future must stay `Send`; an OS-seeded [`StdRng`] is the usual lightweight `Send` substitute.
+fn new_refresh_task_rng() -> StdRng {
+    let mut sys = SysRng;
+    StdRng::try_from_rng(&mut sys).expect("SysRng must seed StdRng")
+}
+
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
-    // `rand::rng()` returns `ThreadRng`, which is not `Send` and cannot be held
-    // across `.await` in this `tokio::spawn` task. Seed a `StdRng` from the OS instead.
-    let mut sys = SysRng;
-    let mut rng = StdRng::try_from_rng(&mut sys).expect("SysRng must seed StdRng");
+    let mut rng = new_refresh_task_rng();
     refresh_task_impl(token_provider, tx_token, &mut rng).await;
 }
 
