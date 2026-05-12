@@ -5,6 +5,7 @@
     {
       "description": "Group all OpenTelemetry crates into a single PR",
       "matchPackagePatterns": ["opentelemetry"],
+      "matchManagers": ["cargo"],
       "groupName": "OpenTelemetry"
     }
   ]
