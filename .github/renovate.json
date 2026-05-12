@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "description": "Group all OpenTelemetry crates into a single PR",
+      "matchPackagePatterns": ["opentelemetry"],
+      "groupName": "OpenTelemetry"
+    }
+  ]
+}
