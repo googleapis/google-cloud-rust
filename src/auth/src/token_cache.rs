@@ -47,7 +47,7 @@ impl TokenCache {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
         let token_provider = Arc::new(inner);
 
-        tokio::spawn(refresh_task(token_provider, tx_token));
+        tokio::spawn(refresh_task(token_provider, tx_token, refresh_task_rng));
 
         Self { rx_token }
     }
@@ -123,22 +123,25 @@ fn jittered_sleep_duration<R: RngExt + ?Sized>(
     }
 }
 
-/// Returns an RNG for [`refresh_task_impl`] when the refresh loop runs under `tokio::spawn`.
-///
-/// `rand::rng()` yields `ThreadRng`, which is not `Send`. This task holds `&mut rng` across `.await`,
-/// so the future must stay `Send`; an OS-seeded [`StdRng`] is the usual lightweight `Send` substitute.
-fn new_refresh_task_rng() -> StdRng {
+/// OS-seeded [`StdRng`] used as the default RNG for [`refresh_task`].
+fn refresh_task_rng() -> StdRng {
     let mut sys = SysRng;
     StdRng::try_from_rng(&mut sys).expect("SysRng must seed StdRng")
 }
 
+/// Background loop that refreshes tokens before expiry.
+///
+/// `rng_factory` supplies jitter randomness. We pass a `fn() -> StdRng` instead of calling
+/// `rand::rng()` inside this task because the latter returns `ThreadRng`, which is not `Send`; this
+/// async task holds `&mut rng` across `.await`, so the future must be `Send` for `tokio::spawn`.
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
+    rng_factory: fn() -> StdRng,
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
-    let mut rng = new_refresh_task_rng();
+    let mut rng = rng_factory();
     refresh_task_impl(token_provider, tx_token, &mut rng).await;
 }
 
@@ -492,7 +495,7 @@ mod tests {
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            refresh_task(Arc::new(mock), tx, refresh_task_rng).await;
         });
 
         // Give the refresh task a chance to run
@@ -620,7 +623,7 @@ mod tests {
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            refresh_task(Arc::new(mock), tx, refresh_task_rng).await;
         });
 
         rx.changed().await.unwrap();
@@ -694,7 +697,7 @@ mod tests {
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            refresh_task(Arc::new(mock), tx, refresh_task_rng).await;
         });
 
         rx.changed().await.unwrap();
@@ -759,7 +762,7 @@ mod tests {
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx).await;
+            refresh_task(Arc::new(mock), tx, refresh_task_rng).await;
         });
 
         rx.changed().await.unwrap();
