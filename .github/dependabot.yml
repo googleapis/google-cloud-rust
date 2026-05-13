@@ -26,3 +26,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      opentelemetry-crates:
+        patterns:
+          - "*opentelemetry*"
