@@ -570,7 +570,10 @@ impl ResultSetWorker {
         if values.is_empty() {
             return Ok(());
         }
-        let metadata = self.local_metadata.as_ref().unwrap();
+        let metadata = self
+            .local_metadata
+            .as_ref()
+            .ok_or_else(|| internal_error("PartialResultSet contained values but no metadata was provided"))?;
         if metadata.column_types.is_empty() {
             return Err(internal_error(
                 "PartialResultSet contained values but no column metadata was provided",
