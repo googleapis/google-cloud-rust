@@ -14,6 +14,8 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod spanner {
+    use integration_tests_spanner::batch_write;
+    use integration_tests_spanner::client;
 
     #[tokio::test]
     async fn run_query_tests() -> anyhow::Result<()> {
@@ -41,13 +43,25 @@ mod spanner {
 
     #[tokio::test]
     async fn run_write_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
+        let db_client = match client::create_database_client().await {
             Some(c) => c,
             None => return Ok(()),
         };
 
         integration_tests_spanner::write::write_only_transaction(&db_client).await?;
         integration_tests_spanner::write::write(&db_client).await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_batch_write_tests() -> anyhow::Result<()> {
+        let db_client = match client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        batch_write::batch_write(&db_client).await?;
 
         Ok(())
     }
