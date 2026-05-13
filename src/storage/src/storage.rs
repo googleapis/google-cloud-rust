@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_storage_appendable_upload)]
+#[cfg(google_cloud_unstable_storage_bidi)]
 pub(crate) mod append_object;
 pub(crate) mod bidi;
 pub(crate) mod checksum;
