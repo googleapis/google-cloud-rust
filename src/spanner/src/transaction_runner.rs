@@ -372,7 +372,12 @@ impl TransactionRunner {
 
             let mut current_tx_id = None;
             let attempt_result = async {
-                let transaction = self.builder.begin_transaction(deadline).await?;
+                let transaction = self
+                    .builder
+                    .clone()
+                    .with_explicit_begin_transaction(true)
+                    .build(deadline)
+                    .await?;
                 current_tx_id = transaction.transaction_id().await.ok();
 
                 let result = match work(transaction.clone()).await {

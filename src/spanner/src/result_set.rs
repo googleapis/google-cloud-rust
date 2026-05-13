@@ -465,7 +465,12 @@ impl ResultSetWorker {
         self.transaction_selector
             .as_ref()
             .unwrap()
-            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
+            .begin_explicitly(
+                &self.client,
+                self.session_name.clone(),
+                self.channel_hint,
+                self.gax_options.clone(),
+            )
             .await?;
 
         self.partial_result_sets_buffer.clear();
