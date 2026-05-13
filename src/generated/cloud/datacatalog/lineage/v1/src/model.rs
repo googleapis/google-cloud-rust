@@ -23,11 +23,13 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate tracing;
+extern crate uuid;
 extern crate wkt;
 
 mod debug;
@@ -171,7 +173,7 @@ pub struct Run {
     pub name: std::string::String,
 
     /// Optional. A human-readable name you can set to display in a user interface.
-    /// Must be not longer than 1024 characters and only contain UTF-8 letters
+    /// Must be not longer than 200 characters and only contain UTF-8 letters
     /// or numbers, spaces or characters like `_-:&.`
     pub display_name: std::string::String,
 
@@ -647,6 +649,9 @@ pub struct EventLink {
     /// Required. Reference to the target entity
     pub target: std::option::Option<crate::model::EntityReference>,
 
+    /// Optional. Describes how the target depends on the source.
+    pub dependency_info: std::option::Option<crate::model::DependencyInfo>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -721,6 +726,39 @@ impl EventLink {
         self.target = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [dependency_info][crate::model::EventLink::dependency_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::DependencyInfo;
+    /// let x = EventLink::new().set_dependency_info(DependencyInfo::default()/* use setters */);
+    /// ```
+    pub fn set_dependency_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DependencyInfo>,
+    {
+        self.dependency_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dependency_info][crate::model::EventLink::dependency_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::DependencyInfo;
+    /// let x = EventLink::new().set_or_clear_dependency_info(Some(DependencyInfo::default()/* use setters */));
+    /// let x = EventLink::new().set_or_clear_dependency_info(None::<DependencyInfo>);
+    /// ```
+    pub fn set_or_clear_dependency_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DependencyInfo>,
+    {
+        self.dependency_info = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for EventLink {
@@ -729,14 +767,66 @@ impl wkt::message::Message for EventLink {
     }
 }
 
+/// Dependency info describes how one entity depends on another.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DependencyInfo {
+    /// Required. Type of dependency.
+    pub dependency_type: crate::model::DependencyType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DependencyInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dependency_type][crate::model::DependencyInfo::dependency_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::DependencyInfo;
+    /// use google_cloud_datacatalog_lineage_v1::model::DependencyType;
+    /// let x0 = DependencyInfo::new().set_dependency_type(DependencyType::ExactCopy);
+    /// let x1 = DependencyInfo::new().set_dependency_type(DependencyType::Other);
+    /// ```
+    pub fn set_dependency_type<T: std::convert::Into<crate::model::DependencyType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dependency_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DependencyInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datacatalog.lineage.v1.DependencyInfo"
+    }
+}
+
 /// The soft reference to everything you can attach a lineage event to.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityReference {
     /// Required. [Fully Qualified Name
-    /// (FQN)](https://cloud.google.com/data-catalog/docs/fully-qualified-names)
+    /// (FQN)](https://cloud.google.com/dataplex/docs/fully-qualified-names)
     /// of the entity.
     pub fully_qualified_name: std::string::String,
+
+    /// Optional. Field path within the entity. Each nesting level should be a
+    /// separate value in the repeated field. The order matters. Must be empty for
+    /// asset level lineage
+    ///
+    /// For example to address "salary.net" subfield where "salary" is a column and
+    /// "net" is a proto field two values in the `field` should be reported,
+    /// the first is "salary" and the second is "net".
+    ///
+    /// Each field length is limited to 500 characters.
+    /// Maximum supported nesting level is 20.
+    pub field: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -759,6 +849,23 @@ impl EntityReference {
         v: T,
     ) -> Self {
         self.fully_qualified_name = v.into();
+        self
+    }
+
+    /// Sets the value of [field][crate::model::EntityReference::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = EntityReference::new().set_field(["a", "b", "c"]);
+    /// ```
+    pub fn set_field<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.field = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1220,7 +1327,9 @@ pub mod operation_metadata {
 }
 
 /// Request message for
-/// [ProcessOpenLineageRunEvent][google.cloud.datacatalog.lineage.v1.ProcessOpenLineageRunEvent].
+/// [ProcessOpenLineageRunEvent][google.cloud.datacatalog.lineage.v1.Lineage.ProcessOpenLineageRunEvent].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ProcessOpenLineageRunEvent]: crate::client::Lineage::process_open_lineage_run_event
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOpenLineageRunEventRequest {
@@ -1232,9 +1341,9 @@ pub struct ProcessOpenLineageRunEventRequest {
     /// <https://github.com/OpenLineage/OpenLineage/blob/main/spec/OpenLineage.json>
     pub open_lineage: std::option::Option<wkt::Struct>,
 
-    /// A unique identifier for this request. Restricted to 36 ASCII characters.
-    /// A random UUID is recommended. This request is idempotent only if a
-    /// `request_id` is provided.
+    /// Optional. A unique identifier for this request. Restricted to 36 ASCII
+    /// characters. A random UUID is recommended. This request is idempotent only
+    /// if a `request_id` is provided.
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1311,7 +1420,9 @@ impl wkt::message::Message for ProcessOpenLineageRunEventRequest {
 }
 
 /// Response message for
-/// [ProcessOpenLineageRunEvent][google.cloud.datacatalog.lineage.v1.ProcessOpenLineageRunEvent].
+/// [ProcessOpenLineageRunEvent][google.cloud.datacatalog.lineage.v1.Lineage.ProcessOpenLineageRunEvent].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ProcessOpenLineageRunEvent]: crate::client::Lineage::process_open_lineage_run_event
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOpenLineageRunEventResponse {
@@ -1394,7 +1505,9 @@ impl wkt::message::Message for ProcessOpenLineageRunEventResponse {
 }
 
 /// Request message for
-/// [CreateProcess][google.cloud.datacatalog.lineage.v1.CreateProcess].
+/// [CreateProcess][google.cloud.datacatalog.lineage.v1.Lineage.CreateProcess].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.CreateProcess]: crate::client::Lineage::create_process
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProcessRequest {
@@ -1405,9 +1518,9 @@ pub struct CreateProcessRequest {
     /// Required. The process to create.
     pub process: std::option::Option<crate::model::Process>,
 
-    /// A unique identifier for this request. Restricted to 36 ASCII characters.
-    /// A random UUID is recommended. This request is idempotent only if a
-    /// `request_id` is provided.
+    /// Optional. A unique identifier for this request. Restricted to 36 ASCII
+    /// characters. A random UUID is recommended. This request is idempotent only
+    /// if a `request_id` is provided.
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1486,7 +1599,9 @@ impl wkt::message::Message for CreateProcessRequest {
 }
 
 /// Request message for
-/// [UpdateProcess][google.cloud.datacatalog.lineage.v1.UpdateProcess].
+/// [UpdateProcess][google.cloud.datacatalog.lineage.v1.Lineage.UpdateProcess].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.UpdateProcess]: crate::client::Lineage::update_process
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProcessRequest {
@@ -1495,12 +1610,18 @@ pub struct UpdateProcessRequest {
     /// The process's `name` field is used to identify the process to update.
     pub process: std::option::Option<crate::model::Process>,
 
-    /// The list of fields to update. Currently not used. The whole message is
-    /// updated.
+    /// Optional. The list of fields to update. Currently not used. The whole
+    /// message is updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// If set to true and the process is not found, the request inserts it.
+    /// Optional. If set to true and the process is not found, the request inserts
+    /// it.
     pub allow_missing: bool,
+
+    /// Optional. A unique identifier for this request. Restricted to 36 ASCII
+    /// characters. A random UUID is recommended. This request is idempotent only
+    /// if a `request_id` is provided.
+    pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1588,6 +1709,18 @@ impl UpdateProcessRequest {
         self.allow_missing = v.into();
         self
     }
+
+    /// Sets the value of [request_id][crate::model::UpdateProcessRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateProcessRequest;
+    /// let x = UpdateProcessRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for UpdateProcessRequest {
@@ -1597,7 +1730,9 @@ impl wkt::message::Message for UpdateProcessRequest {
 }
 
 /// Request message for
-/// [GetProcess][google.cloud.datacatalog.lineage.v1.GetProcess].
+/// [GetProcess][google.cloud.datacatalog.lineage.v1.Lineage.GetProcess].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.GetProcess]: crate::client::Lineage::get_process
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessRequest {
@@ -1636,7 +1771,9 @@ impl wkt::message::Message for GetProcessRequest {
 }
 
 /// Request message for
-/// [ListProcesses][google.cloud.datacatalog.lineage.v1.ListProcesses].
+/// [ListProcesses][google.cloud.datacatalog.lineage.v1.Lineage.ListProcesses].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ListProcesses]: crate::client::Lineage::list_processes
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessesRequest {
@@ -1644,14 +1781,14 @@ pub struct ListProcessesRequest {
     /// collection of processes.
     pub parent: std::string::String,
 
-    /// The maximum number of processes to return. The service may return
+    /// Optional. The maximum number of processes to return. The service may return
     /// fewer than this value. If unspecified, at most 50 processes are
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
     pub page_size: i32,
 
-    /// The page token received from a previous `ListProcesses` call. Specify
-    /// it to get the next page.
+    /// Optional. The page token received from a previous `ListProcesses` call.
+    /// Specify it to get the next page.
     ///
     /// When paginating, all other parameters specified in this call must
     /// match the parameters of the call that provided the page token.
@@ -1712,7 +1849,9 @@ impl wkt::message::Message for ListProcessesRequest {
 }
 
 /// Response message for
-/// [ListProcesses][google.cloud.datacatalog.lineage.v1.ListProcesses].
+/// [ListProcesses][google.cloud.datacatalog.lineage.v1.Lineage.ListProcesses].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ListProcesses]: crate::client::Lineage::list_processes
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessesResponse {
@@ -1788,14 +1927,16 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListProcessesRe
 }
 
 /// Request message for
-/// [DeleteProcess][google.cloud.datacatalog.lineage.v1.DeleteProcess].
+/// [DeleteProcess][google.cloud.datacatalog.lineage.v1.Lineage.DeleteProcess].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.DeleteProcess]: crate::client::Lineage::delete_process
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessRequest {
     /// Required. The name of the process to delete.
     pub name: std::string::String,
 
-    /// If set to true and the process is not found, the request
+    /// Optional. If set to true and the process is not found, the request
     /// succeeds but the server doesn't perform any actions.
     pub allow_missing: bool,
 
@@ -1843,7 +1984,9 @@ impl wkt::message::Message for DeleteProcessRequest {
 }
 
 /// Request message for
-/// [CreateRun][google.cloud.datacatalog.lineage.v1.CreateRun].
+/// [CreateRun][google.cloud.datacatalog.lineage.v1.Lineage.CreateRun].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.CreateRun]: crate::client::Lineage::create_run
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRunRequest {
@@ -1853,9 +1996,9 @@ pub struct CreateRunRequest {
     /// Required. The run to create.
     pub run: std::option::Option<crate::model::Run>,
 
-    /// A unique identifier for this request. Restricted to 36 ASCII characters.
-    /// A random UUID is recommended. This request is idempotent only if a
-    /// `request_id` is provided.
+    /// Optional. A unique identifier for this request. Restricted to 36 ASCII
+    /// characters. A random UUID is recommended. This request is idempotent only
+    /// if a `request_id` is provided.
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1935,7 +2078,9 @@ impl wkt::message::Message for CreateRunRequest {
 }
 
 /// Request message for
-/// [UpdateRun][google.cloud.datacatalog.lineage.v1.UpdateRun].
+/// [UpdateRun][google.cloud.datacatalog.lineage.v1.Lineage.UpdateRun].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.UpdateRun]: crate::client::Lineage::update_run
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRunRequest {
@@ -1947,11 +2092,11 @@ pub struct UpdateRunRequest {
     /// `projects/{project}/locations/{location}/processes/{process}/runs/{run}`.
     pub run: std::option::Option<crate::model::Run>,
 
-    /// The list of fields to update. Currently not used. The whole message is
-    /// updated.
+    /// Optional. The list of fields to update. Currently not used. The whole
+    /// message is updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// If set to true and the run is not found, the request creates it.
+    /// Optional. If set to true and the run is not found, the request creates it.
     pub allow_missing: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2049,7 +2194,9 @@ impl wkt::message::Message for UpdateRunRequest {
 }
 
 /// Request message for
-/// [GetRun][google.cloud.datacatalog.lineage.v1.GetRun].
+/// [GetRun][google.cloud.datacatalog.lineage.v1.Lineage.GetRun].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.GetRun]: crate::client::Lineage::get_run
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRunRequest {
@@ -2089,20 +2236,22 @@ impl wkt::message::Message for GetRunRequest {
 }
 
 /// Request message for
-/// [ListRuns][google.cloud.datacatalog.lineage.v1.ListRuns].
+/// [ListRuns][google.cloud.datacatalog.lineage.v1.Lineage.ListRuns].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ListRuns]: crate::client::Lineage::list_runs
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRunsRequest {
     /// Required. The name of process that owns this collection of runs.
     pub parent: std::string::String,
 
-    /// The maximum number of runs to return. The service may return
+    /// Optional. The maximum number of runs to return. The service may return
     /// fewer than this value. If unspecified, at most 50 runs are
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
     pub page_size: i32,
 
-    /// The page token received from a previous `ListRuns` call. Specify
+    /// Optional. The page token received from a previous `ListRuns` call. Specify
     /// it to get the next page.
     ///
     /// When paginating, all other parameters specified in this call must
@@ -2165,7 +2314,9 @@ impl wkt::message::Message for ListRunsRequest {
 }
 
 /// Response message for
-/// [ListRuns][google.cloud.datacatalog.lineage.v1.ListRuns].
+/// [ListRuns][google.cloud.datacatalog.lineage.v1.Lineage.ListRuns].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ListRuns]: crate::client::Lineage::list_runs
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRunsResponse {
@@ -2241,14 +2392,16 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListRunsRespons
 }
 
 /// Request message for
-/// [DeleteRun][google.cloud.datacatalog.lineage.v1.DeleteRun].
+/// [DeleteRun][google.cloud.datacatalog.lineage.v1.Lineage.DeleteRun].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.DeleteRun]: crate::client::Lineage::delete_run
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRunRequest {
     /// Required. The name of the run to delete.
     pub name: std::string::String,
 
-    /// If set to true and the run is not found, the request
+    /// Optional. If set to true and the run is not found, the request
     /// succeeds but the server doesn't perform any actions.
     pub allow_missing: bool,
 
@@ -2297,7 +2450,9 @@ impl wkt::message::Message for DeleteRunRequest {
 }
 
 /// Request message for
-/// [CreateLineageEvent][google.cloud.datacatalog.lineage.v1.CreateLineageEvent].
+/// [CreateLineageEvent][google.cloud.datacatalog.lineage.v1.Lineage.CreateLineageEvent].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.CreateLineageEvent]: crate::client::Lineage::create_lineage_event
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLineageEventRequest {
@@ -2307,9 +2462,9 @@ pub struct CreateLineageEventRequest {
     /// Required. The lineage event to create.
     pub lineage_event: std::option::Option<crate::model::LineageEvent>,
 
-    /// A unique identifier for this request. Restricted to 36 ASCII characters.
-    /// A random UUID is recommended. This request is idempotent only if a
-    /// `request_id` is provided.
+    /// Optional. A unique identifier for this request. Restricted to 36 ASCII
+    /// characters. A random UUID is recommended. This request is idempotent only
+    /// if a `request_id` is provided.
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2390,7 +2545,9 @@ impl wkt::message::Message for CreateLineageEventRequest {
 }
 
 /// Request message for
-/// [GetLineageEvent][google.cloud.datacatalog.lineage.v1.GetLineageEvent].
+/// [GetLineageEvent][google.cloud.datacatalog.lineage.v1.Lineage.GetLineageEvent].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.GetLineageEvent]: crate::client::Lineage::get_lineage_event
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLineageEventRequest {
@@ -2431,7 +2588,9 @@ impl wkt::message::Message for GetLineageEventRequest {
 }
 
 /// Request message for
-/// [ListLineageEvents][google.cloud.datacatalog.lineage.v1.ListLineageEvents].
+/// [ListLineageEvents][google.cloud.datacatalog.lineage.v1.Lineage.ListLineageEvents].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ListLineageEvents]: crate::client::Lineage::list_lineage_events
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLineageEventsRequest {
@@ -2439,15 +2598,15 @@ pub struct ListLineageEventsRequest {
     /// get.
     pub parent: std::string::String,
 
-    /// The maximum number of lineage events to return.
+    /// Optional. The maximum number of lineage events to return.
     ///
     /// The service may return fewer events than this value.
     /// If unspecified, at most 50 events are returned. The maximum value is 100;
     /// values greater than 100 are cut to 100.
     pub page_size: i32,
 
-    /// The page token received from a previous `ListLineageEvents` call. Specify
-    /// it to get the next page.
+    /// Optional. The page token received from a previous `ListLineageEvents` call.
+    /// Specify it to get the next page.
     ///
     /// When paginating, all other parameters specified in this call must
     /// match the parameters of the call that provided the page token.
@@ -2510,7 +2669,9 @@ impl wkt::message::Message for ListLineageEventsRequest {
 }
 
 /// Response message for
-/// [ListLineageEvents][google.cloud.datacatalog.lineage.v1.ListLineageEvents].
+/// [ListLineageEvents][google.cloud.datacatalog.lineage.v1.Lineage.ListLineageEvents].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.ListLineageEvents]: crate::client::Lineage::list_lineage_events
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLineageEventsResponse {
@@ -2586,14 +2747,16 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListLineageEven
 }
 
 /// Request message for
-/// [DeleteLineageEvent][google.cloud.datacatalog.lineage.v1.DeleteLineageEvent].
+/// [DeleteLineageEvent][google.cloud.datacatalog.lineage.v1.Lineage.DeleteLineageEvent].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.DeleteLineageEvent]: crate::client::Lineage::delete_lineage_event
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLineageEventRequest {
     /// Required. The name of the lineage event to delete.
     pub name: std::string::String,
 
-    /// If set to true and the lineage event is not found, the request
+    /// Optional. If set to true and the lineage event is not found, the request
     /// succeeds but the server doesn't perform any actions.
     pub allow_missing: bool,
 
@@ -2763,6 +2926,8 @@ impl SearchLinksRequest {
     /// let x = SearchLinksRequest::new().set_source(EntityReference::default()/* use setters */);
     /// assert!(x.source().is_some());
     /// assert!(x.target().is_none());
+    /// assert!(x.sources().is_none());
+    /// assert!(x.targets().is_none());
     /// ```
     pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
         mut self,
@@ -2798,6 +2963,8 @@ impl SearchLinksRequest {
     /// let x = SearchLinksRequest::new().set_target(EntityReference::default()/* use setters */);
     /// assert!(x.target().is_some());
     /// assert!(x.source().is_none());
+    /// assert!(x.sources().is_none());
+    /// assert!(x.targets().is_none());
     /// ```
     pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
         mut self,
@@ -2805,6 +2972,92 @@ impl SearchLinksRequest {
     ) -> Self {
         self.criteria = std::option::Option::Some(
             crate::model::search_links_request::Criteria::Target(v.into()),
+        );
+        self
+    }
+
+    /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
+    /// if it holds a `Sources`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sources(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MultipleEntityReference>> {
+        #[allow(unreachable_patterns)]
+        self.criteria.as_ref().and_then(|v| match v {
+            crate::model::search_links_request::Criteria::Sources(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
+    /// to hold a `Sources`.
+    ///
+    /// Note that all the setters affecting `criteria` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::MultipleEntityReference;
+    /// let x = SearchLinksRequest::new().set_sources(MultipleEntityReference::default()/* use setters */);
+    /// assert!(x.sources().is_some());
+    /// assert!(x.source().is_none());
+    /// assert!(x.target().is_none());
+    /// assert!(x.targets().is_none());
+    /// ```
+    pub fn set_sources<
+        T: std::convert::Into<std::boxed::Box<crate::model::MultipleEntityReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.criteria = std::option::Option::Some(
+            crate::model::search_links_request::Criteria::Sources(v.into()),
+        );
+        self
+    }
+
+    /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
+    /// if it holds a `Targets`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn targets(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MultipleEntityReference>> {
+        #[allow(unreachable_patterns)]
+        self.criteria.as_ref().and_then(|v| match v {
+            crate::model::search_links_request::Criteria::Targets(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
+    /// to hold a `Targets`.
+    ///
+    /// Note that all the setters affecting `criteria` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::MultipleEntityReference;
+    /// let x = SearchLinksRequest::new().set_targets(MultipleEntityReference::default()/* use setters */);
+    /// assert!(x.targets().is_some());
+    /// assert!(x.source().is_none());
+    /// assert!(x.target().is_none());
+    /// assert!(x.sources().is_none());
+    /// ```
+    pub fn set_targets<
+        T: std::convert::Into<std::boxed::Box<crate::model::MultipleEntityReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.criteria = std::option::Option::Some(
+            crate::model::search_links_request::Criteria::Targets(v.into()),
         );
         self
     }
@@ -2831,6 +3084,72 @@ pub mod search_links_request {
         /// Optional. Send asset information in the **target** field to retrieve all
         /// links that lead from upstream assets to the specified asset.
         Target(std::boxed::Box<crate::model::EntityReference>),
+        /// Optional. Send a list of asset information in the **sources** field to
+        /// retrieve all links that lead from the specified assets to downstream
+        /// assets. This field is similar to the `source`
+        /// [source][google.cloud.datacatalog.lineage.v1.SearchLinksRequest.source]
+        /// field but allows providing multiple entities.
+        /// All entities within the `MultipleEntityReference` must have the same
+        /// `fully_qualified_name`.
+        ///
+        /// [google.cloud.datacatalog.lineage.v1.SearchLinksRequest.source]: crate::model::SearchLinksRequest::criteria
+        Sources(std::boxed::Box<crate::model::MultipleEntityReference>),
+        /// Optional. Send a list of asset information in the **targets** field to
+        /// retrieve all links that lead from upstream assets to the specified
+        /// assets. This field is similar to the `target`
+        /// [target][google.cloud.datacatalog.lineage.v1.SearchLinksRequest.target]
+        /// field but allows providing multiple entities.
+        /// All entities within the `MultipleEntityReference` must have the same
+        /// `fully_qualified_name`.
+        ///
+        /// [google.cloud.datacatalog.lineage.v1.SearchLinksRequest.target]: crate::model::SearchLinksRequest::criteria
+        Targets(std::boxed::Box<crate::model::MultipleEntityReference>),
+    }
+}
+
+/// Multiple entity reference for SearchLinksRequest.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MultipleEntityReference {
+    /// Optional. The list of entities to search for links. The maximum number of
+    /// entities is 20.
+    pub entities: std::vec::Vec<crate::model::EntityReference>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MultipleEntityReference {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [entities][crate::model::MultipleEntityReference::entities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::MultipleEntityReference;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = MultipleEntityReference::new()
+    ///     .set_entities([
+    ///         EntityReference::default()/* use setters */,
+    ///         EntityReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_entities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityReference>,
+    {
+        use std::iter::Iterator;
+        self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MultipleEntityReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datacatalog.lineage.v1.MultipleEntityReference"
     }
 }
 
@@ -2936,6 +3255,10 @@ pub struct Link {
 
     /// The end of the last event establishing this link.
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The dependency info of the link (applies only to column level
+    /// links).
+    pub dependency_info: std::vec::Vec<crate::model::link::DependencyInfo>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3089,11 +3412,79 @@ impl Link {
         self.end_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [dependency_info][crate::model::Link::dependency_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use google_cloud_datacatalog_lineage_v1::model::link::DependencyInfo;
+    /// let x = Link::new()
+    ///     .set_dependency_info([
+    ///         DependencyInfo::default()/* use setters */,
+    ///         DependencyInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dependency_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::link::DependencyInfo>,
+    {
+        use std::iter::Iterator;
+        self.dependency_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Link {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.datacatalog.lineage.v1.Link"
+    }
+}
+
+/// Defines additional types related to [Link].
+pub mod link {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Dependency info describes how one entity depends on another.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DependencyInfo {
+        /// The type of dependency.
+        pub dependency_type: crate::model::DependencyType,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DependencyInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dependency_type][crate::model::link::DependencyInfo::dependency_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::link::DependencyInfo;
+        /// use google_cloud_datacatalog_lineage_v1::model::DependencyType;
+        /// let x0 = DependencyInfo::new().set_dependency_type(DependencyType::ExactCopy);
+        /// let x1 = DependencyInfo::new().set_dependency_type(DependencyType::Other);
+        /// ```
+        pub fn set_dependency_type<T: std::convert::Into<crate::model::DependencyType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.dependency_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DependencyInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datacatalog.lineage.v1.Link.DependencyInfo"
+        }
     }
 }
 
@@ -3116,12 +3507,12 @@ pub struct BatchSearchLinkProcessesRequest {
     /// Format: `projects/{project}/locations/{location}/links/{link}`.
     pub links: std::vec::Vec<std::string::String>,
 
-    /// The maximum number of processes to return in a single page of the response.
-    /// A page may contain fewer results than this value.
+    /// Optional. The maximum number of processes to return in a single page of the
+    /// response. A page may contain fewer results than this value.
     pub page_size: i32,
 
-    /// The page token received from a previous `BatchSearchLinkProcesses` call.
-    /// Use it to get the next page.
+    /// Optional. The page token received from a previous
+    /// `BatchSearchLinkProcesses` call. Use it to get the next page.
     ///
     /// When requesting subsequent pages of a response, remember that
     /// all parameters must match the values you provided
@@ -3461,12 +3852,13 @@ pub struct Origin {
     /// Type of the source.
     ///
     /// Use of a source_type other than `CUSTOM` for process creation
-    /// or updating is highly discouraged, and may be restricted in the future
-    /// without notice.
+    /// or updating is highly discouraged. It might be restricted in the future
+    /// without notice. There will be increase in cost if you use any of the source
+    /// types other than `CUSTOM`.
     pub source_type: crate::model::origin::SourceType,
 
-    /// If the source_type isn't CUSTOM, the value of this field should be a GCP
-    /// resource name of the system, which reports lineage. The project and
+    /// If the source_type isn't CUSTOM, the value of this field should be a Google
+    /// Cloud resource name of the system, which reports lineage. The project and
     /// location parts of the resource name must match the project and location of
     /// the lineage resource being created. Examples:
     ///
@@ -3559,6 +3951,12 @@ pub mod origin {
         LookerStudio,
         /// Dataproc
         Dataproc,
+        /// Vertex AI
+        VertexAi,
+        /// Dataflow
+        Dataflow,
+        /// Looker Core
+        LookerCore,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SourceType::value] or
@@ -3588,6 +3986,9 @@ pub mod origin {
                 Self::Composer => std::option::Option::Some(4),
                 Self::LookerStudio => std::option::Option::Some(5),
                 Self::Dataproc => std::option::Option::Some(6),
+                Self::VertexAi => std::option::Option::Some(7),
+                Self::Dataflow => std::option::Option::Some(8),
+                Self::LookerCore => std::option::Option::Some(9),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3605,6 +4006,9 @@ pub mod origin {
                 Self::Composer => std::option::Option::Some("COMPOSER"),
                 Self::LookerStudio => std::option::Option::Some("LOOKER_STUDIO"),
                 Self::Dataproc => std::option::Option::Some("DATAPROC"),
+                Self::VertexAi => std::option::Option::Some("VERTEX_AI"),
+                Self::Dataflow => std::option::Option::Some("DATAFLOW"),
+                Self::LookerCore => std::option::Option::Some("LOOKER_CORE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3633,6 +4037,9 @@ pub mod origin {
                 4 => Self::Composer,
                 5 => Self::LookerStudio,
                 6 => Self::Dataproc,
+                7 => Self::VertexAi,
+                8 => Self::Dataflow,
+                9 => Self::LookerCore,
                 _ => Self::UnknownValue(source_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3651,6 +4058,9 @@ pub mod origin {
                 "COMPOSER" => Self::Composer,
                 "LOOKER_STUDIO" => Self::LookerStudio,
                 "DATAPROC" => Self::Dataproc,
+                "VERTEX_AI" => Self::VertexAi,
+                "DATAFLOW" => Self::Dataflow,
+                "LOOKER_CORE" => Self::LookerCore,
                 _ => Self::UnknownValue(source_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3671,6 +4081,9 @@ pub mod origin {
                 Self::Composer => serializer.serialize_i32(4),
                 Self::LookerStudio => serializer.serialize_i32(5),
                 Self::Dataproc => serializer.serialize_i32(6),
+                Self::VertexAi => serializer.serialize_i32(7),
+                Self::Dataflow => serializer.serialize_i32(8),
+                Self::LookerCore => serializer.serialize_i32(9),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3685,5 +4098,1219 @@ pub mod origin {
                 ".google.cloud.datacatalog.lineage.v1.Origin.SourceType",
             ))
         }
+    }
+}
+
+/// Lineage link between two entities.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LineageLink {
+    /// The entity that is the **source** of this link.
+    pub source: std::option::Option<crate::model::EntityReference>,
+
+    /// The entity that is the **target** of this link.
+    pub target: std::option::Option<crate::model::EntityReference>,
+
+    /// Processes metadata associated with the link.
+    pub processes: std::vec::Vec<crate::model::lineage_link::LineageProcess>,
+
+    /// Describes how the target entity is dependent on the source entity.
+    pub dependency_info: std::vec::Vec<crate::model::lineage_link::DependencyInfo>,
+
+    /// Depth of the current link in the graph starting from 1.
+    pub depth: i32,
+
+    /// The location where the LineageEvent that created the link is stored.
+    pub location: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LineageLink {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source][crate::model::LineageLink::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = LineageLink::new().set_source(EntityReference::default()/* use setters */);
+    /// ```
+    pub fn set_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
+    {
+        self.source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source][crate::model::LineageLink::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = LineageLink::new().set_or_clear_source(Some(EntityReference::default()/* use setters */));
+    /// let x = LineageLink::new().set_or_clear_source(None::<EntityReference>);
+    /// ```
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
+    {
+        self.source = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target][crate::model::LineageLink::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = LineageLink::new().set_target(EntityReference::default()/* use setters */);
+    /// ```
+    pub fn set_target<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
+    {
+        self.target = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target][crate::model::LineageLink::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = LineageLink::new().set_or_clear_target(Some(EntityReference::default()/* use setters */));
+    /// let x = LineageLink::new().set_or_clear_target(None::<EntityReference>);
+    /// ```
+    pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
+    {
+        self.target = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [processes][crate::model::LineageLink::processes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::lineage_link::LineageProcess;
+    /// let x = LineageLink::new()
+    ///     .set_processes([
+    ///         LineageProcess::default()/* use setters */,
+    ///         LineageProcess::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_processes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::lineage_link::LineageProcess>,
+    {
+        use std::iter::Iterator;
+        self.processes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dependency_info][crate::model::LineageLink::dependency_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::lineage_link::DependencyInfo;
+    /// let x = LineageLink::new()
+    ///     .set_dependency_info([
+    ///         DependencyInfo::default()/* use setters */,
+    ///         DependencyInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dependency_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::lineage_link::DependencyInfo>,
+    {
+        use std::iter::Iterator;
+        self.dependency_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [depth][crate::model::LineageLink::depth].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// let x = LineageLink::new().set_depth(42);
+    /// ```
+    pub fn set_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.depth = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::LineageLink::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// let x = LineageLink::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LineageLink {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datacatalog.lineage.v1.LineageLink"
+    }
+}
+
+/// Defines additional types related to [LineageLink].
+pub mod lineage_link {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Process metadata for the link.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LineageProcess {
+        /// Process that created the link.
+        pub process: std::option::Option<crate::model::Process>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LineageProcess {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [process][crate::model::lineage_link::LineageProcess::process].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::lineage_link::LineageProcess;
+        /// use google_cloud_datacatalog_lineage_v1::model::Process;
+        /// let x = LineageProcess::new().set_process(Process::default()/* use setters */);
+        /// ```
+        pub fn set_process<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.process = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [process][crate::model::lineage_link::LineageProcess::process].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::lineage_link::LineageProcess;
+        /// use google_cloud_datacatalog_lineage_v1::model::Process;
+        /// let x = LineageProcess::new().set_or_clear_process(Some(Process::default()/* use setters */));
+        /// let x = LineageProcess::new().set_or_clear_process(None::<Process>);
+        /// ```
+        pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.process = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for LineageProcess {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datacatalog.lineage.v1.LineageLink.LineageProcess"
+        }
+    }
+
+    /// Dependency info describes how one entity is dependent on another.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DependencyInfo {
+        /// The type of dependency.
+        pub dependency_type: crate::model::DependencyType,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DependencyInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dependency_type][crate::model::lineage_link::DependencyInfo::dependency_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::lineage_link::DependencyInfo;
+        /// use google_cloud_datacatalog_lineage_v1::model::DependencyType;
+        /// let x0 = DependencyInfo::new().set_dependency_type(DependencyType::ExactCopy);
+        /// let x1 = DependencyInfo::new().set_dependency_type(DependencyType::Other);
+        /// ```
+        pub fn set_dependency_type<T: std::convert::Into<crate::model::DependencyType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.dependency_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DependencyInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datacatalog.lineage.v1.LineageLink.DependencyInfo"
+        }
+    }
+}
+
+/// Request message for
+/// [SearchLineageStreaming][google.cloud.datacatalog.lineage.v1.Lineage.SearchLineageStreaming].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchLineageStreamingRequest {
+    /// Required. The project and location to initiate the search from.
+    pub parent: std::string::String,
+
+    /// Required. The locations to search in.
+    pub locations: std::vec::Vec<std::string::String>,
+
+    /// Required. Criteria for the root of the search.
+    pub root_criteria:
+        std::option::Option<crate::model::search_lineage_streaming_request::RootCriteria>,
+
+    /// Required. Direction of the search.
+    pub direction: crate::model::search_lineage_streaming_request::SearchDirection,
+
+    /// Optional. Filters for the search.
+    pub filters: std::option::Option<crate::model::search_lineage_streaming_request::SearchFilters>,
+
+    /// Optional. Limits for the search.
+    pub limits: std::option::Option<crate::model::search_lineage_streaming_request::SearchLimits>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchLineageStreamingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::SearchLineageStreamingRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = SearchLineageStreamingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::SearchLineageStreamingRequest::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// let x = SearchLineageStreamingRequest::new().set_locations(["a", "b", "c"]);
+    /// ```
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [root_criteria][crate::model::SearchLineageStreamingRequest::root_criteria].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::RootCriteria;
+    /// let x = SearchLineageStreamingRequest::new().set_root_criteria(RootCriteria::default()/* use setters */);
+    /// ```
+    pub fn set_root_criteria<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::RootCriteria>,
+    {
+        self.root_criteria = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [root_criteria][crate::model::SearchLineageStreamingRequest::root_criteria].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::RootCriteria;
+    /// let x = SearchLineageStreamingRequest::new().set_or_clear_root_criteria(Some(RootCriteria::default()/* use setters */));
+    /// let x = SearchLineageStreamingRequest::new().set_or_clear_root_criteria(None::<RootCriteria>);
+    /// ```
+    pub fn set_or_clear_root_criteria<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::RootCriteria>,
+    {
+        self.root_criteria = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [direction][crate::model::SearchLineageStreamingRequest::direction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchDirection;
+    /// let x0 = SearchLineageStreamingRequest::new().set_direction(SearchDirection::Downstream);
+    /// let x1 = SearchLineageStreamingRequest::new().set_direction(SearchDirection::Upstream);
+    /// ```
+    pub fn set_direction<
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchDirection>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.direction = v.into();
+        self
+    }
+
+    /// Sets the value of [filters][crate::model::SearchLineageStreamingRequest::filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchFilters;
+    /// let x = SearchLineageStreamingRequest::new().set_filters(SearchFilters::default()/* use setters */);
+    /// ```
+    pub fn set_filters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchFilters>,
+    {
+        self.filters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filters][crate::model::SearchLineageStreamingRequest::filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchFilters;
+    /// let x = SearchLineageStreamingRequest::new().set_or_clear_filters(Some(SearchFilters::default()/* use setters */));
+    /// let x = SearchLineageStreamingRequest::new().set_or_clear_filters(None::<SearchFilters>);
+    /// ```
+    pub fn set_or_clear_filters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchFilters>,
+    {
+        self.filters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [limits][crate::model::SearchLineageStreamingRequest::limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchLimits;
+    /// let x = SearchLineageStreamingRequest::new().set_limits(SearchLimits::default()/* use setters */);
+    /// ```
+    pub fn set_limits<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchLimits>,
+    {
+        self.limits = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [limits][crate::model::SearchLineageStreamingRequest::limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchLimits;
+    /// let x = SearchLineageStreamingRequest::new().set_or_clear_limits(Some(SearchLimits::default()/* use setters */));
+    /// let x = SearchLineageStreamingRequest::new().set_or_clear_limits(None::<SearchLimits>);
+    /// ```
+    pub fn set_or_clear_limits<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchLimits>,
+    {
+        self.limits = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SearchLineageStreamingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datacatalog.lineage.v1.SearchLineageStreamingRequest"
+    }
+}
+
+/// Defines additional types related to [SearchLineageStreamingRequest].
+pub mod search_lineage_streaming_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Filters for the search.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SearchFilters {
+        /// Optional. Types of dependencies between entities to retrieve.
+        /// If unspecified, all dependency types are returned.
+        pub dependency_types: std::vec::Vec<crate::model::DependencyType>,
+
+        /// Optional. Entity set restriction. If unspecified, the method returns all
+        /// entities.
+        pub entity_set: crate::model::search_lineage_streaming_request::EntitySet,
+
+        /// Optional. Time interval to search for lineage. If unspecified, all
+        /// lineage is returned. Currently, at most one of `start_time` and
+        /// `end_time` can be set.
+        pub time_range: std::option::Option<google_cloud_type::model::Interval>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SearchFilters {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dependency_types][crate::model::search_lineage_streaming_request::SearchFilters::dependency_types].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchFilters;
+        /// use google_cloud_datacatalog_lineage_v1::model::DependencyType;
+        /// let x = SearchFilters::new().set_dependency_types([
+        ///     DependencyType::ExactCopy,
+        ///     DependencyType::Other,
+        /// ]);
+        /// ```
+        pub fn set_dependency_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::DependencyType>,
+        {
+            use std::iter::Iterator;
+            self.dependency_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [entity_set][crate::model::search_lineage_streaming_request::SearchFilters::entity_set].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchFilters;
+        /// use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::EntitySet;
+        /// let x0 = SearchFilters::new().set_entity_set(EntitySet::Entities);
+        /// ```
+        pub fn set_entity_set<
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::EntitySet>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entity_set = v.into();
+            self
+        }
+
+        /// Sets the value of [time_range][crate::model::search_lineage_streaming_request::SearchFilters::time_range].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchFilters;
+        /// use google_cloud_type::model::Interval;
+        /// let x = SearchFilters::new().set_time_range(Interval::default()/* use setters */);
+        /// ```
+        pub fn set_time_range<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.time_range = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [time_range][crate::model::search_lineage_streaming_request::SearchFilters::time_range].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchFilters;
+        /// use google_cloud_type::model::Interval;
+        /// let x = SearchFilters::new().set_or_clear_time_range(Some(Interval::default()/* use setters */));
+        /// let x = SearchFilters::new().set_or_clear_time_range(None::<Interval>);
+        /// ```
+        pub fn set_or_clear_time_range<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.time_range = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SearchFilters {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datacatalog.lineage.v1.SearchLineageStreamingRequest.SearchFilters"
+        }
+    }
+
+    /// Limits for the search results.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SearchLimits {
+        /// Optional. The maximum depth of the search. The default value is 5 and
+        /// maximum value is 100.
+        pub max_depth: i32,
+
+        /// Optional. The maximum number of links to return in the response. The
+        /// default value is 1_000 and the maximum value is 10_000.
+        pub max_results: i32,
+
+        /// Optional. The maximum number of processes to return per link. The default
+        /// value is 0 and the maximum value is 100. If this value is non-zero, the
+        /// response will contain process names for the links. To retrieve full
+        /// process details in the response, include `links.processes.process` in the
+        /// [FieldMask](https://developers.google.com/workspace/docs/api/how-tos/field-masks#read_with_a_field_mask).
+        pub max_process_per_link: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SearchLimits {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_depth][crate::model::search_lineage_streaming_request::SearchLimits::max_depth].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchLimits;
+        /// let x = SearchLimits::new().set_max_depth(42);
+        /// ```
+        pub fn set_max_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_depth = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::search_lineage_streaming_request::SearchLimits::max_results].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchLimits;
+        /// let x = SearchLimits::new().set_max_results(42);
+        /// ```
+        pub fn set_max_results<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_results = v.into();
+            self
+        }
+
+        /// Sets the value of [max_process_per_link][crate::model::search_lineage_streaming_request::SearchLimits::max_process_per_link].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::SearchLimits;
+        /// let x = SearchLimits::new().set_max_process_per_link(42);
+        /// ```
+        pub fn set_max_process_per_link<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_process_per_link = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SearchLimits {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datacatalog.lineage.v1.SearchLineageStreamingRequest.SearchLimits"
+        }
+    }
+
+    /// Criteria for the root of the search.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RootCriteria {
+        /// Criteria for the root of the search.
+        pub criteria: std::option::Option<
+            crate::model::search_lineage_streaming_request::root_criteria::Criteria,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RootCriteria {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [criteria][crate::model::search_lineage_streaming_request::RootCriteria::criteria].
+        ///
+        /// Note that all the setters affecting `criteria` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::RootCriteria;
+        /// use google_cloud_datacatalog_lineage_v1::model::MultipleEntityReference;
+        /// let x = RootCriteria::new().set_criteria(Some(
+        ///     google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::root_criteria::Criteria::Entities(MultipleEntityReference::default().into())));
+        /// ```
+        pub fn set_criteria<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::search_lineage_streaming_request::root_criteria::Criteria,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.criteria = v.into();
+            self
+        }
+
+        /// The value of [criteria][crate::model::search_lineage_streaming_request::RootCriteria::criteria]
+        /// if it holds a `Entities`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn entities(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MultipleEntityReference>> {
+            #[allow(unreachable_patterns)]
+            self.criteria.as_ref().and_then(|v| match v {
+                crate::model::search_lineage_streaming_request::root_criteria::Criteria::Entities(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [criteria][crate::model::search_lineage_streaming_request::RootCriteria::criteria]
+        /// to hold a `Entities`.
+        ///
+        /// Note that all the setters affecting `criteria` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datacatalog_lineage_v1::model::search_lineage_streaming_request::RootCriteria;
+        /// use google_cloud_datacatalog_lineage_v1::model::MultipleEntityReference;
+        /// let x = RootCriteria::new().set_entities(MultipleEntityReference::default()/* use setters */);
+        /// assert!(x.entities().is_some());
+        /// ```
+        pub fn set_entities<
+            T: std::convert::Into<std::boxed::Box<crate::model::MultipleEntityReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.criteria = std::option::Option::Some(
+                crate::model::search_lineage_streaming_request::root_criteria::Criteria::Entities(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for RootCriteria {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datacatalog.lineage.v1.SearchLineageStreamingRequest.RootCriteria"
+        }
+    }
+
+    /// Defines additional types related to [RootCriteria].
+    pub mod root_criteria {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Criteria for the root of the search.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Criteria {
+            /// Optional. The entities to initiate the search from. Entities can be
+            /// specified by FQN only, or by FQN and field. To search by FQN and all
+            /// available fields for that FQN, use the wildcard `*` as the field value.
+            Entities(std::boxed::Box<crate::model::MultipleEntityReference>),
+        }
+    }
+
+    /// Direction of the search.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SearchDirection {
+        /// Direction is unspecified.
+        Unspecified,
+        /// Retrieve links that lead from the specified asset to downstream assets.
+        Downstream,
+        /// Retrieve links that lead from upstream assets to the specified asset.
+        Upstream,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SearchDirection::value] or
+        /// [SearchDirection::name].
+        UnknownValue(search_direction::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod search_direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SearchDirection {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Downstream => std::option::Option::Some(1),
+                Self::Upstream => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SEARCH_DIRECTION_UNSPECIFIED"),
+                Self::Downstream => std::option::Option::Some("DOWNSTREAM"),
+                Self::Upstream => std::option::Option::Some("UPSTREAM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SearchDirection {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SearchDirection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SearchDirection {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Downstream,
+                2 => Self::Upstream,
+                _ => Self::UnknownValue(search_direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SearchDirection {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEARCH_DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "DOWNSTREAM" => Self::Downstream,
+                "UPSTREAM" => Self::Upstream,
+                _ => Self::UnknownValue(search_direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SearchDirection {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Downstream => serializer.serialize_i32(1),
+                Self::Upstream => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SearchDirection {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchDirection>::new(
+                ".google.cloud.datacatalog.lineage.v1.SearchLineageStreamingRequest.SearchDirection"))
+        }
+    }
+
+    /// Entity set restriction.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EntitySet {
+        /// The entity set is unspecified. Returns all the data.
+        Unspecified,
+        /// Returns entities with only FQN specified. For example, entities with the
+        /// `field` field set are not returned.
+        Entities,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EntitySet::value] or
+        /// [EntitySet::name].
+        UnknownValue(entity_set::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod entity_set {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EntitySet {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Entities => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ENTITY_SET_UNSPECIFIED"),
+                Self::Entities => std::option::Option::Some("ENTITIES"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EntitySet {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EntitySet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EntitySet {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Entities,
+                _ => Self::UnknownValue(entity_set::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EntitySet {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENTITY_SET_UNSPECIFIED" => Self::Unspecified,
+                "ENTITIES" => Self::Entities,
+                _ => Self::UnknownValue(entity_set::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EntitySet {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Entities => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EntitySet {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EntitySet>::new(
+                ".google.cloud.datacatalog.lineage.v1.SearchLineageStreamingRequest.EntitySet",
+            ))
+        }
+    }
+}
+
+/// Response message for
+/// [SearchLineageStreaming][google.cloud.datacatalog.lineage.v1.Lineage.SearchLineageStreaming].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchLineageStreamingResponse {
+    /// Output only. The lineage links that match the search criteria. Can be empty
+    /// if no links match.
+    pub links: std::vec::Vec<crate::model::LineageLink>,
+
+    /// Unordered list. Unreachable resources. If non-empty, the result set might
+    /// be incomplete.
+    ///
+    /// Currently, only locations are supported.
+    ///
+    /// Format: `projects/[PROJECT_NUMBER]/locations/[LOCATION]`
+    /// Example: projects/123456789/locations/us-east1
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchLineageStreamingResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [links][crate::model::SearchLineageStreamingResponse::links].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingResponse;
+    /// use google_cloud_datacatalog_lineage_v1::model::LineageLink;
+    /// let x = SearchLineageStreamingResponse::new()
+    ///     .set_links([
+    ///         LineageLink::default()/* use setters */,
+    ///         LineageLink::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_links<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LineageLink>,
+    {
+        use std::iter::Iterator;
+        self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::SearchLineageStreamingResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLineageStreamingResponse;
+    /// let x = SearchLineageStreamingResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchLineageStreamingResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datacatalog.lineage.v1.SearchLineageStreamingResponse"
+    }
+}
+
+/// Type of dependency between entities.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DependencyType {
+    /// Dependency type unspecified.
+    Unspecified,
+    /// Exact data copy without any change.
+    ExactCopy,
+    /// Other types of dependencies like filtering or grouping.
+    Other,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DependencyType::value] or
+    /// [DependencyType::name].
+    UnknownValue(dependency_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod dependency_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl DependencyType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ExactCopy => std::option::Option::Some(1),
+            Self::Other => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DEPENDENCY_TYPE_UNSPECIFIED"),
+            Self::ExactCopy => std::option::Option::Some("EXACT_COPY"),
+            Self::Other => std::option::Option::Some("OTHER"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for DependencyType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DependencyType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DependencyType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ExactCopy,
+            3 => Self::Other,
+            _ => Self::UnknownValue(dependency_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DependencyType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DEPENDENCY_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "EXACT_COPY" => Self::ExactCopy,
+            "OTHER" => Self::Other,
+            _ => Self::UnknownValue(dependency_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DependencyType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ExactCopy => serializer.serialize_i32(1),
+            Self::Other => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DependencyType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DependencyType>::new(
+            ".google.cloud.datacatalog.lineage.v1.DependencyType",
+        ))
     }
 }

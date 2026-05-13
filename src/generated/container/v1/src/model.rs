@@ -22,6 +22,7 @@ extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -120,6 +121,10 @@ pub struct LinuxNodeConfig {
     /// for more details.
     pub transparent_hugepage_defrag: crate::model::linux_node_config::TransparentHugepageDefrag,
 
+    /// Optional. Allow users to run arbitrary bash script or container on the
+    /// node.
+    pub custom_node_init: std::option::Option<crate::model::linux_node_config::CustomNodeInit>,
+
     /// Optional. Enables and configures swap space on nodes.
     /// If omitted, swap is disabled.
     pub swap_config: std::option::Option<crate::model::linux_node_config::SwapConfig>,
@@ -129,6 +134,10 @@ pub struct LinuxNodeConfig {
     /// OS image that enforces kernel module signature verification.
     pub node_kernel_module_loading:
         std::option::Option<crate::model::linux_node_config::NodeKernelModuleLoading>,
+
+    /// Optional. The accurate time configuration for the node pool.
+    pub accurate_time_config:
+        std::option::Option<crate::model::linux_node_config::AccurateTimeConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -250,6 +259,39 @@ impl LinuxNodeConfig {
         self
     }
 
+    /// Sets the value of [custom_node_init][crate::model::LinuxNodeConfig::custom_node_init].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::CustomNodeInit;
+    /// let x = LinuxNodeConfig::new().set_custom_node_init(CustomNodeInit::default()/* use setters */);
+    /// ```
+    pub fn set_custom_node_init<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::CustomNodeInit>,
+    {
+        self.custom_node_init = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_node_init][crate::model::LinuxNodeConfig::custom_node_init].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::CustomNodeInit;
+    /// let x = LinuxNodeConfig::new().set_or_clear_custom_node_init(Some(CustomNodeInit::default()/* use setters */));
+    /// let x = LinuxNodeConfig::new().set_or_clear_custom_node_init(None::<CustomNodeInit>);
+    /// ```
+    pub fn set_or_clear_custom_node_init<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::CustomNodeInit>,
+    {
+        self.custom_node_init = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [swap_config][crate::model::LinuxNodeConfig::swap_config].
     ///
     /// # Example
@@ -313,6 +355,39 @@ impl LinuxNodeConfig {
         T: std::convert::Into<crate::model::linux_node_config::NodeKernelModuleLoading>,
     {
         self.node_kernel_module_loading = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [accurate_time_config][crate::model::LinuxNodeConfig::accurate_time_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::AccurateTimeConfig;
+    /// let x = LinuxNodeConfig::new().set_accurate_time_config(AccurateTimeConfig::default()/* use setters */);
+    /// ```
+    pub fn set_accurate_time_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::AccurateTimeConfig>,
+    {
+        self.accurate_time_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [accurate_time_config][crate::model::LinuxNodeConfig::accurate_time_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::AccurateTimeConfig;
+    /// let x = LinuxNodeConfig::new().set_or_clear_accurate_time_config(Some(AccurateTimeConfig::default()/* use setters */));
+    /// let x = LinuxNodeConfig::new().set_or_clear_accurate_time_config(None::<AccurateTimeConfig>);
+    /// ```
+    pub fn set_or_clear_accurate_time_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::AccurateTimeConfig>,
+    {
+        self.accurate_time_config = v.map(|x| x.into());
         self
     }
 }
@@ -413,6 +488,174 @@ pub mod linux_node_config {
     impl wkt::message::Message for HugepagesConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.container.v1.LinuxNodeConfig.HugepagesConfig"
+        }
+    }
+
+    /// Support for running custom init code while bootstrapping nodes.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CustomNodeInit {
+        /// Optional. The init script to be executed on the node.
+        pub init_script:
+            std::option::Option<crate::model::linux_node_config::custom_node_init::InitScript>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CustomNodeInit {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [init_script][crate::model::linux_node_config::CustomNodeInit::init_script].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::CustomNodeInit;
+        /// use google_cloud_container_v1::model::linux_node_config::custom_node_init::InitScript;
+        /// let x = CustomNodeInit::new().set_init_script(InitScript::default()/* use setters */);
+        /// ```
+        pub fn set_init_script<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::linux_node_config::custom_node_init::InitScript>,
+        {
+            self.init_script = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [init_script][crate::model::linux_node_config::CustomNodeInit::init_script].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::CustomNodeInit;
+        /// use google_cloud_container_v1::model::linux_node_config::custom_node_init::InitScript;
+        /// let x = CustomNodeInit::new().set_or_clear_init_script(Some(InitScript::default()/* use setters */));
+        /// let x = CustomNodeInit::new().set_or_clear_init_script(None::<InitScript>);
+        /// ```
+        pub fn set_or_clear_init_script<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::linux_node_config::custom_node_init::InitScript>,
+        {
+            self.init_script = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for CustomNodeInit {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.LinuxNodeConfig.CustomNodeInit"
+        }
+    }
+
+    /// Defines additional types related to [CustomNodeInit].
+    pub mod custom_node_init {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// InitScript provide a simply bash script to be executed on the node.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct InitScript {
+            /// The Cloud Storage URI for storing the init script.
+            /// Format: gs://BUCKET_NAME/OBJECT_NAME
+            /// The service account on the node pool must have read access to the
+            /// object.
+            /// User can't configure both gcs_uri and gcp_secret_manager_secret_uri.
+            pub gcs_uri: std::string::String,
+
+            /// The generation of the init script stored in Gloud Storage.
+            /// This is the required field to identify the version of the
+            /// init script.
+            /// User can get the genetaion from
+            /// `gcloud storage objects describe gs://BUCKET_NAME/OBJECT_NAME
+            /// --format="value(generation)"` or from the "Version history" tab of the
+            /// object in the Cloud Console UI.
+            pub gcs_generation: i64,
+
+            /// Optional. The optional arguments line to be passed to the init script.
+            pub args: std::vec::Vec<std::string::String>,
+
+            /// The resource name of the secret manager secret hosting the init script.
+            /// Both global and regional secrets are supported with format below:
+            /// Global secret: projects/{project}/secrets/{secret}/versions/{version}
+            /// Regional secret:
+            /// projects/{project}/locations/{location}/secrets/{secret}/versions/{version}
+            /// Example: projects/1234567890/secrets/script_1/versions/1.
+            /// Accept version number only, not support version alias.
+            /// User can't configure both gcp_secret_manager_secret_uri and gcs_uri.
+            pub gcp_secret_manager_secret_uri: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl InitScript {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [gcs_uri][crate::model::linux_node_config::custom_node_init::InitScript::gcs_uri].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::custom_node_init::InitScript;
+            /// let x = InitScript::new().set_gcs_uri("example");
+            /// ```
+            pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.gcs_uri = v.into();
+                self
+            }
+
+            /// Sets the value of [gcs_generation][crate::model::linux_node_config::custom_node_init::InitScript::gcs_generation].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::custom_node_init::InitScript;
+            /// let x = InitScript::new().set_gcs_generation(42);
+            /// ```
+            pub fn set_gcs_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.gcs_generation = v.into();
+                self
+            }
+
+            /// Sets the value of [args][crate::model::linux_node_config::custom_node_init::InitScript::args].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::custom_node_init::InitScript;
+            /// let x = InitScript::new().set_args(["a", "b", "c"]);
+            /// ```
+            pub fn set_args<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.args = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [gcp_secret_manager_secret_uri][crate::model::linux_node_config::custom_node_init::InitScript::gcp_secret_manager_secret_uri].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::custom_node_init::InitScript;
+            /// let x = InitScript::new().set_gcp_secret_manager_secret_uri("example");
+            /// ```
+            pub fn set_gcp_secret_manager_secret_uri<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.gcp_secret_manager_secret_uri = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for InitScript {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.LinuxNodeConfig.CustomNodeInit.InitScript"
+            }
         }
     }
 
@@ -1102,7 +1345,7 @@ pub mod linux_node_config {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Defines the kernel module loading policy for nodes in the nodepool.
+        /// Defines the kernel module loading policy for nodes in the node pool.
         ///
         /// # Working with unknown values
         ///
@@ -1251,6 +1494,61 @@ pub mod linux_node_config {
                     ".google.container.v1.LinuxNodeConfig.NodeKernelModuleLoading.Policy",
                 ))
             }
+        }
+    }
+
+    /// AccurateTimeConfig contains configuration for the accurate time
+    /// synchronization feature.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccurateTimeConfig {
+        /// Enables enhanced time synchronization using PTP-KVM.
+        pub enable_ptp_kvm_time_sync: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AccurateTimeConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enable_ptp_kvm_time_sync][crate::model::linux_node_config::AccurateTimeConfig::enable_ptp_kvm_time_sync].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::AccurateTimeConfig;
+        /// let x = AccurateTimeConfig::new().set_enable_ptp_kvm_time_sync(true);
+        /// ```
+        pub fn set_enable_ptp_kvm_time_sync<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_ptp_kvm_time_sync = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enable_ptp_kvm_time_sync][crate::model::linux_node_config::AccurateTimeConfig::enable_ptp_kvm_time_sync].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::AccurateTimeConfig;
+        /// let x = AccurateTimeConfig::new().set_or_clear_enable_ptp_kvm_time_sync(Some(false));
+        /// let x = AccurateTimeConfig::new().set_or_clear_enable_ptp_kvm_time_sync(None::<bool>);
+        /// ```
+        pub fn set_or_clear_enable_ptp_kvm_time_sync<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_ptp_kvm_time_sync = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for AccurateTimeConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.LinuxNodeConfig.AccurateTimeConfig"
         }
     }
 
@@ -2064,6 +2362,11 @@ pub struct NodeKubeletConfig {
     /// be OOM killed individually instead of as a group.
     pub single_process_oom_kill: std::option::Option<bool>,
 
+    /// Optional. Contains configuration options to modify node-level parameters
+    /// for container restart behavior.
+    pub crash_loop_back_off:
+        std::option::Option<crate::model::node_kubelet_config::CrashLoopBackOffConfig>,
+
     /// Optional. shutdown_grace_period_seconds is the maximum allowed grace period
     /// (in seconds) the total duration that the node should delay the shutdown
     /// during a graceful shutdown. This is the total grace period for pod
@@ -2521,6 +2824,39 @@ impl NodeKubeletConfig {
         self
     }
 
+    /// Sets the value of [crash_loop_back_off][crate::model::NodeKubeletConfig::crash_loop_back_off].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::node_kubelet_config::CrashLoopBackOffConfig;
+    /// let x = NodeKubeletConfig::new().set_crash_loop_back_off(CrashLoopBackOffConfig::default()/* use setters */);
+    /// ```
+    pub fn set_crash_loop_back_off<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_kubelet_config::CrashLoopBackOffConfig>,
+    {
+        self.crash_loop_back_off = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [crash_loop_back_off][crate::model::NodeKubeletConfig::crash_loop_back_off].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::node_kubelet_config::CrashLoopBackOffConfig;
+    /// let x = NodeKubeletConfig::new().set_or_clear_crash_loop_back_off(Some(CrashLoopBackOffConfig::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_crash_loop_back_off(None::<CrashLoopBackOffConfig>);
+    /// ```
+    pub fn set_or_clear_crash_loop_back_off<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_kubelet_config::CrashLoopBackOffConfig>,
+    {
+        self.crash_loop_back_off = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [shutdown_grace_period_seconds][crate::model::NodeKubeletConfig::shutdown_grace_period_seconds].
     ///
     /// # Example
@@ -2593,6 +2929,61 @@ impl NodeKubeletConfig {
 impl wkt::message::Message for NodeKubeletConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.NodeKubeletConfig"
+    }
+}
+
+/// Defines additional types related to [NodeKubeletConfig].
+pub mod node_kubelet_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains config to modify node-level parameters for container restart
+    /// behavior.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CrashLoopBackOffConfig {
+        /// Optional. The maximum duration the backoff delay can accrue to for
+        /// container restarts, minimum 1 second, maximum 300 seconds. If not set,
+        /// defaults to the internal crashloopbackoff maximum.
+        ///
+        /// The string must be a sequence of decimal numbers, each with optional
+        /// fraction and a unit suffix, such as "300ms".
+        /// Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+        ///
+        /// See
+        /// <https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#configurable-container-restart-delay>
+        /// for more details.
+        pub max_container_restart_period: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CrashLoopBackOffConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_container_restart_period][crate::model::node_kubelet_config::CrashLoopBackOffConfig::max_container_restart_period].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_kubelet_config::CrashLoopBackOffConfig;
+        /// let x = CrashLoopBackOffConfig::new().set_max_container_restart_period("example");
+        /// ```
+        pub fn set_max_container_restart_period<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.max_container_restart_period = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CrashLoopBackOffConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.NodeKubeletConfig.CrashLoopBackOffConfig"
+        }
     }
 }
 
@@ -3240,14 +3631,23 @@ pub struct NodeConfig {
     /// for available image types.
     pub image_type: std::string::String,
 
-    /// The map of Kubernetes labels (key/value pairs) to be applied to each node.
-    /// These will added in addition to any default label(s) that
-    /// Kubernetes may apply to the node.
-    /// In case of conflict in label keys, the applied set may differ depending on
-    /// the Kubernetes version -- it's best to assume the behavior is undefined
-    /// and conflicts should be avoided.
-    /// For more information, including usage and the valid values, see:
-    /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/>
+    /// The Kubernetes labels (key/value pairs) to apply to each node. The values
+    /// in this field are added to the set of default labels Kubernetes applies to
+    /// nodes.
+    ///
+    /// This field has the following restrictions:
+    ///
+    /// * Labels must use a valid Kubernetes syntax and character set, as defined
+    ///   in
+    ///   <https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set>.
+    /// * This field supports up to 1,024 total characters in a single request.
+    ///
+    /// Depending on the Kubernetes version, keys in this field might conflict with
+    /// the keys of the default labels, which might change which of your labels
+    /// are applied to the nodes. Assume that the behavior is unpredictable and
+    /// avoid label key conflicts. For more information about the default labels,
+    /// see:
+    /// <https://kubernetes.io/docs/reference/labels-annotations-taints/>
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The number of local SSD disks to be attached to the node.
@@ -3419,6 +3819,9 @@ pub struct NodeConfig {
     /// scale down underutilized nodes. If not set, nodes are scaled down by
     /// default behavior, i.e. according to the chosen autoscaling profile.
     pub consolidation_delay: std::option::Option<wkt::Duration>,
+
+    /// Optional. The taint configuration for the node pool.
+    pub taint_config: std::option::Option<crate::model::TaintConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4608,6 +5011,39 @@ impl NodeConfig {
         self.consolidation_delay = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [taint_config][crate::model::NodeConfig::taint_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::TaintConfig;
+    /// let x = NodeConfig::new().set_taint_config(TaintConfig::default()/* use setters */);
+    /// ```
+    pub fn set_taint_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TaintConfig>,
+    {
+        self.taint_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [taint_config][crate::model::NodeConfig::taint_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::TaintConfig;
+    /// let x = NodeConfig::new().set_or_clear_taint_config(Some(TaintConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_taint_config(None::<TaintConfig>);
+    /// ```
+    pub fn set_or_clear_taint_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TaintConfig>,
+    {
+        self.taint_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for NodeConfig {
@@ -4897,6 +5333,208 @@ pub mod node_config {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EffectiveCgroupMode>::new(
                 ".google.container.v1.NodeConfig.EffectiveCgroupMode",
             ))
+        }
+    }
+}
+
+/// TaintConfig contains the configuration for the taints of the node pool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TaintConfig {
+    /// Optional. Controls architecture tainting behavior.
+    pub architecture_taint_behavior:
+        std::option::Option<crate::model::taint_config::ArchitectureTaintBehavior>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TaintConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [architecture_taint_behavior][crate::model::TaintConfig::architecture_taint_behavior].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::TaintConfig;
+    /// use google_cloud_container_v1::model::taint_config::ArchitectureTaintBehavior;
+    /// let x0 = TaintConfig::new().set_architecture_taint_behavior(ArchitectureTaintBehavior::None);
+    /// let x1 = TaintConfig::new().set_architecture_taint_behavior(ArchitectureTaintBehavior::Arm);
+    /// ```
+    pub fn set_architecture_taint_behavior<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::taint_config::ArchitectureTaintBehavior>,
+    {
+        self.architecture_taint_behavior = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture_taint_behavior][crate::model::TaintConfig::architecture_taint_behavior].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::TaintConfig;
+    /// use google_cloud_container_v1::model::taint_config::ArchitectureTaintBehavior;
+    /// let x0 = TaintConfig::new().set_or_clear_architecture_taint_behavior(Some(ArchitectureTaintBehavior::None));
+    /// let x1 = TaintConfig::new().set_or_clear_architecture_taint_behavior(Some(ArchitectureTaintBehavior::Arm));
+    /// let x_none = TaintConfig::new().set_or_clear_architecture_taint_behavior(None::<ArchitectureTaintBehavior>);
+    /// ```
+    pub fn set_or_clear_architecture_taint_behavior<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::taint_config::ArchitectureTaintBehavior>,
+    {
+        self.architecture_taint_behavior = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TaintConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.TaintConfig"
+    }
+}
+
+/// Defines additional types related to [TaintConfig].
+pub mod taint_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Controls architecture tainting behavior for a node pool.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ArchitectureTaintBehavior {
+        /// Specifies that the behavior is unspecified, defaults to ARM.
+        Unspecified,
+        /// Disables default architecture taints on the node pool.
+        None,
+        /// Taints all the nodes in the node pool with the default ARM taint.
+        Arm,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ArchitectureTaintBehavior::value] or
+        /// [ArchitectureTaintBehavior::name].
+        UnknownValue(architecture_taint_behavior::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod architecture_taint_behavior {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ArchitectureTaintBehavior {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Arm => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("ARCHITECTURE_TAINT_BEHAVIOR_UNSPECIFIED")
+                }
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Arm => std::option::Option::Some("ARM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ArchitectureTaintBehavior {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ArchitectureTaintBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ArchitectureTaintBehavior {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Arm,
+                _ => Self::UnknownValue(architecture_taint_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ArchitectureTaintBehavior {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ARCHITECTURE_TAINT_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "ARM" => Self::Arm,
+                _ => Self::UnknownValue(architecture_taint_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ArchitectureTaintBehavior {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Arm => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ArchitectureTaintBehavior {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<ArchitectureTaintBehavior>::new(
+                    ".google.container.v1.TaintConfig.ArchitectureTaintBehavior",
+                ),
+            )
         }
     }
 }
@@ -5237,7 +5875,7 @@ pub struct NodeNetworkConfig {
         std::option::Option<crate::model::node_network_config::NetworkPerformanceConfig>,
 
     /// [PRIVATE FIELD]
-    /// Pod CIDR size overprovisioning config for the nodepool.
+    /// Pod CIDR size overprovisioning config for the node pool.
     ///
     /// Pod CIDR size per node depends on max_pods_per_node. By default, the value
     /// of max_pods_per_node is rounded off to next power of 2 and we then double
@@ -5269,17 +5907,26 @@ pub struct NodeNetworkConfig {
     /// If the cluster is associated with multiple subnetworks, the subnetwork can
     /// be either:
     ///
-    /// 1. A user supplied subnetwork name/full path during node pool creation.
-    ///    Example1: my-subnet
-    ///    Example2: projects/gke-project/regions/us-central1/subnetworks/my-subnet
-    /// 1. A subnetwork path picked based on the IP utilization during node pool
-    ///    creation and is immutable.
+    /// - A user supplied subnetwork name during node pool creation (e.g.,
+    ///   `my-subnet`). The name must be between 1 and 63 characters long, start
+    ///   with a letter, contain only letters, numbers, and hyphens, and end with a
+    ///   letter or a number.
+    /// - A full subnetwork path during node pool creation, such as
+    ///   `projects/gke-project/regions/us-central1/subnetworks/my-subnet`
+    /// - A subnetwork path picked based on the IP utilization during node pool
+    ///   creation and is immutable.
     pub subnetwork: std::string::String,
 
     /// Output only. The network tier configuration for the node pool inherits from
     /// the cluster-level configuration and remains immutable throughout the node
     /// pool's lifecycle, including during upgrades.
     pub network_tier_config: std::option::Option<crate::model::NetworkTierConfig>,
+
+    /// Immutable. The accelerator network profile for the node pool. For now the
+    /// only valid value is "auto". If specified, the network configuration of the
+    /// nodes in this node pool will be managed by this profile for the supported
+    /// machine types, zone, etc.
+    pub accelerator_network_profile: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5527,6 +6174,21 @@ impl NodeNetworkConfig {
         T: std::convert::Into<crate::model::NetworkTierConfig>,
     {
         self.network_tier_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [accelerator_network_profile][crate::model::NodeNetworkConfig::accelerator_network_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_accelerator_network_profile("example");
+    /// ```
+    pub fn set_accelerator_network_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.accelerator_network_profile = v.into();
         self
     }
 }
@@ -6895,8 +7557,8 @@ pub mod containerd_config {
             /// Wildcards are NOT supported.
             /// Examples:
             ///
-            /// - my.customdomain.com
-            /// - 10.0.1.2:5000
+            /// - `my.customdomain.com`
+            /// - `10.0.1.2:5000`
             pub fqdns: std::vec::Vec<std::string::String>,
 
             /// Certificate access config. The following are supported:
@@ -7091,12 +7753,12 @@ pub mod containerd_config {
         /// Defines the host name of the registry server, which will be used to
         /// create configuration file as /etc/containerd/hosts.d/\<server\>/hosts.toml.
         /// It supports fully qualified domain names (FQDN) and IP addresses:
-        /// Specifying port is supported.
+        /// Specifying port is supported, while scheme and path are NOT supported.
         /// Wildcards are NOT supported.
         /// Examples:
         ///
-        /// - my.customdomain.com
-        /// - 10.0.1.2:5000
+        /// - `my.customdomain.com`
+        /// - `10.0.1.2:5000`
         pub server: std::string::String,
 
         /// HostConfig configures a list of host-specific configurations for the
@@ -7424,13 +8086,15 @@ pub mod containerd_config {
         #[non_exhaustive]
         pub struct HostConfig {
             /// Host configures the registry host/mirror.
-            /// It supports fully qualified domain names (FQDN) and IP addresses:
-            /// Specifying port is supported.
+            /// It supports fully qualified domain names (FQDNs) and IP addresses.
+            /// Specifying scheme, port or path is supported. Scheme can only be http
+            /// or https.
             /// Wildcards are NOT supported.
             /// Examples:
             ///
-            /// - my.customdomain.com
-            /// - 10.0.1.2:5000
+            /// - `my.customdomain.com`
+            /// - `<https://my.customdomain.com/path>`
+            /// - `10.0.1.2:5000`
             pub host: std::string::String,
 
             /// Capabilities represent the capabilities of the registry host,
@@ -8447,8 +9111,17 @@ pub struct AddonsConfig {
     /// Configuration for the Lustre CSI driver.
     pub lustre_csi_driver_config: std::option::Option<crate::model::LustreCsiDriverConfig>,
 
+    /// Optional. Configuration for the Pod Snapshot feature.
+    pub pod_snapshot_config: std::option::Option<crate::model::PodSnapshotConfig>,
+
+    /// Configuration for the Slurm Operator.
+    pub slurm_operator_config: std::option::Option<crate::model::SlurmOperatorConfig>,
+
     /// Optional. Configuration for the slice controller add-on.
     pub slice_controller_config: std::option::Option<crate::model::SliceControllerConfig>,
+
+    /// Optional. Configuration for NodeReadinessController add-on.
+    pub node_readiness_config: std::option::Option<crate::model::NodeReadinessConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9001,6 +9674,72 @@ impl AddonsConfig {
         self
     }
 
+    /// Sets the value of [pod_snapshot_config][crate::model::AddonsConfig::pod_snapshot_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::PodSnapshotConfig;
+    /// let x = AddonsConfig::new().set_pod_snapshot_config(PodSnapshotConfig::default()/* use setters */);
+    /// ```
+    pub fn set_pod_snapshot_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PodSnapshotConfig>,
+    {
+        self.pod_snapshot_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pod_snapshot_config][crate::model::AddonsConfig::pod_snapshot_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::PodSnapshotConfig;
+    /// let x = AddonsConfig::new().set_or_clear_pod_snapshot_config(Some(PodSnapshotConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_pod_snapshot_config(None::<PodSnapshotConfig>);
+    /// ```
+    pub fn set_or_clear_pod_snapshot_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PodSnapshotConfig>,
+    {
+        self.pod_snapshot_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [slurm_operator_config][crate::model::AddonsConfig::slurm_operator_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::SlurmOperatorConfig;
+    /// let x = AddonsConfig::new().set_slurm_operator_config(SlurmOperatorConfig::default()/* use setters */);
+    /// ```
+    pub fn set_slurm_operator_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SlurmOperatorConfig>,
+    {
+        self.slurm_operator_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [slurm_operator_config][crate::model::AddonsConfig::slurm_operator_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::SlurmOperatorConfig;
+    /// let x = AddonsConfig::new().set_or_clear_slurm_operator_config(Some(SlurmOperatorConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_slurm_operator_config(None::<SlurmOperatorConfig>);
+    /// ```
+    pub fn set_or_clear_slurm_operator_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SlurmOperatorConfig>,
+    {
+        self.slurm_operator_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [slice_controller_config][crate::model::AddonsConfig::slice_controller_config].
     ///
     /// # Example
@@ -9031,6 +9770,39 @@ impl AddonsConfig {
         T: std::convert::Into<crate::model::SliceControllerConfig>,
     {
         self.slice_controller_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [node_readiness_config][crate::model::AddonsConfig::node_readiness_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::NodeReadinessConfig;
+    /// let x = AddonsConfig::new().set_node_readiness_config(NodeReadinessConfig::default()/* use setters */);
+    /// ```
+    pub fn set_node_readiness_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeReadinessConfig>,
+    {
+        self.node_readiness_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_readiness_config][crate::model::AddonsConfig::node_readiness_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::NodeReadinessConfig;
+    /// let x = AddonsConfig::new().set_or_clear_node_readiness_config(Some(NodeReadinessConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_node_readiness_config(None::<NodeReadinessConfig>);
+    /// ```
+    pub fn set_or_clear_node_readiness_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeReadinessConfig>,
+    {
+        self.node_readiness_config = v.map(|x| x.into());
         self
     }
 }
@@ -9966,6 +10738,13 @@ pub struct LustreCsiDriverConfig {
     #[deprecated]
     pub enable_legacy_lustre_port: bool,
 
+    /// When set to true, this disables multi-NIC support for the Lustre CSI
+    /// driver.
+    /// By default, GKE enables multi-NIC support, which allows the Lustre
+    /// CSI driver to automatically detect and configure all suitable network
+    /// interfaces on a node to maximize I/O performance for demanding workloads.
+    pub disable_multi_nic: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9999,11 +10778,95 @@ impl LustreCsiDriverConfig {
         self.enable_legacy_lustre_port = v.into();
         self
     }
+
+    /// Sets the value of [disable_multi_nic][crate::model::LustreCsiDriverConfig::disable_multi_nic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LustreCsiDriverConfig;
+    /// let x = LustreCsiDriverConfig::new().set_disable_multi_nic(true);
+    /// ```
+    pub fn set_disable_multi_nic<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disable_multi_nic = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for LustreCsiDriverConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.LustreCsiDriverConfig"
+    }
+}
+
+/// Configuration for the Slurm Operator.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SlurmOperatorConfig {
+    /// When enabled, it runs a Slurm Operator that manages the set of compute pods
+    /// for Slurm Cluster.
+    pub enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SlurmOperatorConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::SlurmOperatorConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::SlurmOperatorConfig;
+    /// let x = SlurmOperatorConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SlurmOperatorConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.SlurmOperatorConfig"
+    }
+}
+
+/// Configuration for the GKE Node Readiness Controller.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NodeReadinessConfig {
+    /// Optional. Whether the GKE Node Readiness Controller is enabled for this
+    /// cluster.
+    pub enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NodeReadinessConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::NodeReadinessConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeReadinessConfig;
+    /// let x = NodeReadinessConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for NodeReadinessConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.NodeReadinessConfig"
     }
 }
 
@@ -11856,7 +12719,7 @@ pub struct Cluster {
     /// Fleet information for the cluster.
     pub fleet: std::option::Option<crate::model::Fleet>,
 
-    /// Enable/Disable Security Posture API features for the cluster.
+    /// Optional. Enable/Disable Security Posture API features for the cluster.
     pub security_posture_config: std::option::Option<crate::model::SecurityPostureConfig>,
 
     /// Configuration for all cluster's control plane endpoints.
@@ -11876,7 +12739,12 @@ pub struct Cluster {
     /// Secret CSI driver configuration.
     pub secret_manager_config: std::option::Option<crate::model::SecretManagerConfig>,
 
+    /// Optional. Deprecated: Compliance Posture is no longer supported.
+    /// For more details, see
+    /// <https://cloud.google.com/kubernetes-engine/docs/deprecations/posture-management-deprecation>.
+    ///
     /// Enable/Disable Compliance Posture features for the cluster.
+    #[deprecated]
     pub compliance_posture_config: std::option::Option<crate::model::CompliancePostureConfig>,
 
     /// Output only. Reserved for future use.
@@ -11900,8 +12768,24 @@ pub struct Cluster {
     pub anonymous_authentication_config:
         std::option::Option<crate::model::AnonymousAuthenticationConfig>,
 
+    /// Optional. Configuration for scheduled upgrades.
+    pub schedule_upgrade_config: std::option::Option<crate::model::ScheduleUpgradeConfig>,
+
+    /// Configuration for sync Secret Manager secrets as k8s secrets.
+    pub secret_sync_config: std::option::Option<crate::model::SecretSyncConfig>,
+
     /// Configuration for Managed OpenTelemetry pipeline.
     pub managed_opentelemetry_config: std::option::Option<crate::model::ManagedOpenTelemetryConfig>,
+
+    /// Configuration for control plane egress control.
+    pub control_plane_egress: std::option::Option<crate::model::ControlPlaneEgress>,
+
+    /// Configuration for Managed Machine Learning Diagnostics.
+    pub managed_machine_learning_diagnostics_config:
+        std::option::Option<crate::model::ManagedMachineLearningDiagnosticsConfig>,
+
+    /// Optional. Configuration for Node Creation Mode.
+    pub node_creation_config: std::option::Option<crate::model::NodeCreationConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13643,6 +14527,7 @@ impl Cluster {
     /// use google_cloud_container_v1::model::CompliancePostureConfig;
     /// let x = Cluster::new().set_compliance_posture_config(CompliancePostureConfig::default()/* use setters */);
     /// ```
+    #[deprecated]
     pub fn set_compliance_posture_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
@@ -13660,6 +14545,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_compliance_posture_config(Some(CompliancePostureConfig::default()/* use setters */));
     /// let x = Cluster::new().set_or_clear_compliance_posture_config(None::<CompliancePostureConfig>);
     /// ```
+    #[deprecated]
     pub fn set_or_clear_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
@@ -13865,6 +14751,72 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [schedule_upgrade_config][crate::model::Cluster::schedule_upgrade_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ScheduleUpgradeConfig;
+    /// let x = Cluster::new().set_schedule_upgrade_config(ScheduleUpgradeConfig::default()/* use setters */);
+    /// ```
+    pub fn set_schedule_upgrade_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScheduleUpgradeConfig>,
+    {
+        self.schedule_upgrade_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [schedule_upgrade_config][crate::model::Cluster::schedule_upgrade_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ScheduleUpgradeConfig;
+    /// let x = Cluster::new().set_or_clear_schedule_upgrade_config(Some(ScheduleUpgradeConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_schedule_upgrade_config(None::<ScheduleUpgradeConfig>);
+    /// ```
+    pub fn set_or_clear_schedule_upgrade_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScheduleUpgradeConfig>,
+    {
+        self.schedule_upgrade_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [secret_sync_config][crate::model::Cluster::secret_sync_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::SecretSyncConfig;
+    /// let x = Cluster::new().set_secret_sync_config(SecretSyncConfig::default()/* use setters */);
+    /// ```
+    pub fn set_secret_sync_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretSyncConfig>,
+    {
+        self.secret_sync_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [secret_sync_config][crate::model::Cluster::secret_sync_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::SecretSyncConfig;
+    /// let x = Cluster::new().set_or_clear_secret_sync_config(Some(SecretSyncConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_secret_sync_config(None::<SecretSyncConfig>);
+    /// ```
+    pub fn set_or_clear_secret_sync_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretSyncConfig>,
+    {
+        self.secret_sync_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [managed_opentelemetry_config][crate::model::Cluster::managed_opentelemetry_config].
     ///
     /// # Example
@@ -13895,6 +14847,108 @@ impl Cluster {
         T: std::convert::Into<crate::model::ManagedOpenTelemetryConfig>,
     {
         self.managed_opentelemetry_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [control_plane_egress][crate::model::Cluster::control_plane_egress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ControlPlaneEgress;
+    /// let x = Cluster::new().set_control_plane_egress(ControlPlaneEgress::default()/* use setters */);
+    /// ```
+    pub fn set_control_plane_egress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEgress>,
+    {
+        self.control_plane_egress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_plane_egress][crate::model::Cluster::control_plane_egress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ControlPlaneEgress;
+    /// let x = Cluster::new().set_or_clear_control_plane_egress(Some(ControlPlaneEgress::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_control_plane_egress(None::<ControlPlaneEgress>);
+    /// ```
+    pub fn set_or_clear_control_plane_egress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEgress>,
+    {
+        self.control_plane_egress = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [managed_machine_learning_diagnostics_config][crate::model::Cluster::managed_machine_learning_diagnostics_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ManagedMachineLearningDiagnosticsConfig;
+    /// let x = Cluster::new().set_managed_machine_learning_diagnostics_config(ManagedMachineLearningDiagnosticsConfig::default()/* use setters */);
+    /// ```
+    pub fn set_managed_machine_learning_diagnostics_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedMachineLearningDiagnosticsConfig>,
+    {
+        self.managed_machine_learning_diagnostics_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [managed_machine_learning_diagnostics_config][crate::model::Cluster::managed_machine_learning_diagnostics_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ManagedMachineLearningDiagnosticsConfig;
+    /// let x = Cluster::new().set_or_clear_managed_machine_learning_diagnostics_config(Some(ManagedMachineLearningDiagnosticsConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_managed_machine_learning_diagnostics_config(None::<ManagedMachineLearningDiagnosticsConfig>);
+    /// ```
+    pub fn set_or_clear_managed_machine_learning_diagnostics_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedMachineLearningDiagnosticsConfig>,
+    {
+        self.managed_machine_learning_diagnostics_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [node_creation_config][crate::model::Cluster::node_creation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodeCreationConfig;
+    /// let x = Cluster::new().set_node_creation_config(NodeCreationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_node_creation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeCreationConfig>,
+    {
+        self.node_creation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_creation_config][crate::model::Cluster::node_creation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodeCreationConfig;
+    /// let x = Cluster::new().set_or_clear_node_creation_config(Some(NodeCreationConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_node_creation_config(None::<NodeCreationConfig>);
+    /// ```
+    pub fn set_or_clear_node_creation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeCreationConfig>,
+    {
+        self.node_creation_config = v.map(|x| x.into());
         self
     }
 }
@@ -14071,6 +15125,366 @@ pub mod cluster {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
                 ".google.container.v1.Cluster.Status",
+            ))
+        }
+    }
+}
+
+/// NodeCreationConfig defines the settings of node creation mode.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NodeCreationConfig {
+    /// The mode of node creation.
+    pub node_creation_mode: crate::model::node_creation_config::Mode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NodeCreationConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [node_creation_mode][crate::model::NodeCreationConfig::node_creation_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeCreationConfig;
+    /// use google_cloud_container_v1::model::node_creation_config::Mode;
+    /// let x0 = NodeCreationConfig::new().set_node_creation_mode(Mode::ViaKubelet);
+    /// let x1 = NodeCreationConfig::new().set_node_creation_mode(Mode::ViaControlPlane);
+    /// ```
+    pub fn set_node_creation_mode<
+        T: std::convert::Into<crate::model::node_creation_config::Mode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.node_creation_mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for NodeCreationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.NodeCreationConfig"
+    }
+}
+
+/// Defines additional types related to [NodeCreationConfig].
+pub mod node_creation_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The mode of node creation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// When no user input is provided.
+        Unspecified,
+        /// Kubelet registers itself.
+        ViaKubelet,
+        /// gcp-controller-manager automatically creates the node object after
+        /// CSR approval.
+        ViaControlPlane,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ViaKubelet => std::option::Option::Some(1),
+                Self::ViaControlPlane => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::ViaKubelet => std::option::Option::Some("VIA_KUBELET"),
+                Self::ViaControlPlane => std::option::Option::Some("VIA_CONTROL_PLANE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ViaKubelet,
+                2 => Self::ViaControlPlane,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "VIA_KUBELET" => Self::ViaKubelet,
+                "VIA_CONTROL_PLANE" => Self::ViaControlPlane,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ViaKubelet => serializer.serialize_i32(1),
+                Self::ViaControlPlane => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.container.v1.NodeCreationConfig.Mode",
+            ))
+        }
+    }
+}
+
+/// ControlPlaneEgress defines the settings needed to enable
+/// control plane egress control.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ControlPlaneEgress {
+    /// Defines the mode of control plane egress.
+    pub mode: crate::model::control_plane_egress::Mode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ControlPlaneEgress {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mode][crate::model::ControlPlaneEgress::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ControlPlaneEgress;
+    /// use google_cloud_container_v1::model::control_plane_egress::Mode;
+    /// let x0 = ControlPlaneEgress::new().set_mode(Mode::ViaControlPlane);
+    /// let x1 = ControlPlaneEgress::new().set_mode(Mode::None);
+    /// ```
+    pub fn set_mode<T: std::convert::Into<crate::model::control_plane_egress::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ControlPlaneEgress {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.ControlPlaneEgress"
+    }
+}
+
+/// Defines additional types related to [ControlPlaneEgress].
+pub mod control_plane_egress {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Mode defines the mode of control plane egress.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Default value not specified.
+        Unspecified,
+        /// Control plane has public IP and no restriction on egress.
+        ViaControlPlane,
+        /// No public IP on control plane and only internal allowlisted egress.
+        None,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ViaControlPlane => std::option::Option::Some(1),
+                Self::None => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::ViaControlPlane => std::option::Option::Some("VIA_CONTROL_PLANE"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ViaControlPlane,
+                2 => Self::None,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "VIA_CONTROL_PLANE" => Self::ViaControlPlane,
+                "NONE" => Self::None,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ViaControlPlane => serializer.serialize_i32(1),
+                Self::None => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.container.v1.ControlPlaneEgress.Mode",
             ))
         }
     }
@@ -14545,10 +15959,15 @@ pub mod anonymous_authentication_config {
     }
 }
 
+/// Deprecated: Compliance Posture is no longer supported.
+/// For more details, see
+/// <https://cloud.google.com/kubernetes-engine/docs/deprecations/posture-management-deprecation>.
+///
 /// CompliancePostureConfig defines the settings needed to enable/disable
 /// features for the Compliance Posture.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CompliancePostureConfig {
     /// Defines the enablement mode for Compliance Posture.
     pub mode: std::option::Option<crate::model::compliance_posture_config::Mode>,
@@ -14891,7 +16310,6 @@ impl SecurityPostureConfig {
     /// use google_cloud_container_v1::model::security_posture_config::Mode;
     /// let x0 = SecurityPostureConfig::new().set_mode(Mode::Disabled);
     /// let x1 = SecurityPostureConfig::new().set_mode(Mode::Basic);
-    /// let x2 = SecurityPostureConfig::new().set_mode(Mode::Enterprise);
     /// ```
     pub fn set_mode<T>(mut self, v: T) -> Self
     where
@@ -14909,7 +16327,6 @@ impl SecurityPostureConfig {
     /// use google_cloud_container_v1::model::security_posture_config::Mode;
     /// let x0 = SecurityPostureConfig::new().set_or_clear_mode(Some(Mode::Disabled));
     /// let x1 = SecurityPostureConfig::new().set_or_clear_mode(Some(Mode::Basic));
-    /// let x2 = SecurityPostureConfig::new().set_or_clear_mode(Some(Mode::Enterprise));
     /// let x_none = SecurityPostureConfig::new().set_or_clear_mode(None::<Mode>);
     /// ```
     pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
@@ -14927,8 +16344,7 @@ impl SecurityPostureConfig {
     /// # use google_cloud_container_v1::model::SecurityPostureConfig;
     /// use google_cloud_container_v1::model::security_posture_config::VulnerabilityMode;
     /// let x0 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityDisabled);
-    /// let x1 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityBasic);
-    /// let x2 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityEnterprise);
+    /// let x1 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityEnterprise);
     /// ```
     pub fn set_vulnerability_mode<T>(mut self, v: T) -> Self
     where
@@ -14945,8 +16361,7 @@ impl SecurityPostureConfig {
     /// # use google_cloud_container_v1::model::SecurityPostureConfig;
     /// use google_cloud_container_v1::model::security_posture_config::VulnerabilityMode;
     /// let x0 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityDisabled));
-    /// let x1 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityBasic));
-    /// let x2 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityEnterprise));
+    /// let x1 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityEnterprise));
     /// let x_none = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(None::<VulnerabilityMode>);
     /// ```
     pub fn set_or_clear_vulnerability_mode<T>(mut self, v: std::option::Option<T>) -> Self
@@ -14993,7 +16408,12 @@ pub mod security_posture_config {
         Disabled,
         /// Applies Security Posture features on the cluster.
         Basic,
+        /// Deprecated: Security Posture Enterprise features are no longer supported.
+        /// For more details, see
+        /// <https://cloud.google.com/kubernetes-engine/docs/deprecations/posture-management-deprecation>.
+        ///
         /// Applies the Security Posture off cluster Enterprise level features.
+        #[deprecated]
         Enterprise,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -15130,7 +16550,12 @@ pub mod security_posture_config {
         Unspecified,
         /// Disables vulnerability scanning on the cluster.
         VulnerabilityDisabled,
+        /// Deprecated: Basic vulnerability scanning is no longer supported.
+        /// For more details, see
+        /// <https://cloud.google.com/kubernetes-engine/docs/deprecations/posture-management-deprecation>.
+        ///
         /// Applies basic vulnerability scanning on the cluster.
+        #[deprecated]
         VulnerabilityBasic,
         /// Applies the Security Posture's vulnerability on cluster Enterprise level
         /// features.
@@ -15931,7 +17356,12 @@ pub struct ClusterUpdate {
     /// Enable/Disable Secret Manager Config.
     pub desired_secret_manager_config: std::option::Option<crate::model::SecretManagerConfig>,
 
+    /// Deprecated: Compliance Posture is no longer supported.
+    /// For more details, see
+    /// <https://cloud.google.com/kubernetes-engine/docs/deprecations/posture-management-deprecation>.
+    ///
     /// Enable/Disable Compliance Posture features for the cluster.
+    #[deprecated]
     pub desired_compliance_posture_config:
         std::option::Option<crate::model::CompliancePostureConfig>,
 
@@ -15996,13 +17426,30 @@ pub struct ClusterUpdate {
     /// The desired network tier configuration for the cluster.
     pub desired_network_tier_config: std::option::Option<crate::model::NetworkTierConfig>,
 
+    /// Configuration for sync Secret Manager secrets as k8s secrets.
+    pub desired_secret_sync_config: std::option::Option<crate::model::SecretSyncConfig>,
+
     /// The desired privileged admission config for the cluster.
     pub desired_privileged_admission_config:
         std::option::Option<crate::model::PrivilegedAdmissionConfig>,
 
+    /// The desired control plane egress control config for the cluster.
+    pub desired_control_plane_egress: std::option::Option<crate::model::ControlPlaneEgress>,
+
     /// The desired managed open telemetry configuration.
     pub desired_managed_opentelemetry_config:
         std::option::Option<crate::model::ManagedOpenTelemetryConfig>,
+
+    /// The desired autopilot cluster policies that to be enforced in the cluster.
+    pub desired_autopilot_cluster_policy_config:
+        std::option::Option<crate::model::ClusterPolicyConfig>,
+
+    /// The desired managed machine learning diagnostics configuration.
+    pub desired_managed_machine_learning_diagnostics_config:
+        std::option::Option<crate::model::ManagedMachineLearningDiagnosticsConfig>,
+
+    /// Optional. The desired NodeCreationConfig for the cluster.
+    pub desired_node_creation_config: std::option::Option<crate::model::NodeCreationConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17825,6 +19272,7 @@ impl ClusterUpdate {
     /// use google_cloud_container_v1::model::CompliancePostureConfig;
     /// let x = ClusterUpdate::new().set_desired_compliance_posture_config(CompliancePostureConfig::default()/* use setters */);
     /// ```
+    #[deprecated]
     pub fn set_desired_compliance_posture_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
@@ -17842,6 +19290,7 @@ impl ClusterUpdate {
     /// let x = ClusterUpdate::new().set_or_clear_desired_compliance_posture_config(Some(CompliancePostureConfig::default()/* use setters */));
     /// let x = ClusterUpdate::new().set_or_clear_desired_compliance_posture_config(None::<CompliancePostureConfig>);
     /// ```
+    #[deprecated]
     pub fn set_or_clear_desired_compliance_posture_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -18302,6 +19751,39 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_secret_sync_config][crate::model::ClusterUpdate::desired_secret_sync_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::SecretSyncConfig;
+    /// let x = ClusterUpdate::new().set_desired_secret_sync_config(SecretSyncConfig::default()/* use setters */);
+    /// ```
+    pub fn set_desired_secret_sync_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretSyncConfig>,
+    {
+        self.desired_secret_sync_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_secret_sync_config][crate::model::ClusterUpdate::desired_secret_sync_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::SecretSyncConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_secret_sync_config(Some(SecretSyncConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_secret_sync_config(None::<SecretSyncConfig>);
+    /// ```
+    pub fn set_or_clear_desired_secret_sync_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretSyncConfig>,
+    {
+        self.desired_secret_sync_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [desired_privileged_admission_config][crate::model::ClusterUpdate::desired_privileged_admission_config].
     ///
     /// # Example
@@ -18338,6 +19820,39 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_control_plane_egress][crate::model::ClusterUpdate::desired_control_plane_egress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ControlPlaneEgress;
+    /// let x = ClusterUpdate::new().set_desired_control_plane_egress(ControlPlaneEgress::default()/* use setters */);
+    /// ```
+    pub fn set_desired_control_plane_egress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEgress>,
+    {
+        self.desired_control_plane_egress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_control_plane_egress][crate::model::ClusterUpdate::desired_control_plane_egress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ControlPlaneEgress;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_control_plane_egress(Some(ControlPlaneEgress::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_control_plane_egress(None::<ControlPlaneEgress>);
+    /// ```
+    pub fn set_or_clear_desired_control_plane_egress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEgress>,
+    {
+        self.desired_control_plane_egress = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [desired_managed_opentelemetry_config][crate::model::ClusterUpdate::desired_managed_opentelemetry_config].
     ///
     /// # Example
@@ -18371,6 +19886,112 @@ impl ClusterUpdate {
         T: std::convert::Into<crate::model::ManagedOpenTelemetryConfig>,
     {
         self.desired_managed_opentelemetry_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_autopilot_cluster_policy_config][crate::model::ClusterUpdate::desired_autopilot_cluster_policy_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterUpdate::new().set_desired_autopilot_cluster_policy_config(ClusterPolicyConfig::default()/* use setters */);
+    /// ```
+    pub fn set_desired_autopilot_cluster_policy_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterPolicyConfig>,
+    {
+        self.desired_autopilot_cluster_policy_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_autopilot_cluster_policy_config][crate::model::ClusterUpdate::desired_autopilot_cluster_policy_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_autopilot_cluster_policy_config(Some(ClusterPolicyConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_autopilot_cluster_policy_config(None::<ClusterPolicyConfig>);
+    /// ```
+    pub fn set_or_clear_desired_autopilot_cluster_policy_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterPolicyConfig>,
+    {
+        self.desired_autopilot_cluster_policy_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_managed_machine_learning_diagnostics_config][crate::model::ClusterUpdate::desired_managed_machine_learning_diagnostics_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ManagedMachineLearningDiagnosticsConfig;
+    /// let x = ClusterUpdate::new().set_desired_managed_machine_learning_diagnostics_config(ManagedMachineLearningDiagnosticsConfig::default()/* use setters */);
+    /// ```
+    pub fn set_desired_managed_machine_learning_diagnostics_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedMachineLearningDiagnosticsConfig>,
+    {
+        self.desired_managed_machine_learning_diagnostics_config =
+            std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_managed_machine_learning_diagnostics_config][crate::model::ClusterUpdate::desired_managed_machine_learning_diagnostics_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ManagedMachineLearningDiagnosticsConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_managed_machine_learning_diagnostics_config(Some(ManagedMachineLearningDiagnosticsConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_managed_machine_learning_diagnostics_config(None::<ManagedMachineLearningDiagnosticsConfig>);
+    /// ```
+    pub fn set_or_clear_desired_managed_machine_learning_diagnostics_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedMachineLearningDiagnosticsConfig>,
+    {
+        self.desired_managed_machine_learning_diagnostics_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_node_creation_config][crate::model::ClusterUpdate::desired_node_creation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodeCreationConfig;
+    /// let x = ClusterUpdate::new().set_desired_node_creation_config(NodeCreationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_desired_node_creation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeCreationConfig>,
+    {
+        self.desired_node_creation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_creation_config][crate::model::ClusterUpdate::desired_node_creation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodeCreationConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_creation_config(Some(NodeCreationConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_creation_config(None::<NodeCreationConfig>);
+    /// ```
+    pub fn set_or_clear_desired_node_creation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeCreationConfig>,
+    {
+        self.desired_node_creation_config = v.map(|x| x.into());
         self
     }
 }
@@ -18536,7 +20157,7 @@ pub mod additional_ip_ranges_config {
 
     /// Additional subnet with DRAINING status will not be selected during new node
     /// pool creation. To undrain the draining status, update the cluster to set
-    /// the sunbet to ACTIVE status. To remove the additional subnet, use the
+    /// the subnet to ACTIVE status. To remove the additional subnet, use the
     /// update cluster API to remove the subnet from the
     /// desired_additional_ip_ranges list. IP ranges can be removed regardless of
     /// its status, as long as no node pools are using them.
@@ -20536,6 +22157,9 @@ pub struct UpdateNodePoolRequest {
     /// default behavior, i.e. according to the chosen autoscaling profile.
     pub consolidation_delay: std::option::Option<wkt::Duration>,
 
+    /// The taint configuration for the node pool.
+    pub taint_config: std::option::Option<crate::model::TaintConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -21491,6 +23115,39 @@ impl UpdateNodePoolRequest {
         T: std::convert::Into<wkt::Duration>,
     {
         self.consolidation_delay = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [taint_config][crate::model::UpdateNodePoolRequest::taint_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::TaintConfig;
+    /// let x = UpdateNodePoolRequest::new().set_taint_config(TaintConfig::default()/* use setters */);
+    /// ```
+    pub fn set_taint_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TaintConfig>,
+    {
+        self.taint_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [taint_config][crate::model::UpdateNodePoolRequest::taint_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::TaintConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_taint_config(Some(TaintConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_taint_config(None::<TaintConfig>);
+    /// ```
+    pub fn set_or_clear_taint_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TaintConfig>,
+    {
+        self.taint_config = v.map(|x| x.into());
         self
     }
 }
@@ -24405,6 +26062,9 @@ pub struct NodePool {
     /// Specifies the node drain configuration for this node pool.
     pub node_drain_config: std::option::Option<crate::model::node_pool::NodeDrainConfig>,
 
+    /// Optional. Specifies the maintenance policy for the node pool.
+    pub maintenance_policy: std::option::Option<crate::model::node_pool::NodePoolMaintenancePolicy>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -24933,6 +26593,39 @@ impl NodePool {
         T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
     {
         self.node_drain_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [maintenance_policy][crate::model::NodePool::maintenance_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::NodePoolMaintenancePolicy;
+    /// let x = NodePool::new().set_maintenance_policy(NodePoolMaintenancePolicy::default()/* use setters */);
+    /// ```
+    pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodePoolMaintenancePolicy>,
+    {
+        self.maintenance_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_policy][crate::model::NodePool::maintenance_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::NodePoolMaintenancePolicy;
+    /// let x = NodePool::new().set_or_clear_maintenance_policy(Some(NodePoolMaintenancePolicy::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_maintenance_policy(None::<NodePoolMaintenancePolicy>);
+    /// ```
+    pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodePoolMaintenancePolicy>,
+    {
+        self.maintenance_policy = v.map(|x| x.into());
         self
     }
 }
@@ -25703,7 +27396,7 @@ pub mod node_pool {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueuedProvisioning {
-        /// Denotes that this nodepool is QRM specific, meaning nodes can be only
+        /// Denotes that this node pool is QRM specific, meaning nodes can be only
         /// obtained through queuing via the Cluster Autoscaler ProvisioningRequest
         /// API.
         pub enabled: bool,
@@ -25737,10 +27430,16 @@ pub mod node_pool {
     }
 
     /// NodeDrainConfig contains the node drain related configurations for this
-    /// nodepool.
+    /// node pool.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NodeDrainConfig {
+        /// The duration of the PDB timeout period for node drain.
+        pub pdb_timeout_duration: std::option::Option<wkt::Duration>,
+
+        /// The duration of the grace termination period for node drain.
+        pub grace_termination_duration: std::option::Option<wkt::Duration>,
+
         /// Whether to respect PDB during node pool deletion.
         pub respect_pdb_during_node_pool_deletion: std::option::Option<bool>,
 
@@ -25751,6 +27450,75 @@ pub mod node_pool {
         /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [pdb_timeout_duration][crate::model::node_pool::NodeDrainConfig::pdb_timeout_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+        /// use wkt::Duration;
+        /// let x = NodeDrainConfig::new().set_pdb_timeout_duration(Duration::default()/* use setters */);
+        /// ```
+        pub fn set_pdb_timeout_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.pdb_timeout_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pdb_timeout_duration][crate::model::node_pool::NodeDrainConfig::pdb_timeout_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+        /// use wkt::Duration;
+        /// let x = NodeDrainConfig::new().set_or_clear_pdb_timeout_duration(Some(Duration::default()/* use setters */));
+        /// let x = NodeDrainConfig::new().set_or_clear_pdb_timeout_duration(None::<Duration>);
+        /// ```
+        pub fn set_or_clear_pdb_timeout_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.pdb_timeout_duration = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [grace_termination_duration][crate::model::node_pool::NodeDrainConfig::grace_termination_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+        /// use wkt::Duration;
+        /// let x = NodeDrainConfig::new().set_grace_termination_duration(Duration::default()/* use setters */);
+        /// ```
+        pub fn set_grace_termination_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.grace_termination_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grace_termination_duration][crate::model::node_pool::NodeDrainConfig::grace_termination_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+        /// use wkt::Duration;
+        /// let x = NodeDrainConfig::new().set_or_clear_grace_termination_duration(Some(Duration::default()/* use setters */));
+        /// let x = NodeDrainConfig::new().set_or_clear_grace_termination_duration(None::<Duration>);
+        /// ```
+        pub fn set_or_clear_grace_termination_duration<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.grace_termination_duration = v.map(|x| x.into());
+            self
         }
 
         /// Sets the value of [respect_pdb_during_node_pool_deletion][crate::model::node_pool::NodeDrainConfig::respect_pdb_during_node_pool_deletion].
@@ -25791,6 +27559,177 @@ pub mod node_pool {
     impl wkt::message::Message for NodeDrainConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.container.v1.NodePool.NodeDrainConfig"
+        }
+    }
+
+    /// Defines the maintenance exclusion for the node pool.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ExclusionUntilEndOfSupport {
+        /// Optional. Indicates whether the exclusion is enabled.
+        pub enabled: bool,
+
+        /// Output only. The start time of the maintenance exclusion. It is output
+        /// only. It is the exclusion creation time.
+        pub start_time: std::option::Option<wkt::Timestamp>,
+
+        /// Output only. The end time of the maintenance exclusion. It is output
+        /// only. It is the cluster control plane version's end of support time, or
+        /// end of extended support time when the cluster is on extended support
+        /// channel.
+        pub end_time: std::option::Option<wkt::Timestamp>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ExclusionUntilEndOfSupport {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::node_pool::ExclusionUntilEndOfSupport::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// let x = ExclusionUntilEndOfSupport::new().set_enabled(true);
+        /// ```
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [start_time][crate::model::node_pool::ExclusionUntilEndOfSupport::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// use wkt::Timestamp;
+        /// let x = ExclusionUntilEndOfSupport::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::node_pool::ExclusionUntilEndOfSupport::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// use wkt::Timestamp;
+        /// let x = ExclusionUntilEndOfSupport::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ExclusionUntilEndOfSupport::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [end_time][crate::model::node_pool::ExclusionUntilEndOfSupport::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// use wkt::Timestamp;
+        /// let x = ExclusionUntilEndOfSupport::new().set_end_time(Timestamp::default()/* use setters */);
+        /// ```
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::node_pool::ExclusionUntilEndOfSupport::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// use wkt::Timestamp;
+        /// let x = ExclusionUntilEndOfSupport::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ExclusionUntilEndOfSupport::new().set_or_clear_end_time(None::<Timestamp>);
+        /// ```
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ExclusionUntilEndOfSupport {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.NodePool.ExclusionUntilEndOfSupport"
+        }
+    }
+
+    /// Defines the maintenance policy for the node pool.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct NodePoolMaintenancePolicy {
+        /// Optional. The exclusion until end of support for the node pool.
+        pub exclusion_until_end_of_support:
+            std::option::Option<crate::model::node_pool::ExclusionUntilEndOfSupport>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl NodePoolMaintenancePolicy {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [exclusion_until_end_of_support][crate::model::node_pool::NodePoolMaintenancePolicy::exclusion_until_end_of_support].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodePoolMaintenancePolicy;
+        /// use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// let x = NodePoolMaintenancePolicy::new().set_exclusion_until_end_of_support(ExclusionUntilEndOfSupport::default()/* use setters */);
+        /// ```
+        pub fn set_exclusion_until_end_of_support<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::ExclusionUntilEndOfSupport>,
+        {
+            self.exclusion_until_end_of_support = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion_until_end_of_support][crate::model::node_pool::NodePoolMaintenancePolicy::exclusion_until_end_of_support].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodePoolMaintenancePolicy;
+        /// use google_cloud_container_v1::model::node_pool::ExclusionUntilEndOfSupport;
+        /// let x = NodePoolMaintenancePolicy::new().set_or_clear_exclusion_until_end_of_support(Some(ExclusionUntilEndOfSupport::default()/* use setters */));
+        /// let x = NodePoolMaintenancePolicy::new().set_or_clear_exclusion_until_end_of_support(None::<ExclusionUntilEndOfSupport>);
+        /// ```
+        pub fn set_or_clear_exclusion_until_end_of_support<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::ExclusionUntilEndOfSupport>,
+        {
+            self.exclusion_until_end_of_support = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for NodePoolMaintenancePolicy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.NodePool.NodePoolMaintenancePolicy"
         }
     }
 
@@ -26179,6 +28118,9 @@ pub struct MaintenancePolicy {
     /// resource version and include it with requests to set the policy.
     pub resource_version: std::string::String,
 
+    /// Optional. The upgrade disruption budget for the cluster control plane.
+    pub disruption_budget: std::option::Option<crate::model::DisruptionBudget>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -26235,11 +28177,221 @@ impl MaintenancePolicy {
         self.resource_version = v.into();
         self
     }
+
+    /// Sets the value of [disruption_budget][crate::model::MaintenancePolicy::disruption_budget].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::MaintenancePolicy;
+    /// use google_cloud_container_v1::model::DisruptionBudget;
+    /// let x = MaintenancePolicy::new().set_disruption_budget(DisruptionBudget::default()/* use setters */);
+    /// ```
+    pub fn set_disruption_budget<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DisruptionBudget>,
+    {
+        self.disruption_budget = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disruption_budget][crate::model::MaintenancePolicy::disruption_budget].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::MaintenancePolicy;
+    /// use google_cloud_container_v1::model::DisruptionBudget;
+    /// let x = MaintenancePolicy::new().set_or_clear_disruption_budget(Some(DisruptionBudget::default()/* use setters */));
+    /// let x = MaintenancePolicy::new().set_or_clear_disruption_budget(None::<DisruptionBudget>);
+    /// ```
+    pub fn set_or_clear_disruption_budget<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DisruptionBudget>,
+    {
+        self.disruption_budget = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for MaintenancePolicy {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.MaintenancePolicy"
+    }
+}
+
+/// DisruptionBudget defines the upgrade disruption budget for the cluster
+/// control plane.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DisruptionBudget {
+    /// Optional. The minimum duration between two minor version upgrades of the
+    /// control plane.
+    pub minor_version_disruption_interval: std::option::Option<wkt::Duration>,
+
+    /// Optional. The minimum duration between two patch version upgrades of the
+    /// control plane.
+    pub patch_version_disruption_interval: std::option::Option<wkt::Duration>,
+
+    /// Output only. The last time a minor version upgrade was performed on the
+    /// control plane.
+    pub last_minor_version_disruption_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The last time a disruption was performed on the control plane.
+    pub last_disruption_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisruptionBudget {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [minor_version_disruption_interval][crate::model::DisruptionBudget::minor_version_disruption_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Duration;
+    /// let x = DisruptionBudget::new().set_minor_version_disruption_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_minor_version_disruption_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.minor_version_disruption_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [minor_version_disruption_interval][crate::model::DisruptionBudget::minor_version_disruption_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Duration;
+    /// let x = DisruptionBudget::new().set_or_clear_minor_version_disruption_interval(Some(Duration::default()/* use setters */));
+    /// let x = DisruptionBudget::new().set_or_clear_minor_version_disruption_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_minor_version_disruption_interval<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.minor_version_disruption_interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [patch_version_disruption_interval][crate::model::DisruptionBudget::patch_version_disruption_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Duration;
+    /// let x = DisruptionBudget::new().set_patch_version_disruption_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_patch_version_disruption_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.patch_version_disruption_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [patch_version_disruption_interval][crate::model::DisruptionBudget::patch_version_disruption_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Duration;
+    /// let x = DisruptionBudget::new().set_or_clear_patch_version_disruption_interval(Some(Duration::default()/* use setters */));
+    /// let x = DisruptionBudget::new().set_or_clear_patch_version_disruption_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_patch_version_disruption_interval<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.patch_version_disruption_interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_minor_version_disruption_time][crate::model::DisruptionBudget::last_minor_version_disruption_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Timestamp;
+    /// let x = DisruptionBudget::new().set_last_minor_version_disruption_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_minor_version_disruption_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_minor_version_disruption_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_minor_version_disruption_time][crate::model::DisruptionBudget::last_minor_version_disruption_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Timestamp;
+    /// let x = DisruptionBudget::new().set_or_clear_last_minor_version_disruption_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DisruptionBudget::new().set_or_clear_last_minor_version_disruption_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_minor_version_disruption_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_minor_version_disruption_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_disruption_time][crate::model::DisruptionBudget::last_disruption_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Timestamp;
+    /// let x = DisruptionBudget::new().set_last_disruption_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_disruption_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_disruption_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_disruption_time][crate::model::DisruptionBudget::last_disruption_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionBudget;
+    /// use wkt::Timestamp;
+    /// let x = DisruptionBudget::new().set_or_clear_last_disruption_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DisruptionBudget::new().set_or_clear_last_disruption_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_disruption_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_disruption_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DisruptionBudget {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.DisruptionBudget"
     }
 }
 
@@ -26336,6 +28488,7 @@ impl MaintenanceWindow {
     /// let x = MaintenanceWindow::new().set_daily_maintenance_window(DailyMaintenanceWindow::default()/* use setters */);
     /// assert!(x.daily_maintenance_window().is_some());
     /// assert!(x.recurring_window().is_none());
+    /// assert!(x.recurring_maintenance_window().is_none());
     /// ```
     pub fn set_daily_maintenance_window<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyMaintenanceWindow>>,
@@ -26377,6 +28530,7 @@ impl MaintenanceWindow {
     /// let x = MaintenanceWindow::new().set_recurring_window(RecurringTimeWindow::default()/* use setters */);
     /// assert!(x.recurring_window().is_some());
     /// assert!(x.daily_maintenance_window().is_none());
+    /// assert!(x.recurring_maintenance_window().is_none());
     /// ```
     pub fn set_recurring_window<
         T: std::convert::Into<std::boxed::Box<crate::model::RecurringTimeWindow>>,
@@ -26386,6 +28540,48 @@ impl MaintenanceWindow {
     ) -> Self {
         self.policy = std::option::Option::Some(
             crate::model::maintenance_window::Policy::RecurringWindow(v.into()),
+        );
+        self
+    }
+
+    /// The value of [policy][crate::model::MaintenanceWindow::policy]
+    /// if it holds a `RecurringMaintenanceWindow`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn recurring_maintenance_window(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringMaintenanceWindow>> {
+        #[allow(unreachable_patterns)]
+        self.policy.as_ref().and_then(|v| match v {
+            crate::model::maintenance_window::Policy::RecurringMaintenanceWindow(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [policy][crate::model::MaintenanceWindow::policy]
+    /// to hold a `RecurringMaintenanceWindow`.
+    ///
+    /// Note that all the setters affecting `policy` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::MaintenanceWindow;
+    /// use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// let x = MaintenanceWindow::new().set_recurring_maintenance_window(RecurringMaintenanceWindow::default()/* use setters */);
+    /// assert!(x.recurring_maintenance_window().is_some());
+    /// assert!(x.daily_maintenance_window().is_none());
+    /// assert!(x.recurring_window().is_none());
+    /// ```
+    pub fn set_recurring_maintenance_window<
+        T: std::convert::Into<std::boxed::Box<crate::model::RecurringMaintenanceWindow>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.policy = std::option::Option::Some(
+            crate::model::maintenance_window::Policy::RecurringMaintenanceWindow(v.into()),
         );
         self
     }
@@ -26412,6 +28608,11 @@ pub mod maintenance_window {
         /// maintenance to occur. The time windows may be overlapping. If no
         /// maintenance windows are set, maintenance can occur at any time.
         RecurringWindow(std::boxed::Box<crate::model::RecurringTimeWindow>),
+        /// RecurringMaintenanceWindow specifies some number of recurring time
+        /// periods for maintenance to occur. The time windows may be overlapping.
+        /// If no maintenance windows are set, maintenance can occur at any time.
+        /// Alternative to RecurringWindow, with renamed fields.
+        RecurringMaintenanceWindow(std::boxed::Box<crate::model::RecurringMaintenanceWindow>),
     }
 }
 
@@ -27023,6 +29224,166 @@ impl RecurringTimeWindow {
 impl wkt::message::Message for RecurringTimeWindow {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.RecurringTimeWindow"
+    }
+}
+
+/// Represents an arbitrary window of time that recurs.
+/// Will replace RecurringTimeWindow.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RecurringMaintenanceWindow {
+    /// Optional. Specifies the date before which will not be scheduled.
+    /// Depending on the recurrence, this may be the date the first window appears.
+    /// Days are measured in the UTC timezone. This setting must be used when
+    /// INTERVAL>1 or FREQ=WEEKLY/MONTHLY and no BYDAY specified.
+    pub delay_until: std::option::Option<google_cloud_type::model::Date>,
+
+    /// Required. Start time of the window on days that it is scheduled,
+    /// assuming UTC timezone.
+    pub window_start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
+
+    /// Required. Duration of the window.
+    pub window_duration: std::option::Option<wkt::Duration>,
+
+    /// Required. An RRULE (<https://tools.ietf.org/html/rfc5545#section-3.8.5.3>)
+    /// for how this window recurs.
+    ///
+    /// For example, to have something repeat every weekday, you'd use:
+    /// `FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR`
+    ///
+    /// To repeat some window daily (equivalent to the DailyMaintenanceWindow):
+    /// `FREQ=DAILY`
+    ///
+    /// For the first weekend of every month:
+    /// `FREQ=MONTHLY;BYSETPOS=1;BYDAY=SA,SU`
+    ///
+    /// The FREQ values of HOURLY, MINUTELY, and SECONDLY are not supported.
+    pub recurrence: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RecurringMaintenanceWindow {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [delay_until][crate::model::RecurringMaintenanceWindow::delay_until].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// use google_cloud_type::model::Date;
+    /// let x = RecurringMaintenanceWindow::new().set_delay_until(Date::default()/* use setters */);
+    /// ```
+    pub fn set_delay_until<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Date>,
+    {
+        self.delay_until = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delay_until][crate::model::RecurringMaintenanceWindow::delay_until].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// use google_cloud_type::model::Date;
+    /// let x = RecurringMaintenanceWindow::new().set_or_clear_delay_until(Some(Date::default()/* use setters */));
+    /// let x = RecurringMaintenanceWindow::new().set_or_clear_delay_until(None::<Date>);
+    /// ```
+    pub fn set_or_clear_delay_until<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Date>,
+    {
+        self.delay_until = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [window_start_time][crate::model::RecurringMaintenanceWindow::window_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// use google_cloud_type::model::TimeOfDay;
+    /// let x = RecurringMaintenanceWindow::new().set_window_start_time(TimeOfDay::default()/* use setters */);
+    /// ```
+    pub fn set_window_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
+    {
+        self.window_start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window_start_time][crate::model::RecurringMaintenanceWindow::window_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// use google_cloud_type::model::TimeOfDay;
+    /// let x = RecurringMaintenanceWindow::new().set_or_clear_window_start_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = RecurringMaintenanceWindow::new().set_or_clear_window_start_time(None::<TimeOfDay>);
+    /// ```
+    pub fn set_or_clear_window_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
+    {
+        self.window_start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [window_duration][crate::model::RecurringMaintenanceWindow::window_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// use wkt::Duration;
+    /// let x = RecurringMaintenanceWindow::new().set_window_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_window_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.window_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window_duration][crate::model::RecurringMaintenanceWindow::window_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// use wkt::Duration;
+    /// let x = RecurringMaintenanceWindow::new().set_or_clear_window_duration(Some(Duration::default()/* use setters */));
+    /// let x = RecurringMaintenanceWindow::new().set_or_clear_window_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_window_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.window_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [recurrence][crate::model::RecurringMaintenanceWindow::recurrence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::RecurringMaintenanceWindow;
+    /// let x = RecurringMaintenanceWindow::new().set_recurrence("example");
+    /// ```
+    pub fn set_recurrence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.recurrence = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RecurringMaintenanceWindow {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.RecurringMaintenanceWindow"
     }
 }
 
@@ -27759,6 +30120,7 @@ impl ClusterAutoscaling {
     /// # use google_cloud_container_v1::model::ClusterAutoscaling;
     /// use google_cloud_container_v1::model::cluster_autoscaling::AutopilotGeneralProfile;
     /// let x0 = ClusterAutoscaling::new().set_autopilot_general_profile(AutopilotGeneralProfile::NoPerformance);
+    /// let x1 = ClusterAutoscaling::new().set_autopilot_general_profile(AutopilotGeneralProfile::None);
     /// ```
     pub fn set_autopilot_general_profile<
         T: std::convert::Into<crate::model::cluster_autoscaling::AutopilotGeneralProfile>,
@@ -27936,6 +30298,8 @@ pub mod cluster_autoscaling {
         Unspecified,
         /// Avoid extra IP consumption.
         NoPerformance,
+        /// Use default configuration.
+        None,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [AutopilotGeneralProfile::value] or
@@ -27960,6 +30324,7 @@ pub mod cluster_autoscaling {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::NoPerformance => std::option::Option::Some(1),
+                Self::None => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -27974,6 +30339,7 @@ pub mod cluster_autoscaling {
                     std::option::Option::Some("AUTOPILOT_GENERAL_PROFILE_UNSPECIFIED")
                 }
                 Self::NoPerformance => std::option::Option::Some("NO_PERFORMANCE"),
+                Self::None => std::option::Option::Some("NONE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -27997,6 +30363,7 @@ pub mod cluster_autoscaling {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::NoPerformance,
+                2 => Self::None,
                 _ => Self::UnknownValue(autopilot_general_profile::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -28010,6 +30377,7 @@ pub mod cluster_autoscaling {
             match value {
                 "AUTOPILOT_GENERAL_PROFILE_UNSPECIFIED" => Self::Unspecified,
                 "NO_PERFORMANCE" => Self::NoPerformance,
+                "NONE" => Self::None,
                 _ => Self::UnknownValue(autopilot_general_profile::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -28025,6 +30393,7 @@ pub mod cluster_autoscaling {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::NoPerformance => serializer.serialize_i32(1),
+                Self::None => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -28472,7 +30841,7 @@ pub struct NodePoolAutoscaling {
     /// Can this node pool be deleted automatically.
     pub autoprovisioned: bool,
 
-    /// Location policy used when scaling up a nodepool.
+    /// Location policy used when scaling up a node pool.
     pub location_policy: crate::model::node_pool_autoscaling::LocationPolicy,
 
     /// Minimum number of nodes in the node pool. Must be greater than or equal
@@ -28600,7 +30969,7 @@ pub mod node_pool_autoscaling {
     use super::*;
 
     /// Location policy specifies how zones are picked when scaling up the
-    /// nodepool.
+    /// node pool.
     ///
     /// # Working with unknown values
     ///
@@ -33150,6 +35519,7 @@ impl DatabaseEncryption {
     /// use google_cloud_container_v1::model::database_encryption::State;
     /// let x0 = DatabaseEncryption::new().set_state(State::Encrypted);
     /// let x1 = DatabaseEncryption::new().set_state(State::Decrypted);
+    /// let x2 = DatabaseEncryption::new().set_state(State::AllObjectsEncryptionEnabled);
     /// ```
     pub fn set_state<T: std::convert::Into<crate::model::database_encryption::State>>(
         mut self,
@@ -33362,6 +35732,10 @@ pub mod database_encryption {
         /// Secrets in etcd are stored in plain text (at etcd level) - this is
         /// unrelated to Compute Engine level full disk encryption.
         Decrypted,
+        /// Encryption of all objects in the storage is enabled. There is no
+        /// guarantee that all objects in the storage are encrypted, but eventually
+        /// they will be.
+        AllObjectsEncryptionEnabled,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -33387,6 +35761,7 @@ pub mod database_encryption {
                 Self::Unknown => std::option::Option::Some(0),
                 Self::Encrypted => std::option::Option::Some(1),
                 Self::Decrypted => std::option::Option::Some(2),
+                Self::AllObjectsEncryptionEnabled => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -33400,6 +35775,9 @@ pub mod database_encryption {
                 Self::Unknown => std::option::Option::Some("UNKNOWN"),
                 Self::Encrypted => std::option::Option::Some("ENCRYPTED"),
                 Self::Decrypted => std::option::Option::Some("DECRYPTED"),
+                Self::AllObjectsEncryptionEnabled => {
+                    std::option::Option::Some("ALL_OBJECTS_ENCRYPTION_ENABLED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -33424,6 +35802,7 @@ pub mod database_encryption {
                 0 => Self::Unknown,
                 1 => Self::Encrypted,
                 2 => Self::Decrypted,
+                3 => Self::AllObjectsEncryptionEnabled,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -33438,6 +35817,7 @@ pub mod database_encryption {
                 "UNKNOWN" => Self::Unknown,
                 "ENCRYPTED" => Self::Encrypted,
                 "DECRYPTED" => Self::Decrypted,
+                "ALL_OBJECTS_ENCRYPTION_ENABLED" => Self::AllObjectsEncryptionEnabled,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -33454,6 +35834,7 @@ pub mod database_encryption {
                 Self::Unknown => serializer.serialize_i32(0),
                 Self::Encrypted => serializer.serialize_i32(1),
                 Self::Decrypted => serializer.serialize_i32(2),
+                Self::AllObjectsEncryptionEnabled => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -33505,6 +35886,14 @@ pub mod database_encryption {
         DecryptionPending,
         /// De-crypting Secrets to plain text in etcd encountered an error.
         DecryptionError,
+        /// Encryption of all objects in the storage is enabled.
+        /// It does not guarantee that all objects in the storage are encrypted,
+        /// but eventually they will be.
+        AllObjectsEncryptionEnabled,
+        /// Enablement of the encryption of all objects in storage is pending.
+        AllObjectsEncryptionPending,
+        /// Enabling encryption of all objects in storage encountered an error.
+        AllObjectsEncryptionError,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CurrentState::value] or
@@ -33534,6 +35923,9 @@ pub mod database_encryption {
                 Self::EncryptionError => std::option::Option::Some(4),
                 Self::DecryptionPending => std::option::Option::Some(5),
                 Self::DecryptionError => std::option::Option::Some(6),
+                Self::AllObjectsEncryptionEnabled => std::option::Option::Some(8),
+                Self::AllObjectsEncryptionPending => std::option::Option::Some(9),
+                Self::AllObjectsEncryptionError => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -33558,6 +35950,15 @@ pub mod database_encryption {
                 }
                 Self::DecryptionError => {
                     std::option::Option::Some("CURRENT_STATE_DECRYPTION_ERROR")
+                }
+                Self::AllObjectsEncryptionEnabled => {
+                    std::option::Option::Some("CURRENT_STATE_ALL_OBJECTS_ENCRYPTION_ENABLED")
+                }
+                Self::AllObjectsEncryptionPending => {
+                    std::option::Option::Some("CURRENT_STATE_ALL_OBJECTS_ENCRYPTION_PENDING")
+                }
+                Self::AllObjectsEncryptionError => {
+                    std::option::Option::Some("CURRENT_STATE_ALL_OBJECTS_ENCRYPTION_ERROR")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -33587,6 +35988,9 @@ pub mod database_encryption {
                 5 => Self::DecryptionPending,
                 6 => Self::DecryptionError,
                 7 => Self::Encrypted,
+                8 => Self::AllObjectsEncryptionEnabled,
+                9 => Self::AllObjectsEncryptionPending,
+                10 => Self::AllObjectsEncryptionError,
                 _ => Self::UnknownValue(current_state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -33605,6 +36009,9 @@ pub mod database_encryption {
                 "CURRENT_STATE_ENCRYPTION_ERROR" => Self::EncryptionError,
                 "CURRENT_STATE_DECRYPTION_PENDING" => Self::DecryptionPending,
                 "CURRENT_STATE_DECRYPTION_ERROR" => Self::DecryptionError,
+                "CURRENT_STATE_ALL_OBJECTS_ENCRYPTION_ENABLED" => Self::AllObjectsEncryptionEnabled,
+                "CURRENT_STATE_ALL_OBJECTS_ENCRYPTION_PENDING" => Self::AllObjectsEncryptionPending,
+                "CURRENT_STATE_ALL_OBJECTS_ENCRYPTION_ERROR" => Self::AllObjectsEncryptionError,
                 _ => Self::UnknownValue(current_state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -33625,6 +36032,9 @@ pub mod database_encryption {
                 Self::EncryptionError => serializer.serialize_i32(4),
                 Self::DecryptionPending => serializer.serialize_i32(5),
                 Self::DecryptionError => serializer.serialize_i32(6),
+                Self::AllObjectsEncryptionEnabled => serializer.serialize_i32(8),
+                Self::AllObjectsEncryptionPending => serializer.serialize_i32(9),
+                Self::AllObjectsEncryptionError => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -35593,9 +38003,9 @@ impl UpgradeInfoEvent {
     /// ```ignore,no_run
     /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
     /// use google_cloud_container_v1::model::upgrade_info_event::State;
-    /// let x0 = UpgradeInfoEvent::new().set_state(State::Started);
-    /// let x1 = UpgradeInfoEvent::new().set_state(State::Succeeded);
-    /// let x2 = UpgradeInfoEvent::new().set_state(State::Failed);
+    /// let x0 = UpgradeInfoEvent::new().set_state(State::Scheduled);
+    /// let x1 = UpgradeInfoEvent::new().set_state(State::Started);
+    /// let x2 = UpgradeInfoEvent::new().set_state(State::Succeeded);
     /// ```
     pub fn set_state<T: std::convert::Into<crate::model::upgrade_info_event::State>>(
         mut self,
@@ -35766,6 +38176,8 @@ pub mod upgrade_info_event {
     pub enum State {
         /// STATE_UNSPECIFIED indicates the state is unspecified.
         Unspecified,
+        /// SCHEDULED indicates the upgrade was scheduled.
+        Scheduled,
         /// STARTED indicates the upgrade has started.
         Started,
         /// SUCCEEDED indicates the upgrade has completed successfully.
@@ -35797,6 +38209,7 @@ pub mod upgrade_info_event {
         pub fn value(&self) -> std::option::Option<i32> {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
+                Self::Scheduled => std::option::Option::Some(1),
                 Self::Started => std::option::Option::Some(3),
                 Self::Succeeded => std::option::Option::Some(4),
                 Self::Failed => std::option::Option::Some(5),
@@ -35812,6 +38225,7 @@ pub mod upgrade_info_event {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Scheduled => std::option::Option::Some("SCHEDULED"),
                 Self::Started => std::option::Option::Some("STARTED"),
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
@@ -35838,6 +38252,7 @@ pub mod upgrade_info_event {
         fn from(value: i32) -> Self {
             match value {
                 0 => Self::Unspecified,
+                1 => Self::Scheduled,
                 3 => Self::Started,
                 4 => Self::Succeeded,
                 5 => Self::Failed,
@@ -35854,6 +38269,7 @@ pub mod upgrade_info_event {
             use std::string::ToString;
             match value {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
+                "SCHEDULED" => Self::Scheduled,
                 "STARTED" => Self::Started,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
@@ -35872,6 +38288,7 @@ pub mod upgrade_info_event {
         {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
+                Self::Scheduled => serializer.serialize_i32(1),
                 Self::Started => serializer.serialize_i32(3),
                 Self::Succeeded => serializer.serialize_i32(4),
                 Self::Failed => serializer.serialize_i32(5),
@@ -36707,6 +39124,10 @@ pub struct Autopilot {
     /// admission control.
     pub privileged_admission_config: std::option::Option<crate::model::PrivilegedAdmissionConfig>,
 
+    /// ClusterPolicyConfig denotes cluster level policies that are enforced for
+    /// the cluster.
+    pub cluster_policy_config: std::option::Option<crate::model::ClusterPolicyConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -36793,11 +39214,202 @@ impl Autopilot {
         self.privileged_admission_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [cluster_policy_config][crate::model::Autopilot::cluster_policy_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = Autopilot::new().set_cluster_policy_config(ClusterPolicyConfig::default()/* use setters */);
+    /// ```
+    pub fn set_cluster_policy_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterPolicyConfig>,
+    {
+        self.cluster_policy_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cluster_policy_config][crate::model::Autopilot::cluster_policy_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = Autopilot::new().set_or_clear_cluster_policy_config(Some(ClusterPolicyConfig::default()/* use setters */));
+    /// let x = Autopilot::new().set_or_clear_cluster_policy_config(None::<ClusterPolicyConfig>);
+    /// ```
+    pub fn set_or_clear_cluster_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterPolicyConfig>,
+    {
+        self.cluster_policy_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Autopilot {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.Autopilot"
+    }
+}
+
+/// ClusterPolicyConfig stores the configuration for cluster wide policies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ClusterPolicyConfig {
+    /// Denotes that preventing creation and mutation of resources in GKE
+    /// managed namespaces and cluster-scoped GKE managed resources .
+    pub no_system_mutation: std::option::Option<bool>,
+
+    /// Denotes preventing impersonation and CSRs for GKE System users.
+    pub no_system_impersonation: std::option::Option<bool>,
+
+    /// Denotes preventing unsafe webhooks.
+    pub no_unsafe_webhooks: std::option::Option<bool>,
+
+    /// Denotes preventing standard node pools and requiring only autopilot node
+    /// pools.
+    pub no_standard_node_pools: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ClusterPolicyConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [no_system_mutation][crate::model::ClusterPolicyConfig::no_system_mutation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_no_system_mutation(true);
+    /// ```
+    pub fn set_no_system_mutation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_system_mutation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [no_system_mutation][crate::model::ClusterPolicyConfig::no_system_mutation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_system_mutation(Some(false));
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_system_mutation(None::<bool>);
+    /// ```
+    pub fn set_or_clear_no_system_mutation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_system_mutation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [no_system_impersonation][crate::model::ClusterPolicyConfig::no_system_impersonation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_no_system_impersonation(true);
+    /// ```
+    pub fn set_no_system_impersonation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_system_impersonation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [no_system_impersonation][crate::model::ClusterPolicyConfig::no_system_impersonation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_system_impersonation(Some(false));
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_system_impersonation(None::<bool>);
+    /// ```
+    pub fn set_or_clear_no_system_impersonation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_system_impersonation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [no_unsafe_webhooks][crate::model::ClusterPolicyConfig::no_unsafe_webhooks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_no_unsafe_webhooks(true);
+    /// ```
+    pub fn set_no_unsafe_webhooks<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_unsafe_webhooks = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [no_unsafe_webhooks][crate::model::ClusterPolicyConfig::no_unsafe_webhooks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_unsafe_webhooks(Some(false));
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_unsafe_webhooks(None::<bool>);
+    /// ```
+    pub fn set_or_clear_no_unsafe_webhooks<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_unsafe_webhooks = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [no_standard_node_pools][crate::model::ClusterPolicyConfig::no_standard_node_pools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_no_standard_node_pools(true);
+    /// ```
+    pub fn set_no_standard_node_pools<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_standard_node_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [no_standard_node_pools][crate::model::ClusterPolicyConfig::no_standard_node_pools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterPolicyConfig;
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_standard_node_pools(Some(false));
+    /// let x = ClusterPolicyConfig::new().set_or_clear_no_standard_node_pools(None::<bool>);
+    /// ```
+    pub fn set_or_clear_no_standard_node_pools<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.no_standard_node_pools = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ClusterPolicyConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.ClusterPolicyConfig"
     }
 }
 
@@ -37667,7 +40279,7 @@ impl wkt::message::Message for RayClusterMonitoringConfig {
     }
 }
 
-/// NodePoolLoggingConfig specifies logging configuration for nodepools.
+/// NodePoolLoggingConfig specifies logging configuration for node pools.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodePoolLoggingConfig {
@@ -39889,7 +42501,7 @@ pub mod secret_manager_config {
     }
 }
 
-/// BootDisk specifies the boot disk configuration for nodepools.
+/// BootDisk specifies the boot disk configuration for node pools.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BootDisk {
@@ -41245,11 +43857,11 @@ pub mod upgrade_details {
 }
 
 /// FetchNodePoolUpgradeInfoRequest fetches the upgrade information of a
-/// nodepool.
+/// node pool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchNodePoolUpgradeInfoRequest {
-    /// Required. The name (project, location, cluster, nodepool) of the nodepool
+    /// Required. The name (project, location, cluster, node pool) of the node pool
     /// to get. Specified in the format
     /// `projects/*/locations/*/clusters/*/nodePools/*` or
     /// `projects/*/zones/*/clusters/*/nodePools/*`.
@@ -41298,7 +43910,7 @@ impl wkt::message::Message for FetchNodePoolUpgradeInfoRequest {
     }
 }
 
-/// NodePoolUpgradeInfo contains the upgrade information of a nodepool.
+/// NodePoolUpgradeInfo contains the upgrade information of a node pool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodePoolUpgradeInfo {
@@ -41317,10 +43929,10 @@ pub struct NodePoolUpgradeInfo {
     /// The list of past auto upgrades.
     pub upgrade_details: std::vec::Vec<crate::model::UpgradeDetails>,
 
-    /// The nodepool's current minor version's end of standard support timestamp.
+    /// The node pool's current minor version's end of standard support timestamp.
     pub end_of_standard_support_timestamp: std::option::Option<std::string::String>,
 
-    /// The nodepool's current minor version's end of extended support timestamp.
+    /// The node pool's current minor version's end of extended support timestamp.
     pub end_of_extended_support_timestamp: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -41841,6 +44453,41 @@ pub mod node_pool_upgrade_info {
     }
 }
 
+/// Configuration for scheduled upgrades on the cluster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ScheduleUpgradeConfig {
+    /// Optional. Whether or not scheduled upgrades are enabled.
+    pub enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScheduleUpgradeConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::ScheduleUpgradeConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ScheduleUpgradeConfig;
+    /// let x = ScheduleUpgradeConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ScheduleUpgradeConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.ScheduleUpgradeConfig"
+    }
+}
+
 /// GkeAutoUpgradeConfig is the configuration for GKE auto upgrades.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -42212,6 +44859,193 @@ pub mod network_tier_config {
     }
 }
 
+/// Configuration for sync Secret Manager secrets as k8s secrets.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SecretSyncConfig {
+    /// Enable/Disable Secret Sync Config.
+    pub enabled: std::option::Option<bool>,
+
+    /// Rotation config for secret manager.
+    pub rotation_config: std::option::Option<crate::model::secret_sync_config::SyncRotationConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecretSyncConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::SecretSyncConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::SecretSyncConfig;
+    /// let x = SecretSyncConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::SecretSyncConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::SecretSyncConfig;
+    /// let x = SecretSyncConfig::new().set_or_clear_enabled(Some(false));
+    /// let x = SecretSyncConfig::new().set_or_clear_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rotation_config][crate::model::SecretSyncConfig::rotation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::SecretSyncConfig;
+    /// use google_cloud_container_v1::model::secret_sync_config::SyncRotationConfig;
+    /// let x = SecretSyncConfig::new().set_rotation_config(SyncRotationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_rotation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::secret_sync_config::SyncRotationConfig>,
+    {
+        self.rotation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rotation_config][crate::model::SecretSyncConfig::rotation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::SecretSyncConfig;
+    /// use google_cloud_container_v1::model::secret_sync_config::SyncRotationConfig;
+    /// let x = SecretSyncConfig::new().set_or_clear_rotation_config(Some(SyncRotationConfig::default()/* use setters */));
+    /// let x = SecretSyncConfig::new().set_or_clear_rotation_config(None::<SyncRotationConfig>);
+    /// ```
+    pub fn set_or_clear_rotation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::secret_sync_config::SyncRotationConfig>,
+    {
+        self.rotation_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SecretSyncConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.SecretSyncConfig"
+    }
+}
+
+/// Defines additional types related to [SecretSyncConfig].
+pub mod secret_sync_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// SyncRotationConfig is config for secret manager auto rotation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SyncRotationConfig {
+        /// Whether the rotation is enabled.
+        pub enabled: std::option::Option<bool>,
+
+        /// The interval between two consecutive rotations. Default rotation interval
+        /// is 2 minutes.
+        pub rotation_interval: std::option::Option<wkt::Duration>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SyncRotationConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::secret_sync_config::SyncRotationConfig::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::secret_sync_config::SyncRotationConfig;
+        /// let x = SyncRotationConfig::new().set_enabled(true);
+        /// ```
+        pub fn set_enabled<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enabled][crate::model::secret_sync_config::SyncRotationConfig::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::secret_sync_config::SyncRotationConfig;
+        /// let x = SyncRotationConfig::new().set_or_clear_enabled(Some(false));
+        /// let x = SyncRotationConfig::new().set_or_clear_enabled(None::<bool>);
+        /// ```
+        pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [rotation_interval][crate::model::secret_sync_config::SyncRotationConfig::rotation_interval].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::secret_sync_config::SyncRotationConfig;
+        /// use wkt::Duration;
+        /// let x = SyncRotationConfig::new().set_rotation_interval(Duration::default()/* use setters */);
+        /// ```
+        pub fn set_rotation_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.rotation_interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rotation_interval][crate::model::secret_sync_config::SyncRotationConfig::rotation_interval].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::secret_sync_config::SyncRotationConfig;
+        /// use wkt::Duration;
+        /// let x = SyncRotationConfig::new().set_or_clear_rotation_interval(Some(Duration::default()/* use setters */));
+        /// let x = SyncRotationConfig::new().set_or_clear_rotation_interval(None::<Duration>);
+        /// ```
+        pub fn set_or_clear_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.rotation_interval = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SyncRotationConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.SecretSyncConfig.SyncRotationConfig"
+        }
+    }
+}
+
 /// ManagedOpenTelemetryConfig is the configuration for the GKE Managed
 /// OpenTelemetry pipeline.
 #[derive(Clone, Default, PartialEq)]
@@ -42411,6 +45245,96 @@ pub mod managed_open_telemetry_config {
                 ".google.container.v1.ManagedOpenTelemetryConfig.Scope",
             ))
         }
+    }
+}
+
+/// ManagedMachineLearningDiagnosticsConfig is the configuration for the GKE
+/// Managed Machine Learning Diagnostics pipeline.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ManagedMachineLearningDiagnosticsConfig {
+    /// Enable/Disable Managed Machine Learning Diagnostics.
+    pub enabled: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ManagedMachineLearningDiagnosticsConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::ManagedMachineLearningDiagnosticsConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ManagedMachineLearningDiagnosticsConfig;
+    /// let x = ManagedMachineLearningDiagnosticsConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::ManagedMachineLearningDiagnosticsConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ManagedMachineLearningDiagnosticsConfig;
+    /// let x = ManagedMachineLearningDiagnosticsConfig::new().set_or_clear_enabled(Some(false));
+    /// let x = ManagedMachineLearningDiagnosticsConfig::new().set_or_clear_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ManagedMachineLearningDiagnosticsConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.ManagedMachineLearningDiagnosticsConfig"
+    }
+}
+
+/// PodSnapshotConfig is the configuration for GKE Pod Snapshots feature.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PodSnapshotConfig {
+    /// Whether or not the Pod Snapshots feature is enabled.
+    pub enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PodSnapshotConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::PodSnapshotConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::PodSnapshotConfig;
+    /// let x = PodSnapshotConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PodSnapshotConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.PodSnapshotConfig"
     }
 }
 
@@ -42860,8 +45784,8 @@ pub enum NodePoolUpdateStrategy {
     /// max_surge and max_unavailable determines the level of upgrade parallelism.
     Surge,
     /// SHORT_LIVED is the dedicated upgrade strategy for
-    /// QueuedProvisioning and flex start nodepools scaled up only by enqueueing to
-    /// the Dynamic Workload Scheduler (DWS).
+    /// QueuedProvisioning and flex start node pools scaled up only by enqueueing
+    /// to the Dynamic Workload Scheduler (DWS).
     ShortLived,
     /// If set, the enum was initialized with an unknown value.
     ///

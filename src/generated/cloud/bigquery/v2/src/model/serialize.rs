@@ -1452,6 +1452,39 @@ impl serde::ser::Serialize for super::GenAiFunctionCostOptimizationStats {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GenAiFunctionCacheStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.num_cache_hit_rows.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("numCacheHitRows", &__With(&self.num_cache_hit_rows))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::GenAiFunctionStats {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1486,6 +1519,9 @@ impl serde::ser::Serialize for super::GenAiFunctionStats {
         }
         if self.cost_optimization_stats.is_some() {
             state.serialize_entry("costOptimizationStats", &self.cost_optimization_stats)?;
+        }
+        if self.cache_stats.is_some() {
+            state.serialize_entry("cacheStats", &self.cache_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5152,6 +5188,9 @@ impl serde::ser::Serialize for super::PerformanceInsights {
                 &self.stage_performance_change_insights,
             )?;
         }
+        if !self.table_change_insights.is_empty() {
+            state.serialize_entry("tableChangeInsights", &self.table_change_insights)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5385,6 +5424,77 @@ impl serde::ser::Serialize for super::partition_skew::SkewSource {
                 }
             }
             state.serialize_entry("stageId", &__With(&self.stage_id))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TableChangeInsight {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.table_reference.is_some() {
+            state.serialize_entry("tableReference", &self.table_reference)?;
+        }
+        if self.metadata_cache_staleness_insight.is_some() {
+            state.serialize_entry(
+                "metadataCacheStalenessInsight",
+                &self.metadata_cache_staleness_insight,
+            )?;
+        }
+        if self.metadata_cache_not_used_but_used_previously.is_some() {
+            state.serialize_entry(
+                "metadataCacheNotUsedButUsedPreviously",
+                &self.metadata_cache_not_used_but_used_previously,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MetadataCacheStalenessInsight {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.avg_previous_staleness_ms.is_some() {
+            state.serialize_entry("avgPreviousStalenessMs", &self.avg_previous_staleness_ms)?;
+        }
+        if !wkt::internal::is_default(&self.staleness_percentage_increase) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "stalenessPercentageIncrease",
+                &__With(&self.staleness_percentage_increase),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9873,6 +9983,21 @@ impl serde::ser::Serialize for super::ExternalRuntimeOptions {
         if !self.runtime_version.is_empty() {
             state.serialize_entry("runtimeVersion", &self.runtime_version)?;
         }
+        if !wkt::internal::is_default(&self.container_request_concurrency) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "containerRequestConcurrency",
+                &__With(&self.container_request_concurrency),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11831,6 +11956,28 @@ impl serde::ser::Serialize for super::DataPolicyOption {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::DataPolicyList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.data_policies.is_empty() {
+            state.serialize_entry("dataPolicies", &self.data_policies)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::TableFieldSchema {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -11858,8 +12005,14 @@ impl serde::ser::Serialize for super::TableFieldSchema {
         if self.policy_tags.is_some() {
             state.serialize_entry("policyTags", &self.policy_tags)?;
         }
+        if self.data_governance_tags_info.is_some() {
+            state.serialize_entry("dataGovernanceTagsInfo", &self.data_governance_tags_info)?;
+        }
         if !self.data_policies.is_empty() {
             state.serialize_entry("dataPolicies", &self.data_policies)?;
+        }
+        if self.data_policy_list.is_some() {
+            state.serialize_entry("dataPolicyList", &self.data_policy_list)?;
         }
         if !wkt::internal::is_default(&self.max_length) {
             struct __With<'a>(&'a i64);
@@ -11950,6 +12103,28 @@ impl serde::ser::Serialize for super::table_field_schema::PolicyTagList {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.names.is_empty() {
             state.serialize_entry("names", &self.names)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::table_field_schema::DataGovernanceTagsInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.data_governance_tags.is_empty() {
+            state.serialize_entry("dataGovernanceTags", &self.data_governance_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

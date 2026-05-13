@@ -47,10 +47,12 @@ gaxi                               = { workspace = true, features = ["_internal-
 google-cloud-gax.workspace         = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
+google-cloud-type.workspace        = true
 serde.workspace                    = true
 serde_json.workspace               = true
 serde_with.workspace               = true
 tracing.workspace                  = true
+uuid.workspace                     = true
 wkt.workspace                      = true
 
 [dev-dependencies]

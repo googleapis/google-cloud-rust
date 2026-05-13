@@ -1234,10 +1234,9 @@ pub struct CreateBatchRequest {
 
     /// Optional. A unique ID used to identify the request. If the service
     /// receives two
-    /// [CreateBatchRequest](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#google.cloud.dataproc.v1.CreateBatchRequest)s
-    /// with the same request_id, the second request is ignored and the
-    /// Operation that corresponds to the first Batch created and stored
-    /// in the backend is returned.
+    /// `CreateBatchRequests` with the same `request_id`, the second request is
+    /// ignored and the operation that corresponds to the first Batch created and
+    /// stored in the backend is returned.
     ///
     /// Recommendation: Set this value to a
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
@@ -1394,10 +1393,13 @@ pub struct ListBatchesRequest {
     /// A filter is a logical expression constraining the values of various fields
     /// in each batch resource. Filters are case sensitive, and may contain
     /// multiple clauses combined with logical operators (AND/OR).
-    /// Supported fields are `batch_id`, `batch_uuid`, `state`, and `create_time`.
+    /// Supported fields are `batch_id`, `batch_uuid`, `state`, `create_time`, and
+    /// `labels`.
     ///
     /// e.g. `state = RUNNING and create_time < "2023-01-01T00:00:00Z"`
-    /// filters for batches in state RUNNING that were created before 2023-01-01
+    /// filters for batches in state RUNNING that were created before 2023-01-01.
+    /// `state = RUNNING and labels.environment=production` filters for batches in
+    /// state in a RUNNING state that have a production environment label.
     ///
     /// See <https://google.aip.dev/assets/misc/ebnf-filtering.txt> for a detailed
     /// description of the filter syntax and a list of supported comparisons.
@@ -1493,7 +1495,7 @@ impl wkt::message::Message for ListBatchesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBatchesResponse {
-    /// The batches from the specified collection.
+    /// Output only. The batches from the specified collection.
     pub batches: std::vec::Vec<crate::model::Batch>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
@@ -18571,7 +18573,7 @@ impl wkt::message::Message for DeleteSessionTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionTemplate {
-    /// Required. The resource name of the session template.
+    /// Required. Identifier. The resource name of the session template.
     pub name: std::string::String,
 
     /// Optional. Brief description of the template.
@@ -18943,7 +18945,7 @@ pub mod session_template {
     pub enum SessionConfig {
         /// Optional. Jupyter session config.
         JupyterSession(std::boxed::Box<crate::model::JupyterConfig>),
-        /// Optional. Spark Connect session config.
+        /// Optional. Spark connect session config.
         SparkConnectSession(std::boxed::Box<crate::model::SparkConnectConfig>),
     }
 }
@@ -19407,7 +19409,7 @@ impl wkt::message::Message for DeleteSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Session {
-    /// Required. The resource name of the session.
+    /// Identifier. The resource name of the session.
     pub name: std::string::String,
 
     /// Output only. A session UUID (Unique Universal Identifier). The service
@@ -20153,7 +20155,7 @@ pub mod session {
     pub enum SessionConfig {
         /// Optional. Jupyter session config.
         JupyterSession(std::boxed::Box<crate::model::JupyterConfig>),
-        /// Optional. Spark Connect session config.
+        /// Optional. Spark connect session config.
         SparkConnectSession(std::boxed::Box<crate::model::SparkConnectConfig>),
     }
 }
@@ -20351,7 +20353,7 @@ pub mod jupyter_config {
     }
 }
 
-/// Spark Connect configuration for an interactive session.
+/// Spark connect configuration for an interactive session.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkConnectConfig {
@@ -20392,8 +20394,8 @@ pub struct RuntimeConfig {
     /// Optional. Autotuning configuration of the workload.
     pub autotuning_config: std::option::Option<crate::model::AutotuningConfig>,
 
-    /// Optional. Cohort identifier. Identifies families of the workloads having
-    /// the same shape, e.g. daily ETL jobs.
+    /// Optional. Cohort identifier. Identifies families of the workloads that have
+    /// the same shape, for example, daily ETL jobs.
     pub cohort: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20684,6 +20686,14 @@ pub struct ExecutionConfig {
     /// resources on the project(s).
     pub authentication_config: std::option::Option<crate::model::AuthenticationConfig>,
 
+    /// Optional. Associates Resource Manager tags with the workload nodes.
+    /// There is a max limit of 30 tags.
+    /// Keys and values can be either in numeric format, such as
+    /// `tagKeys/{tag_key_id}` and `tagValues/{tag_value_id}`, or in namespaced
+    /// format, such as `{org_id|project_id}/{tag_key_short_name}` and
+    /// `{tag_value_short_name}`.
+    pub resource_manager_tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     /// Network configuration for workload execution.
     pub network: std::option::Option<crate::model::execution_config::Network>,
 
@@ -20845,6 +20855,27 @@ impl ExecutionConfig {
         T: std::convert::Into<crate::model::AuthenticationConfig>,
     {
         self.authentication_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resource_manager_tags][crate::model::ExecutionConfig::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ExecutionConfig;
+    /// let x = ExecutionConfig::new().set_resource_manager_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_resource_manager_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_manager_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -21252,13 +21283,16 @@ pub struct UsageMetrics {
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     pub shuffle_storage_gb_seconds: i64,
 
-    /// Optional. Accelerator usage in (`milliAccelerator` x `seconds`) (see
-    /// [Dataproc Serverless pricing]
+    /// Optional. [DEPRECATED] Accelerator usage in (`milliAccelerator` x
+    /// `seconds`) (see [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     pub milli_accelerator_seconds: i64,
 
-    /// Optional. Accelerator type being used, if any
+    /// Optional. [DEPRECATED] Accelerator type being used, if any
     pub accelerator_type: std::string::String,
+
+    /// Optional. The timestamp of the usage metrics.
+    pub update_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21317,6 +21351,39 @@ impl UsageMetrics {
         v: T,
     ) -> Self {
         self.accelerator_type = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::UsageMetrics::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::UsageMetrics;
+    /// use wkt::Timestamp;
+    /// let x = UsageMetrics::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::UsageMetrics::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::UsageMetrics;
+    /// use wkt::Timestamp;
+    /// let x = UsageMetrics::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UsageMetrics::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -22241,7 +22308,7 @@ pub mod gke_node_pool_config {
         /// (<https://cloud.google.com/kubernetes-engine/docs/how-to/using-cmek>)
         /// used to encrypt the boot disk attached to each node in the node pool.
         /// Specify the key using the following format:
-        /// \<code\>projects/\<var\>KEY_PROJECT_ID\</var\>/locations/\<var\>LOCATION\</var\>/keyRings/\<var\>RING_NAME\</var\>/cryptoKeys/\<var\>KEY_NAME\</var\>\</code\>.
+        /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`
         pub boot_disk_kms_key: std::string::String,
 
         /// Optional. Whether the nodes are created as [Spot VM instances]
@@ -22957,7 +23024,8 @@ impl wkt::message::Message for RepositoryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PyPiRepositoryConfig {
-    /// Optional. PyPi repository address
+    /// Optional. The PyPi repository address. **Note: This field is not available
+    /// for batch workloads.**
     pub pypi_repository: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26416,8 +26484,6 @@ pub enum Component {
     Iceberg,
     /// The Jupyter Notebook.
     Jupyter,
-    /// The Jupyter Kernel Gateway.
-    JupyterKernelGateway,
     /// The Pig component.
     Pig,
     /// The Presto query engine.
@@ -26432,6 +26498,8 @@ pub enum Component {
     Zeppelin,
     /// The Zookeeper service.
     Zookeeper,
+    /// The Jupyter Kernel Gateway.
+    JupyterKernelGateway,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [Component::value] or
@@ -26465,7 +26533,6 @@ impl Component {
             Self::Hudi => std::option::Option::Some(18),
             Self::Iceberg => std::option::Option::Some(19),
             Self::Jupyter => std::option::Option::Some(1),
-            Self::JupyterKernelGateway => std::option::Option::Some(22),
             Self::Pig => std::option::Option::Some(21),
             Self::Presto => std::option::Option::Some(6),
             Self::Trino => std::option::Option::Some(17),
@@ -26473,6 +26540,7 @@ impl Component {
             Self::Solr => std::option::Option::Some(10),
             Self::Zeppelin => std::option::Option::Some(4),
             Self::Zookeeper => std::option::Option::Some(8),
+            Self::JupyterKernelGateway => std::option::Option::Some(22),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -26494,7 +26562,6 @@ impl Component {
             Self::Hudi => std::option::Option::Some("HUDI"),
             Self::Iceberg => std::option::Option::Some("ICEBERG"),
             Self::Jupyter => std::option::Option::Some("JUPYTER"),
-            Self::JupyterKernelGateway => std::option::Option::Some("JUPYTER_KERNEL_GATEWAY"),
             Self::Pig => std::option::Option::Some("PIG"),
             Self::Presto => std::option::Option::Some("PRESTO"),
             Self::Trino => std::option::Option::Some("TRINO"),
@@ -26502,6 +26569,7 @@ impl Component {
             Self::Solr => std::option::Option::Some("SOLR"),
             Self::Zeppelin => std::option::Option::Some("ZEPPELIN"),
             Self::Zookeeper => std::option::Option::Some("ZOOKEEPER"),
+            Self::JupyterKernelGateway => std::option::Option::Some("JUPYTER_KERNEL_GATEWAY"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -26564,7 +26632,6 @@ impl std::convert::From<&str> for Component {
             "HUDI" => Self::Hudi,
             "ICEBERG" => Self::Iceberg,
             "JUPYTER" => Self::Jupyter,
-            "JUPYTER_KERNEL_GATEWAY" => Self::JupyterKernelGateway,
             "PIG" => Self::Pig,
             "PRESTO" => Self::Presto,
             "TRINO" => Self::Trino,
@@ -26572,6 +26639,7 @@ impl std::convert::From<&str> for Component {
             "SOLR" => Self::Solr,
             "ZEPPELIN" => Self::Zeppelin,
             "ZOOKEEPER" => Self::Zookeeper,
+            "JUPYTER_KERNEL_GATEWAY" => Self::JupyterKernelGateway,
             _ => Self::UnknownValue(component::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -26596,7 +26664,6 @@ impl serde::ser::Serialize for Component {
             Self::Hudi => serializer.serialize_i32(18),
             Self::Iceberg => serializer.serialize_i32(19),
             Self::Jupyter => serializer.serialize_i32(1),
-            Self::JupyterKernelGateway => serializer.serialize_i32(22),
             Self::Pig => serializer.serialize_i32(21),
             Self::Presto => serializer.serialize_i32(6),
             Self::Trino => serializer.serialize_i32(17),
@@ -26604,6 +26671,7 @@ impl serde::ser::Serialize for Component {
             Self::Solr => serializer.serialize_i32(10),
             Self::Zeppelin => serializer.serialize_i32(4),
             Self::Zookeeper => serializer.serialize_i32(8),
+            Self::JupyterKernelGateway => serializer.serialize_i32(22),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

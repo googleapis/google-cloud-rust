@@ -599,6 +599,17 @@ impl std::fmt::Debug for super::GenAiFunctionCostOptimizationStats {
     }
 }
 
+impl std::fmt::Debug for super::GenAiFunctionCacheStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenAiFunctionCacheStats");
+        debug_struct.field("num_cache_hit_rows", &self.num_cache_hit_rows);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GenAiFunctionStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenAiFunctionStats");
@@ -607,6 +618,7 @@ impl std::fmt::Debug for super::GenAiFunctionStats {
         debug_struct.field("num_processed_rows", &self.num_processed_rows);
         debug_struct.field("error_stats", &self.error_stats);
         debug_struct.field("cost_optimization_stats", &self.cost_optimization_stats);
+        debug_struct.field("cache_stats", &self.cache_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1689,6 +1701,7 @@ impl std::fmt::Debug for super::PerformanceInsights {
             "stage_performance_change_insights",
             &self.stage_performance_change_insights,
         );
+        debug_struct.field("table_change_insights", &self.table_change_insights);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1770,6 +1783,40 @@ impl std::fmt::Debug for super::partition_skew::SkewSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SkewSource");
         debug_struct.field("stage_id", &self.stage_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TableChangeInsight {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableChangeInsight");
+        debug_struct.field("table_reference", &self.table_reference);
+        debug_struct.field(
+            "metadata_cache_staleness_insight",
+            &self.metadata_cache_staleness_insight,
+        );
+        debug_struct.field(
+            "metadata_cache_not_used_but_used_previously",
+            &self.metadata_cache_not_used_but_used_previously,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MetadataCacheStalenessInsight {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataCacheStalenessInsight");
+        debug_struct.field("avg_previous_staleness_ms", &self.avg_previous_staleness_ms);
+        debug_struct.field(
+            "staleness_percentage_increase",
+            &self.staleness_percentage_increase,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3166,6 +3213,10 @@ impl std::fmt::Debug for super::ExternalRuntimeOptions {
         debug_struct.field("runtime_connection", &self.runtime_connection);
         debug_struct.field("max_batching_rows", &self.max_batching_rows);
         debug_struct.field("runtime_version", &self.runtime_version);
+        debug_struct.field(
+            "container_request_concurrency",
+            &self.container_request_concurrency,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3913,6 +3964,17 @@ impl std::fmt::Debug for super::DataPolicyOption {
     }
 }
 
+impl std::fmt::Debug for super::DataPolicyList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataPolicyList");
+        debug_struct.field("data_policies", &self.data_policies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::TableFieldSchema {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableFieldSchema");
@@ -3922,7 +3984,9 @@ impl std::fmt::Debug for super::TableFieldSchema {
         debug_struct.field("fields", &self.fields);
         debug_struct.field("description", &self.description);
         debug_struct.field("policy_tags", &self.policy_tags);
+        debug_struct.field("data_governance_tags_info", &self.data_governance_tags_info);
         debug_struct.field("data_policies", &self.data_policies);
+        debug_struct.field("data_policy_list", &self.data_policy_list);
         debug_struct.field("max_length", &self.max_length);
         debug_struct.field("precision", &self.precision);
         debug_struct.field("scale", &self.scale);
@@ -3944,6 +4008,17 @@ impl std::fmt::Debug for super::table_field_schema::PolicyTagList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyTagList");
         debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::table_field_schema::DataGovernanceTagsInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataGovernanceTagsInfo");
+        debug_struct.field("data_governance_tags", &self.data_governance_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

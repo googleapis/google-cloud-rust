@@ -15514,6 +15514,30 @@ impl ReasoningEngineExecutionService {
         )
     }
 
+    /// Cancels an AsyncQueryReasoningEngine operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_async_query_reasoning_engine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_async_query_reasoning_engine(
+        &self,
+    ) -> super::builder::reasoning_engine_execution_service::CancelAsyncQueryReasoningEngine {
+        super::builder::reasoning_engine_execution_service::CancelAsyncQueryReasoningEngine::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example

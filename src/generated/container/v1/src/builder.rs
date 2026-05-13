@@ -991,6 +991,24 @@ pub mod cluster_manager {
             self.0.request.consolidation_delay = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [taint_config][crate::model::UpdateNodePoolRequest::taint_config].
+        pub fn set_taint_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TaintConfig>,
+        {
+            self.0.request.taint_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taint_config][crate::model::UpdateNodePoolRequest::taint_config].
+        pub fn set_or_clear_taint_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TaintConfig>,
+        {
+            self.0.request.taint_config = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]

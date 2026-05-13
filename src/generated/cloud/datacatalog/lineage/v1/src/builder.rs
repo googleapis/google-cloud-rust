@@ -112,10 +112,21 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProcessOpenLineageRunEventResponse> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .process_open_lineage_run_event(self.0.request, self.0.options)
+                .process_open_lineage_run_event(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::ProcessOpenLineageRunEventRequest,
+            force: bool,
+        ) -> crate::model::ProcessOpenLineageRunEventRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::ProcessOpenLineageRunEventRequest::parent].
@@ -200,10 +211,21 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Process> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_process(self.0.request, self.0.options)
+                .create_process(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateProcessRequest,
+            force: bool,
+        ) -> crate::model::CreateProcessRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessRequest::parent].
@@ -288,10 +310,21 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Process> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_process(self.0.request, self.0.options)
+                .update_process(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateProcessRequest,
+            force: bool,
+        ) -> crate::model::UpdateProcessRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
@@ -337,6 +370,12 @@ pub mod lineage {
         /// Sets the value of [allow_missing][crate::model::UpdateProcessRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateProcessRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
             self
         }
     }
@@ -656,10 +695,21 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Run> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_run(self.0.request, self.0.options)
+                .create_run(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateRunRequest,
+            force: bool,
+        ) -> crate::model::CreateRunRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateRunRequest::parent].
@@ -1113,10 +1163,21 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::LineageEvent> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_lineage_event(self.0.request, self.0.options)
+                .create_lineage_event(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateLineageEventRequest,
+            force: bool,
+        ) -> crate::model::CreateLineageEventRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateLineageEventRequest::parent].
@@ -1528,6 +1589,36 @@ pub mod lineage {
             v: T,
         ) -> Self {
             self.0.request = self.0.request.set_target(v);
+            self
+        }
+
+        /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
+        /// to hold a `Sources`.
+        ///
+        /// Note that all the setters affecting `criteria` are
+        /// mutually exclusive.
+        pub fn set_sources<
+            T: std::convert::Into<std::boxed::Box<crate::model::MultipleEntityReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_sources(v);
+            self
+        }
+
+        /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
+        /// to hold a `Targets`.
+        ///
+        /// Note that all the setters affecting `criteria` are
+        /// mutually exclusive.
+        pub fn set_targets<
+            T: std::convert::Into<std::boxed::Box<crate::model::MultipleEntityReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_targets(v);
             self
         }
     }

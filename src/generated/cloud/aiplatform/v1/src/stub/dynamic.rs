@@ -8185,6 +8185,12 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn cancel_async_query_reasoning_engine(
+        &self,
+        req: crate::model::CancelAsyncQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CancelAsyncQueryReasoningEngineResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -8276,6 +8282,15 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::async_query_reasoning_engine(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_async_query_reasoning_engine(
+        &self,
+        req: crate::model::CancelAsyncQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CancelAsyncQueryReasoningEngineResponse>> {
+        T::cancel_async_query_reasoning_engine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

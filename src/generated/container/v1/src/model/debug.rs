@@ -31,11 +31,13 @@ impl std::fmt::Debug for super::LinuxNodeConfig {
             "transparent_hugepage_defrag",
             &self.transparent_hugepage_defrag,
         );
+        debug_struct.field("custom_node_init", &self.custom_node_init);
         debug_struct.field("swap_config", &self.swap_config);
         debug_struct.field(
             "node_kernel_module_loading",
             &self.node_kernel_module_loading,
         );
+        debug_struct.field("accurate_time_config", &self.accurate_time_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -48,6 +50,34 @@ impl std::fmt::Debug for super::linux_node_config::HugepagesConfig {
         let mut debug_struct = f.debug_struct("HugepagesConfig");
         debug_struct.field("hugepage_size2m", &self.hugepage_size2m);
         debug_struct.field("hugepage_size1g", &self.hugepage_size1g);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::linux_node_config::CustomNodeInit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomNodeInit");
+        debug_struct.field("init_script", &self.init_script);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::linux_node_config::custom_node_init::InitScript {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InitScript");
+        debug_struct.field("gcs_uri", &self.gcs_uri);
+        debug_struct.field("gcs_generation", &self.gcs_generation);
+        debug_struct.field("args", &self.args);
+        debug_struct.field(
+            "gcp_secret_manager_secret_uri",
+            &self.gcp_secret_manager_secret_uri,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -123,6 +153,17 @@ impl std::fmt::Debug for super::linux_node_config::NodeKernelModuleLoading {
     }
 }
 
+impl std::fmt::Debug for super::linux_node_config::AccurateTimeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccurateTimeConfig");
+        debug_struct.field("enable_ptp_kvm_time_sync", &self.enable_ptp_kvm_time_sync);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::WindowsNodeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsNodeConfig");
@@ -172,6 +213,7 @@ impl std::fmt::Debug for super::NodeKubeletConfig {
         );
         debug_struct.field("max_parallel_image_pulls", &self.max_parallel_image_pulls);
         debug_struct.field("single_process_oom_kill", &self.single_process_oom_kill);
+        debug_struct.field("crash_loop_back_off", &self.crash_loop_back_off);
         debug_struct.field(
             "shutdown_grace_period_seconds",
             &self.shutdown_grace_period_seconds,
@@ -179,6 +221,20 @@ impl std::fmt::Debug for super::NodeKubeletConfig {
         debug_struct.field(
             "shutdown_grace_period_critical_pods_seconds",
             &self.shutdown_grace_period_critical_pods_seconds,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::node_kubelet_config::CrashLoopBackOffConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CrashLoopBackOffConfig");
+        debug_struct.field(
+            "max_container_restart_period",
+            &self.max_container_restart_period,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -320,6 +376,21 @@ impl std::fmt::Debug for super::NodeConfig {
         debug_struct.field("flex_start", &self.flex_start);
         debug_struct.field("boot_disk", &self.boot_disk);
         debug_struct.field("consolidation_delay", &self.consolidation_delay);
+        debug_struct.field("taint_config", &self.taint_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TaintConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TaintConfig");
+        debug_struct.field(
+            "architecture_taint_behavior",
+            &self.architecture_taint_behavior,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -375,6 +446,10 @@ impl std::fmt::Debug for super::NodeNetworkConfig {
         );
         debug_struct.field("subnetwork", &self.subnetwork);
         debug_struct.field("network_tier_config", &self.network_tier_config);
+        debug_struct.field(
+            "accelerator_network_profile",
+            &self.accelerator_network_profile,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -748,7 +823,10 @@ impl std::fmt::Debug for super::AddonsConfig {
             &self.high_scale_checkpointing_config,
         );
         debug_struct.field("lustre_csi_driver_config", &self.lustre_csi_driver_config);
+        debug_struct.field("pod_snapshot_config", &self.pod_snapshot_config);
+        debug_struct.field("slurm_operator_config", &self.slurm_operator_config);
         debug_struct.field("slice_controller_config", &self.slice_controller_config);
+        debug_struct.field("node_readiness_config", &self.node_readiness_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -941,6 +1019,29 @@ impl std::fmt::Debug for super::LustreCsiDriverConfig {
         let mut debug_struct = f.debug_struct("LustreCsiDriverConfig");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("enable_legacy_lustre_port", &self.enable_legacy_lustre_port);
+        debug_struct.field("disable_multi_nic", &self.disable_multi_nic);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SlurmOperatorConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SlurmOperatorConfig");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NodeReadinessConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeReadinessConfig");
+        debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1231,10 +1332,40 @@ impl std::fmt::Debug for super::Cluster {
             "anonymous_authentication_config",
             &self.anonymous_authentication_config,
         );
+        debug_struct.field("schedule_upgrade_config", &self.schedule_upgrade_config);
+        debug_struct.field("secret_sync_config", &self.secret_sync_config);
         debug_struct.field(
             "managed_opentelemetry_config",
             &self.managed_opentelemetry_config,
         );
+        debug_struct.field("control_plane_egress", &self.control_plane_egress);
+        debug_struct.field(
+            "managed_machine_learning_diagnostics_config",
+            &self.managed_machine_learning_diagnostics_config,
+        );
+        debug_struct.field("node_creation_config", &self.node_creation_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NodeCreationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeCreationConfig");
+        debug_struct.field("node_creation_mode", &self.node_creation_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ControlPlaneEgress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ControlPlaneEgress");
+        debug_struct.field("mode", &self.mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1604,12 +1735,32 @@ impl std::fmt::Debug for super::ClusterUpdate {
             &self.desired_network_tier_config,
         );
         debug_struct.field(
+            "desired_secret_sync_config",
+            &self.desired_secret_sync_config,
+        );
+        debug_struct.field(
             "desired_privileged_admission_config",
             &self.desired_privileged_admission_config,
         );
         debug_struct.field(
+            "desired_control_plane_egress",
+            &self.desired_control_plane_egress,
+        );
+        debug_struct.field(
             "desired_managed_opentelemetry_config",
             &self.desired_managed_opentelemetry_config,
+        );
+        debug_struct.field(
+            "desired_autopilot_cluster_policy_config",
+            &self.desired_autopilot_cluster_policy_config,
+        );
+        debug_struct.field(
+            "desired_managed_machine_learning_diagnostics_config",
+            &self.desired_managed_machine_learning_diagnostics_config,
+        );
+        debug_struct.field(
+            "desired_node_creation_config",
+            &self.desired_node_creation_config,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1825,6 +1976,7 @@ impl std::fmt::Debug for super::UpdateNodePoolRequest {
         debug_struct.field("boot_disk", &self.boot_disk);
         debug_struct.field("node_drain_config", &self.node_drain_config);
         debug_struct.field("consolidation_delay", &self.consolidation_delay);
+        debug_struct.field("taint_config", &self.taint_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2193,6 +2345,7 @@ impl std::fmt::Debug for super::NodePool {
         debug_struct.field("queued_provisioning", &self.queued_provisioning);
         debug_struct.field("best_effort_provisioning", &self.best_effort_provisioning);
         debug_struct.field("node_drain_config", &self.node_drain_config);
+        debug_struct.field("maintenance_policy", &self.maintenance_policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2270,9 +2423,41 @@ impl std::fmt::Debug for super::node_pool::QueuedProvisioning {
 impl std::fmt::Debug for super::node_pool::NodeDrainConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NodeDrainConfig");
+        debug_struct.field("pdb_timeout_duration", &self.pdb_timeout_duration);
+        debug_struct.field(
+            "grace_termination_duration",
+            &self.grace_termination_duration,
+        );
         debug_struct.field(
             "respect_pdb_during_node_pool_deletion",
             &self.respect_pdb_during_node_pool_deletion,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::node_pool::ExclusionUntilEndOfSupport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExclusionUntilEndOfSupport");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::node_pool::NodePoolMaintenancePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodePoolMaintenancePolicy");
+        debug_struct.field(
+            "exclusion_until_end_of_support",
+            &self.exclusion_until_end_of_support,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2323,6 +2508,30 @@ impl std::fmt::Debug for super::MaintenancePolicy {
         let mut debug_struct = f.debug_struct("MaintenancePolicy");
         debug_struct.field("window", &self.window);
         debug_struct.field("resource_version", &self.resource_version);
+        debug_struct.field("disruption_budget", &self.disruption_budget);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DisruptionBudget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisruptionBudget");
+        debug_struct.field(
+            "minor_version_disruption_interval",
+            &self.minor_version_disruption_interval,
+        );
+        debug_struct.field(
+            "patch_version_disruption_interval",
+            &self.patch_version_disruption_interval,
+        );
+        debug_struct.field(
+            "last_minor_version_disruption_time",
+            &self.last_minor_version_disruption_time,
+        );
+        debug_struct.field("last_disruption_time", &self.last_disruption_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2371,6 +2580,20 @@ impl std::fmt::Debug for super::RecurringTimeWindow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecurringTimeWindow");
         debug_struct.field("window", &self.window);
+        debug_struct.field("recurrence", &self.recurrence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RecurringMaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecurringMaintenanceWindow");
+        debug_struct.field("delay_until", &self.delay_until);
+        debug_struct.field("window_start_time", &self.window_start_time);
+        debug_struct.field("window_duration", &self.window_duration);
         debug_struct.field("recurrence", &self.recurrence);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3367,6 +3590,21 @@ impl std::fmt::Debug for super::Autopilot {
             "privileged_admission_config",
             &self.privileged_admission_config,
         );
+        debug_struct.field("cluster_policy_config", &self.cluster_policy_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ClusterPolicyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterPolicyConfig");
+        debug_struct.field("no_system_mutation", &self.no_system_mutation);
+        debug_struct.field("no_system_impersonation", &self.no_system_impersonation);
+        debug_struct.field("no_unsafe_webhooks", &self.no_unsafe_webhooks);
+        debug_struct.field("no_standard_node_pools", &self.no_standard_node_pools);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3795,6 +4033,17 @@ impl std::fmt::Debug for super::NodePoolUpgradeInfo {
     }
 }
 
+impl std::fmt::Debug for super::ScheduleUpgradeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduleUpgradeConfig");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GkeAutoUpgradeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GkeAutoUpgradeConfig");
@@ -3817,10 +4066,56 @@ impl std::fmt::Debug for super::NetworkTierConfig {
     }
 }
 
+impl std::fmt::Debug for super::SecretSyncConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretSyncConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("rotation_config", &self.rotation_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::secret_sync_config::SyncRotationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SyncRotationConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("rotation_interval", &self.rotation_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ManagedOpenTelemetryConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagedOpenTelemetryConfig");
         debug_struct.field("scope", &self.scope);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ManagedMachineLearningDiagnosticsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedMachineLearningDiagnosticsConfig");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PodSnapshotConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PodSnapshotConfig");
+        debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

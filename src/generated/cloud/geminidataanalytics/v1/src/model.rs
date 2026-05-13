@@ -883,6 +883,12 @@ pub struct ExampleQuery {
     /// For example: "How many orders were placed last month?"
     pub natural_language_question: std::string::String,
 
+    /// Optional. The list of query parameters.
+    /// Example: The parameterized SQL query
+    /// "SELECT * FROM my_table WHERE id = @id" can be matched with any value of
+    /// id.
+    pub parameters: std::vec::Vec<crate::model::QueryParameter>,
+
     /// The SQL or Looker query that should be generated to answer the natural
     /// language query.
     pub query: std::option::Option<crate::model::example_query::Query>,
@@ -908,6 +914,28 @@ impl ExampleQuery {
         v: T,
     ) -> Self {
         self.natural_language_question = v.into();
+        self
+    }
+
+    /// Sets the value of [parameters][crate::model::ExampleQuery::parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ExampleQuery;
+    /// use google_cloud_geminidataanalytics_v1::model::QueryParameter;
+    /// let x = ExampleQuery::new()
+    ///     .set_parameters([
+    ///         QueryParameter::default()/* use setters */,
+    ///         QueryParameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryParameter>,
+    {
+        use std::iter::Iterator;
+        self.parameters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -982,6 +1010,77 @@ pub mod example_query {
         /// language question. For example: "SELECT COUNT(*) FROM orders WHERE
         /// order_date BETWEEN '2024-01-01' AND '2024-01-31'"
         SqlQuery(std::string::String),
+    }
+}
+
+/// A query parameter message represents a parameter that can be used to
+/// parameterize a SQL query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryParameter {
+    /// Required. The name of the parameter reference in the SQL query.
+    pub name: std::string::String,
+
+    /// Optional. The description of the parameter that can be used by LLM to
+    /// extract the parameter value from the user question.
+    pub description: std::string::String,
+
+    /// Required. The data type of the parameter, e.g. "STRING", "INT64", "DATE",
+    /// etc. For valid values, see the [BigQuery
+    /// documentation](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types).
+    /// This will be used to populate
+    /// google.cloud.bigquery.v2.QueryParameterType.type.
+    pub data_type: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryParameter {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::QueryParameter::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::QueryParameter;
+    /// let x = QueryParameter::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::QueryParameter::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::QueryParameter;
+    /// let x = QueryParameter::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [data_type][crate::model::QueryParameter::data_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::QueryParameter;
+    /// let x = QueryParameter::new().set_data_type("example");
+    /// ```
+    pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryParameter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.QueryParameter"
     }
 }
 
