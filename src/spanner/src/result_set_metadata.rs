@@ -28,7 +28,7 @@ use std::sync::Arc;
 ///
 /// // Metadata is available after the first `next` call
 /// let _ = rs.next().await.transpose()?;
-/// let metadata = rs.metadata()?;
+/// let metadata = rs.metadata().await?;
 ///
 /// for (name, type_) in metadata.column_names().iter().zip(metadata.column_types().iter()) {
 ///     println!("Column: {} has type: {:?}", name, type_.code());
