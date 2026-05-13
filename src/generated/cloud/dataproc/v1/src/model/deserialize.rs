@@ -15857,6 +15857,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ExecutionConfig {
             __ttl,
             __staging_bucket,
             __authentication_config,
+            __resource_manager_tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15894,6 +15895,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExecutionConfig {
                             "staging_bucket" => Ok(__FieldTag::__staging_bucket),
                             "authenticationConfig" => Ok(__FieldTag::__authentication_config),
                             "authentication_config" => Ok(__FieldTag::__authentication_config),
+                            "resourceManagerTags" => Ok(__FieldTag::__resource_manager_tags),
+                            "resource_manager_tags" => Ok(__FieldTag::__resource_manager_tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -16018,6 +16021,21 @@ impl<'de> serde::de::Deserialize<'de> for super::ExecutionConfig {
                             }
                             result.authentication_config = map.next_value::<std::option::Option<crate::model::AuthenticationConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__resource_manager_tags => {
+                            if !fields.insert(__FieldTag::__resource_manager_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_manager_tags",
+                                ));
+                            }
+                            result.resource_manager_tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16359,6 +16377,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UsageMetrics {
             __shuffle_storage_gb_seconds,
             __milli_accelerator_seconds,
             __accelerator_type,
+            __update_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -16395,6 +16414,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UsageMetrics {
                             }
                             "acceleratorType" => Ok(__FieldTag::__accelerator_type),
                             "accelerator_type" => Ok(__FieldTag::__accelerator_type),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -16489,6 +16510,15 @@ impl<'de> serde::de::Deserialize<'de> for super::UsageMetrics {
                             result.accelerator_type = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

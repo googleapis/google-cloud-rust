@@ -8042,6 +8042,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_async_query_reasoning_engine(
+        &self,
+        req: crate::model::CancelAsyncQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CancelAsyncQueryReasoningEngineResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ReasoningEngineExecutionService::cancel_async_query_reasoning_engine",
+            self.inner.cancel_async_query_reasoning_engine(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

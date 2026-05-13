@@ -14008,6 +14008,30 @@ impl std::fmt::Debug for super::AsyncQueryReasoningEngineResponse {
     }
 }
 
+#[cfg(feature = "reasoning-engine-execution-service")]
+impl std::fmt::Debug for super::CancelAsyncQueryReasoningEngineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelAsyncQueryReasoningEngineRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("operation_name", &self.operation_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+impl std::fmt::Debug for super::CancelAsyncQueryReasoningEngineResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelAsyncQueryReasoningEngineResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "reasoning-engine-service")]
 impl std::fmt::Debug for super::CreateReasoningEngineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

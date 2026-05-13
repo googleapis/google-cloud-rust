@@ -1818,6 +1818,7 @@ impl std::fmt::Debug for super::ExecutionConfig {
         debug_struct.field("ttl", &self.ttl);
         debug_struct.field("staging_bucket", &self.staging_bucket);
         debug_struct.field("authentication_config", &self.authentication_config);
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         debug_struct.field("network", &self.network);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1877,6 +1878,7 @@ impl std::fmt::Debug for super::UsageMetrics {
         );
         debug_struct.field("milli_accelerator_seconds", &self.milli_accelerator_seconds);
         debug_struct.field("accelerator_type", &self.accelerator_type);
+        debug_struct.field("update_time", &self.update_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

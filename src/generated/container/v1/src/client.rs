@@ -872,7 +872,7 @@ impl ClusterManager {
         super::builder::cluster_manager::FetchClusterUpgradeInfo::new(self.inner.clone())
     }
 
-    /// Fetch upgrade information of a specific nodepool.
+    /// Fetch upgrade information of a specific node pool.
     ///
     /// # Example
     /// ```

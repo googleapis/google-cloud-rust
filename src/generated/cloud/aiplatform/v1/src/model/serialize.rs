@@ -31749,6 +31749,52 @@ impl serde::ser::Serialize for super::AsyncQueryReasoningEngineResponse {
     }
 }
 
+#[cfg(feature = "reasoning-engine-execution-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CancelAsyncQueryReasoningEngineRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.operation_name.is_empty() {
+            state.serialize_entry("operationName", &self.operation_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CancelAsyncQueryReasoningEngineResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CreateReasoningEngineRequest {

@@ -56,6 +56,7 @@ impl super::stub::Lineage for Lineage {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -125,6 +126,7 @@ impl super::stub::Lineage for Lineage {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -194,6 +196,7 @@ impl super::stub::Lineage for Lineage {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_process_name = try_match(
@@ -226,6 +229,7 @@ impl super::stub::Lineage for Lineage {
                             v.add(builder, "updateMask")
                         });
                     let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -498,6 +502,7 @@ impl super::stub::Lineage for Lineage {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -891,6 +896,7 @@ impl super::stub::Lineage for Lineage {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(

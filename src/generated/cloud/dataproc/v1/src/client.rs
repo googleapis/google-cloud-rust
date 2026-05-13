@@ -604,8 +604,12 @@ impl BatchController {
         super::builder::batch_controller::ListBatches::new(self.inner.clone())
     }
 
-    /// Deletes the batch workload resource. If the batch is not in terminal state,
-    /// the delete fails and the response returns `FAILED_PRECONDITION`.
+    /// Deletes the batch workload resource. If the batch is not in a
+    /// `CANCELLED`, `SUCCEEDED` or `FAILED`
+    /// [`State`][google.cloud.dataproc.v1.Batch.State], the delete operation fails
+    /// and the response returns `FAILED_PRECONDITION`.
+    ///
+    /// [google.cloud.dataproc.v1.Batch.State]: crate::model::batch::State
     ///
     /// # Example
     /// ```

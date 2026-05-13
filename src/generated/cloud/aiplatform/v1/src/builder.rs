@@ -50041,6 +50041,81 @@ pub mod reasoning_engine_execution_service {
         }
     }
 
+    /// The request builder for [ReasoningEngineExecutionService::cancel_async_query_reasoning_engine][crate::client::ReasoningEngineExecutionService::cancel_async_query_reasoning_engine] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::CancelAsyncQueryReasoningEngine;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelAsyncQueryReasoningEngine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelAsyncQueryReasoningEngine(
+        RequestBuilder<crate::model::CancelAsyncQueryReasoningEngineRequest>,
+    );
+
+    impl CancelAsyncQueryReasoningEngine {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReasoningEngineExecutionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CancelAsyncQueryReasoningEngineRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::CancelAsyncQueryReasoningEngineResponse> {
+            (*self.0.stub)
+                .cancel_async_query_reasoning_engine(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::CancelAsyncQueryReasoningEngineRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [operation_name][crate::model::CancelAsyncQueryReasoningEngineRequest::operation_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_operation_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation_name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelAsyncQueryReasoningEngine {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [ReasoningEngineExecutionService::list_locations][crate::client::ReasoningEngineExecutionService::list_locations] calls.
     ///
     /// # Example

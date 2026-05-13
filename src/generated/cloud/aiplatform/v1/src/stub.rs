@@ -6274,6 +6274,19 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ReasoningEngineExecutionService::cancel_async_query_reasoning_engine].
+    fn cancel_async_query_reasoning_engine(
+        &self,
+        _req: crate::model::CancelAsyncQueryReasoningEngineRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::CancelAsyncQueryReasoningEngineResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ReasoningEngineExecutionService::list_locations].
     fn list_locations(
         &self,

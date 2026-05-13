@@ -66,6 +66,18 @@ impl std::fmt::Debug for super::EventLink {
         let mut debug_struct = f.debug_struct("EventLink");
         debug_struct.field("source", &self.source);
         debug_struct.field("target", &self.target);
+        debug_struct.field("dependency_info", &self.dependency_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DependencyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DependencyInfo");
+        debug_struct.field("dependency_type", &self.dependency_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -77,6 +89,7 @@ impl std::fmt::Debug for super::EntityReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntityReference");
         debug_struct.field("fully_qualified_name", &self.fully_qualified_name);
+        debug_struct.field("field", &self.field);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -145,6 +158,7 @@ impl std::fmt::Debug for super::UpdateProcessRequest {
         debug_struct.field("process", &self.process);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -349,6 +363,17 @@ impl std::fmt::Debug for super::SearchLinksRequest {
     }
 }
 
+impl std::fmt::Debug for super::MultipleEntityReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultipleEntityReference");
+        debug_struct.field("entities", &self.entities);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SearchLinksResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchLinksResponse");
@@ -369,6 +394,18 @@ impl std::fmt::Debug for super::Link {
         debug_struct.field("target", &self.target);
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("dependency_info", &self.dependency_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::link::DependencyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DependencyInfo");
+        debug_struct.field("dependency_type", &self.dependency_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -432,6 +469,109 @@ impl std::fmt::Debug for super::Origin {
         let mut debug_struct = f.debug_struct("Origin");
         debug_struct.field("source_type", &self.source_type);
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::LineageLink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineageLink");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("processes", &self.processes);
+        debug_struct.field("dependency_info", &self.dependency_info);
+        debug_struct.field("depth", &self.depth);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::lineage_link::LineageProcess {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineageProcess");
+        debug_struct.field("process", &self.process);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::lineage_link::DependencyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DependencyInfo");
+        debug_struct.field("dependency_type", &self.dependency_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SearchLineageStreamingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchLineageStreamingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("root_criteria", &self.root_criteria);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("filters", &self.filters);
+        debug_struct.field("limits", &self.limits);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::search_lineage_streaming_request::SearchFilters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchFilters");
+        debug_struct.field("dependency_types", &self.dependency_types);
+        debug_struct.field("entity_set", &self.entity_set);
+        debug_struct.field("time_range", &self.time_range);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::search_lineage_streaming_request::SearchLimits {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchLimits");
+        debug_struct.field("max_depth", &self.max_depth);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("max_process_per_link", &self.max_process_per_link);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::search_lineage_streaming_request::RootCriteria {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RootCriteria");
+        debug_struct.field("criteria", &self.criteria);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SearchLineageStreamingResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchLineageStreamingResponse");
+        debug_struct.field("links", &self.links);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

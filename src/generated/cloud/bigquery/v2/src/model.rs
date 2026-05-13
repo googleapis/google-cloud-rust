@@ -6013,7 +6013,7 @@ pub struct ExternalDataConfiguration {
     /// of TIMESTAMP types that are allowed to the destination table for
     /// autodetection mode.
     ///
-    /// Available for the formats: CSV, PARQUET, and AVRO.
+    /// Available for the formats: CSV, PARQUET, AVRO, and Iceberg External Table.
     ///
     /// Possible values include:
     /// Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP
@@ -7246,6 +7246,60 @@ impl wkt::message::Message for GenAiFunctionCostOptimizationStats {
     }
 }
 
+/// Provides cache statistics for a GenAi function call.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenAiFunctionCacheStats {
+    /// Number of rows served from cache.
+    pub num_cache_hit_rows: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenAiFunctionCacheStats {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [num_cache_hit_rows][crate::model::GenAiFunctionCacheStats::num_cache_hit_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionCacheStats;
+    /// let x = GenAiFunctionCacheStats::new().set_num_cache_hit_rows(42);
+    /// ```
+    pub fn set_num_cache_hit_rows<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.num_cache_hit_rows = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [num_cache_hit_rows][crate::model::GenAiFunctionCacheStats::num_cache_hit_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionCacheStats;
+    /// let x = GenAiFunctionCacheStats::new().set_or_clear_num_cache_hit_rows(Some(42));
+    /// let x = GenAiFunctionCacheStats::new().set_or_clear_num_cache_hit_rows(None::<i32>);
+    /// ```
+    pub fn set_or_clear_num_cache_hit_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.num_cache_hit_rows = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for GenAiFunctionCacheStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GenAiFunctionCacheStats"
+    }
+}
+
 /// Provides statistics for each Ai function call within a query.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -7266,6 +7320,9 @@ pub struct GenAiFunctionStats {
     /// Cost optimization stats if applied on the rows processed by the function.
     pub cost_optimization_stats:
         std::option::Option<crate::model::GenAiFunctionCostOptimizationStats>,
+
+    /// Cache stats for the function.
+    pub cache_stats: std::option::Option<crate::model::GenAiFunctionCacheStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7432,6 +7489,39 @@ impl GenAiFunctionStats {
         T: std::convert::Into<crate::model::GenAiFunctionCostOptimizationStats>,
     {
         self.cost_optimization_stats = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_stats][crate::model::GenAiFunctionStats::cache_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionCacheStats;
+    /// let x = GenAiFunctionStats::new().set_cache_stats(GenAiFunctionCacheStats::default()/* use setters */);
+    /// ```
+    pub fn set_cache_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiFunctionCacheStats>,
+    {
+        self.cache_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_stats][crate::model::GenAiFunctionStats::cache_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionCacheStats;
+    /// let x = GenAiFunctionStats::new().set_or_clear_cache_stats(Some(GenAiFunctionCacheStats::default()/* use setters */));
+    /// let x = GenAiFunctionStats::new().set_or_clear_cache_stats(None::<GenAiFunctionCacheStats>);
+    /// ```
+    pub fn set_or_clear_cache_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiFunctionCacheStats>,
+    {
+        self.cache_stats = v.map(|x| x.into());
         self
     }
 }
@@ -13252,7 +13342,7 @@ pub struct JobConfigurationLoad {
     /// of TIMESTAMP types that are allowed to the destination table for
     /// autodetection mode.
     ///
-    /// Available for the formats: CSV, PARQUET, and AVRO.
+    /// Available for the formats: CSV, PARQUET, AVRO, and Iceberg External Table.
     ///
     /// Possible values include:
     /// Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP
@@ -24719,6 +24809,10 @@ pub struct PerformanceInsights {
     pub stage_performance_change_insights:
         std::vec::Vec<crate::model::StagePerformanceChangeInsight>,
 
+    /// Output only. Performance insights for table-level attributes that changed
+    /// compared to previous runs.
+    pub table_change_insights: std::vec::Vec<crate::model::TableChangeInsight>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -24781,6 +24875,28 @@ impl PerformanceInsights {
     {
         use std::iter::Iterator;
         self.stage_performance_change_insights = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [table_change_insights][crate::model::PerformanceInsights::table_change_insights].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::PerformanceInsights;
+    /// use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// let x = PerformanceInsights::new()
+    ///     .set_table_change_insights([
+    ///         TableChangeInsight::default()/* use setters */,
+    ///         TableChangeInsight::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_table_change_insights<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TableChangeInsight>,
+    {
+        use std::iter::Iterator;
+        self.table_change_insights = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -25251,6 +25367,216 @@ pub mod partition_skew {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.bigquery.v2.PartitionSkew.SkewSource"
         }
+    }
+}
+
+/// Table-level performance insights compared to previous runs. These insights
+/// don't apply to specific query stages, rather they apply to the whole table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TableChangeInsight {
+    /// Output only. The table that was queried.
+    pub table_reference: std::option::Option<crate::model::TableReference>,
+
+    /// Output only. If present, indicates that the table's metadata column index
+    /// staleness has increased significantly compared to previous jobs with the
+    /// same query hash.
+    pub metadata_cache_staleness_insight:
+        std::option::Option<crate::model::MetadataCacheStalenessInsight>,
+
+    /// Output only. True if the table's column metadata index was not used in the
+    /// current job, but was used in a previous job with the same query hash.
+    pub metadata_cache_not_used_but_used_previously: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TableChangeInsight {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table_reference][crate::model::TableChangeInsight::table_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// use google_cloud_bigquery_v2::model::TableReference;
+    /// let x = TableChangeInsight::new().set_table_reference(TableReference::default()/* use setters */);
+    /// ```
+    pub fn set_table_reference<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TableReference>,
+    {
+        self.table_reference = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [table_reference][crate::model::TableChangeInsight::table_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// use google_cloud_bigquery_v2::model::TableReference;
+    /// let x = TableChangeInsight::new().set_or_clear_table_reference(Some(TableReference::default()/* use setters */));
+    /// let x = TableChangeInsight::new().set_or_clear_table_reference(None::<TableReference>);
+    /// ```
+    pub fn set_or_clear_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TableReference>,
+    {
+        self.table_reference = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadata_cache_staleness_insight][crate::model::TableChangeInsight::metadata_cache_staleness_insight].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// use google_cloud_bigquery_v2::model::MetadataCacheStalenessInsight;
+    /// let x = TableChangeInsight::new().set_metadata_cache_staleness_insight(MetadataCacheStalenessInsight::default()/* use setters */);
+    /// ```
+    pub fn set_metadata_cache_staleness_insight<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MetadataCacheStalenessInsight>,
+    {
+        self.metadata_cache_staleness_insight = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata_cache_staleness_insight][crate::model::TableChangeInsight::metadata_cache_staleness_insight].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// use google_cloud_bigquery_v2::model::MetadataCacheStalenessInsight;
+    /// let x = TableChangeInsight::new().set_or_clear_metadata_cache_staleness_insight(Some(MetadataCacheStalenessInsight::default()/* use setters */));
+    /// let x = TableChangeInsight::new().set_or_clear_metadata_cache_staleness_insight(None::<MetadataCacheStalenessInsight>);
+    /// ```
+    pub fn set_or_clear_metadata_cache_staleness_insight<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MetadataCacheStalenessInsight>,
+    {
+        self.metadata_cache_staleness_insight = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadata_cache_not_used_but_used_previously][crate::model::TableChangeInsight::metadata_cache_not_used_but_used_previously].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// let x = TableChangeInsight::new().set_metadata_cache_not_used_but_used_previously(true);
+    /// ```
+    pub fn set_metadata_cache_not_used_but_used_previously<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.metadata_cache_not_used_but_used_previously = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata_cache_not_used_but_used_previously][crate::model::TableChangeInsight::metadata_cache_not_used_but_used_previously].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableChangeInsight;
+    /// let x = TableChangeInsight::new().set_or_clear_metadata_cache_not_used_but_used_previously(Some(false));
+    /// let x = TableChangeInsight::new().set_or_clear_metadata_cache_not_used_but_used_previously(None::<bool>);
+    /// ```
+    pub fn set_or_clear_metadata_cache_not_used_but_used_previously<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.metadata_cache_not_used_but_used_previously = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TableChangeInsight {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.TableChangeInsight"
+    }
+}
+
+/// Column Metadata Index staleness detailed infnormation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MetadataCacheStalenessInsight {
+    /// Output only. Average column metadata index staleness of previous runs with
+    /// the same query hash.
+    pub avg_previous_staleness_ms: std::option::Option<wkt::Duration>,
+
+    /// Output only. The percent increase in staleness between the current job and
+    /// the average staleness of previous jobs with the same query hash.
+    pub staleness_percentage_increase: f64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MetadataCacheStalenessInsight {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [avg_previous_staleness_ms][crate::model::MetadataCacheStalenessInsight::avg_previous_staleness_ms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::MetadataCacheStalenessInsight;
+    /// use wkt::Duration;
+    /// let x = MetadataCacheStalenessInsight::new().set_avg_previous_staleness_ms(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_avg_previous_staleness_ms<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.avg_previous_staleness_ms = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [avg_previous_staleness_ms][crate::model::MetadataCacheStalenessInsight::avg_previous_staleness_ms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::MetadataCacheStalenessInsight;
+    /// use wkt::Duration;
+    /// let x = MetadataCacheStalenessInsight::new().set_or_clear_avg_previous_staleness_ms(Some(Duration::default()/* use setters */));
+    /// let x = MetadataCacheStalenessInsight::new().set_or_clear_avg_previous_staleness_ms(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_avg_previous_staleness_ms<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.avg_previous_staleness_ms = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [staleness_percentage_increase][crate::model::MetadataCacheStalenessInsight::staleness_percentage_increase].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::MetadataCacheStalenessInsight;
+    /// let x = MetadataCacheStalenessInsight::new().set_staleness_percentage_increase(42.0);
+    /// ```
+    pub fn set_staleness_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.staleness_percentage_increase = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MetadataCacheStalenessInsight {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.MetadataCacheStalenessInsight"
     }
 }
 
@@ -45423,6 +45749,10 @@ pub struct ExternalRuntimeOptions {
     /// Optional. Language runtime version. Example: `python-3.11`.
     pub runtime_version: std::string::String,
 
+    /// Optional. Maximum number of requests that a Cloud Run instance can handle
+    /// concurrently. If absent or if `0`, a default concurrency is used.
+    pub container_request_concurrency: i64,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -45495,6 +45825,18 @@ impl ExternalRuntimeOptions {
     /// ```
     pub fn set_runtime_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.runtime_version = v.into();
+        self
+    }
+
+    /// Sets the value of [container_request_concurrency][crate::model::ExternalRuntimeOptions::container_request_concurrency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ExternalRuntimeOptions;
+    /// let x = ExternalRuntimeOptions::new().set_container_request_concurrency(42);
+    /// ```
+    pub fn set_container_request_concurrency<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.container_request_concurrency = v.into();
         self
     }
 }
@@ -53044,6 +53386,54 @@ impl wkt::message::Message for DataPolicyOption {
     }
 }
 
+/// A list of data policy options. For more information, see
+/// [Mask data by applying data policies to a
+/// column](https://docs.cloud.google.com/bigquery/docs/column-data-masking#data-policies-on-column).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataPolicyList {
+    /// Contains a list of data policy options. At most 9 data policies are
+    /// allowed per field.
+    pub data_policies: std::vec::Vec<crate::model::DataPolicyOption>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataPolicyList {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_policies][crate::model::DataPolicyList::data_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::DataPolicyList;
+    /// use google_cloud_bigquery_v2::model::DataPolicyOption;
+    /// let x = DataPolicyList::new()
+    ///     .set_data_policies([
+    ///         DataPolicyOption::default()/* use setters */,
+    ///         DataPolicyOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataPolicyOption>,
+    {
+        use std::iter::Iterator;
+        self.data_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DataPolicyList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.DataPolicyList"
+    }
+}
+
 /// A field in TableSchema
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -53089,9 +53479,35 @@ pub struct TableFieldSchema {
     /// access control. If not set, defaults to empty policy_tags.
     pub policy_tags: std::option::Option<crate::model::table_field_schema::PolicyTagList>,
 
+    /// Optional. Specifies the data governance tags on this field. This field
+    /// works with other column-level security fields as follows:
+    ///
+    /// - Precedence: If a data governance tag is attached to a column, it takes
+    ///   precedence over the policy tag attached to the column.
+    ///   However, if a data policy is attached to a column, it takes precedence
+    ///   over the data governance tag.
+    ///
+    /// - Patching behavior (how this field behaves during a `Table.patch` schema
+    ///   update):
+    ///
+    ///   - Unset: If the `data_governance_tags_info` field is omitted
+    ///     from the update request, the existing tags on the column are preserved.
+    ///   - Empty Field: To clear data governance tags from a column, send the
+    ///     `data_governance_tags_info` field as an empty object. This will remove
+    ///     all tags from the column.
+    ///   - Updating tags: To replace existing tag, send the field with the
+    ///     new tag.
+    pub data_governance_tags_info:
+        std::option::Option<crate::model::table_field_schema::DataGovernanceTagsInfo>,
+
     /// Optional. Data policies attached to this field, used for field-level access
     /// control.
     pub data_policies: std::vec::Vec<crate::model::DataPolicyOption>,
+
+    /// Optional. Specifies data policies attached to this field, used for
+    /// field-level access control. When set, this will be the source of truth for
+    /// data policy information.
+    pub data_policy_list: std::option::Option<crate::model::DataPolicyList>,
 
     /// Optional. Maximum length of values of this field for STRINGS or BYTES.
     ///
@@ -53319,6 +53735,39 @@ impl TableFieldSchema {
         self
     }
 
+    /// Sets the value of [data_governance_tags_info][crate::model::TableFieldSchema::data_governance_tags_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableFieldSchema;
+    /// use google_cloud_bigquery_v2::model::table_field_schema::DataGovernanceTagsInfo;
+    /// let x = TableFieldSchema::new().set_data_governance_tags_info(DataGovernanceTagsInfo::default()/* use setters */);
+    /// ```
+    pub fn set_data_governance_tags_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::table_field_schema::DataGovernanceTagsInfo>,
+    {
+        self.data_governance_tags_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_governance_tags_info][crate::model::TableFieldSchema::data_governance_tags_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableFieldSchema;
+    /// use google_cloud_bigquery_v2::model::table_field_schema::DataGovernanceTagsInfo;
+    /// let x = TableFieldSchema::new().set_or_clear_data_governance_tags_info(Some(DataGovernanceTagsInfo::default()/* use setters */));
+    /// let x = TableFieldSchema::new().set_or_clear_data_governance_tags_info(None::<DataGovernanceTagsInfo>);
+    /// ```
+    pub fn set_or_clear_data_governance_tags_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::table_field_schema::DataGovernanceTagsInfo>,
+    {
+        self.data_governance_tags_info = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [data_policies][crate::model::TableFieldSchema::data_policies].
     ///
     /// # Example
@@ -53338,6 +53787,39 @@ impl TableFieldSchema {
     {
         use std::iter::Iterator;
         self.data_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_policy_list][crate::model::TableFieldSchema::data_policy_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableFieldSchema;
+    /// use google_cloud_bigquery_v2::model::DataPolicyList;
+    /// let x = TableFieldSchema::new().set_data_policy_list(DataPolicyList::default()/* use setters */);
+    /// ```
+    pub fn set_data_policy_list<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataPolicyList>,
+    {
+        self.data_policy_list = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_policy_list][crate::model::TableFieldSchema::data_policy_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableFieldSchema;
+    /// use google_cloud_bigquery_v2::model::DataPolicyList;
+    /// let x = TableFieldSchema::new().set_or_clear_data_policy_list(Some(DataPolicyList::default()/* use setters */));
+    /// let x = TableFieldSchema::new().set_or_clear_data_policy_list(None::<DataPolicyList>);
+    /// ```
+    pub fn set_or_clear_data_policy_list<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataPolicyList>,
+    {
+        self.data_policy_list = v.map(|x| x.into());
         self
     }
 
@@ -53627,6 +54109,61 @@ pub mod table_field_schema {
     impl wkt::message::Message for PolicyTagList {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.bigquery.v2.TableFieldSchema.PolicyTagList"
+        }
+    }
+
+    #[allow(missing_docs)]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DataGovernanceTagsInfo {
+        /// Optional. The data governance tags added to this field are used for
+        /// field-level access control. Only one data governance tag is currently
+        /// supported on a field. Tag keys are globally unique. Tag key is expected
+        /// to be in the namespaced format, for example "123456789012/pii" where
+        /// 123456789012 is the ID of the parent organization or project resource for
+        /// this tag key. Tag value is expected to be the short name, for example
+        /// "sensitive". See [Tag
+        /// definitions](https://cloud.google.com/iam/docs/tags-access-control#definitions)
+        /// for more details. For example:
+        /// "123456789012/pii": "sensitive",
+        /// "myProject/cost_center": "sales"
+        pub data_governance_tags:
+            std::collections::HashMap<std::string::String, std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataGovernanceTagsInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [data_governance_tags][crate::model::table_field_schema::DataGovernanceTagsInfo::data_governance_tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::DataGovernanceTagsInfo;
+        /// let x = DataGovernanceTagsInfo::new().set_data_governance_tags([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
+        pub fn set_data_governance_tags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.data_governance_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DataGovernanceTagsInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.TableFieldSchema.DataGovernanceTagsInfo"
         }
     }
 

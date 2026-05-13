@@ -4330,6 +4330,9 @@ impl serde::ser::Serialize for super::ExecutionConfig {
         if self.authentication_config.is_some() {
             state.serialize_entry("authenticationConfig", &self.authentication_config)?;
         }
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4477,6 +4480,9 @@ impl serde::ser::Serialize for super::UsageMetrics {
         }
         if !self.accelerator_type.is_empty() {
             state.serialize_entry("acceleratorType", &self.accelerator_type)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
