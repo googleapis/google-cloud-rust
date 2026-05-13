@@ -32,6 +32,8 @@ mod spanner {
             &db_client,
         )
         .await?;
+        integration_tests_spanner::query::multi_use_read_only_transaction_interleaved(&db_client)
+            .await?;
         integration_tests_spanner::query::inline_begin_fallback(&db_client).await?;
         integration_tests_spanner::query::query_with_options(&db_client).await?;
         integration_tests_spanner::query::query_plan(&db_client).await?;
