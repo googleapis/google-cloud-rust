@@ -284,9 +284,16 @@ impl MultiUseReadOnlyTransactionBuilder {
         session_name: String,
         options: TransactionOptions,
         channel_hint: usize,
+        request_options: crate::RequestOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
-        let response =
-            execute_begin_transaction(&self.client, session_name, options, channel_hint).await?;
+        let response = execute_begin_transaction(
+            &self.client,
+            session_name,
+            options,
+            channel_hint,
+            request_options,
+        )
+        .await?;
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
 
@@ -319,8 +326,13 @@ impl MultiUseReadOnlyTransactionBuilder {
         let session_name = self.client.session_name();
         let channel_hint = self.client.spanner.next_channel_hint();
         let selector = if self.explicit_begin {
-            self.begin(session_name.clone(), options, channel_hint)
-                .await?
+            self.begin(
+                session_name.clone(),
+                options,
+                channel_hint,
+                crate::RequestOptions::default(),
+            )
+            .await?
         } else {
             ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
                 TransactionState::NotStarted(options),
@@ -442,15 +454,15 @@ async fn execute_begin_transaction(
     session_name: String,
     options: crate::model::TransactionOptions,
     channel_hint: usize,
+    request_options: crate::RequestOptions,
 ) -> crate::Result<crate::model::Transaction> {
     let request = crate::model::BeginTransactionRequest::default()
         .set_session(session_name)
         .set_options(options);
 
-    // TODO(#4972): make request options configurable
     client
         .spanner
-        .begin_transaction(request, crate::RequestOptions::default(), channel_hint)
+        .begin_transaction(request, request_options, channel_hint)
         .await
 }
 
@@ -544,6 +556,7 @@ impl ReadContextTransactionSelector {
         client: &crate::database_client::DatabaseClient,
         session_name: String,
         channel_hint: usize,
+        request_options: crate::RequestOptions,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
@@ -576,33 +589,35 @@ impl ReadContextTransactionSelector {
         // Only the leader thread will reach this point to perform the explicit begin.
         // Waiters are blocked in `poll_selector_status` waiting for the result,
         // and already completed states return early above.
-        let response =
-            match execute_begin_transaction(client, session_name.clone(), options, channel_hint)
-                .await
-            {
-                Ok(r) => r,
-                Err(e) => {
-                    let mut guard = lazy.lock().expect("transaction state mutex poisoned");
-                    let error = Arc::new(e);
-                    *guard = TransactionState::Failed(Arc::clone(&error));
-                    // Release the lock and notify all the waiting queries that
-                    // the transaction has failed.
-                    drop(guard);
-                    if let Some(notify) = notify_opt {
-                        notify.notify_waiters();
-                    }
-
-                    let return_error = if let Some(status) = error.status() {
-                        crate::Error::service(status.clone())
-                    } else {
-                        crate::error::internal_error(format!(
-                            "Transaction failed to start: {}",
-                            error
-                        ))
-                    };
-                    return Err(return_error);
+        let response = match execute_begin_transaction(
+            client,
+            session_name.clone(),
+            options,
+            channel_hint,
+            request_options,
+        )
+        .await
+        {
+            Ok(r) => r,
+            Err(e) => {
+                let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+                let error = Arc::new(e);
+                *guard = TransactionState::Failed(Arc::clone(&error));
+                // Release the lock and notify all the waiting queries that
+                // the transaction has failed.
+                drop(guard);
+                if let Some(notify) = notify_opt {
+                    notify.notify_waiters();
                 }
-            };
+
+                let return_error = if let Some(status) = error.status() {
+                    crate::Error::service(status.clone())
+                } else {
+                    crate::error::internal_error(format!("Transaction failed to start: {}", error))
+                };
+                return Err(return_error);
+            }
+        };
 
         self.update(response.id, response.read_timestamp)?;
 
@@ -651,32 +666,6 @@ impl ReadContextTransactionSelector {
                 "got a transaction id for an already Started or Failed transaction",
             ))
         }
-    }
-
-    /// Returns the transaction ID if it is already available, without waiting.
-    ///
-    /// This method inspects the selector and returns the transaction ID if the
-    /// transaction has already started. It returns `None` if the transaction
-    /// has not yet started or is in a state without an ID.
-    #[allow(dead_code)]
-    pub(crate) fn get_id_no_wait(&self) -> Option<bytes::Bytes> {
-        use crate::model::transaction_selector::Selector;
-        match self {
-            Self::Fixed(selector, _) => {
-                if let Some(Selector::Id(id)) = &selector.selector {
-                    return Some(id.clone());
-                }
-            }
-            Self::Lazy(lazy) => {
-                let guard = lazy.lock().expect("transaction state mutex poisoned");
-                if let TransactionState::Started(selector, _) = &*guard {
-                    if let Some(Selector::Id(id)) = &selector.selector {
-                        return Some(id.clone());
-                    }
-                }
-            }
-        }
-        None
     }
 
     /// Resets the selector state from `Starting` back to `NotStarted`.
@@ -753,7 +742,10 @@ impl ReadContext {
     /// Attempts to execute an explicit `begin_transaction` RPC if the current transaction
     /// selector is still in the `Lazy(NotStarted)` state. This is used as a
     /// fallback mechanism when an initial implicit begin attempt failed.
-    async fn begin_explicitly_if_not_started(&self) -> crate::Result<bool> {
+    async fn begin_explicitly_if_not_started(
+        &self,
+        request_options: crate::RequestOptions,
+    ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
             return Ok(false);
         };
@@ -763,7 +755,12 @@ impl ReadContext {
         }
 
         self.transaction_selector
-            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
+            .begin_explicitly(
+                &self.client,
+                self.session_name.clone(),
+                self.channel_hint,
+                request_options,
+            )
             .await?;
         Ok(true)
     }
@@ -784,7 +781,10 @@ macro_rules! execute_stream_with_retry {
                 if is_aborted(&e) {
                     return Err(e);
                 }
-                if $self.begin_explicitly_if_not_started().await? {
+                if $self
+                    .begin_explicitly_if_not_started($gax_options.clone())
+                    .await?
+                {
                     $request.transaction = Some($self.transaction_selector.selector().await?);
                     $self
                         .client

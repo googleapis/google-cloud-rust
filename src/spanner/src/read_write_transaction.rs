@@ -230,6 +230,12 @@ macro_rules! execute_with_retry {
                     return Err(error);
                 }
 
+                let mut begin_options = crate::RequestOptions::default();
+                if let Some(d) = $self.deadline {
+                    let remaining = d.saturating_duration_since(tokio::time::Instant::now());
+                    begin_options.set_attempt_timeout(remaining);
+                }
+
                 $self
                     .context
                     .transaction_selector
@@ -237,6 +243,7 @@ macro_rules! execute_with_retry {
                         &$self.context.client,
                         $self.context.session_name.clone(),
                         $self.context.channel_hint,
+                        begin_options,
                     )
                     .await?;
 
