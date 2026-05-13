@@ -20,6 +20,7 @@ use crate::precommit::PrecommitTokenTracker;
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
+use crate::transaction_retry_policy::is_aborted;
 use std::mem::replace;
 use std::sync::{Arc, Mutex};
 use tokio::sync::Notify;
@@ -652,6 +653,32 @@ impl ReadContextTransactionSelector {
         }
     }
 
+    /// Returns the transaction ID if it is already available, without waiting.
+    ///
+    /// This method inspects the selector and returns the transaction ID if the
+    /// transaction has already started. It returns `None` if the transaction
+    /// has not yet started or is in a state without an ID.
+    #[allow(dead_code)]
+    pub(crate) fn get_id_no_wait(&self) -> Option<bytes::Bytes> {
+        use crate::model::transaction_selector::Selector;
+        match self {
+            Self::Fixed(selector, _) => {
+                if let Some(Selector::Id(id)) = &selector.selector {
+                    return Some(id.clone());
+                }
+            }
+            Self::Lazy(lazy) => {
+                let guard = lazy.lock().expect("transaction state mutex poisoned");
+                if let TransactionState::Started(selector, _) = &*guard {
+                    if let Some(Selector::Id(id)) = &selector.selector {
+                        return Some(id.clone());
+                    }
+                }
+            }
+        }
+        None
+    }
+
     /// Resets the selector state from `Starting` back to `NotStarted`.
     ///
     /// This is used during stream resume fallbacks when the first query stream
@@ -754,6 +781,9 @@ macro_rules! execute_stream_with_retry {
         {
             Ok(s) => s,
             Err(e) => {
+                if is_aborted(&e) {
+                    return Err(e);
+                }
                 if $self.begin_explicitly_if_not_started().await? {
                     $request.transaction = Some($self.transaction_selector.selector().await?);
                     $self

@@ -35,9 +35,11 @@ impl BatchWriteTransactionBuilder {
     /// Builds the [BatchWriteTransaction].
     pub fn build(self) -> BatchWriteTransaction {
         let session_name = self.client.session_name();
+        let channel_hint = self.client.spanner.next_channel_hint();
         BatchWriteTransaction {
             session_name,
             client: self.client,
+            channel_hint,
         }
     }
 }
@@ -49,6 +51,7 @@ impl BatchWriteTransactionBuilder {
 pub struct BatchWriteTransaction {
     session_name: String,
     client: DatabaseClient,
+    channel_hint: usize,
 }
 
 impl BatchWriteTransaction {
@@ -100,7 +103,7 @@ impl BatchWriteTransaction {
         let stream = self
             .client
             .spanner
-            .batch_write(req, crate::RequestOptions::default())
+            .batch_write(req, crate::RequestOptions::default(), self.channel_hint)
             .send()
             .await?;
         Ok(BatchWriteResponseStream { inner: stream })
