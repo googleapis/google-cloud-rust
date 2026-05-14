@@ -14,6 +14,7 @@
 
 use crate::BatchDml;
 use crate::RequestOptions;
+use crate::client::LAR_HEADER_MAP;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::BeginTransactionRequest;
@@ -37,7 +38,9 @@ use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::error::Error as GaxError;
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::options::{
+    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
+};
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -152,6 +155,9 @@ impl ReadWriteTransactionBuilder {
                 let remaining = d.saturating_duration_since(Instant::now());
                 options.set_attempt_timeout(remaining);
             }
+            if self.client.leader_aware_routing_enabled {
+                options = options.insert_extension((*LAR_HEADER_MAP).clone());
+            }
 
             let response = self
                 .client
@@ -235,6 +241,9 @@ macro_rules! execute_with_retry {
                     let remaining = d.saturating_duration_since(tokio::time::Instant::now());
                     begin_options.set_attempt_timeout(remaining);
                 }
+                if $self.context.client.leader_aware_routing_enabled {
+                    begin_options = begin_options.insert_extension((*LAR_HEADER_MAP).clone());
+                }
 
                 $self
                     .context
@@ -279,12 +288,9 @@ impl ReadWriteTransaction {
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
-        if self.deadline.is_none() {
-            return self.context.execute_query(statement).await;
-        }
         let stmt = statement.into();
         let mut gax_options = stmt.gax_options().clone();
-        self.apply_transaction_timeout(&mut gax_options);
+        self.amend_gax_options(&mut gax_options);
         let stmt = stmt.with_gax_options(gax_options);
         self.context.execute_query(stmt).await
     }
@@ -294,11 +300,8 @@ impl ReadWriteTransaction {
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
-        if self.deadline.is_none() {
-            return self.context.execute_read(read).await;
-        }
         let mut req = read.into();
-        self.apply_transaction_timeout(&mut req.gax_options);
+        self.amend_gax_options(&mut req.gax_options);
         self.context.execute_read(req).await
     }
 
@@ -306,9 +309,7 @@ impl ReadWriteTransaction {
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
         let statement = statement.into();
         let mut gax_options = statement.gax_options().clone();
-        if self.deadline.is_some() {
-            self.apply_transaction_timeout(&mut gax_options);
-        }
+        self.amend_gax_options(&mut gax_options);
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
         let mut request = statement
             .into_request()
@@ -413,9 +414,7 @@ impl ReadWriteTransaction {
     /// ```
     pub async fn execute_batch_update(&self, batch: BatchDml) -> crate::Result<Vec<i64>> {
         let mut batch = batch;
-        if self.deadline.is_some() {
-            self.apply_transaction_timeout(&mut batch.gax_options);
-        }
+        self.amend_gax_options(&mut batch.gax_options);
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
         let statements: Vec<ExecuteBatchDmlStatement> = batch
@@ -485,7 +484,7 @@ impl ReadWriteTransaction {
 
         // TODO(#4972): make request options configurable
         let mut gax_options = GaxRequestOptions::default();
-        self.apply_transaction_timeout(&mut gax_options);
+        self.amend_gax_options(&mut gax_options);
 
         let response = self
             .context
@@ -504,7 +503,7 @@ impl ReadWriteTransaction {
 
                 // TODO(#4972): make request options configurable
                 let mut gax_options = GaxRequestOptions::default();
-                self.apply_transaction_timeout(&mut gax_options);
+                self.amend_gax_options(&mut gax_options);
 
                 self.context
                     .client
@@ -526,20 +525,19 @@ impl ReadWriteTransaction {
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
+        let mut gax_options = RequestOptions::default();
+        self.amend_gax_options(&mut gax_options);
+
         self.context
             .client
             .spanner
-            .rollback(
-                request,
-                RequestOptions::default(),
-                self.context.channel_hint,
-            )
+            .rollback(request, gax_options, self.context.channel_hint)
             .await?;
 
         Ok(())
     }
 
-    fn apply_transaction_timeout(&self, options: &mut GaxRequestOptions) {
+    fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
         if let Some(deadline) = self.deadline {
             let inner_policy = options
                 .retry_policy()
@@ -550,6 +548,9 @@ impl ReadWriteTransaction {
                 deadline,
             };
             options.set_retry_policy(bounded_policy);
+        }
+        if self.context.client.leader_aware_routing_enabled {
+            *options = options.clone().insert_extension((*LAR_HEADER_MAP).clone());
         }
     }
 }
@@ -579,7 +580,9 @@ mod tests {
     use super::*;
     use crate::BatchUpdateError;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::result_set::tests::adapt;
     use gaxi::grpc::tonic;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
     use std::sync::Mutex;
@@ -1904,6 +1907,184 @@ mod tests {
 
         assert_eq!(counts, vec![1]);
 
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_enabled_by_default() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+        mock.expect_execute_sql().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_explicit_begin_transaction(true)
+            .build(None)
+            .await?;
+        let count = tx.execute_update("UPDATE Users SET active = true").await?;
+        assert_eq!(count, 1);
+        let _ = tx.commit().await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_disabled() -> anyhow::Result<()> {
+        use crate::client::Spanner;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|req| {
+            assert!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none()
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+        mock.expect_execute_sql().once().returning(|req| {
+            assert!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none()
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().once().returning(|req| {
+            assert!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none()
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = spanner_grpc_mock::start("0.0.0.0:0", mock).await.unwrap();
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(false)
+            .build()
+            .await?;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_explicit_begin_transaction(true)
+            .build(None)
+            .await?;
+        let count = tx.execute_update("UPDATE Users SET active = true").await?;
+        assert_eq!(count, 1);
+        let _ = tx.commit().await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_query_in_read_write() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            let stream = adapt([Ok(v1::PartialResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            })]);
+            Ok(tonic::Response::from(stream))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_explicit_begin_transaction(true)
+            .build(None)
+            .await?;
+        let _rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
         Ok(())
     }
 }

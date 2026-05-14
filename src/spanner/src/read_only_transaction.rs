@@ -2387,4 +2387,31 @@ pub(crate) mod tests {
 
         Ok(())
     }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_query_in_read_only() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            assert!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none()
+            );
+            let stream = adapt([Ok(mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            })]);
+            Ok(tonic::Response::from(stream))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client.single_use().build();
+        let _rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        Ok(())
+    }
 }

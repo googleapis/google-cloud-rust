@@ -20,7 +20,14 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
-use std::sync::atomic::{AtomicUsize, Ordering};
+use http::{
+    HeaderMap,
+    header::{HeaderName, HeaderValue},
+};
+use std::sync::{
+    LazyLock,
+    atomic::{AtomicUsize, Ordering},
+};
 
 pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
@@ -119,6 +126,15 @@ fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::Reques
     }
     options
 }
+
+pub(crate) static LAR_HEADER_MAP: LazyLock<HeaderMap> = LazyLock::new(|| {
+    let mut map = HeaderMap::new();
+    map.insert(
+        HeaderName::from_static("x-goog-spanner-route-to-leader"),
+        HeaderValue::from_static("true"),
+    );
+    map
+});
 
 #[allow(dead_code)]
 impl Spanner {

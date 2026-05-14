@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{DatabaseClient, Mutation};
+use crate::client::{DatabaseClient, LAR_HEADER_MAP, Mutation};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
@@ -22,6 +22,9 @@ use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
 use bytes::Bytes;
+use google_cloud_gax::options::{
+    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
+};
 use std::sync::{Arc, Mutex};
 use wkt::Duration;
 
@@ -272,6 +275,7 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
+        let gax_options = self.gax_options();
         let req_options = RequestOptions::default()
             .set_transaction_tag(self.transaction_tag.unwrap_or_default())
             .set_priority(self.commit_priority.clone());
@@ -290,6 +294,7 @@ impl WriteOnlyTransaction {
             let mutations_proto = mutations_proto.clone();
             let mutation_key = mutation_key.clone();
             let previous_transaction_id = previous_transaction_id.clone();
+            let gax_options = gax_options.clone();
 
             async move {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
@@ -311,7 +316,7 @@ impl WriteOnlyTransaction {
 
                 let tx = client
                     .spanner
-                    .begin_transaction(begin_req, crate::RequestOptions::default(), channel_hint)
+                    .begin_transaction(begin_req, gax_options.clone(), channel_hint)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -326,7 +331,7 @@ impl WriteOnlyTransaction {
 
                 let response = client
                     .spanner
-                    .commit(commit_req, crate::RequestOptions::default(), channel_hint)
+                    .commit(commit_req, gax_options.clone(), channel_hint)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -339,11 +344,7 @@ impl WriteOnlyTransaction {
                         .set_precommit_token(new_token);
                     client
                         .spanner
-                        .commit(
-                            retry_commit_req,
-                            crate::RequestOptions::default(),
-                            channel_hint,
-                        )
+                        .commit(retry_commit_req, gax_options, channel_hint)
                         .await
                 } else {
                     Ok(response)
@@ -389,6 +390,7 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
+        let gax_options = self.gax_options();
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
             .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
@@ -408,15 +410,24 @@ impl WriteOnlyTransaction {
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let request = request.clone();
+            let gax_options = gax_options.clone();
 
             async move {
                 client
                     .spanner
-                    .commit(request, crate::RequestOptions::default(), channel_hint)
+                    .commit(request, gax_options, channel_hint)
                     .await
             }
         })
         .await
+    }
+
+    fn gax_options(&self) -> GaxRequestOptions {
+        let mut options = GaxRequestOptions::default();
+        if self.client.leader_aware_routing_enabled {
+            options = options.insert_extension((*LAR_HEADER_MAP).clone());
+        }
+        options
     }
 }
 
@@ -1032,6 +1043,47 @@ mod tests {
             .write_at_least_once(vec![mutation])
             .await;
 
+        assert!(res.is_ok());
+    }
+
+    #[google_cloud_test_macros::tokio_test_no_panics]
+    async fn leader_aware_routing_enabled_by_default() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let res = db_client
+            .write_only_transaction()
+            .build()
+            .write_at_least_once(vec![mutation])
+            .await;
         assert!(res.is_ok());
     }
 }
