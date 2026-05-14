@@ -93,6 +93,7 @@ mod buffered_single_shot {
 
 mod buffered_resumable {
     use super::*;
+    use base64::Engine;
 
     fn prepare_server(body: Value) -> Server {
         super::resumable_server(body)
@@ -127,6 +128,55 @@ mod buffered_resumable {
     }
 
     #[tokio::test]
+    async fn computed_match_sends_checksum() -> Result {
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(status_code(200).append_header("location", session.to_string())),
+        );
+        let len = VEXING.len();
+        let crc32c = vexing_crc32c();
+        let bytes = crc32c.to_be_bytes();
+        let encoded = base64::prelude::BASE64_STANDARD.encode(bytes);
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes 0-{}/{len}", len - 1)
+                ))),
+                request::headers(contains(("x-goog-hash", format!("crc32c={encoded}"))))
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(good_checksums_body().to_string()),
+            ),
+        );
+
+        let client = test_builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_resumable_upload_threshold(0_usize)
+            .build()
+            .await?;
+
+        let object = client
+            .write_object("projects/_/buckets/test-bucket", "test-object", VEXING)
+            .send_buffered()
+            .await?;
+
+        assert_eq!(object.name, "test-object");
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn precomputed_mismatch() -> Result {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
@@ -154,6 +204,97 @@ mod buffered_resumable {
             .with_known_md5_hash(vexing_md5())
             .send_buffered()
             .await?;
+        assert_eq!(object.name, "test-object");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn resumed_computed_match_does_not_send_checksum() -> Result {
+        use crate::streaming_source::tests::UnknownSize;
+        use base64::Engine;
+
+        const QUANTUM: usize = 256 * 1024;
+        let mut data = vec![0_u8; QUANTUM];
+        data.extend_from_slice(VEXING.as_bytes());
+        let full_len = data.len();
+
+        let crc = crc32c::crc32c(&data);
+        let crc_base64 = base64::prelude::BASE64_STANDARD.encode(crc.to_be_bytes());
+        let md5 = md5::compute(&data);
+        let md5_base64 = base64::prelude::BASE64_STANDARD.encode(md5.0);
+
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(status_code(200).append_header("location", session.to_string())),
+        );
+
+        // 1. First PUT fails with 429
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes 0-{}/*", QUANTUM - 1)
+                )))
+            ])
+            .respond_with(status_code(429).body("try-again")),
+        );
+
+        // 2. Query returns that the first chunk was persisted
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains(("content-range", "bytes */*"))),
+                request::headers(contains(("content-length", "0"))),
+            ])
+            .respond_with(status_code(308).append_header("range", format!("bytes=0-{}", QUANTUM - 1))),
+        );
+
+        // 3. Second PUT (last chunk) should NOT contain x-goog-hash
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes {}-{}/{}", QUANTUM, full_len - 1, full_len)
+                ))),
+                not(request::headers(contains(key("x-goog-hash"))))
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(json!({
+                        "bucket": "projects/_/buckets/test-bucket",
+                        "name": "test-object",
+                        "crc32c": crc_base64,
+                        "md5Hash": md5_base64,
+                        "size": full_len,
+                    }).to_string()),
+            ),
+        );
+
+        let client = test_builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_resumable_upload_threshold(0_usize)
+            .with_resumable_upload_buffer_size(QUANTUM)
+            .build()
+            .await?;
+
+        let payload = UnknownSize::new(BytesSource::new(bytes::Bytes::from(data)));
+
+        let object = client
+            .write_object("projects/_/buckets/test-bucket", "test-object", payload)
+            .send_buffered()
+            .await?;
+
         assert_eq!(object.name, "test-object");
         Ok(())
     }
