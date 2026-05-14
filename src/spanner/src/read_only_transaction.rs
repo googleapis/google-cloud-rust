@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::database_client::DatabaseClient;
+use crate::error::internal_error;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
 use crate::model::transaction_options::ReadOnly;
@@ -557,28 +558,61 @@ impl ReadContextTransactionSelector {
         session_name: String,
         channel_hint: usize,
         request_options: crate::RequestOptions,
+        is_stream_fallback: bool,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
         };
 
-        let (options, notify_opt) = {
-            let guard = lazy.lock().expect("transaction state mutex poisoned");
+        enum FallbackAction {
+            Begin(
+                crate::model::TransactionOptions,
+                Option<Arc<tokio::sync::Notify>>,
+            ),
+            Wait(Arc<tokio::sync::Notify>),
+            None,
+        }
+
+        let action = {
+            let mut guard = lazy
+                .lock()
+                .map_err(|_| internal_error("transaction state mutex poisoned"))?;
             match &*guard {
-                TransactionState::NotStarted(options) => (options.clone(), None),
+                TransactionState::NotStarted(options) => {
+                    // The transaction has not started yet. This thread becomes the "leader"
+                    // and transitions the state to Starting before performing the BeginTransaction RPC.
+                    let options = options.clone();
+                    let notify = Arc::new(tokio::sync::Notify::new());
+                    *guard = TransactionState::Starting(options.clone(), Arc::clone(&notify));
+                    FallbackAction::Begin(options, Some(notify))
+                }
                 TransactionState::Starting(options, notify) => {
-                    // The transaction is already in the process of starting. Only the "leader"
-                    // thread (the one that initiated the start) can reach here while the state is
-                    // Starting, and it does so if its initial query failed. We extract the options
-                    // to proceed with an explicit BeginTransaction RPC.
-                    (options.clone(), Some(Arc::clone(notify)))
+                    // The transaction is already in the process of starting. If this call originated from
+                    // an explicit begin request (`is_stream_fallback = false`), this thread is a follower
+                    // and must wait for the leader. If this call originated from a stream resume fallback
+                    // (`is_stream_fallback = true`), this thread is the stream leader whose initial query failed,
+                    // and it must proceed with an explicit BeginTransaction RPC.
+                    if !is_stream_fallback {
+                        FallbackAction::Wait(Arc::clone(notify))
+                    } else {
+                        FallbackAction::Begin(options.clone(), Some(Arc::clone(notify)))
+                    }
                 }
                 TransactionState::Started(_, _) | TransactionState::Failed(_) => {
                     // The transaction has already reached a terminal state (Started or Failed).
                     // No further action is needed in this explicit begin attempt.
-                    return Ok(());
+                    FallbackAction::None
                 }
             }
+        };
+
+        let (options, notify_opt) = match action {
+            FallbackAction::None => return Ok(()),
+            FallbackAction::Wait(notify) => {
+                notify.notified().await;
+                return Ok(());
+            }
+            FallbackAction::Begin(opts, notif) => (opts, notif),
         };
 
         // Only the leader thread will reach this point to perform the explicit begin.
@@ -668,36 +702,38 @@ impl ReadContextTransactionSelector {
     /// This method inspects the selector and returns the transaction ID if the
     /// transaction has already started. It returns `None` if the transaction
     /// has not yet started or is in a state without an ID.
-    pub(crate) fn get_id_no_wait(&self) -> Option<bytes::Bytes> {
+    pub(crate) fn get_id_no_wait(&self) -> crate::Result<Option<bytes::Bytes>> {
         use crate::model::transaction_selector::Selector;
         match self {
             Self::Fixed(selector, _) => {
                 if let Some(Selector::Id(id)) = &selector.selector {
-                    return Some(id.clone());
+                    return Ok(Some(id.clone()));
                 }
             }
             Self::Lazy(lazy) => {
-                let guard = lazy.lock().expect("transaction state mutex poisoned");
+                let guard = lazy
+                    .lock()
+                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
                 if let TransactionState::Started(selector, _) = &*guard {
                     if let Some(Selector::Id(id)) = &selector.selector {
-                        return Some(id.clone());
+                        return Ok(Some(id.clone()));
                     }
                 }
             }
         }
-        None
+        Ok(None)
     }
 
     /// Returns whether the transaction selector is currently in the `Starting` state.
-    pub(crate) fn is_starting(&self) -> bool {
+    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
         match self {
             Self::Lazy(lazy) => {
-                matches!(
-                    &*lazy.lock().expect("transaction state mutex poisoned"),
-                    TransactionState::Starting(_, _)
-                )
+                let guard = lazy
+                    .lock()
+                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
+                Ok(matches!(&*guard, TransactionState::Starting(_, _)))
             }
-            _ => false,
+            _ => Ok(false),
         }
     }
 
@@ -778,6 +814,7 @@ impl ReadContext {
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
         request_options: crate::RequestOptions,
+        is_stream_fallback: bool,
     ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
             return Ok(false);
@@ -793,6 +830,7 @@ impl ReadContext {
                 self.session_name.clone(),
                 self.channel_hint,
                 request_options,
+                is_stream_fallback,
             )
             .await?;
         Ok(true)
@@ -815,7 +853,7 @@ macro_rules! execute_stream_with_retry {
                     return Err(e);
                 }
                 if $self
-                    .begin_explicitly_if_not_started($gax_options.clone())
+                    .begin_explicitly_if_not_started($gax_options.clone(), true)
                     .await?
                 {
                     $request.transaction = Some($self.transaction_selector.selector().await?);
@@ -899,7 +937,9 @@ pub(crate) mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
-    use std::sync::Arc;
+    use std::sync::mpsc::channel as std_channel;
+    use std::sync::{Arc, Mutex as StdMutex};
+    use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::sync::{Barrier, Mutex, Notify, mpsc};
 
     #[test]
@@ -2419,5 +2459,96 @@ pub(crate) mod tests {
         assert!(rs.next().await.is_none());
 
         Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn execute_concurrent_begin_explicitly_redundancy_prevention() {
+        let (tx_rpc, rx_rpc) = std_channel();
+        let (tx_started, rx_started) = oneshot_channel();
+        let tx_started_mutex = StdMutex::new(Some(tx_started));
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // Task 1 (leader) fires the initial query inline.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                if let Some(tx) = tx_started_mutex.lock().unwrap().take() {
+                    let _ = tx.send(());
+                }
+                rx_rpc.recv().unwrap();
+                let (tx, rx) = mpsc::channel(1);
+                let metadata = mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![42],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let prs = mock_v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                tx.try_send(Ok(prs)).unwrap();
+                Ok(tonic::Response::new(rx))
+            });
+
+        // Task 2 (follower) arrives while Task 1 is in flight, suspends until Task 1 completes,
+        // and then successfully fires its query using the newly extracted transaction ID (vec![42]).
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.transaction,
+                    Some(mock_v1::TransactionSelector {
+                        selector: Some(mock_v1::transaction_selector::Selector::Id(vec![42])),
+                    })
+                );
+                let (_tx, rx) = mpsc::channel(1);
+                Ok(tonic::Response::new(rx))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = Arc::new(
+            db_client
+                .read_only_transaction()
+                .with_explicit_begin_transaction(false)
+                .build()
+                .await
+                .unwrap(),
+        );
+
+        let tx_leader = Arc::clone(&tx);
+        let handle_leader = tokio::spawn(async move {
+            let mut rs = tx_leader
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await
+                .unwrap();
+            let _ = rs.next().await;
+        });
+
+        rx_started.await.unwrap();
+
+        // Now the state is Starting and the leader is blocked inside execute_streaming_sql.
+        // Task 2 executes a concurrent query, which must wait for the leader rather than firing a redundant RPC.
+        let tx_follower = Arc::clone(&tx);
+        let handle_follower = tokio::spawn(async move {
+            let mut rs = tx_follower
+                .execute_query(Statement::builder("SELECT 2").build())
+                .await
+                .unwrap();
+            let _ = rs.next().await;
+        });
+
+        // Unblock the leader
+        tx_rpc.send(()).unwrap();
+
+        handle_leader.await.unwrap();
+        handle_follower.await.unwrap();
     }
 }

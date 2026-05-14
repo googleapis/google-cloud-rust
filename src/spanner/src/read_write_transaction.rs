@@ -237,7 +237,7 @@ macro_rules! execute_with_retry {
                     begin_options.set_attempt_timeout(remaining);
                 }
 
-                $self.begin_explicitly_if_not_started().await?;
+                $self.begin_explicitly_if_not_started(true).await?;
 
                 $request.transaction = Some($self.context.transaction_selector.selector().await?);
 
@@ -446,18 +446,21 @@ impl ReadWriteTransaction {
         crate::batch_dml::process_response(response)
     }
 
-    pub(crate) async fn begin_explicitly_if_not_started(&self) -> crate::Result<bool> {
+    pub(crate) async fn begin_explicitly_if_not_started(
+        &self,
+        is_stream_fallback: bool,
+    ) -> crate::Result<bool> {
         let mut begin_options = crate::RequestOptions::default();
         if let Some(d) = self.deadline {
             let remaining = d.saturating_duration_since(Instant::now());
             begin_options.set_attempt_timeout(remaining);
         }
         self.context
-            .begin_explicitly_if_not_started(begin_options)
+            .begin_explicitly_if_not_started(begin_options, is_stream_fallback)
             .await
     }
 
-    pub(crate) fn is_starting(&self) -> bool {
+    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
         self.context.transaction_selector.is_starting()
     }
 

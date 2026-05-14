@@ -21,7 +21,7 @@ use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBu
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
 };
-use std::sync::{Arc, Mutex};
+
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
 use wkt::Duration;
@@ -408,7 +408,7 @@ impl TransactionRunner {
         loop {
             attempts += 1;
 
-            let shared_tx_id = Arc::new(Mutex::new(None));
+            let mut current_tx_id = None;
             let attempt_result = async {
                 let transaction = self
                     .builder
@@ -424,30 +424,35 @@ impl TransactionRunner {
                         // we only wish to capture it if the transaction successfully started prior to
                         // failing, so it can be used as the previous transaction ID if the transaction
                         // was aborted.
-                        let id = transaction.context.transaction_selector.get_id_no_wait();
+                        let id = transaction
+                            .context
+                            .transaction_selector
+                            .get_id_no_wait()
+                            .ok()
+                            .flatten();
                         // Rollback if the closure failed and it was not an Aborted error.
                         if !is_aborted(&e) {
                             let _ = transaction.rollback().await;
                         }
-                        *shared_tx_id.lock().unwrap() = id;
+                        current_tx_id = id;
                         return Err(e);
                     }
                 };
 
                 // If the closure executed no statements, `get_id_no_wait()` will return `None`.
                 // In that case, we explicitly begin the transaction before calling `commit()`.
-                let mut id = transaction.context.transaction_selector.get_id_no_wait();
+                let mut id = transaction.context.transaction_selector.get_id_no_wait()?;
                 if id.is_none() {
-                    if transaction.is_starting() {
+                    if transaction.is_starting()? {
                         return Err(crate::error::internal_error(
                             "Transaction closure finished while an asynchronous statement is still starting the transaction",
                         ));
                     }
-                    if transaction.begin_explicitly_if_not_started().await? {
-                        id = transaction.context.transaction_selector.get_id_no_wait();
+                    if transaction.begin_explicitly_if_not_started(false).await? {
+                        id = transaction.context.transaction_selector.get_id_no_wait()?;
                     }
                 }
-                *shared_tx_id.lock().unwrap() = id;
+                current_tx_id = id;
                 let commit_response = transaction.commit().await?;
                 Ok::<TransactionResult<T>, crate::Error>(TransactionResult {
                     result,
@@ -460,7 +465,7 @@ impl TransactionRunner {
                 Ok(res) => return Ok(res),
                 Err(e) => {
                     if is_aborted(&e) {
-                        let current_tx_id = shared_tx_id.lock().unwrap().clone();
+                        let current_tx_id = current_tx_id.clone();
                         self.builder = self.builder.with_previous_transaction_id(current_tx_id);
                     }
 
@@ -488,6 +493,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
     use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use std::sync::Mutex;
     use std::sync::mpsc::channel as std_channel;
     use tokio::sync::oneshot::channel as oneshot_channel;
 
