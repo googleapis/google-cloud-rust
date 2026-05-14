@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{DatabaseClient, LAR_HEADER_MAP, Mutation};
+use crate::client::{DatabaseClient, Mutation, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
@@ -22,9 +22,7 @@ use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
 use bytes::Bytes;
-use google_cloud_gax::options::{
-    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
-};
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use std::sync::{Arc, Mutex};
 use wkt::Duration;
 
@@ -423,11 +421,10 @@ impl WriteOnlyTransaction {
     }
 
     fn gax_options(&self) -> GaxRequestOptions {
-        let mut options = GaxRequestOptions::default();
-        if self.client.leader_aware_routing_enabled {
-            options = options.insert_extension((*LAR_HEADER_MAP).clone());
-        }
-        options
+        amend_request_options_for_lar(
+            self.client.leader_aware_routing_enabled,
+            GaxRequestOptions::default(),
+        )
     }
 }
 

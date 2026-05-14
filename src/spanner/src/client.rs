@@ -20,6 +20,9 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
+use google_cloud_gax::options::{
+    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
+};
 use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
@@ -135,6 +138,21 @@ pub(crate) static LAR_HEADER_MAP: LazyLock<HeaderMap> = LazyLock::new(|| {
     );
     map
 });
+
+pub(crate) fn amend_request_options_for_lar(
+    leader_aware_routing_enabled: bool,
+    mut options: GaxRequestOptions,
+) -> GaxRequestOptions {
+    if leader_aware_routing_enabled {
+        let mut headers = options
+            .get_extension::<HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        headers.extend((*LAR_HEADER_MAP).clone());
+        options = options.insert_extension(headers);
+    }
+    options
+}
 
 #[allow(dead_code)]
 impl Spanner {

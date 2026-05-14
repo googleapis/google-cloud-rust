@@ -14,7 +14,7 @@
 
 use crate::BatchDml;
 use crate::RequestOptions;
-use crate::client::LAR_HEADER_MAP;
+use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::BeginTransactionRequest;
@@ -38,9 +38,7 @@ use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::error::Error as GaxError;
-use google_cloud_gax::options::{
-    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
-};
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -155,9 +153,8 @@ impl ReadWriteTransactionBuilder {
                 let remaining = d.saturating_duration_since(Instant::now());
                 options.set_attempt_timeout(remaining);
             }
-            if self.client.leader_aware_routing_enabled {
-                options = options.insert_extension((*LAR_HEADER_MAP).clone());
-            }
+            options =
+                amend_request_options_for_lar(self.client.leader_aware_routing_enabled, options);
 
             let response = self
                 .client
@@ -241,9 +238,10 @@ macro_rules! execute_with_retry {
                     let remaining = d.saturating_duration_since(tokio::time::Instant::now());
                     begin_options.set_attempt_timeout(remaining);
                 }
-                if $self.context.client.leader_aware_routing_enabled {
-                    begin_options = begin_options.insert_extension((*LAR_HEADER_MAP).clone());
-                }
+                begin_options = amend_request_options_for_lar(
+                    $self.context.client.leader_aware_routing_enabled,
+                    begin_options,
+                );
 
                 $self
                     .context
@@ -549,9 +547,10 @@ impl ReadWriteTransaction {
             };
             options.set_retry_policy(bounded_policy);
         }
-        if self.context.client.leader_aware_routing_enabled {
-            *options = options.clone().insert_extension((*LAR_HEADER_MAP).clone());
-        }
+        *options = amend_request_options_for_lar(
+            self.context.client.leader_aware_routing_enabled,
+            options.clone(),
+        );
     }
 }
 
@@ -582,6 +581,7 @@ mod tests {
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::adapt;
     use gaxi::grpc::tonic;
+    use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
@@ -2085,6 +2085,70 @@ mod tests {
         let _rs = tx
             .execute_query(Statement::builder("SELECT 1").build())
             .await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_merges_custom_headers() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+        mock.expect_execute_sql().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            assert_eq!(
+                req.metadata()
+                    .get("x-custom-user-header")
+                    .expect("custom header required")
+                    .to_str()
+                    .unwrap(),
+                "custom-value"
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_explicit_begin_transaction(true)
+            .build(None)
+            .await?;
+
+        let mut custom_headers = http::HeaderMap::new();
+        custom_headers.insert(
+            "x-custom-user-header",
+            http::HeaderValue::from_static("custom-value"),
+        );
+
+        let mut stmt = Statement::builder("UPDATE Users SET active = true").build();
+        let opts = stmt.gax_options().clone().insert_extension(custom_headers);
+        stmt = stmt.with_gax_options(opts);
+
+        let count = tx.execute_update(stmt).await?;
+        assert_eq!(count, 1);
         Ok(())
     }
 }

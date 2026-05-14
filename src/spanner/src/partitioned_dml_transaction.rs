@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::LAR_HEADER_MAP;
+use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
 use crate::model::transaction_options::PartitionedDml;
@@ -24,9 +24,7 @@ use crate::statement::Statement;
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
-use google_cloud_gax::options::{
-    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
-};
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 
 /// A builder for [PartitionedDmlTransaction].
 ///
@@ -166,6 +164,8 @@ impl PartitionedDmlTransaction {
     /// See also: <https://docs.cloud.google.com/spanner/docs/dml-partitioned>
     pub async fn execute_update<T: Into<Statement>>(self, statement: T) -> crate::Result<i64> {
         let statement = statement.into();
+        let mut gax_options = statement.gax_options().clone();
+        self.amend_gax_options(&mut gax_options);
 
         let session_name = self.client.session_name();
         let transaction_options = TransactionOptions::default()
@@ -178,7 +178,6 @@ impl PartitionedDmlTransaction {
         };
         let base_request = statement.into_request();
         let channel_hint = self.client.spanner.next_channel_hint();
-        let gax_options = self.gax_options();
         let client = self.client;
 
         // Execute the statement and retry if the transaction is aborted by Spanner.
@@ -218,12 +217,11 @@ impl PartitionedDmlTransaction {
         .await
     }
 
-    fn gax_options(&self) -> GaxRequestOptions {
-        let mut options = GaxRequestOptions::default();
-        if self.client.leader_aware_routing_enabled {
-            options = options.insert_extension((*LAR_HEADER_MAP).clone());
-        }
-        options
+    fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
+        *options = amend_request_options_for_lar(
+            self.client.leader_aware_routing_enabled,
+            options.clone(),
+        );
     }
 }
 
