@@ -177,17 +177,34 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::set_autoclass::sample(&client, &id).await?;
     tracing::info!("running get_autoclass example");
     buckets::get_autoclass::sample(&client, &id).await?;
-    #[cfg(feature = "skipped-integration-tests")]
-    {
-        // TODO(#3291): cannot cleanup the bucket if this example runs.
-        tracing::info!("running enable_requester_pays example");
-        buckets::enable_requester_pays::sample(&client, &id).await?;
-        // TODO(#3291): fix these samples to provide user project.
-        tracing::info!("running get_requester_pays_status example");
-        buckets::get_requester_pays_status::sample(&client, &id).await?;
-        tracing::info!("running disable_requester_pays example");
-        buckets::disable_requester_pays::sample(&client, &id).await?;
+
+    // By capturing the result each call, we ensure that a best-effort
+    // `disable_requester_pays` is always executed before returning any errors,
+    // resetting the bucket so the cleanup routines can delete it.
+    // If the whole test process dies/panics, it will still leak, but this
+    // handles standard runtime or assertion errors much more gracefully.
+    tracing::info!("running enable_requester_pays example");
+    let enable_res = buckets::enable_requester_pays::sample(&client, &id).await;
+    if let Err(e) = &enable_res {
+        tracing::error!("Failed to enable requester pays: {:?}", e);
     }
+    tracing::info!("running get_requester_pays_status example");
+    let status_res = buckets::get_requester_pays_status::sample(&client, &id, &project_id).await;
+    if let Err(e) = &status_res {
+        tracing::error!("Failed to get requester pays status: {:?}", e);
+    }
+    // disable_requester_pays must run last so that the bucket can be cleaned up.
+    tracing::info!("running disable_requester_pays example");
+    let disable_res = buckets::disable_requester_pays::sample(&client, &id, &project_id).await;
+    if let Err(e) = &disable_res {
+        tracing::error!(
+            "Failed to disable requester pays during cleanup (bucket may leak): {:?}",
+            e,
+        );
+    }
+    enable_res?;
+    status_res?;
+    disable_res?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
