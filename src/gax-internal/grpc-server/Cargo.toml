@@ -39,3 +39,5 @@ google-cloud-gax.workspace  = true
 gaxi                        = { workspace = true, features = ["_internal-grpc-client"] }
 
 [build-dependencies]
+prost-build       = { workspace = true }
+tonic-prost-build = { workspace = true }
