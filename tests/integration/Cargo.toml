@@ -42,10 +42,10 @@ tokio                           = { workspace = true, features = ["process", "te
 tracing.workspace               = true
 
 [dev-dependencies]
-anyhow.workspace            = true
-httptest.workspace          = true
-serde.workspace             = true
-tokio.workspace             = true
+anyhow.workspace   = true
+httptest.workspace = true
+serde.workspace    = true
+tokio.workspace    = true
 
 [lints]
 workspace = true

@@ -39,9 +39,9 @@ google-cloud-wkt.workspace    = true
 tokio.workspace               = true
 
 [dev-dependencies]
-mockall.workspace           = true
-serde_json.workspace        = true
-test-case.workspace         = true
+mockall.workspace    = true
+serde_json.workspace = true
+test-case.workspace  = true
 
 [lints]
 workspace = true

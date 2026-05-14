@@ -27,14 +27,14 @@ run-integration-tests = []
 log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]
 
 [dependencies]
-anyhow.workspace           = true
-bytes.workspace            = true
-futures.workspace          = true
-google-cloud-test-utils    = { workspace = true }
-google-cloud-pubsub        = { workspace = true, features = ["default"] }
-pubsub-samples.workspace   = true
-tokio.workspace            = true
-tracing.workspace          = true
+anyhow.workspace         = true
+bytes.workspace          = true
+futures.workspace        = true
+google-cloud-test-utils  = { workspace = true }
+google-cloud-pubsub      = { workspace = true, features = ["default"] }
+pubsub-samples.workspace = true
+tokio.workspace          = true
+tracing.workspace        = true
 
 [lints]
 workspace = true

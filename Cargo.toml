@@ -549,4 +549,4 @@ unexpected_cfgs = { level = "deny", check-cfg = [
 ] }
 
 [workspace.metadata.cargo-machete]
-ignored = ["h2", "lazy_static", "rustc_version", "pin-project"]
+ignored = ["h2", "lazy_static", "pin-project", "rustc_version"]

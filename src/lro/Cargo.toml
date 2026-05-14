@@ -72,4 +72,4 @@ google-cloud-auth.workspace = true
 google-cloud-lro            = { path = ".", features = ["unstable-stream"] }
 
 [package.metadata.cargo-machete]
-ignored = ["anyhow", "httptest", "serde_json", "google-cloud-auth", "google-cloud-lro"]
+ignored = ["anyhow", "google-cloud-auth", "google-cloud-lro", "httptest", "serde_json"]
