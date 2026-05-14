@@ -24,14 +24,11 @@ license.workspace = true
 
 [dev-dependencies]
 anyhow.workspace               = true
-mockall.workspace              = true
 pastey.workspace               = true
 test-case.workspace            = true
 tokio.workspace                = true
 tokio-stream.workspace         = true
 tonic.workspace                = true
-google-cloud-gax.workspace     = true
-google-cloud-storage.workspace = true
 storage-grpc-mock.workspace    = true
 
 [lints]

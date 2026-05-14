@@ -29,7 +29,6 @@ log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]
 [dependencies]
 anyhow.workspace            = true
 bytes.workspace             = true
-chrono                      = { workspace = true, features = ["now"] }
 crc32c.workspace            = true
 flate2                      = { workspace = true, features = ["zlib-rs"] }
 futures.workspace           = true
@@ -45,7 +44,6 @@ reqwest.workspace           = true
 storage-samples.workspace   = true
 tokio.workspace             = true
 tracing.workspace           = true
-tracing-subscriber          = { workspace = true, features = ["fmt"] }
 
 [dev-dependencies]
 test-case.workspace = true

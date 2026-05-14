@@ -637,7 +637,6 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "axum",
- "chrono",
  "clap",
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",
@@ -649,13 +648,10 @@ dependencies = [
  "opentelemetry-http",
  "opentelemetry_sdk",
  "rand 0.10.1",
- "serde",
- "serde_json",
  "thiserror",
  "tokio",
  "tracing",
  "tracing-opentelemetry",
- "tracing-serde",
  "tracing-subscriber",
  "uuid",
 ]
@@ -807,7 +803,6 @@ name = "endurance-test"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "bytes",
  "crc32c",
  "futures",
  "google-cloud-gax",
@@ -853,12 +848,6 @@ name = "find-msvc-tools"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5baebc0774151f905a1a2cc41989300b1e6fbb29aff0ceffa1064fdd3088d582"
-
-[[package]]
-name = "fixedbitset"
-version = "0.5.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d674e81391d1e1ab681a28d99df07927c6d4aa5b027d7da16ba32d1d21ecd99"
 
 [[package]]
 name = "flate2"
@@ -1998,7 +1987,6 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "http",
- "lazy_static",
  "prost",
  "prost-types",
  "serde",
@@ -2894,7 +2882,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio",
  "tracing",
 ]
 
@@ -2953,7 +2940,6 @@ dependencies = [
  "rand 0.10.1",
  "serde",
  "serde_json",
- "serial_test",
  "static_assertions",
  "test-case",
  "thiserror",
@@ -4218,7 +4204,6 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
- "google-cloud-pubsub",
  "google-cloud-rpc",
  "google-cloud-test-macros",
  "google-cloud-wkt",
@@ -4686,7 +4671,6 @@ dependencies = [
  "thiserror",
  "time",
  "tokio",
- "tokio-stream",
  "tracing",
  "url",
 ]
@@ -4801,7 +4785,6 @@ dependencies = [
  "multer",
  "pastey",
  "percent-encoding",
- "pin-project",
  "pretty_assertions",
  "prost",
  "prost-types",
@@ -4972,8 +4955,6 @@ name = "google-cloud-test-utils"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "once_cell",
- "opentelemetry-semantic-conventions",
  "pretty_assertions",
  "rand 0.10.1",
  "scoped-env",
@@ -5431,13 +5412,10 @@ dependencies = [
  "google-cloud-gax-internal",
  "http",
  "prost",
- "prost-build",
- "serde_json",
  "tokio",
  "tokio-stream",
  "tonic",
  "tonic-prost",
- "tonic-prost-build",
 ]
 
 [[package]]
@@ -5872,8 +5850,6 @@ name = "integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "bytes",
- "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -5881,21 +5857,13 @@ dependencies = [
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
- "google-cloud-wkt",
  "google-cloud-workflows-v1",
- "http",
  "httptest",
- "mockall",
- "rand 0.10.1",
  "reqwest 0.13.3",
  "serde",
  "serde_json",
- "serde_with",
- "static_assertions",
  "tokio",
  "tracing",
- "tracing-subscriber",
- "uuid",
 ]
 
 [[package]]
@@ -5903,7 +5871,6 @@ name = "integration-tests-auth"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64",
  "bytes",
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
@@ -5939,14 +5906,12 @@ name = "integration-tests-bigquery"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "chrono",
  "futures",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-test-utils",
  "rand 0.10.1",
  "tokio",
- "tracing",
 ]
 
 [[package]]
@@ -5967,9 +5932,6 @@ name = "integration-tests-discovery"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "bytes",
- "chrono",
- "futures",
  "google-cloud-auth",
  "google-cloud-compute-v1",
  "google-cloud-gax",
@@ -5992,7 +5954,6 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-test-utils",
- "rand 0.10.1",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -6003,8 +5964,6 @@ name = "integration-tests-enums-query-parameters"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "chrono",
- "futures",
  "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-test-utils",
@@ -6012,7 +5971,6 @@ dependencies = [
  "google-cloud-workflows-v1",
  "tokio",
  "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -6020,9 +5978,6 @@ name = "integration-tests-grpc-mock"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "google-cloud-gax",
- "google-cloud-storage",
- "mockall",
  "pastey",
  "storage-grpc-mock",
  "test-case",
@@ -6036,13 +5991,10 @@ name = "integration-tests-locational-endpoints"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "chrono",
- "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-test-utils",
  "tokio",
  "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -6050,7 +6002,6 @@ name = "integration-tests-lro"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "chrono",
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -6061,11 +6012,8 @@ dependencies = [
  "google-cloud-wkt",
  "google-cloud-workflows-v1",
  "httptest",
- "rand 0.10.1",
  "serde_json",
  "tokio",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -6073,13 +6021,11 @@ name = "integration-tests-o11y"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "bytes",
  "chrono",
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "google-cloud-lro",
  "google-cloud-monitoring-v3",
  "google-cloud-showcase-v1beta1",
  "google-cloud-storage",
@@ -6107,7 +6053,6 @@ dependencies = [
  "tokio",
  "tokio-stream",
  "tonic",
- "tower",
  "tracing",
  "tracing-opentelemetry",
  "tracing-serde",
@@ -6121,11 +6066,9 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "chrono",
  "crc32c",
  "futures",
  "google-cloud-gax",
- "google-cloud-lro",
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "secretmanager-openapi-v1",
@@ -6133,8 +6076,6 @@ dependencies = [
  "static_assertions",
  "test-case",
  "tokio",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -6143,7 +6084,6 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "chrono",
  "crc32c",
  "futures",
  "google-cloud-gax",
@@ -6153,7 +6093,6 @@ dependencies = [
  "google-cloud-wkt",
  "mockall",
  "serde_json",
- "static_assertions",
  "test-case",
  "tokio",
 ]
@@ -6164,16 +6103,12 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "chrono",
  "futures",
- "google-cloud-gax",
- "google-cloud-lro",
  "google-cloud-pubsub",
  "google-cloud-test-utils",
  "pubsub-samples",
  "tokio",
  "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -6182,17 +6117,13 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "chrono",
- "futures",
  "google-cloud-auth",
  "google-cloud-gax",
- "google-cloud-lro",
  "google-cloud-showcase-v1beta1",
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "tokio",
  "tracing",
- "tracing-subscriber",
  "uuid",
 ]
 
@@ -6203,12 +6134,9 @@ dependencies = [
  "anyhow",
  "base64",
  "futures",
- "google-cloud-auth",
  "google-cloud-gax",
- "google-cloud-lro",
  "google-cloud-spanner",
  "google-cloud-test-utils",
- "google-cloud-wkt",
  "http",
  "http-body",
  "http-body-util",
@@ -6223,7 +6151,6 @@ dependencies = [
  "tokio-stream",
  "tonic",
  "tower",
- "tracing",
 ]
 
 [[package]]
@@ -6232,7 +6159,6 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "chrono",
  "crc32c",
  "flate2",
  "futures",
@@ -6249,7 +6175,6 @@ dependencies = [
  "test-case",
  "tokio",
  "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -6558,12 +6483,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "multimap"
-version = "0.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d87ecb2933e8aeadb3e3a02b828fed80a7528047e68b4f424523a0981a3a084"
-
-[[package]]
 name = "mutants"
 version = "0.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6842,17 +6761,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
-name = "petgraph"
-version = "0.8.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8701b58ea97060d5e5b155d383a69952a60943f0e6dfe30b04c287beb0b27455"
-dependencies = [
- "fixedbitset",
- "hashbrown 0.15.5",
- "indexmap 2.14.0",
-]
-
-[[package]]
 name = "pin-project"
 version = "1.1.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7013,25 +6921,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "prost-build"
-version = "0.14.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "343d3bd7056eda839b03204e68deff7d1b13aba7af2b2fd16890697274262ee7"
-dependencies = [
- "heck",
- "itertools",
- "log",
- "multimap",
- "petgraph",
- "prettyplease",
- "prost",
- "prost-types",
- "regex",
- "syn 2.0.117",
- "tempfile",
-]
-
-[[package]]
 name = "prost-derive"
 version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7059,16 +6948,12 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "crc32c",
- "futures",
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "prost",
- "prost-types",
  "serde",
  "serde_json",
  "serde_with",
- "tokio",
 ]
 
 [[package]]
@@ -7122,7 +7007,6 @@ dependencies = [
  "rand 0.10.1",
  "tokio",
  "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -7132,13 +7016,9 @@ dependencies = [
  "anyhow",
  "bytes",
  "clap",
- "futures",
  "google-cloud-pubsub",
  "humantime",
- "rand 0.10.1",
  "tokio",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -8121,14 +8001,10 @@ dependencies = [
  "google-cloud-storage",
  "humantime",
  "parse-size",
- "pin-project",
  "rand 0.10.1",
- "regex",
  "test-case",
  "tokio",
- "tokio-metrics",
  "tracing",
- "tracing-log",
  "tracing-subscriber",
 ]
 
@@ -8137,9 +8013,7 @@ name = "storage-samples"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64",
  "bytes",
- "clap",
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -8170,15 +8044,10 @@ dependencies = [
  "google-cloud-storage",
  "http",
  "humantime",
- "parse-size",
- "pin-project",
  "rand 0.10.1",
- "regex",
  "test-case",
  "tokio",
- "tokio-metrics",
  "tracing",
- "tracing-log",
  "tracing-subscriber",
 ]
 
@@ -8195,7 +8064,6 @@ dependencies = [
  "google-cloud-storage",
  "humantime",
  "integration-tests-o11y",
- "opentelemetry",
  "opentelemetry_sdk",
  "parse-size",
  "pin-project",
@@ -8640,18 +8508,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tonic-build"
-version = "0.14.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1882ac3bf5ef12877d7ed57aad87e75154c11931c2ba7e6cde5e22d63522c734"
-dependencies = [
- "prettyplease",
- "proc-macro2",
- "quote",
- "syn 2.0.117",
-]
-
-[[package]]
 name = "tonic-prost"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8660,22 +8516,6 @@ dependencies = [
  "bytes",
  "prost",
  "tonic",
-]
-
-[[package]]
-name = "tonic-prost-build"
-version = "0.14.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3144df636917574672e93d0f56d7edec49f90305749c668df5101751bb8f95a"
-dependencies = [
- "prettyplease",
- "proc-macro2",
- "prost-build",
- "prost-types",
- "quote",
- "syn 2.0.117",
- "tempfile",
- "tonic-build",
 ]
 
 [[package]]

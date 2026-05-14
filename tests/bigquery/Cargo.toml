@@ -28,11 +28,9 @@ log-integration-tests = []
 
 [dependencies]
 anyhow.workspace         = true
-chrono                   = { workspace = true, features = ["now"] }
 futures.workspace        = true
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
 google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils  = { workspace = true }
 rand.workspace           = true
 tokio.workspace          = true
-tracing.workspace        = true

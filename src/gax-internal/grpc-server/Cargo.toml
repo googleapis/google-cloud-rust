@@ -29,7 +29,6 @@ async-trait.workspace = true
 anyhow.workspace      = true
 http.workspace        = true
 prost                 = { workspace = true, default-features = true }
-serde_json.workspace  = true
 tokio                 = { workspace = true, features = ["macros"] }
 tokio-stream          = { workspace = true }
 tonic                 = { workspace = true, default-features = true }
@@ -40,5 +39,3 @@ google-cloud-gax.workspace  = true
 gaxi                        = { workspace = true, features = ["_internal-grpc-client"] }
 
 [build-dependencies]
-prost-build       = { workspace = true }
-tonic-prost-build = { workspace = true }
