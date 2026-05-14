@@ -565,12 +565,7 @@ impl ReadContextTransactionSelector {
         let (options, notify_opt) = {
             let guard = lazy.lock().expect("transaction state mutex poisoned");
             match &*guard {
-                // This should never happen.
-                TransactionState::NotStarted(_) => {
-                    return Err(crate::error::internal_error(
-                        "explicit begin with NotStarted state is currently unsupported",
-                    ));
-                }
+                TransactionState::NotStarted(options) => (options.clone(), None),
                 TransactionState::Starting(options, notify) => {
                     // The transaction is already in the process of starting. Only the "leader"
                     // thread (the one that initiated the start) can reach here while the state is
@@ -668,6 +663,44 @@ impl ReadContextTransactionSelector {
         }
     }
 
+    /// Returns the transaction ID if it is already available, without waiting.
+    ///
+    /// This method inspects the selector and returns the transaction ID if the
+    /// transaction has already started. It returns `None` if the transaction
+    /// has not yet started or is in a state without an ID.
+    pub(crate) fn get_id_no_wait(&self) -> Option<bytes::Bytes> {
+        use crate::model::transaction_selector::Selector;
+        match self {
+            Self::Fixed(selector, _) => {
+                if let Some(Selector::Id(id)) = &selector.selector {
+                    return Some(id.clone());
+                }
+            }
+            Self::Lazy(lazy) => {
+                let guard = lazy.lock().expect("transaction state mutex poisoned");
+                if let TransactionState::Started(selector, _) = &*guard {
+                    if let Some(Selector::Id(id)) = &selector.selector {
+                        return Some(id.clone());
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    /// Returns whether the transaction selector is currently in the `Starting` state.
+    pub(crate) fn is_starting(&self) -> bool {
+        match self {
+            Self::Lazy(lazy) => {
+                matches!(
+                    &*lazy.lock().expect("transaction state mutex poisoned"),
+                    TransactionState::Starting(_, _)
+                )
+            }
+            _ => false,
+        }
+    }
+
     /// Resets the selector state from `Starting` back to `NotStarted`.
     ///
     /// This is used during stream resume fallbacks when the first query stream
@@ -742,7 +775,7 @@ impl ReadContext {
     /// Attempts to execute an explicit `begin_transaction` RPC if the current transaction
     /// selector is still in the `Lazy(NotStarted)` state. This is used as a
     /// fallback mechanism when an initial implicit begin attempt failed.
-    async fn begin_explicitly_if_not_started(
+    pub(crate) async fn begin_explicitly_if_not_started(
         &self,
         request_options: crate::RequestOptions,
     ) -> crate::Result<bool> {

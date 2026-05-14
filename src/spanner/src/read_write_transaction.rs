@@ -33,15 +33,18 @@ use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContext;
+use crate::read_only_transaction::{ReadContextTransactionSelector, TransactionState};
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::Aip194Strict;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
+use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
@@ -159,16 +162,14 @@ impl ReadWriteTransactionBuilder {
                 .begin_transaction(request, options, channel_hint)
                 .await?;
 
-            crate::read_only_transaction::ReadContextTransactionSelector::Fixed(
+            ReadContextTransactionSelector::Fixed(
                 TransactionSelector::default().set_id(response.id),
                 None,
             )
         } else {
-            crate::read_only_transaction::ReadContextTransactionSelector::Lazy(Arc::new(
-                std::sync::Mutex::new(crate::read_only_transaction::TransactionState::NotStarted(
-                    self.options.clone(),
-                )),
-            ))
+            ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
+                TransactionState::NotStarted(self.options.clone()),
+            )))
         };
 
         Ok(ReadWriteTransaction {
@@ -236,16 +237,7 @@ macro_rules! execute_with_retry {
                     begin_options.set_attempt_timeout(remaining);
                 }
 
-                $self
-                    .context
-                    .transaction_selector
-                    .begin_explicitly(
-                        &$self.context.client,
-                        $self.context.session_name.clone(),
-                        $self.context.channel_hint,
-                        begin_options,
-                    )
-                    .await?;
+                $self.begin_explicitly_if_not_started().await?;
 
                 $request.transaction = Some($self.context.transaction_selector.selector().await?);
 
@@ -454,6 +446,21 @@ impl ReadWriteTransaction {
         crate::batch_dml::process_response(response)
     }
 
+    pub(crate) async fn begin_explicitly_if_not_started(&self) -> crate::Result<bool> {
+        let mut begin_options = crate::RequestOptions::default();
+        if let Some(d) = self.deadline {
+            let remaining = d.saturating_duration_since(Instant::now());
+            begin_options.set_attempt_timeout(remaining);
+        }
+        self.context
+            .begin_explicitly_if_not_started(begin_options)
+            .await
+    }
+
+    pub(crate) fn is_starting(&self) -> bool {
+        self.context.transaction_selector.is_starting()
+    }
+
     pub(crate) async fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
         match &self.context.transaction_selector.selector().await?.selector {
             Some(Selector::Id(id)) => Ok(id.clone()),
@@ -544,7 +551,7 @@ impl ReadWriteTransaction {
             let inner_policy = options
                 .retry_policy()
                 .clone()
-                .unwrap_or_else(|| Arc::new(google_cloud_gax::retry_policy::Aip194Strict));
+                .unwrap_or_else(|| Arc::new(Aip194Strict));
             let bounded_policy = TransactionBoundedRetryPolicy {
                 inner: inner_policy,
                 deadline,
@@ -1472,7 +1479,7 @@ mod tests {
 
         // 3 sequential updates returning tokens [seq 2, seq 5, seq 3]
         let tokens_iter = vec![2, 5, 3].into_iter();
-        let counter_mutex = std::sync::Mutex::new(tokens_iter);
+        let counter_mutex = Mutex::new(tokens_iter);
 
         mock.expect_execute_sql().times(3).returning(move |_req| {
             let seq = counter_mutex
