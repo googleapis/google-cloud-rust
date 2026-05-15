@@ -43,7 +43,7 @@ impl JobReference {
         Self::StatelessJob { query_id }
     }
 
-    pub(crate) fn as_job_ref(&self) -> Option<google_cloud_bigquery_v2::model::JobReference> {
+    pub(crate) fn to_job_ref(&self) -> Option<google_cloud_bigquery_v2::model::JobReference> {
         match self {
             Self::StatefulJob {
                 job_id,
@@ -80,7 +80,7 @@ mod tests {
                 location: Some("US".to_string()),
             }
         );
-        assert_eq!(job_ref.as_job_ref(), Some(proto));
+        assert_eq!(job_ref.to_job_ref(), Some(proto));
 
         // Without location
         let proto = google_cloud_bigquery_v2::model::JobReference::new()
@@ -95,7 +95,7 @@ mod tests {
                 location: None,
             }
         );
-        assert_eq!(job_ref.as_job_ref(), Some(proto));
+        assert_eq!(job_ref.to_job_ref(), Some(proto));
     }
 
     #[test]
@@ -107,6 +107,6 @@ mod tests {
                 query_id: "a-query-id".to_string(),
             }
         );
-        assert_eq!(job_ref.as_job_ref(), None);
+        assert_eq!(job_ref.to_job_ref(), None);
     }
 }
