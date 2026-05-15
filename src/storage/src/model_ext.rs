@@ -318,7 +318,7 @@ pub struct WriteObjectRequest {
 #[non_exhaustive]
 pub struct OpenAppendableObjectRequest {
     /// The object attributes and pre-conditions for the open operation.
-    pub spec: Box<crate::model::WriteObjectSpec>,
+    pub spec: crate::model::WriteObjectSpec,
     /// Additional request parameters.
     pub params: Option<crate::model::CommonObjectRequestParams>,
 }
@@ -489,7 +489,7 @@ pub(crate) mod tests {
     #[test]
     fn test_open_appendable_object_request() {
         let req = OpenAppendableObjectRequest {
-            spec: Box::new(crate::model::WriteObjectSpec::default()),
+            spec: crate::model::WriteObjectSpec::default(),
             params: None,
         };
         assert_eq!(req.spec.resource, None);
