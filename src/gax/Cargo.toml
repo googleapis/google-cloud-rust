@@ -51,13 +51,12 @@ google-cloud-rpc = { workspace = true }
 wkt.workspace    = true
 
 [dev-dependencies]
-anyhow.workspace      = true
-mockall.workspace     = true
-serde.workspace       = true
-serial_test.workspace = true
-static_assertions     = { workspace = true }
-test-case.workspace   = true
-tokio                 = { workspace = true, features = ["test-util"] }
+anyhow.workspace    = true
+mockall.workspace   = true
+serde.workspace     = true
+static_assertions   = { workspace = true }
+test-case.workspace = true
+tokio               = { workspace = true, features = ["test-util"] }
 
 [features]
 # Enable functionality that depends on the [futures::stream::Stream] trait. This

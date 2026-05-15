@@ -547,3 +547,6 @@ unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_generate_protos)',
   'cfg(tokio_unstable)',
 ] }
+
+[workspace.metadata.cargo-machete]
+ignored = ["h2", "lazy_static", "pin-project", "rustc_version"]
