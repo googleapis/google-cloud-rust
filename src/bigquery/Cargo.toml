@@ -32,5 +32,8 @@ google-cloud-bigquery-v2   = { workspace = true }
 serde_json.workspace       = true
 wkt.workspace              = true
 
+[dev-dependencies]
+syn = { workspace = true, features = ["full", "parsing"] }
+
 [lints]
 workspace = true
