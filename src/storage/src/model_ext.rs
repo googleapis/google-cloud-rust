@@ -310,6 +310,61 @@ pub struct WriteObjectRequest {
     pub params: Option<crate::model::CommonObjectRequestParams>,
 }
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+/// Represents the parameters of a request to open a new object for exclusive appends.
+///
+/// Consumers of the `google-cloud-storage` crate rarely have a need to use this type directly, the most common exception is when mocking of the `Storage` client.
+#[derive(Debug, PartialEq)]
+#[non_exhaustive]
+pub struct OpenAppendableObjectRequest {
+    /// The object attributes and pre-conditions for the open operation.
+    pub spec: crate::model::WriteObjectSpec,
+    /// Additional request parameters.
+    pub params: Option<crate::model::CommonObjectRequestParams>,
+}
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+/// Represents the parameters of a request to reopen an existing object for appends.
+///
+/// Consumers of the `google-cloud-storage` crate rarely have a need to use this type directly, the most common exception is when mocking of the `Storage` client.
+#[derive(Debug, PartialEq)]
+#[non_exhaustive]
+pub struct ReopenAppendableObjectRequest {
+    /// The bucket containing the target object.
+    pub bucket: String,
+    /// The target object name.
+    pub object: String,
+    /// The target object generation to append to.
+    pub generation: i64,
+    /// If set, return an error if the current metageneration does not match the value.
+    pub if_metageneration_match: Option<i64>,
+    /// If set, return an error if the current metageneration matches the value.
+    pub if_metageneration_not_match: Option<i64>,
+    /// A routing token from a previous operation.
+    pub routing_token: Option<String>,
+    /// A write handle from a previous operation.
+    pub write_handle: Option<bytes::Bytes>,
+    /// Additional request parameters.
+    pub params: Option<crate::model::CommonObjectRequestParams>,
+}
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+impl From<ReopenAppendableObjectRequest> for crate::google::storage::v2::AppendObjectSpec {
+    fn from(value: ReopenAppendableObjectRequest) -> Self {
+        Self {
+            bucket: value.bucket,
+            object: value.object,
+            generation: value.generation,
+            if_metageneration_match: value.if_metageneration_match,
+            if_metageneration_not_match: value.if_metageneration_not_match,
+            routing_token: value.routing_token,
+            write_handle: value
+                .write_handle
+                .map(|h| crate::google::storage::v2::BidiWriteHandle { handle: h }),
+        }
+    }
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
@@ -428,5 +483,45 @@ pub(crate) mod tests {
         let key_aes_256 = KeyAes256::new(&key)?;
         assert_eq!(key_aes_256.to_string(), key_base64);
         Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[test]
+    fn test_open_appendable_object_request() {
+        let req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec::default(),
+            params: None,
+        };
+        assert_eq!(req.spec.resource, None);
+        assert_eq!(req.params, None);
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[test]
+    fn test_reopen_appendable_object_request_from() {
+        let req = ReopenAppendableObjectRequest {
+            bucket: "my-bucket".into(),
+            object: "my-object".into(),
+            generation: 42,
+            if_metageneration_match: Some(1),
+            if_metageneration_not_match: Some(2),
+            routing_token: Some("token".into()),
+            write_handle: Some(bytes::Bytes::from("handle")),
+            params: None,
+        };
+
+        let spec = crate::google::storage::v2::AppendObjectSpec::from(req);
+        assert_eq!(spec.bucket, "my-bucket");
+        assert_eq!(spec.object, "my-object");
+        assert_eq!(spec.generation, 42);
+        assert_eq!(spec.if_metageneration_match, Some(1));
+        assert_eq!(spec.if_metageneration_not_match, Some(2));
+        assert_eq!(spec.routing_token, Some("token".into()));
+        assert_eq!(
+            spec.write_handle,
+            Some(crate::google::storage::v2::BidiWriteHandle {
+                handle: bytes::Bytes::from("handle")
+            })
+        );
     }
 }
