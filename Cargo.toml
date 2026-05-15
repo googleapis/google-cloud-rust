@@ -530,15 +530,15 @@ google-cloud-workflows-v1            = { default-features = false, path = "src/g
 google-cloud-workflows-executions-v1 = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
 secretmanager-openapi-v1             = { default-features = false, path = "src/generated/openapi-validation" }
 # Local test packages (never add a version)
-google-cloud-test-macros = { path = "src/test-macros" }
-google-cloud-test-utils  = { default-features = false, path = "src/test-utils" }
-integration-tests        = { path = "tests/integration" }
-integration-tests-o11y   = { default-features = false, path = "tests/o11y" }
+google-cloud-test-macros  = { path = "src/test-macros" }
+google-cloud-test-utils   = { default-features = false, path = "src/test-utils" }
+integration-tests         = { path = "tests/integration" }
+integration-tests-o11y    = { default-features = false, path = "tests/o11y" }
 integration-tests-spanner = { path = "tests/spanner" }
-pubsub-samples           = { path = "src/pubsub/examples" }
-spanner-samples          = { path = "src/spanner/examples" }
-storage-samples          = { path = "src/storage/examples" }
-storage-grpc-mock        = { path = "src/storage/grpc-mock" }
+pubsub-samples            = { path = "src/pubsub/examples" }
+spanner-samples           = { path = "src/spanner/examples" }
+storage-samples           = { path = "src/storage/examples" }
+storage-grpc-mock         = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
