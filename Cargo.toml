@@ -29,6 +29,7 @@ default-members = [
   "src/pubsub",
   "src/pubsub/examples",
   "src/spanner",
+  "src/spanner/examples",
   "src/storage",
   "src/storage/examples",
   "src/wkt",
@@ -296,6 +297,7 @@ members = [
   "src/pubsub/examples",
   "src/pubsub/grpc-mock",
   "src/spanner",
+  "src/spanner/examples",
   "src/spanner/grpc-mock",
   "src/storage",
   "src/storage/benchmarks/random",
@@ -532,7 +534,9 @@ google-cloud-test-macros = { path = "src/test-macros" }
 google-cloud-test-utils  = { default-features = false, path = "src/test-utils" }
 integration-tests        = { path = "tests/integration" }
 integration-tests-o11y   = { default-features = false, path = "tests/o11y" }
+integration-tests-spanner = { path = "tests/spanner" }
 pubsub-samples           = { path = "src/pubsub/examples" }
+spanner-samples          = { path = "src/spanner/examples" }
 storage-samples          = { path = "src/storage/examples" }
 storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 
