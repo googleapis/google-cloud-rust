@@ -1835,7 +1835,10 @@ dependencies = [
 name = "google-cloud-bigquery"
 version = "0.0.0"
 dependencies = [
+ "google-cloud-bigquery-v2",
  "google-cloud-gax",
+ "google-cloud-wkt",
+ "serde_json",
 ]
 
 [[package]]
