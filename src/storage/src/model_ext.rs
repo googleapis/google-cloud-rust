@@ -313,7 +313,7 @@ pub struct WriteObjectRequest {
 #[cfg(google_cloud_unstable_storage_bidi)]
 /// Represents the parameters of a request to open a new object for exclusive appends.
 ///
-/// This type might be used in mocks of the `Storage` client.
+/// Consumers of the `google-cloud-storage` crate rarely have a need to use this type directly, the most common exception is when mocking of the `Storage` client.
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]
 pub struct OpenAppendableObjectRequest {
