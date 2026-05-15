@@ -35,6 +35,7 @@ use google_cloud_storage::model::bucket::{
 use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
 use google_cloud_test_utils::resource_names::random_bucket_id;
+use google_cloud_wkt::FieldMask;
 use std::time::Duration;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
@@ -178,33 +179,12 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running get_autoclass example");
     buckets::get_autoclass::sample(&client, &id).await?;
 
-    // By capturing the result each call, we ensure that a best-effort
-    // `disable_requester_pays` is always executed before returning any errors,
-    // resetting the bucket so the cleanup routines can delete it.
-    // If the whole test process dies/panics, it will still leak, but this
-    // handles standard runtime or assertion errors much more gracefully.
     tracing::info!("running enable_requester_pays example");
-    let enable_res = buckets::enable_requester_pays::sample(&client, &id).await;
-    if let Err(e) = &enable_res {
-        tracing::error!("Failed to enable requester pays: {:?}", e);
-    }
+    buckets::enable_requester_pays::sample(&client, &id).await?;
     tracing::info!("running get_requester_pays_status example");
-    let status_res = buckets::get_requester_pays_status::sample(&client, &id, &project_id).await;
-    if let Err(e) = &status_res {
-        tracing::error!("Failed to get requester pays status: {:?}", e);
-    }
-    // disable_requester_pays must run last so that the bucket can be cleaned up.
+    buckets::get_requester_pays_status::sample(&client, &id, &project_id).await?;
     tracing::info!("running disable_requester_pays example");
-    let disable_res = buckets::disable_requester_pays::sample(&client, &id, &project_id).await;
-    if let Err(e) = &disable_res {
-        tracing::error!(
-            "Failed to disable requester pays during cleanup (bucket may leak): {:?}",
-            e,
-        );
-    }
-    enable_res?;
-    status_res?;
-    disable_res?;
+    buckets::disable_requester_pays::sample(&client, &id, &project_id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -794,9 +774,10 @@ pub async fn cleanup_stale_buckets(
     //    wait is at least 2 seconds. That slows down *every* runner when the API
     //    pushes back, which is the practical mitigation across processes.
     let bucket_names = buckets_to_cleanup;
-    let empty_tasks = bucket_names.iter().cloned().map(|name| {
-        let c = client.clone();
-        async move { empty_bucket_contents(&c, &name).await }
+    let empty_tasks = bucket_names.iter().map(|name| {
+        let client = client.clone();
+        let project_id = project_id.to_string();
+        async move { empty_bucket_contents(&client, name, &project_id).await }
     });
     for result in futures::future::join_all(empty_tasks).await {
         if let Err(e) = result {
@@ -811,11 +792,6 @@ pub async fn cleanup_stale_buckets(
     }
 
     Ok(())
-}
-
-pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
-    empty_bucket_contents(&client, &name).await?;
-    delete_bucket_with_error_backoff(&client, &name).await
 }
 
 /// Delete one bucket, using the client's retry loop with exponential backoff
@@ -838,17 +814,57 @@ async fn delete_bucket_with_error_backoff(
     Ok(())
 }
 
+async fn disable_requester_pays_for_cleanup(client: &StorageControl, name: &str, project_id: &str) {
+    use google_cloud_storage::model::bucket::Billing;
+
+    if let Err(e) = client
+        .update_bucket()
+        .set_bucket(
+            Bucket::default()
+                .set_name(name)
+                .set_billing(Billing::default().set_requester_pays(false)),
+        )
+        .set_update_mask(FieldMask::default().set_paths(["billing.requester_pays"]))
+        .with_quota_project(project_id)
+        .send()
+        .await
+    {
+        tracing::error!("error disabling requester_pays for bucket {name}: {e:?}");
+    }
+}
+
+pub async fn cleanup_bucket(
+    client: StorageControl,
+    name: String,
+    project_id: String,
+) -> anyhow::Result<()> {
+    empty_bucket_contents(&client, &name, &project_id).await?;
+    delete_bucket_with_error_backoff(&client, &name).await
+}
+
 /// List and remove objects, managed folders, folders, and anywhere caches so
 /// the bucket can be deleted. Per-resource deletes are still parallelized with
 /// `join_all` inside this bucket.
-async fn empty_bucket_contents(client: &StorageControl, name: &str) -> anyhow::Result<()> {
+async fn empty_bucket_contents(
+    client: &StorageControl,
+    name: &str,
+    project_id: &str,
+) -> anyhow::Result<()> {
     use google_cloud_gax::{Result as GaxResult, paginator::ItemPaginator};
-    use google_cloud_wkt::FieldMask;
 
-    let current = client.get_bucket().set_name(name).send().await?;
     // Configure the bucket to be garbage collected. Some buckets are created by
     // sample code, which does not (and should not) include setting labels to
     // automatically garbage collect the bucket.
+    let current = client
+        .get_bucket()
+        .set_name(name)
+        .with_quota_project(project_id)
+        .send()
+        .await?;
+
+    if current.billing.as_ref().is_some_and(|b| b.requester_pays) {
+        disable_requester_pays_for_cleanup(client, name, project_id).await;
+    }
     if current
         .labels
         .get("integration-test")
