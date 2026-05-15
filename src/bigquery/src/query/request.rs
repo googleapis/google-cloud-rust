@@ -44,8 +44,13 @@ impl From<&str> for QueryRequest {
 }
 
 impl From<google_cloud_bigquery_v2::model::QueryRequest> for QueryRequest {
-    fn from(req: google_cloud_bigquery_v2::model::QueryRequest) -> Self {
-        let req = req.set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true));
+    fn from(mut req: google_cloud_bigquery_v2::model::QueryRequest) -> Self {
+        let format_options = req
+            .format_options
+            .take()
+            .unwrap_or_default()
+            .set_use_int64_timestamp(true);
+        let req = req.set_format_options(format_options);
         let post_req = PostQueryRequest::new().set_query_request(req);
         QueryRequest::PostQueryRequest(post_req)
     }
@@ -101,6 +106,29 @@ mod tests {
                 assert_eq!(inner.query, "SELECT 1");
                 let format_opts = inner.format_options.unwrap_or_default();
                 assert!(format_opts.use_int64_timestamp, "{format_opts:?}");
+            }
+            _ => panic!("expected PostQueryRequest variant"),
+        }
+    }
+
+    #[test]
+    fn from_query_request_preserves_format_options() {
+        let format_options = DataFormatOptions::new().set_timestamp_output_format(
+            google_cloud_bigquery_v2::model::data_format_options::TimestampOutputFormat::Iso8601String,
+        );
+        let qr = google_cloud_bigquery_v2::model::QueryRequest::new()
+            .set_query("SELECT 1".to_string())
+            .set_format_options(format_options);
+        let req: QueryRequest = qr.into();
+        match req {
+            QueryRequest::PostQueryRequest(post_req) => {
+                let inner = post_req.query_request.expect("missing inner req");
+                let format_opts = inner.format_options.expect("missing format options");
+                assert!(format_opts.use_int64_timestamp, "{format_opts:?}");
+                assert_eq!(
+                    format_opts.timestamp_output_format,
+                    google_cloud_bigquery_v2::model::data_format_options::TimestampOutputFormat::Iso8601String
+                );
             }
             _ => panic!("expected PostQueryRequest variant"),
         }
