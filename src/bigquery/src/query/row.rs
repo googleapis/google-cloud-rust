@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO(#5592): remove after query iterator is implemented.
 #![allow(dead_code, unused_imports)]
 
 use crate::query::Schema;
@@ -19,7 +20,6 @@ use serde_json::Map;
 use std::sync::Arc;
 
 /// A container for a single row within a query result set.
-#[allow(dead_code)]
 #[derive(Clone, Debug)]
 pub struct Row {
     pub(crate) values: wkt::Value,
@@ -30,7 +30,7 @@ impl Row {
     pub(crate) fn new(st: Map<String, wkt::Value>, schema: Arc<Schema>) -> Self {
         Self {
             values: wkt::Value::Object(st),
-            schema: schema.clone(),
+            schema,
         }
     }
 }

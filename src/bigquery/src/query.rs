@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO(#5592): remove after marking query structs public.
 #![allow(dead_code, unused_imports)]
 
 mod job_reference;
