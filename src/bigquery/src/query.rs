@@ -16,9 +16,11 @@
 #![allow(dead_code, unused_imports)]
 
 mod job_reference;
+mod request;
 mod row;
 mod schema;
 
 pub(crate) use job_reference::JobReference;
+pub(crate) use request::QueryRequest;
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
