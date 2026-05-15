@@ -22,6 +22,7 @@ use google_cloud_bigquery_v2::model::{
 /// Depending on how the query was initiated, this metadata originates from either a `jobs.query`
 /// response or a `jobs.insert` job resource.
 #[derive(Debug, Clone)]
+#[non_exhaustive]
 #[allow(clippy::large_enum_variant)]
 pub enum QueryCreationMetadata {
     /// Metadata originating from a `jobs.query` API call.
