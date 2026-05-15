@@ -18,23 +18,13 @@
 /// Job Reference.
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum JobReference {
-    StatefulJob {
-        job_id: String,
-        project_id: String,
-        location: Option<String>,
-    },
-    StatelessJob {
-        query_id: String,
-    },
+    StatefulJob(google_cloud_bigquery_v2::model::JobReference),
+    StatelessJob { query_id: String },
 }
 
 impl From<google_cloud_bigquery_v2::model::JobReference> for JobReference {
     fn from(v: google_cloud_bigquery_v2::model::JobReference) -> JobReference {
-        JobReference::StatefulJob {
-            job_id: v.job_id,
-            project_id: v.project_id,
-            location: v.location,
-        }
+        JobReference::StatefulJob(v)
     }
 }
 
@@ -45,16 +35,7 @@ impl JobReference {
 
     pub(crate) fn to_job_ref(&self) -> Option<google_cloud_bigquery_v2::model::JobReference> {
         match self {
-            Self::StatefulJob {
-                job_id,
-                project_id,
-                location,
-            } => Some(
-                google_cloud_bigquery_v2::model::JobReference::new()
-                    .set_project_id(project_id.clone())
-                    .set_job_id(job_id.clone())
-                    .set_or_clear_location(location.clone()),
-            ),
+            Self::StatefulJob(job_ref) => Some(job_ref.clone()),
             Self::StatelessJob { .. } => None,
         }
     }
@@ -72,14 +53,7 @@ mod tests {
             .set_job_id("a-job-id")
             .set_location("US");
         let job_ref = JobReference::from(proto.clone());
-        assert_eq!(
-            job_ref,
-            JobReference::StatefulJob {
-                job_id: "a-job-id".to_string(),
-                project_id: "a-project-id".to_string(),
-                location: Some("US".to_string()),
-            }
-        );
+        assert_eq!(job_ref, JobReference::StatefulJob(proto.clone()));
         assert_eq!(job_ref.to_job_ref(), Some(proto));
 
         // Without location
@@ -87,14 +61,7 @@ mod tests {
             .set_project_id("a-project-id")
             .set_job_id("a-job-id");
         let job_ref = JobReference::from(proto.clone());
-        assert_eq!(
-            job_ref,
-            JobReference::StatefulJob {
-                job_id: "a-job-id".to_string(),
-                project_id: "a-project-id".to_string(),
-                location: None,
-            }
-        );
+        assert_eq!(job_ref, JobReference::StatefulJob(proto.clone()));
         assert_eq!(job_ref.to_job_ref(), Some(proto));
     }
 
