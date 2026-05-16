@@ -211,6 +211,16 @@ pub async fn create_database_client() -> Option<google_cloud_spanner::client::Da
 /// if multiple schema changes are executed in parallel, or if schema changes are executed
 /// in parallel with read/write transactions.
 pub async fn update_database_ddl(statement: String) -> anyhow::Result<()> {
+    update_database_ddl_batch(vec![statement]).await
+}
+
+/// Updates the database DDL by executing the given batch of statements on the Spanner Emulator.
+///
+/// This method uses the emulator's REST API directly. It includes a retry loop to handle
+/// transient "Schema change operation rejected" errors that can occur in the emulator
+/// if multiple schema changes are executed in parallel, or if schema changes are executed
+/// in parallel with read/write transactions.
+pub async fn update_database_ddl_batch(statements: Vec<String>) -> anyhow::Result<()> {
     let emulator_host = get_emulator_host().expect("SPANNER_EMULATOR_HOST must be set");
     let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
     let db_path = format!(
@@ -222,7 +232,7 @@ pub async fn update_database_ddl(statement: String) -> anyhow::Result<()> {
     let url = format!("{}/v1/{}/ddl", rest_endpoint, db_path);
     let client = reqwest::Client::new();
     let payload = serde_json::json!({
-        "statements": [statement]
+        "statements": statements
     });
 
     let mut attempts = 0;
