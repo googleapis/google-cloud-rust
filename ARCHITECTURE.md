@@ -159,7 +159,8 @@ of headers. This is needed to support:
 If you want a simplified API, use [AccessTokenCredentials]. If you use
 `CacheableResource` directly, keep in mind that all credential types already
 cache the tokens. The `CacheableResource` is so you can cache values derived
-from the data in `CacheableResource` and only update the derived value as needed.
+from the data in `CacheableResource` and only update the derived value as
+needed.
 
 ### Hidden HTTP client
 
