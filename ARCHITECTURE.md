@@ -103,7 +103,7 @@ The libraries use REST/JSON to communicate with Google Cloud services, even for
 services that support gRPC. This choice offers several benefits:
 
 - **Stability:** The Protobuf implementation we use (Prost) introduces breaking
-  changes when adding fields to a messages. We wanted to avoid these breaks.
+  changes when adding fields to a message. We wanted to avoid these breaks.
   Google's Protobuf was not ready when we designed the libraries, and its API is
   not very idiomatic (for good reasons).
 - **Dependencies:** Using REST/JSON avoids a heavy dependency on gRPC and its
@@ -143,7 +143,7 @@ requirements that `serde` cannot easily support, such as:
 
 The request builders have both `set_<field_name>()` setters and
 `with_<option_name>()` setters. This is a bit awkward, but avoids name clashes
-as RPCs requests gain field names and we add new request options.
+as RPC requests gain field names and we add new request options.
 
 ### Auth library
 
@@ -159,7 +159,7 @@ of headers. This is needed to support:
 If you want a simplified API, use [AccessTokenCredentials]. If you use
 `CacheableResource` directly, keep in mind that all credential types already
 cache the tokens. The `CacheableResource` is so you can cache values derived
-from the data in `CacheableResource` and only update the derive value as needed.
+from the data in `CacheableResource` and only update the derived value as needed.
 
 ### Hidden HTTP client
 
