@@ -364,11 +364,11 @@ async fn create_real_spanner_database_client(
 
 /// Updates the database DDL by executing the given statement on the Spanner Emulator or real Spanner instance.
 pub async fn update_database_ddl(statement: String) -> Result<()> {
-    update_database_ddl_statements(vec![statement]).await
+    update_database_ddl_batch(vec![statement]).await
 }
 
-/// Updates the database DDL by executing the given statements on the Spanner Emulator or real Spanner instance.
-pub async fn update_database_ddl_statements(statements: Vec<String>) -> Result<()> {
+/// Updates the database DDL by executing the given batch of statements on the Spanner Emulator or real Spanner instance.
+pub async fn update_database_ddl_batch(statements: Vec<String>) -> Result<()> {
     if let Some(emulator_host) = get_emulator_host() {
         return update_emulator_ddl(&emulator_host, statements).await;
     }

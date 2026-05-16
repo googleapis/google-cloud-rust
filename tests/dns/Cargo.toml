@@ -34,7 +34,6 @@ google-cloud-dns-v1.workspace = true
 google-cloud-gax.workspace    = true
 google-cloud-test-utils       = { workspace = true }
 google-cloud-lro.workspace    = true
-rand.workspace                = true
 tokio.workspace               = true
 tracing.workspace             = true
 tracing-subscriber            = { workspace = true, features = ["fmt"] }

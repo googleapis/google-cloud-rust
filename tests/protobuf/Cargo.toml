@@ -29,7 +29,6 @@ log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]
 [dependencies]
 anyhow.workspace              = true
 bytes.workspace               = true
-chrono                        = { workspace = true, features = ["now"] }
 crc32c.workspace              = true
 futures.workspace             = true
 google-cloud-gax              = { workspace = true, features = ["unstable-stream"] }
@@ -40,10 +39,9 @@ google-cloud-wkt.workspace    = true
 tokio.workspace               = true
 
 [dev-dependencies]
-mockall.workspace           = true
-serde_json.workspace        = true
-static_assertions.workspace = true
-test-case.workspace         = true
+mockall.workspace    = true
+serde_json.workspace = true
+test-case.workspace  = true
 
 [lints]
 workspace = true
