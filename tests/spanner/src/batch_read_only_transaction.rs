@@ -62,7 +62,7 @@ pub async fn partitioned_query(db_client: &DatabaseClient) -> anyhow::Result<()>
     // 3. Create a query that selects all the test rows and partition it.
     let hint = "@{spanner_emulator.disable_query_partitionability_check=true}";
     let sql = format!(
-        "{} SELECT Id, ColInt64, ColString FROM AllTypes WHERE Id IN ('{}', '{}', '{}') ORDER BY ColInt64",
+        "{} SELECT Id, ColInt64, ColString FROM AllTypes WHERE Id IN ('{}', '{}', '{}')",
         hint, id1, id2, id3
     );
     let stmt = Statement::builder(sql).build();

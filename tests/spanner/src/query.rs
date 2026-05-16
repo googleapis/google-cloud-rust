@@ -22,6 +22,7 @@ use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::sync::Arc;
 use tokio::sync::Notify;
 use tonic::transport::Channel;
+use tracing::info;
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rot = db_client.single_use().build();
@@ -297,10 +298,21 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     // Expect a read timestamp to NOT have been chosen yet.
     assert!(tx.read_timestamp().is_none());
 
-    // Execute the first query with invalid syntax.
-    let rs_result = tx
+    // Execute the first query with an invalid table name.
+    // The error can be returned both directly from execute_query(...)
+    // (this happens on the Emulator) or when the first row is read
+    // (this happens on the real Spanner).
+    let rs_result: Result<(), google_cloud_spanner::Error> = match tx
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
-        .await;
+        .await
+    {
+        Ok(mut rs) => match rs.next().await {
+            Some(Err(e)) => Err(e),
+            Some(Ok(_)) => Ok(()),
+            None => Ok(()),
+        },
+        Err(e) => Err(e),
+    };
 
     assert!(
         rs_result.is_err(),
@@ -466,7 +478,16 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
 // transaction could delete the row in the time between the first attempt failed, and the
 // BeginTransaction RPC has been executed.
 pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let emulator_host = get_emulator_host().expect("SPANNER_EMULATOR_HOST must be set");
+    let emulator_host = match get_emulator_host() {
+        Some(host) => host,
+        None => {
+            // TODO(#5682): enable this on real Spanner
+            info!(
+                "Skipping inline_begin_fallback test on real Spanner as it requires local proxy against emulator"
+            );
+            return Ok(());
+        }
+    };
     let latch = Arc::new(Notify::new());
     let begin_transaction_entered_latch = Arc::new(Notify::new());
 
@@ -592,14 +613,22 @@ pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
     assert_eq!(metadata.column_names(), &["num".to_string()]);
 
     let stats = rs.stats();
-    assert!(stats.is_none());
+    if get_emulator_host().is_some() {
+        assert!(stats.is_none(), "Emulator returns no stats in PLAN mode");
+    } else {
+        assert!(stats.is_some(), "Real Spanner returns stats in PLAN mode");
+        assert!(
+            stats.unwrap().query_plan.is_some(),
+            "Real Spanner returns query_plan in PLAN mode"
+        );
+    }
 
     Ok(())
 }
 
 pub async fn query_profile(db_client: &DatabaseClient) -> anyhow::Result<()> {
     if get_emulator_host().is_some() {
-        println!("Skipping query_profile test on emulator");
+        info!("Skipping query_profile test on emulator");
         return Ok(());
     }
     let rot = db_client.single_use().build();
