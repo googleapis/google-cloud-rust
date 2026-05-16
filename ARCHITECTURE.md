@@ -92,6 +92,82 @@ polled periodically, with the period controlled by a policy. Likewise, the
 poller continues on recoverable errors, and a policy controls what errors should
 be treated as recoverable.
 
+## Major design decisions
+
+This section explains the rationale behind some of the major design choices in
+the libraries.
+
+### REST/JSON over gRPC
+
+The libraries use REST/JSON to communicate with Google Cloud services, even for
+services that support gRPC. This choice offers several benefits:
+
+- **Stability:** The Protobuf implementation we use (Prost) introduces breaking
+  changes when adding fields to a messages. We wanted to avoid these breaks.
+  Google's Protobuf was not ready when we designed the libraries, and its API is
+  not very idiomatic (for good reasons).
+- **Dependencies:** Using REST/JSON avoids a heavy dependency on gRPC and its
+  associated native libraries, which can simplify the build process and reduce
+  binary size.
+- **Interoperability:** REST/JSON is universally supported and easier to debug
+  with standard tools.
+
+### Crate naming and versioning
+
+Each Google Cloud service version has its own crate (for example,
+`google-cloud-functions-v2`). This approach allows you to:
+
+- **Use multiple versions simultaneously:** You can depend on different versions
+  of the same service in the same project.
+- **Manage service size:** Many services are very large; splitting them by
+  version keeps individual crates more manageable.
+
+### Namespace strategy
+
+The libraries use a module-per-object strategy and specific client naming (for
+example, `stub::SomeService`) to prevent name clashes. This design ensures that
+future service updates or new objects don't conflict with existing code.
+
+### Custom ProtoJSON serialization
+
+Instead of relying on `serde` annotations, the libraries use manual ProtoJSON
+serialization and deserialization. This choice is necessary to handle complex
+requirements that `serde` cannot easily support, such as:
+
+- **Oneof fields:** Handling duplicate `oneof` errors correctly.
+- **Field masks:** Supporting precise field updates.
+- **Well-known types:** Consistent handling of Protobuf well-known types across
+  all services.
+
+### Separate namespace for fields vs. options
+
+The request builders have both `set_<field_name>()` setters and
+`with_<option_name>()` setters. This is a bit awkward, but avoids name clashes
+as RPCs requests gain field names and we add new request options.
+
+### Auth library
+
+The main type in the auth library (`Credentials`) returns a [CacheableResource]
+of headers. This is needed to support:
+
+- Some authentication flows do not use access tokens (notably API Keys).
+- Some authentication flows require more than one header.
+- The access tokens in Google Cloud are always time-limited.
+- The caller may want to compute a value from the headers and cache that
+  computed value.
+
+If you want a simplified API, use [AccessTokenCredentials]. If you use
+`CacheableResource` directly, keep in mind that all credential types already
+cache the tokens. The `CacheableResource` is so you can cache values derived
+from the data in `CacheableResource` and only update the derive value as needed.
+
+### Hidden HTTP client
+
+We use the `reqwest` crate in the implementation of the client libraries, but do
+not provide a mechanism to change or configure this implementation. We
+anticipate switching to a different HTTP implementation in the future, and want
+to avoid breaking changes when we do.
+
 ## What these libraries do not do
 
 ### No client-side validation
@@ -176,4 +252,6 @@ hand-crafted code. The main directories are:
 - `guide/samples`: the code samples for the user guide. In general, we want the
   code samples to be at least compiled.
 
+[accesstokencredentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.AccessTokenCredentials.html
+[cacheableresource]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/enum.CacheableResource.html
 [tokio]: https://tokio.rs
