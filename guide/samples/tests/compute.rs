@@ -43,9 +43,14 @@ mod tests {
             .await?;
         let result =
             user_guide_samples::compute::drive_usage_report_samples(&project_id, &bucket_id).await;
-        let _ = storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}"))
-            .await
-            .inspect_err(|e| eprintln!("error cleaning up bucket {bucket_id}: {e:?}"));
+        let project_id = google_cloud_test_utils::runtime_config::project_id()?;
+        let _ = storage_samples::cleanup_bucket(
+            control,
+            format!("projects/_/buckets/{bucket_id}"),
+            project_id,
+        )
+        .await
+        .inspect_err(|e| eprintln!("error cleaning up bucket {bucket_id}: {e:?}"));
         result.inspect_err(anydump)
     }
 }

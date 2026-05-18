@@ -13,14 +13,20 @@
 // limitations under the License.
 
 // [START storage_disable_requester_pays]
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::bucket::Billing;
 use google_cloud_wkt::FieldMask;
 
-pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+pub async fn sample(
+    client: &StorageControl,
+    bucket_id: &str,
+    user_project: &str,
+) -> anyhow::Result<()> {
     let bucket = client
         .get_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))
+        .with_quota_project(user_project)
         .send()
         .await?;
     let metageneration = bucket.metageneration;
@@ -29,6 +35,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_bucket(bucket.set_billing(Billing::new().set_requester_pays(false)))
         .set_if_metageneration_match(metageneration)
         .set_update_mask(FieldMask::default().set_paths(["billing.requester_pays"]))
+        .with_quota_project(user_project)
         .send()
         .await?;
     println!(

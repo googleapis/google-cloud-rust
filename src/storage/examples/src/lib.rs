@@ -35,6 +35,7 @@ use google_cloud_storage::model::bucket::{
 use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
 use google_cloud_test_utils::resource_names::random_bucket_id;
+use google_cloud_wkt::FieldMask;
 use std::time::Duration;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
@@ -177,17 +178,13 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::set_autoclass::sample(&client, &id).await?;
     tracing::info!("running get_autoclass example");
     buckets::get_autoclass::sample(&client, &id).await?;
-    #[cfg(feature = "skipped-integration-tests")]
-    {
-        // TODO(#3291): cannot cleanup the bucket if this example runs.
-        tracing::info!("running enable_requester_pays example");
-        buckets::enable_requester_pays::sample(&client, &id).await?;
-        // TODO(#3291): fix these samples to provide user project.
-        tracing::info!("running get_requester_pays_status example");
-        buckets::get_requester_pays_status::sample(&client, &id).await?;
-        tracing::info!("running disable_requester_pays example");
-        buckets::disable_requester_pays::sample(&client, &id).await?;
-    }
+
+    tracing::info!("running enable_requester_pays example");
+    buckets::enable_requester_pays::sample(&client, &id).await?;
+    tracing::info!("running get_requester_pays_status example");
+    buckets::get_requester_pays_status::sample(&client, &id, &project_id).await?;
+    tracing::info!("running disable_requester_pays example");
+    buckets::disable_requester_pays::sample(&client, &id, &project_id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -777,9 +774,10 @@ pub async fn cleanup_stale_buckets(
     //    wait is at least 2 seconds. That slows down *every* runner when the API
     //    pushes back, which is the practical mitigation across processes.
     let bucket_names = buckets_to_cleanup;
-    let empty_tasks = bucket_names.iter().cloned().map(|name| {
-        let c = client.clone();
-        async move { empty_bucket_contents(&c, &name).await }
+    let empty_tasks = bucket_names.iter().map(|name| {
+        let client = client.clone();
+        let project_id = project_id.to_string();
+        async move { empty_bucket_contents(&client, name, &project_id).await }
     });
     for result in futures::future::join_all(empty_tasks).await {
         if let Err(e) = result {
@@ -794,11 +792,6 @@ pub async fn cleanup_stale_buckets(
     }
 
     Ok(())
-}
-
-pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
-    empty_bucket_contents(&client, &name).await?;
-    delete_bucket_with_error_backoff(&client, &name).await
 }
 
 /// Delete one bucket, using the client's retry loop with exponential backoff
@@ -821,30 +814,64 @@ async fn delete_bucket_with_error_backoff(
     Ok(())
 }
 
+pub async fn cleanup_bucket(
+    client: StorageControl,
+    name: String,
+    project_id: String,
+) -> anyhow::Result<()> {
+    empty_bucket_contents(&client, &name, &project_id).await?;
+    delete_bucket_with_error_backoff(&client, &name).await
+}
+
 /// List and remove objects, managed folders, folders, and anywhere caches so
 /// the bucket can be deleted. Per-resource deletes are still parallelized with
 /// `join_all` inside this bucket.
-async fn empty_bucket_contents(client: &StorageControl, name: &str) -> anyhow::Result<()> {
+async fn empty_bucket_contents(
+    client: &StorageControl,
+    name: &str,
+    project_id: &str,
+) -> anyhow::Result<()> {
     use google_cloud_gax::{Result as GaxResult, paginator::ItemPaginator};
-    use google_cloud_wkt::FieldMask;
 
-    let current = client.get_bucket().set_name(name).send().await?;
     // Configure the bucket to be garbage collected. Some buckets are created by
     // sample code, which does not (and should not) include setting labels to
     // automatically garbage collect the bucket.
-    if current
+    let current = client
+        .get_bucket()
+        .set_name(name)
+        .with_quota_project(project_id)
+        .send()
+        .await?;
+
+    let needs_disable_requester_pays = current.billing.as_ref().is_some_and(|b| b.requester_pays);
+    let needs_test_label = current
         .labels
         .get("integration-test")
-        .is_none_or(|v| v != "true")
-    {
+        .is_none_or(|v| v != "true");
+
+    if needs_disable_requester_pays || needs_test_label {
         let mut updated = current.clone();
-        updated
-            .labels
-            .insert("integration-test".to_string(), "true".to_string());
+        let mut paths = vec![];
+
+        if needs_disable_requester_pays {
+            if let Some(billing) = updated.billing.as_mut() {
+                billing.requester_pays = false;
+            }
+            paths.push("billing.requester_pays");
+        }
+
+        if needs_test_label {
+            updated
+                .labels
+                .insert("integration-test".to_string(), "true".to_string());
+            paths.push("labels");
+        }
+
         if let Err(e) = client
             .update_bucket()
             .set_bucket(updated)
-            .set_update_mask(FieldMask::default().set_paths(["labels"]))
+            .set_update_mask(FieldMask::default().set_paths(paths))
+            .with_quota_project(project_id)
             .send()
             .await
         {
