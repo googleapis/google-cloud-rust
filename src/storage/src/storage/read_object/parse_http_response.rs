@@ -51,7 +51,19 @@ pub fn object_highlights(generation: i64, headers: &HeaderMap) -> Result<ObjectH
                 .set_or_clear_crc32c(headers_to_crc32c(headers))
                 .set_md5_hash(headers_to_md5_hash(headers))
         }),
+        metadata: headers_to_metadata(headers),
     })
+}
+
+fn headers_to_metadata(headers: &HeaderMap) -> std::collections::HashMap<String, String> {
+    headers
+        .iter()
+        .filter_map(|(name, value)| {
+            let key = name.as_str().strip_prefix("x-goog-meta-")?;
+            let value = value.to_str().ok()?;
+            Some((key.to_string(), value.to_string()))
+        })
+        .collect()
 }
 
 pub(crate) fn headers_to_crc32c(headers: &HeaderMap) -> Option<u32> {
@@ -133,7 +145,9 @@ mod tests {
                     .append_header("content-language", "en")
                     .append_header("content-type", "text/plain")
                     .append_header("content-disposition", "inline")
-                    .append_header("etag", "etagval"),
+                    .append_header("etag", "etagval")
+                    .append_header("x-goog-meta-foo", "bar")
+                    .append_header("x-goog-meta-key2", "value2"),
             ),
         );
 
@@ -160,8 +174,41 @@ mod tests {
             object.checksums.as_ref().unwrap().md5_hash,
             base64::prelude::BASE64_STANDARD.decode("d63R1fQSI9VYL8pzalyzNQ==")?
         );
+        assert_eq!(
+            object.metadata,
+            std::collections::HashMap::from([
+                ("foo".to_string(), "bar".to_string()),
+                ("key2".to_string(), "value2".to_string()),
+            ])
+        );
 
         Ok(())
+    }
+
+    #[test]
+    fn test_headers_to_metadata() -> Result {
+        let mut headers = http::HeaderMap::new();
+        headers.insert("x-goog-meta-foo", http::HeaderValue::from_static("bar"));
+        headers.insert("X-Goog-Meta-Mixed", http::HeaderValue::from_static("case"));
+        headers.insert("content-type", http::HeaderValue::from_static("text/plain"));
+        headers.insert("x-goog-generation", http::HeaderValue::from_static("1"));
+
+        let got = headers_to_metadata(&headers);
+        assert_eq!(
+            got,
+            std::collections::HashMap::from([
+                ("foo".to_string(), "bar".to_string()),
+                ("mixed".to_string(), "case".to_string()),
+            ])
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_headers_to_metadata_empty() {
+        let headers = http::HeaderMap::new();
+        let got = headers_to_metadata(&headers);
+        assert!(got.is_empty(), "{got:?}");
     }
 
     #[test]

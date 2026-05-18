@@ -127,6 +127,7 @@ mod tests {
             content_disposition: "attachment".to_string(),
             etag: "etag-123".to_string(),
             checksums: None,
+            metadata: std::collections::HashMap::new(),
         };
         assert_eq!(got, want);
 
