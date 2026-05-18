@@ -85,3 +85,7 @@ Apache 2.0 - See [LICENSE] for more information.
 [license]: LICENSE
 [set up development environment]: doc/contributor/howto-guide-set-up-development-environment.md
 [user guide]: https://googleapis.github.io/google-cloud-rust
+
+## Test
+
+Not to be committed, just a personal scratchpad for testing git commits.
