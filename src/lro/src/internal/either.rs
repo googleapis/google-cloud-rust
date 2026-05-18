@@ -19,6 +19,7 @@ use google_cloud_gax::polling_state::PollingState;
 
 /// Combine two different `Poller` types into a single type.
 #[derive(Clone, Debug)]
+#[non_exhaustive]
 pub enum Either<A, B> {
     Left(A),
     Right(B),
