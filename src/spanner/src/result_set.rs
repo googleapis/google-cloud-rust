@@ -470,6 +470,7 @@ impl ResultSetWorker {
                 self.session_name.clone(),
                 self.channel_hint,
                 self.gax_options.clone(),
+                true,
             )
             .await?;
 

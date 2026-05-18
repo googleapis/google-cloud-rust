@@ -19,12 +19,17 @@ mod tests {
     use storage_samples::*;
 
     async fn cleanup_all_buckets(client: StorageControl, buckets: Vec<String>) {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap_or_default();
         // Report, but do not cause a build failure on cleanup errors.
         for id in buckets.into_iter() {
-            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}"))
-                .await
-                .inspect_err(|e| eprintln!("error cleaning up bucket {id}: {e:?}"))
-                .inspect_err(anydump);
+            let _ = cleanup_bucket(
+                client.clone(),
+                format!("projects/_/buckets/{id}"),
+                project_id.clone(),
+            )
+            .await
+            .inspect_err(|e| eprintln!("error cleaning up bucket {id}: {e:?}"))
+            .inspect_err(anydump);
         }
     }
 

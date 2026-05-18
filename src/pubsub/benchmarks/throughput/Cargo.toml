@@ -30,9 +30,5 @@ anyhow.workspace    = true
 bytes.workspace     = true
 clap                = { workspace = true, features = ["derive", "env", "help", "std"] }
 google-cloud-pubsub = { workspace = true, features = ["default-rustls-provider"] }
-futures.workspace   = true
 humantime.workspace = true
-rand.workspace      = true
 tokio               = { workspace = true, features = ["full"] }
-tracing.workspace   = true
-tracing-subscriber  = { workspace = true, features = ["fmt", "std"] }

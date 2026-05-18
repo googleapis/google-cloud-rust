@@ -35,7 +35,6 @@ prost-types.workspace = true
 serde.workspace       = true
 serde_json.workspace  = true
 serde_with.workspace  = true
-tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }
 tracing.workspace     = true
 # Local crates
 google-cloud-gax  = { workspace = true }
@@ -54,7 +53,6 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [dev-dependencies]
 anyhow.workspace = true
-tokio            = { workspace = true, features = ["full", "macros"] }
 
 [lints]
 workspace = true

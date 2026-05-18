@@ -28,6 +28,9 @@ rust-version.workspace = true
 
 [dependencies]
 google-cloud-gax.workspace = true
+google-cloud-bigquery-v2   = { workspace = true }
+serde_json.workspace       = true
+wkt.workspace              = true
 
 [lints]
 workspace = true

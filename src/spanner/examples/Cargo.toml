@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name                 = "storage-random"
+name                 = "spanner-samples"
 version              = "0.0.0"
 publish              = false
 edition.workspace    = true
@@ -23,23 +23,19 @@ repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
 
-[lints]
-workspace = true
-
 [dependencies]
-anyhow.workspace            = true
-bytes.workspace             = true
-clap                        = { workspace = true, features = ["derive", "help", "std", "usage"] }
-futures.workspace           = true
-google-cloud-auth.workspace = true
-google-cloud-gax.workspace  = true
-google-cloud-storage        = { workspace = true, features = ["default-rustls-provider"] }
-humantime.workspace         = true
-parse-size.workspace        = true
-rand.workspace              = true
-tokio                       = { workspace = true, features = ["macros"] }
-tracing.workspace           = true
-tracing-subscriber          = { workspace = true, features = ["fmt", "std"] }
+anyhow.workspace           = true
+futures.workspace          = true
+google-cloud-gax.workspace = true
+google-cloud-spanner       = { workspace = true }
+tokio                      = { workspace = true, features = ["macros"] }
+tracing-subscriber         = { workspace = true, features = ["fmt", "std"] }
+tracing.workspace          = true
 
 [dev-dependencies]
-test-case.workspace = true
+google-cloud-test-utils   = { workspace = true }
+integration-tests-spanner = { workspace = true }
+
+[features]
+run-integration-tests     = []
+skipped-integration-tests = []

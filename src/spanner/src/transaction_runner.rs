@@ -21,7 +21,9 @@ use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBu
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
 };
+
 use std::time::Duration as StdDuration;
+use tokio::time::Instant;
 use wkt::Duration;
 
 /// A builder for a [TransactionRunner] for a read/write transaction.
@@ -151,6 +153,42 @@ impl TransactionRunnerBuilder {
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
     pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.builder = self.builder.with_transaction_tag(tag);
+        self
+    }
+
+    /// Sets whether the transaction should be explicitly started using a `BeginTransaction` RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client
+    ///     .read_write_transaction()
+    ///     .with_explicit_begin_transaction(true)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// By default, the Spanner client will inline the `BeginTransaction` call with the first query
+    /// or DML statement in the transaction. This reduces the number of round-trips to Spanner that
+    /// are needed for a transaction. Setting this option to `true` can be beneficial for specific
+    /// transaction shapes:
+    ///
+    /// 1. When the transaction executes multiple parallel queries at the start of the transaction.
+    ///    Only one query can include a `BeginTransaction` option, and all other queries must wait for
+    ///    the first query to return the first result before they can proceed to execute. A
+    ///    `BeginTransaction` RPC will quickly return a transaction ID and allow all queries to start
+    ///    execution in parallel once the transaction ID has been returned.
+    /// 2. When the first statement in the transaction could fail. If the statement fails, then it
+    ///    will also not start a transaction and return a transaction ID. The transaction will then
+    ///    fall back to executing a `BeginTransaction` RPC and retry the first statement.
+    ///
+    /// Default is `false` (inline begin).
+    pub fn with_explicit_begin_transaction(mut self, explicit: bool) -> Self {
+        self.builder = self.builder.with_explicit_begin_transaction(explicit);
         self
     }
 
@@ -362,7 +400,7 @@ impl TransactionRunner {
     where
         F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
     {
-        let start_time = tokio::time::Instant::now();
+        let start_time = Instant::now();
         let mut attempts: u32 = 0;
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
         let deadline = self.timeout.map(|t| start_time + t);
@@ -375,22 +413,46 @@ impl TransactionRunner {
                 let transaction = self
                     .builder
                     .clone()
-                    .with_explicit_begin_transaction(true)
                     .build(deadline)
                     .await?;
-                current_tx_id = transaction.transaction_id().await.ok();
 
                 let result = match work(transaction.clone()).await {
                     Ok(res) => res,
                     Err(e) => {
+                        // We call `get_id_no_wait` here to retrieve the transaction ID without waiting.
+                        // We do not require the transaction ID to be unconditionally available here;
+                        // we only wish to capture it if the transaction successfully started prior to
+                        // failing, so it can be used as the previous transaction ID if the transaction
+                        // was aborted.
+                        let id = transaction
+                            .context
+                            .transaction_selector
+                            .get_id_no_wait()
+                            .ok()
+                            .flatten();
                         // Rollback if the closure failed and it was not an Aborted error.
                         if !is_aborted(&e) {
                             let _ = transaction.rollback().await;
                         }
+                        current_tx_id = id;
                         return Err(e);
                     }
                 };
 
+                // If the closure executed no statements, `get_id_no_wait()` will return `None`.
+                // In that case, we explicitly begin the transaction before calling `commit()`.
+                let mut id = transaction.context.transaction_selector.get_id_no_wait()?;
+                if id.is_none() {
+                    if transaction.is_starting()? {
+                        return Err(crate::error::internal_error(
+                            "Transaction closure finished while an asynchronous statement is still starting the transaction",
+                        ));
+                    }
+                    if transaction.begin_explicitly_if_not_started(false).await? {
+                        id = transaction.context.transaction_selector.get_id_no_wait()?;
+                    }
+                }
+                current_tx_id = id;
                 let commit_response = transaction.commit().await?;
                 Ok::<TransactionResult<T>, crate::Error>(TransactionResult {
                     result,
@@ -403,6 +465,7 @@ impl TransactionRunner {
                 Ok(res) => return Ok(res),
                 Err(e) => {
                     if is_aborted(&e) {
+                        let current_tx_id = current_tx_id.clone();
                         self.builder = self.builder.with_previous_transaction_id(current_tx_id);
                     }
 
@@ -430,6 +493,9 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
     use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use std::sync::Mutex;
+    use std::sync::mpsc::channel as std_channel;
+    use tokio::sync::oneshot::channel as oneshot_channel;
 
     fn expect_begin_transaction(
         mock: &mut spanner_grpc_mock::MockSpanner,
@@ -453,19 +519,21 @@ mod tests {
 
     async fn execute_test_runner(
         mock: spanner_grpc_mock::MockSpanner,
+        explicit_begin: bool,
     ) -> Result<i64, crate::Error> {
-        let (db_client, _server) = setup_db_client(mock).await;
+        let (db_client, server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
+            .with_explicit_begin_transaction(explicit_begin)
             .build()
             .await
             .unwrap();
-        runner
-            .run(async |tx| {
+        tokio::select! {
+            res = runner.run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
                 Ok(count)
-            })
-            .await
-            .map(|res| res.result)
+            }) => res.map(|r| r.result),
+            err = server => panic!("Mock server panicked or terminated unexpectedly: {:?}", err),
+        }
     }
 
     fn commit_response() -> Result<tonic::Response<v1::CommitResponse>, tonic::Status> {
@@ -497,16 +565,57 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_success() {
+    async fn execute_run_success_explicit() {
+        run_success(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_success_inline() {
+        run_success(false).await;
+    }
+
+    async fn run_success(explicit_begin: bool) {
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        }
 
-        mock.expect_execute_sql().once().returning(|req| {
+        mock.expect_execute_sql().once().returning(move |req| {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET active = true");
             assert_eq!(req.seqno, 1);
-            row_count_exact_response(1)
+
+            if !explicit_begin {
+                let transaction = req
+                    .transaction
+                    .as_ref()
+                    .expect("transaction options required for inline begin");
+                let selector = transaction.selector.as_ref().expect("selector required");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+            }
+
+            let mut metadata = v1::ResultSetMetadata {
+                ..Default::default()
+            };
+            if !explicit_begin {
+                metadata.transaction = Some(v1::Transaction {
+                    id: vec![1, 2, 3],
+                    ..Default::default()
+                });
+            }
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
         });
 
         mock.expect_commit().once().returning(|req| {
@@ -520,20 +629,61 @@ mod tests {
             commit_response()
         });
 
-        let res = execute_test_runner(mock).await.unwrap();
+        let res = execute_test_runner(mock, explicit_begin).await.unwrap();
         assert_eq!(res, 1);
     }
 
     #[tokio::test]
-    async fn run_success_with_commit_stats() {
+    async fn execute_run_success_with_commit_stats_explicit() {
+        run_success_with_commit_stats(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_success_with_commit_stats_inline() {
+        run_success_with_commit_stats(false).await;
+    }
+
+    async fn run_success_with_commit_stats(explicit_begin: bool) {
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        }
 
-        mock.expect_execute_sql().once().returning(|req| {
+        mock.expect_execute_sql().once().returning(move |req| {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET active = true");
-            row_count_exact_response(1)
+
+            if !explicit_begin {
+                let transaction = req
+                    .transaction
+                    .as_ref()
+                    .expect("transaction options required for inline begin");
+                let selector = transaction.selector.as_ref().expect("selector required");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+            }
+
+            let mut metadata = v1::ResultSetMetadata {
+                ..Default::default()
+            };
+            if !explicit_begin {
+                metadata.transaction = Some(v1::Transaction {
+                    id: vec![1, 2, 3],
+                    ..Default::default()
+                });
+            }
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
         });
 
         mock.expect_commit().once().returning(|req| {
@@ -552,6 +702,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
             .with_return_commit_stats(true)
+            .with_explicit_begin_transaction(explicit_begin)
             .build()
             .await
             .unwrap();
@@ -576,62 +727,143 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_aborted_retry() -> anyhow::Result<()> {
+    async fn execute_run_with_aborted_retry_explicit() -> anyhow::Result<()> {
+        run_with_aborted_retry(true).await
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_aborted_retry_inline() -> anyhow::Result<()> {
+        run_with_aborted_retry(false).await
+    }
+
+    async fn run_with_aborted_retry(explicit_begin: bool) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
-        mock.expect_begin_transaction()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(move |req| {
-                let req = req.into_inner();
-                assert_eq!(
-                    req.session,
-                    "projects/p/instances/i/databases/d/sessions/123"
-                );
-                Ok(tonic::Response::new(v1::Transaction {
-                    id: vec![9, 9, 9],
-                    ..Default::default()
-                }))
-            });
+        if explicit_begin {
+            mock.expect_begin_transaction()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |req| {
+                    let req = req.into_inner();
+                    assert_eq!(
+                        req.session,
+                        "projects/p/instances/i/databases/d/sessions/123"
+                    );
+                    Ok(tonic::Response::new(v1::Transaction {
+                        id: vec![9, 9, 9],
+                        ..Default::default()
+                    }))
+                });
+        }
 
+        if !explicit_begin {
+            // Attempt 1: execute_sql fails with Aborted
+            mock.expect_execute_sql()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |req| {
+                    let req = req.into_inner();
+                    let transaction = req
+                        .transaction
+                        .as_ref()
+                        .expect("transaction options required for inline begin");
+                    let selector = transaction.selector.as_ref().expect("selector required");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
+
+                    Err(create_aborted_status(std::time::Duration::from_nanos(1)))
+                });
+        } else {
+            mock.expect_execute_sql()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |_req| {
+                    Err(create_aborted_status(std::time::Duration::from_nanos(1)))
+                });
+        }
+
+        if explicit_begin {
+            mock.expect_begin_transaction()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |req| {
+                    let req = req.into_inner();
+                    assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+
+                    let options = req.options.as_ref().expect("options required on retry");
+                    let read_write = options.mode.as_ref().expect("mode required on retry");
+                    match read_write {
+                        Mode::ReadWrite(rw) => {
+                            assert_eq!(rw.multiplexed_session_previous_transaction_id, vec![9, 9, 9], "previous_transaction_id should be set to the ID of the aborted transaction");
+                        }
+                        _ => panic!("Expected ReadWrite mode"),
+                    }
+
+                    Ok(tonic::Response::new(v1::Transaction {
+                        id: vec![8, 8, 8],
+                        ..Default::default()
+                    }))
+                });
+        }
+
+        // Attempt 2 (retry of closure)
         mock.expect_execute_sql()
             .once()
             .in_sequence(&mut seq)
-            .returning(move |_req| Err(create_aborted_status(std::time::Duration::from_nanos(1))));
-
-        mock.expect_begin_transaction()
-            .once()
-            .in_sequence(&mut seq)
             .returning(move |req| {
-                let req = req.into_inner();
-                assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+                if !explicit_begin {
+                    let req = req.into_inner();
+                    let transaction = req
+                        .transaction
+                        .as_ref()
+                        .expect("transaction options required for inline begin");
+                    let selector = transaction.selector.as_ref().expect("selector required");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
 
-                let options = req.options.as_ref().expect("options required on retry");
-                let read_write = options.mode.as_ref().expect("mode required on retry");
-                match read_write {
-                    Mode::ReadWrite(rw) => {
-                        assert_eq!(rw.multiplexed_session_previous_transaction_id, vec![9, 9, 9], "previous_transaction_id should be set to the ID of the aborted transaction");
+                    let options = match selector {
+                        v1::transaction_selector::Selector::Begin(o) => o,
+                        _ => panic!("Expected Begin"),
+                    };
+                    let read_write = options.mode.as_ref().expect("mode required");
+                    match read_write {
+                        Mode::ReadWrite(rw) => {
+                            assert!(rw.multiplexed_session_previous_transaction_id.is_empty());
+                        }
+                        _ => panic!("Expected ReadWrite"),
                     }
-                    _ => panic!("Expected ReadWrite mode"),
                 }
 
-                Ok(tonic::Response::new(v1::Transaction {
-                    id: vec![8, 8, 8],
+                let mut metadata = v1::ResultSetMetadata {
+                    ..Default::default()
+                };
+                if !explicit_begin {
+                    metadata.transaction = Some(v1::Transaction {
+                        id: vec![8, 8, 8],
+                        ..Default::default()
+                    });
+                }
+
+                Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(metadata),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(5)),
+                        ..Default::default()
+                    }),
                     ..Default::default()
                 }))
             });
-
-        mock.expect_execute_sql()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(move |_req| row_count_exact_response(5));
 
         mock.expect_commit()
             .once()
             .returning(|_req| commit_response());
 
-        let res = execute_test_runner(mock)
+        let res = execute_test_runner(mock, explicit_begin)
             .await
             .expect("runner should succeed");
         assert_eq!(res, 5);
@@ -639,10 +871,211 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_non_aborted_error() {
+    async fn execute_run_query_stream_with_aborted_retry_explicit() -> anyhow::Result<()> {
+        run_query_stream_with_aborted_retry(true).await
+    }
+
+    #[tokio::test]
+    async fn execute_run_query_stream_with_aborted_retry_inline() -> anyhow::Result<()> {
+        run_query_stream_with_aborted_retry(false).await
+    }
+
+    async fn run_query_stream_with_aborted_retry(explicit_begin: bool) -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        let tx_id_1 = vec![9, 9, 9];
+        let tx_id_2 = vec![8, 8, 8];
+
+        let tx_id_1_c1 = tx_id_1.clone();
+        if explicit_begin {
+            mock.expect_begin_transaction()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |_| {
+                    Ok(tonic::Response::new(v1::Transaction {
+                        id: tx_id_1_c1.clone(),
+                        ..Default::default()
+                    }))
+                });
+        }
+
+        let tx_id_1_c2 = tx_id_1.clone();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                if !explicit_begin {
+                    let transaction = req
+                        .transaction
+                        .as_ref()
+                        .expect("transaction options required for inline begin");
+                    let selector = transaction.selector.as_ref().expect("selector required");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
+                }
+
+                let mut rs = v1::PartialResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        row_type: Some(v1::StructType {
+                            fields: vec![Default::default()],
+                        }),
+                        ..Default::default()
+                    }),
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
+                    }],
+                    resume_token: b"token1".to_vec(),
+                    ..Default::default()
+                };
+
+                if !explicit_begin {
+                    rs.metadata.as_mut().unwrap().transaction = Some(v1::Transaction {
+                        id: tx_id_1_c2.clone(),
+                        ..Default::default()
+                    });
+                }
+
+                let (tx, rx) = tokio::sync::mpsc::channel(2);
+                tx.try_send(Ok(rs)).unwrap();
+                tx.try_send(Err(tonic::Status::new(tonic::Code::Aborted, "aborted")))
+                    .unwrap();
+                Ok(tonic::Response::from(rx))
+            });
+
+        let tx_id_2_c1 = tx_id_2.clone();
+        if explicit_begin {
+            mock.expect_begin_transaction()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |req| {
+                    let req = req.into_inner();
+                    let options = req.options.as_ref().expect("options required on retry");
+                    let read_write = options.mode.as_ref().expect("mode required on retry");
+                    match read_write {
+                        Mode::ReadWrite(rw) => {
+                            assert_eq!(
+                                rw.multiplexed_session_previous_transaction_id,
+                                vec![9, 9, 9]
+                            );
+                        }
+                        _ => panic!("Expected ReadWrite mode"),
+                    }
+
+                    Ok(tonic::Response::new(v1::Transaction {
+                        id: tx_id_2_c1.clone(),
+                        ..Default::default()
+                    }))
+                });
+        }
+
+        let tx_id_2_c2 = tx_id_2.clone();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                if !explicit_begin {
+                    let req = req.into_inner();
+                    let transaction = req
+                        .transaction
+                        .as_ref()
+                        .expect("transaction options required for inline begin");
+                    let selector = transaction.selector.as_ref().expect("selector required");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
+
+                    let options = match selector {
+                        v1::transaction_selector::Selector::Begin(o) => o,
+                        _ => panic!("Expected Begin"),
+                    };
+                    let read_write = options.mode.as_ref().expect("mode required");
+                    match read_write {
+                        Mode::ReadWrite(rw) => {
+                            assert_eq!(
+                                rw.multiplexed_session_previous_transaction_id,
+                                vec![9, 9, 9]
+                            );
+                        }
+                        _ => panic!("Expected ReadWrite"),
+                    }
+                }
+
+                let mut rs = v1::PartialResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        row_type: Some(v1::StructType {
+                            fields: vec![Default::default()],
+                        }),
+                        ..Default::default()
+                    }),
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
+                    }],
+                    last: true,
+                    ..Default::default()
+                };
+
+                if !explicit_begin {
+                    rs.metadata.as_mut().unwrap().transaction = Some(v1::Transaction {
+                        id: tx_id_2_c2.clone(),
+                        ..Default::default()
+                    });
+                }
+
+                let (tx, rx) = tokio::sync::mpsc::channel(2);
+                tx.try_send(Ok(rs)).unwrap();
+                Ok(tonic::Response::from(rx))
+            });
+
+        mock.expect_commit()
+            .once()
+            .returning(|_req| commit_response());
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_explicit_begin_transaction(explicit_begin)
+            .build()
+            .await?;
+
+        let mut attempt_counter = 0;
+        let res = runner
+            .run(async |tx| {
+                attempt_counter += 1;
+                let mut rs = tx.execute_query("SELECT 1").await?;
+                let mut last_val = None;
+                while let Some(row_res) = rs.next().await {
+                    let row = row_res?;
+                    last_val = Some(row.raw_values()[0].as_string().to_string());
+                }
+                Ok(last_val.unwrap())
+            })
+            .await?;
+
+        assert_eq!(res.result, "1");
+        assert_eq!(attempt_counter, 2);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_non_aborted_error_explicit() {
+        run_with_non_aborted_error(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_non_aborted_error_inline() {
+        run_with_non_aborted_error(false).await;
+    }
+
+    async fn run_with_non_aborted_error(explicit_begin: bool) {
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+        }
 
         // Let execute_sql return an error to trigger a rollback.
         mock.expect_execute_sql().once().returning(move |_req| {
@@ -652,12 +1085,22 @@ mod tests {
             ))
         });
 
+        if !explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+            mock.expect_execute_sql().once().returning(move |_req| {
+                Err(tonic::Status::new(
+                    tonic::Code::PermissionDenied,
+                    "permission denied",
+                ))
+            });
+        }
+
         // Must explicitly trigger rollback
         mock.expect_rollback()
             .once()
             .returning(|_req| Ok(tonic::Response::new(())));
 
-        let res = execute_test_runner(mock).await;
+        let res = execute_test_runner(mock, explicit_begin).await;
 
         assert!(res.is_err());
         let err = res.unwrap_err();
@@ -672,10 +1115,21 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_non_aborted_error_and_rollback_fails() {
+    async fn execute_run_with_non_aborted_error_and_rollback_fails_explicit() {
+        run_with_non_aborted_error_and_rollback_fails(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_non_aborted_error_and_rollback_fails_inline() {
+        run_with_non_aborted_error_and_rollback_fails(false).await;
+    }
+
+    async fn run_with_non_aborted_error_and_rollback_fails(explicit_begin: bool) {
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+        }
 
         // Let execute_sql return an error to trigger a rollback.
         mock.expect_execute_sql().once().returning(move |_req| {
@@ -685,12 +1139,22 @@ mod tests {
             ))
         });
 
+        if !explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+            mock.expect_execute_sql().once().returning(move |_req| {
+                Err(tonic::Status::new(
+                    tonic::Code::PermissionDenied,
+                    "permission denied",
+                ))
+            });
+        }
+
         // Force the rollback itself to fail as well
         mock.expect_rollback()
             .once()
             .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "rollback failed")));
 
-        let res = execute_test_runner(mock).await;
+        let res = execute_test_runner(mock, explicit_begin).await;
 
         // Verify the user unequivocally receives the PRIMARY original error
         assert!(res.is_err());
@@ -706,38 +1170,132 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_commit_aborted_retry() {
+    async fn execute_run_commit_aborted_retry_explicit() {
+        run_commit_aborted_retry(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_commit_aborted_retry_inline() {
+        run_commit_aborted_retry(false).await;
+    }
+
+    async fn run_commit_aborted_retry(explicit_begin: bool) {
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
-
-        mock.expect_execute_sql()
-            .times(2)
-            .returning(|_req| row_count_exact_response(5));
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+        }
 
         let mut attempt = 0;
+        mock.expect_execute_sql().times(2).returning(move |req| {
+            if !explicit_begin {
+                let req = req.into_inner();
+                let transaction = req
+                    .transaction
+                    .as_ref()
+                    .expect("transaction options required for inline begin");
+                let selector = transaction.selector.as_ref().expect("selector required");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+
+                attempt += 1;
+                if attempt == 2 {
+                    let options = match selector {
+                        v1::transaction_selector::Selector::Begin(o) => o,
+                        _ => panic!("Expected Begin"),
+                    };
+                    let read_write = options.mode.as_ref().expect("mode required");
+                    match read_write {
+                        Mode::ReadWrite(rw) => {
+                            assert_eq!(
+                                rw.multiplexed_session_previous_transaction_id,
+                                vec![9, 9, 9]
+                            );
+                        }
+                        _ => panic!("Expected ReadWrite"),
+                    }
+                }
+
+                let mut metadata = v1::ResultSetMetadata {
+                    ..Default::default()
+                };
+                metadata.transaction = Some(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                });
+
+                return Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(metadata),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(5)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }));
+            }
+            row_count_exact_response(5)
+        });
+
+        let mut commit_attempt = 0;
         mock.expect_commit().times(2).returning(move |_req| {
-            attempt += 1;
-            if attempt == 1 {
+            commit_attempt += 1;
+            if commit_attempt == 1 {
                 Err(create_aborted_status(std::time::Duration::from_nanos(1)))
             } else {
                 commit_response()
             }
         });
 
-        let res = execute_test_runner(mock).await.unwrap();
+        let res = execute_test_runner(mock, explicit_begin).await.unwrap();
         assert_eq!(res, 5);
     }
 
     #[tokio::test]
-    async fn run_begin_transaction_fails() {
+    async fn execute_run_begin_transaction_fails_explicit() {
+        run_begin_transaction_fails(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_begin_transaction_fails_inline() {
+        run_begin_transaction_fails(false).await;
+    }
+
+    async fn run_begin_transaction_fails(explicit_begin: bool) {
         let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
 
-        mock.expect_begin_transaction()
-            .once()
-            .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
+        if explicit_begin {
+            mock.expect_begin_transaction()
+                .once()
+                .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
+        } else {
+            mock.expect_execute_sql()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |req| {
+                    let req = req.into_inner();
+                    let transaction = req
+                        .transaction
+                        .as_ref()
+                        .expect("transaction options required for inline begin");
+                    let selector = transaction.selector.as_ref().expect("selector required");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
 
-        let res = execute_test_runner(mock).await;
+                    Err(tonic::Status::new(tonic::Code::Internal, "internal error"))
+                });
+
+            mock.expect_begin_transaction()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
+        }
+
+        let res = execute_test_runner(mock, explicit_begin).await;
 
         assert!(res.is_err());
         let err = res.unwrap_err();
@@ -771,7 +1329,16 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_batch_dml_aborted_retry() {
+    async fn execute_run_batch_dml_aborted_retry_explicit() {
+        run_batch_dml_aborted_retry(true).await;
+    }
+
+    #[tokio::test]
+    async fn execute_run_batch_dml_aborted_retry_inline() {
+        run_batch_dml_aborted_retry(false).await;
+    }
+
+    async fn run_batch_dml_aborted_retry(explicit_begin: bool) {
         use crate::batch_dml::BatchDml;
         use crate::statement::Statement;
         use gaxi::grpc::tonic::Code;
@@ -780,13 +1347,28 @@ mod tests {
 
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+        }
 
         let mut seq = mockall::Sequence::new();
         mock.expect_execute_batch_dml()
             .once()
             .in_sequence(&mut seq)
-            .returning(move |_req| {
+            .returning(move |req| {
+                if !explicit_begin {
+                    let req = req.into_inner();
+                    let selector = req
+                        .transaction
+                        .expect("missing transaction selector")
+                        .selector
+                        .expect("missing selector");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
+                }
+
                 // Return a successful response but with an embedded aborted status.
                 let status = Status {
                     code: Code::Aborted as i32,
@@ -794,8 +1376,19 @@ mod tests {
                     ..Default::default()
                 };
 
+                let mut metadata = v1::ResultSetMetadata {
+                    ..Default::default()
+                };
+                if !explicit_begin {
+                    metadata.transaction = Some(v1::Transaction {
+                        id: vec![9, 9, 9],
+                        ..Default::default()
+                    });
+                }
+
                 Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
                     result_sets: vec![v1::ResultSet {
+                        metadata: Some(metadata),
                         stats: Some(v1::ResultSetStats {
                             row_count: Some(RowCount::RowCountExact(1)),
                             ..Default::default()
@@ -809,10 +1402,34 @@ mod tests {
         mock.expect_execute_batch_dml()
             .once()
             .in_sequence(&mut seq)
-            .returning(move |_req| {
+            .returning(move |req| {
+                if !explicit_begin {
+                    let req = req.into_inner();
+                    let selector = req
+                        .transaction
+                        .expect("missing transaction selector")
+                        .selector
+                        .expect("missing selector");
+                    assert!(matches!(
+                        selector,
+                        v1::transaction_selector::Selector::Begin(_)
+                    ));
+                }
+
+                let mut metadata = v1::ResultSetMetadata {
+                    ..Default::default()
+                };
+                if !explicit_begin {
+                    metadata.transaction = Some(v1::Transaction {
+                        id: vec![9, 9, 9],
+                        ..Default::default()
+                    });
+                }
+
                 // Return success after the retry.
                 Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
                     result_sets: vec![v1::ResultSet {
+                        metadata: Some(metadata),
                         stats: Some(v1::ResultSetStats {
                             row_count: Some(RowCount::RowCountExact(5)),
                             ..Default::default()
@@ -829,6 +1446,7 @@ mod tests {
 
         let (db_client, _) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
+            .with_explicit_begin_transaction(explicit_begin)
             .build()
             .await
             .expect("failed to build TransactionRunner");
@@ -852,12 +1470,38 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_transaction_tag() -> anyhow::Result<()> {
+    async fn execute_run_with_transaction_tag_explicit() -> anyhow::Result<()> {
+        run_with_transaction_tag(true).await
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_transaction_tag_inline() -> anyhow::Result<()> {
+        run_with_transaction_tag(false).await
+    }
+
+    async fn run_with_transaction_tag(explicit_begin: bool) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        mock.expect_begin_transaction().once().returning(|req| {
+        if explicit_begin {
+            mock.expect_begin_transaction().once().returning(|req| {
+                let req = req.into_inner();
+                // Check if the transaction tag is correctly propagated.
+                assert_eq!(
+                    req.request_options
+                        .expect("Missing request_options")
+                        .transaction_tag,
+                    "my-test-tag"
+                );
+
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
+        }
+
+        mock.expect_execute_sql().once().returning(move |req| {
             let req = req.into_inner();
-            // Check if the transaction tag is correctly propagated.
             assert_eq!(
                 req.request_options
                     .expect("Missing request_options")
@@ -865,21 +1509,36 @@ mod tests {
                 "my-test-tag"
             );
 
-            Ok(tonic::Response::new(v1::Transaction {
-                id: vec![9, 9, 9],
+            if !explicit_begin {
+                let transaction = req
+                    .transaction
+                    .as_ref()
+                    .expect("transaction options required for inline begin");
+                let selector = transaction.selector.as_ref().expect("selector required");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+            }
+
+            let mut metadata = v1::ResultSetMetadata {
+                ..Default::default()
+            };
+            if !explicit_begin {
+                metadata.transaction = Some(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                });
+            }
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(5)),
+                    ..Default::default()
+                }),
                 ..Default::default()
             }))
-        });
-
-        mock.expect_execute_sql().once().returning(|req| {
-            let req = req.into_inner();
-            assert_eq!(
-                req.request_options
-                    .expect("Missing request_options")
-                    .transaction_tag,
-                "my-test-tag"
-            );
-            row_count_exact_response(5)
         });
 
         mock.expect_commit().once().returning(|req| {
@@ -896,6 +1555,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
+            .with_explicit_begin_transaction(explicit_begin)
             .with_transaction_tag("my-test-tag")
             .build()
             .await?;
@@ -913,23 +1573,65 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_exclude_txn_from_change_streams() -> anyhow::Result<()> {
+    async fn execute_run_with_exclude_txn_from_change_streams_explicit() -> anyhow::Result<()> {
+        run_with_exclude_txn_from_change_streams(true).await
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_exclude_txn_from_change_streams_inline() -> anyhow::Result<()> {
+        run_with_exclude_txn_from_change_streams(false).await
+    }
+
+    async fn run_with_exclude_txn_from_change_streams(explicit_begin: bool) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        mock.expect_begin_transaction().once().returning(|req| {
-            let req = req.into_inner();
-            let options = req.options.expect("Missing transaction options");
-            assert!(options.exclude_txn_from_change_streams);
+        if explicit_begin {
+            mock.expect_begin_transaction().once().returning(|req| {
+                let req = req.into_inner();
+                let options = req.options.expect("Missing transaction options");
+                assert!(options.exclude_txn_from_change_streams);
 
-            Ok(tonic::Response::new(v1::Transaction {
-                id: vec![9, 9, 9],
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
+        }
+
+        mock.expect_execute_sql().once().returning(move |req| {
+            let req = req.into_inner();
+            if !explicit_begin {
+                let transaction = req
+                    .transaction
+                    .as_ref()
+                    .expect("transaction options required for inline begin");
+                let selector = transaction.selector.as_ref().expect("selector required");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+            }
+
+            let mut metadata = v1::ResultSetMetadata {
+                ..Default::default()
+            };
+            if !explicit_begin {
+                metadata.transaction = Some(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                });
+            }
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(5)),
+                    ..Default::default()
+                }),
                 ..Default::default()
             }))
         });
 
-        mock.expect_execute_sql()
-            .once()
-            .returning(|_req| row_count_exact_response(5));
         mock.expect_commit()
             .once()
             .returning(|_req| commit_response());
@@ -938,6 +1640,7 @@ mod tests {
 
         let runner = TransactionRunnerBuilder::new(db_client)
             .with_exclude_txn_from_change_streams(true)
+            .with_explicit_begin_transaction(explicit_begin)
             .build()
             .await?;
 
@@ -954,14 +1657,55 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_max_commit_delay() -> anyhow::Result<()> {
+    async fn execute_run_with_max_commit_delay_explicit() -> anyhow::Result<()> {
+        run_with_max_commit_delay(true).await
+    }
+
+    #[tokio::test]
+    async fn execute_run_with_max_commit_delay_inline() -> anyhow::Result<()> {
+        run_with_max_commit_delay(false).await
+    }
+
+    async fn run_with_max_commit_delay(explicit_begin: bool) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        if explicit_begin {
+            expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        }
 
-        mock.expect_execute_sql()
-            .once()
-            .returning(|_| row_count_exact_response(1));
+        mock.expect_execute_sql().once().returning(move |req| {
+            let req = req.into_inner();
+            if !explicit_begin {
+                let transaction = req
+                    .transaction
+                    .as_ref()
+                    .expect("transaction options required for inline begin");
+                let selector = transaction.selector.as_ref().expect("selector required");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+            }
+
+            let mut metadata = v1::ResultSetMetadata {
+                ..Default::default()
+            };
+            if !explicit_begin {
+                metadata.transaction = Some(v1::Transaction {
+                    id: vec![1, 2, 3],
+                    ..Default::default()
+                });
+            }
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
 
         mock.expect_commit().once().returning(|req| {
             let req = req.into_inner();
@@ -978,6 +1722,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
             .with_max_commit_delay(Duration::try_from("0.2s").unwrap())
+            .with_explicit_begin_transaction(explicit_begin)
             .build()
             .await?;
 
@@ -989,5 +1734,78 @@ mod tests {
             .await?;
         assert_eq!(res.result, 1);
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_run_empty_closure_inline() {
+        let mut mock = create_session_mock();
+        expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.transaction,
+                Some(v1::commit_request::Transaction::TransactionId(vec![
+                    1, 2, 3
+                ]))
+            );
+            commit_response()
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await
+            .unwrap();
+
+        let res = runner.run(async |_tx| Ok(42)).await.unwrap();
+        assert_eq!(res.result, 42);
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn execute_run_async_statement_still_starting() {
+        let (tx_rpc, rx_rpc) = std_channel();
+        let (tx_started, rx_started) = oneshot_channel();
+        let tx_started_mutex = Mutex::new(Some(tx_started));
+
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_sql().once().returning(move |_req| {
+            if let Some(tx) = tx_started_mutex.lock().unwrap().take() {
+                let _ = tx.send(());
+            }
+            rx_rpc.recv().unwrap();
+            row_count_exact_response(1)
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await
+            .unwrap();
+
+        let mut rx_started_opt = Some(rx_started);
+        let res = runner
+            .run(async |tx| {
+                tokio::spawn(async move {
+                    let _ = tx.execute_update("UPDATE Users SET active = true").await;
+                });
+                if let Some(rx) = rx_started_opt.take() {
+                    rx.await.unwrap();
+                }
+                Ok(42)
+            })
+            .await;
+
+        tx_rpc.send(()).unwrap();
+
+        assert!(res.is_err());
+        assert!(
+            format!("{:?}", res.unwrap_err())
+                .contains("asynchronous statement is still starting the transaction")
+        );
     }
 }

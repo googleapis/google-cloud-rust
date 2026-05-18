@@ -33,7 +33,6 @@ google-cloud-gax.workspace       = true
 google-cloud-storage             = { workspace = true, features = ["default-rustls-provider"] }
 humantime.workspace              = true
 integration-tests-o11y.workspace = true
-opentelemetry                    = { workspace = true, features = ["trace"] }
 opentelemetry_sdk                = { workspace = true, features = ["rt-tokio", "trace"] }
 parse-size.workspace             = true
 pin-project.workspace            = true

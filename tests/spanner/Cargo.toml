@@ -28,12 +28,9 @@ run-integration-tests = []
 anyhow.workspace        = true
 base64.workspace        = true
 futures.workspace       = true
-google-cloud-auth       = { workspace = true, features = ["default"] }
 google-cloud-gax        = { workspace = true }
-google-cloud-lro        = { workspace = true }
 google-cloud-spanner    = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils = { workspace = true }
-google-cloud-wkt        = { workspace = true }
 http                    = { workspace = true }
 http-body               = { workspace = true }
 http-body-util          = { workspace = true }
@@ -48,7 +45,6 @@ tokio                   = { workspace = true, features = ["sync"] }
 tokio-stream            = { workspace = true }
 tonic                   = { workspace = true }
 tower                   = { workspace = true }
-tracing.workspace       = true
 
 [lints]
 workspace = true

@@ -34,15 +34,18 @@ use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContext;
+use crate::read_only_transaction::{ReadContextTransactionSelector, TransactionState};
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::Aip194Strict;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
+use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
@@ -162,16 +165,14 @@ impl ReadWriteTransactionBuilder {
                 .begin_transaction(request, options, channel_hint)
                 .await?;
 
-            crate::read_only_transaction::ReadContextTransactionSelector::Fixed(
+            ReadContextTransactionSelector::Fixed(
                 TransactionSelector::default().set_id(response.id),
                 None,
             )
         } else {
-            crate::read_only_transaction::ReadContextTransactionSelector::Lazy(Arc::new(
-                std::sync::Mutex::new(crate::read_only_transaction::TransactionState::NotStarted(
-                    self.options.clone(),
-                )),
-            ))
+            ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
+                TransactionState::NotStarted(self.options.clone()),
+            )))
         };
 
         Ok(ReadWriteTransaction {
@@ -233,26 +234,7 @@ macro_rules! execute_with_retry {
                     return Err(error);
                 }
 
-                let mut begin_options = crate::RequestOptions::default();
-                if let Some(d) = $self.deadline {
-                    let remaining = d.saturating_duration_since(tokio::time::Instant::now());
-                    begin_options.set_attempt_timeout(remaining);
-                }
-                begin_options = amend_request_options_for_lar(
-                    $self.context.client.leader_aware_routing_enabled,
-                    begin_options,
-                );
-
-                $self
-                    .context
-                    .transaction_selector
-                    .begin_explicitly(
-                        &$self.context.client,
-                        $self.context.session_name.clone(),
-                        $self.context.channel_hint,
-                        begin_options,
-                    )
-                    .await?;
+                $self.begin_explicitly_if_not_started(true).await?;
 
                 $request.transaction = Some($self.context.transaction_selector.selector().await?);
 
@@ -451,6 +433,28 @@ impl ReadWriteTransaction {
         crate::batch_dml::process_response(response)
     }
 
+    pub(crate) async fn begin_explicitly_if_not_started(
+        &self,
+        is_stream_fallback: bool,
+    ) -> crate::Result<bool> {
+        let mut begin_options = crate::RequestOptions::default();
+        if let Some(d) = self.deadline {
+            let remaining = d.saturating_duration_since(Instant::now());
+            begin_options.set_attempt_timeout(remaining);
+        }
+        begin_options = amend_request_options_for_lar(
+            self.context.client.leader_aware_routing_enabled,
+            begin_options,
+        );
+        self.context
+            .begin_explicitly_if_not_started(begin_options, is_stream_fallback)
+            .await
+    }
+
+    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
+        self.context.transaction_selector.is_starting()
+    }
+
     pub(crate) async fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
         match &self.context.transaction_selector.selector().await?.selector {
             Some(Selector::Id(id)) => Ok(id.clone()),
@@ -540,7 +544,7 @@ impl ReadWriteTransaction {
             let inner_policy = options
                 .retry_policy()
                 .clone()
-                .unwrap_or_else(|| Arc::new(google_cloud_gax::retry_policy::Aip194Strict));
+                .unwrap_or_else(|| Arc::new(Aip194Strict));
             let bounded_policy = TransactionBoundedRetryPolicy {
                 inner: inner_policy,
                 deadline,
@@ -1475,7 +1479,7 @@ mod tests {
 
         // 3 sequential updates returning tokens [seq 2, seq 5, seq 3]
         let tokens_iter = vec![2, 5, 3].into_iter();
-        let counter_mutex = std::sync::Mutex::new(tokens_iter);
+        let counter_mutex = Mutex::new(tokens_iter);
 
         mock.expect_execute_sql().times(3).returning(move |_req| {
             let seq = counter_mutex
@@ -2148,6 +2152,72 @@ mod tests {
         stmt = stmt.with_gax_options(opts);
 
         let count = tx.execute_update(stmt).await?;
+        assert_eq!(count, 1);
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_implicit_begin_fallback() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // 1. Initial execute_sql attempts implicit begin and transiently fails.
+        // It must include the LAR header because it is a modifying operation.
+        mock.expect_execute_sql().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required on initial execute")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Err(tonic::Status::new(tonic::Code::Internal, "internal error"))
+        });
+
+        // 2. Client fallback mechanism invokes begin_explicitly_if_not_started.
+        // This should also include the LAR header.
+        mock.expect_begin_transaction().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required on explicit begin fallback")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+
+        // 3. Retried execute_sql with fixed ID.
+        mock.expect_execute_sql().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required on retried execute")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        // Construct transaction using implicit begin (explicit_begin = false)
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_explicit_begin_transaction(false)
+            .build(None)
+            .await?;
+
+        let count = tx.execute_update("UPDATE Users SET active = true").await?;
         assert_eq!(count, 1);
         Ok(())
     }

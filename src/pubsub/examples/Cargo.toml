@@ -33,7 +33,6 @@ google-cloud-test-utils    = { workspace = true }
 google-cloud-wkt.workspace = true
 rand.workspace             = true
 tokio.workspace            = true
-tracing-subscriber         = { workspace = true, features = ["fmt", "std"] }
 tracing.workspace          = true
 
 [features]
