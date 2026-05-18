@@ -31,13 +31,6 @@ pub use aip151::{
     Operation, new_poller, new_unit_metadata_poller, new_unit_poller, new_unit_response_poller,
 };
 
-#[cfg(google_cloud_unstable_tracing)]
-#[allow(deprecated)]
-pub use aip151::{
-    new_poller_with_options, new_unit_metadata_poller_with_options, new_unit_poller_with_options,
-    new_unit_response_poller_with_options,
-};
-
 pub use discovery::{DiscoveryOperation, new_discovery_poller};
 pub use either::Either;
 #[cfg(google_cloud_unstable_tracing)]

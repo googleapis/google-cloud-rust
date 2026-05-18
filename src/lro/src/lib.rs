@@ -163,6 +163,10 @@ pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
     ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin;
 }
 
+/// The default implementation of the until_done loop used by most Poller implementations.
+///
+/// This encapsulates the common loop of repeatedly calling `poll()`, querying backoff/error policies,
+/// updating the `PollingState`, sleeping between attempts, and handling final completion.
 async fn until_done<P, R, M>(mut poller: P) -> Result<R>
 where
     P: Poller<R, M> + Send,
@@ -189,6 +193,9 @@ where
     unreachable!("loop should exit via the `Completed` branch vs. this line");
 }
 
+/// The default implementation of into_stream used by most Poller implementations.
+///
+/// This converts the Poller into a Stream by unfolding the state using poll().
 #[cfg(feature = "unstable-stream")]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 fn into_stream<P, R, M>(poller: P) -> impl futures::Stream<Item = PollingResult<R, M>> + Unpin

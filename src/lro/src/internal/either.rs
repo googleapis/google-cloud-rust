@@ -47,14 +47,20 @@ where
         }
     }
     async fn until_done(self) -> Result<ResponseType> {
-        crate::until_done(self).await
+        match self {
+            Self::Left(s) => s.until_done().await,
+            Self::Right(s) => s.until_done().await,
+        }
     }
 
     #[cfg(feature = "unstable-stream")]
     fn into_stream(
         self,
     ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin {
-        crate::into_stream(self)
+        match self {
+            Self::Left(s) => futures::future::Either::Left(s.into_stream()),
+            Self::Right(s) => futures::future::Either::Right(s.into_stream()),
+        }
     }
 }
 
@@ -131,5 +137,57 @@ mod tests {
 
         let _poller_a = factory(true);
         let _poller_b = factory(false);
+    }
+
+    #[tokio::test]
+    async fn test_either_until_done_left() {
+        let mut mock = MockPollerA::new();
+        mock.expect_until_done()
+            .times(1)
+            .returning(|| Ok(Duration::clamp(123, 456)));
+
+        let poller: Either<MockPollerA, MockPollerB> = Either::Left(mock);
+        let res = poller.until_done().await.unwrap();
+        assert_eq!(res, Duration::clamp(123, 456));
+    }
+
+    #[tokio::test]
+    async fn test_either_until_done_right() {
+        let mut mock = MockPollerB::new();
+        mock.expect_until_done()
+            .times(1)
+            .returning(|| Ok(Duration::clamp(123, 456)));
+
+        let poller: Either<MockPollerA, MockPollerB> = Either::Right(mock);
+        let res = poller.until_done().await.unwrap();
+        assert_eq!(res, Duration::clamp(123, 456));
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn test_either_into_stream_left() {
+        use futures::StreamExt;
+        let mut mock = MockPollerA::new();
+        mock.expect_into_stream()
+            .times(1)
+            .returning(|| Box::pin(futures::stream::empty()));
+
+        let poller: Either<MockPollerA, MockPollerB> = Either::Left(mock);
+        let mut stream = poller.into_stream();
+        assert!(stream.next().await.is_none());
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn test_either_into_stream_right() {
+        use futures::StreamExt;
+        let mut mock = MockPollerB::new();
+        mock.expect_into_stream()
+            .times(1)
+            .returning(|| Box::pin(futures::stream::empty()));
+
+        let poller: Either<MockPollerA, MockPollerB> = Either::Right(mock);
+        let mut stream = poller.into_stream();
+        assert!(stream.next().await.is_none());
     }
 }

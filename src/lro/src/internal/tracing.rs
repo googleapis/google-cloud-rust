@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Poller, PollingResult, Result, sealed};
+use crate::{Poller, Result, sealed};
 use google_cloud_gax::polling_state::PollingState;
 use tracing::{Instrument, Span, info_span};
 
