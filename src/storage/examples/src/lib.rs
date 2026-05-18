@@ -814,25 +814,6 @@ async fn delete_bucket_with_error_backoff(
     Ok(())
 }
 
-async fn disable_requester_pays_for_cleanup(client: &StorageControl, name: &str, project_id: &str) {
-    use google_cloud_storage::model::bucket::Billing;
-
-    if let Err(e) = client
-        .update_bucket()
-        .set_bucket(
-            Bucket::default()
-                .set_name(name)
-                .set_billing(Billing::default().set_requester_pays(false)),
-        )
-        .set_update_mask(FieldMask::default().set_paths(["billing.requester_pays"]))
-        .with_quota_project(project_id)
-        .send()
-        .await
-    {
-        tracing::error!("error disabling requester_pays for bucket {name}: {e:?}");
-    }
-}
-
 pub async fn cleanup_bucket(
     client: StorageControl,
     name: String,
@@ -862,22 +843,35 @@ async fn empty_bucket_contents(
         .send()
         .await?;
 
-    if current.billing.as_ref().is_some_and(|b| b.requester_pays) {
-        disable_requester_pays_for_cleanup(client, name, project_id).await;
-    }
-    if current
+    let needs_disable_requester_pays = current.billing.as_ref().is_some_and(|b| b.requester_pays);
+    let needs_test_label = current
         .labels
         .get("integration-test")
-        .is_none_or(|v| v != "true")
-    {
+        .is_none_or(|v| v != "true");
+
+    if needs_disable_requester_pays || needs_test_label {
         let mut updated = current.clone();
-        updated
-            .labels
-            .insert("integration-test".to_string(), "true".to_string());
+        let mut paths = vec![];
+
+        if needs_disable_requester_pays {
+            if let Some(billing) = updated.billing.as_mut() {
+                billing.requester_pays = false;
+            }
+            paths.push("billing.requester_pays");
+        }
+
+        if needs_test_label {
+            updated
+                .labels
+                .insert("integration-test".to_string(), "true".to_string());
+            paths.push("labels");
+        }
+
         if let Err(e) = client
             .update_bucket()
             .set_bucket(updated)
-            .set_update_mask(FieldMask::default().set_paths(["labels"]))
+            .set_update_mask(FieldMask::default().set_paths(paths))
+            .with_quota_project(project_id)
             .send()
             .await
         {
