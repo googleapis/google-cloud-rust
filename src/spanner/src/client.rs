@@ -20,7 +20,17 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
-use std::sync::atomic::{AtomicUsize, Ordering};
+use google_cloud_gax::options::{
+    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
+};
+use http::{
+    HeaderMap,
+    header::{HeaderName, HeaderValue},
+};
+use std::sync::{
+    LazyLock,
+    atomic::{AtomicUsize, Ordering},
+};
 
 pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
@@ -117,6 +127,30 @@ macro_rules! define_idempotent_rpc {
 fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
     if options.idempotent().is_none() {
         options.set_idempotency(true);
+    }
+    options
+}
+
+pub(crate) static LAR_HEADER_MAP: LazyLock<HeaderMap> = LazyLock::new(|| {
+    let mut map = HeaderMap::new();
+    map.insert(
+        HeaderName::from_static("x-goog-spanner-route-to-leader"),
+        HeaderValue::from_static("true"),
+    );
+    map
+});
+
+pub(crate) fn amend_request_options_for_lar(
+    leader_aware_routing_enabled: bool,
+    mut options: GaxRequestOptions,
+) -> GaxRequestOptions {
+    if leader_aware_routing_enabled {
+        let mut headers = options
+            .get_extension::<HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        headers.extend((*LAR_HEADER_MAP).clone());
+        options = options.insert_extension(headers);
     }
     options
 }

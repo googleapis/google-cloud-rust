@@ -2482,8 +2482,35 @@ pub(crate) mod tests {
         Ok(())
     }
 
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_query_in_read_only() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            assert!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none()
+            );
+            let stream = adapt([Ok(mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            })]);
+            Ok(tonic::Response::from(stream))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client.single_use().build();
+        let _rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn execute_concurrent_begin_explicitly_redundancy_prevention() {
+    async fn execute_concurrent_begin_explicitly_redundancy_prevention() -> anyhow::Result<()> {
         let (tx_rpc, rx_rpc) = std_channel();
         let (tx_started, rx_started) = oneshot_channel();
         let tx_started_mutex = StdMutex::new(Some(tx_started));
@@ -2496,10 +2523,10 @@ pub(crate) mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(move |_req| {
-                if let Some(tx) = tx_started_mutex.lock().unwrap().take() {
+                if let Some(tx) = tx_started_mutex.lock().expect("mutex poisoned").take() {
                     let _ = tx.send(());
                 }
-                rx_rpc.recv().unwrap();
+                rx_rpc.recv().expect("channel broken");
                 let (tx, rx) = mpsc::channel(1);
                 let metadata = mock_v1::ResultSetMetadata {
                     transaction: Some(mock_v1::Transaction {
@@ -2512,7 +2539,7 @@ pub(crate) mod tests {
                     metadata: Some(metadata),
                     ..Default::default()
                 };
-                tx.try_send(Ok(prs)).unwrap();
+                tx.try_send(Ok(prs)).expect("send should succeed");
                 Ok(tonic::Response::new(rx))
             });
 
@@ -2540,20 +2567,19 @@ pub(crate) mod tests {
                 .read_only_transaction()
                 .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
                 .build()
-                .await
-                .unwrap(),
+                .await?,
         );
 
         let tx_leader = Arc::clone(&tx);
         let handle_leader = tokio::spawn(async move {
             let mut rs = tx_leader
                 .execute_query(Statement::builder("SELECT 1").build())
-                .await
-                .unwrap();
+                .await?;
             let _ = rs.next().await;
+            Ok::<_, crate::Error>(())
         });
 
-        rx_started.await.unwrap();
+        rx_started.await.expect("oneshot broken");
 
         // Now the state is Starting and the leader is blocked inside execute_streaming_sql.
         // Task 2 executes a concurrent query, which must wait for the leader rather than firing a redundant RPC.
@@ -2561,15 +2587,17 @@ pub(crate) mod tests {
         let handle_follower = tokio::spawn(async move {
             let mut rs = tx_follower
                 .execute_query(Statement::builder("SELECT 2").build())
-                .await
-                .unwrap();
+                .await?;
             let _ = rs.next().await;
+            Ok::<_, crate::Error>(())
         });
 
         // Unblock the leader
-        tx_rpc.send(()).unwrap();
+        tx_rpc.send(()).expect("send failed");
 
-        handle_leader.await.unwrap();
-        handle_follower.await.unwrap();
+        handle_leader.await.expect("Task 1 panicked")?;
+        handle_follower.await.expect("Task 2 panicked")?;
+
+        Ok(())
     }
 }
