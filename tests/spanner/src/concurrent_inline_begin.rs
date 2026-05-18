@@ -15,7 +15,9 @@
 use crate::client::{get_database_id, get_emulator_host, provision_emulator, update_database_ddl};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
-use google_cloud_spanner::client::{ResultSet, Row, Spanner, TimestampBound};
+use google_cloud_spanner::client::{
+    BeginTransactionOption, ResultSet, Row, Spanner, TimestampBound,
+};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use http::{Request, Response, StatusCode};
 use http_body::Frame;
@@ -202,7 +204,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     let tx = intercepted_db
         .read_only_transaction()
         .with_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
-        .with_explicit_begin_transaction(false)
+        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
     let tx = Arc::new(tx);
