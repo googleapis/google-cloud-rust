@@ -3528,7 +3528,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lro"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "anyhow",
  "futures",
@@ -3539,6 +3539,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "httptest",
+ "mockall",
  "pin-project",
  "serde",
  "serde_json",
