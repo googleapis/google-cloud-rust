@@ -557,6 +557,8 @@ impl Client {
         request_params: &str,
         options: &RequestOptions,
     ) -> Result<http::header::HeaderMap> {
+        use google_cloud_gax::options::internal::RequestOptionsExt as _;
+
         let mut headers = HeaderMap::new();
         if let Some(user_agent) = options.user_agent() {
             headers.insert(
@@ -585,6 +587,9 @@ impl Client {
                 http::header::HeaderName::from_static("x-goog-request-params"),
                 http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
             );
+        }
+        if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
+            headers.extend(custom_headers.clone());
         }
         Ok(headers)
     }
@@ -716,5 +721,25 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
+    }
+
+    #[tokio::test]
+    async fn test_make_headers_with_custom_headers() {
+        use google_cloud_gax::options::internal::RequestOptionsExt as _;
+        let mut custom_headers = http::HeaderMap::new();
+        custom_headers.insert(
+            "x-custom-header",
+            http::HeaderValue::from_static("custom-value"),
+        );
+
+        let options = RequestOptions::default().insert_extension(custom_headers);
+
+        let headers = Client::make_headers("test-client/1.0", "param=1", &options)
+            .await
+            .unwrap();
+
+        assert_eq!(headers.get("x-custom-header").unwrap(), "custom-value");
+        assert_eq!(headers.get("x-goog-api-client").unwrap(), "test-client/1.0");
+        assert_eq!(headers.get("x-goog-request-params").unwrap(), "param=1");
     }
 }

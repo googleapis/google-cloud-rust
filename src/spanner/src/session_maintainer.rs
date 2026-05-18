@@ -550,6 +550,7 @@ mod tests {
         let db_client = DatabaseClient {
             spanner,
             session_maintainer: maintainer.clone(),
+            leader_aware_routing_enabled: true,
         };
 
         // 1. Create builder (captures session 1)

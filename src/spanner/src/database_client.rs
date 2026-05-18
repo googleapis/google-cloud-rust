@@ -50,6 +50,7 @@ use std::sync::Arc;
 pub struct DatabaseClient {
     pub(crate) spanner: Spanner,
     pub(crate) session_maintainer: Arc<ManagedSessionMaintainer>,
+    pub(crate) leader_aware_routing_enabled: bool,
 }
 
 impl DatabaseClient {
@@ -253,6 +254,7 @@ pub struct DatabaseClientBuilder {
     database_name: String,
     database_role: Option<String>,
     options: Option<crate::RequestOptions>,
+    leader_aware_routing_enabled: bool,
 }
 
 impl DatabaseClientBuilder {
@@ -262,6 +264,7 @@ impl DatabaseClientBuilder {
             database_name,
             database_role: None,
             options: None,
+            leader_aware_routing_enabled: true,
         }
     }
 
@@ -314,6 +317,34 @@ impl DatabaseClientBuilder {
         self
     }
 
+    /// Sets whether Leader-Aware Routing (LAR) is enabled for read/write transactions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    ///     let spanner = Spanner::builder().build().await?;
+    ///     let database_client = spanner
+    ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
+    ///         .with_leader_aware_routing(true)
+    ///         .build()
+    ///         .await?;
+    ///     # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// When LAR is enabled, modifying operations (Read-Write, Write-Only, and Partitioned DML
+    /// transactions) automatically route requests directly to the Spanner leader replica. This
+    /// eliminates internal forwarding hops between replicas and reduces overall transaction latency.
+    ///
+    /// Enabled by default.
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/leader-aware-routing>
+    pub fn with_leader_aware_routing(mut self, enabled: bool) -> Self {
+        self.leader_aware_routing_enabled = enabled;
+        self
+    }
+
     /// Builds the [DatabaseClient] and creates a single multiplexed session that
     /// will be used for all operations on the database.
     pub async fn build(self) -> crate::Result<DatabaseClient> {
@@ -329,6 +360,7 @@ impl DatabaseClientBuilder {
         Ok(DatabaseClient {
             spanner: spanner_clone,
             session_maintainer,
+            leader_aware_routing_enabled: self.leader_aware_routing_enabled,
         })
     }
 }
