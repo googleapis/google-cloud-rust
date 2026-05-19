@@ -386,11 +386,11 @@ humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
 markdown              = { default-features = false, version = "1.0" }
-opentelemetry         = { default-features = false, version = "0.31" }
-opentelemetry-proto   = { default-features = false, version = "0.31" }
-opentelemetry_sdk     = { default-features = false, version = "0.31" }
-opentelemetry-http    = { default-features = false, version = "0.31" }
-opentelemetry-otlp    = { default-features = false, version = "0.31" }
+opentelemetry         = { default-features = false, version = "0.32" }
+opentelemetry-proto   = { default-features = false, version = "0.32" }
+opentelemetry_sdk     = { default-features = false, version = "0.32" }
+opentelemetry-http    = { default-features = false, version = "0.32" }
+opentelemetry-otlp    = { default-features = false, version = "0.32" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.1.13" }
@@ -411,13 +411,13 @@ tokio-metrics         = { default-features = false, version = "0.5.0" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
-tracing-opentelemetry = { default-features = false, version = "0.32" }
+tracing-opentelemetry = { default-features = false, version = "0.33" }
 tracing-subscriber    = { default-features = false, version = "0.3.23" }
 url                   = { default-features = false, version = "2.4" }
 uuid                  = { default-features = false, version = "1.23", features = ["v4"] }
 
-opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
-opentelemetry-appender-tracing     = { default-features = false, version = "0.31.0" }
+opentelemetry-semantic-conventions = { default-features = false, version = "0.32.0" }
+opentelemetry-appender-tracing     = { default-features = false, version = "0.32.0" }
 
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
 http-body-util = { default-features = false, version = "0.1.3" }
