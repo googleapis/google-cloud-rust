@@ -25,7 +25,18 @@ pub enum Either<A, B> {
     Right(B),
 }
 
-impl<A, B> sealed::Poller for Either<A, B> {}
+impl<A, B> sealed::Poller for Either<A, B>
+where
+    A: sealed::Poller + Send,
+    B: sealed::Poller + Send,
+{
+    async fn backoff(&mut self, state: &PollingState) {
+        match self {
+            Self::Left(s) => s.backoff(state).await,
+            Self::Right(s) => s.backoff(state).await,
+        }
+    }
+}
 
 impl<A, B, ResponseType, MetadataType> Poller<ResponseType, MetadataType> for Either<A, B>
 where
@@ -38,12 +49,6 @@ where
         match self {
             Self::Left(s) => s.poll().await,
             Self::Right(s) => s.poll().await,
-        }
-    }
-    async fn backoff(&mut self, state: &PollingState) {
-        match self {
-            Self::Left(s) => s.backoff(state).await,
-            Self::Right(s) => s.backoff(state).await,
         }
     }
     async fn until_done(self) -> Result<ResponseType> {
@@ -68,6 +73,7 @@ where
 mod tests {
     use super::*;
     use crate::PollingResult;
+    use crate::sealed::Poller as _;
     use google_cloud_wkt::{Duration, Timestamp};
     use mockall::mock;
 
@@ -76,10 +82,11 @@ mod tests {
 
     mock! {
         PollerA {}
-        impl sealed::Poller for PollerA {}
+        impl sealed::Poller for PollerA {
+            async fn backoff(&mut self, state: &PollingState);
+        }
         impl Poller<ResponseType, MetadataType> for PollerA {
             async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>>;
-            async fn backoff(&mut self, state: &PollingState);
             async fn until_done(self) -> google_cloud_gax::Result<ResponseType>;
             #[cfg(feature = "unstable-stream")]
             fn into_stream(
@@ -89,10 +96,11 @@ mod tests {
     }
     mock! {
         PollerB {}
-        impl sealed::Poller for PollerB {}
+        impl sealed::Poller for PollerB {
+            async fn backoff(&mut self, state: &PollingState);
+        }
         impl Poller<ResponseType, MetadataType> for PollerB {
             async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>>;
-            async fn backoff(&mut self, state: &PollingState);
             async fn until_done(self) -> google_cloud_gax::Result<ResponseType>;
             #[cfg(feature = "unstable-stream")]
             fn into_stream(

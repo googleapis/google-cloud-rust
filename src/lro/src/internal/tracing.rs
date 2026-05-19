@@ -29,7 +29,15 @@ impl<P> Tracing<P> {
     }
 }
 
-impl<P> sealed::Poller for Tracing<P> {}
+impl<P> sealed::Poller for Tracing<P>
+where
+    P: sealed::Poller + Send,
+{
+    async fn backoff(&mut self, state: &PollingState) {
+        let span = info_span!("LRO Sleep");
+        self.inner.backoff(state).instrument(span).await
+    }
+}
 
 impl<P, ResponseType, MetadataType> Poller<ResponseType, MetadataType> for Tracing<P>
 where
@@ -40,10 +48,6 @@ where
     async fn poll(&mut self) -> Option<crate::PollingResult<ResponseType, MetadataType>> {
         let span = info_span!("LRO Poll");
         self.inner.poll().instrument(span).await
-    }
-    async fn backoff(&mut self, state: &PollingState) {
-        let span = info_span!("LRO Sleep");
-        self.inner.backoff(state).instrument(span).await
     }
     async fn until_done(self) -> Result<ResponseType> {
         let span = self.span.clone();

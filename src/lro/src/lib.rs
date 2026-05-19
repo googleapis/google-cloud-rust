@@ -133,7 +133,12 @@ pub mod internal;
 pub use internal::{PollerOptions, TracingDetails};
 
 pub(crate) mod sealed {
-    pub trait Poller {}
+    use google_cloud_gax::polling_state::PollingState;
+    use std::future::Future;
+
+    pub trait Poller {
+        fn backoff(&mut self, state: &PollingState) -> impl Future<Output = ()> + Send;
+    }
 }
 
 /// Automatically polls long-running operations.
@@ -148,9 +153,6 @@ pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
     fn poll(
         &mut self,
     ) -> impl Future<Output = Option<PollingResult<ResponseType, MetadataType>>> + Send;
-
-    /// Sleep until the backoff time has elapsed.
-    fn backoff(&mut self, state: &PollingState) -> impl Future<Output = ()> + Send;
 
     /// Poll the long-running operation until it completes.
     fn until_done(self) -> impl Future<Output = Result<ResponseType>> + Send;
