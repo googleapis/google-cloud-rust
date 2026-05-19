@@ -18,7 +18,7 @@ use serde::ser::SerializeMap;
 use serde_json::Serializer as JsonSerializer;
 use std::fmt::Result as FmtResult;
 use tracing::{Event, Subscriber};
-use tracing_opentelemetry::OtelData;
+use tracing_opentelemetry::OpenTelemetrySpanExt;
 use tracing_serde::AsSerde;
 use tracing_serde::fields::AsMap;
 use tracing_subscriber::fmt::format::{FormatEvent, Writer};
@@ -81,27 +81,34 @@ impl EventFormatter {
         &self,
         ctx: &FmtContext<'_, S, N>,
         event: &Event<'_>,
-    ) -> (Option<(TraceId, SpanId)>, bool)
+    ) -> Option<(TraceId, SpanId, bool)>
     where
         S: Subscriber + for<'a> LookupSpan<'a>,
         N: for<'a> FormatFields<'a> + 'static,
     {
         use opentelemetry::trace::TraceContextExt;
-        use tracing_opentelemetry::OpenTelemetrySpanExt;
-        if let Some((Some(tid), Some(sid))) = ctx.lookup_current().and_then(|span| {
-            span.extensions()
-                .get::<OtelData>()
-                .map(|data| (data.trace_id(), data.span_id()))
-        }) {
-            return (Some((tid, sid)), tid != TraceId::INVALID);
-        }
-        if event.is_contextual() {
-            let current = tracing::Span::current();
-            let tid = current.context().span().span_context().trace_id();
-            let sid = current.context().span().span_context().span_id();
-            return (Some((tid, sid)), tid != TraceId::INVALID);
-        }
-        (None, false)
+
+        let context = if ctx.lookup_current().is_some() {
+            Some(opentelemetry::Context::current())
+        } else if event.is_contextual() {
+            Some(tracing::Span::current().context())
+        } else {
+            None
+        };
+
+        context.and_then(|cx| {
+            let span = cx.span();
+            let span_context = span.span_context();
+            if span_context.is_valid() {
+                Some((
+                    span_context.trace_id(),
+                    span_context.span_id(),
+                    span_context.trace_flags().is_sampled(),
+                ))
+            } else {
+                None
+            }
+        })
     }
 }
 
@@ -129,23 +136,17 @@ where
             serializer.serialize_entry("severity", &meta.level().as_serde())?;
             serializer.serialize_entry("fields", &event.field_map())?;
             serializer.serialize_entry("target", meta.target())?;
-            match self.trace_info(ctx, event) {
-                (Some((tid, sid)), sampled) => {
-                    if tid != TraceId::INVALID {
-                        serializer.serialize_entry(
-                            "logging.googleapis.com/trace",
-                            &format!("projects/{}/traces/{tid}", self.project_id),
-                        )?;
-                        serializer
-                            .serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
-                    }
-                    if sid != SpanId::INVALID {
-                        serializer
-                            .serialize_entry("logging.googleapis.com/spanId", &sid.to_string())?;
-                    }
+            if let Some((tid, sid, sampled)) = self.trace_info(ctx, event) {
+                serializer.serialize_entry(
+                    "logging.googleapis.com/trace",
+                    &format!("projects/{}/traces/{tid}", self.project_id),
+                )?;
+                serializer.serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
+                if sid != SpanId::INVALID {
+                    serializer
+                        .serialize_entry("logging.googleapis.com/spanId", &sid.to_string())?;
                 }
-                (None, _sampled) => {}
-            };
+            }
             serializer.end()
         };
         visit().map_err(|_| std::fmt::Error)?;

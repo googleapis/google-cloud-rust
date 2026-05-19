@@ -39,7 +39,7 @@ use google_cloud_storage::retry_policy::RetryableErrors;
 use humantime::parse_duration;
 use instrumented_future::Instrumented;
 use instrumented_retry::DebugRetry;
-use opentelemetry_sdk::trace::{SdkTracerProvider, TraceError};
+use opentelemetry_sdk::trace::SdkTracerProvider;
 use rand::{
     RngExt,
     distr::{Alphanumeric, Uniform},
@@ -638,7 +638,7 @@ fn counters() -> impl Iterator<Item = (&'static str, u64)> {
 async fn enable_tracing(
     _args: &Args,
     _credentials: &Credentials,
-) -> Result<Option<SdkTracerProvider>, TraceError> {
+) -> anyhow::Result<Option<SdkTracerProvider>> {
     use tracing_subscriber::fmt::format::{self, FmtSpan};
     use tracing_subscriber::prelude::*;
 
