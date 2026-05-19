@@ -48,72 +48,7 @@ where
         + Send
         + 'static,
 {
-    new_poller_with_options(
-        polling_error_policy,
-        polling_backoff_policy,
-        start,
-        query,
-        PollerOptions::default(),
-    )
-}
-
-/// Details for tracing a poller.
-#[derive(Clone, Debug, Default)]
-#[non_exhaustive]
-pub struct TracingDetails {
-    pub method_name: &'static str,
-}
-
-/// Options for creating a new poller.
-#[derive(Default)]
-#[non_exhaustive]
-pub struct PollerOptions {
-    pub tracing: Option<TracingDetails>,
-}
-
-/// Creates a new `impl Poller<R, M>` with options.
-///
-/// This is intended as an implementation detail of the generated clients.
-/// Applications should have no need to use this function directly.
-pub fn new_poller_with_options<ResponseType, MetadataType, S, SF, Q, QF>(
-    polling_error_policy: Arc<dyn PollingErrorPolicy>,
-    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    start: S,
-    query: Q,
-    options: PollerOptions,
-) -> impl Poller<ResponseType, MetadataType>
-where
-    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-{
-    #[cfg(google_cloud_unstable_tracing)]
-    let longrunning_span = options.tracing.map(|t| {
-        tracing::info_span!(
-            "LRO Wait",
-            "gcp.rpc.method" = t.method_name,
-            "gcp.longrunning.operation_name" = tracing::field::Empty
-        )
-    });
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    let _ = options;
-
-    PollerImpl::new(
-        polling_error_policy,
-        polling_backoff_policy,
-        start,
-        query,
-        #[cfg(google_cloud_unstable_tracing)]
-        longrunning_span,
-    )
+    PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query)
 }
 
 /// Creates a new `impl Poller<(), M>` from the closures created by the generator.
@@ -133,13 +68,7 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
 {
-    let poller = new_poller_with_options(
-        polling_error_policy,
-        polling_backoff_policy,
-        start,
-        query,
-        PollerOptions::default(),
-    );
+    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitResponsePoller::new(poller)
 }
 
@@ -160,13 +89,7 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
 {
-    let poller = new_poller_with_options(
-        polling_error_policy,
-        polling_backoff_policy,
-        start,
-        query,
-        PollerOptions::default(),
-    );
+    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitMetadataPoller::new(poller)
 }
 
@@ -186,13 +109,7 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
 {
-    let poller = new_poller_with_options(
-        polling_error_policy,
-        polling_backoff_policy,
-        start,
-        query,
-        PollerOptions::default(),
-    );
+    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitResponsePoller::new(UnitMetadataPoller::new(poller))
 }
 
@@ -214,6 +131,9 @@ where
 {
     async fn poll(&mut self) -> Option<PollingResult<(), M>> {
         self.poller.poll().await.map(self::map_polling_result)
+    }
+    async fn backoff(&mut self, state: &PollingState) {
+        self.poller.backoff(state).await
     }
     async fn until_done(self) -> Result<()> {
         self.poller.until_done().await.map(|_| ())
@@ -243,6 +163,9 @@ where
 {
     async fn poll(&mut self) -> Option<PollingResult<R, ()>> {
         self.poller.poll().await.map(self::map_polling_metadata)
+    }
+    async fn backoff(&mut self, state: &PollingState) {
+        self.poller.backoff(state).await
     }
     async fn until_done(self) -> Result<R> {
         self.poller.until_done().await
@@ -292,9 +215,6 @@ struct PollerImpl<S, Q> {
     query: Q,
     operation: Option<String>,
     state: PollingState,
-    #[cfg(google_cloud_unstable_tracing)]
-    #[expect(dead_code)]
-    longrunning_span: Option<tracing::Span>,
 }
 
 impl<S, Q> PollerImpl<S, Q> {
@@ -303,7 +223,6 @@ impl<S, Q> PollerImpl<S, Q> {
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
         start: S,
         query: Q,
-        #[cfg(google_cloud_unstable_tracing)] longrunning_span: Option<tracing::Span>,
     ) -> Self {
         Self {
             error_policy,
@@ -312,8 +231,6 @@ impl<S, Q> PollerImpl<S, Q> {
             query,
             operation: None,
             state: PollingState::default(),
-            #[cfg(google_cloud_unstable_tracing)]
-            longrunning_span,
         }
     }
 }
@@ -364,42 +281,19 @@ where
         }
         None
     }
-
-    async fn until_done(mut self) -> Result<ResponseType> {
-        let mut state = PollingState::default();
-        while let Some(p) = self.poll().await {
-            match p {
-                // Return, the operation completed or the polling policy is
-                // exhausted.
-                PollingResult::Completed(r) => return r,
-                // Continue, the operation was successfully polled and the
-                // polling policy was queried.
-                PollingResult::InProgress(_) => (),
-                // Continue, the polling policy was queried and decided the
-                // error is recoverable.
-                PollingResult::PollingError(_) => (),
-            }
-            state.attempt_count += 1;
-            tokio::time::sleep(self.backoff_policy.wait_period(&state)).await;
-        }
-        // We can only get here if `poll()` returns `None`, but it only returns
-        // `None` after it returned `Polling::Completed` and therefore this is
-        // never reached.
-        unreachable!("loop should exit via the `Completed` branch vs. this line");
+    async fn backoff(&mut self, state: &PollingState) {
+        let backoff = self.backoff_policy.wait_period(state);
+        tokio::time::sleep(backoff).await;
+    }
+    async fn until_done(self) -> Result<ResponseType> {
+        crate::until_done(self).await
     }
 
     #[cfg(feature = "unstable-stream")]
     fn into_stream(
         self,
-    ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin
-    where
-        ResponseType: Message + serde::de::DeserializeOwned,
-        MetadataType: Message + serde::de::DeserializeOwned,
-    {
-        use futures::stream::unfold;
-        Box::pin(unfold(self, |mut poller| async move {
-            poller.poll().await.map(|item| (item, poller))
-        }))
+    ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin {
+        crate::into_stream(self)
     }
 }
 
@@ -452,8 +346,6 @@ mod tests {
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
-            #[cfg(google_cloud_unstable_tracing)]
-            None,
         );
         let p0 = poller.poll().await;
         match p0.unwrap() {
@@ -480,50 +372,6 @@ mod tests {
         assert!(p2.is_none(), "{p2:?}");
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
-    #[test]
-    fn test_poller_initialization_with_tracing() {
-        let start = || async {
-            let op = google_cloud_longrunning::model::Operation::default();
-            Ok(TestOperation::new(op))
-        };
-        let query = |_: String| async {
-            let op = google_cloud_longrunning::model::Operation::default();
-            Ok(TestOperation::new(op))
-        };
-
-        let _poller = new_poller_with_options::<Duration, Timestamp, _, _, _, _>(
-            Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
-            start,
-            query,
-            PollerOptions {
-                tracing: Some(TracingDetails {
-                    method_name: "test_method",
-                }),
-            },
-        );
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[test]
-    fn test_poller_initialization_no_tracing() {
-        let start = || async { panic!() };
-        let query = |_: String| async { panic!() };
-
-        let _poller = new_poller_with_options::<Duration, Timestamp, _, _, _, _>(
-            Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
-            start,
-            query,
-            PollerOptions {
-                tracing: Some(TracingDetails {
-                    method_name: "test_method",
-                }),
-            },
-        );
-    }
-
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_stream() {
         let start = || async move {
@@ -547,12 +395,11 @@ mod tests {
         };
 
         use futures::StreamExt;
-        let mut stream = new_poller_with_options(
+        let mut stream = new_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
-            PollerOptions::default(),
         )
         .into_stream();
         let p0 = stream.next().await;
@@ -611,8 +458,6 @@ mod tests {
             ),
             start,
             query,
-            #[cfg(google_cloud_unstable_tracing)]
-            None,
         );
         let response = poller.until_done().await?;
         assert_eq!(response, Duration::clamp(234, 0));
@@ -1028,8 +873,6 @@ mod tests {
             ),
             start,
             query,
-            #[cfg(google_cloud_unstable_tracing)]
-            None,
         );
         let response = poller.until_done().await?;
         assert_eq!(response, Duration::clamp(234, 0));
@@ -1060,8 +903,6 @@ mod tests {
             ),
             start,
             query,
-            #[cfg(google_cloud_unstable_tracing)]
-            None,
         );
         let response = poller.until_done().await;
         assert!(response.is_err(), "{response:?}");
