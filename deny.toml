@@ -125,6 +125,7 @@ wrappers = [
   "opentelemetry-otlp",
   "opentelemetry-proto",
   "tonic-prost",
+  "tonic-types",
 ]
 
 [[bans.deny]]
