@@ -56,14 +56,17 @@ pub fn object_highlights(generation: i64, headers: &HeaderMap) -> Result<ObjectH
 }
 
 fn headers_to_metadata(headers: &HeaderMap) -> std::collections::HashMap<String, String> {
-    headers
-        .iter()
-        .filter_map(|(name, value)| {
-            let key = name.as_str().strip_prefix("x-goog-meta-")?;
-            let value = value.to_str().ok()?;
-            Some((key.to_string(), value.to_string()))
-        })
-        .collect()
+    let mut metadata = std::collections::HashMap::new();
+    for (name, value) in headers.iter() {
+        if let Some(key) = name.as_str().strip_prefix("x-goog-meta-") {
+            if !metadata.contains_key(key) {
+                if let Ok(val_str) = value.to_str() {
+                    metadata.insert(key.to_string(), val_str.to_string());
+                }
+            }
+        }
+    }
+    metadata
 }
 
 pub(crate) fn headers_to_crc32c(headers: &HeaderMap) -> Option<u32> {
@@ -209,6 +212,15 @@ mod tests {
         let headers = http::HeaderMap::new();
         let got = headers_to_metadata(&headers);
         assert!(got.is_empty(), "{got:?}");
+    }
+
+    #[test]
+    fn test_headers_to_metadata_duplicate_keeps_first() {
+        let mut headers = http::HeaderMap::new();
+        headers.append("x-goog-meta-foo", http::HeaderValue::from_static("first"));
+        headers.append("x-goog-meta-foo", http::HeaderValue::from_static("second"));
+        let got = headers_to_metadata(&headers);
+        assert_eq!(got.get("foo"), Some(&"first".to_string()));
     }
 
     #[test]
