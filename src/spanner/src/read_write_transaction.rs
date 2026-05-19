@@ -45,6 +45,7 @@ use google_cloud_gax::retry_policy::Aip194Strict;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
+use std::mem::take;
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
@@ -529,11 +530,7 @@ impl ReadWriteTransaction {
             }
         }
         let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
-        let mutations = self
-            .mutations
-            .lock()
-            .map_err(|_| internal_error("mutations mutex poisoned"))?
-            .clone();
+        let mutations = take(&mut *self.mutations.lock().unwrap());
         let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
             .set_session(self.context.session_name.clone())
@@ -2417,7 +2414,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build(None)
             .await
             .expect("Transaction build should succeed");

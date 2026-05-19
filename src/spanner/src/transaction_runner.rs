@@ -1863,7 +1863,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await
             .expect("Failed to build transaction runner");
@@ -2006,7 +2006,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await
             .expect("Failed to build transaction runner");
@@ -2059,7 +2059,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await
             .expect("Failed to build transaction runner");
