@@ -14,13 +14,14 @@
 
 use crate::BatchDml;
 use crate::RequestOptions;
-use crate::client::amend_request_options_for_lar;
+use crate::client::{Mutation, amend_request_options_for_lar};
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::BeginTransactionRequest;
 use crate::model::CommitRequest;
 use crate::model::CommitResponse;
 use crate::model::ExecuteBatchDmlRequest;
+use crate::model::Mutation as ProtoMutation;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
@@ -189,6 +190,7 @@ impl ReadWriteTransactionBuilder {
             return_commit_stats: self.return_commit_stats,
             deadline,
             commit_priority: self.commit_priority.clone(),
+            mutations: Arc::new(Mutex::new(Vec::new())),
         })
     }
 }
@@ -260,9 +262,42 @@ pub struct ReadWriteTransaction {
     max_commit_delay: Option<Duration>,
     return_commit_stats: bool,
     commit_priority: Priority,
+    mutations: Arc<Mutex<Vec<ProtoMutation>>>,
 }
 
 impl ReadWriteTransaction {
+    /// Buffers one or more mutations to be applied when the transaction commits.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    /// runner.run(async |tx| {
+    ///     let mutation = Mutation::new_insert_builder("users")
+    ///         .set("id").to(&1)
+    ///         .build();
+    ///     tx.buffer([mutation])?;
+    ///     Ok(())
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn buffer<I>(&self, mutations: I) -> crate::Result<()>
+    where
+        I: IntoIterator<Item = Mutation>,
+    {
+        let mut guard = self
+            .mutations
+            .lock()
+            .map_err(|_| crate::error::internal_error("mutations mutex poisoned"))?;
+        for mutation in mutations {
+            guard.push(mutation.build_proto());
+        }
+        Ok(())
+    }
+
     /// Executes a query using this transaction.
     pub async fn execute_query<T: Into<Statement>>(
         &self,
@@ -474,11 +509,28 @@ impl ReadWriteTransaction {
 
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<CommitResponse> {
-        let transaction_id = self.transaction_id().await?;
+        let mut id = self.context.transaction_selector.get_id_no_wait()?;
+        if id.is_none() {
+            if self.is_starting()? {
+                return Err(crate::error::internal_error(
+                    "Commit called while an asynchronous statement is still starting the transaction",
+                ));
+            }
+            if self.begin_explicitly_if_not_started(false).await? {
+                id = self.context.transaction_selector.get_id_no_wait()?;
+            }
+        }
+        let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
+        let mutations = self
+            .mutations
+            .lock()
+            .map_err(|_| internal_error("mutations mutex poisoned"))?
+            .clone();
         let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id.clone())
+            .set_mutations(mutations)
             .set_or_clear_precommit_token(precommit_token)
             .set_or_clear_request_options(self.context.amend_request_options(None))
             .set_or_clear_max_commit_delay(self.max_commit_delay)
@@ -2219,6 +2271,69 @@ mod tests {
 
         let count = tx.execute_update("UPDATE Users SET active = true").await?;
         assert_eq!(count, 1);
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_inline_begin_commit() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // Since no statement was executed, commit will detect NotStarted and call begin_explicitly
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![7, 7, 7],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            assert_eq!(
+                req.transaction,
+                Some(v1::commit_request::Transaction::TransactionId(vec![
+                    7, 7, 7
+                ]))
+            );
+            assert_eq!(req.mutations.len(), 1);
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 5000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_explicit_begin_transaction(false)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        tx.buffer([mutation]).expect("Buffer should succeed");
+
+        let response = tx.commit().await.expect("Commit should succeed");
+        assert_eq!(
+            response
+                .commit_timestamp
+                .expect("timestamp present")
+                .seconds(),
+            5000
+        );
         Ok(())
     }
 }
