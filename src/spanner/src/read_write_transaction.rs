@@ -17,7 +17,6 @@ use crate::RequestOptions;
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
-use crate::model::BeginTransactionRequest;
 use crate::model::CommitRequest;
 use crate::model::CommitResponse;
 use crate::model::ExecuteBatchDmlRequest;
@@ -33,8 +32,9 @@ use crate::model::transaction_options::ReadWrite;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::ReadContext;
-use crate::read_only_transaction::{ReadContextTransactionSelector, TransactionState};
+use crate::read_only_transaction::{
+    BeginTransactionOption, ReadContext, ReadContextTransactionSelector, TransactionState,
+};
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
@@ -61,7 +61,7 @@ pub(crate) struct ReadWriteTransactionBuilder {
     pub(crate) session_name: String,
     return_commit_stats: bool,
     commit_priority: Priority,
-    explicit_begin: bool,
+    begin_transaction_option: BeginTransactionOption,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -75,7 +75,7 @@ impl ReadWriteTransactionBuilder {
             session_name,
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
-            explicit_begin: false,
+            begin_transaction_option: BeginTransactionOption::InlineBegin,
         }
     }
 
@@ -129,9 +129,31 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub fn with_explicit_begin_transaction(mut self, explicit: bool) -> Self {
-        self.explicit_begin = explicit;
+    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+        self.begin_transaction_option = option;
         self
+    }
+
+    async fn begin(
+        &self,
+        session_name: String,
+        channel_hint: usize,
+        request_options: crate::RequestOptions,
+    ) -> crate::Result<ReadContextTransactionSelector> {
+        let response = crate::read_only_transaction::execute_begin_transaction(
+            &self.client,
+            session_name,
+            self.options.clone(),
+            self.transaction_tag.clone(),
+            channel_hint,
+            request_options,
+        )
+        .await?;
+
+        Ok(ReadContextTransactionSelector::Fixed(
+            TransactionSelector::default().set_id(response.id),
+            None,
+        ))
     }
 
     pub(crate) async fn build(
@@ -140,39 +162,25 @@ impl ReadWriteTransactionBuilder {
     ) -> crate::Result<ReadWriteTransaction> {
         let session_name = self.session_name.clone();
         let channel_hint = self.client.spanner.next_channel_hint();
-        let transaction_selector = if self.explicit_begin {
-            let mut request = BeginTransactionRequest::default()
-                .set_session(session_name.clone())
-                .set_options(self.options.clone());
-            if let Some(tag) = &self.transaction_tag {
-                request = request.set_request_options(
-                    crate::model::RequestOptions::default().set_transaction_tag(tag.clone()),
+        let transaction_selector = match self.begin_transaction_option {
+            BeginTransactionOption::ExplicitBegin => {
+                // TODO(#4972): make request options configurable
+                let mut options = RequestOptions::default();
+                if let Some(d) = deadline {
+                    let remaining = d.saturating_duration_since(Instant::now());
+                    options.set_attempt_timeout(remaining);
+                }
+                options = amend_request_options_for_lar(
+                    self.client.leader_aware_routing_enabled,
+                    options,
                 );
+
+                self.begin(session_name.clone(), channel_hint, options)
+                    .await?
             }
-
-            // TODO(#4972): make request options configurable
-            let mut options = RequestOptions::default();
-            if let Some(d) = deadline {
-                let remaining = d.saturating_duration_since(Instant::now());
-                options.set_attempt_timeout(remaining);
-            }
-            options =
-                amend_request_options_for_lar(self.client.leader_aware_routing_enabled, options);
-
-            let response = self
-                .client
-                .spanner
-                .begin_transaction(request, options, channel_hint)
-                .await?;
-
-            ReadContextTransactionSelector::Fixed(
-                TransactionSelector::default().set_id(response.id),
-                None,
-            )
-        } else {
-            ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
-                TransactionState::NotStarted(self.options.clone()),
-            )))
+            BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
+                Mutex::new(TransactionState::NotStarted(self.options.clone())),
+            )),
         };
 
         Ok(ReadWriteTransaction {
@@ -599,19 +607,21 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_commit_retry_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry(true).await
+        run_read_write_transaction_commit_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn read_write_transaction_commit_retry_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry(false).await
+        run_read_write_transaction_commit_retry(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_read_write_transaction_commit_retry(explicit_begin: bool) -> anyhow::Result<()> {
+    async fn run_read_write_transaction_commit_retry(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let remotes = Arc::new(Mutex::new(Vec::new()));
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             let remotes_clone = remotes.clone();
             mock.expect_begin_transaction()
                 .once()
@@ -642,7 +652,7 @@ mod tests {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET Name = 'Bob' WHERE Id = 1");
 
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let transaction = req
                     .transaction
                     .as_ref()
@@ -658,7 +668,7 @@ mod tests {
                 row_type: Some(v1::StructType { fields: vec![] }),
                 ..Default::default()
             };
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 metadata.transaction = Some(v1::Transaction {
                     id: vec![0, 0, 7],
                     ..Default::default()
@@ -740,7 +750,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -762,7 +772,11 @@ mod tests {
 
         // Verify that all RPCs used the same channel (same remote address)
         let remotes = remotes.lock().unwrap();
-        let expected_rpcs = if explicit_begin { 4 } else { 3 };
+        let expected_rpcs = if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
+            4
+        } else {
+            3
+        };
         assert_eq!(
             remotes.len(),
             expected_rpcs,
@@ -779,18 +793,20 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_execute_update_explicit() {
-        run_read_write_transaction_execute_update(true).await;
+        run_read_write_transaction_execute_update(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn read_write_transaction_execute_update_inline() {
-        run_read_write_transaction_execute_update(false).await;
+        run_read_write_transaction_execute_update(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_read_write_transaction_execute_update(explicit_begin: bool) {
+    async fn run_read_write_transaction_execute_update(
+        begin_transaction_option: BeginTransactionOption,
+    ) {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|req| {
                 let req = req.into_inner();
                 assert_eq!(
@@ -809,7 +825,7 @@ mod tests {
             assert_eq!(req.sql, "UPDATE Users SET Name = 'Alice' WHERE Id = 1");
             assert_eq!(req.seqno, 1);
 
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let transaction = req
                     .transaction
                     .as_ref()
@@ -825,7 +841,7 @@ mod tests {
                 row_type: Some(v1::StructType { fields: vec![] }),
                 ..Default::default()
             };
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 metadata.transaction = Some(v1::Transaction {
                     id: vec![1, 2, 3],
                     ..Default::default()
@@ -866,7 +882,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -887,20 +903,24 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_execute_update_invalid_stats_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_update_invalid_stats(true).await
+        run_read_write_transaction_execute_update_invalid_stats(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
     }
 
     #[tokio::test]
     async fn read_write_transaction_execute_update_invalid_stats_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_update_invalid_stats(false).await
+        run_read_write_transaction_execute_update_invalid_stats(BeginTransactionOption::InlineBegin)
+            .await
     }
 
     async fn run_read_write_transaction_execute_update_invalid_stats(
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|_| {
                 Ok(tonic::Response::new(v1::Transaction {
                     id: vec![1, 2, 3],
@@ -911,7 +931,7 @@ mod tests {
 
         mock.expect_execute_sql().once().returning(move |req| {
             let req = req.into_inner();
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let transaction = req
                     .transaction
                     .as_ref()
@@ -927,7 +947,7 @@ mod tests {
                 row_type: Some(v1::StructType { fields: vec![] }),
                 ..Default::default()
             };
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 metadata.transaction = Some(v1::Transaction {
                     id: vec![1, 2, 3],
                     ..Default::default()
@@ -947,7 +967,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -967,19 +987,21 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_rollback_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_rollback(true).await
+        run_read_write_transaction_rollback(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn read_write_transaction_rollback_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_rollback(false).await
+        run_read_write_transaction_rollback(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_read_write_transaction_rollback(explicit_begin: bool) -> anyhow::Result<()> {
+    async fn run_read_write_transaction_rollback(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let transaction_id = vec![9, 9, 9];
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             let id = transaction_id.clone();
             mock.expect_begin_transaction().once().returning(move |_| {
                 Ok(tonic::Response::new(v1::Transaction {
@@ -1032,11 +1054,11 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             tx.execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
                 .await
                 .expect("Failed to execute update");
@@ -1048,20 +1070,20 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_execute_batch_update_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_batch_update(true).await
+        run_read_write_transaction_execute_batch_update(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn read_write_transaction_execute_batch_update_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_batch_update(false).await
+        run_read_write_transaction_execute_batch_update(BeginTransactionOption::InlineBegin).await
     }
 
     async fn run_read_write_transaction_execute_batch_update(
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|_| {
                 Ok(tonic::Response::new(v1::Transaction {
                     id: vec![4, 5, 6],
@@ -1084,7 +1106,7 @@ mod tests {
                     "UPDATE Users SET Name = 'Bob' WHERE Id = 2"
                 );
 
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let selector = req
                         .transaction
                         .expect("missing transaction selector")
@@ -1099,7 +1121,7 @@ mod tests {
                 let mut metadata = v1::ResultSetMetadata {
                     ..Default::default()
                 };
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     metadata.transaction = Some(v1::Transaction {
                         id: vec![4, 5, 6],
                         ..Default::default()
@@ -1136,7 +1158,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -1153,21 +1175,27 @@ mod tests {
     #[tokio::test]
     async fn read_write_transaction_execute_batch_update_partial_failure_explicit()
     -> anyhow::Result<()> {
-        run_read_write_transaction_execute_batch_update_partial_failure(true).await
+        run_read_write_transaction_execute_batch_update_partial_failure(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
     }
 
     #[tokio::test]
     async fn read_write_transaction_execute_batch_update_partial_failure_inline()
     -> anyhow::Result<()> {
-        run_read_write_transaction_execute_batch_update_partial_failure(false).await
+        run_read_write_transaction_execute_batch_update_partial_failure(
+            BeginTransactionOption::InlineBegin,
+        )
+        .await
     }
 
     async fn run_read_write_transaction_execute_batch_update_partial_failure(
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|_| {
                 Ok(tonic::Response::new(v1::Transaction {
                     id: vec![7, 8, 9],
@@ -1180,7 +1208,7 @@ mod tests {
             .once()
             .returning(move |req| {
                 let req = req.into_inner();
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let selector = req
                         .transaction
                         .expect("missing transaction selector")
@@ -1195,7 +1223,7 @@ mod tests {
                 let mut metadata = v1::ResultSetMetadata {
                     ..Default::default()
                 };
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     metadata.transaction = Some(v1::Transaction {
                         id: vec![7, 8, 9],
                         ..Default::default()
@@ -1223,7 +1251,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -1249,20 +1277,22 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_execute_multiple_updates_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_multiple_updates(true).await
+        run_read_write_transaction_execute_multiple_updates(BeginTransactionOption::ExplicitBegin)
+            .await
     }
 
     #[tokio::test]
     async fn read_write_transaction_execute_multiple_updates_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_multiple_updates(false).await
+        run_read_write_transaction_execute_multiple_updates(BeginTransactionOption::InlineBegin)
+            .await
     }
 
     async fn run_read_write_transaction_execute_multiple_updates(
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|req| {
                 let req = req.into_inner();
                 assert_eq!(
@@ -1287,7 +1317,7 @@ mod tests {
                 ..Default::default()
             };
 
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 if c == 1 {
                     let selector = req
                         .transaction
@@ -1330,7 +1360,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1382,7 +1412,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1435,7 +1465,7 @@ mod tests {
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_isolation_level(IsolationLevel::Serializable)
             .with_read_lock_mode(ReadLockMode::Pessimistic)
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1460,7 +1490,7 @@ mod tests {
 
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_exclude_txn_from_change_streams(true)
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1521,7 +1551,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1542,22 +1572,24 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_commit_retry_exactly_once_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(true).await
+        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::ExplicitBegin)
+            .await
     }
 
     #[tokio::test]
     async fn read_write_transaction_commit_retry_exactly_once_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(false).await
+        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::InlineBegin)
+            .await
     }
 
     async fn run_read_write_transaction_commit_retry_exactly_once(
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
         let transaction_id = vec![7, 7];
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             let id = transaction_id.clone();
             mock.expect_begin_transaction().once().returning(move |_| {
                 Ok(tonic::Response::new(v1::Transaction {
@@ -1654,11 +1686,11 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             tx.execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
                 .await?;
         }
@@ -1676,20 +1708,24 @@ mod tests {
 
     #[tokio::test]
     async fn read_write_transaction_commit_with_max_commit_delay_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_with_max_commit_delay(true).await
+        run_read_write_transaction_commit_with_max_commit_delay(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
     }
 
     #[tokio::test]
     async fn read_write_transaction_commit_with_max_commit_delay_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_with_max_commit_delay(false).await
+        run_read_write_transaction_commit_with_max_commit_delay(BeginTransactionOption::InlineBegin)
+            .await
     }
 
     async fn run_read_write_transaction_commit_with_max_commit_delay(
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|_| {
                 Ok(tonic::Response::new(v1::Transaction {
                     id: vec![1, 2, 3],
@@ -1748,12 +1784,12 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             tx.execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
                 .await?;
         }
@@ -1968,7 +2004,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
         let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2036,7 +2072,7 @@ mod tests {
             .await?;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
         let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2083,7 +2119,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
         let _rs = tx
@@ -2137,7 +2173,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -2213,7 +2249,73 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         // Construct transaction using implicit begin (explicit_begin = false)
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await?;
+
+        let count = tx.execute_update("UPDATE Users SET active = true").await?;
+        assert_eq!(count, 1);
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_fallback_forwards_transaction_tag() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // 1. Initial execute_sql attempts inline begin and transiently fails.
+        // The initial request includes the transaction tag.
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .as_ref()
+                    .expect("Missing request_options on initial RPC")
+                    .transaction_tag,
+                "fallback-test-tag"
+            );
+            Err(tonic::Status::new(tonic::Code::Internal, "internal error"))
+        });
+
+        // 2. Client fallback mechanism invokes explicit begin.
+        // This should include the transaction tag.
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .as_ref()
+                    .expect("Missing request_options on explicit begin fallback")
+                    .transaction_tag,
+                "fallback-test-tag"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![7, 7, 7],
+                ..Default::default()
+            }))
+        });
+
+        // 3. Retried execute_sql with the explicit transaction ID.
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .as_ref()
+                    .expect("Missing request_options on retried RPC")
+                    .transaction_tag,
+                "fallback-test-tag"
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_transaction_tag("fallback-test-tag")
             .build(None)
             .await?;
 
