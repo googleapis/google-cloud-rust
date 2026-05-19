@@ -2257,4 +2257,70 @@ mod tests {
         assert_eq!(count, 1);
         Ok(())
     }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_fallback_forwards_transaction_tag() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // 1. Initial execute_sql attempts inline begin and transiently fails.
+        // The initial request includes the transaction tag.
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .as_ref()
+                    .expect("Missing request_options on initial RPC")
+                    .transaction_tag,
+                "fallback-test-tag"
+            );
+            Err(tonic::Status::new(tonic::Code::Internal, "internal error"))
+        });
+
+        // 2. Client fallback mechanism invokes explicit begin.
+        // This should include the transaction tag.
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .as_ref()
+                    .expect("Missing request_options on explicit begin fallback")
+                    .transaction_tag,
+                "fallback-test-tag"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![7, 7, 7],
+                ..Default::default()
+            }))
+        });
+
+        // 3. Retried execute_sql with the explicit transaction ID.
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .as_ref()
+                    .expect("Missing request_options on retried RPC")
+                    .transaction_tag,
+                "fallback-test-tag"
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_transaction_tag("fallback-test-tag")
+            .build(None)
+            .await?;
+
+        let count = tx.execute_update("UPDATE Users SET active = true").await?;
+        assert_eq!(count, 1);
+        Ok(())
+    }
 }

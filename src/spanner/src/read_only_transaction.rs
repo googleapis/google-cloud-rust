@@ -576,6 +576,7 @@ impl ReadContextTransactionSelector {
         &self,
         client: &crate::database_client::DatabaseClient,
         session_name: String,
+        transaction_tag: Option<String>,
         channel_hint: usize,
         request_options: crate::RequestOptions,
         is_stream_fallback: bool,
@@ -642,7 +643,7 @@ impl ReadContextTransactionSelector {
             client,
             session_name.clone(),
             options,
-            None,
+            transaction_tag,
             channel_hint,
             request_options,
         )
@@ -849,6 +850,7 @@ impl ReadContext {
             .begin_explicitly(
                 &self.client,
                 self.session_name.clone(),
+                self.transaction_tag.clone(),
                 self.channel_hint,
                 request_options,
                 is_stream_fallback,
@@ -896,6 +898,7 @@ macro_rules! execute_stream_with_retry {
             precommit_token_tracker: $self.precommit_token_tracker.clone(),
             client: $self.client.clone(),
             session_name: $self.session_name.clone(),
+            transaction_tag: $self.transaction_tag.clone(),
             operation: $operation_variant($request),
             channel_hint: $self.channel_hint,
             gax_options: $gax_options,
