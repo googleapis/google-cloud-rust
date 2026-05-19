@@ -132,6 +132,9 @@ where
     async fn poll(&mut self) -> Option<PollingResult<(), M>> {
         self.poller.poll().await.map(self::map_polling_result)
     }
+    fn operation_name(&self) -> Option<&str> {
+        self.poller.operation_name()
+    }
     async fn backoff(&mut self, state: &PollingState) {
         self.poller.backoff(state).await
     }
@@ -163,6 +166,9 @@ where
 {
     async fn poll(&mut self) -> Option<PollingResult<R, ()>> {
         self.poller.poll().await.map(self::map_polling_metadata)
+    }
+    fn operation_name(&self) -> Option<&str> {
+        self.poller.operation_name()
     }
     async fn backoff(&mut self, state: &PollingState) {
         self.poller.backoff(state).await
@@ -281,6 +287,9 @@ where
         }
         None
     }
+    fn operation_name(&self) -> Option<&str> {
+        self.operation.as_deref()
+    }
     async fn backoff(&mut self, state: &PollingState) {
         let backoff = self.backoff_policy.wait_period(state);
         tokio::time::sleep(backoff).await;
@@ -347,7 +356,9 @@ mod tests {
             start,
             query,
         );
+        assert_eq!(poller.operation_name(), None);
         let p0 = poller.poll().await;
+        assert_eq!(poller.operation_name(), Some("test-only-name"));
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, Some(Timestamp::clamp(123, 0)));

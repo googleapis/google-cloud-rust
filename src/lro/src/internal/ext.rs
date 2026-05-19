@@ -70,6 +70,7 @@ mod tests {
         impl sealed::Poller for PollerA {}
         impl Poller<ResponseType, MetadataType> for PollerA {
             async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>>;
+            fn operation_name<'a>(&'a self) -> Option<&'a str>;
             async fn backoff(&mut self, state: &PollingState);
             async fn until_done(self) -> google_cloud_gax::Result<ResponseType>;
             #[cfg(feature = "unstable-stream")]

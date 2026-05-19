@@ -149,6 +149,9 @@ pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
         &mut self,
     ) -> impl Future<Output = Option<PollingResult<ResponseType, MetadataType>>> + Send;
 
+    /// Returns the name of the operation, if known.
+    fn operation_name(&self) -> Option<&str>;
+
     /// Sleep until the backoff time has elapsed.
     fn backoff(&mut self, state: &PollingState) -> impl Future<Output = ()> + Send;
 

@@ -40,6 +40,12 @@ where
             Self::Right(s) => s.poll().await,
         }
     }
+    fn operation_name(&self) -> Option<&str> {
+        match self {
+            Self::Left(s) => s.operation_name(),
+            Self::Right(s) => s.operation_name(),
+        }
+    }
     async fn backoff(&mut self, state: &PollingState) {
         match self {
             Self::Left(s) => s.backoff(state).await,
@@ -79,6 +85,7 @@ mod tests {
         impl sealed::Poller for PollerA {}
         impl Poller<ResponseType, MetadataType> for PollerA {
             async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>>;
+            fn operation_name<'a>(&'a self) -> Option<&'a str>;
             async fn backoff(&mut self, state: &PollingState);
             async fn until_done(self) -> google_cloud_gax::Result<ResponseType>;
             #[cfg(feature = "unstable-stream")]
@@ -92,6 +99,7 @@ mod tests {
         impl sealed::Poller for PollerB {}
         impl Poller<ResponseType, MetadataType> for PollerB {
             async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>>;
+            fn operation_name<'a>(&'a self) -> Option<&'a str>;
             async fn backoff(&mut self, state: &PollingState);
             async fn until_done(self) -> google_cloud_gax::Result<ResponseType>;
             #[cfg(feature = "unstable-stream")]

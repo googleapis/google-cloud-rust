@@ -120,6 +120,9 @@ where
         }
         None
     }
+    fn operation_name(&self) -> Option<&str> {
+        self.operation.as_deref()
+    }
     async fn backoff(&mut self, state: &PollingState) {
         let backoff = self.backoff_policy.wait_period(state);
         tokio::time::sleep(backoff).await;
@@ -230,6 +233,33 @@ mod tests {
             ),
             "{got:?}"
         );
+    }
+
+    #[tokio::test]
+    async fn poller_operation_name() {
+        let start = || async move {
+            let op = TestOperation {
+                name: Some("test-operation-abc".into()),
+                ..TestOperation::default()
+            };
+            Ok(op)
+        };
+        let query = |_name| async move {
+            let op = TestOperation {
+                done: true,
+                ..TestOperation::default()
+            };
+            Ok(op)
+        };
+        let mut poller = new_discovery_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(test_backoff()),
+            start,
+            query,
+        );
+        assert_eq!(poller.operation_name(), None);
+        let _ = poller.poll().await;
+        assert_eq!(poller.operation_name(), Some("test-operation-abc"));
     }
 
     #[tokio::test]

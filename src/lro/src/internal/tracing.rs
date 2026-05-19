@@ -41,6 +41,9 @@ where
         let span = info_span!("LRO Poll");
         self.inner.poll().instrument(span).await
     }
+    fn operation_name(&self) -> Option<&str> {
+        self.inner.operation_name()
+    }
     async fn backoff(&mut self, state: &PollingState) {
         let span = info_span!("LRO Sleep");
         self.inner.backoff(state).instrument(span).await
