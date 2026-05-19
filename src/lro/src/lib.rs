@@ -91,6 +91,7 @@ use google_cloud_gax::Result;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
+use google_cloud_gax::polling_state::PollingState;
 use std::future::Future;
 
 /// The result of polling a Long-Running Operation (LRO).
@@ -128,6 +129,9 @@ pub enum PollingResult<ResponseType, MetadataType> {
 #[allow(missing_docs)]
 pub mod internal;
 
+#[cfg(google_cloud_unstable_tracing)]
+pub use internal::{PollerOptions, TracingDetails};
+
 pub(crate) mod sealed {
     pub trait Poller {}
 }
@@ -145,6 +149,9 @@ pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
         &mut self,
     ) -> impl Future<Output = Option<PollingResult<ResponseType, MetadataType>>> + Send;
 
+    /// Sleep until the backoff time has elapsed.
+    fn backoff(&mut self, state: &PollingState) -> impl Future<Output = ()> + Send;
+
     /// Poll the long-running operation until it completes.
     fn until_done(self) -> impl Future<Output = Result<ResponseType>> + Send;
 
@@ -154,6 +161,51 @@ pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
     fn into_stream(
         self,
     ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin;
+}
+
+/// The default implementation of the until_done loop used by most Poller implementations.
+///
+/// This encapsulates the common loop of repeatedly calling `poll()`, querying backoff/error policies,
+/// updating the `PollingState`, sleeping between attempts, and handling final completion.
+async fn until_done<P, R, M>(mut poller: P) -> Result<R>
+where
+    P: Poller<R, M> + Send,
+{
+    let mut state = PollingState::default();
+    while let Some(p) = poller.poll().await {
+        match p {
+            // Return, the operation completed or the polling policy is
+            // exhausted.
+            PollingResult::Completed(r) => return r,
+            // Continue, the operation was successfully polled and the
+            // polling policy was queried.
+            PollingResult::InProgress(_) => (),
+            // Continue, the polling policy was queried and decided the
+            // error is recoverable.
+            PollingResult::PollingError(_) => (),
+        }
+        state.attempt_count += 1;
+        poller.backoff(&state).await
+    }
+    // We can only get here if `poll()` returns `None`, but it only returns
+    // `None` after it returned `Polling::Completed` and therefore this is
+    // never reached.
+    unreachable!("loop should exit via the `Completed` branch vs. this line");
+}
+
+/// The default implementation of into_stream used by most Poller implementations.
+///
+/// This converts the Poller into a Stream by unfolding the state using poll().
+#[cfg(feature = "unstable-stream")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+fn into_stream<P, R, M>(poller: P) -> impl futures::Stream<Item = PollingResult<R, M>> + Unpin
+where
+    P: Poller<R, M> + Send,
+{
+    use futures::stream::unfold;
+    Box::pin(unfold(poller, |mut poller| async move {
+        poller.poll().await.map(|item| (item, poller))
+    }))
 }
 
 mod details;
