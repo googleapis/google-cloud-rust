@@ -89,6 +89,16 @@ mod spanner {
         )
         .await?;
 
+        integration_tests_spanner::read_write_transaction::read_write_transaction_with_mutations(
+            &db_client,
+        )
+        .await?;
+
+        integration_tests_spanner::read_write_transaction::read_write_transaction_mutation_only(
+            &db_client,
+        )
+        .await?;
+
         Ok(())
     }
 

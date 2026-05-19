@@ -13,12 +13,10 @@
 // limitations under the License.
 
 use google_cloud_spanner::client::{DatabaseClient, Mutation, Statement};
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let id = format!(
-        "rw-success-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let id = format!("rw-success-{}", LowercaseAlphanumeric.random_string(10));
 
     // Insert a row
     let mutation = Mutation::new_insert_builder("AllTypes")
@@ -85,10 +83,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
 }
 
 pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let id = format!(
-        "rw-rollback-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let id = format!("rw-rollback-{}", LowercaseAlphanumeric.random_string(10));
 
     // Insert a row
     let mutation = Mutation::new_insert_builder("AllTypes")
@@ -163,7 +158,6 @@ pub async fn concurrent_read_write_transaction_retries(
     db_client: &DatabaseClient,
 ) -> anyhow::Result<()> {
     use futures::future::join_all;
-    use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
     use std::sync::Arc;
     use tokio::sync::Barrier;
 
@@ -276,6 +270,127 @@ pub async fn concurrent_read_write_transaction_retries(
         let val: i64 = row.get("ColInt64");
         assert_eq!(val, 150, "Update on {} was not applied", id);
     }
+
+    Ok(())
+}
+
+pub async fn read_write_transaction_with_mutations(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let id1 = format!("rw-mut-1-{}", LowercaseAlphanumeric.random_string(10));
+    let id2 = format!("rw-mut-2-{}", LowercaseAlphanumeric.random_string(10));
+
+    // Insert initial row for id1
+    let mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&id1)
+        .set("ColInt64")
+        .to(&100_i64)
+        .build();
+    db_client
+        .write_only_transaction()
+        .build()
+        .write(vec![mutation])
+        .await?;
+
+    let runner = db_client
+        .read_write_transaction()
+        .with_transaction_tag("mutations-tag")
+        .build()
+        .await?;
+    runner
+        .run(async |transaction| {
+            // Execute select query to start transaction
+            let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+                .add_param("id", &id1)
+                .build();
+            let mut result_set = transaction.execute_query(statement).await?;
+            let row = result_set
+                .next()
+                .await
+                .transpose()?
+                .expect("Row exists for success transaction test");
+            let current_val: i64 = row.get("ColInt64");
+
+            // Buffer a mutation for id2
+            let buffer_mut = Mutation::new_insert_builder("AllTypes")
+                .set("Id")
+                .to(&id2)
+                .set("ColInt64")
+                .to(&(current_val + 100))
+                .build();
+            transaction.buffer([buffer_mut])?;
+
+            Ok(())
+        })
+        .await?;
+
+    // Verify buffered mutation committed successfully
+    let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &id2)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(statement)
+        .await?;
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("Row exists for verification");
+    let final_val: i64 = row.get("ColInt64");
+    assert_eq!(
+        final_val, 200,
+        "Buffered mutation should have been committed"
+    );
+
+    Ok(())
+}
+
+pub async fn read_write_transaction_mutation_only(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let id = format!("rw-only-mut-{}", LowercaseAlphanumeric.random_string(10));
+
+    let mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&id)
+        .set("ColInt64")
+        .to(&555_i64)
+        .build();
+
+    let runner = db_client
+        .read_write_transaction()
+        .with_transaction_tag("only-mutations-tag")
+        .build()
+        .await?;
+    runner
+        .run(async |tx| {
+            tx.buffer([mutation.clone()])?;
+            Ok(())
+        })
+        .await?;
+
+    // Verify committed successfully
+    let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &id)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(statement)
+        .await?;
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("Row exists for verification");
+    let final_val: i64 = row.get("ColInt64");
+    assert_eq!(
+        final_val, 555,
+        "Mutation-only read/write transaction should have been committed"
+    );
 
     Ok(())
 }
