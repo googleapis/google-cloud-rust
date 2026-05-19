@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Poller, Result, sealed};
+use crate::{Poller, PollingResult, Result, sealed};
 use google_cloud_gax::polling_state::PollingState;
 use tracing::{Instrument, Span, info_span};
 
@@ -45,18 +45,23 @@ where
     ResponseType: Send,
     MetadataType: Send,
 {
-    async fn poll(&mut self) -> Option<crate::PollingResult<ResponseType, MetadataType>> {
-        let span = info_span!("LRO Poll");
+    async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>> {
+        let span = self.span.clone();
         self.inner.poll().instrument(span).await
     }
     async fn until_done(self) -> Result<ResponseType> {
         let span = self.span.clone();
-        crate::until_done(self).instrument(span).await
+        let result = crate::until_done(self).instrument(span.clone()).await;
+        if let Err(ref e) = result {
+            span.record("otel.status_code", "ERROR");
+            span.record("otel.status_description", e.to_string());
+        }
+        result
     }
     #[cfg(feature = "unstable-stream")]
     fn into_stream(
         self,
-    ) -> impl futures::Stream<Item = crate::PollingResult<ResponseType, MetadataType>> + Unpin {
+    ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin {
         crate::into_stream(self)
     }
 }

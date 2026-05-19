@@ -119,6 +119,12 @@ where
         if let Some(start) = self.start.take() {
             let result = start().await;
             let (op, poll) = self::handle_start(result);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref name) = op {
+                let span = tracing::Span::current();
+                span.record("gcp.longrunning.operation_name", name);
+                span.record("gcp.resource.destination.id", name);
+            }
             self.operation = op;
             return Some(poll);
         }
@@ -127,6 +133,12 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref next_name) = op {
+                let span = tracing::Span::current();
+                span.record("gcp.longrunning.operation_name", next_name);
+                span.record("gcp.resource.destination.id", next_name);
+            }
             self.operation = op;
             return Some(poll);
         }
@@ -203,6 +215,36 @@ mod tests {
     use google_cloud_gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
     use std::time::Duration;
 
+    #[cfg(not(google_cloud_unstable_tracing))]
+    pub(crate) struct DummySpan;
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    fn test_span() -> DummySpan {
+        DummySpan
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    pub(crate) trait Instrument: Sized {
+        fn instrument(self, _span: DummySpan) -> Self {
+            self
+        }
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    impl<T> Instrument for T {}
+
+    #[cfg(google_cloud_unstable_tracing)]
+    use tracing::Instrument;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn test_span() -> tracing::Span {
+        tracing::info_span!(
+            "test_span",
+            gcp.longrunning.operation_name = tracing::field::Empty,
+            gcp.resource.destination.id = tracing::field::Empty,
+        )
+    }
+
     #[tokio::test]
     async fn poller_until_done_success() {
         let start = || async move {
@@ -227,6 +269,7 @@ mod tests {
             query,
         )
         .until_done()
+        .instrument(test_span())
         .await;
         assert!(
             matches!(
@@ -274,6 +317,7 @@ mod tests {
             query,
         )
         .until_done()
+        .instrument(test_span())
         .await;
         assert!(
             matches!(

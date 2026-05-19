@@ -279,6 +279,12 @@ where
         if let Some(start) = self.start.take() {
             let result = start().await;
             let (op, poll) = crate::details::handle_start(result);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref name) = op {
+                let span = tracing::Span::current();
+                span.record("gcp.longrunning.operation_name", name);
+                span.record("gcp.resource.destination.id", name);
+            }
             self.operation = op;
             return Some(poll);
         }
@@ -287,6 +293,12 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 crate::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref next_name) = op {
+                let span = tracing::Span::current();
+                span.record("gcp.longrunning.operation_name", next_name);
+                span.record("gcp.resource.destination.id", next_name);
+            }
             self.operation = op;
             return Some(poll);
         }
@@ -328,6 +340,36 @@ mod tests {
     use google_cloud_wkt::{Any, Duration, Timestamp};
     use std::time::Duration as StdDuration;
 
+    #[cfg(not(google_cloud_unstable_tracing))]
+    pub(crate) struct DummySpan;
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    fn test_span() -> DummySpan {
+        DummySpan
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    pub(crate) trait Instrument: Sized {
+        fn instrument(self, _span: DummySpan) -> Self {
+            self
+        }
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    impl<T> Instrument for T {}
+
+    #[cfg(google_cloud_unstable_tracing)]
+    use tracing::Instrument;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn test_span() -> tracing::Span {
+        tracing::info_span!(
+            "test_span",
+            gcp.longrunning.operation_name = tracing::field::Empty,
+            gcp.resource.destination.id = tracing::field::Empty,
+        )
+    }
+
     type ResponseType = Duration;
     type MetadataType = Timestamp;
     type TestOperation = Operation<ResponseType, MetadataType>;
@@ -362,7 +404,7 @@ mod tests {
             start,
             query,
         );
-        let p0 = poller.poll().await;
+        let p0 = poller.poll().instrument(test_span()).await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, Some(Timestamp::clamp(123, 0)));
@@ -372,7 +414,7 @@ mod tests {
             }
         }
 
-        let p1 = poller.poll().await;
+        let p1 = poller.poll().instrument(test_span()).await;
         match p1.unwrap() {
             PollingResult::Completed(r) => {
                 let response = r.unwrap();
@@ -383,7 +425,7 @@ mod tests {
             }
         }
 
-        let p2 = poller.poll().await;
+        let p2 = poller.poll().instrument(test_span()).await;
         assert!(p2.is_none(), "{p2:?}");
     }
 
@@ -474,7 +516,7 @@ mod tests {
             start,
             query,
         );
-        let response = poller.until_done().await?;
+        let response = poller.until_done().instrument(test_span()).await?;
         assert_eq!(response, Duration::clamp(234, 0));
 
         Ok(())
