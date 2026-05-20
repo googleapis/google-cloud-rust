@@ -1061,4 +1061,133 @@ mod tests {
     fn polling_error() -> Error {
         Error::io("something failed")
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    struct TestLayer {
+        recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    impl<S> tracing_subscriber::layer::Layer<S> for TestLayer
+    where
+        S: tracing::Subscriber + for<'span> tracing_subscriber::registry::LookupSpan<'span>,
+    {
+        fn on_record(
+            &self,
+            _id: &tracing::span::Id,
+            values: &tracing::span::Record<'_>,
+            _ctx: tracing_subscriber::layer::Context<'_, S>,
+        ) {
+            struct Visitor {
+                recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
+            }
+            impl tracing::field::Visit for Visitor {
+                fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
+                    self.recorded
+                        .lock()
+                        .unwrap()
+                        .insert(field.name().to_string(), value.to_string());
+                }
+                fn record_debug(
+                    &mut self,
+                    _field: &tracing::field::Field,
+                    _value: &dyn std::fmt::Debug,
+                ) {
+                }
+            }
+            let mut visitor = Visitor {
+                recorded: self.recorded.clone(),
+            };
+            values.record(&mut visitor);
+        }
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_poller_tracing() {
+        use tracing_subscriber::layer::SubscriberExt;
+
+        let recorded = Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()));
+        let layer = TestLayer {
+            recorded: recorded.clone(),
+        };
+        let subscriber = tracing_subscriber::registry::Registry::default().with(layer);
+
+        let start = || async move {
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
+                .expect("test message deserializes via Any::from_msg");
+            let op = OperationAny::default()
+                .set_name("test-operation-123")
+                .set_metadata(any);
+            let op = TestOperation::new(op);
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let count = Arc::new(std::sync::Mutex::new(0));
+        let query_count = count.clone();
+        let query = move |_: String| {
+            let mut c = query_count.lock().unwrap();
+            *c += 1;
+            let is_done = *c > 1;
+            async move {
+                if is_done {
+                    let any = Any::from_msg(&Duration::clamp(234, 0))
+                        .expect("test message deserializes via Any::from_msg");
+                    let result = ResultAny::Response(any.into());
+                    let op = OperationAny::default().set_done(true).set_result(result);
+                    let op = TestOperation::new(op);
+                    Ok::<TestOperation, Error>(op)
+                } else {
+                    let any = Any::from_msg(&Timestamp::clamp(123, 0))
+                        .expect("test message deserializes via Any::from_msg");
+                    let op = OperationAny::default()
+                        .set_name("test-operation-123")
+                        .set_metadata(any);
+                    let op = TestOperation::new(op);
+                    Ok::<TestOperation, Error>(op)
+                }
+            }
+        };
+
+        let mut poller = PollerImpl::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        );
+
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        let _ = poller.poll().instrument(test_span()).await;
+
+        {
+            let map = recorded.lock().unwrap();
+            assert_eq!(
+                map.get("gcp.longrunning.operation_name")
+                    .map(|s| s.as_str()),
+                Some("test-operation-123")
+            );
+            assert_eq!(
+                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
+                Some("test-operation-123")
+            );
+        }
+
+        recorded.lock().unwrap().clear();
+
+        let _ = poller.poll().instrument(test_span()).await;
+
+        {
+            let map = recorded.lock().unwrap();
+            assert_eq!(
+                map.get("gcp.longrunning.operation_name")
+                    .map(|s| s.as_str()),
+                Some("test-operation-123")
+            );
+            assert_eq!(
+                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
+                Some("test-operation-123")
+            );
+        }
+    }
 }

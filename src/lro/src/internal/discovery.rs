@@ -568,4 +568,129 @@ mod tests {
             self.name.as_ref()
         }
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    struct TestLayer {
+        recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    impl<S> tracing_subscriber::layer::Layer<S> for TestLayer
+    where
+        S: tracing::Subscriber + for<'span> tracing_subscriber::registry::LookupSpan<'span>,
+    {
+        fn on_record(
+            &self,
+            _id: &tracing::span::Id,
+            values: &tracing::span::Record<'_>,
+            _ctx: tracing_subscriber::layer::Context<'_, S>,
+        ) {
+            struct Visitor {
+                recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
+            }
+            impl tracing::field::Visit for Visitor {
+                fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
+                    self.recorded
+                        .lock()
+                        .unwrap()
+                        .insert(field.name().to_string(), value.to_string());
+                }
+                fn record_debug(
+                    &mut self,
+                    _field: &tracing::field::Field,
+                    _value: &dyn std::fmt::Debug,
+                ) {
+                }
+            }
+            let mut visitor = Visitor {
+                recorded: self.recorded.clone(),
+            };
+            values.record(&mut visitor);
+        }
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_discovery_poller_tracing() {
+        use tracing_subscriber::layer::SubscriberExt;
+
+        let recorded = Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()));
+        let layer = TestLayer {
+            recorded: recorded.clone(),
+        };
+        let subscriber = tracing_subscriber::registry::Registry::default().with(layer);
+
+        let start = || async move {
+            let op = TestOperation {
+                name: Some("discovery-operation-123".into()),
+                ..TestOperation::default()
+            };
+            Ok(op)
+        };
+
+        let count = Arc::new(std::sync::Mutex::new(0));
+        let query_count = count.clone();
+        let query = move |_: String| {
+            let mut c = query_count.lock().unwrap();
+            *c += 1;
+            let is_done = *c > 1;
+            async move {
+                if is_done {
+                    let op = TestOperation {
+                        done: true,
+                        value: Some(42),
+                        ..TestOperation::default()
+                    };
+                    Ok(op)
+                } else {
+                    let op = TestOperation {
+                        name: Some("discovery-operation-123".into()),
+                        ..TestOperation::default()
+                    };
+                    Ok(op)
+                }
+            }
+        };
+
+        let mut poller = DiscoveryPoller::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(test_backoff()),
+            start,
+            query,
+        );
+
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        let _ = poller.poll().instrument(test_span()).await;
+
+        {
+            let map = recorded.lock().unwrap();
+            assert_eq!(
+                map.get("gcp.longrunning.operation_name")
+                    .map(|s| s.as_str()),
+                Some("discovery-operation-123")
+            );
+            assert_eq!(
+                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
+                Some("discovery-operation-123")
+            );
+        }
+
+        recorded.lock().unwrap().clear();
+
+        let _ = poller.poll().instrument(test_span()).await;
+
+        {
+            let map = recorded.lock().unwrap();
+            assert_eq!(
+                map.get("gcp.longrunning.operation_name")
+                    .map(|s| s.as_str()),
+                Some("discovery-operation-123")
+            );
+            assert_eq!(
+                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
+                Some("discovery-operation-123")
+            );
+        }
+    }
 }
