@@ -17,6 +17,32 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::AssessmentTaskDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssessmentTaskDetails");
+        debug_struct.field("input_path", &self.input_path);
+        debug_struct.field("output_dataset", &self.output_dataset);
+        debug_struct.field("querylogs_path", &self.querylogs_path);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("feature_handle", &self.feature_handle);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AssessmentFeatureHandle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssessmentFeatureHandle");
+        debug_struct.field("add_shareable_dataset", &self.add_shareable_dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::MigrationWorkflow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationWorkflow");
@@ -98,6 +124,7 @@ impl std::fmt::Debug for super::TranslationTaskResult {
         let mut debug_struct = f.debug_struct("TranslationTaskResult");
         debug_struct.field("translated_literals", &self.translated_literals);
         debug_struct.field("report_log_messages", &self.report_log_messages);
+        debug_struct.field("console_uri", &self.console_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -575,6 +602,30 @@ impl std::fmt::Debug for super::TranslationDetails {
         debug_struct.field("source_environment", &self.source_environment);
         debug_struct.field("target_return_literals", &self.target_return_literals);
         debug_struct.field("target_types", &self.target_types);
+        debug_struct.field("suggestion_config", &self.suggestion_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SuggestionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuggestionConfig");
+        debug_struct.field("skip_suggestion_steps", &self.skip_suggestion_steps);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SuggestionStep {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuggestionStep");
+        debug_struct.field("suggestion_type", &self.suggestion_type);
+        debug_struct.field("rewrite_target", &self.rewrite_target);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

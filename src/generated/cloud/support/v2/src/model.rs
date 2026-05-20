@@ -366,6 +366,44 @@ impl wkt::message::Message for ListAttachmentsRequest {
     }
 }
 
+/// Request for getting an attachment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAttachmentRequest {
+    /// Required. The name of the attachment to get.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAttachmentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAttachmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::GetAttachmentRequest;
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// # let attachment_id = "attachment_id";
+    /// let x = GetAttachmentRequest::new().set_name(format!("organizations/{organization_id}/cases/{case_id}/attachments/{attachment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAttachmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.GetAttachmentRequest"
+    }
+}
+
 /// The response message for the ListAttachments endpoint.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2407,6 +2445,44 @@ impl CreateCommentRequest {
 impl wkt::message::Message for CreateCommentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.support.v2.CreateCommentRequest"
+    }
+}
+
+/// The request message for the GetComment endpoint.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetCommentRequest {
+    /// Required. The name of the comment to retrieve.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetCommentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetCommentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::GetCommentRequest;
+    /// # let organization_id = "organization_id";
+    /// # let case_id = "case_id";
+    /// # let comment_id = "comment_id";
+    /// let x = GetCommentRequest::new().set_name(format!("organizations/{organization_id}/cases/{case_id}/comments/{comment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetCommentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.GetCommentRequest"
     }
 }
 
