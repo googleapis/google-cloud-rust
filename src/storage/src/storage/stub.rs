@@ -81,6 +81,18 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     {
         unimplemented_stub::<(Descriptor, Vec<ReadObjectResponse>)>()
     }
+
+    /// Implements `Storage::open_appendable_object`.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    fn open_appendable_object(
+        &self,
+        _req: crate::model_ext::OpenAppendableObjectRequest,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::storage::append_object::writer::AppendableObjectWriter>,
+    > + Send {
+        unimplemented_stub::<crate::storage::append_object::writer::AppendableObjectWriter>()
+    }
 }
 
 /// Defines the trait used to implement [crate::object_descriptor::ObjectDescriptor].

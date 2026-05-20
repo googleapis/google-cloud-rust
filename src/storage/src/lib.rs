@@ -93,6 +93,10 @@ pub mod builder {
     //! Request builders.
     pub mod storage {
         //! Request builders for [Storage][crate::client::Storage].
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        pub use crate::storage::append_object::builder::OpenAppendableObject;
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        pub use crate::storage::append_object::writer::AppendableObjectWriter;
         pub use crate::storage::client::ClientBuilder;
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::read_object::ReadObject;

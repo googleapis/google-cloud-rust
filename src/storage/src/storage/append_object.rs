@@ -13,3 +13,6 @@
 // limitations under the License.
 
 //! Appendable object uploads (unstable).
+
+pub(crate) mod builder;
+pub(crate) mod writer;

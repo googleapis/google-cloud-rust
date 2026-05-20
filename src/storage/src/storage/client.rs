@@ -16,6 +16,8 @@ use super::request_options::RequestOptions;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::storage::append_object::builder::OpenAppendableObject;
 use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
@@ -190,6 +192,43 @@ where
             payload,
             self.options.clone(),
         )
+    }
+
+    /// Open a new object for appendable uploads.
+    ///
+    /// This method allows you to incrementally append data to a single object
+    /// using a bidirectional stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use bytes::Bytes;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    ///
+    /// writer.append(Bytes::from_static(b"hello ")).await?;
+    /// writer.append(Bytes::from_static(b"world")).await?;
+    /// writer.flush().await?;
+    ///
+    /// let object = writer.finalize().await?;
+    /// println!("Finalized object size: {:?}", object.size);
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub fn open_appendable_object(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+    ) -> OpenAppendableObject<S> {
+        OpenAppendableObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 
     /// Reads the contents of an object.
