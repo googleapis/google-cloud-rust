@@ -18,7 +18,10 @@
 //! module may be changed or removed without warnings. Applications should not
 //! use any types contained within.
 
-use crate::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
+use crate::{
+    Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result,
+    sealed::Poller as SealedPoller,
+};
 use google_cloud_gax::polling_state::PollingState;
 use google_cloud_wkt::Empty;
 use google_cloud_wkt::message::Message;
@@ -123,7 +126,14 @@ impl<P> UnitResponsePoller<P> {
     }
 }
 
-impl<P> crate::sealed::Poller for UnitResponsePoller<P> {}
+impl<P> SealedPoller for UnitResponsePoller<P>
+where
+    P: SealedPoller + Send,
+{
+    async fn backoff(&mut self, state: &PollingState) {
+        self.poller.backoff(state).await
+    }
+}
 
 impl<P, M> Poller<(), M> for UnitResponsePoller<P>
 where
@@ -131,9 +141,6 @@ where
 {
     async fn poll(&mut self) -> Option<PollingResult<(), M>> {
         self.poller.poll().await.map(self::map_polling_result)
-    }
-    async fn backoff(&mut self, state: &PollingState) {
-        self.poller.backoff(state).await
     }
     async fn until_done(self) -> Result<()> {
         self.poller.until_done().await.map(|_| ())
@@ -155,7 +162,14 @@ impl<P> UnitMetadataPoller<P> {
     }
 }
 
-impl<P> crate::sealed::Poller for UnitMetadataPoller<P> {}
+impl<P> SealedPoller for UnitMetadataPoller<P>
+where
+    P: SealedPoller + Send,
+{
+    async fn backoff(&mut self, state: &PollingState) {
+        self.poller.backoff(state).await
+    }
+}
 
 impl<P, R> Poller<R, ()> for UnitMetadataPoller<P>
 where
@@ -163,9 +177,6 @@ where
 {
     async fn poll(&mut self) -> Option<PollingResult<R, ()>> {
         self.poller.poll().await.map(self::map_polling_metadata)
-    }
-    async fn backoff(&mut self, state: &PollingState) {
-        self.poller.backoff(state).await
     }
     async fn until_done(self) -> Result<R> {
         self.poller.until_done().await
@@ -281,10 +292,6 @@ where
         }
         None
     }
-    async fn backoff(&mut self, state: &PollingState) {
-        let backoff = self.backoff_policy.wait_period(state);
-        tokio::time::sleep(backoff).await;
-    }
     async fn until_done(self) -> Result<ResponseType> {
         crate::until_done(self).await
     }
@@ -296,8 +303,16 @@ where
         crate::into_stream(self)
     }
 }
-
-impl<S, Q> crate::sealed::Poller for PollerImpl<S, Q> {}
+impl<S, Q> SealedPoller for PollerImpl<S, Q>
+where
+    S: Send,
+    Q: Send,
+{
+    async fn backoff(&mut self, state: &PollingState) {
+        let backoff = self.backoff_policy.wait_period(state);
+        tokio::time::sleep(backoff).await;
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -912,6 +927,77 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_unit_pollers_backoff() {
+        use crate::sealed::Poller as _;
+
+        let start_resp = || async move {
+            Ok::<EmptyResponseOperation, Error>(
+                EmptyResponseOperation::new(OperationAny::default()),
+            )
+        };
+        let query_resp = |_: String| async move {
+            Ok::<EmptyResponseOperation, Error>(
+                EmptyResponseOperation::new(OperationAny::default()),
+            )
+        };
+
+        let mut poller = new_unit_response_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(StdDuration::from_millis(1))
+                    .clamp(),
+            ),
+            start_resp,
+            query_resp,
+        );
+        poller.backoff(&PollingState::default()).await;
+
+        let start_meta = || async move {
+            Ok::<EmptyMetadataOperation, Error>(
+                EmptyMetadataOperation::new(OperationAny::default()),
+            )
+        };
+        let query_meta = |_: String| async move {
+            Ok::<EmptyMetadataOperation, Error>(
+                EmptyMetadataOperation::new(OperationAny::default()),
+            )
+        };
+
+        let mut poller = new_unit_metadata_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(StdDuration::from_millis(1))
+                    .clamp(),
+            ),
+            start_meta,
+            query_meta,
+        );
+        poller.backoff(&PollingState::default()).await;
+
+        type EmptyOperation = Operation<Empty, Empty>;
+        let start_unit = || async move {
+            Ok::<EmptyOperation, Error>(EmptyOperation::new(OperationAny::default()))
+        };
+        let query_unit = |_: String| async move {
+            Ok::<EmptyOperation, Error>(EmptyOperation::new(OperationAny::default()))
+        };
+
+        let mut poller = new_unit_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(StdDuration::from_millis(1))
+                    .clamp(),
+            ),
+            start_unit,
+            query_unit,
+        );
+        poller.backoff(&PollingState::default()).await;
     }
 
     fn service_error() -> Error {
