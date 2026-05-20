@@ -11,18 +11,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use serde::Deserialize;
+use regex::Regex;
 use std::collections::HashMap;
 use std::error::Error;
 use std::fs::{self, File};
+use std::io::{BufRead, BufReader};
 use toml_edit::DocumentMut;
 
-#[derive(Debug, Deserialize)]
-struct LibrarianConfig {
-    libraries: Vec<Library>,
-}
-
-#[derive(Debug, Deserialize)]
+#[derive(Debug)]
 struct Library {
     name: String,
     version: Option<String>,
@@ -30,8 +26,58 @@ struct Library {
 
 fn parse_librarian_yaml(path: impl AsRef<std::path::Path>) -> Result<Vec<Library>, Box<dyn Error>> {
     let file = File::open(path)?;
-    let config: LibrarianConfig = serde_yaml::from_reader(file)?;
-    Ok(config.libraries)
+    let reader = BufReader::new(file);
+    let mut libraries = Vec::new();
+    let mut current_name: Option<String> = None;
+    let mut current_version: Option<String> = None;
+
+    let name_re = Regex::new(r"^  - name:[ \t]*([a-zA-Z0-9_-]+)")
+        .map_err(|e| format!("invalid name regex: {e}"))?;
+    let version_re = Regex::new(r#"^    version:[ \t]*"?([0-9\.]+)"?"#)
+        .map_err(|e| format!("invalid version regex: {e}"))?;
+
+    for line in reader.lines() {
+        let line = line?;
+        if line.trim().is_empty() || line.trim().starts_with('#') {
+            continue;
+        }
+
+        if let Some(caps) = name_re.captures(&line) {
+            if let Some(name) = current_name.take() {
+                libraries.push(Library {
+                    name,
+                    version: current_version.take(),
+                });
+            }
+            current_name = Some(caps[1].to_string());
+            continue;
+        }
+
+        if current_name.is_some() {
+            if let Some(caps) = version_re.captures(&line) {
+                current_version = Some(caps[1].to_string());
+            }
+
+            let indent = line.len() - line.trim_start().len();
+            if indent <= 2 && !line.trim_start().starts_with('-') {
+                if let Some(name) = current_name.take() {
+                    libraries.push(Library {
+                        name,
+                        version: current_version.take(),
+                    });
+                }
+            }
+        }
+    }
+
+    if let Some(name) = current_name.take() {
+        libraries.push(Library {
+            name,
+            version: current_version.take(),
+        });
+    }
+
+    Ok(libraries)
 }
 
 fn parse_root_cargo_deps(path: impl AsRef<std::path::Path>) -> Result<HashMap<String, String>, Box<dyn Error>> {
