@@ -428,7 +428,7 @@ impl SignedUrlBuilder {
     /// # use google_cloud_auth::signer::Signer;
     /// async fn run(signer: &Signer) -> anyhow::Result<()> {
     ///     let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
-    ///         .with_universe_domain("https://googleapis.com")
+    ///         .with_universe_domain("googleapis.com")
     ///         .sign_with(signer)
     ///         .await?;
     /// # Ok(())

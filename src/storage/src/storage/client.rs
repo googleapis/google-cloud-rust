@@ -404,7 +404,7 @@ impl ClientBuilder {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Storage::builder()
-    ///     .with_universe_domain("https://googleapis.com")
+    ///     .with_universe_domain("googleapis.com")
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
