@@ -46,7 +46,8 @@ fn cargo_deps(doc: DocumentMut) -> HashMap<String, String> {
         .get("workspace")
         .and_then(|w| w.as_table_like())
         .and_then(|wt| wt.get("dependencies"))
-        .and_then(|d| d.as_table_like()) else {
+        .and_then(|d| d.as_table_like())
+    else {
         return HashMap::new();
     };
 
@@ -90,7 +91,8 @@ fn check_version_mismatches(
                     .unwrap_or(pkg.manifest_path.as_std_path());
                 mismatches.push(format!(
                     "  - {}: expected {expected_version}, got {pkg_version} in Cargo.toml ({})",
-                    name, rel_path.display()
+                    name,
+                    rel_path.display()
                 ));
             }
         } else {
