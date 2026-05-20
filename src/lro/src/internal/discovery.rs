@@ -118,14 +118,16 @@ where
     async fn poll(&mut self) -> Option<PollingResult<O, O>> {
         if let Some(start) = self.start.take() {
             let result = start().await;
-            let (op, poll) = self::handle_start(result);
             #[cfg(google_cloud_unstable_tracing)]
-            if let Some(ref name) = op {
-                if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
-                    span.record("gcp.longrunning.operation_name", name);
-                    span.record("gcp.resource.destination.id", name);
+            if let Ok(ref op) = result {
+                if let Some(name) = op.name() {
+                    if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
+                        span.record("gcp.longrunning.operation_name", name);
+                        span.record("gcp.resource.destination.id", name);
+                    }
                 }
             }
+            let (op, poll) = self::handle_start(result);
             self.operation = op;
             return Some(poll);
         }

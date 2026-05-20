@@ -119,7 +119,9 @@ mod tests {
     }
     impl Poller<Duration, Timestamp> for FailingPoller {
         async fn poll(&mut self) -> Option<PollingResult<Duration, Timestamp>> {
-            Some(PollingResult::Completed(Err(Error::io("logical-test-failure"))))
+            Some(PollingResult::Completed(Err(Error::io(
+                "logical-test-failure",
+            ))))
         }
         async fn until_done(self) -> Result<Duration> {
             Err(Error::io("logical-test-failure"))

@@ -1206,4 +1206,59 @@ mod tests {
         }
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_poller_tracing_immediate_done() {
+        use tracing_subscriber::layer::SubscriberExt;
+
+        let recorded = Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()));
+        let layer = TestLayer {
+            recorded: recorded.clone(),
+        };
+        let subscriber = tracing_subscriber::registry::Registry::default().with(layer);
+
+        let start = || async move {
+            let any = Any::from_msg(&Duration::clamp(234, 0))
+                .expect("test message deserializes via Any::from_msg");
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default()
+                .set_name("immediate-operation-123")
+                .set_done(true)
+                .set_result(result);
+            let op = TestOperation::new(op);
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let query = |_: String| async move { panic!("should not query") };
+
+        let mut poller = PollerImpl::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        );
+
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        let span = test_span();
+        let poller_ref = &mut poller;
+        let _ = crate::internal::LRO_SPAN
+            .scope(span.clone(), async move {
+                poller_ref.poll().instrument(span).await
+            })
+            .await;
+
+        {
+            let map = recorded.lock().unwrap();
+            assert_eq!(
+                map.get("gcp.longrunning.operation_name")
+                    .map(|s| s.as_str()),
+                Some("immediate-operation-123")
+            );
+            assert_eq!(
+                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
+                Some("immediate-operation-123")
+            );
+        }
+    }
 }
