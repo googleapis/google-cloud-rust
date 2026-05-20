@@ -929,6 +929,77 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_unit_pollers_backoff() {
+        use crate::sealed::Poller as _;
+
+        let start_resp = || async move {
+            Ok::<EmptyResponseOperation, Error>(
+                EmptyResponseOperation::new(OperationAny::default()),
+            )
+        };
+        let query_resp = |_: String| async move {
+            Ok::<EmptyResponseOperation, Error>(
+                EmptyResponseOperation::new(OperationAny::default()),
+            )
+        };
+
+        let mut poller = new_unit_response_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(StdDuration::from_millis(1))
+                    .clamp(),
+            ),
+            start_resp,
+            query_resp,
+        );
+        poller.backoff(&PollingState::default()).await;
+
+        let start_meta = || async move {
+            Ok::<EmptyMetadataOperation, Error>(
+                EmptyMetadataOperation::new(OperationAny::default()),
+            )
+        };
+        let query_meta = |_: String| async move {
+            Ok::<EmptyMetadataOperation, Error>(
+                EmptyMetadataOperation::new(OperationAny::default()),
+            )
+        };
+
+        let mut poller = new_unit_metadata_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(StdDuration::from_millis(1))
+                    .clamp(),
+            ),
+            start_meta,
+            query_meta,
+        );
+        poller.backoff(&PollingState::default()).await;
+
+        type EmptyOperation = Operation<Empty, Empty>;
+        let start_unit = || async move {
+            Ok::<EmptyOperation, Error>(EmptyOperation::new(OperationAny::default()))
+        };
+        let query_unit = |_: String| async move {
+            Ok::<EmptyOperation, Error>(EmptyOperation::new(OperationAny::default()))
+        };
+
+        let mut poller = new_unit_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(StdDuration::from_millis(1))
+                    .clamp(),
+            ),
+            start_unit,
+            query_unit,
+        );
+        poller.backoff(&PollingState::default()).await;
+    }
+
     fn service_error() -> Error {
         Error::service(
             Status::default()
