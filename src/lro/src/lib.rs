@@ -137,6 +137,7 @@ pub(crate) mod sealed {
     use std::future::Future;
 
     pub trait Poller {
+        /// Sleep until the backoff time has elapsed.
         fn backoff(&mut self, state: &PollingState) -> impl Future<Output = ()> + Send;
     }
 }
