@@ -121,9 +121,10 @@ where
             let (op, poll) = self::handle_start(result);
             #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref name) = op {
-                let span = tracing::Span::current();
-                span.record("gcp.longrunning.operation_name", name);
-                span.record("gcp.resource.destination.id", name);
+                if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
+                    span.record("gcp.longrunning.operation_name", name);
+                    span.record("gcp.resource.destination.id", name);
+                }
             }
             self.operation = op;
             return Some(poll);
@@ -135,9 +136,10 @@ where
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
             #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref next_name) = op {
-                let span = tracing::Span::current();
-                span.record("gcp.longrunning.operation_name", next_name);
-                span.record("gcp.resource.destination.id", next_name);
+                if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
+                    span.record("gcp.longrunning.operation_name", next_name);
+                    span.record("gcp.resource.destination.id", next_name);
+                }
             }
             self.operation = op;
             return Some(poll);
@@ -661,7 +663,13 @@ mod tests {
 
         let _guard = tracing::subscriber::set_default(subscriber);
 
-        let _ = poller.poll().instrument(test_span()).await;
+        let span = test_span();
+        let poller_ref = &mut poller;
+        let _ = crate::internal::LRO_SPAN
+            .scope(span.clone(), async move {
+                poller_ref.poll().instrument(span).await
+            })
+            .await;
 
         {
             let map = recorded.lock().unwrap();
@@ -678,7 +686,13 @@ mod tests {
 
         recorded.lock().unwrap().clear();
 
-        let _ = poller.poll().instrument(test_span()).await;
+        let span = test_span();
+        let poller_ref2 = &mut poller;
+        let _ = crate::internal::LRO_SPAN
+            .scope(span.clone(), async move {
+                poller_ref2.poll().instrument(span).await
+            })
+            .await;
 
         {
             let map = recorded.lock().unwrap();
