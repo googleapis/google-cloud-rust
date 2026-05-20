@@ -394,6 +394,26 @@ impl ClientBuilder {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.universe_domain = Some(v.into());
+        self
+    }
+
     /// Configures the authentication credentials.
     ///
     /// Google Cloud Storage requires authentication for most buckets. Use this
@@ -822,6 +842,19 @@ pub(crate) mod tests {
         );
     }
 
+    #[test]
+    fn universe_domain() {
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_universe_domain("my-universe.com");
+        let config = builder.config;
+        assert_eq!(
+            config.universe_domain.as_deref(),
+            Some("my-universe.com"),
+            "{config:?}"
+        );
+    }
+
     #[derive(Debug)]
     struct DummyStorage;
 
@@ -848,6 +881,7 @@ pub(crate) mod tests {
         ClientBuilder::new()
             .with_credentials(Anonymous::new().build())
             .with_endpoint("http://private.googleapis.com")
+            .with_universe_domain("googleapis.com")
             .with_backoff_policy(
                 google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
                     .with_initial_delay(Duration::from_millis(1))
