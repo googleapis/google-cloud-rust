@@ -255,7 +255,9 @@ mod buffered_resumable {
                 request::headers(contains(("content-range", "bytes */*"))),
                 request::headers(contains(("content-length", "0"))),
             ])
-            .respond_with(status_code(308).append_header("range", format!("bytes=0-{}", QUANTUM - 1))),
+            .respond_with(
+                status_code(308).append_header("range", format!("bytes=0-{}", QUANTUM - 1)),
+            ),
         );
 
         // 3. Second PUT (last chunk) should NOT contain x-goog-hash
@@ -271,13 +273,16 @@ mod buffered_resumable {
             .respond_with(
                 status_code(200)
                     .append_header("content-type", "application/json")
-                    .body(json!({
-                        "bucket": "projects/_/buckets/test-bucket",
-                        "name": "test-object",
-                        "crc32c": crc_base64,
-                        "md5Hash": md5_base64,
-                        "size": full_len,
-                    }).to_string()),
+                    .body(
+                        json!({
+                            "bucket": "projects/_/buckets/test-bucket",
+                            "name": "test-object",
+                            "crc32c": crc_base64,
+                            "md5Hash": md5_base64,
+                            "size": full_len,
+                        })
+                        .to_string(),
+                    ),
             ),
         );
 
