@@ -211,7 +211,6 @@ mod buffered_resumable {
     #[tokio::test]
     async fn resumed_computed_match_does_not_send_checksum() -> Result {
         use crate::streaming_source::tests::UnknownSize;
-        use base64::Engine;
 
         const QUANTUM: usize = 256 * 1024;
         let mut data = vec![0_u8; QUANTUM];
