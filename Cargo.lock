@@ -390,6 +390,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "check-versions"
+version = "0.1.0"
+dependencies = [
+ "cargo_metadata",
+ "regex",
+ "toml_edit",
+]
+
+[[package]]
 name = "chrono"
 version = "0.4.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
