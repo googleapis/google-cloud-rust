@@ -320,7 +320,7 @@ pub struct WriteObjectRequest {
 /// Represents the parameters of a request to open a new object for exclusive appends.
 ///
 /// Consumers of the `google-cloud-storage` crate rarely have a need to use this type directly, the most common exception is when mocking of the `Storage` client.
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct OpenAppendableObjectRequest {
     /// The object attributes and pre-conditions for the open operation.

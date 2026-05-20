@@ -1,4 +1,4 @@
-// Copyright 2026 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,56 +12,65 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
 use crate::model::Object;
-use bytes::Bytes;
+use crate::storage::request_options::RequestOptions;
+use crate::Result;
 
-/// A handle to an in-progress appendable object upload.
+/// A writer for appending data to an object.
+///
+/// This writer handles the underlying bidirectional streaming RPC to append data
+/// to a GCS object.
+///
+/// TODO(#5716): This is a work in progress. Logic will be implemented soon.
+#[cfg(google_cloud_unstable_storage_bidi)]
 #[derive(Debug)]
-#[non_exhaustive]
 pub struct AppendableObjectWriter {
-    // TODO: The request channel, shared response state, and coalescing/replay
-    // buffers will be added later.
+    pub(crate) stub: std::sync::Arc<dyn AppendableStorage>,
+    pub(crate) bucket: String,
+    pub(crate) object: String,
+    pub(crate) params: Option<crate::model::CommonObjectRequestParams>,
+    pub(crate) if_metageneration_match: Option<i64>,
+    pub(crate) if_metageneration_not_match: Option<i64>,
+    pub(crate) options: RequestOptions,
 }
 
+#[cfg(google_cloud_unstable_storage_bidi)]
 impl AppendableObjectWriter {
-    /// Appends bytes to the object.
-    ///
-    /// Small chunks are coalesced before being sent,
-    /// so a call does not necessarily produce wire traffic immediately. Appending
-    /// an empty buffer is a no-op.
-    pub async fn append(&mut self, _bytes: impl Into<Bytes>) -> Result<()> {
+    /// Appends bytes to the object. Coalesces small byte chunks into a buffer.
+    pub async fn append(&mut self, _bytes: impl Into<bytes::Bytes>) -> Result<()> {
         unimplemented!()
     }
 
-    /// Flushes any pending data to the server and awaits durable persistence on
-    /// the server.
+    /// Drains buffer, send bytes to server and await server's response.
     pub async fn flush(&mut self) -> Result<()> {
         unimplemented!()
     }
 
-    /// Finalizes the upload, sending any pending data. Returns the final [Object][crate::model::Object].
+    /// Drains buffer, sends bytes to server with `flush=true, state_lookup=true`
+    /// and await server's response. Returns the final `Object`.
     pub async fn finalize(self) -> Result<Object> {
         unimplemented!()
     }
 
-    /// Relinquishes the writer without finalizing, draining any pending data to the server.
-    /// Returns the final persisted size of the object.
+    /// Drains buffer, send bytes to server and await server's response. Then
+    /// close the stream without finalizing.
+    /// Returns the new `persisted_size`.
+    /// WARNING: Because this consumes `self`, cancelling this future (e.g., via
+    /// a timeout) drops the writer and loses unflushed bytes.
     pub async fn close(self) -> Result<i64> {
         unimplemented!()
     }
 
-    /// Returns the latest durable offset confirmed by the server.
+    // Accessors
+
     pub fn persisted_size(&self) -> i64 {
         unimplemented!()
     }
 
-    /// Returns the generation of the object being appended to.
     pub fn generation(&self) -> i64 {
         unimplemented!()
     }
 
-    /// Returns the latest known object metadata.
     pub fn object(&self) -> Option<Object> {
         unimplemented!()
     }
