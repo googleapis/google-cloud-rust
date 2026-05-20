@@ -17,7 +17,7 @@ use crate::error::internal_error;
 use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::ReadContextTransactionSelector;
+use crate::read_only_transaction::{ReadContextTransactionSelector, TransactionState};
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
@@ -175,10 +175,7 @@ impl ResultSet {
             };
 
             match stream_result {
-                Some(Ok(mut partial_result_set)) => {
-                    if self.local_metadata.is_none() {
-                        self.extract_metadata(partial_result_set.metadata.take())?;
-                    }
+                Some(Ok(partial_result_set)) => {
                     self.handle_partial_result_set(partial_result_set)?;
                     return Ok(());
                 }
@@ -192,35 +189,6 @@ impl ResultSet {
                 }
             }
         }
-    }
-
-    fn extract_metadata(&mut self, metadata: Option<v1::ResultSetMetadata>) -> crate::Result<()> {
-        let mut m = metadata
-            .ok_or_else(|| internal_error("First PartialResultSet did not contain metadata"))?;
-        let transaction = m.transaction.take();
-        let meta = ResultSetMetadata::new(Some(m));
-        if let Some(selector) = &self.transaction_selector {
-            if let Some(transaction) = transaction {
-                selector.update(
-                    transaction.id,
-                    transaction
-                        .read_timestamp
-                        .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
-                )?;
-            } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                let is_started = matches!(
-                    &*lazy.lock().expect("transaction state mutex poisoned"),
-                    crate::read_only_transaction::TransactionState::Started(_, _)
-                );
-                if !is_started {
-                    return Err(internal_error(
-                        "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                    ));
-                }
-            }
-        }
-        self.local_metadata = Some(meta);
-        Ok(())
     }
 
     /// Returns the metadata of the result set.
@@ -348,7 +316,7 @@ impl ResultSet {
 impl ResultSet {
     fn handle_partial_result_set(
         &mut self,
-        partial_result_set: PartialResultSet,
+        mut partial_result_set: PartialResultSet,
     ) -> crate::Result<()> {
         self.precommit_token_tracker.update(
             partial_result_set
@@ -359,6 +327,24 @@ impl ResultSet {
 
         if partial_result_set.last {
             self.seen_last = true;
+        }
+
+        match (
+            self.local_metadata.as_ref(),
+            partial_result_set.metadata.take(),
+        ) {
+            (Some(_), None) => {}
+            (None, None) => {
+                return Err(internal_error(
+                    "First PartialResultSet did not contain metadata",
+                ));
+            }
+            (Some(_), Some(_)) => {
+                return Err(internal_error("Additional metadata after first result set"));
+            }
+            (None, Some(m)) => {
+                self.handle_metadata(m)?;
+            }
         }
 
         // Keep track of the last resume_token that we see to be able to resume the stream
@@ -396,6 +382,33 @@ impl ResultSet {
             }
         }
 
+        Ok(())
+    }
+
+    fn handle_metadata(&mut self, mut m: v1::ResultSetMetadata) -> crate::Result<()> {
+        let transaction = m.transaction.take();
+        let meta = ResultSetMetadata::new(Some(m));
+        if let Some(selector) = &self.transaction_selector {
+            if let Some(transaction) = transaction {
+                selector.update(
+                    transaction.id,
+                    transaction
+                        .read_timestamp
+                        .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
+                )?;
+            } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
+                let is_started = matches!(
+                    &*lazy.lock().expect("transaction state mutex poisoned"),
+                    TransactionState::Started(_, _)
+                );
+                if !is_started {
+                    return Err(internal_error(
+                        "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                    ));
+                }
+            }
+        }
+        self.local_metadata = Some(meta);
         Ok(())
     }
 
@@ -484,48 +497,11 @@ impl ResultSet {
         partial_result_set: PartialResultSet,
     ) -> crate::Result<()> {
         let PartialResultSet {
-            metadata,
             stats,
             values,
             chunked_value,
             ..
         } = partial_result_set;
-        match (self.local_metadata.as_ref(), metadata) {
-            (Some(_), None) => {}
-            (None, None) => {
-                return Err(internal_error(
-                    "First PartialResultSet did not contain metadata",
-                ));
-            }
-            (Some(_), Some(_)) => {
-                return Err(internal_error("Additional metadata after first result set"));
-            }
-            (None, Some(mut m)) => {
-                let transaction = m.transaction.take();
-                let meta = ResultSetMetadata::new(Some(m));
-                if let Some(selector) = &self.transaction_selector {
-                    if let Some(transaction) = transaction {
-                        selector.update(
-                            transaction.id,
-                            transaction
-                                .read_timestamp
-                                .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
-                        )?;
-                    } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                        let is_started = matches!(
-                            &*lazy.lock().expect("transaction state mutex poisoned"),
-                            crate::read_only_transaction::TransactionState::Started(_, _)
-                        );
-                        if !is_started {
-                            return Err(internal_error(
-                                "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                            ));
-                        }
-                    }
-                }
-                self.local_metadata = Some(meta);
-            }
-        }
 
         match (&self.stats, stats) {
             (Some(_), Some(_)) => {

@@ -23,7 +23,12 @@ const PROJECT_ID: &str = "test-project";
 const INSTANCE_ID: &str = "test-instance";
 
 pub fn get_emulator_host() -> Option<String> {
-    let _ = rustls::crypto::ring::default_provider().install_default();
+    static INIT_CRYPTO: std::sync::Once = std::sync::Once::new();
+    INIT_CRYPTO.call_once(|| {
+        rustls::crypto::ring::default_provider()
+            .install_default()
+            .expect("Failed to install default crypto provider");
+    });
     std::env::var("SPANNER_EMULATOR_HOST").ok()
 }
 
