@@ -59,10 +59,10 @@ fn headers_to_metadata(headers: &HeaderMap) -> std::collections::HashMap<String,
     let mut metadata = std::collections::HashMap::new();
     for (name, value) in headers.iter() {
         if let Some(key) = name.as_str().strip_prefix("x-goog-meta-") {
-            if !metadata.contains_key(key) {
-                if let Ok(val_str) = value.to_str() {
-                    metadata.insert(key.to_string(), val_str.to_string());
-                }
+            if let Ok(val_str) = value.to_str() {
+                metadata
+                    .entry(key.to_string())
+                    .or_insert_with(|| val_str.to_string());
             }
         }
     }
