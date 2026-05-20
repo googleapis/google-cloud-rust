@@ -125,6 +125,7 @@ pub struct SignedUrlBuilder {
     headers: BTreeMap<String, String>,
     query_parameters: BTreeMap<String, String>,
     endpoint: Option<String>,
+    universe_domain: Option<String>,
     client_email: Option<String>,
     timestamp: DateTime<Utc>,
     url_style: UrlStyle,
@@ -229,6 +230,7 @@ impl SignedUrlBuilder {
             headers: BTreeMap::new(),
             query_parameters: BTreeMap::new(),
             endpoint: None,
+            universe_domain: None,
             client_email: None,
             timestamp: Utc::now(),
             url_style: UrlStyle::PathStyle,
@@ -414,6 +416,29 @@ impl SignedUrlBuilder {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use google_cloud_auth::signer::Signer;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///         .with_universe_domain("googleapis.com")
+    ///         .sign_with(signer)
+    ///         .await?;
+    /// # Ok(())
+    /// }
+    /// ```
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.universe_domain = Some(v.into());
+        self
+    }
+
     /// Sets the client email for the signed URL.
     ///
     /// If not set, the email will be fetched from the signer.
@@ -463,7 +488,10 @@ impl SignedUrlBuilder {
             Some(e) if e.starts_with("http://") => e.clone(),
             Some(e) if e.starts_with("https://") => e.clone(),
             Some(e) => format!("https://{}", e),
-            None => "https://storage.googleapis.com".to_string(),
+            None => {
+                let universe_domain = self.universe_domain.as_deref().unwrap_or("googleapis.com");
+                format!("https://storage.{universe_domain}")
+            }
         }
     }
 
@@ -876,7 +904,7 @@ mod tests {
                 .universe_domain
                 .iter()
                 .fold(builder, |builder, universe_domain| {
-                    builder.with_endpoint(format!("https://storage.{}", universe_domain))
+                    builder.with_universe_domain(universe_domain)
                 });
             let builder = test
                 .client_endpoint
