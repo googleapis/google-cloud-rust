@@ -259,50 +259,60 @@ pub async fn buckets() -> Result<()> {
     println!("SUCCESS on create_bucket: {create:?}");
     assert_eq!(create.name, bucket_name);
 
-    let client_tracing = StorageControl::builder()
-        .with_tracing()
-        .with_retry_policy(retry_policy())
-        .build()
-        .await?;
+    let result: Result<()> = async {
+        let client_tracing = StorageControl::builder()
+            .with_tracing()
+            .with_retry_policy(retry_policy())
+            .build()
+            .await?;
 
-    let client_global = StorageControl::builder()
-        .with_endpoint("https://www.googleapis.com")
-        .build()
-        .await?;
+        let client_global = StorageControl::builder()
+            .with_endpoint("https://www.googleapis.com")
+            .build()
+            .await?;
 
-    for client in [&client_tracing, &client_global] {
-        println!("\nTesting get_bucket()");
-        let get = client.get_bucket().set_name(&bucket_name).send().await?;
-        println!("SUCCESS on get_bucket: {get:?}");
-        assert_eq!(get.name, bucket_name);
+        for client in [&client_tracing, &client_global] {
+            println!("\nTesting get_bucket()");
+            let get = client.get_bucket().set_name(&bucket_name).send().await?;
+            println!("SUCCESS on get_bucket: {get:?}");
+            assert_eq!(get.name, bucket_name);
 
-        println!("\nTesting list_buckets()");
-        let mut buckets = client
-            .list_buckets()
-            .set_parent(format!("projects/{project_id}"))
-            .by_item();
-        let mut bucket_names = Vec::new();
-        while let Some(bucket) = buckets.next().await {
-            bucket_names.push(bucket?.name);
+            println!("\nTesting list_buckets()");
+            let mut buckets = client
+                .list_buckets()
+                .set_parent(format!("projects/{project_id}"))
+                .by_item();
+            let mut bucket_names = Vec::new();
+            while let Some(bucket) = buckets.next().await {
+                bucket_names.push(bucket?.name);
+            }
+            println!("SUCCESS on list_buckets");
+            assert!(
+                bucket_names.iter().any(|name| name == &bucket_name),
+                "missing bucket name {bucket_name} in {bucket_names:?}"
+            );
+
+            buckets_iam(client, &bucket_name).await?;
+            folders(client, &bucket_name).await?;
         }
-        println!("SUCCESS on list_buckets");
-        assert!(
-            bucket_names.iter().any(|name| name == &bucket_name),
-            "missing bucket name {bucket_name} in {bucket_names:?}"
-        );
-
-        buckets_iam(client, &bucket_name).await?;
-        folders(client, &bucket_name).await?;
+        Ok(())
     }
+    .await;
 
     println!("\nTesting delete_bucket()");
-    control
+    let delete_result = control
         .delete_bucket()
         .set_name(bucket_name)
         .with_idempotency(true)
         .send()
-        .await?;
-    println!("SUCCESS on delete_bucket");
+        .await;
+
+    if let Err(ref e) = delete_result {
+        println!("ERROR on delete_bucket: {e:?}");
+    }
+
+    result?;
+    delete_result?;
 
     Ok(())
 }
