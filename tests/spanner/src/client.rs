@@ -23,6 +23,7 @@ const PROJECT_ID: &str = "test-project";
 const INSTANCE_ID: &str = "test-instance";
 
 pub fn get_emulator_host() -> Option<String> {
+    let _ = rustls::crypto::ring::default_provider().install_default();
     std::env::var("SPANNER_EMULATOR_HOST").ok()
 }
 

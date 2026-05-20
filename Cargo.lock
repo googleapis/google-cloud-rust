@@ -6157,6 +6157,7 @@ dependencies = [
  "prost-types",
  "rand 0.10.1",
  "reqwest 0.13.3",
+ "rustls",
  "serde_json",
  "spanner-grpc-mock",
  "time",
