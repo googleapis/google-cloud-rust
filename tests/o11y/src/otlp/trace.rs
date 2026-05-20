@@ -27,13 +27,14 @@
 //! # Ok(()) }
 //! ```
 
+use super::Error;
 use super::{OTEL_KEY_GCP_PROJECT_ID, OTEL_KEY_SERVICE_NAME};
 use crate::auth::CloudTelemetryAuthInterceptor;
 use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
 use opentelemetry_sdk::resource::ResourceDetector;
-use opentelemetry_sdk::trace::{SdkTracerProvider, TraceError};
+use opentelemetry_sdk::trace::SdkTracerProvider;
 
 const GCP_OTLP_DOMAIN_NAME: &str = "telemetry.googleapis.com";
 
@@ -119,12 +120,10 @@ impl Builder {
     }
 
     /// Builds and initializes the `SdkTracerProvider`.
-    pub async fn build(self) -> Result<SdkTracerProvider, TraceError> {
+    pub async fn build(self) -> Result<SdkTracerProvider, Error> {
         let credentials = match self.credentials {
             Some(c) => c,
-            None => AdcBuilder::default()
-                .build()
-                .map_err(|e| TraceError::Other(e.into()))?,
+            None => AdcBuilder::default().build().map_err(Error::credentials)?,
         };
         let interceptor = CloudTelemetryAuthInterceptor::new(credentials).await;
 
@@ -151,9 +150,7 @@ impl Builder {
             exporter_builder = exporter_builder.with_tls_config(tls_config);
         }
 
-        let exporter = exporter_builder
-            .build()
-            .map_err(|e| TraceError::Other(e.into()))?;
+        let exporter = exporter_builder.build().map_err(Error::create_exporter)?;
 
         let provider = SdkTracerProvider::builder()
             .with_resource(resource)

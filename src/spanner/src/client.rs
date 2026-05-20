@@ -20,7 +20,17 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
-use std::sync::atomic::{AtomicUsize, Ordering};
+use google_cloud_gax::options::{
+    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
+};
+use http::{
+    HeaderMap,
+    header::{HeaderName, HeaderValue},
+};
+use std::sync::{
+    LazyLock,
+    atomic::{AtomicUsize, Ordering},
+};
 
 pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
@@ -30,6 +40,7 @@ pub use crate::mutation::{Mutation, MutationGroup, ValueBinder, WriteBuilder};
 pub use crate::read::ConfiguredReadRequestBuilder;
 pub use crate::read::ReadRequest;
 pub use crate::read::ReadRequestBuilder;
+pub use crate::read_only_transaction::BeginTransactionOption;
 pub use crate::read_only_transaction::MultiUseReadOnlyTransaction;
 pub use crate::read_only_transaction::MultiUseReadOnlyTransactionBuilder;
 pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
@@ -116,6 +127,30 @@ macro_rules! define_idempotent_rpc {
 fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
     if options.idempotent().is_none() {
         options.set_idempotency(true);
+    }
+    options
+}
+
+pub(crate) static LAR_HEADER_MAP: LazyLock<HeaderMap> = LazyLock::new(|| {
+    let mut map = HeaderMap::new();
+    map.insert(
+        HeaderName::from_static("x-goog-spanner-route-to-leader"),
+        HeaderValue::from_static("true"),
+    );
+    map
+});
+
+pub(crate) fn amend_request_options_for_lar(
+    leader_aware_routing_enabled: bool,
+    mut options: GaxRequestOptions,
+) -> GaxRequestOptions {
+    if leader_aware_routing_enabled {
+        let mut headers = options
+            .get_extension::<HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        headers.extend((*LAR_HEADER_MAP).clone());
+        options = options.insert_extension(headers);
     }
     options
 }
@@ -1028,7 +1063,19 @@ mod tests {
                 "grpc-timeout header should be present for query"
             );
 
-            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            let (tx, rx) = tokio::sync::mpsc::channel(1);
+            let metadata = mock_v1::ResultSetMetadata {
+                transaction: Some(mock_v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }),
+                ..Default::default()
+            };
+            let prs = mock_v1::PartialResultSet {
+                metadata: Some(metadata),
+                ..Default::default()
+            };
+            tx.try_send(Ok(prs)).unwrap();
             Ok(Response::new(rx))
         });
 
@@ -1053,6 +1100,13 @@ mod tests {
             );
 
             Ok(Response::new(mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![42],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
                 stats: Some(mock_v1::ResultSetStats {
                     row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
                     ..Default::default()
@@ -1114,7 +1168,8 @@ mod tests {
                 let stmt = Statement::builder("SELECT 1")
                     .with_attempt_timeout(Duration::from_secs(10))
                     .build();
-                let _ = tx.execute_query(stmt).await?;
+                // TODO(#5673): ensure that transaction ID is processed even if ResultSet is dropped
+                let _rs = tx.execute_query(stmt).await?;
 
                 // Read
                 let req = ReadRequest::builder("Table", vec!["Col"])
@@ -1143,7 +1198,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn retry_policy_respected() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 
@@ -1180,6 +1235,13 @@ mod tests {
             .in_sequence(&mut seq)
             .returning(|_| {
                 Ok(Response::new(mock_v1::ResultSet {
+                    metadata: Some(mock_v1::ResultSetMetadata {
+                        transaction: Some(mock_v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
                     stats: Some(mock_v1::ResultSetStats {
                         row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
                         ..Default::default()
@@ -1328,6 +1390,13 @@ mod tests {
                 );
 
                 let res = ResultSet {
+                    metadata: Some(spanner_grpc_mock::google::spanner::v1::ResultSetMetadata {
+                        transaction: Some(Transaction {
+                            id: vec![1, 2, 3],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
                     stats: Some(ResultSetStats {
                         row_count: Some(RowCount::RowCountExact(1)),
                         ..Default::default()
@@ -1381,7 +1450,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn transaction_timeout_ticks_down() -> anyhow::Result<()> {
         use spanner_grpc_mock::google::spanner::v1::Transaction;
 
@@ -1395,16 +1464,6 @@ mod tests {
         });
 
         let mut seq = mockall::Sequence::new();
-
-        mock.expect_begin_transaction()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(|_| {
-                Ok(Response::new(Transaction {
-                    id: vec![1],
-                    ..Default::default()
-                }))
-            });
 
         let previous_timeout = Arc::new(AtomicU64::new(0));
         let prev_clone1 = previous_timeout.clone();
@@ -1423,15 +1482,6 @@ mod tests {
             });
 
         // Second attempt: Checks that timeout is <= previous
-        mock.expect_begin_transaction()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(|_| {
-                Ok(Response::new(Transaction {
-                    id: vec![2],
-                    ..Default::default()
-                }))
-            });
 
         let prev_clone2 = previous_timeout.clone();
         mock.expect_execute_sql()
@@ -1449,6 +1499,13 @@ mod tests {
                 prev_clone2.store(timeout_val, Ordering::SeqCst); // store for next check
 
                 let res = ResultSet {
+                    metadata: Some(spanner_grpc_mock::google::spanner::v1::ResultSetMetadata {
+                        transaction: Some(Transaction {
+                            id: vec![2],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
                     stats: Some(ResultSetStats {
                         row_count: Some(RowCount::RowCountExact(1)),
                         ..Default::default()

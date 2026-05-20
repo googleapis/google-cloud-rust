@@ -15,7 +15,9 @@
 use crate::client::{get_database_id, get_emulator_host, update_database_ddl};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
-use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement, TypeCode};
+use google_cloud_spanner::client::{
+    BeginTransactionOption, DatabaseClient, Kind, Spanner, Statement, TypeCode,
+};
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
 use google_cloud_spanner::model::result_set_stats::RowCount;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
@@ -204,24 +206,27 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
 }
 
 pub async fn multi_use_read_only_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    for explicit_begin in [false, true] {
-        test_multi_use_read_only_transaction(db_client, explicit_begin).await?;
+    for option in [
+        BeginTransactionOption::InlineBegin,
+        BeginTransactionOption::ExplicitBegin,
+    ] {
+        test_multi_use_read_only_transaction(db_client, option).await?;
     }
     Ok(())
 }
 
 async fn test_multi_use_read_only_transaction(
     db_client: &DatabaseClient,
-    explicit_begin: bool,
+    begin_transaction_option: BeginTransactionOption,
 ) -> anyhow::Result<()> {
     // Start a multi-use read-only transaction.
     let tx = db_client
         .read_only_transaction()
-        .with_explicit_begin_transaction(explicit_begin)
+        .with_begin_transaction_option(begin_transaction_option)
         .build()
         .await?;
 
-    if explicit_begin {
+    if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
         // Expect a read timestamp to have been chosen immediately.
         assert!(tx.read_timestamp().is_some());
     } else {
@@ -261,7 +266,7 @@ pub async fn multi_use_read_only_transaction_interleaved(
 ) -> anyhow::Result<()> {
     let tx = db_client
         .read_only_transaction()
-        .with_explicit_begin_transaction(false)
+        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -291,7 +296,7 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     // Start a multi-use read-only transaction with implicit begin.
     let tx = db_client
         .read_only_transaction()
-        .with_explicit_begin_transaction(false)
+        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -531,7 +536,7 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
 
     let tx = proxy_db_client
         .read_only_transaction()
-        .with_explicit_begin_transaction(false)
+        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 

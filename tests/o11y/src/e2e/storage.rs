@@ -110,7 +110,9 @@ async fn send_trace(project_id: &str) -> anyhow::Result<String> {
 async fn client_library_operations() -> anyhow::Result<()> {
     let (control, bucket) = storage_samples::create_test_bucket().await?;
     let _ = storage_data_operations(&bucket.name).await;
-    if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+    if let Err(e) =
+        storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone()).await
+    {
         tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
     };
     Ok(())

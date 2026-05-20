@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
 use crate::model::transaction_options::PartitionedDml;
@@ -23,6 +24,7 @@ use crate::statement::Statement;
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 
 /// A builder for [PartitionedDmlTransaction].
 ///
@@ -162,6 +164,8 @@ impl PartitionedDmlTransaction {
     /// See also: <https://docs.cloud.google.com/spanner/docs/dml-partitioned>
     pub async fn execute_update<T: Into<Statement>>(self, statement: T) -> crate::Result<i64> {
         let statement = statement.into();
+        let mut gax_options = statement.gax_options().clone();
+        self.amend_gax_options(&mut gax_options);
 
         let session_name = self.client.session_name();
         let transaction_options = TransactionOptions::default()
@@ -174,37 +178,50 @@ impl PartitionedDmlTransaction {
         };
         let base_request = statement.into_request();
         let channel_hint = self.client.spanner.next_channel_hint();
+        let client = self.client;
 
         // Execute the statement and retry if the transaction is aborted by Spanner.
-        retry_aborted(&*self.retry_policy, || async {
-            let transaction = self
-                .client
-                .spanner
-                .begin_transaction(
-                    begin_request.clone(),
-                    crate::RequestOptions::default(),
+        retry_aborted(&*self.retry_policy, || {
+            let begin_request = begin_request.clone();
+            let base_request = base_request.clone();
+            let session_name = session_name.clone();
+            let gax_options = gax_options.clone();
+            let client = client.clone();
+
+            async move {
+                let transaction = client
+                    .spanner
+                    .begin_transaction(begin_request, gax_options.clone(), channel_hint)
+                    .await?;
+
+                let execute_request =
+                    base_request
+                        .set_session(session_name)
+                        .set_transaction(TransactionSelector {
+                            selector: Some(transaction_selector::Selector::Id(
+                                transaction.id.clone(),
+                            )),
+                            ..Default::default()
+                        });
+
+                let stream_builder = client.spanner.execute_streaming_sql(
+                    execute_request,
+                    gax_options,
                     channel_hint,
-                )
-                .await?;
+                );
+                let stream = stream_builder.send().await?;
 
-            let execute_request = base_request
-                .clone()
-                .set_session(session_name.clone())
-                .set_transaction(TransactionSelector {
-                    selector: Some(transaction_selector::Selector::Id(transaction.id.clone())),
-                    ..Default::default()
-                });
-
-            let stream_builder = self.client.spanner.execute_streaming_sql(
-                execute_request.clone(),
-                crate::RequestOptions::default(),
-                channel_hint,
-            );
-            let stream = stream_builder.send().await?;
-
-            extract_lower_bound_update_count_from_stream(stream).await
+                extract_lower_bound_update_count_from_stream(stream).await
+            }
         })
         .await
+    }
+
+    fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
+        *options = amend_request_options_for_lar(
+            self.client.leader_aware_routing_enabled,
+            options.clone(),
+        );
     }
 }
 
@@ -433,5 +450,53 @@ mod tests {
             err.to_string()
                 .contains("no row_count_lower_bound was returned")
         );
+    }
+
+    #[google_cloud_test_macros::tokio_test_no_panics]
+    async fn leader_aware_routing_enabled_by_default() {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![0, 1, 2],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .expect("header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            let stream = adapt([Ok(v1::PartialResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(500)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            })]);
+            Ok(tonic::Response::from(stream))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = db_client
+            .partitioned_dml_transaction()
+            .build()
+            .await
+            .unwrap();
+        let statement = Statement::builder("UPDATE Users SET active = true").build();
+        let res: i64 = transaction.execute_update(statement).await.unwrap();
+        assert_eq!(res, 500);
     }
 }

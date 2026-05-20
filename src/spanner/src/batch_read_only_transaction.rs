@@ -16,7 +16,8 @@ use crate::database_client::DatabaseClient;
 use crate::model::PartitionOptions;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
+    BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
+    ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
@@ -50,7 +51,7 @@ impl BatchReadOnlyTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
         Self {
             inner: MultiUseReadOnlyTransactionBuilder::new(client)
-                .with_explicit_begin_transaction(true),
+                .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin),
         }
     }
 
@@ -394,6 +395,7 @@ impl Partition {
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
             session_name: req.session.clone(),
+            transaction_tag: None,
             operation: StreamOperation::Query(req.clone()),
             channel_hint,
             gax_options,
@@ -423,6 +425,7 @@ impl Partition {
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
             session_name: req.session.clone(),
+            transaction_tag: None,
             operation: StreamOperation::Read(req.clone()),
             channel_hint,
             gax_options,

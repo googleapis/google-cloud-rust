@@ -88,6 +88,7 @@ pub mod storage {
         let control = google_cloud_storage::client::StorageControl::builder()
             .build()
             .await?;
-        storage_samples::cleanup_bucket(control, bucket_name.to_string()).await
+        let project_id = google_cloud_test_utils::runtime_config::project_id()?;
+        storage_samples::cleanup_bucket(control, bucket_name.to_string(), project_id).await
     }
 }

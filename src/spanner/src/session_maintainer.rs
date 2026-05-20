@@ -168,6 +168,7 @@ mod tests {
     use super::*;
     use gaxi::grpc::tonic::Response;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1::Session as GrpcSession;
     use spanner_grpc_mock::{MockSpanner, start};
 
@@ -420,7 +421,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn transaction_session_consistency_across_retries() {
         use crate::database_client::DatabaseClient;
         use crate::transaction_retry_policy::tests::create_aborted_status;
@@ -470,6 +471,13 @@ mod tests {
             assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
 
             Ok(Response::new(mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
                 stats: Some(mock_v1::ResultSetStats {
                     row_count: Some(RowCount::RowCountExact(1)),
                     ..Default::default()
@@ -491,6 +499,13 @@ mod tests {
             assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
 
             Ok(Response::new(mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
                 stats: Some(mock_v1::ResultSetStats {
                     row_count: Some(RowCount::RowCountExact(1)),
                     ..Default::default()
@@ -535,6 +550,7 @@ mod tests {
         let db_client = DatabaseClient {
             spanner,
             session_maintainer: maintainer.clone(),
+            leader_aware_routing_enabled: true,
         };
 
         // 1. Create builder (captures session 1)

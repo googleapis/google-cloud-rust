@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::database_client::DatabaseClient;
+use crate::error::internal_error;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
 use crate::model::transaction_options::ReadOnly;
@@ -198,6 +199,18 @@ impl SingleUseReadOnlyTransaction {
     }
 }
 
+/// Options for how to start a transaction.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+#[non_exhaustive]
+pub enum BeginTransactionOption {
+    /// The transaction will be started inlined with the first statement.
+    /// This reduces the number of round-trips to Spanner by one.
+    #[default]
+    InlineBegin,
+    /// The transaction will be started explicitly using a `BeginTransaction` RPC.
+    ExplicitBegin,
+}
+
 /// A builder for [MultiUseReadOnlyTransaction].
 ///
 /// # Example
@@ -216,7 +229,7 @@ impl SingleUseReadOnlyTransaction {
 pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
-    explicit_begin: bool,
+    begin_transaction_option: BeginTransactionOption,
 }
 
 impl MultiUseReadOnlyTransactionBuilder {
@@ -224,19 +237,19 @@ impl MultiUseReadOnlyTransactionBuilder {
         Self {
             client,
             timestamp_bound: None,
-            explicit_begin: false,
+            begin_transaction_option: BeginTransactionOption::InlineBegin,
         }
     }
 
-    /// Sets whether the transaction should be explicitly started using a `BeginTransaction` RPC.
+    /// Sets the option for how to start a transaction.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::{Spanner, BeginTransactionOption};
     /// # use google_cloud_spanner::client::Statement;
-    /// # async fn set_explicit_begin(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # async fn set_begin_option(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.read_only_transaction().with_explicit_begin_transaction(true).build().await?;
+    /// let transaction = db_client.read_only_transaction().with_begin_transaction_option(BeginTransactionOption::ExplicitBegin).build().await?;
     /// let statement = Statement::builder("SELECT * FROM users").build();
     /// let result_set = transaction.execute_query(statement).await?;
     /// # Ok(())
@@ -245,7 +258,8 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///
     /// By default, the Spanner client will inline the `BeginTransaction` call with the first query
     /// in the transaction. This reduces the number of round-trips to Spanner that are needed for a
-    /// transaction. Setting this option to `true` can be beneficial for specific transaction shapes:
+    /// transaction. Setting this option to `ExplicitBegin` can be beneficial for specific transaction
+    /// shapes:
     ///
     /// 1. When the transaction executes multiple parallel queries at the start of the transaction.
     ///    Only one query can include a `BeginTransaction` option, and all other queries must wait for
@@ -256,9 +270,9 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///    not start a transaction and return a transaction ID. The transaction will then fall back to
     ///    executing a `BeginTransaction` RPC and retry the first query.
     ///
-    /// Default is `false` (inline begin).
-    pub fn with_explicit_begin_transaction(mut self, explicit: bool) -> Self {
-        self.explicit_begin = explicit;
+    /// Default is `BeginTransactionOption::InlineBegin`.
+    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+        self.begin_transaction_option = option;
         self
     }
 
@@ -290,6 +304,7 @@ impl MultiUseReadOnlyTransactionBuilder {
             &self.client,
             session_name,
             options,
+            None,
             channel_hint,
             request_options,
         )
@@ -325,18 +340,19 @@ impl MultiUseReadOnlyTransactionBuilder {
 
         let session_name = self.client.session_name();
         let channel_hint = self.client.spanner.next_channel_hint();
-        let selector = if self.explicit_begin {
-            self.begin(
-                session_name.clone(),
-                options,
-                channel_hint,
-                crate::RequestOptions::default(),
-            )
-            .await?
-        } else {
-            ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
-                TransactionState::NotStarted(options),
-            )))
+        let selector = match self.begin_transaction_option {
+            BeginTransactionOption::ExplicitBegin => {
+                self.begin(
+                    session_name.clone(),
+                    options,
+                    channel_hint,
+                    crate::RequestOptions::default(),
+                )
+                .await?
+            }
+            BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
+                Mutex::new(TransactionState::NotStarted(options)),
+            )),
         };
 
         Ok(MultiUseReadOnlyTransaction {
@@ -449,16 +465,21 @@ impl MultiUseReadOnlyTransaction {
 }
 
 /// Executes an explicit `BeginTransaction` RPC on Spanner.
-async fn execute_begin_transaction(
+pub(crate) async fn execute_begin_transaction(
     client: &crate::database_client::DatabaseClient,
     session_name: String,
     options: crate::model::TransactionOptions,
+    transaction_tag: Option<String>,
     channel_hint: usize,
     request_options: crate::RequestOptions,
 ) -> crate::Result<crate::model::Transaction> {
-    let request = crate::model::BeginTransactionRequest::default()
+    let mut request = crate::model::BeginTransactionRequest::default()
         .set_session(session_name)
         .set_options(options);
+    if let Some(tag) = transaction_tag {
+        request = request
+            .set_request_options(crate::model::RequestOptions::default().set_transaction_tag(tag));
+    }
 
     client
         .spanner
@@ -555,35 +576,64 @@ impl ReadContextTransactionSelector {
         &self,
         client: &crate::database_client::DatabaseClient,
         session_name: String,
+        transaction_tag: Option<String>,
         channel_hint: usize,
         request_options: crate::RequestOptions,
+        is_stream_fallback: bool,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
         };
 
-        let (options, notify_opt) = {
-            let guard = lazy.lock().expect("transaction state mutex poisoned");
+        enum FallbackAction {
+            Begin(
+                crate::model::TransactionOptions,
+                Option<Arc<tokio::sync::Notify>>,
+            ),
+            Wait(Arc<tokio::sync::Notify>),
+            None,
+        }
+
+        let action = {
+            let mut guard = lazy
+                .lock()
+                .map_err(|_| internal_error("transaction state mutex poisoned"))?;
             match &*guard {
-                // This should never happen.
-                TransactionState::NotStarted(_) => {
-                    return Err(crate::error::internal_error(
-                        "explicit begin with NotStarted state is currently unsupported",
-                    ));
+                TransactionState::NotStarted(options) => {
+                    // The transaction has not started yet. This thread becomes the "leader"
+                    // and transitions the state to Starting before performing the BeginTransaction RPC.
+                    let options = options.clone();
+                    let notify = Arc::new(tokio::sync::Notify::new());
+                    *guard = TransactionState::Starting(options.clone(), Arc::clone(&notify));
+                    FallbackAction::Begin(options, Some(notify))
                 }
                 TransactionState::Starting(options, notify) => {
-                    // The transaction is already in the process of starting. Only the "leader"
-                    // thread (the one that initiated the start) can reach here while the state is
-                    // Starting, and it does so if its initial query failed. We extract the options
-                    // to proceed with an explicit BeginTransaction RPC.
-                    (options.clone(), Some(Arc::clone(notify)))
+                    // The transaction is already in the process of starting. If this call originated from
+                    // an explicit begin request (`is_stream_fallback = false`), this thread is a follower
+                    // and must wait for the leader. If this call originated from a stream resume fallback
+                    // (`is_stream_fallback = true`), this thread is the stream leader whose initial query failed,
+                    // and it must proceed with an explicit BeginTransaction RPC.
+                    if !is_stream_fallback {
+                        FallbackAction::Wait(Arc::clone(notify))
+                    } else {
+                        FallbackAction::Begin(options.clone(), Some(Arc::clone(notify)))
+                    }
                 }
                 TransactionState::Started(_, _) | TransactionState::Failed(_) => {
                     // The transaction has already reached a terminal state (Started or Failed).
                     // No further action is needed in this explicit begin attempt.
-                    return Ok(());
+                    FallbackAction::None
                 }
             }
+        };
+
+        let (options, notify_opt) = match action {
+            FallbackAction::None => return Ok(()),
+            FallbackAction::Wait(notify) => {
+                notify.notified().await;
+                return Ok(());
+            }
+            FallbackAction::Begin(opts, notif) => (opts, notif),
         };
 
         // Only the leader thread will reach this point to perform the explicit begin.
@@ -593,6 +643,7 @@ impl ReadContextTransactionSelector {
             client,
             session_name.clone(),
             options,
+            transaction_tag,
             channel_hint,
             request_options,
         )
@@ -665,6 +716,46 @@ impl ReadContextTransactionSelector {
             Err(crate::error::internal_error(
                 "got a transaction id for an already Started or Failed transaction",
             ))
+        }
+    }
+
+    /// Returns the transaction ID if it is already available, without waiting.
+    ///
+    /// This method inspects the selector and returns the transaction ID if the
+    /// transaction has already started. It returns `None` if the transaction
+    /// has not yet started or is in a state without an ID.
+    pub(crate) fn get_id_no_wait(&self) -> crate::Result<Option<bytes::Bytes>> {
+        use crate::model::transaction_selector::Selector;
+        match self {
+            Self::Fixed(selector, _) => {
+                if let Some(Selector::Id(id)) = &selector.selector {
+                    return Ok(Some(id.clone()));
+                }
+            }
+            Self::Lazy(lazy) => {
+                let guard = lazy
+                    .lock()
+                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
+                if let TransactionState::Started(selector, _) = &*guard {
+                    if let Some(Selector::Id(id)) = &selector.selector {
+                        return Ok(Some(id.clone()));
+                    }
+                }
+            }
+        }
+        Ok(None)
+    }
+
+    /// Returns whether the transaction selector is currently in the `Starting` state.
+    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
+        match self {
+            Self::Lazy(lazy) => {
+                let guard = lazy
+                    .lock()
+                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
+                Ok(matches!(&*guard, TransactionState::Starting(_, _)))
+            }
+            _ => Ok(false),
         }
     }
 
@@ -742,9 +833,10 @@ impl ReadContext {
     /// Attempts to execute an explicit `begin_transaction` RPC if the current transaction
     /// selector is still in the `Lazy(NotStarted)` state. This is used as a
     /// fallback mechanism when an initial implicit begin attempt failed.
-    async fn begin_explicitly_if_not_started(
+    pub(crate) async fn begin_explicitly_if_not_started(
         &self,
         request_options: crate::RequestOptions,
+        is_stream_fallback: bool,
     ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
             return Ok(false);
@@ -758,8 +850,10 @@ impl ReadContext {
             .begin_explicitly(
                 &self.client,
                 self.session_name.clone(),
+                self.transaction_tag.clone(),
                 self.channel_hint,
                 request_options,
+                is_stream_fallback,
             )
             .await?;
         Ok(true)
@@ -782,7 +876,7 @@ macro_rules! execute_stream_with_retry {
                     return Err(e);
                 }
                 if $self
-                    .begin_explicitly_if_not_started($gax_options.clone())
+                    .begin_explicitly_if_not_started($gax_options.clone(), true)
                     .await?
                 {
                     $request.transaction = Some($self.transaction_selector.selector().await?);
@@ -804,6 +898,7 @@ macro_rules! execute_stream_with_retry {
             precommit_token_tracker: $self.precommit_token_tracker.clone(),
             client: $self.client.clone(),
             session_name: $self.session_name.clone(),
+            transaction_tag: $self.transaction_tag.clone(),
             operation: $operation_variant($request),
             channel_hint: $self.channel_hint,
             gax_options: $gax_options,
@@ -866,7 +961,9 @@ pub(crate) mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
-    use std::sync::Arc;
+    use std::sync::mpsc::channel as std_channel;
+    use std::sync::{Arc, Mutex as StdMutex};
+    use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::sync::{Barrier, Mutex, Notify, mpsc};
 
     #[test]
@@ -1066,7 +1163,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build()
             .await
             .expect("Failed to start tx");
@@ -1153,7 +1250,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1283,7 +1380,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1373,7 +1470,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1432,7 +1529,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1476,7 +1573,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1547,7 +1644,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1633,7 +1730,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1709,7 +1806,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -1842,7 +1939,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -2025,7 +2122,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -2134,7 +2231,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2228,7 +2325,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -2300,7 +2397,7 @@ pub(crate) mod tests {
         // Access internal state for unit testing.
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2375,7 +2472,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2384,6 +2481,125 @@ pub(crate) mod tests {
             .await?;
         assert!(rs.next().await.is_some());
         assert!(rs.next().await.is_none());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn leader_aware_routing_query_in_read_only() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            assert!(
+                req.metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none()
+            );
+            let stream = adapt([Ok(mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            })]);
+            Ok(tonic::Response::from(stream))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client.single_use().build();
+        let _rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn execute_concurrent_begin_explicitly_redundancy_prevention() -> anyhow::Result<()> {
+        let (tx_rpc, rx_rpc) = std_channel();
+        let (tx_started, rx_started) = oneshot_channel();
+        let tx_started_mutex = StdMutex::new(Some(tx_started));
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // Task 1 (leader) fires the initial query inline.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                if let Some(tx) = tx_started_mutex.lock().expect("mutex poisoned").take() {
+                    let _ = tx.send(());
+                }
+                rx_rpc.recv().expect("channel broken");
+                let (tx, rx) = mpsc::channel(1);
+                let metadata = mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![42],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let prs = mock_v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                tx.try_send(Ok(prs)).expect("send should succeed");
+                Ok(tonic::Response::new(rx))
+            });
+
+        // Task 2 (follower) arrives while Task 1 is in flight, suspends until Task 1 completes,
+        // and then successfully fires its query using the newly extracted transaction ID (vec![42]).
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.transaction,
+                    Some(mock_v1::TransactionSelector {
+                        selector: Some(mock_v1::transaction_selector::Selector::Id(vec![42])),
+                    })
+                );
+                let (_tx, rx) = mpsc::channel(1);
+                Ok(tonic::Response::new(rx))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = Arc::new(
+            db_client
+                .read_only_transaction()
+                .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+                .build()
+                .await?,
+        );
+
+        let tx_leader = Arc::clone(&tx);
+        let handle_leader = tokio::spawn(async move {
+            let mut rs = tx_leader
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            let _ = rs.next().await;
+            Ok::<_, crate::Error>(())
+        });
+
+        rx_started.await.expect("oneshot broken");
+
+        // Now the state is Starting and the leader is blocked inside execute_streaming_sql.
+        // Task 2 executes a concurrent query, which must wait for the leader rather than firing a redundant RPC.
+        let tx_follower = Arc::clone(&tx);
+        let handle_follower = tokio::spawn(async move {
+            let mut rs = tx_follower
+                .execute_query(Statement::builder("SELECT 2").build())
+                .await?;
+            let _ = rs.next().await;
+            Ok::<_, crate::Error>(())
+        });
+
+        // Unblock the leader
+        tx_rpc.send(()).expect("send failed");
+
+        handle_leader.await.expect("Task 1 panicked")?;
+        handle_follower.await.expect("Task 2 panicked")?;
 
         Ok(())
     }

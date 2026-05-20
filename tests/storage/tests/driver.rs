@@ -62,10 +62,11 @@ mod storage {
             Ok(())
         };
         let result = variants().await.inspect_err(anydump);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
-            .await
-            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
         result
     }
 
@@ -98,10 +99,11 @@ mod storage {
         )
         .await
         .inspect_err(anydump);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
-            .await
-            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
         result
     }
 
@@ -114,10 +116,11 @@ mod storage {
         let result = integration_tests_storage::read_object::run(&bucket.name)
             .await
             .inspect_err(anydump);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
-            .await
-            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
         result
     }
 
@@ -130,10 +133,11 @@ mod storage {
         let result = integration_tests_storage::write_object::run(&bucket.name)
             .await
             .inspect_err(anydump);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
-            .await
-            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
         result
     }
 
@@ -148,10 +152,11 @@ mod storage {
             integration_tests_storage::object_names(builder, control.clone(), &bucket.name)
                 .await
                 .inspect_err(anydump);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
-            .await
-            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
         result
     }
 
@@ -164,10 +169,11 @@ mod storage {
         let result = integration_tests_storage::bidi_read::run(&bucket.name)
             .await
             .inspect_err(anydump);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
-            .await
-            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
         result
     }
 }

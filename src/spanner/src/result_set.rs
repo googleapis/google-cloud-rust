@@ -82,6 +82,7 @@ struct ResultSetWorker {
     // Fields for retries and buffering of a stream of PartialResultSets.
     client: DatabaseClient,
     session_name: String,
+    transaction_tag: Option<String>,
     operation: StreamOperation,
     last_resume_token: Bytes,
     partial_result_sets_buffer: VecDeque<PartialResultSet>,
@@ -116,6 +117,7 @@ pub(crate) struct ResultSetParams {
     pub precommit_token_tracker: PrecommitTokenTracker,
     pub client: DatabaseClient,
     pub session_name: String,
+    pub transaction_tag: Option<String>,
     pub operation: StreamOperation,
     pub channel_hint: usize,
     pub gax_options: GaxRequestOptions,
@@ -135,6 +137,7 @@ impl ResultSet {
             precommit_token_tracker,
             client,
             session_name,
+            transaction_tag,
             operation,
             channel_hint,
             gax_options,
@@ -163,6 +166,7 @@ impl ResultSet {
             precommit_token_tracker,
             client,
             session_name,
+            transaction_tag,
             operation,
             last_resume_token: Bytes::new(),
             partial_result_sets_buffer: VecDeque::new(),
@@ -468,8 +472,10 @@ impl ResultSetWorker {
             .begin_explicitly(
                 &self.client,
                 self.session_name.clone(),
+                self.transaction_tag.clone(),
                 self.channel_hint,
                 self.gax_options.clone(),
+                true,
             )
             .await?;
 
@@ -738,6 +744,7 @@ impl ResultSet {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::client::BeginTransactionOption;
     use crate::client::Spanner;
     use crate::client::Statement;
     use crate::key::KeySet;
@@ -1610,6 +1617,7 @@ pub(crate) mod tests {
             precommit_token_tracker: tracker.clone(),
             client: db_client,
             session_name: "session".to_string(),
+            transaction_tag: None,
             operation: StreamOperation::Query(req),
             channel_hint: 0,
             gax_options: GaxRequestOptions::default(),
@@ -2111,7 +2119,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2189,7 +2197,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2275,7 +2283,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2341,7 +2349,7 @@ pub(crate) mod tests {
         // Use explicitly deferred Lazy begin transaction!
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2507,7 +2515,7 @@ pub(crate) mod tests {
         // Use inline begin transaction
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 

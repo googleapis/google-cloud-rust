@@ -13,12 +13,18 @@
 // limitations under the License.
 
 // [START storage_get_requester_pays_status]
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::client::StorageControl;
 
-pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+pub async fn sample(
+    client: &StorageControl,
+    bucket_id: &str,
+    user_project: &str,
+) -> anyhow::Result<()> {
     let bucket = client
         .get_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))
+        .with_quota_project(user_project)
         .send()
         .await?;
     println!(
