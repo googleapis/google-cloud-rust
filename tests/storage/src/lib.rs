@@ -227,17 +227,17 @@ pub async fn object_names(
     Ok(())
 }
 
-pub async fn buckets(builder: StorageControlBuilder) -> Result<()> {
+pub async fn buckets() -> Result<()> {
     let project_id = project_id()?;
-    let client = builder.build().await?;
 
-    cleanup_stale_buckets(&client, &project_id).await?;
+    let control = StorageControl::builder().build().await?;
+    cleanup_stale_buckets(&control, &project_id).await?;
 
     let bucket_id = random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
 
     println!("\nTesting create_bucket()");
-    let create = client
+    let create = control
         .create_bucket()
         .set_parent("projects/_")
         .set_bucket_id(bucket_id)
@@ -259,31 +259,44 @@ pub async fn buckets(builder: StorageControlBuilder) -> Result<()> {
     println!("SUCCESS on create_bucket: {create:?}");
     assert_eq!(create.name, bucket_name);
 
-    println!("\nTesting get_bucket()");
-    let get = client.get_bucket().set_name(&bucket_name).send().await?;
-    println!("SUCCESS on get_bucket: {get:?}");
-    assert_eq!(get.name, bucket_name);
+    let client_tracing = StorageControl::builder()
+        .with_tracing()
+        .with_retry_policy(retry_policy())
+        .build()
+        .await?;
 
-    println!("\nTesting list_buckets()");
-    let mut buckets = client
-        .list_buckets()
-        .set_parent(format!("projects/{project_id}"))
-        .by_item();
-    let mut bucket_names = Vec::new();
-    while let Some(bucket) = buckets.next().await {
-        bucket_names.push(bucket?.name);
+    let client_global = StorageControl::builder()
+        .with_endpoint("https://www.googleapis.com")
+        .build()
+        .await?;
+
+    for client in [&client_tracing, &client_global] {
+        println!("\nTesting get_bucket()");
+        let get = client.get_bucket().set_name(&bucket_name).send().await?;
+        println!("SUCCESS on get_bucket: {get:?}");
+        assert_eq!(get.name, bucket_name);
+
+        println!("\nTesting list_buckets()");
+        let mut buckets = client
+            .list_buckets()
+            .set_parent(format!("projects/{project_id}"))
+            .by_item();
+        let mut bucket_names = Vec::new();
+        while let Some(bucket) = buckets.next().await {
+            bucket_names.push(bucket?.name);
+        }
+        println!("SUCCESS on list_buckets");
+        assert!(
+            bucket_names.iter().any(|name| name == &bucket_name),
+            "missing bucket name {bucket_name} in {bucket_names:?}"
+        );
+
+        buckets_iam(client, &bucket_name).await?;
+        folders(client, &bucket_name).await?;
     }
-    println!("SUCCESS on list_buckets");
-    assert!(
-        bucket_names.iter().any(|name| name == &bucket_name),
-        "missing bucket name {bucket_name} in {bucket_names:?}"
-    );
-
-    buckets_iam(&client, &bucket_name).await?;
-    folders(&client, &bucket_name).await?;
 
     println!("\nTesting delete_bucket()");
-    client
+    control
         .delete_bucket()
         .set_name(bucket_name)
         .with_idempotency(true)

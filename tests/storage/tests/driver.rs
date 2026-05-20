@@ -14,21 +14,16 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod storage {
-    use google_cloud_storage::client::{Storage, StorageControl};
+    use google_cloud_storage::client::Storage;
     use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
     use integration_tests_storage::StorageBuilder;
-    use integration_tests_storage::StorageControlBuilder;
-    use integration_tests_storage::retry_policy;
     use test_case::test_case;
 
-    #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread")]
-    #[ignore = "flaky test, see #3916"]
-    async fn run_storage_control_buckets(builder: StorageControlBuilder) -> anyhow::Result<()> {
+    async fn run_storage_control_buckets() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_storage::buckets(builder)
+        integration_tests_storage::buckets()
             .await
             .inspect_err(anydump)
     }
