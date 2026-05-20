@@ -436,8 +436,11 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_batch_update(&self, batch: BatchDml) -> crate::Result<Vec<i64>> {
-        let mut batch = batch;
+    pub async fn execute_batch_update<T: Into<BatchDml>>(
+        &self,
+        batch: T,
+    ) -> crate::Result<Vec<i64>> {
+        let mut batch = batch.into();
         self.amend_gax_options(&mut batch.gax_options);
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
@@ -1125,6 +1128,86 @@ mod tests {
     #[tokio::test]
     async fn read_write_transaction_execute_batch_update_inline() -> anyhow::Result<()> {
         run_read_write_transaction_execute_batch_update(BeginTransactionOption::InlineBegin).await
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_batch_update_vec() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_batch_dml()
+            .once()
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(req.statements.len(), 2);
+                assert_eq!(
+                    req.statements[0].sql,
+                    "UPDATE Users SET Name = 'Alice' WHERE Id = 1"
+                );
+                assert_eq!(
+                    req.statements[1].sql,
+                    "UPDATE Users SET Name = 'Bob' WHERE Id = 2"
+                );
+
+                let selector = req
+                    .transaction
+                    .expect("missing transaction selector")
+                    .selector
+                    .expect("missing selector");
+                assert!(matches!(
+                    selector,
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+
+                let metadata = v1::ResultSetMetadata {
+                    transaction: Some(v1::Transaction {
+                        id: vec![4, 5, 6],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![
+                        v1::ResultSet {
+                            metadata: Some(metadata),
+                            stats: Some(v1::ResultSetStats {
+                                row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                        v1::ResultSet {
+                            stats: Some(v1::ResultSetStats {
+                                row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                    ],
+                    status: Some(spanner_grpc_mock::google::rpc::Status {
+                        code: 0,
+                        message: "OK".into(),
+                        details: vec![],
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .build(None)
+            .await?;
+
+        let statements = vec![
+            "UPDATE Users SET Name = 'Alice' WHERE Id = 1",
+            "UPDATE Users SET Name = 'Bob' WHERE Id = 2",
+        ];
+
+        let counts = transaction.execute_batch_update(statements).await?;
+
+        assert_eq!(counts, vec![1, 1]);
+        Ok(())
     }
 
     async fn run_read_write_transaction_execute_batch_update(
