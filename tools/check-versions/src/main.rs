@@ -14,8 +14,8 @@
 
 use serde::Deserialize;
 use std::collections::HashMap;
-use std::error::Error;
 use std::fs::{self, File};
+use std::path::Path;
 use toml_edit::DocumentMut;
 
 #[derive(Debug, Deserialize)]
@@ -29,38 +29,90 @@ struct Library {
     version: Option<String>,
 }
 
-fn parse_librarian_yaml(path: impl AsRef<std::path::Path>) -> Result<Vec<Library>, Box<dyn Error>> {
+fn parse_librarian_yaml(path: &Path) -> anyhow::Result<Vec<Library>> {
     let file = File::open(path)?;
     let config: LibrarianConfig = serde_yaml::from_reader(file)?;
     Ok(config.libraries)
 }
 
-fn parse_root_cargo_deps(path: impl AsRef<std::path::Path>) -> Result<HashMap<String, String>, Box<dyn Error>> {
+fn parse_root_cargo_deps(path: &Path) -> anyhow::Result<HashMap<String, String>> {
     let content = fs::read_to_string(path)?;
     let doc = content.parse::<DocumentMut>()?;
-    let mut dependencies = HashMap::new();
+    Ok(cargo_deps(doc))
+}
 
-    if let Some(deps) = doc
+fn cargo_deps(doc: DocumentMut) -> HashMap<String, String> {
+    let Some(deps) = doc
         .get("workspace")
         .and_then(|w| w.as_table_like())
         .and_then(|wt| wt.get("dependencies"))
-        .and_then(|d| d.as_table_like())
-    {
-        for (key, value) in deps.iter() {
+        .and_then(|d| d.as_table_like()) else {
+        return HashMap::new();
+    };
+
+    deps.iter()
+        .filter_map(|(key, value)| {
             if let Some(dep_table) = value.as_table_like() {
                 if let Some(ver) = dep_table.get("version").and_then(|v| v.as_str()) {
-                    dependencies.insert(key.to_string(), ver.to_string());
+                    return Some((key.to_string(), ver.to_string()));
                 }
             } else if let Some(ver) = value.as_str() {
-                dependencies.insert(key.to_string(), ver.to_string());
+                return Some((key.to_string(), ver.to_string()));
+            }
+            None
+        })
+        .collect()
+}
+
+fn check_version_mismatches(
+    libraries: &[Library],
+    root_deps: &HashMap<String, String>,
+    ws_packages: &HashMap<&str, &cargo_metadata::Package>,
+    workspace_root: &Path,
+) -> Vec<String> {
+    let mut mismatches = Vec::new();
+
+    for lib in libraries {
+        let name = &lib.name;
+        let expected_version = match &lib.version {
+            Some(v) => v,
+            None => continue, // Skip libraries with no version property
+        };
+
+        // 1. Check package version in its own Cargo.toml
+        if let Some(pkg) = ws_packages.get(name.as_str()) {
+            let pkg_version = pkg.version.to_string();
+            if pkg_version != *expected_version {
+                let rel_path = pkg
+                    .manifest_path
+                    .as_std_path()
+                    .strip_prefix(workspace_root)
+                    .unwrap_or(pkg.manifest_path.as_std_path());
+                mismatches.push(format!(
+                    "  - {}: expected {expected_version}, got {pkg_version} in Cargo.toml ({})",
+                    name, rel_path.display()
+                ));
+            }
+        } else {
+            println!(
+                "Warning: Library '{name}' listed in librarian.yaml is not a package in the workspace."
+            );
+        }
+
+        // 2. Check package version in root Cargo.toml workspace.dependencies
+        if let Some(root_ver) = root_deps.get(name) {
+            if root_ver != expected_version {
+                mismatches.push(format!(
+                    "  - {name}: expected {expected_version}, got {root_ver} in root Cargo.toml [workspace.dependencies]"
+                ));
             }
         }
     }
 
-    Ok(dependencies)
+    mismatches
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> anyhow::Result<()> {
     let metadata = cargo_metadata::MetadataCommand::new().exec()?;
     let workspace_root = metadata.workspace_root.as_std_path();
 
@@ -80,49 +132,22 @@ fn main() -> Result<(), Box<dyn Error>> {
         ws_packages.insert(pkg.name.as_str(), pkg);
     }
 
-    let mut mismatches = Vec::new();
-
-    for lib in libraries {
-        let name = &lib.name;
-        let expected_version = match &lib.version {
-            Some(v) => v,
-            None => continue, // Skip libraries with no version property
-        };
-
-        // 1. Check package version in its own Cargo.toml
-        if let Some(pkg) = ws_packages.get(name.as_str()) {
-            let pkg_version = pkg.version.to_string();
-            if pkg_version != *expected_version {
-                let rel_path = pkg.manifest_path.strip_prefix(&metadata.workspace_root).unwrap_or(&pkg.manifest_path);
-                mismatches.push(format!(
-                    "  - {}: expected {}, got {} in Cargo.toml ({})",
-                    name, expected_version, pkg_version, rel_path
-                ));
-            }
-        } else {
-            println!("Warning: Library '{}' listed in librarian.yaml is not a package in the workspace.", name);
-        }
-
-        // 2. Check package version in root Cargo.toml workspace.dependencies
-        if let Some(root_ver) = root_deps.get(name) {
-            if root_ver != expected_version {
-                mismatches.push(format!(
-                    "  - {}: expected {}, got {} in root Cargo.toml [workspace.dependencies]",
-                    name, expected_version, root_ver
-                ));
-            }
-        }
-    }
+    let mismatches = check_version_mismatches(
+        &libraries,
+        &root_deps,
+        &ws_packages,
+        metadata.workspace_root.as_std_path(),
+    );
 
     if !mismatches.is_empty() {
         eprintln!("\nFound version mismatches:");
         for m in mismatches {
-            eprintln!("{}", m);
+            eprintln!("{m}");
         }
         eprintln!("\nUse librarian to change versions of a library.");
         std::process::exit(1);
-    } else {
-        println!("\nAll versions match perfectly!");
-        Ok(())
     }
+
+    println!("\nAll versions match perfectly!");
+    Ok(())
 }
