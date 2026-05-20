@@ -24,15 +24,17 @@ struct Library {
     version: Option<String>,
 }
 
-fn parse_librarian_yaml(path: &str) -> Result<Vec<Library>, Box<dyn Error>> {
+fn parse_librarian_yaml(path: impl AsRef<std::path::Path>) -> Result<Vec<Library>, Box<dyn Error>> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
     let mut libraries = Vec::new();
     let mut current_name: Option<String> = None;
     let mut current_version: Option<String> = None;
 
-    let name_re = Regex::new(r"^  - name:[ \t]*([a-zA-Z0-9_-]+)").unwrap();
-    let version_re = Regex::new(r#"^    version:[ \t]*"?([0-9\.]+)"?"#).unwrap();
+    let name_re = Regex::new(r"^  - name:[ \t]*([a-zA-Z0-9_-]+)")
+        .map_err(|e| format!("invalid name regex: {e}"))?;
+    let version_re = Regex::new(r#"^    version:[ \t]*"?([0-9\.]+)"?"#)
+        .map_err(|e| format!("invalid version regex: {e}"))?;
 
     for line in reader.lines() {
         let line = line?;
@@ -78,7 +80,7 @@ fn parse_librarian_yaml(path: &str) -> Result<Vec<Library>, Box<dyn Error>> {
     Ok(libraries)
 }
 
-fn parse_root_cargo_deps(path: &str) -> Result<HashMap<String, String>, Box<dyn Error>> {
+fn parse_root_cargo_deps(path: impl AsRef<std::path::Path>) -> Result<HashMap<String, String>, Box<dyn Error>> {
     let content = fs::read_to_string(path)?;
     let doc = content.parse::<DocumentMut>()?;
     let mut dependencies = HashMap::new();
@@ -110,15 +112,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let librarian_path = workspace_root.join("librarian.yaml");
     let root_cargo_path = workspace_root.join("Cargo.toml");
 
-    let librarian_path_str = librarian_path.to_str().ok_or("Invalid path")?;
-    let root_cargo_path_str = root_cargo_path.to_str().ok_or("Invalid path")?;
-
     println!("Parsing librarian.yaml...");
-    let libraries = parse_librarian_yaml(librarian_path_str)?;
+    let libraries = parse_librarian_yaml(&librarian_path)?;
     println!("Found {} libraries in librarian.yaml.", libraries.len());
 
     println!("Parsing root Cargo.toml...");
-    let root_deps = parse_root_cargo_deps(root_cargo_path_str)?;
+    let root_deps = parse_root_cargo_deps(&root_cargo_path)?;
 
     let workspace_packages = metadata.workspace_packages();
     let mut ws_packages = HashMap::new();
