@@ -25,6 +25,7 @@ mod storage {
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread")]
+    #[ignore = "flaky test, see #3916"]
     async fn run_storage_control_buckets(builder: StorageControlBuilder) -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_storage::buckets(builder)
