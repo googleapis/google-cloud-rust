@@ -54,6 +54,20 @@ where
             self.inner.list_attachments(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_attachment(
+        &self,
+        req: crate::model::GetAttachmentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Attachment>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CaseAttachmentService::get_attachment",
+            self.inner.get_attachment(req, options));
+        pending.await
+    }
 }
 
 /// Implements a [CaseService](super::stub::CaseService) decorator for logging and tracing.
@@ -246,6 +260,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CommentService::create_comment",
             self.inner.create_comment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_comment(
+        &self,
+        req: crate::model::GetCommentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Comment>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CommentService::get_comment",
+            self.inner.get_comment(req, options));
         pending.await
     }
 }

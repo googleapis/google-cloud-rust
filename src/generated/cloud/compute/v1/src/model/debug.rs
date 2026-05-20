@@ -4501,9 +4501,11 @@ impl std::fmt::Debug for super::FirewallPolicyRule {
         debug_struct.field("rule_name", &self.rule_name);
         debug_struct.field("rule_tuple_count", &self.rule_tuple_count);
         debug_struct.field("security_profile_group", &self.security_profile_group);
+        debug_struct.field("target_forwarding_rules", &self.target_forwarding_rules);
         debug_struct.field("target_resources", &self.target_resources);
         debug_struct.field("target_secure_tags", &self.target_secure_tags);
         debug_struct.field("target_service_accounts", &self.target_service_accounts);
+        debug_struct.field("target_type", &self.target_type);
         debug_struct.field("tls_inspect", &self.tls_inspect);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

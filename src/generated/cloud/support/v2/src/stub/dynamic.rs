@@ -22,6 +22,12 @@ pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListAttachmentsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListAttachmentsResponse>>;
+
+    async fn get_attachment(
+        &self,
+        req: crate::model::GetAttachmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attachment>>;
 }
 
 /// All implementations of [super::CaseAttachmentService] also implement [CaseAttachmentService].
@@ -34,6 +40,15 @@ impl<T: super::CaseAttachmentService> CaseAttachmentService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListAttachmentsResponse>> {
         T::list_attachments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_attachment(
+        &self,
+        req: crate::model::GetAttachmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attachment>> {
+        T::get_attachment(self, req, options).await
     }
 }
 
@@ -179,6 +194,12 @@ pub trait CommentService: std::fmt::Debug + Send + Sync {
         req: crate::model::CreateCommentRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Comment>>;
+
+    async fn get_comment(
+        &self,
+        req: crate::model::GetCommentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Comment>>;
 }
 
 /// All implementations of [super::CommentService] also implement [CommentService].
@@ -200,5 +221,14 @@ impl<T: super::CommentService> CommentService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Comment>> {
         T::create_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_comment(
+        &self,
+        req: crate::model::GetCommentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Comment>> {
+        T::get_comment(self, req, options).await
     }
 }

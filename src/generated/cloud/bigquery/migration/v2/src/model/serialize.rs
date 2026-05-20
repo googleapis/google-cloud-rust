@@ -18,6 +18,62 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::AssessmentTaskDetails {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.input_path.is_empty() {
+            state.serialize_entry("inputPath", &self.input_path)?;
+        }
+        if !self.output_dataset.is_empty() {
+            state.serialize_entry("outputDataset", &self.output_dataset)?;
+        }
+        if !self.querylogs_path.is_empty() {
+            state.serialize_entry("querylogsPath", &self.querylogs_path)?;
+        }
+        if !self.data_source.is_empty() {
+            state.serialize_entry("dataSource", &self.data_source)?;
+        }
+        if self.feature_handle.is_some() {
+            state.serialize_entry("featureHandle", &self.feature_handle)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AssessmentFeatureHandle {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.add_shareable_dataset.is_some() {
+            state.serialize_entry("addShareableDataset", &self.add_shareable_dataset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::MigrationWorkflow {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -64,6 +120,9 @@ impl serde::ser::Serialize for super::MigrationTask {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.assessment_task_details() {
+            state.serialize_entry("assessmentTaskDetails", value)?;
+        }
         if let Some(value) = self.translation_config_details() {
             state.serialize_entry("translationConfigDetails", value)?;
         }
@@ -243,6 +302,9 @@ impl serde::ser::Serialize for super::TranslationTaskResult {
         }
         if !self.report_log_messages.is_empty() {
             state.serialize_entry("reportLogMessages", &self.report_log_messages)?;
+        }
+        if !self.console_uri.is_empty() {
+            state.serialize_entry("consoleUri", &self.console_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1347,6 +1409,56 @@ impl serde::ser::Serialize for super::TranslationDetails {
         if !self.target_types.is_empty() {
             state.serialize_entry("targetTypes", &self.target_types)?;
         }
+        if self.suggestion_config.is_some() {
+            state.serialize_entry("suggestionConfig", &self.suggestion_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SuggestionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.skip_suggestion_steps.is_empty() {
+            state.serialize_entry("skipSuggestionSteps", &self.skip_suggestion_steps)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SuggestionStep {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.suggestion_type) {
+            state.serialize_entry("suggestionType", &self.suggestion_type)?;
+        }
+        if !wkt::internal::is_default(&self.rewrite_target) {
+            state.serialize_entry("rewriteTarget", &self.rewrite_target)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1396,6 +1508,9 @@ impl serde::ser::Serialize for super::SourceSpec {
         }
         if let Some(value) = self.literal() {
             state.serialize_entry("literal", value)?;
+        }
+        if let Some(value) = self.gcs_file_path() {
+            state.serialize_entry("gcsFilePath", value)?;
         }
         if !self.encoding.is_empty() {
             state.serialize_entry("encoding", &self.encoding)?;
