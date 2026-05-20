@@ -823,8 +823,8 @@ pub async fn cleanup_bucket(
     name: String,
     project_id: String,
 ) -> anyhow::Result<()> {
-    let project_id = clean_project_id(&project_id).to_string();
-    empty_bucket_contents(&client, &name, &project_id).await?;
+    let project_id = clean_project_id(&project_id);
+    empty_bucket_contents(&client, &name, project_id).await?;
     delete_bucket_with_error_backoff(&client, &name).await
 }
 
