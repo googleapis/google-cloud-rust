@@ -25,4 +25,5 @@ repository.workspace = true
 [dependencies]
 cargo_metadata.workspace = true
 toml_edit = { workspace = true, features = ["display", "parse"] }
-regex.workspace          = true
+serde = { workspace = true, features = ["derive"] }
+serde_yaml = "0.9"
