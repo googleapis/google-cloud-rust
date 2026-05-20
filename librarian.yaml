@@ -1032,7 +1032,7 @@ libraries:
           ignore: true
           package: ""
   - name: google-cloud-lro
-    version: 1.6.0
+    version: 1.7.0
     copyright_year: "2025"
     output: src/lro
   - name: google-cloud-lustre-v1
