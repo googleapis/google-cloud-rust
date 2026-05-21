@@ -172,7 +172,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::Session as GrpcSession;
     use spanner_grpc_mock::{MockSpanner, start};
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn session_maintenance() {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -261,7 +261,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn maintain_success() {
         let mut mock = MockSpanner::new();
         mock.expect_create_session().once().returning(|_| {
@@ -297,13 +297,13 @@ mod tests {
         ManagedSessionMaintainer::maintain(m, SESSION_MAINTENANCE_AGE).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn maintain_dropped() {
         let weak = Weak::<ManagedSessionMaintainer>::new();
         assert!(weak.upgrade().is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn check_and_replace_session_no_op() {
         let mut mock = MockSpanner::new();
         mock.expect_create_session().once().returning(|_| {
@@ -354,7 +354,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn maintain_creation_fails() {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();

@@ -560,12 +560,12 @@ mod tests {
         static_assertions::assert_impl_all!(TransactionRunner: Send, Sync);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_success_explicit() {
         run_success(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_success_inline() {
         run_success(BeginTransactionOption::InlineBegin).await;
     }
@@ -631,12 +631,12 @@ mod tests {
         assert_eq!(res, 1);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_success_with_commit_stats_explicit() {
         run_success_with_commit_stats(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_success_with_commit_stats_inline() {
         run_success_with_commit_stats(BeginTransactionOption::InlineBegin).await;
     }
@@ -724,12 +724,12 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_aborted_retry_explicit() -> anyhow::Result<()> {
         run_with_aborted_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_aborted_retry_inline() -> anyhow::Result<()> {
         run_with_aborted_retry(BeginTransactionOption::InlineBegin).await
     }
@@ -870,12 +870,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_query_stream_with_aborted_retry_explicit() -> anyhow::Result<()> {
         run_query_stream_with_aborted_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_query_stream_with_aborted_retry_inline() -> anyhow::Result<()> {
         run_query_stream_with_aborted_retry(BeginTransactionOption::InlineBegin).await
     }
@@ -1062,12 +1062,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_non_aborted_error_explicit() {
         run_with_non_aborted_error(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_non_aborted_error_inline() {
         run_with_non_aborted_error(BeginTransactionOption::InlineBegin).await;
     }
@@ -1116,12 +1116,12 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_non_aborted_error_and_rollback_fails_explicit() {
         run_with_non_aborted_error_and_rollback_fails(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_non_aborted_error_and_rollback_fails_inline() {
         run_with_non_aborted_error_and_rollback_fails(BeginTransactionOption::InlineBegin).await;
     }
@@ -1173,12 +1173,12 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_commit_aborted_retry_explicit() {
         run_commit_aborted_retry(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_commit_aborted_retry_inline() {
         run_commit_aborted_retry(BeginTransactionOption::InlineBegin).await;
     }
@@ -1258,12 +1258,12 @@ mod tests {
         assert_eq!(res, 5);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_begin_transaction_fails_explicit() {
         run_begin_transaction_fails(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_begin_transaction_fails_inline() {
         run_begin_transaction_fails(BeginTransactionOption::InlineBegin).await;
     }
@@ -1312,7 +1312,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn builder_options() {
         use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
 
@@ -1334,12 +1334,12 @@ mod tests {
             .unwrap();
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_batch_dml_aborted_retry_explicit() {
         run_batch_dml_aborted_retry(BeginTransactionOption::ExplicitBegin).await;
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_batch_dml_aborted_retry_inline() {
         run_batch_dml_aborted_retry(BeginTransactionOption::InlineBegin).await;
     }
@@ -1475,12 +1475,12 @@ mod tests {
         assert_eq!(attempt_counter, 2);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_transaction_tag_explicit() -> anyhow::Result<()> {
         run_with_transaction_tag(BeginTransactionOption::ExplicitBegin).await
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_transaction_tag_inline() -> anyhow::Result<()> {
         run_with_transaction_tag(BeginTransactionOption::InlineBegin).await
     }
@@ -1580,12 +1580,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_exclude_txn_from_change_streams_explicit() -> anyhow::Result<()> {
         run_with_exclude_txn_from_change_streams(BeginTransactionOption::ExplicitBegin).await
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_exclude_txn_from_change_streams_inline() -> anyhow::Result<()> {
         run_with_exclude_txn_from_change_streams(BeginTransactionOption::InlineBegin).await
     }
@@ -1666,12 +1666,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_max_commit_delay_explicit() -> anyhow::Result<()> {
         run_with_max_commit_delay(BeginTransactionOption::ExplicitBegin).await
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_with_max_commit_delay_inline() -> anyhow::Result<()> {
         run_with_max_commit_delay(BeginTransactionOption::InlineBegin).await
     }
@@ -1748,7 +1748,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_run_empty_closure_inline() {
         let mut mock = create_session_mock();
         expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
