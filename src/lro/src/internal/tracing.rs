@@ -90,9 +90,10 @@ where
             LRO_SPAN
                 .scope(span.clone(), async move {
                     POLL_ATTEMPT_COUNT
-                        .scope(attempt, async move {
-                            self.inner.poll().instrument(span).await
-                        })
+                        .scope(
+                            attempt,
+                            async move { self.inner.poll().instrument(span).await },
+                        )
                         .await
                 })
                 .await
