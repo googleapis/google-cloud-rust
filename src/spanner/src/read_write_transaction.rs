@@ -436,8 +436,11 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_batch_update(&self, batch: BatchDml) -> crate::Result<Vec<i64>> {
-        let mut batch = batch;
+    pub async fn execute_batch_update<T: Into<BatchDml>>(
+        &self,
+        batch: T,
+    ) -> crate::Result<Vec<i64>> {
+        let mut batch = batch.into();
         self.amend_gax_options(&mut batch.gax_options);
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
@@ -1119,16 +1122,55 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn read_write_transaction_execute_batch_update_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_batch_update(BeginTransactionOption::ExplicitBegin).await
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2")
+            .build();
+        run_read_write_transaction_execute_batch_update(
+            BeginTransactionOption::ExplicitBegin,
+            batch,
+        )
+        .await
     }
 
     #[tokio_test_no_panics]
     async fn read_write_transaction_execute_batch_update_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_execute_batch_update(BeginTransactionOption::InlineBegin).await
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2")
+            .build();
+        run_read_write_transaction_execute_batch_update(BeginTransactionOption::InlineBegin, batch)
+            .await
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_batch_update_vec() -> anyhow::Result<()> {
+        let statements = vec![
+            "UPDATE Users SET Name = 'Alice' WHERE Id = 1",
+            "UPDATE Users SET Name = 'Bob' WHERE Id = 2",
+        ];
+        run_read_write_transaction_execute_batch_update(
+            BeginTransactionOption::InlineBegin,
+            statements,
+        )
+        .await
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_batch_update_vec_statement() -> anyhow::Result<()> {
+        let statement1 = Statement::builder("UPDATE Users SET Name = 'Alice' WHERE Id = 1").build();
+        let statement2 = Statement::builder("UPDATE Users SET Name = 'Bob' WHERE Id = 2").build();
+        let statements = vec![statement1, statement2];
+        run_read_write_transaction_execute_batch_update(
+            BeginTransactionOption::InlineBegin,
+            statements,
+        )
+        .await
     }
 
     async fn run_read_write_transaction_execute_batch_update(
         begin_transaction_option: BeginTransactionOption,
+        batch: impl Into<BatchDml>,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -1206,16 +1248,12 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let tx = ReadWriteTransactionBuilder::new(db_client)
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
             .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
-        let batch = BatchDml::builder()
-            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
-            .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2");
-
-        let counts = tx.execute_batch_update(batch.build()).await?;
+        let counts = transaction.execute_batch_update(batch).await?;
 
         assert_eq!(counts, vec![1, 1]);
         Ok(())
