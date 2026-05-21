@@ -1027,7 +1027,7 @@ pub(crate) mod tests {
         (db_client, server)
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn single_use_builder() {
         let mock = create_session_mock();
 
@@ -1077,7 +1077,7 @@ pub(crate) mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_single_query() {
         use super::super::result_set::tests::string_val;
         use crate::client::Statement;
@@ -1112,7 +1112,7 @@ pub(crate) mod tests {
         assert!(result.is_none(), "expected None, got {result:?}");
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_multi_query() {
         use super::super::result_set::tests::string_val;
         use crate::client::Statement;
@@ -1188,7 +1188,7 @@ pub(crate) mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_multi_query_inline_begin() -> anyhow::Result<()> {
         use super::super::result_set::tests::string_val;
         use crate::client::Statement;
@@ -1282,7 +1282,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_single_read() {
         use super::super::result_set::tests::string_val;
         use crate::client::{KeySet, ReadRequest};
@@ -1318,7 +1318,7 @@ pub(crate) mod tests {
         assert!(result.is_none(), "expected None, got {result:?}");
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_multi_read() -> anyhow::Result<()> {
         use super::super::result_set::tests::string_val;
         use crate::client::{KeySet, ReadRequest};
@@ -1413,7 +1413,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn inline_begin_failure_retry_success() -> anyhow::Result<()> {
         use crate::value::Value;
         use gaxi::grpc::tonic::Status;
@@ -1491,7 +1491,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn inline_begin_failure_retry_failure() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status;
         use tonic::Response;
@@ -1551,7 +1551,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn inline_begin_failure_fallback_rpc_fails() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status;
 
@@ -1595,7 +1595,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn inline_begin_read_failure_retry_success() -> anyhow::Result<()> {
         use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
@@ -1666,7 +1666,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn single_use_query_send_error_returns_immediately() -> anyhow::Result<()> {
         use crate::client::Statement;
         use gaxi::grpc::tonic::Status;
@@ -1694,7 +1694,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn inline_begin_already_started_query_send_error_returns_immediately()
     -> anyhow::Result<()> {
         use crate::client::Statement;
