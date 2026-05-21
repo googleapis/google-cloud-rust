@@ -14,10 +14,10 @@
 
 use google_cloud_spanner::client::Spanner;
 use google_cloud_spanner::client::Statement;
+use google_cloud_test_macros::tokio_test_no_panics;
 use spanner_grpc_mock::MockSpanner;
 use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 use spanner_grpc_mock::start;
-use google_cloud_test_macros::tokio_test_no_panics;
 
 #[tokio_test_no_panics]
 async fn test_execute_query() -> anyhow::Result<()> {
