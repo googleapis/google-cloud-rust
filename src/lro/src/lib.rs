@@ -132,6 +132,11 @@ pub mod internal;
 #[cfg(google_cloud_unstable_tracing)]
 pub use internal::{PollerOptions, TracingDetails};
 
+#[cfg(google_cloud_unstable_tracing)]
+tokio::task_local! {
+    pub static POLL_ATTEMPT_COUNT: u32;
+}
+
 pub(crate) mod sealed {
     use google_cloud_gax::polling_state::PollingState;
     use std::future::Future;
