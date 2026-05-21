@@ -434,6 +434,7 @@ mod tests {
     use crate::client::Spanner;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic::Response;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Duration as ProstDuration;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -466,7 +467,7 @@ mod tests {
         (db_client, server)
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_at_least_once() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -535,7 +536,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -621,7 +622,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_at_least_once_with_commit_stats() -> anyhow::Result<()> {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -664,7 +665,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_with_commit_stats() -> anyhow::Result<()> {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -714,7 +715,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_at_least_once_with_exclude_txn_from_change_streams() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -763,7 +764,7 @@ mod tests {
         assert!(res.is_ok());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_with_exclude_txn_from_change_streams() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -817,7 +818,7 @@ mod tests {
         assert!(res.is_ok());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_with_commit_retry() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -904,7 +905,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_with_commit_aborted_retry() -> anyhow::Result<()> {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -993,7 +994,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn write_at_least_once_with_max_commit_delay() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {
@@ -1043,7 +1044,7 @@ mod tests {
         assert!(res.is_ok());
     }
 
-    #[google_cloud_test_macros::tokio_test_no_panics]
+    #[tokio_test_no_panics]
     async fn leader_aware_routing_enabled_by_default() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {

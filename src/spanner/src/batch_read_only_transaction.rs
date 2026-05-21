@@ -591,7 +591,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_query() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -633,7 +633,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_read() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -676,7 +676,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn partition_query() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -747,7 +747,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn partition_read() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -805,7 +805,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_query_with_data_boost() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -837,7 +837,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_read_with_data_boost() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 

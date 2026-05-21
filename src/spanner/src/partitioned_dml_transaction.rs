@@ -252,6 +252,7 @@ mod tests {
     use crate::result_set::tests::adapt;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
 
     #[test]
@@ -260,7 +261,7 @@ mod tests {
         static_assertions::assert_impl_all!(PartitionedDmlTransaction: Send, Sync);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_update_success() {
         let mut mock = create_session_mock();
 
@@ -301,7 +302,7 @@ mod tests {
         assert_eq!(res, 500);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_update_with_exclude_txn_from_change_streams() {
         let mut mock = create_session_mock();
 
@@ -341,7 +342,7 @@ mod tests {
         assert_eq!(res, 500);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_update_with_aborted_retry() {
         let mut mock = create_session_mock();
 
@@ -390,7 +391,7 @@ mod tests {
         assert_eq!(res, 100);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn builder_with_retry_settings() {
         let mock = create_session_mock();
         let (db_client, _server) = setup_db_client(mock).await;
@@ -408,7 +409,7 @@ mod tests {
             .unwrap();
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn execute_update_missing_lower_bound() {
         let mut mock = create_session_mock();
 
@@ -452,7 +453,7 @@ mod tests {
         );
     }
 
-    #[google_cloud_test_macros::tokio_test_no_panics]
+    #[tokio_test_no_panics]
     async fn leader_aware_routing_enabled_by_default() {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|req| {
