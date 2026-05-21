@@ -814,12 +814,17 @@ async fn delete_bucket_with_error_backoff(
     Ok(())
 }
 
+fn clean_project_id(project_id: &str) -> &str {
+    project_id.strip_prefix("projects/").unwrap_or(project_id)
+}
+
 pub async fn cleanup_bucket(
     client: StorageControl,
     name: String,
     project_id: String,
 ) -> anyhow::Result<()> {
-    empty_bucket_contents(&client, &name, &project_id).await?;
+    let project_id = clean_project_id(&project_id);
+    empty_bucket_contents(&client, &name, project_id).await?;
     delete_bucket_with_error_backoff(&client, &name).await
 }
 
@@ -1021,5 +1026,18 @@ where
 
     fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         self.inner.remaining_time(state)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_clean_project_id() {
+        assert_eq!(clean_project_id("projects/1234567890"), "1234567890");
+        assert_eq!(clean_project_id("projects/my-project-id"), "my-project-id");
+        assert_eq!(clean_project_id("my-project-id"), "my-project-id");
+        assert_eq!(clean_project_id("1234567890"), "1234567890");
     }
 }
