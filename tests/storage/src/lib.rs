@@ -271,27 +271,15 @@ pub async fn buckets() -> Result<()> {
             .build()
             .await?;
 
-        for client in [&client_tracing, &client_global] {
-            println!("\nTesting get_bucket()");
-            let get = client.get_bucket().set_name(&bucket_name).send().await?;
-            println!("SUCCESS on get_bucket: {get:?}");
-            assert_eq!(get.name, bucket_name);
+        for (label, client) in [
+            ("with tracing and retry", &client_tracing),
+            ("with global endpoint", &client_global),
+        ] {
+            tracing::info!("running bucket control tests with config: {label}");
+            println!("\nRunning tests with configuration: {label}");
 
-            println!("\nTesting list_buckets()");
-            let mut buckets = client
-                .list_buckets()
-                .set_parent(format!("projects/{project_id}"))
-                .by_item();
-            let mut bucket_names = Vec::new();
-            while let Some(bucket) = buckets.next().await {
-                bucket_names.push(bucket?.name);
-            }
-            println!("SUCCESS on list_buckets");
-            assert!(
-                bucket_names.iter().any(|name| name == &bucket_name),
-                "missing bucket name {bucket_name} in {bucket_names:?}"
-            );
-
+            get_bucket(client, &bucket_name).await?;
+            list_buckets(client, &project_id, &bucket_name).await?;
             buckets_iam(client, &bucket_name).await?;
             folders(client, &bucket_name).await?;
         }
@@ -314,6 +302,32 @@ pub async fn buckets() -> Result<()> {
     result?;
     delete_result?;
 
+    Ok(())
+}
+
+async fn get_bucket(client: &StorageControl, bucket_name: &str) -> Result<()> {
+    println!("\nTesting get_bucket()");
+    let get = client.get_bucket().set_name(bucket_name).send().await?;
+    println!("SUCCESS on get_bucket: {get:?}");
+    assert_eq!(get.name, bucket_name);
+    Ok(())
+}
+
+async fn list_buckets(client: &StorageControl, project_id: &str, bucket_name: &str) -> Result<()> {
+    println!("\nTesting list_buckets()");
+    let mut buckets = client
+        .list_buckets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
+    let mut bucket_names = Vec::new();
+    while let Some(bucket) = buckets.next().await {
+        bucket_names.push(bucket?.name);
+    }
+    println!("SUCCESS on list_buckets");
+    assert!(
+        bucket_names.iter().any(|name| name == bucket_name),
+        "missing bucket name {bucket_name} in {bucket_names:?}"
+    );
     Ok(())
 }
 
