@@ -14,21 +14,14 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod storage {
-    use google_cloud_storage::client::{Storage, StorageControl};
+    use google_cloud_storage::client::Storage;
     use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
-    use integration_tests_storage::StorageBuilder;
-    use integration_tests_storage::StorageControlBuilder;
-    use integration_tests_storage::retry_policy;
-    use test_case::test_case;
 
-    #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread")]
-    #[ignore = "flaky test, see #3916"]
-    async fn run_storage_control_buckets(builder: StorageControlBuilder) -> anyhow::Result<()> {
+    async fn run_storage_control_buckets() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_storage::buckets(builder)
+        integration_tests_storage::buckets()
             .await
             .inspect_err(anydump)
     }
@@ -39,16 +32,17 @@ mod storage {
         let (control, bucket) = integration_tests_storage::create_test_bucket()
             .await
             .inspect_err(anydump)?;
-        let variants = || async {
+
+        let run_all = || async {
             tracing::info!("default builder");
             let builder = Storage::builder();
             integration_tests_storage::objects(builder, &bucket.name, "default-endpoint")
                 .await
                 .inspect_err(anydump)?;
-            tracing::info!("with global endpoint");
 
+            tracing::info!("with global endpoint");
             let builder = Storage::builder().with_endpoint("https://www.googleapis.com");
-            integration_tests_storage::objects(builder, &bucket.name, "global endpoint")
+            integration_tests_storage::objects(builder, &bucket.name, "global-endpoint")
                 .await
                 .inspect_err(anydump)?;
 
@@ -60,99 +54,45 @@ mod storage {
                     .await
                     .inspect_err(anydump)?;
             }
-            Ok(())
-        };
-        let result = variants().await.inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
 
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_signed_urls() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-
-        let signer = google_cloud_auth::credentials::Builder::default().build_signer();
-        let signer = match signer {
-            Ok(s) => s,
-            Err(err) if err.is_not_supported() => {
-                tracing::warn!("skipping run_storage_signed_urls: {err:?}");
-                return Ok(());
+            let signer = google_cloud_auth::credentials::Builder::default().build_signer();
+            match signer {
+                Ok(s) => {
+                    let builder = Storage::builder();
+                    integration_tests_storage::signed_urls(
+                        builder,
+                        &s,
+                        &bucket.name,
+                        "default-endpoint",
+                    )
+                    .await
+                    .inspect_err(anydump)?;
+                }
+                Err(err) if err.is_not_supported() => {
+                    tracing::warn!("skipping run_storage_signed_urls: {err:?}");
+                }
+                Err(err) => {
+                    anyhow::bail!("error creating signer: {err:?}");
+                }
             }
-            Err(err) => {
-                anyhow::bail!("error creating signer: {err:?}")
-            }
-        };
 
-        let (control, bucket) = integration_tests_storage::create_test_bucket()
-            .await
-            .inspect_err(anydump)?;
-
-        let builder = Storage::builder();
-        let result = integration_tests_storage::signed_urls(
-            builder,
-            &signer,
-            &bucket.name,
-            "default-endpoint",
-        )
-        .await
-        .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+            integration_tests_storage::read_object::run(&bucket.name)
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
+                .inspect_err(anydump)?;
 
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_read_object() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let result = integration_tests_storage::read_object::run(&bucket.name)
-            .await
-            .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+            integration_tests_storage::write_object::run(&bucket.name)
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
+                .inspect_err(anydump)?;
 
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_write_object() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let result = integration_tests_storage::write_object::run(&bucket.name)
-            .await
-            .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_object_names(builder: StorageBuilder) -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let result =
+            let builder = Storage::builder();
             integration_tests_storage::object_names(builder, control.clone(), &bucket.name)
                 .await
-                .inspect_err(anydump);
+                .inspect_err(anydump)?;
+
+            Ok(())
+        };
+
+        let result = run_all().await.inspect_err(anydump);
         let _ =
             storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
                 .await
