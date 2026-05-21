@@ -54,6 +54,11 @@ mod tests {
                 _request: OpenObjectRequest,
                 _options: RequestOptions,
             ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)>;
+            async fn compose_object(
+                &self,
+                _req: gcs::model::ComposeObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<Object>;
         }
     }
 
@@ -230,6 +235,54 @@ mod tests {
         }
         let contents = bytes::Bytes::from_owner(contents);
         assert_eq!(contents, LAZY);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn mock_compose_object() -> anyhow::Result<()> {
+        let want_object = Object::new()
+            .set_bucket("projects/_/buckets/my-bucket")
+            .set_name("my-composite")
+            .set_generation(45678);
+
+        let mut mock = MockStorage::new();
+        mock.expect_compose_object().return_once({
+            let want = want_object.clone();
+            move |req, _opt| {
+                assert_eq!(req.destination.as_ref().map(|d| d.bucket.as_str()), Some("projects/_/buckets/my-bucket"));
+                assert_eq!(req.destination.as_ref().map(|d| d.name.as_str()), Some("my-composite"));
+                let sources = req.source_objects;
+                assert_eq!(sources.len(), 3);
+                assert_eq!(sources[0].name, "part-1");
+                assert_eq!(sources[0].generation, 0);
+                assert_eq!(sources[1].name, "part-2");
+                assert_eq!(sources[1].generation, 123);
+                assert_eq!(sources[2].name, "part-3");
+                assert_eq!(sources[2].generation, 456);
+                
+                let preconditions = sources[2].object_preconditions.as_ref().unwrap();
+                assert_eq!(preconditions.if_generation_match, Some(789));
+
+                assert_eq!(req.if_generation_match, Some(999));
+                assert_eq!(req.if_metageneration_match, Some(888));
+                assert_eq!(req.destination.as_ref().unwrap().content_type, "text/plain");
+                Ok(want)
+            }
+        });
+
+        let client = gcs::client::Storage::from_stub(mock);
+        let got = client
+            .compose_object("projects/_/buckets/my-bucket", "my-composite")
+            .add_source("part-1")
+            .add_source_with_generation("part-2", 123)
+            .add_source_with_preconditions("part-3", 456, 789)
+            .set_if_generation_match(999)
+            .set_if_metageneration_match(888)
+            .set_content_type("text/plain")
+            .send()
+            .await?;
+
+        assert_eq!(got, want_object);
         Ok(())
     }
 

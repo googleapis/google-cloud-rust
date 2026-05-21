@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::tracing::{TracingObjectDescriptor, TracingResponse};
-use crate::Result;
+use crate::{Error, Result};
 use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
@@ -262,6 +262,116 @@ impl Storage {
             .collect::<Vec<_>>();
         Ok((descriptor, readers))
     }
+
+    async fn compose_object_plain(
+        &self,
+        req: crate::model::ComposeObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = options.gax();
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "ComposeObject",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ComposeObject");
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req)
+                            .and_then(|m| m.destination.as_ref())
+                            .map(|m| &m.bucket)
+                            .map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req)
+                        .and_then(|m| m.destination.as_ref())
+                        .map(|m| &m.bucket)
+                        .map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "destination.bucket",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::storage::v2::Object;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.v2.Storage/ComposeObject");
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .grpc
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &super::info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(|r| gaxi::grpc::to_gax_response::<TR, crate::model::Object>(r))
+            .map(|r| r.into_body())
+    }
+
+    #[tracing::instrument(name = "compose_object", level = tracing::Level::DEBUG, ret, err(Debug))]
+    async fn compose_object_tracing(
+        &self,
+        request: crate::model::ComposeObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        let bucket_name = request
+            .destination
+            .as_ref()
+            .map(|d| d.bucket.as_str())
+            .unwrap_or_default();
+        let resource_name = format!("//storage.googleapis.com/{}", bucket_name);
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::compose_object",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_url_template("/storage/v1/b/{bucket}/o/{destinationObject}/compose")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.compose_object_plain(request, options).await
+            }
+        );
+        pending.await
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -324,6 +434,17 @@ impl super::stub::Storage for Storage {
             return self.open_object_tracing(request, options).await;
         }
         self.open_object_plain(request, options).await
+    }
+
+    async fn compose_object(
+        &self,
+        req: crate::model::ComposeObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        if self.tracing {
+            return self.compose_object_tracing(req, options).await;
+        }
+        self.compose_object_plain(req, options).await
     }
 }
 
@@ -675,6 +796,87 @@ mod tests {
             "missing = {missing:?}\ngot  = {:?}\nwant = {want:?}\nfull = {got:#?}",
             got.keys().collect::<Vec<_>>(),
         );
+    }
+
+    #[tokio::test]
+    async fn compose_object_failure() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let guard = TestLayer::initialize();
+
+        let mut mock = MockStorage::new();
+        mock.expect_compose_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .compose_object("projects/_/buckets/test-bucket", "test-composite")
+            .add_source("part-1")
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "compose_object");
+
+        client_request_span(&captured, "compose_object", "NOT_FOUND", "grpc");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn compose_object_success() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response as TonicResponse;
+        use storage_grpc_mock::google::storage::v2::Object as ProtoObject;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let guard = TestLayer::initialize();
+
+        let mut mock = MockStorage::new();
+        mock.expect_compose_object().return_once(|req| {
+            let req = req.get_ref();
+            assert_eq!(req.destination.as_ref().unwrap().name, "test-composite");
+            Ok(TonicResponse::new(ProtoObject {
+                bucket: "projects/_/buckets/test-bucket".to_string(),
+                name: "test-composite".to_string(),
+                generation: 7890,
+                ..ProtoObject::default()
+            }))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let got = client
+            .compose_object("projects/_/buckets/test-bucket", "test-composite")
+            .add_source("part-1")
+            .send()
+            .await?;
+
+        assert_eq!(got.generation, 7890);
+        assert_eq!(got.name, "test-composite");
+
+        let captured = TestLayer::capture(&guard);
+        let _span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+
+        Ok(())
     }
 
     #[track_caller]

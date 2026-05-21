@@ -81,6 +81,15 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     {
         unimplemented_stub::<(Descriptor, Vec<ReadObjectResponse>)>()
     }
+
+    /// Implements [crate::client::Storage::compose_object].
+    fn compose_object(
+        &self,
+        _req: crate::model::ComposeObjectRequest,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send {
+        unimplemented_stub::<Object>()
+    }
 }
 
 /// Defines the trait used to implement [crate::object_descriptor::ObjectDescriptor].

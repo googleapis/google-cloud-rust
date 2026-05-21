@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::request_options::RequestOptions;
+use crate::builder::storage::ComposeObject;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
@@ -220,6 +221,34 @@ where
         O: Into<String>,
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
+    }
+
+    /// Concatenates multiple source objects in the same bucket into a single composite object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .compose_object("projects/_/buckets/my-bucket", "my-composite-object")
+    ///     .add_source("part-1")
+    ///     .add_source("part-2")
+    ///     .send()
+    ///     .await?;
+    /// println!("composite object={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the source and destination objects. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `destination` - the name of the resulting composite object.
+    pub fn compose_object<B, D>(&self, bucket: B, destination: D) -> ComposeObject<S>
+    where
+        B: Into<String>,
+        D: Into<String>,
+    {
+        ComposeObject::new(self.stub.clone(), bucket, destination, self.options.clone())
     }
 
     /// Opens an object to read its contents using concurrent ranged reads.
