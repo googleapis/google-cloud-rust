@@ -102,12 +102,10 @@ fn check_version_mismatches(
         }
 
         // 2. Check package version in root Cargo.toml workspace.dependencies
-        if let Some(root_ver) = root_deps.get(name) {
-            if root_ver != expected_version {
-                mismatches.push(format!(
-                    "  - {name}: expected {expected_version}, got {root_ver} in root Cargo.toml [workspace.dependencies]"
-                ));
-            }
+        if let Some(root_ver) = root_deps.get(name).filter(|&v| v != expected_version) {
+            mismatches.push(format!(
+                "  - {name}: expected {expected_version}, got {root_ver} in root Cargo.toml [workspace.dependencies]"
+            ));
         }
     }
 
