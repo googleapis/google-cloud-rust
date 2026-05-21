@@ -802,7 +802,7 @@ pub(crate) mod tests {
         static_assertions::assert_impl_all!(ResultSet: std::fmt::Debug, Send, Sync);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_zero_rows() {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(2),
@@ -820,7 +820,7 @@ pub(crate) mod tests {
         assert!(next.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_metadata() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(2),
@@ -850,7 +850,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_handle_partial_result_set_error() -> anyhow::Result<()> {
         let res = run_mock_query_fallible(vec![PartialResultSet {
             values: vec![string_val("row1")],
@@ -869,7 +869,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_handle_partial_result_set_error_immediate() -> anyhow::Result<()> {
         let res = run_mock_query_fallible(vec![
             PartialResultSet {
@@ -894,7 +894,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_stream_ended_with_chunked_value() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(2),
@@ -918,7 +918,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_duplicate_metadata() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![
             PartialResultSet {
@@ -951,7 +951,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_empty_column_metadata() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: Some(ResultSetMetadata {
@@ -978,7 +978,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_default_policies_applied() -> anyhow::Result<()> {
         let rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(2),
@@ -999,7 +999,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_retry_read_stream() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -1073,7 +1073,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_custom_retry_policy() -> anyhow::Result<()> {
         // Extend the default retry policy to also retry on ResourceExhausted.
         let retry_policy = Aip194Strict.continue_on_too_many_requests();
@@ -1157,7 +1157,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_one_row() {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(2),
@@ -1179,7 +1179,7 @@ pub(crate) mod tests {
         assert!(rs.next().await.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_last_flag() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![
             PartialResultSet {
@@ -1207,7 +1207,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_early_termination_not_cancelled() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let (tx, rx) = tokio::sync::mpsc::channel(10);
@@ -1269,7 +1269,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_chunked_values_string() {
         let mut rs = run_mock_query(vec![
             PartialResultSet {
@@ -1305,7 +1305,7 @@ pub(crate) mod tests {
         assert!(rs.next().await.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_chunked_values_list() {
         let mut rs = run_mock_query(vec![
             PartialResultSet {
@@ -1346,7 +1346,7 @@ pub(crate) mod tests {
         assert!(rs.next().await.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_multi_response_chunking_bool_array() {
         fn bool_val(b: bool) -> Value {
             Value {
@@ -1423,7 +1423,7 @@ pub(crate) mod tests {
         assert!(rs.next().await.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_multi_response_chunking_int64_array() {
         fn null_val() -> Value {
             Value {
@@ -1495,7 +1495,7 @@ pub(crate) mod tests {
         assert!(rs.next().await.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_precommit_token_tracked() -> anyhow::Result<()> {
         let token = MultiplexedSessionPrecommitToken {
             precommit_token: b"test_token".to_vec(),
@@ -1577,7 +1577,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_retry_simple() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -1650,7 +1650,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_retry_non_retriable_error() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         mock.expect_execute_streaming_sql()
@@ -1705,7 +1705,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_buffer_overflow() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let (tx_msg, rx_msg) = tokio::sync::mpsc::channel(10);
@@ -1792,7 +1792,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_retry_missing_resume_token_safe() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -1945,7 +1945,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_retry_limit_exceeded() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
 
@@ -2259,7 +2259,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_inline_begin_metadata_missing_transaction_fails() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -2315,7 +2315,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_stats() -> anyhow::Result<()> {
         let mock_stats = spanner_v1::ResultSetStats {
             query_plan: Some(spanner_v1::QueryPlan::default()),
@@ -2339,7 +2339,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_duplicate_stats() -> anyhow::Result<()> {
         let mock_stats = spanner_v1::ResultSetStats {
             query_plan: Some(spanner_v1::QueryPlan::default()),
@@ -2380,7 +2380,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_lazy_begin_deadlock_fixed() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -2477,7 +2477,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_metadata_not_available() {
         // Test our explicit safeguard for when Spanner violates the API contract and returns a first PartialResultSet without metadata.
         let res = run_mock_query_fallible(vec![PartialResultSet {
@@ -2496,7 +2496,7 @@ pub(crate) mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_metadata_available_before_next() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
 

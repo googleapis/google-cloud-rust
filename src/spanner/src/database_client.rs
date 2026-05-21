@@ -369,6 +369,7 @@ impl DatabaseClientBuilder {
 mod tests {
     use super::*;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::{MockSpanner, start};
 
     #[test]
@@ -377,7 +378,7 @@ mod tests {
         assert_impl_all!(DatabaseClient: Send, Sync, Clone, std::fmt::Debug);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_database_client_builder() {
         let mut mock = MockSpanner::new();
         mock.expect_create_session().once().returning(|req| {
@@ -428,7 +429,7 @@ mod tests {
         assert_eq!(session.creator_role, "test-role");
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_database_client_builder_with_options() {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -486,7 +487,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_database_client_builder_error() {
         let mut mock = MockSpanner::new();
         mock.expect_create_session().once().returning(|_| {

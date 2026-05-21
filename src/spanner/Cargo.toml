@@ -60,12 +60,12 @@ wkt                   = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
 anyhow.workspace                   = true
+google-cloud-spanner               = { path = ".", features = ["default-rustls-provider"] }
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 spanner-grpc-mock                  = { path = "grpc-mock" }
 static_assertions.workspace        = true
 tokio                              = { workspace = true, features = ["test-util"] }
-google-cloud-spanner               = { path = ".", features = ["default-rustls-provider"] }
 
 [lints]
 workspace = true
