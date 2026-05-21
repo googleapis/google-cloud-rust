@@ -196,8 +196,7 @@ where
 
     /// Open a new object for appendable uploads.
     ///
-    /// This method allows you to incrementally append data to a single object
-    /// using a bidirectional stream.
+    /// This method allows you to incrementally append data to a single object.
     ///
     /// # Example
     /// ```

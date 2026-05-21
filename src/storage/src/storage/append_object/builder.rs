@@ -52,7 +52,7 @@ where
 
     /// Opens the stream to append data.
     pub async fn send(self) -> Result<AppendableObjectWriter> {
-        // TODO: Add a test that verifies this builder sets up the request correctly and calls send.
+        // TODO(#5716) - Add a test that verifies this builder sets up the request correctly and calls send.
         self.stub
             .open_appendable_object(self.request, self.options)
             .await

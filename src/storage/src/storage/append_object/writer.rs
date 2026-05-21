@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::google::storage::v2::BidiWriteHandle;
 use crate::model::Object;
 use bytes::Bytes;
 
@@ -26,7 +25,9 @@ pub struct AppendableObjectWriter {
 }
 
 impl AppendableObjectWriter {
-    /// Appends bytes to the object. Small chunks are coalesced before being sent,
+    /// Appends bytes to the object.
+    ///
+    /// Small chunks are coalesced before being sent,
     /// so a call does not necessarily produce wire traffic immediately. Appending
     /// an empty buffer is a no-op.
     pub async fn append(&mut self, _bytes: impl Into<Bytes>) -> Result<()> {
@@ -55,29 +56,13 @@ impl AppendableObjectWriter {
         unimplemented!()
     }
 
-    /// Returns the server-issued write handle, if available.
-    pub fn write_handle(&self) -> Option<BidiWriteHandle> {
-        unimplemented!()
-    }
-
     /// Returns the generation of the object being appended to.
     pub fn generation(&self) -> i64 {
-        unimplemented!()
-    }
-
-    /// Returns the server-issued routing token, if available.
-    pub fn routing_token(&self) -> Option<String> {
         unimplemented!()
     }
 
     /// Returns the latest known object metadata.
     pub fn object(&self) -> Option<Object> {
         unimplemented!()
-    }
-}
-
-impl Drop for AppendableObjectWriter {
-    fn drop(&mut self) {
-        // TODO: Emit a warning if the writer is dropped without being finalized or closed.
     }
 }
