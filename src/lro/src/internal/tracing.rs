@@ -16,16 +16,30 @@ use crate::{Poller, PollingResult, Result, sealed};
 use google_cloud_gax::polling_state::PollingState;
 use tracing::{Instrument, Span, info_span};
 
+#[cfg(google_cloud_unstable_tracing)]
+use crate::POLL_ATTEMPT_COUNT;
+
 /// Decorate a poller with tracing information.
 #[derive(Clone, Debug)]
 pub struct Tracing<P> {
     inner: P,
     span: Span,
+    #[cfg(google_cloud_unstable_tracing)]
+    poll_attempt_count: u32,
+    #[cfg(google_cloud_unstable_tracing)]
+    started: bool,
 }
 
 impl<P> Tracing<P> {
     pub(crate) fn new(inner: P, span: Span) -> Self {
-        Self { inner, span }
+        Self {
+            inner,
+            span,
+            #[cfg(google_cloud_unstable_tracing)]
+            poll_attempt_count: 0,
+            #[cfg(google_cloud_unstable_tracing)]
+            started: false,
+        }
     }
 }
 
@@ -65,9 +79,21 @@ where
         let span = self.span.clone();
         #[cfg(google_cloud_unstable_tracing)]
         {
+            let attempt = if self.started {
+                self.poll_attempt_count += 1;
+                self.poll_attempt_count
+            } else {
+                self.started = true;
+                0 // Initial triggers record nothing
+            };
+
             LRO_SPAN
                 .scope(span.clone(), async move {
-                    self.inner.poll().instrument(span).await
+                    POLL_ATTEMPT_COUNT
+                        .scope(attempt, async move {
+                            self.inner.poll().instrument(span).await
+                        })
+                        .await
                 })
                 .await
         }
