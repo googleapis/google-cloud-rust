@@ -2506,17 +2506,6 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.longrunning.Operations/GetOperation");
-            let resource_name = (|| {
-                Some(format!(
-                    "//storage.googleapis.com/{}",
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
-                ))
-            })();
-            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                attributes.set_resource_name(rn)
-            } else {
-                attributes
-            };
             recorder.on_client_request(attributes);
         }
         self.inner

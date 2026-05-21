@@ -1155,7 +1155,7 @@ impl super::stub::StorageControl for StorageControl {
                 Some(format!(
                     "//storage.googleapis.com/{}",
                     Some(&req)
-                        .map(|m| &m.destination_name)
+                        .map(|m| &m.destination_bucket)
                         .map(|s| s.as_str())?,
                 ))
             })();
