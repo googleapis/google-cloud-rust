@@ -63,6 +63,7 @@ impl ReadObjectResponse for RangeReader {
             content_type: self.object.content_type.clone(),
             content_disposition: self.object.content_disposition.clone(),
             etag: self.object.etag.clone(),
+            metadata: self.object.metadata.clone(),
         }
     }
 
@@ -110,6 +111,7 @@ mod tests {
             content_language: "content-language".into(),
             content_type: "content-type".into(),
             content_disposition: "content-disposition".into(),
+            metadata: std::collections::HashMap::new(),
         };
         assert_eq!(got, want);
 

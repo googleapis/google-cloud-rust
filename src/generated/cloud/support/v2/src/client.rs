@@ -149,6 +149,56 @@ impl CaseAttachmentService {
     pub fn list_attachments(&self) -> super::builder::case_attachment_service::ListAttachments {
         super::builder::case_attachment_service::ListAttachments::new(self.inner.clone())
     }
+
+    /// Retrieve an attachment associated with a support case.
+    ///
+    /// EXAMPLES:
+    ///
+    /// cURL:
+    ///
+    /// ```norust
+    /// attachment="projects/some-project/cases/23598314/attachments/0684M00000P3h1fQAB"
+    /// curl \
+    ///   --header "Authorization: Bearer $(gcloud auth print-access-token)" \
+    ///   "https://cloudsupport.googleapis.com/v2/$attachment"
+    /// ```
+    ///
+    /// Python:
+    ///
+    /// ```norust
+    /// import googleapiclient.discovery
+    ///
+    /// api_version = "v2"
+    /// supportApiService = googleapiclient.discovery.build(
+    ///     serviceName="cloudsupport",
+    ///     version=api_version,
+    ///     discoveryServiceUrl=f"https://cloudsupport.googleapis.com/$discovery/rest?version={api_version}",
+    /// )
+    /// request = (
+    ///     supportApiService.cases()
+    ///     .attachments()
+    ///     .get(name="projects/some-project/cases/43595344/attachments/0684M00000P3h1fQAB")
+    /// )
+    /// print(request.execute())
+    /// ```
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseAttachmentService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseAttachmentService, organization_id: &str, case_id: &str, attachment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_attachment()
+    ///         .set_name(format!("organizations/{organization_id}/cases/{case_id}/attachments/{attachment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_attachment(&self) -> super::builder::case_attachment_service::GetAttachment {
+        super::builder::case_attachment_service::GetAttachment::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Google Cloud Support API.
@@ -622,5 +672,54 @@ impl CommentService {
     /// ```
     pub fn create_comment(&self) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
+    }
+
+    /// Retrieve a comment.
+    ///
+    /// EXAMPLES:
+    ///
+    /// cURL:
+    ///
+    /// ```norust
+    /// comment="projects/some-project/cases/43595344/comments/234567890"
+    /// curl \
+    ///   --header "Authorization: Bearer $(gcloud auth print-access-token)" \
+    ///   "https://cloudsupport.googleapis.com/v2/$comment"
+    /// ```
+    ///
+    /// Python:
+    ///
+    /// ```norust
+    /// import googleapiclient.discovery
+    ///
+    /// api_version = "v2"
+    /// supportApiService = googleapiclient.discovery.build(
+    ///     serviceName="cloudsupport",
+    ///     version=api_version,
+    ///     discoveryServiceUrl=f"https://cloudsupport.googleapis.com/$discovery/rest?version={api_version}",
+    /// )
+    ///
+    /// request = supportApiService.cases().comments().get(
+    ///     name="projects/some-project/cases/43595344/comments/234567890",
+    /// )
+    /// print(request.execute())
+    /// ```
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CommentService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CommentService, organization_id: &str, case_id: &str, comment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_comment()
+    ///         .set_name(format!("organizations/{organization_id}/cases/{case_id}/comments/{comment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_comment(&self) -> super::builder::comment_service::GetComment {
+        super::builder::comment_service::GetComment::new(self.inner.clone())
     }
 }

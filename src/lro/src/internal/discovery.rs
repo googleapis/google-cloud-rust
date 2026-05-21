@@ -23,7 +23,10 @@
 //! we can name directly.
 //!
 
-use crate::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
+use crate::{
+    Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result,
+    sealed::Poller as SealedPoller,
+};
 use google_cloud_gax::polling_state::PollingState;
 use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
@@ -93,7 +96,16 @@ impl<S, Q> DiscoveryPoller<S, Q> {
     }
 }
 
-impl<S, Q> crate::sealed::Poller for DiscoveryPoller<S, Q> {}
+impl<S, Q> SealedPoller for DiscoveryPoller<S, Q>
+where
+    S: Send,
+    Q: Send,
+{
+    async fn backoff(&mut self, state: &PollingState) {
+        let backoff = self.backoff_policy.wait_period(state);
+        tokio::time::sleep(backoff).await;
+    }
+}
 
 impl<O, S, SF, Q, QF> crate::Poller<O, O> for DiscoveryPoller<S, Q>
 where
@@ -119,10 +131,6 @@ where
             return Some(poll);
         }
         None
-    }
-    async fn backoff(&mut self, state: &PollingState) {
-        let backoff = self.backoff_policy.wait_period(state);
-        tokio::time::sleep(backoff).await;
     }
     async fn until_done(self) -> Result<O> {
         crate::until_done(self).await
