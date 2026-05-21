@@ -282,7 +282,6 @@ where
             if let Ok(ref op) = result {
                 let name = op.name();
                 if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
-                    span.record("gcp.longrunning.operation_name", &name);
                     span.record("gcp.resource.destination.id", &name);
                 }
             }
@@ -298,7 +297,6 @@ where
             #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref next_name) = op {
                 if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
-                    span.record("gcp.longrunning.operation_name", next_name);
                     span.record("gcp.resource.destination.id", next_name);
                 }
             }
@@ -368,7 +366,6 @@ mod tests {
     fn test_span() -> tracing::Span {
         tracing::info_span!(
             "test_span",
-            gcp.longrunning.operation_name = tracing::field::Empty,
             gcp.resource.destination.id = tracing::field::Empty,
         )
     }
@@ -1172,11 +1169,6 @@ mod tests {
         {
             let map = recorded.lock().unwrap();
             assert_eq!(
-                map.get("gcp.longrunning.operation_name")
-                    .map(|s| s.as_str()),
-                Some("test-operation-123")
-            );
-            assert_eq!(
                 map.get("gcp.resource.destination.id").map(|s| s.as_str()),
                 Some("test-operation-123")
             );
@@ -1194,11 +1186,6 @@ mod tests {
 
         {
             let map = recorded.lock().unwrap();
-            assert_eq!(
-                map.get("gcp.longrunning.operation_name")
-                    .map(|s| s.as_str()),
-                Some("test-operation-123")
-            );
             assert_eq!(
                 map.get("gcp.resource.destination.id").map(|s| s.as_str()),
                 Some("test-operation-123")
@@ -1250,11 +1237,6 @@ mod tests {
 
         {
             let map = recorded.lock().unwrap();
-            assert_eq!(
-                map.get("gcp.longrunning.operation_name")
-                    .map(|s| s.as_str()),
-                Some("immediate-operation-123")
-            );
             assert_eq!(
                 map.get("gcp.resource.destination.id").map(|s| s.as_str()),
                 Some("immediate-operation-123")

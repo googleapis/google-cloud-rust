@@ -51,7 +51,6 @@ where
                 "LRO Wait",
                 "otel.name" = method_name,
                 "gcp.rpc.method" = method_name,
-                "gcp.longrunning.operation_name" = tracing::field::Empty,
                 "gcp.resource.destination.id" = tracing::field::Empty,
                 "otel.status_code" = tracing::field::Empty,
                 "otel.status_description" = tracing::field::Empty
