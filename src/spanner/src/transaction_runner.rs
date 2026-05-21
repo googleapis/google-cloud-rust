@@ -479,7 +479,6 @@ mod tests {
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
-    use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::value::Kind;
     use spanner_grpc_mock::google::spanner::v1;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -1301,6 +1300,9 @@ mod tests {
                 .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
         }
 
+        mock.expect_rollback()
+            .returning(|_| Ok(tonic::Response::new(())));
+
         let res = execute_test_runner(mock, begin_transaction_option).await;
 
         assert!(res.is_err());
@@ -1821,7 +1823,7 @@ mod tests {
         );
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_run_with_mutations_happy_flow() {
         let mut mock = create_session_mock();
 
@@ -1884,7 +1886,7 @@ mod tests {
         assert_eq!(res.result, 1);
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_run_with_mutations_aborted_retry() {
         let mut mock = create_session_mock();
         let mut sequence = mockall::Sequence::new();
@@ -2030,7 +2032,7 @@ mod tests {
         assert_eq!(res.result, 1);
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_run_mutation_only_explicit_begin_fallback() {
         let mut mock = create_session_mock();
 

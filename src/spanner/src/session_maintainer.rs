@@ -168,9 +168,8 @@ mod tests {
     use super::*;
     use gaxi::grpc::tonic::Response;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use google_cloud_test_macros::tokio_test_no_panics;
+    use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1::Session as GrpcSession;
-    use spanner_grpc_mock::{MockSpanner, start};
 
     #[tokio::test]
     async fn session_maintenance() {
@@ -203,9 +202,10 @@ mod tests {
                 }))
             });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -273,9 +273,10 @@ mod tests {
             }))
         });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -315,9 +316,10 @@ mod tests {
             }))
         });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -379,9 +381,10 @@ mod tests {
             .in_sequence(&mut seq)
             .returning(|_| Err(gaxi::grpc::tonic::Status::internal("mock failure")));
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -421,7 +424,7 @@ mod tests {
         );
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn transaction_session_consistency_across_retries() {
         use crate::database_client::DatabaseClient;
         use crate::transaction_retry_policy::tests::create_aborted_status;
@@ -527,9 +530,10 @@ mod tests {
             }))
         });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
 
         let spanner = Spanner::builder()
             .with_endpoint(address)

@@ -452,7 +452,7 @@ mod tests {
         );
     }
 
-    #[google_cloud_test_macros::tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_enabled_by_default() {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|req| {

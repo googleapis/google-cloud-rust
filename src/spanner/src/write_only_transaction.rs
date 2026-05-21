@@ -447,9 +447,10 @@ mod tests {
         mock: spanner_grpc_mock::MockSpanner,
     ) -> (DatabaseClient, tokio::task::JoinHandle<()>) {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-        let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -1043,7 +1044,7 @@ mod tests {
         assert!(res.is_ok());
     }
 
-    #[google_cloud_test_macros::tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_enabled_by_default() {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().returning(|_| {

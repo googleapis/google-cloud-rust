@@ -23,6 +23,7 @@
 #![allow(missing_docs, reason = "docs not yet complete")]
 // TODO(#5566) - stabilize API and remove this.
 #![allow(clippy::exhaustive_enums, reason = "API not yet stable")]
+#![cfg_attr(test, deny(clippy::disallowed_methods))]
 
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
@@ -76,6 +77,8 @@ pub(crate) mod value;
 pub(crate) mod write_only_transaction;
 
 pub(crate) mod error;
+#[cfg(test)]
+pub(crate) mod mock_server;
 mod status;
 
 #[allow(dead_code)]

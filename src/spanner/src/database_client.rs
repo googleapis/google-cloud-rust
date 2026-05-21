@@ -369,7 +369,7 @@ impl DatabaseClientBuilder {
 mod tests {
     use super::*;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use spanner_grpc_mock::{MockSpanner, start};
+    use spanner_grpc_mock::MockSpanner;
 
     #[test]
     fn test_auto_traits() {
@@ -396,9 +396,10 @@ mod tests {
             ))
         });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -452,9 +453,10 @@ mod tests {
                 ))
             });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -495,9 +497,10 @@ mod tests {
             ))
         });
 
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())

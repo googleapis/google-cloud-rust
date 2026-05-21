@@ -329,6 +329,7 @@ impl Channel {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mock_server::start_panic_safe_spanner_mock as start;
     use crate::model::CreateSessionRequest;
     use crate::result_set::tests::adapt;
     use gaxi::grpc::tonic::MetadataMap;
@@ -337,7 +338,7 @@ mod tests {
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::retry_state::RetryState;
-    use google_cloud_test_macros::tokio_test_no_panics;
+    use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -345,7 +346,6 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::ResultSetStats;
     use spanner_grpc_mock::google::spanner::v1::Session;
     use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
-    use spanner_grpc_mock::{MockSpanner, start};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
     use std::sync::Arc;
     use std::sync::atomic::{AtomicU64, Ordering};
@@ -1033,7 +1033,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn timeout_respected() -> anyhow::Result<()> {
         use crate::batch_dml::BatchDml;
         use std::time::Duration;
@@ -1198,7 +1198,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn retry_policy_respected() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 
@@ -1330,7 +1330,7 @@ mod tests {
         }
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn transaction_timeout_respected() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
         use spanner_grpc_mock::google::spanner::v1::Transaction;
@@ -1450,7 +1450,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn transaction_timeout_ticks_down() -> anyhow::Result<()> {
         use spanner_grpc_mock::google::spanner::v1::Transaction;
 

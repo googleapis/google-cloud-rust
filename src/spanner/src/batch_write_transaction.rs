@@ -157,9 +157,10 @@ mod tests {
         mock: MockSpanner,
     ) -> (DatabaseClient, tokio::task::JoinHandle<()>) {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-        let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())

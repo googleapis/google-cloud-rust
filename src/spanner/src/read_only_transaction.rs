@@ -958,7 +958,6 @@ pub(crate) mod tests {
     use crate::result_set::tests::string_val;
     use crate::value::Value;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
-    use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::mpsc::channel as std_channel;
@@ -1007,9 +1006,10 @@ pub(crate) mod tests {
     ) -> (DatabaseClient, tokio::task::JoinHandle<()>) {
         use crate::client::Spanner;
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-        let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
+        let (address, server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .expect("Failed to start mock server");
 
         let spanner = Spanner::builder()
             .with_endpoint(address)
@@ -1752,7 +1752,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_concurrent_queries_inline_begin() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().never();
@@ -1894,7 +1894,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_concurrent_queries_inline_begin_failed_cascade() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -2025,7 +2025,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_concurrent_queries_inline_begin_stream_restart_deadlock_prevention()
     -> crate::Result<()> {
         let mut mock = create_session_mock();
@@ -2196,7 +2196,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_concurrent_queries_late_arrival_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -2259,7 +2259,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_concurrent_reads_inline_begin() -> anyhow::Result<()> {
         use crate::client::{KeySet, ReadRequest};
         let mut mock = create_session_mock();
@@ -2391,7 +2391,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_inline_begin_idempotent_update() -> anyhow::Result<()> {
         let (db_client, _server) = setup_db_client(create_session_mock()).await;
         // Access internal state for unit testing.
@@ -2436,7 +2436,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn execute_inline_begin_with_transient_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -2485,7 +2485,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_query_in_read_only() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         mock.expect_execute_streaming_sql().once().returning(|req| {

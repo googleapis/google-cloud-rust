@@ -748,13 +748,13 @@ pub(crate) mod tests {
     use crate::client::Spanner;
     use crate::client::Statement;
     use crate::key::KeySet;
+    use crate::mock_server::start_panic_safe_spanner_mock as start;
     use crate::read::ReadRequest;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
-    use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Value;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
@@ -762,7 +762,6 @@ pub(crate) mod tests {
     use spanner_grpc_mock::google::spanner::v1::{
         MultiplexedSessionPrecommitToken, PartialResultSet, ResultSetMetadata, Session, StructType,
     };
-    use spanner_grpc_mock::start;
     use std::time::Duration;
 
     mockall::mock! {
@@ -1908,7 +1907,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn test_result_set_retry_under_limit_no_resume_token() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -2047,7 +2046,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn result_set_inline_begin_stream_error_fallback() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -2136,7 +2135,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn result_set_retry_inline_begin_transient_error() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
@@ -2215,7 +2214,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn result_set_retry_inline_begin_id_recovered() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();

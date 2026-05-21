@@ -643,7 +643,6 @@ mod tests {
     use crate::result_set::tests::adapt;
     use gaxi::grpc::tonic;
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
-    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
     use std::sync::Mutex;
@@ -1999,7 +1998,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_enabled_by_default() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|req| {
@@ -2062,7 +2061,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_disabled() -> anyhow::Result<()> {
         use crate::client::Spanner;
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -2108,7 +2107,10 @@ mod tests {
             }))
         });
 
-        let (address, _server) = spanner_grpc_mock::start("0.0.0.0:0", mock).await.unwrap();
+        let (address, _server) =
+            crate::mock_server::start_panic_safe_spanner_mock("0.0.0.0:0", mock)
+                .await
+                .unwrap();
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -2130,7 +2132,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_query_in_read_write() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|req| {
@@ -2177,7 +2179,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_merges_custom_headers() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|req| {
@@ -2241,7 +2243,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn leader_aware_routing_implicit_begin_fallback() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -2307,7 +2309,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn read_write_transaction_fallback_forwards_transaction_tag() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -2373,7 +2375,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio::test]
     async fn read_write_transaction_mutation_only_inline_begin_commit() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
