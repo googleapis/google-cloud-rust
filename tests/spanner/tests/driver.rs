@@ -99,6 +99,11 @@ mod spanner {
         )
         .await?;
 
+        integration_tests_spanner::read_write_transaction::read_write_transaction_multiple_queries_and_dml(
+            &db_client,
+        )
+        .await?;
+
         Ok(())
     }
 

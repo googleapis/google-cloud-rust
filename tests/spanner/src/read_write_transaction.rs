@@ -394,3 +394,96 @@ pub async fn read_write_transaction_mutation_only(
 
     Ok(())
 }
+
+pub async fn read_write_transaction_multiple_queries_and_dml(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let first_id = format!("rw-multi-1-{}", LowercaseAlphanumeric.random_string(10));
+    let second_id = format!("rw-multi-2-{}", LowercaseAlphanumeric.random_string(10));
+
+    // Insert two rows
+    let first_mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&first_id)
+        .set("ColInt64")
+        .to(&100_i64)
+        .build();
+    let second_mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&second_id)
+        .set("ColInt64")
+        .to(&200_i64)
+        .build();
+    db_client
+        .write_only_transaction()
+        .build()
+        .write(vec![first_mutation, second_mutation])
+        .await?;
+
+    let runner = db_client
+        .read_write_transaction()
+        .with_transaction_tag("multi-query-tag")
+        .build()
+        .await?;
+    runner
+        .run(async |transaction| {
+            // First query
+            let first_statement =
+                Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+                    .add_param("id", &first_id)
+                    .build();
+            let mut first_result_set = transaction.execute_query(first_statement).await?;
+            let first_row = first_result_set
+                .next()
+                .await
+                .transpose()?
+                .expect("First row exists for multiple queries transaction test");
+            let first_value: i64 = first_row.get("ColInt64");
+
+            // Second query
+            let second_statement =
+                Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+                    .add_param("id", &second_id)
+                    .build();
+            let mut second_result_set = transaction.execute_query(second_statement).await?;
+            let second_row = second_result_set
+                .next()
+                .await
+                .transpose()?
+                .expect("Second row exists for multiple queries transaction test");
+            let second_value: i64 = second_row.get("ColInt64");
+
+            // DML statement
+            let update_statement =
+                Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
+                    .add_param("new_val", &(first_value + second_value))
+                    .add_param("id", &first_id)
+                    .build();
+            transaction.execute_update(update_statement).await?;
+
+            Ok(())
+        })
+        .await?;
+
+    // Verify update
+    let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &first_id)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(statement)
+        .await?;
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("Row exists for verification");
+    let final_value: i64 = row.get("ColInt64");
+    assert_eq!(
+        final_value, 300,
+        "Update from multiple queries and DML transaction should have been committed"
+    );
+
+    Ok(())
+}
