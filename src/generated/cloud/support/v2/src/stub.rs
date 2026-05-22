@@ -48,6 +48,16 @@ pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::CaseAttachmentService::get_attachment].
+    fn get_attachment(
+        &self,
+        _req: crate::model::GetAttachmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Attachment>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::CaseService].
@@ -173,6 +183,16 @@ pub trait CommentService: std::fmt::Debug + Send + Sync {
     fn create_comment(
         &self,
         _req: crate::model::CreateCommentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Comment>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CommentService::get_comment].
+    fn get_comment(
+        &self,
+        _req: crate::model::GetCommentRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Comment>>> + Send
     {

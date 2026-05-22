@@ -34,6 +34,179 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Assessment task config.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AssessmentTaskDetails {
+    /// Required. The Cloud Storage path for assessment input files.
+    pub input_path: std::string::String,
+
+    /// Required. The BigQuery dataset for output.
+    pub output_dataset: std::string::String,
+
+    /// Optional. An optional Cloud Storage path to write the query logs (which is
+    /// then used as an input path on the translation task)
+    pub querylogs_path: std::string::String,
+
+    /// Required. The data source or data warehouse type (eg: TERADATA/REDSHIFT)
+    /// from which the input data is extracted.
+    pub data_source: std::string::String,
+
+    /// Optional. A collection of additional feature flags for this assessment.
+    pub feature_handle: std::option::Option<crate::model::AssessmentFeatureHandle>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AssessmentTaskDetails {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [input_path][crate::model::AssessmentTaskDetails::input_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// let x = AssessmentTaskDetails::new().set_input_path("example");
+    /// ```
+    pub fn set_input_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_path = v.into();
+        self
+    }
+
+    /// Sets the value of [output_dataset][crate::model::AssessmentTaskDetails::output_dataset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// let x = AssessmentTaskDetails::new().set_output_dataset("example");
+    /// ```
+    pub fn set_output_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.output_dataset = v.into();
+        self
+    }
+
+    /// Sets the value of [querylogs_path][crate::model::AssessmentTaskDetails::querylogs_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// let x = AssessmentTaskDetails::new().set_querylogs_path("example");
+    /// ```
+    pub fn set_querylogs_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.querylogs_path = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::AssessmentTaskDetails::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// let x = AssessmentTaskDetails::new().set_data_source("example");
+    /// ```
+    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [feature_handle][crate::model::AssessmentTaskDetails::feature_handle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// use google_cloud_bigquery_migration_v2::model::AssessmentFeatureHandle;
+    /// let x = AssessmentTaskDetails::new().set_feature_handle(AssessmentFeatureHandle::default()/* use setters */);
+    /// ```
+    pub fn set_feature_handle<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AssessmentFeatureHandle>,
+    {
+        self.feature_handle = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [feature_handle][crate::model::AssessmentTaskDetails::feature_handle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// use google_cloud_bigquery_migration_v2::model::AssessmentFeatureHandle;
+    /// let x = AssessmentTaskDetails::new().set_or_clear_feature_handle(Some(AssessmentFeatureHandle::default()/* use setters */));
+    /// let x = AssessmentTaskDetails::new().set_or_clear_feature_handle(None::<AssessmentFeatureHandle>);
+    /// ```
+    pub fn set_or_clear_feature_handle<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AssessmentFeatureHandle>,
+    {
+        self.feature_handle = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AssessmentTaskDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.migration.v2.AssessmentTaskDetails"
+    }
+}
+
+/// User-definable feature flags for assessment tasks.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AssessmentFeatureHandle {
+    /// Optional. Whether to create a dataset containing non-PII data in addition
+    /// to the output dataset.
+    pub add_shareable_dataset: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AssessmentFeatureHandle {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [add_shareable_dataset][crate::model::AssessmentFeatureHandle::add_shareable_dataset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentFeatureHandle;
+    /// let x = AssessmentFeatureHandle::new().set_add_shareable_dataset(true);
+    /// ```
+    pub fn set_add_shareable_dataset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.add_shareable_dataset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [add_shareable_dataset][crate::model::AssessmentFeatureHandle::add_shareable_dataset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::AssessmentFeatureHandle;
+    /// let x = AssessmentFeatureHandle::new().set_or_clear_add_shareable_dataset(Some(false));
+    /// let x = AssessmentFeatureHandle::new().set_or_clear_add_shareable_dataset(None::<bool>);
+    /// ```
+    pub fn set_or_clear_add_shareable_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.add_shareable_dataset = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AssessmentFeatureHandle {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.migration.v2.AssessmentFeatureHandle"
+    }
+}
+
 /// A migration workflow which specifies what needs to be done for an EDW
 /// migration.
 #[derive(Clone, Default, PartialEq)]
@@ -57,10 +230,10 @@ pub struct MigrationWorkflow {
     /// Output only. That status of the workflow.
     pub state: crate::model::migration_workflow::State,
 
-    /// Time when the workflow was created.
+    /// Output only. Time when the workflow was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the workflow was last updated.
+    /// Output only. Time when the workflow was last updated.
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -377,13 +550,22 @@ pub struct MigrationTask {
     /// ID is server-generated.
     pub id: std::string::String,
 
-    /// The type of the task. This must be one of the supported task types:
-    /// Translation_Teradata2BQ, Translation_Redshift2BQ, Translation_Bteq2BQ,
-    /// Translation_Oracle2BQ, Translation_HiveQL2BQ, Translation_SparkSQL2BQ,
-    /// Translation_Snowflake2BQ, Translation_Netezza2BQ,
-    /// Translation_AzureSynapse2BQ, Translation_Vertica2BQ,
-    /// Translation_SQLServer2BQ, Translation_Presto2BQ, Translation_MySQL2BQ,
-    /// Translation_Postgresql2BQ, Translation_SQLite2BQ, Translation_Greenplum2BQ.
+    /// The type of the task. This must be one of the supported task types.
+    ///
+    /// Assessment:
+    ///
+    /// - `Assessment_Hive` - Assessment for Hive.
+    /// - `Assessment_Redshift` - Assessment for Redshift.
+    /// - `Assessment_Snowflake` - Assessment for Snowflake.
+    /// - `Assessment_Teradata_v2` - Assessment for Teradata.
+    /// - `Assessment_Oracle` - Assessment for Oracle.
+    /// - `Assessment_Hadoop` - Assessment for Hadoop.
+    /// - `Assessment_Informatica` - Assessment for Informatica.
+    ///
+    /// Translation:
+    /// See [Supported Task
+    /// Types](https://docs.cloud.google.com/bigquery/docs/api-sql-translator#supported_task_types)
+    /// for a list of supported task types.
     pub r#type: std::string::String,
 
     /// Output only. The current state of the task.
@@ -393,10 +575,10 @@ pub struct MigrationTask {
     /// FAILED state.
     pub processing_error: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
 
-    /// Time when the task was created.
+    /// Output only. Time when the task was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the task was last updated.
+    /// Output only. Time when the task was last updated.
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Provides details to errors and issues encountered while
@@ -404,22 +586,24 @@ pub struct MigrationTask {
     /// failed.
     pub resource_error_details: std::vec::Vec<crate::model::ResourceErrorDetail>,
 
-    /// The number or resources with errors. Note: This is not the total
-    /// number of errors as each resource can have more than one error.
-    /// This is used to indicate truncation by having a `resource_error_count`
-    /// that is higher than the size of `resource_error_details`.
+    /// Output only. The number or resources with errors. Note: This is not the
+    /// total number of errors as each resource can have more than one error. This
+    /// is used to indicate truncation by having a `resource_error_count` that is
+    /// higher than the size of `resource_error_details`.
     pub resource_error_count: i32,
 
-    /// The metrics for the task.
+    /// Output only. The metrics for the task.
     pub metrics: std::vec::Vec<crate::model::TimeSeries>,
 
     /// Output only. The result of the task.
     pub task_result: std::option::Option<crate::model::MigrationTaskResult>,
 
-    /// Count of all the processing errors in this task and its subtasks.
+    /// Output only. Count of all the processing errors in this task and its
+    /// subtasks.
     pub total_processing_error_count: i32,
 
-    /// Count of all the resource errors in this task and its subtasks.
+    /// Output only. Count of all the resource errors in this task and its
+    /// subtasks.
     pub total_resource_error_count: i32,
 
     /// The details of the task.
@@ -696,9 +880,9 @@ impl MigrationTask {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
+    /// use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
     /// let x = MigrationTask::new().set_task_details(Some(
-    ///     google_cloud_bigquery_migration_v2::model::migration_task::TaskDetails::TranslationConfigDetails(TranslationConfigDetails::default().into())));
+    ///     google_cloud_bigquery_migration_v2::model::migration_task::TaskDetails::AssessmentTaskDetails(AssessmentTaskDetails::default().into())));
     /// ```
     pub fn set_task_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task::TaskDetails>>,
@@ -707,6 +891,48 @@ impl MigrationTask {
         v: T,
     ) -> Self {
         self.task_details = v.into();
+        self
+    }
+
+    /// The value of [task_details][crate::model::MigrationTask::task_details]
+    /// if it holds a `AssessmentTaskDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn assessment_task_details(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AssessmentTaskDetails>> {
+        #[allow(unreachable_patterns)]
+        self.task_details.as_ref().and_then(|v| match v {
+            crate::model::migration_task::TaskDetails::AssessmentTaskDetails(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [task_details][crate::model::MigrationTask::task_details]
+    /// to hold a `AssessmentTaskDetails`.
+    ///
+    /// Note that all the setters affecting `task_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
+    /// use google_cloud_bigquery_migration_v2::model::AssessmentTaskDetails;
+    /// let x = MigrationTask::new().set_assessment_task_details(AssessmentTaskDetails::default()/* use setters */);
+    /// assert!(x.assessment_task_details().is_some());
+    /// assert!(x.translation_config_details().is_none());
+    /// assert!(x.translation_details().is_none());
+    /// ```
+    pub fn set_assessment_task_details<
+        T: std::convert::Into<std::boxed::Box<crate::model::AssessmentTaskDetails>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.task_details = std::option::Option::Some(
+            crate::model::migration_task::TaskDetails::AssessmentTaskDetails(v.into()),
+        );
         self
     }
 
@@ -737,6 +963,7 @@ impl MigrationTask {
     /// use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
     /// let x = MigrationTask::new().set_translation_config_details(TranslationConfigDetails::default()/* use setters */);
     /// assert!(x.translation_config_details().is_some());
+    /// assert!(x.assessment_task_details().is_none());
     /// assert!(x.translation_details().is_none());
     /// ```
     pub fn set_translation_config_details<
@@ -778,6 +1005,7 @@ impl MigrationTask {
     /// use google_cloud_bigquery_migration_v2::model::TranslationDetails;
     /// let x = MigrationTask::new().set_translation_details(TranslationDetails::default()/* use setters */);
     /// assert!(x.translation_details().is_some());
+    /// assert!(x.assessment_task_details().is_none());
     /// assert!(x.translation_config_details().is_none());
     /// ```
     pub fn set_translation_details<
@@ -830,7 +1058,7 @@ pub mod migration_task {
         Orchestrating,
         /// The task is running, i.e. its subtasks are ready for execution.
         Running,
-        /// Tha task is paused. Assigned subtasks can continue, but no new subtasks
+        /// The task is paused. Assigned subtasks can continue, but no new subtasks
         /// will be scheduled.
         Paused,
         /// The task finished successfully.
@@ -969,6 +1197,8 @@ pub mod migration_task {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TaskDetails {
+        /// Task configuration for Assessment.
+        AssessmentTaskDetails(std::boxed::Box<crate::model::AssessmentTaskDetails>),
         /// Task configuration for CW Batch/Offline SQL Translation.
         TranslationConfigDetails(std::boxed::Box<crate::model::TranslationConfigDetails>),
         /// Task details for unified SQL Translation.
@@ -1009,19 +1239,19 @@ pub struct MigrationSubtask {
     /// subtask failed.
     pub resource_error_details: std::vec::Vec<crate::model::ResourceErrorDetail>,
 
-    /// The number or resources with errors. Note: This is not the total
-    /// number of errors as each resource can have more than one error.
-    /// This is used to indicate truncation by having a `resource_error_count`
-    /// that is higher than the size of `resource_error_details`.
+    /// Output only. The number or resources with errors. Note: This is not the
+    /// total number of errors as each resource can have more than one error. This
+    /// is used to indicate truncation by having a `resource_error_count` that is
+    /// higher than the size of `resource_error_details`.
     pub resource_error_count: i32,
 
-    /// Time when the subtask was created.
+    /// Output only. Time when the subtask was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the subtask was last updated.
+    /// Output only. Time when the subtask was last updated.
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
-    /// The metrics for the subtask.
+    /// Output only. The metrics for the subtask.
     pub metrics: std::vec::Vec<crate::model::TimeSeries>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1530,6 +1760,9 @@ pub struct TranslationTaskResult {
     /// The records from the aggregate CSV report for a migration workflow.
     pub report_log_messages: std::vec::Vec<crate::model::GcsReportLogMessage>,
 
+    /// The Cloud Console URI for the migration workflow.
+    pub console_uri: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1580,6 +1813,18 @@ impl TranslationTaskResult {
     {
         use std::iter::Iterator;
         self.report_log_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [console_uri][crate::model::TranslationTaskResult::console_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TranslationTaskResult;
+    /// let x = TranslationTaskResult::new().set_console_uri("example");
+    /// ```
+    pub fn set_console_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.console_uri = v.into();
         self
     }
 }
@@ -5575,6 +5820,9 @@ pub struct TranslationDetails {
     /// generate. See the documentation for the set of available target types.
     pub target_types: std::vec::Vec<std::string::String>,
 
+    /// The configuration for the suggestion if requested as a target type.
+    pub suggestion_config: std::option::Option<crate::model::SuggestionConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5684,11 +5932,425 @@ impl TranslationDetails {
         self.target_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [suggestion_config][crate::model::TranslationDetails::suggestion_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
+    /// use google_cloud_bigquery_migration_v2::model::SuggestionConfig;
+    /// let x = TranslationDetails::new().set_suggestion_config(SuggestionConfig::default()/* use setters */);
+    /// ```
+    pub fn set_suggestion_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SuggestionConfig>,
+    {
+        self.suggestion_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [suggestion_config][crate::model::TranslationDetails::suggestion_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
+    /// use google_cloud_bigquery_migration_v2::model::SuggestionConfig;
+    /// let x = TranslationDetails::new().set_or_clear_suggestion_config(Some(SuggestionConfig::default()/* use setters */));
+    /// let x = TranslationDetails::new().set_or_clear_suggestion_config(None::<SuggestionConfig>);
+    /// ```
+    pub fn set_or_clear_suggestion_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SuggestionConfig>,
+    {
+        self.suggestion_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for TranslationDetails {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.migration.v2.TranslationDetails"
+    }
+}
+
+/// The configuration for the suggestion if requested as a target type.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SuggestionConfig {
+    /// The list of suggestion steps to skip.
+    pub skip_suggestion_steps: std::vec::Vec<crate::model::SuggestionStep>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SuggestionConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [skip_suggestion_steps][crate::model::SuggestionConfig::skip_suggestion_steps].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::SuggestionConfig;
+    /// use google_cloud_bigquery_migration_v2::model::SuggestionStep;
+    /// let x = SuggestionConfig::new()
+    ///     .set_skip_suggestion_steps([
+    ///         SuggestionStep::default()/* use setters */,
+    ///         SuggestionStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_skip_suggestion_steps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SuggestionStep>,
+    {
+        use std::iter::Iterator;
+        self.skip_suggestion_steps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SuggestionConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.migration.v2.SuggestionConfig"
+    }
+}
+
+/// Suggestion step to skip.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SuggestionStep {
+    /// The type of suggestion.
+    pub suggestion_type: crate::model::suggestion_step::SuggestionType,
+
+    /// The rewrite target.
+    pub rewrite_target: crate::model::suggestion_step::RewriteTarget,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SuggestionStep {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [suggestion_type][crate::model::SuggestionStep::suggestion_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::SuggestionStep;
+    /// use google_cloud_bigquery_migration_v2::model::suggestion_step::SuggestionType;
+    /// let x0 = SuggestionStep::new().set_suggestion_type(SuggestionType::QueryCustomization);
+    /// let x1 = SuggestionStep::new().set_suggestion_type(SuggestionType::TranslationExplanation);
+    /// ```
+    pub fn set_suggestion_type<
+        T: std::convert::Into<crate::model::suggestion_step::SuggestionType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.suggestion_type = v.into();
+        self
+    }
+
+    /// Sets the value of [rewrite_target][crate::model::SuggestionStep::rewrite_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::SuggestionStep;
+    /// use google_cloud_bigquery_migration_v2::model::suggestion_step::RewriteTarget;
+    /// let x0 = SuggestionStep::new().set_rewrite_target(RewriteTarget::SourceSql);
+    /// let x1 = SuggestionStep::new().set_rewrite_target(RewriteTarget::TargetSql);
+    /// ```
+    pub fn set_rewrite_target<
+        T: std::convert::Into<crate::model::suggestion_step::RewriteTarget>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rewrite_target = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SuggestionStep {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.migration.v2.SuggestionStep"
+    }
+}
+
+/// Defines additional types related to [SuggestionStep].
+pub mod suggestion_step {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Suggestion type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SuggestionType {
+        /// Suggestion type unspecified.
+        Unspecified,
+        /// Query customization.
+        QueryCustomization,
+        /// Translation explanation.
+        TranslationExplanation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SuggestionType::value] or
+        /// [SuggestionType::name].
+        UnknownValue(suggestion_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod suggestion_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SuggestionType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::QueryCustomization => std::option::Option::Some(1),
+                Self::TranslationExplanation => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SUGGESTION_TYPE_UNSPECIFIED"),
+                Self::QueryCustomization => std::option::Option::Some("QUERY_CUSTOMIZATION"),
+                Self::TranslationExplanation => {
+                    std::option::Option::Some("TRANSLATION_EXPLANATION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SuggestionType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SuggestionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SuggestionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::QueryCustomization,
+                2 => Self::TranslationExplanation,
+                _ => Self::UnknownValue(suggestion_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SuggestionType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SUGGESTION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "QUERY_CUSTOMIZATION" => Self::QueryCustomization,
+                "TRANSLATION_EXPLANATION" => Self::TranslationExplanation,
+                _ => Self::UnknownValue(suggestion_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SuggestionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::QueryCustomization => serializer.serialize_i32(1),
+                Self::TranslationExplanation => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SuggestionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SuggestionType>::new(
+                ".google.cloud.bigquery.migration.v2.SuggestionStep.SuggestionType",
+            ))
+        }
+    }
+
+    /// The target to apply the suggestion to.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RewriteTarget {
+        /// Rewrite target unspecified.
+        Unspecified,
+        /// Source SQL.
+        SourceSql,
+        /// Target SQL.
+        TargetSql,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RewriteTarget::value] or
+        /// [RewriteTarget::name].
+        UnknownValue(rewrite_target::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod rewrite_target {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RewriteTarget {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SourceSql => std::option::Option::Some(1),
+                Self::TargetSql => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REWRITE_TARGET_UNSPECIFIED"),
+                Self::SourceSql => std::option::Option::Some("SOURCE_SQL"),
+                Self::TargetSql => std::option::Option::Some("TARGET_SQL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RewriteTarget {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RewriteTarget {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RewriteTarget {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SourceSql,
+                2 => Self::TargetSql,
+                _ => Self::UnknownValue(rewrite_target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RewriteTarget {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REWRITE_TARGET_UNSPECIFIED" => Self::Unspecified,
+                "SOURCE_SQL" => Self::SourceSql,
+                "TARGET_SQL" => Self::TargetSql,
+                _ => Self::UnknownValue(rewrite_target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RewriteTarget {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SourceSql => serializer.serialize_i32(1),
+                Self::TargetSql => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RewriteTarget {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RewriteTarget>::new(
+                ".google.cloud.bigquery.migration.v2.SuggestionStep.RewriteTarget",
+            ))
+        }
     }
 }
 
@@ -5859,6 +6521,7 @@ impl SourceSpec {
     /// let x = SourceSpec::new().set_base_uri("example");
     /// assert!(x.base_uri().is_some());
     /// assert!(x.literal().is_none());
+    /// assert!(x.gcs_file_path().is_none());
     /// ```
     pub fn set_base_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source =
@@ -5890,6 +6553,7 @@ impl SourceSpec {
     /// let x = SourceSpec::new().set_literal(Literal::default()/* use setters */);
     /// assert!(x.literal().is_some());
     /// assert!(x.base_uri().is_none());
+    /// assert!(x.gcs_file_path().is_none());
     /// ```
     pub fn set_literal<T: std::convert::Into<std::boxed::Box<crate::model::Literal>>>(
         mut self,
@@ -5897,6 +6561,37 @@ impl SourceSpec {
     ) -> Self {
         self.source =
             std::option::Option::Some(crate::model::source_spec::Source::Literal(v.into()));
+        self
+    }
+
+    /// The value of [source][crate::model::SourceSpec::source]
+    /// if it holds a `GcsFilePath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_file_path(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source_spec::Source::GcsFilePath(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::SourceSpec::source]
+    /// to hold a `GcsFilePath`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::SourceSpec;
+    /// let x = SourceSpec::new().set_gcs_file_path("example");
+    /// assert!(x.gcs_file_path().is_some());
+    /// assert!(x.base_uri().is_none());
+    /// assert!(x.literal().is_none());
+    /// ```
+    pub fn set_gcs_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::source_spec::Source::GcsFilePath(v.into()));
         self
     }
 }
@@ -5920,6 +6615,8 @@ pub mod source_spec {
         BaseUri(std::string::String),
         /// Source literal.
         Literal(std::boxed::Box<crate::model::Literal>),
+        /// The path to a single source file in Cloud Storage.
+        GcsFilePath(std::string::String),
     }
 }
 

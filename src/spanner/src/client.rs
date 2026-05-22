@@ -365,7 +365,7 @@ mod tests {
         assert_not_impl_any!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn channel_pool_default_size() {
         let mock = MockSpanner::new();
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -382,7 +382,7 @@ mod tests {
         assert_eq!(client.channels.len(), 4);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn channel_selection() {
         let mock = MockSpanner::new();
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -409,7 +409,7 @@ mod tests {
         assert_eq!(hint4 % 4, 0);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_create_session() {
         // 1. Setup Mock Server
         let mut mock = MockSpanner::new();
@@ -456,7 +456,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_create_session_retry() {
         use google_cloud_gax::options::RequestOptionsBuilder;
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -516,7 +516,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_execute_sql() {
         use crate::model::ExecuteSqlRequest;
 
@@ -559,7 +559,7 @@ mod tests {
         assert!(result_set.metadata.is_some());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_execute_batch_dml() {
         use crate::model::ExecuteBatchDmlRequest;
 
@@ -602,7 +602,7 @@ mod tests {
         assert!(response.status.is_some());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_read() {
         use crate::model::ReadRequest;
 
@@ -641,7 +641,7 @@ mod tests {
         assert!(result_set.metadata.is_none());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_begin_transaction() {
         use crate::model::BeginTransactionRequest;
 
@@ -679,7 +679,7 @@ mod tests {
         assert_eq!(tx.id, vec![1, 2, 3]);
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_commit() {
         use crate::model::CommitRequest;
 
@@ -721,7 +721,7 @@ mod tests {
         assert!(response.commit_timestamp.is_some());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_rollback() {
         use crate::model::RollbackRequest;
 
@@ -753,7 +753,7 @@ mod tests {
             .expect("Failed to call rollback");
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_execute_streaming_sql() {
         use crate::model::ExecuteSqlRequest;
 
@@ -804,7 +804,7 @@ mod tests {
         assert!(result.unwrap().is_ok());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_streaming_read() {
         use crate::model::ReadRequest;
 
@@ -856,7 +856,7 @@ mod tests {
         assert!(result.unwrap().is_ok());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_batch_write() {
         use crate::model::BatchWriteRequest;
 
@@ -898,7 +898,7 @@ mod tests {
         assert!(result.unwrap().is_ok());
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_execute_streaming_sql_error() {
         use crate::model::ExecuteSqlRequest;
 
@@ -942,7 +942,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn default_retry_respected() -> anyhow::Result<()> {
         use crate::model::CreateSessionRequest;
 
@@ -993,7 +993,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn override_idempotency_to_false() -> anyhow::Result<()> {
         use crate::model::CreateSessionRequest;
 

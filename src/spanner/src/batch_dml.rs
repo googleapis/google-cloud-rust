@@ -106,6 +106,22 @@ impl BatchDml {
     }
 }
 
+impl From<BatchDmlBuilder> for BatchDml {
+    fn from(builder: BatchDmlBuilder) -> Self {
+        builder.build()
+    }
+}
+
+impl<T: Into<Statement>> From<Vec<T>> for BatchDml {
+    fn from(statements: Vec<T>) -> Self {
+        BatchDml {
+            statements: statements.into_iter().map(Into::into).collect(),
+            request_options: None,
+            gax_options: GaxRequestOptions::default(),
+        }
+    }
+}
+
 /// Processes an ExecuteBatchDmlResponse and returns the success counts, or an error.
 pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> crate::Result<Vec<i64>> {
     let mut update_counts = Vec::with_capacity(response.result_sets.len());
@@ -364,5 +380,33 @@ mod tests {
             err.to_string()
                 .contains("invalid or missing row count type")
         );
+    }
+
+    #[test]
+    fn from_vector_of_strings() {
+        let statements = vec!["UPDATE table SET col = 1", "UPDATE table SET col = 2"];
+        let batch: BatchDml = statements.into();
+        assert_eq!(batch.statements.len(), 2);
+        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
+        assert_eq!(batch.statements[1].sql, "UPDATE table SET col = 2");
+    }
+
+    #[test]
+    fn from_vector_of_statements() {
+        let statement1 = Statement::builder("UPDATE table SET col = 1").build();
+        let statement2 = Statement::builder("UPDATE table SET col = 2").build();
+        let statements = vec![statement1, statement2];
+        let batch: BatchDml = statements.into();
+        assert_eq!(batch.statements.len(), 2);
+        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
+        assert_eq!(batch.statements[1].sql, "UPDATE table SET col = 2");
+    }
+
+    #[test]
+    fn from_builder() {
+        let builder = BatchDml::builder().add_statement("UPDATE table SET col = 1");
+        let batch: BatchDml = builder.into();
+        assert_eq!(batch.statements.len(), 1);
+        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
     }
 }

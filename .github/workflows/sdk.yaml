@@ -55,6 +55,21 @@ jobs:
         # The rest of the code is tested in Google Cloud build
         run: cargo test --profile=ci --package google-cloud-auth --package user-guide-samples
 
+  # Ensure that the library version and the librarian.yaml version align.
+  check-versions:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Verify library versions
+        run: cargo run --package check-versions
+
   # A quick check on changes to the major version of some critical crates.
   # Can be disabled if it returns a false positive.
   semver-checks:

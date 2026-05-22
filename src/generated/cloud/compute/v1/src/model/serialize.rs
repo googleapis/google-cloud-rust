@@ -10436,6 +10436,9 @@ impl serde::ser::Serialize for super::FirewallPolicyRule {
         if self.security_profile_group.is_some() {
             state.serialize_entry("securityProfileGroup", &self.security_profile_group)?;
         }
+        if !self.target_forwarding_rules.is_empty() {
+            state.serialize_entry("targetForwardingRules", &self.target_forwarding_rules)?;
+        }
         if !self.target_resources.is_empty() {
             state.serialize_entry("targetResources", &self.target_resources)?;
         }
@@ -10444,6 +10447,9 @@ impl serde::ser::Serialize for super::FirewallPolicyRule {
         }
         if !self.target_service_accounts.is_empty() {
             state.serialize_entry("targetServiceAccounts", &self.target_service_accounts)?;
+        }
+        if self.target_type.is_some() {
+            state.serialize_entry("targetType", &self.target_type)?;
         }
         if self.tls_inspect.is_some() {
             state.serialize_entry("tlsInspect", &self.tls_inspect)?;

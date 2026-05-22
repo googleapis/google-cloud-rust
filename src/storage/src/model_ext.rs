@@ -73,6 +73,12 @@ pub struct ObjectHighlights {
 
     /// The etag of the object.
     pub etag: String,
+
+    /// User-provided metadata, in key/value pairs.
+    ///
+    /// Populated from `x-goog-meta-*` response headers; keys have the
+    /// `x-goog-meta-` prefix stripped and are lowercased by the server.
+    pub metadata: std::collections::HashMap<String, String>,
 }
 
 #[derive(Debug, Clone)]
