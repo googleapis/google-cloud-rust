@@ -1063,55 +1063,9 @@ mod tests {
     }
 
     #[cfg(google_cloud_unstable_tracing)]
-    struct TestLayer {
-        recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
-    }
-
-    #[cfg(google_cloud_unstable_tracing)]
-    impl<S> tracing_subscriber::layer::Layer<S> for TestLayer
-    where
-        S: tracing::Subscriber + for<'span> tracing_subscriber::registry::LookupSpan<'span>,
-    {
-        fn on_record(
-            &self,
-            _id: &tracing::span::Id,
-            values: &tracing::span::Record<'_>,
-            _ctx: tracing_subscriber::layer::Context<'_, S>,
-        ) {
-            struct Visitor {
-                recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
-            }
-            impl tracing::field::Visit for Visitor {
-                fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
-                    self.recorded
-                        .lock()
-                        .unwrap()
-                        .insert(field.name().to_string(), value.to_string());
-                }
-                fn record_debug(
-                    &mut self,
-                    _field: &tracing::field::Field,
-                    _value: &dyn std::fmt::Debug,
-                ) {
-                }
-            }
-            let mut visitor = Visitor {
-                recorded: self.recorded.clone(),
-            };
-            values.record(&mut visitor);
-        }
-    }
-
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_poller_tracing() {
-        use tracing_subscriber::layer::SubscriberExt;
-
-        let recorded = Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()));
-        let layer = TestLayer {
-            recorded: recorded.clone(),
-        };
-        let subscriber = tracing_subscriber::registry::Registry::default().with(layer);
+        let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
 
         let start = || async move {
             let any = Any::from_msg(&Timestamp::clamp(123, 0))
@@ -1156,8 +1110,6 @@ mod tests {
             query,
         );
 
-        let _guard = tracing::subscriber::set_default(subscriber);
-
         let span = test_span();
         let poller_ref = &mut poller;
         let _ = crate::internal::LRO_SPAN
@@ -1167,14 +1119,18 @@ mod tests {
             .await;
 
         {
-            let map = recorded.lock().unwrap();
+            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "test_span")
+                .unwrap_or_else(|| panic!("missing `test_span` in captured spans: {captured:?}"));
             assert_eq!(
-                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
-                Some("test-operation-123")
+                got.attributes
+                    .get("gcp.resource.destination.id")
+                    .and_then(|v| v.as_string()),
+                Some("test-operation-123".to_string())
             );
         }
-
-        recorded.lock().unwrap().clear();
 
         let span = test_span();
         let poller_ref2 = &mut poller;
@@ -1185,10 +1141,16 @@ mod tests {
             .await;
 
         {
-            let map = recorded.lock().unwrap();
+            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "test_span")
+                .unwrap_or_else(|| panic!("missing `test_span` in captured spans: {captured:?}"));
             assert_eq!(
-                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
-                Some("test-operation-123")
+                got.attributes
+                    .get("gcp.resource.destination.id")
+                    .and_then(|v| v.as_string()),
+                Some("test-operation-123".to_string())
             );
         }
     }
@@ -1196,13 +1158,7 @@ mod tests {
     #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_poller_tracing_immediate_done() {
-        use tracing_subscriber::layer::SubscriberExt;
-
-        let recorded = Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()));
-        let layer = TestLayer {
-            recorded: recorded.clone(),
-        };
-        let subscriber = tracing_subscriber::registry::Registry::default().with(layer);
+        let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
 
         let start = || async move {
             let any = Any::from_msg(&Duration::clamp(234, 0))
@@ -1225,8 +1181,6 @@ mod tests {
             query,
         );
 
-        let _guard = tracing::subscriber::set_default(subscriber);
-
         let span = test_span();
         let poller_ref = &mut poller;
         let _ = crate::internal::LRO_SPAN
@@ -1236,10 +1190,16 @@ mod tests {
             .await;
 
         {
-            let map = recorded.lock().unwrap();
+            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "test_span")
+                .unwrap_or_else(|| panic!("missing `test_span` in captured spans: {captured:?}"));
             assert_eq!(
-                map.get("gcp.resource.destination.id").map(|s| s.as_str()),
-                Some("immediate-operation-123")
+                got.attributes
+                    .get("gcp.resource.destination.id")
+                    .and_then(|v| v.as_string()),
+                Some("immediate-operation-123".to_string())
             );
         }
     }
