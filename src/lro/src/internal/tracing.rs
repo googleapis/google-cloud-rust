@@ -47,6 +47,7 @@ impl LroRecorder {
         }
     }
 
+    #[cfg(test)]
     pub fn span(&self) -> &Span {
         &self.span
     }
@@ -193,7 +194,6 @@ mod tests {
     use super::*;
     use crate::Error;
     use google_cloud_wkt::{Duration, Timestamp};
-    use std::sync::Arc;
 
     struct FailingPoller;
     impl sealed::Poller for FailingPoller {
@@ -252,5 +252,73 @@ mod tests {
                     .contains("logical-test-failure")
             );
         }
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_lro_recorder_attempt_counting() {
+        let span = tracing::info_span!("test_lro_span");
+        let mut recorder = LroRecorder::new(span);
+
+        // First poll should record attempt 0
+        recorder
+            .record_poll(|active_span| async move {
+                assert_eq!(active_span.metadata().unwrap().name(), "test_lro_span");
+                let attempt = POLL_ATTEMPT_COUNT.try_with(|c| *c).unwrap();
+                assert_eq!(attempt, 0);
+            })
+            .await;
+
+        // Second poll should record attempt 1
+        recorder
+            .record_poll(|active_span| async move {
+                assert_eq!(active_span.metadata().unwrap().name(), "test_lro_span");
+                let attempt = POLL_ATTEMPT_COUNT.try_with(|c| *c).unwrap();
+                assert_eq!(attempt, 1);
+            })
+            .await;
+
+        // Third poll should record attempt 2
+        recorder
+            .record_poll(|active_span| async move {
+                assert_eq!(active_span.metadata().unwrap().name(), "test_lro_span");
+                let attempt = POLL_ATTEMPT_COUNT.try_with(|c| *c).unwrap();
+                assert_eq!(attempt, 2);
+            })
+            .await;
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_lro_recorder_span_nesting() {
+        let span = tracing::info_span!("test_lro_span");
+        let recorder = LroRecorder::new(span.clone());
+
+        // Verify span is active in record_poll
+        let mut recorder_mut = recorder.clone();
+        let span_clone = span.clone();
+        recorder_mut
+            .record_poll(|_| async move {
+                let active_recorder = LRO_RECORDER.try_with(|r| r.clone()).unwrap();
+                assert_eq!(
+                    active_recorder.span().metadata().unwrap().name(),
+                    "test_lro_span"
+                );
+                assert_eq!(active_recorder.span(), &span_clone);
+            })
+            .await;
+
+        // Verify span is active in record_action
+        let span_clone2 = span.clone();
+        recorder
+            .record_action(|_| async move {
+                let active_recorder = LRO_RECORDER.try_with(|r| r.clone()).unwrap();
+                assert_eq!(
+                    active_recorder.span().metadata().unwrap().name(),
+                    "test_lro_span"
+                );
+                assert_eq!(active_recorder.span(), &span_clone2);
+            })
+            .await;
     }
 }
