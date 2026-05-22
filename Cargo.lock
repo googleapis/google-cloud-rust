@@ -6158,9 +6158,14 @@ dependencies = [
  "anyhow",
  "base64",
  "futures",
+ "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
  "google-cloud-spanner",
+ "google-cloud-spanner-admin-database-v1",
  "google-cloud-test-utils",
+ "google-cloud-wkt",
  "http",
  "http-body",
  "http-body-util",
@@ -6175,6 +6180,7 @@ dependencies = [
  "tokio-stream",
  "tonic",
  "tower",
+ "tracing",
 ]
 
 [[package]]
