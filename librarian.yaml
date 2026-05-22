@@ -119,11 +119,6 @@ default:
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
 libraries:
-  - name: google-backstory
-    version: 1.0.0
-    copyright_year: "2026"
-    apis:
-      - path: backstory
   - name: bigquery-write-grpc-mock
     copyright_year: "2026"
     output: src/bigquery-write/grpc-mock
@@ -155,6 +150,11 @@ libraries:
           output: src/wkt/tests/common/src/generated
           api_path: src/wkt/tests/protos
           template: mod
+  - name: google-backstory
+    version: 1.0.0
+    apis:
+      - path: backstory
+    copyright_year: "2026"
   - name: google-cloud-accessapproval-v1
     version: 1.9.0
     copyright_year: "2025"
