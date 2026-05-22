@@ -880,12 +880,15 @@ pub async fn initial_statement_failure_handling(db_client: &DatabaseClient) -> a
         .run(async |transaction| {
             let statement =
                 Statement::builder("SELECT * FROM NonExistentTableForErrorHandling").build();
-            let execute_result = transaction.execute_query(statement).await;
+            let query_result = match transaction.execute_query(statement).await {
+                Ok(mut result_set) => result_set.next().await.map(|res| res.map(|_| ())),
+                Err(e) => Some(Err(e)),
+            };
             assert!(
-                execute_result.is_err(),
+                query_result.as_ref().is_some_and(|r| r.is_err()),
                 "Query on non-existent table should fail"
             );
-            Err(execute_result.unwrap_err())
+            Err(query_result.unwrap().unwrap_err())
         })
         .await
         .map(|result| result.result);
@@ -1102,9 +1105,12 @@ pub async fn continue_after_initial_query_error(db_client: &DatabaseClient) -> a
             // 1. Query from a table that does not exist. Catch the error and proceed with the transaction.
             let invalid_statement =
                 Statement::builder("SELECT * FROM NonExistentTableToTestContinuation").build();
-            let query_result = transaction.execute_query(invalid_statement).await;
+            let query_result = match transaction.execute_query(invalid_statement).await {
+                Ok(mut result_set) => result_set.next().await.map(|res| res.map(|_| ())),
+                Err(e) => Some(Err(e)),
+            };
             assert!(
-                query_result.is_err(),
+                query_result.as_ref().is_some_and(|r| r.is_err()),
                 "Query on non-existent table should fail"
             );
 

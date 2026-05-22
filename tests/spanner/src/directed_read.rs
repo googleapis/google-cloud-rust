@@ -57,7 +57,7 @@ pub async fn read_write_with_directed_read_error(db_client: &DatabaseClient) -> 
         .run(async |tx| {
             let read = read.clone();
             let mut rs = tx.execute_read(read).await?;
-            let _ = rs.next().await;
+            let _ = rs.next().await.transpose()?;
             Ok(())
         })
         .await
@@ -70,12 +70,14 @@ pub async fn read_write_with_directed_read_error(db_client: &DatabaseClient) -> 
 
     let err = result.unwrap_err();
     let err_str = format!("{:?}", err);
-    // The proto documentation states that an INVALID_ARGUMENT error should be returned,
-    // but the emulator returns FailedPrecondition with a specific message.
+    // The proto documentation states that an INVALID_ARGUMENT error should be returned
+    // (which is what real Spanner returns), but the emulator returns FailedPrecondition
+    // with a specific message. We check for both to support both environments.
     assert!(
         err_str.contains("FailedPrecondition")
+            || err_str.contains("InvalidArgument")
             || err_str.contains("Directed reads can only be performed in a read-only transaction"),
-        "Expected FailedPrecondition error, got: {}",
+        "Expected FailedPrecondition or InvalidArgument error, got: {}",
         err_str
     );
 
