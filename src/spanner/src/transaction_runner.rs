@@ -427,9 +427,10 @@ impl TransactionRunner {
                             .get_id_no_wait()
                             .ok()
                             .flatten();
-                        // Rollback if the closure failed. We execute rollback even for Aborted errors
-                        // to ensure local Spanner Emulator active transaction locks are completely cleared.
-                        let _ = transaction.rollback().await;
+                        // Rollback if the closure failed and it was not an Aborted error.
+                        if !is_aborted(&e) {
+                            let _ = transaction.rollback().await;
+                        }
                         current_tx_id = id;
                         return Err(e);
                     }

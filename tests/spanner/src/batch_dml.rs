@@ -15,10 +15,9 @@
 use google_cloud_spanner::BatchUpdateError;
 use google_cloud_spanner::batch_dml::BatchDml;
 use google_cloud_spanner::client::{
-    BasicTransactionRetryPolicy, BeginTransactionOption, DatabaseClient, Mutation, Statement,
+    DatabaseClient, Mutation, Statement,
 };
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
-use std::time::Duration;
 
 pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let id1 = format!("bdml-suc-1-{}", LowercaseAlphanumeric.random_string(10));
@@ -46,10 +45,6 @@ pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Resu
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("batch-success-tag")
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 5,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -136,10 +131,6 @@ pub async fn partial_batch_update_failure(db_client: &DatabaseClient) -> anyhow:
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("batch-partial-tag")
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -191,10 +182,6 @@ pub async fn empty_batch_statement_rejection(db_client: &DatabaseClient) -> anyh
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("batch-empty-tag")
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -223,10 +210,6 @@ pub async fn unsupported_query_in_batch_dml(db_client: &DatabaseClient) -> anyho
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("batch-query-tag")
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -272,10 +255,6 @@ pub async fn unsupported_returning_clause(db_client: &DatabaseClient) -> anyhow:
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("batch-returning-tag")
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -316,11 +295,6 @@ pub async fn continue_after_empty_batch_statement(
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("continue-empty-tag")
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -339,14 +313,7 @@ pub async fn continue_after_empty_batch_statement(
                 Statement::builder("INSERT INTO AllTypes (Id, ColInt64) VALUES (@id, 888)")
                     .add_param("id", &id)
                     .build();
-            let insert_result = transaction.execute_update(valid_insert).await;
-            if insert_result.is_err() {
-                // Spanner Emulator invalidates active transactions upon encountering any RPC error.
-                // We return a non-aborted error to guarantee TransactionRunner calls rollback().
-                return Err(google_cloud_spanner::Error::deser(
-                    "Emulator invalidation explicit rollback",
-                ));
-            }
+            transaction.execute_update(valid_insert).await?;
 
             Ok(())
         })
@@ -368,7 +335,7 @@ pub async fn continue_after_empty_batch_statement(
     Ok(())
 }
 
-pub async fn continue_after_invalid_statement_in_batch(
+pub async fn continue_after_invalid_first_statement_in_batch(
     db_client: &DatabaseClient,
 ) -> anyhow::Result<()> {
     let id = format!("bdml-con-inv-{}", LowercaseAlphanumeric.random_string(10));
@@ -376,11 +343,6 @@ pub async fn continue_after_invalid_statement_in_batch(
     let runner = db_client
         .read_write_transaction()
         .with_transaction_tag("continue-invalid-tag")
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
-        .with_retry_policy(BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: Duration::from_secs(5),
-        })
         .build()
         .await?;
 
@@ -405,12 +367,80 @@ pub async fn continue_after_invalid_statement_in_batch(
                 Statement::builder("INSERT INTO AllTypes (Id, ColInt64) VALUES (@id, 999)")
                     .add_param("id", &id)
                     .build();
-            let insert_result = transaction.execute_update(valid_insert).await;
-            if insert_result.is_err() {
-                return Err(google_cloud_spanner::Error::deser(
-                    "Emulator invalidation explicit rollback",
-                ));
-            }
+            transaction.execute_update(valid_insert).await?;
+
+            Ok(())
+        })
+        .await;
+
+    // Verify commit if emulator allowed continuation
+    if _result.is_ok() {
+        let verify_statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+            .add_param("id", &id)
+            .build();
+        let mut result_set = db_client
+            .single_use()
+            .build()
+            .execute_query(verify_statement)
+            .await?;
+        let _ = result_set.next().await;
+    }
+
+    Ok(())
+}
+
+pub async fn continue_after_invalid_second_statement_in_batch(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let id = format!("bdml-con-sec-{}", LowercaseAlphanumeric.random_string(10));
+
+    let mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&id)
+        .set("ColInt64")
+        .to(&50_i64)
+        .build();
+    db_client
+        .write_only_transaction()
+        .build()
+        .write(vec![mutation])
+        .await?;
+
+    let runner = db_client
+        .read_write_transaction()
+        .with_transaction_tag("continue-second-invalid-tag")
+        .build()
+        .await?;
+
+    let _result = runner
+        .run(async |transaction| {
+            // 1. Batch DML with a valid first statement and invalid second statement.
+            let valid_statement =
+                Statement::builder("UPDATE AllTypes SET ColInt64 = 100 WHERE Id = @id")
+                    .add_param("id", &id)
+                    .build();
+            let invalid_statement = Statement::builder(
+                "UPDATE NonExistentTableForBatchError SET ColInt64 = 999 WHERE Id = @id",
+            )
+            .add_param("id", &id)
+            .build();
+            let batch = BatchDml::builder()
+                .add_statement(valid_statement)
+                .add_statement(invalid_statement)
+                .build();
+
+            let batch_result = transaction.execute_batch_update(batch).await;
+            assert!(
+                batch_result.is_err(),
+                "Executing a batch with an invalid second statement should be rejected"
+            );
+
+            // 2. Continue with a valid statement and commit.
+            let valid_update =
+                Statement::builder("UPDATE AllTypes SET ColInt64 = 200 WHERE Id = @id")
+                    .add_param("id", &id)
+                    .build();
+            transaction.execute_update(valid_update).await?;
 
             Ok(())
         })

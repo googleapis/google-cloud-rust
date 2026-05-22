@@ -435,9 +435,14 @@ mod tests {
 
         let result = process_response(response);
         let err = result.expect_err("should return error");
-        let batch_err = BatchUpdateError::extract(&err).expect("should extract BatchUpdateError cleanly and not return internal error");
+        let batch_err = BatchUpdateError::extract(&err)
+            .expect("should extract BatchUpdateError cleanly and not return internal error");
 
-        assert_eq!(batch_err.update_counts, Vec::<i64>::new(), "Update counts should be completely empty");
+        assert_eq!(
+            batch_err.update_counts,
+            Vec::<i64>::new(),
+            "Update counts should be completely empty"
+        );
         assert_eq!(
             batch_err.status.status().expect("status").code,
             Code::InvalidArgument
