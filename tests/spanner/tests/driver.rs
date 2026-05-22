@@ -69,6 +69,32 @@ mod spanner {
     }
 
     #[tokio::test]
+    async fn run_batch_dml_tests() -> anyhow::Result<()> {
+        let db_client = match client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        integration_tests_spanner::batch_dml::successful_batch_update(&db_client).await?;
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+        integration_tests_spanner::batch_dml::partial_batch_update_failure(&db_client).await?;
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+        integration_tests_spanner::batch_dml::empty_batch_statement_rejection(&db_client).await?;
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+        integration_tests_spanner::batch_dml::unsupported_query_in_batch_dml(&db_client).await?;
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+        integration_tests_spanner::batch_dml::unsupported_returning_clause(&db_client).await?;
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        integration_tests_spanner::batch_dml::continue_after_empty_batch_statement(&db_client)
+            .await?;
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        integration_tests_spanner::batch_dml::continue_after_invalid_statement_in_batch(&db_client)
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn run_read_write_tests() -> anyhow::Result<()> {
         let db_client = match integration_tests_spanner::client::create_database_client().await {
             Some(c) => c,

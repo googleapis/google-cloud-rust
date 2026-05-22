@@ -502,12 +502,6 @@ impl ReadWriteTransaction {
         self.context.transaction_selector.is_starting()
     }
 
-    pub(crate) async fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
-        match &self.context.transaction_selector.selector().await?.selector {
-            Some(Selector::Id(id)) => Ok(id.clone()),
-            _ => Err(internal_error("Transaction ID is missing")),
-        }
-    }
 
     fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
         let mut options = self.context.amend_request_options(None);
@@ -581,7 +575,9 @@ impl ReadWriteTransaction {
 
     /// Rolls back the transaction.
     pub(crate) async fn rollback(self) -> crate::Result<()> {
-        let transaction_id = self.transaction_id().await?;
+        let Some(transaction_id) = self.context.transaction_selector.get_id_no_wait()? else {
+            return Ok(());
+        };
 
         let request = RollbackRequest::default()
             .set_session(self.context.session_name.clone())
