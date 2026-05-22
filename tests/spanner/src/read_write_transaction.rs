@@ -1009,8 +1009,8 @@ pub async fn buffered_mutation_commit_rejection(db_client: &DatabaseClient) -> a
 }
 
 pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let id1 = format!("rw-aer-1-{}", LowercaseAlphanumeric.random_string(10));
-    let id2 = format!("rw-aer-2-{}", LowercaseAlphanumeric.random_string(10));
+    let id1 = format!("rw-aeer-1-{}", LowercaseAlphanumeric.random_string(10));
+    let id2 = format!("rw-aeer-2-{}", LowercaseAlphanumeric.random_string(10));
 
     let initial_mutation = Mutation::new_insert_builder("AllTypes")
         .set("Id")
