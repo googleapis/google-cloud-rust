@@ -104,7 +104,6 @@ macro_rules! client_request_signals {
              "gcp.client.version"    = $info.client_version,
              "gcp.schema.url"        = SCHEMA_URL_VALUE,
              "otel.status_code"      = "UNSET",
-            // Fields to be recorded later
             "rpc.method"                  = Empty,
             "otel.status_description"     = Empty,
             "error.type"                  = Empty,
@@ -117,7 +116,6 @@ macro_rules! client_request_signals {
             "http.request.resend_count"   = Empty,
             "http.response.status_code"   = Empty,
             "gcp.resource.destination.id" = Empty,
-            // Pre-declare LRO metrics fields to prevent tracing from silently ignoring them during runtime record()
             "gcp.longrunning.poll_attempt_count" = Empty,
             "gcp.longrunning.done"               = Empty,
             "gcp.longrunning.status_code"        = Empty,
