@@ -19,33 +19,87 @@ use tracing::{Instrument, Span, info_span};
 #[cfg(google_cloud_unstable_tracing)]
 use crate::POLL_ATTEMPT_COUNT;
 
+#[cfg(google_cloud_unstable_tracing)]
+tokio::task_local! {
+    pub(crate) static LRO_SPAN: Span;
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+#[derive(Clone, Debug)]
+struct LroRecorder {
+    span: Span,
+    poll_attempt_count: u32,
+    started: bool,
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+impl LroRecorder {
+    fn new(span: Span) -> Self {
+        Self {
+            span,
+            poll_attempt_count: 0,
+            started: false,
+        }
+    }
+
+    fn span(&self) -> &Span {
+        &self.span
+    }
+
+    async fn record_poll<F, Fut, T>(&mut self, f: F) -> T
+    where
+        F: FnOnce(Span) -> Fut,
+        Fut: std::future::Future<Output = T>,
+    {
+        let attempt = if self.started {
+            self.poll_attempt_count += 1;
+            self.poll_attempt_count
+        } else {
+            self.started = true;
+            0 // Initial triggers record nothing
+        };
+        let span = self.span.clone();
+        LRO_SPAN
+            .scope(span.clone(), async move {
+                POLL_ATTEMPT_COUNT
+                    .scope(attempt, async move { f(span).await })
+                    .await
+            })
+            .await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+async fn record_action<F, Fut, T>(span: Span, f: F) -> T
+where
+    F: FnOnce(Span) -> Fut,
+    Fut: std::future::Future<Output = T>,
+{
+    LRO_SPAN
+        .scope(span.clone(), async move { f(span).await })
+        .await
+}
+
 /// Decorate a poller with tracing information.
 #[derive(Clone, Debug)]
 pub struct Tracing<P> {
     inner: P,
+    #[cfg(google_cloud_unstable_tracing)]
+    recorder: LroRecorder,
+    #[cfg(not(google_cloud_unstable_tracing))]
     span: Span,
-    #[cfg(google_cloud_unstable_tracing)]
-    poll_attempt_count: u32,
-    #[cfg(google_cloud_unstable_tracing)]
-    started: bool,
 }
 
 impl<P> Tracing<P> {
     pub(crate) fn new(inner: P, span: Span) -> Self {
         Self {
             inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            recorder: LroRecorder::new(span),
+            #[cfg(not(google_cloud_unstable_tracing))]
             span,
-            #[cfg(google_cloud_unstable_tracing)]
-            poll_attempt_count: 0,
-            #[cfg(google_cloud_unstable_tracing)]
-            started: false,
         }
     }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-tokio::task_local! {
-    pub(crate) static LRO_SPAN: Span;
 }
 
 impl<P> sealed::Poller for Tracing<P>
@@ -56,11 +110,11 @@ where
         let span = info_span!("LRO Sleep");
         #[cfg(google_cloud_unstable_tracing)]
         {
-            LRO_SPAN
-                .scope(span.clone(), async move {
-                    self.inner.backoff(state).instrument(span).await
-                })
-                .await
+            let inner = &mut self.inner;
+            return record_action(self.recorder.span().clone(), |_| async move {
+                inner.backoff(state).instrument(span).await
+            })
+            .await;
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
@@ -76,27 +130,13 @@ where
     MetadataType: Send,
 {
     async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>> {
-        let span = self.span.clone();
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let attempt = if self.started {
-                self.poll_attempt_count += 1;
-                self.poll_attempt_count
-            } else {
-                self.started = true;
-                0 // Initial triggers record nothing
-            };
-
-            LRO_SPAN
-                .scope(span.clone(), async move {
-                    POLL_ATTEMPT_COUNT
-                        .scope(
-                            attempt,
-                            async move { self.inner.poll().instrument(span).await },
-                        )
-                        .await
-                })
-                .await
+            let inner = &mut self.inner;
+            return self
+                .recorder
+                .record_poll(|span| async move { inner.poll().instrument(span).await })
+                .await;
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
@@ -105,20 +145,19 @@ where
     }
 
     async fn until_done(self) -> Result<ResponseType> {
-        let span = self.span.clone();
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let wait_span = span.clone();
-            let result = LRO_SPAN
-                .scope(span.clone(), async move {
-                    crate::until_done(self).instrument(wait_span).await
-                })
-                .await;
+            let this = self;
+            let span = this.recorder.span().clone();
+            let result = record_action(span.clone(), |wait_span| async move {
+                crate::until_done(this).instrument(wait_span).await
+            })
+            .await;
             if let Err(ref e) = result {
                 span.record("otel.status_code", "ERROR");
                 span.record("otel.status_description", e.to_string());
             }
-            result
+            return result;
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
@@ -162,61 +201,9 @@ mod tests {
     }
 
     #[cfg(google_cloud_unstable_tracing)]
-    struct TestLayer {
-        recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
-    }
-
-    #[cfg(google_cloud_unstable_tracing)]
-    impl<S> tracing_subscriber::layer::Layer<S> for TestLayer
-    where
-        S: tracing::Subscriber + for<'span> tracing_subscriber::registry::LookupSpan<'span>,
-    {
-        fn on_record(
-            &self,
-            _id: &tracing::span::Id,
-            values: &tracing::span::Record<'_>,
-            _ctx: tracing_subscriber::layer::Context<'_, S>,
-        ) {
-            struct Visitor {
-                recorded: Arc<std::sync::Mutex<std::collections::HashMap<String, String>>>,
-            }
-            impl tracing::field::Visit for Visitor {
-                fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
-                    self.recorded
-                        .lock()
-                        .unwrap()
-                        .insert(field.name().to_string(), value.to_string());
-                }
-                fn record_debug(
-                    &mut self,
-                    field: &tracing::field::Field,
-                    value: &dyn std::fmt::Debug,
-                ) {
-                    self.recorded
-                        .lock()
-                        .unwrap()
-                        .insert(field.name().to_string(), format!("{:?}", value));
-                }
-            }
-            let mut visitor = Visitor {
-                recorded: self.recorded.clone(),
-            };
-            values.record(&mut visitor);
-        }
-    }
-
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_tracing_decorator_error_reporting() {
-        use tracing_subscriber::layer::SubscriberExt;
-
-        let recorded = Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()));
-        let layer = TestLayer {
-            recorded: recorded.clone(),
-        };
-        let subscriber = tracing_subscriber::registry::Registry::default().with(layer);
-
-        let _guard = tracing::subscriber::set_default(subscriber);
+        let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
 
         let span = tracing::info_span!(
             "test_span",
@@ -230,13 +217,21 @@ mod tests {
         assert!(got.is_err());
 
         {
-            let map = recorded.lock().unwrap();
+            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "test_span")
+                .unwrap_or_else(|| panic!("missing `test_span` in captured spans: {captured:?}"));
             assert_eq!(
-                map.get("otel.status_code").map(|s| s.as_str()),
-                Some("ERROR")
+                got.attributes
+                    .get("otel.status_code")
+                    .and_then(|v| v.as_string()),
+                Some("ERROR".to_string())
             );
             assert!(
-                map.get("otel.status_description")
+                got.attributes
+                    .get("otel.status_description")
+                    .and_then(|v| v.as_string())
                     .unwrap()
                     .contains("logical-test-failure")
             );
