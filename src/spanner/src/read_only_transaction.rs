@@ -718,6 +718,17 @@ impl ReadContextTransactionSelector {
                 notify.notify_waiters();
             }
             Ok(())
+        } else if let TransactionState::Started(existing_selector, _) = &*guard {
+            // Spanner returns the transaction ID on all statements executed within that transaction
+            // when using multiplexed sessions.If the transaction has already started with the same ID,
+            // this is expected behavior and can be ignored.
+            if existing_selector.id() == Some(&id) {
+                Ok(())
+            } else {
+                Err(crate::error::internal_error(
+                    "got a transaction id for an already Started or Failed transaction",
+                ))
+            }
         } else {
             // This should never happen.
             Err(crate::error::internal_error(
@@ -2425,16 +2436,12 @@ pub(crate) mod tests {
             &id1
         );
 
-        // 2. Redundant update with same ID should result in an error.
-        // The implementation explicitly prevents redundant updates to ensure state consistency.
-        let err1 = tx
-            .context
-            .transaction_selector
-            .update(id1.clone(), None)
-            .expect_err("Redundant update should fail");
-        assert!(err1.to_string().contains("already Started or Failed"));
+        // 2. Redundant update with same ID should succeed, as Spanner returns the
+        // transaction ID on all statements executed within that transaction when
+        // using multiplexed sessions.
+        tx.context.transaction_selector.update(id1.clone(), None)?;
 
-        // 3. Update with DIFFERENT ID after already Started should also fail.
+        // 3. Update with DIFFERENT ID after already Started should fail.
         let err2 = tx
             .context
             .transaction_selector
@@ -2618,6 +2625,176 @@ pub(crate) mod tests {
 
         handle_leader.await.expect("Task 1 panicked")?;
         handle_follower.await.expect("Task 2 panicked")?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_multi_query_redundant_transaction_id_explicit() -> anyhow::Result<()> {
+        run_execute_multi_query_redundant_transaction_id(BeginTransactionOption::ExplicitBegin)
+            .await
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_multi_query_redundant_transaction_id_inline() -> anyhow::Result<()> {
+        run_execute_multi_query_redundant_transaction_id(BeginTransactionOption::InlineBegin).await
+    }
+
+    async fn run_execute_multi_query_redundant_transaction_id(
+        option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        if option == BeginTransactionOption::ExplicitBegin {
+            mock.expect_begin_transaction()
+                .once()
+                .in_sequence(&mut sequence)
+                .returning(|req| {
+                    let req = req.into_inner();
+                    assert_eq!(
+                        req.session,
+                        "projects/p/instances/i/databases/d/sessions/123"
+                    );
+                    Ok(tonic::Response::new(mock_v1::Transaction {
+                        id: vec![4, 5, 6],
+                        read_timestamp: Some(prost_types::Timestamp {
+                            seconds: 123456789,
+                            nanos: 0,
+                        }),
+                        ..Default::default()
+                    }))
+                });
+
+            mock.expect_execute_streaming_sql()
+                .times(2)
+                .returning(|req| {
+                    let req = req.into_inner();
+                    assert_eq!(
+                        req.transaction
+                            .expect("transaction should be present")
+                            .selector
+                            .expect("selector should be present"),
+                        mock_v1::transaction_selector::Selector::Id(vec![4, 5, 6])
+                    );
+
+                    let mut result_set_partial = setup_select1();
+                    result_set_partial
+                        .metadata
+                        .as_mut()
+                        .expect("metadata should be present")
+                        .transaction = Some(mock_v1::Transaction {
+                        id: vec![4, 5, 6],
+                        read_timestamp: Some(prost_types::Timestamp {
+                            seconds: 123456789,
+                            nanos: 0,
+                        }),
+                        ..Default::default()
+                    });
+                    Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                        result_set_partial,
+                    )])))
+                });
+        } else {
+            mock.expect_begin_transaction().never();
+
+            mock.expect_execute_streaming_sql()
+                .times(1)
+                .in_sequence(&mut sequence)
+                .returning(|req| {
+                    let req = req.into_inner();
+                    assert_eq!(
+                        req.session,
+                        "projects/p/instances/i/databases/d/sessions/123"
+                    );
+
+                    match req
+                        .transaction
+                        .expect("transaction should be present")
+                        .selector
+                        .expect("selector should be present")
+                    {
+                        mock_v1::transaction_selector::Selector::Begin(_) => {}
+                        _ => panic!("Expected Selector::Begin"),
+                    }
+                    let mut result_set_partial = setup_select1();
+                    result_set_partial
+                        .metadata
+                        .as_mut()
+                        .expect("metadata should be present")
+                        .transaction = Some(mock_v1::Transaction {
+                        id: vec![4, 5, 6],
+                        read_timestamp: Some(prost_types::Timestamp {
+                            seconds: 987654321,
+                            nanos: 0,
+                        }),
+                        ..Default::default()
+                    });
+                    Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                        result_set_partial,
+                    )])))
+                });
+
+            mock.expect_execute_streaming_sql()
+                .times(1)
+                .in_sequence(&mut sequence)
+                .returning(|req| {
+                    let req = req.into_inner();
+                    match req
+                        .transaction
+                        .expect("transaction should be present")
+                        .selector
+                        .expect("selector should be present")
+                    {
+                        mock_v1::transaction_selector::Selector::Id(id) => {
+                            assert_eq!(id, vec![4, 5, 6]);
+                        }
+                        _ => panic!("Expected Selector::Id"),
+                    }
+                    let mut result_set_partial = setup_select1();
+                    result_set_partial
+                        .metadata
+                        .as_mut()
+                        .expect("metadata should be present")
+                        .transaction = Some(mock_v1::Transaction {
+                        id: vec![4, 5, 6],
+                        read_timestamp: Some(prost_types::Timestamp {
+                            seconds: 987654321,
+                            nanos: 0,
+                        }),
+                        ..Default::default()
+                    });
+                    Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                        result_set_partial,
+                    )])))
+                });
+        }
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let transaction = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(option)
+            .build()
+            .await
+            .expect("Failed to start transaction");
+
+        for _ in 0..2 {
+            let mut result_set = transaction
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await
+                .expect("Failed to execute query");
+
+            let row = result_set
+                .next()
+                .await
+                .expect("has row")
+                .expect("has valid row");
+            assert_eq!(row.raw_values(), [Value(string_val("1"))]);
+
+            let next_result = result_set.next().await;
+            assert!(next_result.is_none(), "expected None, got {next_result:?}");
+        }
 
         Ok(())
     }

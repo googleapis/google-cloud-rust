@@ -88,6 +88,7 @@ members = [
   "src/generated/apps/script/gtype",
   "src/generated/apps/script/sheets",
   "src/generated/apps/script/slides",
+  "src/generated/backstory",
   "src/generated/bigtable/admin/v2",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
@@ -346,6 +347,7 @@ members = [
   "tests/spanner",
   "tests/storage",
   "tools/check-copyright",
+  "tools/check-versions",
   "tools/minimal-version-helper",
 ]
 
@@ -402,6 +404,7 @@ rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
+serde_yaml            = { default-features = false, version = "0.9" }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }

@@ -227,17 +227,17 @@ pub async fn object_names(
     Ok(())
 }
 
-pub async fn buckets(builder: StorageControlBuilder) -> Result<()> {
+pub async fn buckets() -> Result<()> {
     let project_id = project_id()?;
-    let client = builder.build().await?;
 
-    cleanup_stale_buckets(&client, &project_id).await?;
+    let control = StorageControl::builder().build().await?;
+    cleanup_stale_buckets(&control, &project_id).await?;
 
     let bucket_id = random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
 
     println!("\nTesting create_bucket()");
-    let create = client
+    let create = control
         .create_bucket()
         .set_parent("projects/_")
         .set_bucket_id(bucket_id)
@@ -259,11 +259,61 @@ pub async fn buckets(builder: StorageControlBuilder) -> Result<()> {
     println!("SUCCESS on create_bucket: {create:?}");
     assert_eq!(create.name, bucket_name);
 
+    let result: Result<()> = async {
+        let client_tracing = StorageControl::builder()
+            .with_tracing()
+            .with_retry_policy(retry_policy())
+            .build()
+            .await?;
+
+        let client_global = StorageControl::builder()
+            .with_endpoint("https://www.googleapis.com")
+            .build()
+            .await?;
+
+        for (label, client) in [
+            ("with tracing and retry", &client_tracing),
+            ("with global endpoint", &client_global),
+        ] {
+            tracing::info!("running bucket control tests with config: {label}");
+            println!("\nRunning tests with configuration: {label}");
+
+            get_bucket(client, &bucket_name).await?;
+            list_buckets(client, &project_id, &bucket_name).await?;
+            buckets_iam(client, &bucket_name).await?;
+            folders(client, &bucket_name).await?;
+        }
+        Ok(())
+    }
+    .await;
+
+    println!("\nTesting delete_bucket()");
+    let delete_result = control
+        .delete_bucket()
+        .set_name(bucket_name)
+        .with_idempotency(true)
+        .send()
+        .await;
+
+    if let Err(ref e) = delete_result {
+        println!("ERROR on delete_bucket: {e:?}");
+    }
+
+    result?;
+    delete_result?;
+
+    Ok(())
+}
+
+async fn get_bucket(client: &StorageControl, bucket_name: &str) -> Result<()> {
     println!("\nTesting get_bucket()");
-    let get = client.get_bucket().set_name(&bucket_name).send().await?;
+    let get = client.get_bucket().set_name(bucket_name).send().await?;
     println!("SUCCESS on get_bucket: {get:?}");
     assert_eq!(get.name, bucket_name);
+    Ok(())
+}
 
+async fn list_buckets(client: &StorageControl, project_id: &str, bucket_name: &str) -> Result<()> {
     println!("\nTesting list_buckets()");
     let mut buckets = client
         .list_buckets()
@@ -275,22 +325,9 @@ pub async fn buckets(builder: StorageControlBuilder) -> Result<()> {
     }
     println!("SUCCESS on list_buckets");
     assert!(
-        bucket_names.iter().any(|name| name == &bucket_name),
+        bucket_names.iter().any(|name| name == bucket_name),
         "missing bucket name {bucket_name} in {bucket_names:?}"
     );
-
-    buckets_iam(&client, &bucket_name).await?;
-    folders(&client, &bucket_name).await?;
-
-    println!("\nTesting delete_bucket()");
-    client
-        .delete_bucket()
-        .set_name(bucket_name)
-        .with_idempotency(true)
-        .send()
-        .await?;
-    println!("SUCCESS on delete_bucket");
-
     Ok(())
 }
 
