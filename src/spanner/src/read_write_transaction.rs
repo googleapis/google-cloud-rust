@@ -238,6 +238,43 @@ impl CheckServiceError for ExecuteBatchDmlResponse {
     }
 }
 
+/// A scope-bound guard that manages the state of a lazy transaction start attempt.
+///
+/// If the first statement in a transaction is executed using an inline `BeginTransaction` option,
+/// the transaction selector is transitioned to the `Starting` state.
+/// If that initial statement execution fails, or if the transaction ID is not successfully returned,
+/// we must reset the starting state back to `NotStarted` and unlock any concurrent threads waiting
+/// for this transaction to start.
+///
+/// This struct implements the RAII pattern:
+/// - It is initialized with `active = true` when the statement is starting the transaction.
+/// - If the transaction successfully starts and yields a valid ID, the guard is `disarm()`ed.
+/// - If the scope exits early due to an error (e.g., aborted error, protocol error, etc.), the guard
+///   is dropped, and its `Drop` implementation automatically calls `maybe_reset_starting()` to
+///   restore the selector state and notify waiters.
+struct LazyTransactionStartGuard {
+    selector: ReadContextTransactionSelector,
+    active: bool,
+}
+
+impl LazyTransactionStartGuard {
+    fn new(selector: ReadContextTransactionSelector, active: bool) -> Self {
+        Self { selector, active }
+    }
+
+    fn disarm(&mut self) {
+        self.active = false;
+    }
+}
+
+impl Drop for LazyTransactionStartGuard {
+    fn drop(&mut self) {
+        if self.active {
+            self.selector.maybe_reset_starting();
+        }
+    }
+}
+
 /// Helper macro to execute a DML or BatchDML RPC with retry logic if the
 /// request included a BeginTransaction option.
 macro_rules! execute_with_retry {
@@ -249,6 +286,9 @@ macro_rules! execute_with_retry {
                 .and_then(|t| t.selector.as_ref()),
             Some(Selector::Begin(_))
         );
+
+        let mut guard =
+            LazyTransactionStartGuard::new($self.context.transaction_selector.clone(), is_starting);
 
         let response_result = $self
             .context
@@ -272,16 +312,20 @@ macro_rules! execute_with_retry {
 
         let response = match err_ref {
             None => {
-                let response = response_result.unwrap();
+                let response = match response_result {
+                    Ok(res) => res,
+                    Err(_) => {
+                        return Err(internal_error(
+                            "Unexpected error state in execute_with_retry",
+                        ));
+                    }
+                };
                 if is_starting {
                     let id = $extract_id(&response).ok_or_else(|| {
-                        $self.context.transaction_selector.maybe_reset_starting();
-                        crate::error::internal_error("Transaction ID was not returned by Spanner")
+                        internal_error("Transaction ID was not returned by Spanner")
                     })?;
-                    if let Err(e) = $self.context.transaction_selector.update(id, None) {
-                        $self.context.transaction_selector.maybe_reset_starting();
-                        return Err(e);
-                    }
+                    $self.context.transaction_selector.update(id, None)?;
+                    guard.disarm();
                 }
                 response
             }
@@ -292,26 +336,25 @@ macro_rules! execute_with_retry {
                         Err(e) => return Err(e),
                     }
                 } else if is_aborted(error) {
-                    $self.context.transaction_selector.maybe_reset_starting();
                     match response_result {
                         Ok(res) => res,
                         Err(e) => return Err(e),
                     }
                 } else {
-                    if let Err(e) = $self.begin_explicitly_if_not_started(true).await {
-                        $self.context.transaction_selector.maybe_reset_starting();
-                        return Err(e);
-                    }
+                    $self.begin_explicitly_if_not_started(true).await?;
 
                     $request.transaction =
                         Some($self.context.transaction_selector.selector().await?);
 
-                    $self
+                    let res = $self
                         .context
                         .client
                         .spanner
                         .$rpc_method($request.clone(), $gax_options, $self.context.channel_hint)
-                        .await?
+                        .await?;
+
+                    guard.disarm();
+                    res
                 }
             }
         };
