@@ -150,6 +150,11 @@ libraries:
           output: src/wkt/tests/common/src/generated
           api_path: src/wkt/tests/protos
           template: mod
+  - name: google-backstory
+    version: 1.0.0
+    apis:
+      - path: backstory
+    copyright_year: "2026"
   - name: google-cloud-accessapproval-v1
     version: 1.9.0
     copyright_year: "2025"
