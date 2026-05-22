@@ -281,9 +281,7 @@ where
             #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
                 let name = op.name();
-                if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
-                    span.record("gcp.resource.destination.id", &name);
-                }
+                let _ = crate::internal::LRO_RECORDER.try_with(|r| r.record_destination_id(&name));
             }
             let (op, poll) = crate::details::handle_start(result);
             self.operation = op;
@@ -296,9 +294,8 @@ where
                 crate::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
             #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref next_name) = op {
-                if let Ok(span) = crate::internal::LRO_SPAN.try_with(|s| s.clone()) {
-                    span.record("gcp.resource.destination.id", next_name);
-                }
+                let _ =
+                    crate::internal::LRO_RECORDER.try_with(|r| r.record_destination_id(next_name));
             }
             self.operation = op;
             return Some(poll);
@@ -1112,10 +1109,12 @@ mod tests {
 
         let span = test_span();
         let poller_ref = &mut poller;
-        let _ = crate::internal::LRO_SPAN
-            .scope(span.clone(), async move {
-                poller_ref.poll().instrument(span).await
-            })
+        let recorder = crate::internal::LroRecorder::new(span.clone());
+        let _ = crate::internal::LRO_RECORDER
+            .scope(
+                recorder,
+                async move { poller_ref.poll().instrument(span).await },
+            )
             .await;
 
         {
@@ -1134,8 +1133,9 @@ mod tests {
 
         let span = test_span();
         let poller_ref2 = &mut poller;
-        let _ = crate::internal::LRO_SPAN
-            .scope(span.clone(), async move {
+        let recorder2 = crate::internal::LroRecorder::new(span.clone());
+        let _ = crate::internal::LRO_RECORDER
+            .scope(recorder2, async move {
                 poller_ref2.poll().instrument(span).await
             })
             .await;
@@ -1183,10 +1183,12 @@ mod tests {
 
         let span = test_span();
         let poller_ref = &mut poller;
-        let _ = crate::internal::LRO_SPAN
-            .scope(span.clone(), async move {
-                poller_ref.poll().instrument(span).await
-            })
+        let recorder = crate::internal::LroRecorder::new(span.clone());
+        let _ = crate::internal::LRO_RECORDER
+            .scope(
+                recorder,
+                async move { poller_ref.poll().instrument(span).await },
+            )
             .await;
 
         {

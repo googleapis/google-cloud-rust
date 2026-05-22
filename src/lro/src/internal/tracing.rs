@@ -21,12 +21,17 @@ use crate::POLL_ATTEMPT_COUNT;
 
 #[cfg(google_cloud_unstable_tracing)]
 tokio::task_local! {
-    pub(crate) static LRO_SPAN: Span;
+    static LRO_SPAN: Span;
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+tokio::task_local! {
+    pub(crate) static LRO_RECORDER: LroRecorder;
 }
 
 #[cfg(google_cloud_unstable_tracing)]
 #[derive(Clone, Debug)]
-struct LroRecorder {
+pub(crate) struct LroRecorder {
     span: Span,
     poll_attempt_count: u32,
     started: bool,
@@ -34,7 +39,7 @@ struct LroRecorder {
 
 #[cfg(google_cloud_unstable_tracing)]
 impl LroRecorder {
-    fn new(span: Span) -> Self {
+    pub fn new(span: Span) -> Self {
         Self {
             span,
             poll_attempt_count: 0,
@@ -42,11 +47,15 @@ impl LroRecorder {
         }
     }
 
-    fn span(&self) -> &Span {
+    pub fn span(&self) -> &Span {
         &self.span
     }
 
-    async fn record_poll<F, Fut, T>(&mut self, f: F) -> T
+    pub fn record_destination_id(&self, name: &str) {
+        self.span.record("gcp.resource.destination.id", name);
+    }
+
+    pub async fn record_poll<F, Fut, T>(&mut self, f: F) -> T
     where
         F: FnOnce(Span) -> Fut,
         Fut: std::future::Future<Output = T>,
@@ -59,25 +68,27 @@ impl LroRecorder {
             0 // Initial triggers record nothing
         };
         let span = self.span.clone();
-        LRO_SPAN
-            .scope(span.clone(), async move {
+        let recorder = self.clone();
+        LRO_RECORDER
+            .scope(recorder, async move {
                 POLL_ATTEMPT_COUNT
                     .scope(attempt, async move { f(span).await })
                     .await
             })
             .await
     }
-}
 
-#[cfg(google_cloud_unstable_tracing)]
-async fn record_action<F, Fut, T>(span: Span, f: F) -> T
-where
-    F: FnOnce(Span) -> Fut,
-    Fut: std::future::Future<Output = T>,
-{
-    LRO_SPAN
-        .scope(span.clone(), async move { f(span).await })
-        .await
+    pub async fn record_action<F, Fut, T>(&self, f: F) -> T
+    where
+        F: FnOnce(Span) -> Fut,
+        Fut: std::future::Future<Output = T>,
+    {
+        let span = self.span.clone();
+        let recorder = self.clone();
+        LRO_RECORDER
+            .scope(recorder, async move { f(span).await })
+            .await
+    }
 }
 
 /// Decorate a poller with tracing information.
@@ -111,10 +122,10 @@ where
         #[cfg(google_cloud_unstable_tracing)]
         {
             let inner = &mut self.inner;
-            return record_action(self.recorder.span().clone(), |_| async move {
-                inner.backoff(state).instrument(span).await
-            })
-            .await;
+            return self
+                .recorder
+                .record_action(|_| async move { inner.backoff(state).instrument(span).await })
+                .await;
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
@@ -149,10 +160,12 @@ where
         {
             let this = self;
             let span = this.recorder.span().clone();
-            let result = record_action(span.clone(), |wait_span| async move {
-                crate::until_done(this).instrument(wait_span).await
-            })
-            .await;
+            let result = this
+                .recorder
+                .record_action(|wait_span| async move {
+                    crate::until_done(this).instrument(wait_span).await
+                })
+                .await;
             if let Err(ref e) = result {
                 span.record("otel.status_code", "ERROR");
                 span.record("otel.status_description", e.to_string());
