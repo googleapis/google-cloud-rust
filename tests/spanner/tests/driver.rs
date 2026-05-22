@@ -17,184 +17,157 @@ mod spanner {
     use integration_tests_spanner::batch_write;
     use integration_tests_spanner::client;
 
-    #[tokio::test]
-    async fn run_query_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
+    /// Defines the integration test suites and manages their lifecycle.
+    ///
+    /// This macro accomplishes several things:
+    /// 1. **Dynamic Suite Counting**: It counts the exact number of test suites defined at compile time
+    ///    to establish `TOTAL_TEST_SUITES`.
+    /// 2. **Client Provisioning**: It attempts to create a database client for either the Spanner Emulator
+    ///    or a real Spanner instance. If neither environment is configured, it gracefully skips the test.
+    /// 3. **Shared Database Cleanup**: It invokes `client::finish_test(TOTAL_TEST_SUITES)` upon completion
+    ///    of each test suite (regardless of whether the test succeeded, failed, or was skipped). If the tests
+    ///    ran against a real Spanner instance, the final invocation safely drops the dynamically created database.
+    macro_rules! define_test_suites {
+        (
+            $(
+                async fn $name:ident($db_client:ident : &DatabaseClient) -> anyhow::Result<()> $body:block
+            )*
+        ) => {
+            const TOTAL_TEST_SUITES: usize = 0 $( + { let _ = stringify!($name); 1 } )*;
 
-        integration_tests_spanner::query::simple_query(&db_client).await?;
-        integration_tests_spanner::query::query_with_parameters(&db_client).await?;
-        integration_tests_spanner::query::result_set_metadata(&db_client).await?;
-        integration_tests_spanner::query::multi_use_read_only_transaction(&db_client).await?;
-        integration_tests_spanner::query::multi_use_read_only_transaction_invalid_query_fallback(
-            &db_client,
-        )
-        .await?;
-        integration_tests_spanner::query::multi_use_read_only_transaction_interleaved(&db_client)
+            $(
+                #[tokio::test]
+                async fn $name() -> anyhow::Result<()> {
+                    let db_client_val = match client::create_database_client().await {
+                        Some(c) => c,
+                        None => {
+                            client::finish_test(TOTAL_TEST_SUITES).await;
+                            return Ok(());
+                        }
+                    };
+
+                    let $db_client = &db_client_val;
+
+                    let res = async $body.await;
+
+                    client::finish_test(TOTAL_TEST_SUITES).await;
+                    res
+                }
+            )*
+        };
+    }
+
+    define_test_suites! {
+        async fn run_query_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::query::simple_query(db_client).await?;
+            integration_tests_spanner::query::query_with_parameters(db_client).await?;
+            integration_tests_spanner::query::result_set_metadata(db_client).await?;
+            integration_tests_spanner::query::multi_use_read_only_transaction(db_client).await?;
+            integration_tests_spanner::query::multi_use_read_only_transaction_invalid_query_fallback(
+                db_client,
+            )
             .await?;
-        integration_tests_spanner::query::inline_begin_fallback(&db_client).await?;
-        integration_tests_spanner::query::query_with_options(&db_client).await?;
-        integration_tests_spanner::query::query_plan(&db_client).await?;
-        integration_tests_spanner::query::query_profile(&db_client).await?;
-        integration_tests_spanner::query::dml_plan(&db_client).await?;
+            integration_tests_spanner::query::multi_use_read_only_transaction_interleaved(db_client)
+                .await?;
+            integration_tests_spanner::query::inline_begin_fallback(db_client).await?;
+            integration_tests_spanner::query::query_with_options(db_client).await?;
+            integration_tests_spanner::query::query_plan(db_client).await?;
+            integration_tests_spanner::query::query_profile(db_client).await?;
+            integration_tests_spanner::query::dml_plan(db_client).await?;
+            Ok(())
+        }
 
-        Ok(())
-    }
+        async fn run_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::write::write_only_transaction(db_client).await?;
+            integration_tests_spanner::write::write(db_client).await?;
+            Ok(())
+        }
 
-    #[tokio::test]
-    async fn run_write_tests() -> anyhow::Result<()> {
-        let db_client = match client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
+        async fn run_batch_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            batch_write::batch_write(db_client).await?;
+            Ok(())
+        }
 
-        integration_tests_spanner::write::write_only_transaction(&db_client).await?;
-        integration_tests_spanner::write::write(&db_client).await?;
+        async fn run_batch_dml_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::batch_dml::successful_batch_update(db_client).await?;
+            tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+            integration_tests_spanner::batch_dml::partial_batch_update_failure(db_client).await?;
+            tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+            integration_tests_spanner::batch_dml::empty_batch_statement_rejection(db_client).await?;
+            tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+            integration_tests_spanner::batch_dml::unsupported_query_in_batch_dml(db_client).await?;
+            tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+            integration_tests_spanner::batch_dml::unsupported_returning_clause(db_client).await?;
+            tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+            integration_tests_spanner::batch_dml::continue_after_empty_batch_statement(db_client)
+                .await?;
+            tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+            integration_tests_spanner::batch_dml::continue_after_invalid_statement_in_batch(db_client)
+                .await?;
+            Ok(())
+        }
 
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_batch_write_tests() -> anyhow::Result<()> {
-        let db_client = match client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        batch_write::batch_write(&db_client).await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_batch_dml_tests() -> anyhow::Result<()> {
-        let db_client = match client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        integration_tests_spanner::batch_dml::successful_batch_update(&db_client).await?;
-        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-        integration_tests_spanner::batch_dml::partial_batch_update_failure(&db_client).await?;
-        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-        integration_tests_spanner::batch_dml::empty_batch_statement_rejection(&db_client).await?;
-        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-        integration_tests_spanner::batch_dml::unsupported_query_in_batch_dml(&db_client).await?;
-        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-        integration_tests_spanner::batch_dml::unsupported_returning_clause(&db_client).await?;
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        integration_tests_spanner::batch_dml::continue_after_empty_batch_statement(&db_client)
+        async fn run_read_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::read_write_transaction::successful_read_write_transaction(
+                db_client,
+            )
             .await?;
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        integration_tests_spanner::batch_dml::continue_after_invalid_statement_in_batch(&db_client)
+            integration_tests_spanner::read_write_transaction::rolled_back_read_write_transaction(
+                db_client,
+            )
             .await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_read_write_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        integration_tests_spanner::read_write_transaction::successful_read_write_transaction(
-            &db_client,
-        )
-        .await?;
-        integration_tests_spanner::read_write_transaction::rolled_back_read_write_transaction(
-            &db_client,
-        )
-        .await?;
-
-        integration_tests_spanner::read_write_transaction::concurrent_read_write_transaction_retries(
-            &db_client,
-        )
-        .await?;
-
-        integration_tests_spanner::read_write_transaction::read_write_transaction_with_mutations(
-            &db_client,
-        )
-        .await?;
-
-        integration_tests_spanner::read_write_transaction::read_write_transaction_mutation_only(
-            &db_client,
-        )
-        .await?;
-
-        integration_tests_spanner::read_write_transaction::read_write_transaction_multiple_queries_and_dml(
-            &db_client,
-        )
-        .await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_partitioned_dml_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        integration_tests_spanner::partitioned_dml::partitioned_dml_update(&db_client).await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_read_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        integration_tests_spanner::read::read_single_key(&db_client).await?;
-        integration_tests_spanner::read::read_all_keys(&db_client).await?;
-        integration_tests_spanner::read::read_key_range(&db_client).await?;
-        integration_tests_spanner::read::read_with_limit(&db_client).await?;
-        integration_tests_spanner::read::read_with_index(&db_client).await?;
-        integration_tests_spanner::read::read_as_stream(&db_client).await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_batch_read_only_transaction_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        integration_tests_spanner::batch_read_only_transaction::partitioned_query(&db_client)
+            integration_tests_spanner::read_write_transaction::concurrent_read_write_transaction_retries(
+                db_client,
+            )
             .await?;
-        integration_tests_spanner::batch_read_only_transaction::partitioned_read(&db_client)
+            integration_tests_spanner::read_write_transaction::read_write_transaction_with_mutations(
+                db_client,
+            )
             .await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_concurrent_inline_begin_tests() -> anyhow::Result<()> {
-        integration_tests_spanner::concurrent_inline_begin::test_concurrent_inline_begin_with_snapshot_consistency().await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn run_directed_read_tests() -> anyhow::Result<()> {
-        let db_client = match integration_tests_spanner::client::create_database_client().await {
-            Some(c) => c,
-            None => return Ok(()),
-        };
-
-        integration_tests_spanner::directed_read::read_only_with_directed_read(&db_client).await?;
-        integration_tests_spanner::directed_read::read_write_with_directed_read_error(&db_client)
+            integration_tests_spanner::read_write_transaction::read_write_transaction_mutation_only(
+                db_client,
+            )
             .await?;
+            integration_tests_spanner::read_write_transaction::read_write_transaction_multiple_queries_and_dml(
+                db_client,
+            )
+            .await?;
+            Ok(())
+        }
 
-        Ok(())
+        async fn run_partitioned_dml_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::partitioned_dml::partitioned_dml_update(db_client).await?;
+            Ok(())
+        }
+
+        async fn run_read_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::read::read_single_key(db_client).await?;
+            integration_tests_spanner::read::read_all_keys(db_client).await?;
+            integration_tests_spanner::read::read_key_range(db_client).await?;
+            integration_tests_spanner::read::read_with_limit(db_client).await?;
+            integration_tests_spanner::read::read_with_index(db_client).await?;
+            integration_tests_spanner::read::read_as_stream(db_client).await?;
+            Ok(())
+        }
+
+        async fn run_batch_read_only_transaction_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::batch_read_only_transaction::partitioned_query(db_client)
+                .await?;
+            integration_tests_spanner::batch_read_only_transaction::partitioned_read(db_client)
+                .await?;
+            Ok(())
+        }
+
+        async fn run_concurrent_inline_begin_tests(_db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::concurrent_inline_begin::test_concurrent_inline_begin_with_snapshot_consistency().await?;
+            Ok(())
+        }
+
+        async fn run_directed_read_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::directed_read::read_only_with_directed_read(db_client).await?;
+            integration_tests_spanner::directed_read::read_write_with_directed_read_error(db_client)
+                .await?;
+            Ok(())
+        }
     }
 }
