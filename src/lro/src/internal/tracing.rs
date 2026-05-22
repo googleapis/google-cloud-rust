@@ -55,6 +55,11 @@ impl LroRecorder {
         self.span.record("gcp.resource.destination.id", name);
     }
 
+    pub fn record_error(&self, err: &crate::Error) {
+        self.span.record("otel.status_code", "ERROR");
+        self.span.record("otel.status_description", err.to_string());
+    }
+
     pub async fn record_poll<F, Fut, T>(&mut self, f: F) -> T
     where
         F: FnOnce(Span) -> Fut,
@@ -159,16 +164,14 @@ where
         #[cfg(google_cloud_unstable_tracing)]
         {
             let this = self;
-            let span = this.recorder.span().clone();
-            let result = this
-                .recorder
+            let recorder = this.recorder.clone();
+            let result = recorder
                 .record_action(|wait_span| async move {
                     crate::until_done(this).instrument(wait_span).await
                 })
                 .await;
             if let Err(ref e) = result {
-                span.record("otel.status_code", "ERROR");
-                span.record("otel.status_description", e.to_string());
+                recorder.record_error(e);
             }
             return result;
         }
