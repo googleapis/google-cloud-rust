@@ -384,7 +384,7 @@ impl Partition {
             .send()
             .await?;
 
-        Ok(ResultSet::new(ResultSetParams {
+        ResultSet::create(ResultSetParams {
             stream,
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(
                 req.transaction
@@ -399,7 +399,8 @@ impl Partition {
             operation: StreamOperation::Query(req.clone()),
             channel_hint,
             gax_options,
-        }))
+        })
+        .await
     }
 
     async fn execute_read(
@@ -414,7 +415,7 @@ impl Partition {
             .send()
             .await?;
 
-        Ok(ResultSet::new(ResultSetParams {
+        ResultSet::create(ResultSetParams {
             stream,
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(
                 req.transaction
@@ -429,7 +430,8 @@ impl Partition {
             operation: StreamOperation::Read(req.clone()),
             channel_hint,
             gax_options,
-        }))
+        })
+        .await
     }
 }
 
@@ -451,7 +453,8 @@ pub(crate) mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::{
-        Partition as MockPartition, PartitionResponse, Transaction,
+        PartialResultSet, Partition as MockPartition, PartitionResponse, ResultSetMetadata,
+        StructType, Transaction,
     };
     use static_assertions::assert_impl_all;
     use std::fmt::Debug;
@@ -487,6 +490,22 @@ pub(crate) mod tests {
         Ok(())
     }
 
+    fn setup_select1() -> PartialResultSet {
+        PartialResultSet {
+            metadata: Some(ResultSetMetadata {
+                row_type: Some(StructType {
+                    fields: vec![Default::default()],
+                }),
+                ..Default::default()
+            }),
+            values: vec![prost_types::Value {
+                kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
+            }],
+            last: true,
+            ..Default::default()
+        }
+    }
+
     #[tokio_test_no_panics]
     async fn partition_execute_respects_options() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Response;
@@ -499,8 +518,9 @@ pub(crate) mod tests {
             assert!(timeout.is_some(), "Missing grpc-timeout header");
             assert_eq!(timeout.unwrap(), "5000000u"); // 5 seconds in micros
 
-            let (_, rx) = tokio::sync::mpsc::channel(1);
-            Ok(Response::from(rx))
+            Ok(Response::from(crate::result_set::tests::adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -606,8 +626,9 @@ pub(crate) mod tests {
             assert!(req.transaction.is_some());
             assert_eq!(req.sql, "SELECT * FROM Users");
 
-            let (_, rx) = tokio::sync::mpsc::channel(1);
-            Ok(Response::from(rx))
+            Ok(Response::from(crate::result_set::tests::adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -648,8 +669,9 @@ pub(crate) mod tests {
             assert!(req.transaction.is_some());
             assert_eq!(req.table, "Users");
 
-            let (_, rx) = tokio::sync::mpsc::channel(1);
-            Ok(Response::from(rx))
+            Ok(Response::from(crate::result_set::tests::adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -812,8 +834,9 @@ pub(crate) mod tests {
         mock.expect_execute_streaming_sql().once().returning(|req| {
             let req = req.into_inner();
             assert!(req.data_boost_enabled, "data_boost_enabled should be true");
-            let (_, rx) = tokio::sync::mpsc::channel(1);
-            Ok(Response::from(rx))
+            Ok(Response::from(crate::result_set::tests::adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -844,8 +867,9 @@ pub(crate) mod tests {
         mock.expect_streaming_read().once().returning(|req| {
             let req = req.into_inner();
             assert!(req.data_boost_enabled, "data_boost_enabled should be true");
-            let (_, rx) = tokio::sync::mpsc::channel(1);
-            Ok(Response::from(rx))
+            Ok(Response::from(crate::result_set::tests::adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;

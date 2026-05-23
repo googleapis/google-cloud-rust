@@ -162,7 +162,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
     let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
 
     assert!(rs.next().await.transpose()?.is_some());
-    let metadata = rs.metadata().await?;
+    let metadata = rs.metadata().expect("metadata available");
     assert_eq!(
         metadata.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -180,7 +180,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     assert!(rs_zero_rows.next().await.transpose()?.is_none());
-    let metadata_zero_rows = rs_zero_rows.metadata().await?;
+    let metadata_zero_rows = rs_zero_rows.metadata().expect("metadata available");
     assert_eq!(
         metadata_zero_rows.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -193,7 +193,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     let row_dup = rs_dup.next().await.transpose()?.unwrap();
-    let metadata_dup = rs_dup.metadata().await?;
+    let metadata_dup = rs_dup.metadata().expect("metadata available");
     assert_eq!(
         metadata_dup.column_names(),
         &["dup".to_string(), "dup".to_string()]
@@ -614,7 +614,7 @@ pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let next = rs.next().await.transpose()?;
     assert!(next.is_none());
 
-    let metadata = rs.metadata().await?;
+    let metadata = rs.metadata().expect("metadata available");
     assert_eq!(metadata.column_names(), &["num".to_string()]);
 
     let stats = rs.stats();
@@ -671,7 +671,7 @@ pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
             let next = rs.next().await.transpose()?;
             assert!(next.is_none());
 
-            let metadata = rs.metadata().await.expect("metadata should be available");
+            let metadata = rs.metadata().expect("metadata should be available");
             assert!(metadata.column_names().is_empty());
 
             // Verify undeclared parameters
