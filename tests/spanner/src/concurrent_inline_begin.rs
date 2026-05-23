@@ -261,30 +261,25 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
                     // Permanent stream error.
                     let result_set_res: Result<ResultSet, _> =
                         tx.execute_query("SELECT 'Permanent'").await;
-                    let mut result_set = match result_set_res {
-                        Ok(rs) => rs,
-                        Err(e) => anyhow::bail!(
-                            "Task {} expected successful RPC initiation but got: {:?}",
-                            i,
-                            e
-                        ),
-                    };
-
-                    let next = result_set.next().await;
-                    match next {
-                        Some(Err(e))
+                    match result_set_res {
+                        Err(e)
                             if e.to_string().contains("Permanent")
                                 || e.to_string().contains("Internal") =>
                         {
                             Ok(format!("Task {} Permanent: OK", i))
                         }
-                        Some(Ok(_)) => {
-                            anyhow::bail!("Task {} expected Permanent error but got a valid row", i)
+                        Ok(mut rs) => match rs.next().await {
+                            Some(Err(e))
+                                if e.to_string().contains("Permanent")
+                                    || e.to_string().contains("Internal") =>
+                            {
+                                Ok(format!("Task {} Permanent: OK", i))
+                            }
+                            _ => anyhow::bail!("Task {} expected Permanent error but succeeded", i),
+                        },
+                        Err(e) => {
+                            anyhow::bail!("Task {} expected Permanent error but got: {:?}", i, e)
                         }
-                        _ => anyhow::bail!(
-                            "Task {} expected Permanent error but succeeded or got empty results",
-                            i
-                        ),
                     }
                 }
                 _ => unreachable!(),

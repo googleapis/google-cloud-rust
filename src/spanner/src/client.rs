@@ -47,7 +47,6 @@ pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
 pub use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
 pub use crate::read_write_transaction::ReadWriteTransaction;
 pub use crate::result_set::ResultSet;
-pub use crate::result_set::ResultSetError;
 pub use crate::result_set_metadata::ResultSetMetadata;
 pub use crate::row::Row;
 pub use crate::statement::Statement;
@@ -1087,7 +1086,16 @@ mod tests {
                 "grpc-timeout header should be present for read"
             );
 
-            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            let (tx, rx) = tokio::sync::mpsc::channel(1);
+            let metadata = mock_v1::ResultSetMetadata {
+                transaction: None,
+                ..Default::default()
+            };
+            let prs = mock_v1::PartialResultSet {
+                metadata: Some(metadata),
+                ..Default::default()
+            };
+            tx.try_send(Ok(prs)).unwrap();
             Ok(Response::new(rx))
         });
 

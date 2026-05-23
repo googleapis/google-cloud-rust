@@ -567,20 +567,24 @@ impl ReadContextTransactionSelector {
             TransactionState::Started(_, _) | TransactionState::NotStarted(_) => unreachable!(),
         }
     }
+}
 
+pub(crate) struct ExplicitBeginParams {
+    pub(crate) client: crate::database_client::DatabaseClient,
+    pub(crate) session_name: String,
+    pub(crate) transaction_tag: Option<String>,
+    pub(crate) channel_hint: usize,
+    pub(crate) request_options: crate::RequestOptions,
+    pub(crate) is_stream_fallback: bool,
+    pub(crate) precommit_token_tracker: crate::precommit::PrecommitTokenTracker,
+}
+
+impl ReadContextTransactionSelector {
     /// Explicitly begins a transaction if the transaction selector is a `Lazy`
     /// selector and the transaction has not yet been started. This is used by
     /// the client to force the start of a transaction if the first statement
     /// failed.
-    pub(crate) async fn begin_explicitly(
-        &self,
-        client: &crate::database_client::DatabaseClient,
-        session_name: String,
-        transaction_tag: Option<String>,
-        channel_hint: usize,
-        request_options: crate::RequestOptions,
-        is_stream_fallback: bool,
-    ) -> crate::Result<()> {
+    pub(crate) async fn begin_explicitly(&self, params: ExplicitBeginParams) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
         };
@@ -613,7 +617,7 @@ impl ReadContextTransactionSelector {
                     // and must wait for the leader. If this call originated from a stream resume fallback
                     // (`is_stream_fallback = true`), this thread is the stream leader whose initial query failed,
                     // and it must proceed with an explicit BeginTransaction RPC.
-                    if !is_stream_fallback {
+                    if !params.is_stream_fallback {
                         FallbackAction::Wait(Arc::clone(notify))
                     } else {
                         FallbackAction::Begin(options.clone(), Some(Arc::clone(notify)))
@@ -640,12 +644,12 @@ impl ReadContextTransactionSelector {
         // Waiters are blocked in `poll_selector_status` waiting for the result,
         // and already completed states return early above.
         let response = match execute_begin_transaction(
-            client,
-            session_name.clone(),
+            &params.client,
+            params.session_name,
             options,
-            transaction_tag,
-            channel_hint,
-            request_options,
+            params.transaction_tag,
+            params.channel_hint,
+            params.request_options,
         )
         .await
         {
@@ -671,6 +675,9 @@ impl ReadContextTransactionSelector {
         };
 
         self.update(response.id, response.read_timestamp)?;
+        params
+            .precommit_token_tracker
+            .update(response.precommit_token);
 
         Ok(())
     }
@@ -858,14 +865,15 @@ impl ReadContext {
         }
 
         self.transaction_selector
-            .begin_explicitly(
-                &self.client,
-                self.session_name.clone(),
-                self.transaction_tag.clone(),
-                self.channel_hint,
+            .begin_explicitly(ExplicitBeginParams {
+                client: self.client.clone(),
+                session_name: self.session_name.clone(),
+                transaction_tag: self.transaction_tag.clone(),
+                channel_hint: self.channel_hint,
                 request_options,
                 is_stream_fallback,
-            )
+                precommit_token_tracker: self.precommit_token_tracker.clone(),
+            })
             .await?;
         Ok(true)
     }
@@ -903,7 +911,7 @@ macro_rules! execute_stream_with_retry {
             }
         };
 
-        Ok(ResultSet::new(ResultSetParams {
+        ResultSet::create(ResultSetParams {
             stream,
             transaction_selector: Some($self.transaction_selector.clone()),
             precommit_token_tracker: $self.precommit_token_tracker.clone(),
@@ -913,7 +921,8 @@ macro_rules! execute_stream_with_retry {
             operation: $operation_variant($request),
             channel_hint: $self.channel_hint,
             gax_options: $gax_options,
-        }))
+        })
+        .await
     }};
 }
 
@@ -2566,7 +2575,16 @@ pub(crate) mod tests {
                         selector: Some(mock_v1::transaction_selector::Selector::Id(vec![42])),
                     })
                 );
-                let (_tx, rx) = mpsc::channel(1);
+                let (tx, rx) = mpsc::channel(1);
+                let metadata = mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                };
+                let prs = mock_v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                tx.try_send(Ok(prs)).expect("send should succeed");
                 Ok(tonic::Response::new(rx))
             });
 
