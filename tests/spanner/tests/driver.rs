@@ -131,6 +131,20 @@ mod spanner {
             Ok(())
         }
 
+        async fn run_read_write_transaction_options_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::read_write_transaction_options::runner_commit_configurations(db_client).await?;
+            integration_tests_spanner::read_write_transaction_options::client_routing_success(db_client).await?;
+            integration_tests_spanner::read_write_transaction_options::unauthorized_database_role_rejection(db_client).await?;
+            integration_tests_spanner::read_write_transaction_options::timeout_exceeded_transaction_abort(db_client).await?;
+            Ok(())
+        }
+
+        async fn run_write_only_transaction_options_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::write_only_transaction_options::write_only_commit_configurations(db_client).await?;
+            integration_tests_spanner::write_only_transaction_options::write_only_at_least_once_commit_configurations(db_client).await?;
+            Ok(())
+        }
+
         async fn run_batch_read_only_transaction_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             integration_tests_spanner::batch_read_only_transaction::partitioned_query(db_client)
                 .await?;
