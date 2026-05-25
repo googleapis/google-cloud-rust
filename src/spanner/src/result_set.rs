@@ -16,6 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
+use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{ReadContextTransactionSelector, TransactionState};
 use crate::result_set_metadata::ResultSetMetadata;
@@ -230,6 +231,41 @@ impl ResultSet {
     /// and the query was run in PLAN or PROFILE mode.
     pub fn stats(&self) -> Option<&ResultSetStats> {
         self.stats.as_ref()
+    }
+
+    /// Returns the number of rows modified by the DML statement, if available.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{DatabaseClient, Statement, ResultSet};
+    /// # async fn check_update_count(db_client: &DatabaseClient) -> Result<(), Box<dyn std::error::Error>> {
+    /// let runner = db_client.read_write_transaction().build().await?;
+    /// runner.run(async |tx| {
+    ///     let stmt = Statement::builder("UPDATE Singers SET LastName = 'Simpson' WHERE SingerId = @id THEN RETURN SingerId, LastName")
+    ///         .add_param("id", &123_i64)
+    ///         .build();
+    ///     let mut rs = tx.execute_query(stmt).await?;
+    ///     while let Some(row) = rs.next().await.transpose()? {
+    ///         // Process returned rows
+    ///     }
+    ///     if let Some(count) = rs.update_count() {
+    ///         println!("Rows modified: {}", count);
+    ///     }
+    ///     Ok(())
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Returns the number of rows modified when this [`ResultSet`] was produced from a
+    /// DML statement with a `THEN RETURN` clause.
+    pub fn update_count(&self) -> Option<i64> {
+        self.stats.as_ref().and_then(|s| {
+            s.row_count.as_ref().map(|rc| match rc {
+                RowCount::RowCountExact(c) => *c,
+                RowCount::RowCountLowerBound(c) => *c,
+            })
+        })
     }
 
     /// Fetches the next row from the result set.

@@ -113,6 +113,9 @@ mod spanner {
                 db_client,
             )
             .await?;
+            integration_tests_spanner::dml_returning::dml_then_return_execute_query(db_client).await?;
+            integration_tests_spanner::dml_returning::dml_then_return_execute_update(db_client).await?;
+            integration_tests_spanner::dml_returning::dml_then_return_unconsumed_query(db_client).await?;
             Ok(())
         }
 
