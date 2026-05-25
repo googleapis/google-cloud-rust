@@ -521,6 +521,7 @@ impl ReadWriteTransaction {
 
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<CommitResponse> {
+        let mutations = take(&mut *self.mutations.lock().unwrap());
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
             if self.is_starting()? {
@@ -528,12 +529,25 @@ impl ReadWriteTransaction {
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
-            if self.begin_explicitly_if_not_started(false).await? {
+            // TODO(#5821): Include mutation_key during explicit transaction initialization fallback to preserve blind write intent on multiplexed sessions.
+            let mut begin_options = crate::RequestOptions::default();
+            if let Some(d) = self.deadline {
+                let remaining = d.saturating_duration_since(Instant::now());
+                begin_options.set_attempt_timeout(remaining);
+            }
+            begin_options = amend_request_options_for_lar(
+                self.context.client.leader_aware_routing_enabled,
+                begin_options,
+            );
+            if self
+                .context
+                .begin_explicitly_if_not_started(begin_options, false)
+                .await?
+            {
                 id = self.context.transaction_selector.get_id_no_wait()?;
             }
         }
         let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
-        let mutations = take(&mut *self.mutations.lock().unwrap());
         let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
             .set_session(self.context.session_name.clone())
@@ -1492,8 +1506,16 @@ mod tests {
                 })
             );
 
-            let (_, rx) = tokio::sync::mpsc::channel(1);
-            Ok(tonic::Response::from(rx))
+            let prs = v1::PartialResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            };
+            Ok(tonic::Response::from(crate::result_set::tests::adapt([
+                Ok(prs),
+            ])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
