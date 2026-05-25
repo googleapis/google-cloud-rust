@@ -305,21 +305,11 @@ macro_rules! execute_with_retry {
             .as_ref()
             .ok()
             .and_then(|res| res.check_service_error());
-        let err_ref: Option<&crate::Error> = match &response_result {
-            Ok(_) => service_error.as_ref(),
-            Err(e) => Some(e),
-        };
+        let err_ref = response_result.as_ref().err().or(service_error.as_ref());
 
         let response = match err_ref {
             None => {
-                let response = match response_result {
-                    Ok(res) => res,
-                    Err(_) => {
-                        return Err(internal_error(
-                            "Unexpected error state in execute_with_retry",
-                        ));
-                    }
-                };
+                let response = response_result?;
                 if is_starting {
                     let id = $extract_id(&response).ok_or_else(|| {
                         internal_error("Transaction ID was not returned by Spanner")
@@ -331,15 +321,9 @@ macro_rules! execute_with_retry {
             }
             Some(error) => {
                 if !is_starting {
-                    match response_result {
-                        Ok(res) => res,
-                        Err(e) => return Err(e),
-                    }
+                    response_result?
                 } else if is_aborted(error) {
-                    match response_result {
-                        Ok(res) => res,
-                        Err(e) => return Err(e),
-                    }
+                    response_result?
                 } else {
                     $self.begin_explicitly_if_not_started(true).await?;
 
