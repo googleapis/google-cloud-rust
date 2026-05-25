@@ -1037,8 +1037,17 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     let val_string = "Params Testing".to_string();
     let val_bytes = vec![9_u8, 8_u8, 7_u8];
     let val_date = time::Date::from_calendar_date(2026, time::Month::May, 25).expect("valid Date");
-    let val_timestamp = time::OffsetDateTime::now_utc();
+
+    // Truncate timestamp to microsecond precision to avoid nanosecond-to-microsecond rounding flakiness
+    let val_timestamp = {
+        let now = time::OffsetDateTime::now_utc();
+        let microsecond_nanos = (now.nanosecond() / 1000) * 1000;
+        now.replace_nanosecond(microsecond_nanos)
+            .expect("valid truncated timestamp")
+    };
+
     let val_json = "{\"active\": true}".to_string();
+    let val_uuid = "f81d4fae-7dec-11d0-a765-00a0c91e6bf6".to_string();
 
     // Array parameter values
     let val_array_bool = vec![false, true];
@@ -1051,6 +1060,7 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     let val_array_date = vec![val_date];
     let val_array_timestamp = vec![val_timestamp];
     let val_array_json = vec![val_json.clone()];
+    let val_array_uuid = vec![val_uuid.clone()];
 
     // Write the row
     let mutation = Mutation::new_insert_or_update_builder("AllTypes")
@@ -1076,6 +1086,8 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         .to(&val_timestamp)
         .set("ColJson")
         .to(&val_json)
+        .set("ColUuid")
+        .to(&val_uuid)
         .set("ColArrayBool")
         .to(&val_array_bool)
         .set("ColArrayInt64")
@@ -1096,6 +1108,8 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         .to(&val_array_timestamp)
         .set("ColArrayJson")
         .to(&val_array_json)
+        .set("ColArrayUuid")
+        .to(&val_array_uuid)
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -1113,11 +1127,12 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         CAST(@array_bytes AS ARRAY<BYTES>), \
         CAST(@array_date AS ARRAY<DATE>), \
         CAST(@array_timestamp AS ARRAY<TIMESTAMP>), \
-        CAST(@array_json AS ARRAY<JSON>) \
+        CAST(@array_json AS ARRAY<JSON>), \
+        CAST(@array_uuid AS ARRAY<UUID>) \
         FROM AllTypes WHERE \
         Id = @id AND ColBool = @bool AND ColInt64 = @int64 AND ColFloat32 = @float32 AND \
         ColFloat64 = @float64 AND ColNumeric = @numeric AND ColString = @string AND \
-        ColBytes = @bytes AND ColDate = @date AND ColTimestamp = @timestamp",
+        ColBytes = @bytes AND ColDate = @date AND ColTimestamp = @timestamp AND ColUuid = @uuid",
     )
     .add_param("id", &id)
     .add_param("bool", &val_bool)
@@ -1129,6 +1144,7 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     .add_param("bytes", &val_bytes)
     .add_param("date", &val_date)
     .add_param("timestamp", &val_timestamp)
+    .add_param("uuid", &val_uuid)
     .add_param("array_bool", &val_array_bool)
     .add_param("array_int64", &val_array_int64)
     .add_param("array_float32", &val_array_float32)
@@ -1139,6 +1155,7 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     .add_param("array_date", &val_array_date)
     .add_param("array_timestamp", &val_array_timestamp)
     .add_param("array_json", &val_array_json)
+    .add_param("array_uuid", &val_array_uuid)
     .build();
 
     let mut result_set = read_tx.execute_query(stmt).await?;
@@ -1207,6 +1224,12 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     let expected_array_json: serde_json::Value =
         serde_json::from_str(&val_array_json[0]).expect("valid expected Array JSON");
     assert_eq!(read_array_json, expected_array_json, "array_json mismatch");
+
+    assert_eq!(
+        row.get::<Vec<String>, _>(11),
+        val_array_uuid,
+        "array_uuid mismatch"
+    );
 
     Ok(())
 }
