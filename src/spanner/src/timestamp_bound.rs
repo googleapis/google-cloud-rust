@@ -55,8 +55,7 @@ impl TimestampBound {
         T: TryInto<wkt::Timestamp>,
         T::Error: Debug,
     {
-        let timestamp = timestamp.try_into().expect("timestamp out of range");
-        Self(ReadOnlyTimestampBound::ReadTimestamp(Box::new(timestamp)))
+        Self::try_read_timestamp(timestamp).expect("timestamp out of range")
     }
 
     /// Returns a timestamp bound for an exact timestamp, returning an error if the timestamp is out of range.
@@ -85,10 +84,7 @@ impl TimestampBound {
         T: TryInto<wkt::Timestamp>,
         T::Error: Debug,
     {
-        let timestamp = timestamp.try_into().expect("timestamp out of range");
-        Self(ReadOnlyTimestampBound::MinReadTimestamp(Box::new(
-            timestamp,
-        )))
+        Self::try_min_read_timestamp(timestamp).expect("timestamp out of range")
     }
 
     /// Returns a timestamp bound for a minimum read timestamp, returning an error if the timestamp is out of range.
