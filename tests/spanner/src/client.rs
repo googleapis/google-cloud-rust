@@ -222,6 +222,28 @@ async fn ensure_emulator_database_created(
     );
 }
 
+async fn delete_all_data_from_all_types(database_id: &str) {
+    let spanner_client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client for data cleanup");
+    let db_client = spanner_client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID, database_id
+        ))
+        .build()
+        .await
+        .expect("Failed to build database client for data cleanup");
+
+    let write_tx = db_client.write_only_transaction().build();
+    let mutation = Mutation::delete("AllTypes", KeySet::all());
+    write_tx
+        .write_at_least_once(vec![mutation])
+        .await
+        .expect("Failed to delete all data from AllTypes");
+}
+
 async fn do_provision_emulator(endpoint: &str) {
     // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
     let rest_endpoint = get_emulator_rest_endpoint(endpoint);
@@ -237,27 +259,8 @@ async fn do_provision_emulator(endpoint: &str) {
     });
     ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "GoogleSQL").await;
 
-    let spanner_client = Spanner::builder()
-        .build()
-        .await
-        .expect("Failed to create Spanner client in provision_emulator");
-    let db_client = spanner_client
-        .database_client(format!(
-            "projects/{}/instances/{}/databases/{}",
-            EMULATOR_PROJECT_ID,
-            EMULATOR_INSTANCE_ID,
-            get_database_id().await
-        ))
-        .build()
-        .await
-        .expect("Failed to build database client in provision_emulator");
-
-    let write_tx = db_client.write_only_transaction().build();
-    let mutation = Mutation::delete("AllTypes", KeySet::all());
-    write_tx
-        .write_at_least_once(vec![mutation])
-        .await
-        .expect("Failed to delete all data from AllTypes");
+    // Clean up any leftover data from previous runs
+    delete_all_data_from_all_types(get_database_id().await).await;
 }
 
 async fn cleanup_stale_databases(
@@ -384,6 +387,9 @@ async fn do_provision_emulator_pg(endpoint: &str) {
         .await
         .expect("Failed to apply PG DDL schema");
     assert!(res.status().is_success(), "Failed to apply PG schema DDL");
+
+    // Clean up any leftover data from previous runs
+    delete_all_data_from_all_types(get_pg_database_id().await).await;
 }
 
 async fn do_provision_real_spanner_pg(project: &str, instance: &str) {
