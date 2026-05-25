@@ -29,14 +29,14 @@ pub async fn batch_write(db_client: &DatabaseClient) -> Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"batch-write-1".to_string())
+        .to(&"batch-write-1")
         .build();
 
     let m2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"batch-write-2".to_string())
+        .to(&"batch-write-2")
         .build();
 
     let group1 = MutationGroup::new(vec![m1]);
@@ -142,7 +142,7 @@ pub async fn batch_write_partial_failure(db_client: &DatabaseClient) -> Result<(
         .set("Id")
         .to(&id_ok)
         .set("ColString")
-        .to(&"batch-write-ok".to_string())
+        .to(&"batch-write-ok")
         .build();
 
     // Group 2: Invalid mutation targeting a non-existent table "NonExistentTable"
