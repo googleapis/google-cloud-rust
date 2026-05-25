@@ -17,7 +17,7 @@ use google_cloud_spanner::client::{
 };
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Timestamp as WktTimestamp;
-use std::time::{Duration, SystemTime};
+use std::time::Duration;
 use time::OffsetDateTime;
 
 pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::Result<()> {
@@ -140,12 +140,10 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
 
     // 4. Min read timestamp (5 seconds in the past)
     // Note: min_read_timestamp can only be set for single-use read-only transactions.
-    let now_minus_5 = SystemTime::now() - Duration::from_secs(5);
+    let spanner_now_minus_5 = spanner_now - time::Duration::seconds(5);
     let tx = db_client
         .single_use()
-        .with_timestamp_bound(TimestampBound::min_read_timestamp(OffsetDateTime::from(
-            now_minus_5,
-        )))
+        .with_timestamp_bound(TimestampBound::min_read_timestamp(spanner_now_minus_5))
         .build();
 
     let mut rs = tx
@@ -211,12 +209,12 @@ pub async fn read_timestamp_available_on_failed_first_query(
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
         .await;
 
+    let first_query_failed = match result {
+        Ok(mut rs) => rs.next().await.transpose().is_err(),
+        Err(_) => true,
+    };
     assert!(
-        result.is_err()
-            || match result {
-                Ok(mut rs) => rs.next().await.transpose().is_err(),
-                Err(_) => true,
-            },
+        first_query_failed,
         "Expected first query to fail due to non-existent table"
     );
 
