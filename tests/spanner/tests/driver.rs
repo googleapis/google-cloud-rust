@@ -136,6 +136,10 @@ mod spanner {
                 .await?;
             integration_tests_spanner::batch_read_only_transaction::partitioned_read(db_client)
                 .await?;
+            integration_tests_spanner::batch_read_only_transaction::partition_tuning_and_data_boost(db_client)
+                .await?;
+            integration_tests_spanner::batch_read_only_transaction::parallel_partition_execution(db_client)
+                .await?;
             Ok(())
         }
 
