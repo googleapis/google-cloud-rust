@@ -85,6 +85,7 @@ mod spanner {
 
         async fn run_batch_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             batch_write::batch_write(db_client).await?;
+            batch_write::batch_write_partial_failure(db_client).await?;
             Ok(())
         }
 
