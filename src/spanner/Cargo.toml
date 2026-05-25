@@ -60,7 +60,6 @@ wkt                   = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
 anyhow.workspace                   = true
-google-cloud-spanner               = { path = ".", features = ["default-rustls-provider"] }
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 spanner-grpc-mock                  = { path = "grpc-mock" }
