@@ -60,6 +60,33 @@ const EXTRA_STATEMENTS: [&str; 2] = [
     "CREATE INDEX Idx_AllTypes_ColString ON AllTypes (ColString)",
 ];
 
+const PG_EXTRA_STATEMENTS: [&str; 1] = ["CREATE TABLE AllTypes ( \
+        Id VARCHAR NOT NULL, \
+        ColBool BOOLEAN, \
+        ColInt64 BIGINT, \
+        ColFloat32 REAL, \
+        ColFloat64 DOUBLE PRECISION, \
+        ColNumeric NUMERIC, \
+        ColString VARCHAR, \
+        ColBytes BYTEA, \
+        ColDate DATE, \
+        ColTimestamp TIMESTAMPTZ, \
+        ColJson JSONB, \
+        ColUuid UUID, \
+        ColArrayBool BOOLEAN[], \
+        ColArrayInt64 BIGINT[], \
+        ColArrayFloat32 REAL[], \
+        ColArrayFloat64 DOUBLE PRECISION[], \
+        ColArrayNumeric NUMERIC[], \
+        ColArrayString VARCHAR[], \
+        ColArrayBytes BYTEA[], \
+        ColArrayDate DATE[], \
+        ColArrayTimestamp TIMESTAMPTZ[], \
+        ColArrayJson JSONB[], \
+        ColArrayUuid UUID[], \
+        PRIMARY KEY (Id) \
+     )"];
+
 pub fn get_emulator_host() -> Option<String> {
     var("SPANNER_EMULATOR_HOST").ok()
 }
@@ -98,6 +125,23 @@ pub async fn get_database_id() -> &'static str {
             let prefix = var("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE_PREFIX")
                 .unwrap_or_else(|_| "testdb".to_string());
             format!("{}-{}", prefix, LowercaseAlphanumeric.random_string(20))
+        })
+        .await
+}
+
+static PG_DATABASE_ID: OnceCell<String> = OnceCell::const_new();
+static PROVISION_EMULATOR_PG: OnceCell<()> = OnceCell::const_new();
+static PROVISION_REAL_SPANNER_PG: OnceCell<()> = OnceCell::const_new();
+
+pub async fn get_pg_database_id() -> &'static str {
+    PG_DATABASE_ID
+        .get_or_init(|| async {
+            if let Ok(fixed_db) = var("GOOGLE_CLOUD_RUST_SPANNER_TEST_PG_DATABASE") {
+                return fixed_db;
+            }
+            let prefix = var("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE_PREFIX")
+                .unwrap_or_else(|_| "testdb".to_string());
+            format!("{}-pg-{}", prefix, LowercaseAlphanumeric.random_string(17))
         })
         .await
 }
@@ -296,6 +340,129 @@ pub async fn cleanup_real_spanner() {
         .await;
 }
 
+async fn do_provision_emulator_pg(endpoint: &str) {
+    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
+    let client = Client::new();
+
+    let instance_payload = serde_json::json!({
+        "instanceId": EMULATOR_INSTANCE_ID,
+        "instance": {
+            "config": "emulator-config",
+            "displayName": "Test Instance",
+            "nodeCount": 1
+        }
+    });
+    let _ = client
+        .post(format!(
+            "{}/v1/projects/{}/instances",
+            rest_endpoint, EMULATOR_PROJECT_ID
+        ))
+        .json(&instance_payload)
+        .send()
+        .await;
+
+    let database_payload = serde_json::json!({
+        "createStatement": format!("CREATE DATABASE \"{}\"", get_pg_database_id().await),
+        "databaseDialect": "POSTGRESQL",
+    });
+    let res = client
+        .post(format!(
+            "{}/v1/projects/{}/instances/{}/databases",
+            rest_endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID
+        ))
+        .json(&database_payload)
+        .send()
+        .await
+        .expect("Failed to send create PG database request");
+    assert!(
+        res.status().is_success() || res.status() == StatusCode::CONFLICT,
+        "Failed to create PG database: {}",
+        res.text().await.expect("Failed to extract response text")
+    );
+
+    let ddl_payload = serde_json::json!({
+        "statements": PG_EXTRA_STATEMENTS
+    });
+    let res = client
+        .patch(format!(
+            "{}/v1/projects/{}/instances/{}/databases/{}/ddl",
+            rest_endpoint,
+            EMULATOR_PROJECT_ID,
+            EMULATOR_INSTANCE_ID,
+            get_pg_database_id().await
+        ))
+        .json(&ddl_payload)
+        .send()
+        .await
+        .expect("Failed to apply PG DDL schema");
+    assert!(res.status().is_success(), "Failed to apply PG schema DDL");
+}
+
+async fn do_provision_real_spanner_pg(project: &str, instance: &str) {
+    use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
+
+    let admin_client = DatabaseAdmin::builder()
+        .build()
+        .await
+        .expect("Failed to create DatabaseAdmin client");
+
+    let parent = format!("projects/{}/instances/{}", project, instance);
+    let db_id = get_pg_database_id().await;
+
+    info!(
+        "Creating real Spanner PG database: {}/databases/{}",
+        parent, db_id
+    );
+
+    let _db = admin_client
+        .create_database()
+        .set_parent(parent)
+        .set_create_statement(format!("CREATE DATABASE \"{}\"", db_id))
+        .set_database_dialect(DatabaseDialect::Postgresql)
+        .poller()
+        .until_done()
+        .await
+        .expect("Failed to create PG database on real Spanner");
+
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        project, instance, db_id
+    );
+
+    admin_client
+        .update_database_ddl()
+        .set_database(db_path)
+        .set_statements(PG_EXTRA_STATEMENTS.iter().map(|s| s.to_string()))
+        .poller()
+        .until_done()
+        .await
+        .expect("Failed to apply PG schema DDL on real Spanner");
+}
+
+pub async fn cleanup_real_spanner_pg() {
+    if var("GOOGLE_CLOUD_RUST_SPANNER_TEST_PG_DATABASE").is_ok() {
+        return;
+    }
+    let Some((project, instance)) = get_real_spanner_config() else {
+        return;
+    };
+    let admin_client = match DatabaseAdmin::builder().build().await {
+        Ok(c) => c,
+        Err(_) => return,
+    };
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        project,
+        instance,
+        get_pg_database_id().await
+    );
+    let _ = admin_client
+        .drop_database()
+        .set_database(db_path)
+        .send()
+        .await;
+}
+
 /// Creates a database client for the test instance and database.
 /// Returns None if neither SPANNER_EMULATOR_HOST nor GOOGLE_CLOUD_RUST_SPANNER_TEST_INSTANCE is set.
 /// This indicates that integration tests should be skipped.
@@ -359,6 +526,64 @@ async fn create_real_spanner_database_client(
         .await
         .expect("Failed to build database client");
 
+    Some(db_client)
+}
+
+pub async fn create_pg_database_client() -> Option<DatabaseClient> {
+    if let Some(host) = get_emulator_host() {
+        return create_emulator_pg_database_client(&host).await;
+    }
+
+    if let Some((project, instance)) = get_real_spanner_config() {
+        return create_real_spanner_pg_database_client(&project, &instance).await;
+    }
+
+    None
+}
+
+async fn create_emulator_pg_database_client(host: &str) -> Option<DatabaseClient> {
+    wait_for_emulator(host).await;
+    PROVISION_EMULATOR_PG
+        .get_or_init(|| async {
+            do_provision_emulator_pg(host).await;
+        })
+        .await;
+
+    let spanner_client = Spanner::builder().build().await.ok()?;
+    let db_client = spanner_client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            EMULATOR_PROJECT_ID,
+            EMULATOR_INSTANCE_ID,
+            get_pg_database_id().await
+        ))
+        .build()
+        .await
+        .ok()?;
+    Some(db_client)
+}
+
+async fn create_real_spanner_pg_database_client(
+    project: &str,
+    instance: &str,
+) -> Option<DatabaseClient> {
+    PROVISION_REAL_SPANNER_PG
+        .get_or_init(|| async {
+            do_provision_real_spanner_pg(project, instance).await;
+        })
+        .await;
+
+    let spanner_client = Spanner::builder().build().await.ok()?;
+    let db_client = spanner_client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            project,
+            instance,
+            get_pg_database_id().await
+        ))
+        .build()
+        .await
+        .ok()?;
     Some(db_client)
 }
 
@@ -467,6 +692,7 @@ pub async fn finish_test(total_test_suites: usize) {
             total_test_suites
         );
         cleanup_real_spanner().await;
+        cleanup_real_spanner_pg().await;
     }
 }
 
