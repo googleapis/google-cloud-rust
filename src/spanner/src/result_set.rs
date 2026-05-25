@@ -744,6 +744,7 @@ pub(crate) mod tests {
         MultiplexedSessionPrecommitToken, PartialResultSet, ResultSetMetadata, Session, StructType,
     };
     use spanner_grpc_mock::start;
+    use spanner_v1::result_set_stats::RowCount;
     use std::time::Duration;
 
     mockall::mock! {
@@ -2371,6 +2372,32 @@ pub(crate) mod tests {
 
         let received_stats = rs.stats().expect("stats should be available");
         assert!(received_stats.query_plan.is_some());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_update_count() -> anyhow::Result<()> {
+        let mock_stats = spanner_v1::ResultSetStats {
+            row_count: Some(RowCount::RowCountExact(42_i64)),
+            ..Default::default()
+        };
+
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: true,
+            stats: Some(mock_stats),
+            ..Default::default()
+        }])
+        .await;
+
+        result_set.next().await.transpose()?;
+
+        let update_count = result_set
+            .update_count()
+            .expect("Expected update count to be populated");
+        assert_eq!(update_count, 42, "Expected exactly 42 rows updated");
 
         Ok(())
     }
