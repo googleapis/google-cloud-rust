@@ -174,12 +174,7 @@ pub fn get_emulator_rest_endpoint(grpc_endpoint: &str) -> String {
     }
 }
 
-async fn do_provision_emulator(endpoint: &str) {
-    // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
-    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
-    let client = Client::new();
-
-    // Create a test instance and ignore any ALREADY_EXISTS errors.
+async fn ensure_emulator_instance_created(client: &Client, rest_endpoint: &str) {
     let instance_payload = serde_json::json!({
         "instanceId": EMULATOR_INSTANCE_ID,
         "instance": {
@@ -200,28 +195,47 @@ async fn do_provision_emulator(endpoint: &str) {
     assert!(
         res.status().is_success() || res.status() == StatusCode::CONFLICT,
         "Failed to create instance: {}",
-        res.text().await.unwrap()
+        res.text().await.expect("Failed to extract response text")
     );
+}
+
+async fn ensure_emulator_database_created(
+    client: &Client,
+    rest_endpoint: &str,
+    payload: &serde_json::Value,
+    dialect_name: &str,
+) {
+    let res = client
+        .post(format!(
+            "{}/v1/projects/{}/instances/{}/databases",
+            rest_endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID
+        ))
+        .json(payload)
+        .send()
+        .await
+        .expect("Failed to send create database request");
+    assert!(
+        res.status().is_success() || res.status() == StatusCode::CONFLICT,
+        "Failed to create {} database: {}",
+        dialect_name,
+        res.text().await.expect("Failed to extract response text")
+    );
+}
+
+async fn do_provision_emulator(endpoint: &str) {
+    // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
+    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
+    let client = Client::new();
+
+    // Ensure the test instance is created
+    ensure_emulator_instance_created(&client, &rest_endpoint).await;
 
     // Create a test database and ignore any ALREADY_EXISTS errors.
     let database_payload = serde_json::json!({
         "createStatement": format!("CREATE DATABASE `{}`", get_database_id().await),
         "extraStatements": EXTRA_STATEMENTS,
     });
-    let res: Response = client
-        .post(format!(
-            "{}/v1/projects/{}/instances/{}/databases",
-            rest_endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID
-        ))
-        .json(&database_payload)
-        .send()
-        .await
-        .expect("Failed to send create database request");
-    assert!(
-        res.status().is_success() || res.status() == StatusCode::CONFLICT,
-        "Failed to create database: {}",
-        res.text().await.unwrap()
-    );
+    ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "GoogleSQL").await;
 
     let spanner_client = Spanner::builder()
         .build()
@@ -344,41 +358,15 @@ async fn do_provision_emulator_pg(endpoint: &str) {
     let rest_endpoint = get_emulator_rest_endpoint(endpoint);
     let client = Client::new();
 
-    let instance_payload = serde_json::json!({
-        "instanceId": EMULATOR_INSTANCE_ID,
-        "instance": {
-            "config": "emulator-config",
-            "displayName": "Test Instance",
-            "nodeCount": 1
-        }
-    });
-    let _ = client
-        .post(format!(
-            "{}/v1/projects/{}/instances",
-            rest_endpoint, EMULATOR_PROJECT_ID
-        ))
-        .json(&instance_payload)
-        .send()
-        .await;
+    // Ensure the test instance is created
+    ensure_emulator_instance_created(&client, &rest_endpoint).await;
 
     let database_payload = serde_json::json!({
         "createStatement": format!("CREATE DATABASE \"{}\"", get_pg_database_id().await),
         "databaseDialect": "POSTGRESQL",
     });
-    let res = client
-        .post(format!(
-            "{}/v1/projects/{}/instances/{}/databases",
-            rest_endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID
-        ))
-        .json(&database_payload)
-        .send()
-        .await
-        .expect("Failed to send create PG database request");
-    assert!(
-        res.status().is_success() || res.status() == StatusCode::CONFLICT,
-        "Failed to create PG database: {}",
-        res.text().await.expect("Failed to extract response text")
-    );
+    ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "PostgreSQL")
+        .await;
 
     let ddl_payload = serde_json::json!({
         "statements": PG_EXTRA_STATEMENTS
@@ -448,7 +436,10 @@ pub async fn cleanup_real_spanner_pg() {
     };
     let admin_client = match DatabaseAdmin::builder().build().await {
         Ok(c) => c,
-        Err(_) => return,
+        Err(e) => {
+            warn!("failed to create DatabaseAdmin client in PG cleanup: {e:?}");
+            return;
+        }
     };
     let db_path = format!(
         "projects/{}/instances/{}/databases/{}",
@@ -549,7 +540,10 @@ async fn create_emulator_pg_database_client(host: &str) -> Option<DatabaseClient
         })
         .await;
 
-    let spanner_client = Spanner::builder().build().await.ok()?;
+    let spanner_client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client");
     let db_client = spanner_client
         .database_client(format!(
             "projects/{}/instances/{}/databases/{}",
@@ -559,7 +553,7 @@ async fn create_emulator_pg_database_client(host: &str) -> Option<DatabaseClient
         ))
         .build()
         .await
-        .ok()?;
+        .expect("Failed to build database client");
     Some(db_client)
 }
 
@@ -573,7 +567,10 @@ async fn create_real_spanner_pg_database_client(
         })
         .await;
 
-    let spanner_client = Spanner::builder().build().await.ok()?;
+    let spanner_client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client");
     let db_client = spanner_client
         .database_client(format!(
             "projects/{}/instances/{}/databases/{}",
@@ -583,7 +580,7 @@ async fn create_real_spanner_pg_database_client(
         ))
         .build()
         .await
-        .ok()?;
+        .expect("Failed to build database client");
     Some(db_client)
 }
 
