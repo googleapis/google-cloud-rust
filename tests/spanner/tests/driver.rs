@@ -150,6 +150,13 @@ mod spanner {
             Ok(())
         }
 
+        async fn run_read_only_transaction_options_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::read_only_transaction_options::read_only_bounded_staleness(db_client).await?;
+            integration_tests_spanner::read_only_transaction_options::read_timestamp_unavailable_before_start(db_client).await?;
+            integration_tests_spanner::read_only_transaction_options::read_timestamp_available_on_failed_first_query(db_client).await?;
+            Ok(())
+        }
+
         async fn run_batch_read_only_transaction_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             integration_tests_spanner::batch_read_only_transaction::partitioned_query(db_client)
                 .await?;
