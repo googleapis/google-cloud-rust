@@ -113,6 +113,37 @@ mod spanner {
                 db_client,
             )
             .await?;
+            integration_tests_spanner::read_write_transaction::consecutive_reads(db_client).await?;
+            integration_tests_spanner::read_write_transaction::mixed_reads_and_queries(db_client)
+                .await?;
+            integration_tests_spanner::read_write_transaction::multiple_execute_updates(db_client)
+                .await?;
+            integration_tests_spanner::read_write_transaction::read_your_writes_consistency(db_client)
+                .await?;
+            integration_tests_spanner::read_write_transaction::buffered_mutation_interleaving(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::initial_statement_failure_handling(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::intermediate_statement_constraint_error(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::buffered_mutation_commit_rejection(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::application_error_explicit_rollback(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::continue_after_initial_query_error(
+                db_client,
+            )
+            .await?;
             Ok(())
         }
 
@@ -156,6 +187,10 @@ mod spanner {
             integration_tests_spanner::batch_read_only_transaction::partitioned_query(db_client)
                 .await?;
             integration_tests_spanner::batch_read_only_transaction::partitioned_read(db_client)
+                .await?;
+            integration_tests_spanner::batch_read_only_transaction::partition_tuning_and_data_boost(db_client)
+                .await?;
+            integration_tests_spanner::batch_read_only_transaction::parallel_partition_execution(db_client)
                 .await?;
             Ok(())
         }

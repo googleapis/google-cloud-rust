@@ -115,6 +115,14 @@ impl ToValue for OffsetDateTime {
     }
 }
 
+impl ToValue for wkt::Timestamp {
+    fn to_value(&self) -> Value {
+        let dt = OffsetDateTime::try_from(*self)
+            .expect("valid wkt timestamp conversion to OffsetDateTime");
+        dt.to_value()
+    }
+}
+
 impl ToValue for Date {
     fn to_value(&self) -> Value {
         Value(ProtoValue {
@@ -262,6 +270,19 @@ mod tests {
 
         let system_time: SystemTime = dt.into();
         let v = system_time.to_value();
+        assert_eq!(v.kind(), Kind::String);
+        assert_eq!(v.as_string(), "2023-10-27T10:00:00.000000000Z");
+    }
+
+    #[test]
+    fn test_to_value_wkt_timestamp() {
+        let dt = OffsetDateTime::parse(
+            "2023-10-27T10:00:00Z",
+            &time::format_description::well_known::Rfc3339,
+        )
+        .expect("valid date time parsing");
+        let wkt_ts = wkt::Timestamp::try_from(dt).expect("valid wkt timestamp conversion");
+        let v = wkt_ts.to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "2023-10-27T10:00:00.000000000Z");
     }
