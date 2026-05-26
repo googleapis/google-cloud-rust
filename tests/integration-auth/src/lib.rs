@@ -52,6 +52,9 @@ pub async fn service_account() -> anyhow::Result<()> {
     let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
     let creds = AccessTokenCredentialBuilder::default().build_access_token_credentials()?;
 
+    #[cfg(google_cloud_unstable_trust_boundaries)]
+    verify_access_boundaries(&creds).await?;
+
     // Construct a new SecretManager client using the credentials.
     let client = SecretManagerService::builder()
         .with_credentials(creds)
@@ -86,6 +89,9 @@ pub async fn service_account_with_audience() -> anyhow::Result<()> {
             "https://secretmanager.googleapis.com/",
         ))
         .build_access_token_credentials()?;
+
+    #[cfg(google_cloud_unstable_trust_boundaries)]
+    verify_access_boundaries(&creds).await?;
 
     // Construct a new SecretManager client using the credentials.
     let client = SecretManagerService::builder()
@@ -123,6 +129,9 @@ pub async fn impersonated() -> anyhow::Result<()> {
                 "impersonation-target@{project}.iam.gserviceaccount.com"
             ))
             .build_access_token_credentials()?;
+
+    #[cfg(google_cloud_unstable_trust_boundaries)]
+    verify_access_boundaries(&impersonated_creds).await?;
 
     let client = SecretManagerService::builder()
         .with_credentials(impersonated_creds)
@@ -175,6 +184,38 @@ pub async fn impersonated() -> anyhow::Result<()> {
             }
         }
     }
+
+    Ok(())
+}
+
+pub async fn mds() -> anyhow::Result<()> {
+    let project = get_project_id();
+
+    // Uses MDS on CI
+    let creds = AccessTokenCredentialBuilder::default().build_access_token_credentials()?;
+
+    #[cfg(google_cloud_unstable_trust_boundaries)]
+    verify_access_boundaries(&creds).await?;
+
+    // Construct a new SecretManager client using the MDS credentials.
+    let client = SecretManagerService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Access a secret, which only this principal has permissions to do.
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/test-sa-creds-secret/versions/latest"
+        ))
+        .send()
+        .await?;
+    let secret = response
+        .payload
+        .expect("missing payload in test-sa-creds-secret response")
+        .data;
+    assert_eq!(secret, "service_account");
 
     Ok(())
 }
@@ -661,6 +702,40 @@ pub async fn id_token_impersonated() -> anyhow::Result<()> {
         .build();
 
     verifier.verify(&token).await?;
+
+    Ok(())
+}
+
+#[cfg(google_cloud_unstable_trust_boundaries)]
+pub async fn verify_access_boundaries<C>(creds: &C) -> anyhow::Result<()>
+where
+    C: google_cloud_auth::credentials::CredentialsProvider + ?Sized,
+{
+    use google_cloud_auth::credentials::CacheableResource;
+    use httptest::http::Extensions;
+
+    // Query headers to trigger background fetching and let it warm up/try fetching.
+    let mut locations_found = false;
+    for _ in 0..5 {
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let headers = match cached_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => {
+                unreachable!("should always get new headers when Extensions is empty")
+            }
+        };
+        let locations = headers.get("x-goog-allowed-locations");
+        if locations.is_some() {
+            locations_found = true;
+            break;
+        }
+        tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+    }
+
+    assert!(
+        locations_found,
+        "x-goog-allowed-locations header was not injected into the headers"
+    );
 
     Ok(())
 }

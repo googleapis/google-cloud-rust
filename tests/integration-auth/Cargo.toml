@@ -25,6 +25,7 @@ run-auth-integration-tests  = []
 run-byoid-integration-tests = []
 
 [dependencies]
+tokio.workspace      = true
 anyhow.workspace     = true
 bytes.workspace      = true
 scoped-env.workspace = true
