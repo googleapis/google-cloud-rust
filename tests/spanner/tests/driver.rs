@@ -196,5 +196,16 @@ mod spanner {
                 .await?;
             Ok(())
         }
+
+        async fn run_pg_dialect_tests(_db_client: &DatabaseClient) -> anyhow::Result<()> {
+            let db_client_val = match integration_tests_spanner::client::create_pg_database_client().await {
+                Some(c) => c,
+                None => {
+                    return Ok(());
+                }
+            };
+            integration_tests_spanner::pg_dialect::pg_dialect_types_roundtrip(&db_client_val).await?;
+            Ok(())
+        }
     }
 }
