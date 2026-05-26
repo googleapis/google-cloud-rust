@@ -712,7 +712,7 @@ where
     C: google_cloud_auth::credentials::CredentialsProvider + ?Sized,
 {
     use google_cloud_auth::credentials::CacheableResource;
-    use httptest::http::Extensions;
+    use http::Extensions;
 
     // Query headers to trigger background fetching and let it warm up/try fetching.
     let mut locations_found = false;
