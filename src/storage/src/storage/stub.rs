@@ -37,6 +37,15 @@ use gaxi::unimplemented::UNIMPLEMENTED;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Storage: std::fmt::Debug + Send + Sync {
+    /// Implements [crate::client::Storage::get_service_account].
+    fn get_service_account(
+        &self,
+        _project: String,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<Output = Result<String>> + Send {
+        unimplemented_stub::<String>()
+    }
+
     /// Implements [crate::client::Storage::read_object].
     fn read_object(
         &self,

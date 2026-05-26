@@ -18,6 +18,7 @@ use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
+use crate::storage::get_service_account::GetServiceAccount;
 use crate::streaming_source::Payload;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -220,6 +221,22 @@ where
         O: Into<String>,
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
+    }
+
+    /// Fetches the email address of the GCS service account for the given project.
+    ///
+    /// # Design Note (Architectural Exception):
+    /// Logically, this administrative operation belongs to the control plane (`StorageControl`).
+    /// However, since the GCS gRPC control plane does not support project service account retrieval,
+    /// we place it here in the handwritten REST client to avoid altering machine-generated code.
+    ///
+    /// # Parameters
+    /// * `project` - the Project ID or project number.
+    pub fn get_service_account<P>(&self, project: P) -> GetServiceAccount<S>
+    where
+        P: Into<String>,
+    {
+        GetServiceAccount::new(self.stub.clone(), project.into(), self.options.clone())
     }
 
     /// Opens an object to read its contents using concurrent ranged reads.

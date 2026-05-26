@@ -358,6 +358,16 @@ pub(crate) fn insert_body(resource: &crate::model::Object) -> serde_json::Value 
     )
 }
 
+#[derive(Debug, Default, serde::Deserialize, serde::Serialize, PartialEq, Clone)]
+#[serde(default, rename_all = "camelCase")]
+pub(crate) struct ProjectServiceAccount {
+    pub kind: String,
+    #[serde(rename = "email_address")]
+    pub email_address: String,
+    #[serde(flatten)]
+    pub unknown_fields: std::collections::HashMap<String, serde_json::Value>,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -901,5 +911,25 @@ mod tests {
     fn insert_body(input: crate::model::Object, want: serde_json::Value) {
         let got = super::insert_body(&input);
         assert_eq!(got, want);
+    }
+
+    #[test]
+    fn test_deserialize_project_service_account() {
+        let json = serde_json::json!({
+            "kind": "storage#serviceAccount",
+            "email_address": "service-123456@gs-project-accounts.iam.gserviceaccount.com",
+            "extra_field_1": "value_1",
+            "extra_field_2": 12345
+        });
+        let got: ProjectServiceAccount = serde_json::from_value(json)
+            .expect("should deserialize ProjectServiceAccount successfully");
+        
+        let mut want_unknown = std::collections::HashMap::new();
+        want_unknown.insert("extra_field_1".to_string(), serde_json::json!("value_1"));
+        want_unknown.insert("extra_field_2".to_string(), serde_json::json!(12345));
+
+        assert_eq!(got.kind, "storage#serviceAccount");
+        assert_eq!(got.email_address, "service-123456@gs-project-accounts.iam.gserviceaccount.com");
+        assert_eq!(got.unknown_fields, want_unknown);
     }
 }

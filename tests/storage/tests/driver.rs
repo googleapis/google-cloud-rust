@@ -85,6 +85,11 @@ mod storage {
                 .inspect_err(anydump)?;
 
             let builder = Storage::builder();
+            integration_tests_storage::service_account(builder)
+                .await
+                .inspect_err(anydump)?;
+
+            let builder = Storage::builder();
             integration_tests_storage::object_names(builder, control.clone(), &bucket.name)
                 .await
                 .inspect_err(anydump)?;

@@ -18,6 +18,7 @@ use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
+use crate::storage::get_service_account::ServiceAccountLookup;
 use crate::storage::info::INSTRUMENTATION;
 use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
@@ -60,6 +61,49 @@ impl Storage {
             tracing,
             metric,
         })
+    }
+
+    async fn get_service_account_plain(
+        &self,
+        project: String,
+        options: RequestOptions,
+    ) -> Result<String> {
+        let service_account = ServiceAccountLookup {
+            inner: self.inner.clone(),
+            project,
+            options,
+        };
+        service_account.response().await
+    }
+
+    #[tracing::instrument(
+        name = "get_service_account",
+        level = tracing::Level::DEBUG,
+        ret,
+        err(Debug)
+    )]
+    async fn get_service_account_tracing(
+        &self,
+        project: String,
+        options: RequestOptions,
+    ) -> Result<String> {
+        let resource_name = format!("//storage.googleapis.com/projects/{}", project);
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::get_service_account",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_url_template("/storage/v1/projects/{project}/serviceAccount")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.get_service_account_plain(project, options).await
+            }
+        );
+        pending.await
     }
 
     async fn read_object_plain(
@@ -265,6 +309,19 @@ impl Storage {
 }
 
 impl super::stub::Storage for Storage {
+    /// Implements [crate::client::Storage::get_service_account].
+    async fn get_service_account(
+        &self,
+        project: String,
+        options: RequestOptions,
+    ) -> Result<String> {
+        if self.tracing {
+            self.get_service_account_tracing(project, options).await
+        } else {
+            self.get_service_account_plain(project, options).await
+        }
+    }
+
     /// Implements [crate::client::Storage::read_object].
     async fn read_object(
         &self,
