@@ -17,7 +17,7 @@ mod common;
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use super::common::{clear_database_data, populate_test_data, setup_sample_emulator};
+    use super::common::{clear_database_data, setup_sample_emulator};
     use google_cloud_test_utils::errors::anydump;
     use integration_tests_spanner::client::update_database_ddl_batch;
     use serial_test::serial;
@@ -29,10 +29,6 @@ mod tests {
         let Some(database_client) = setup_sample_emulator().await.inspect_err(anydump)? else {
             return Ok(());
         };
-
-        // Clear and populate test data to ensure test isolation
-        clear_database_data(&database_client).await?;
-        populate_test_data(&database_client).await?;
 
         query::query_data::sample(&database_client)
             .await
@@ -59,7 +55,11 @@ mod tests {
             .await
             .inspect_err(anydump)?;
 
-        // 3. Add the MarketingBudget column to the Albums table
+        // 3. Try to drop the column first in case a previous run failed, then add it
+        let _ = update_database_ddl_batch(vec![
+            "ALTER TABLE Albums DROP COLUMN MarketingBudget".to_string(),
+        ])
+        .await;
         update_database_ddl_batch(vec![
             "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64".to_string(),
         ])
