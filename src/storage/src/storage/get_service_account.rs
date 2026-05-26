@@ -36,6 +36,10 @@ where
     S: crate::storage::stub::Storage + 'static,
 {
     pub(crate) fn new(stub: Arc<S>, project: String, options: RequestOptions) -> Self {
+        let project = project
+            .strip_prefix("projects/")
+            .unwrap_or(&project)
+            .to_string();
         Self {
             stub,
             project,
@@ -91,7 +95,7 @@ pub(crate) struct ServiceAccountLookup {
 
 impl ServiceAccountLookup {
     async fn http_request_builder(&self) -> Result<RequestBuilder> {
-        let project_id = self.project.strip_prefix("projects/").unwrap_or(&self.project);
+        let project_id = &self.project;
         let builder = self
             .inner
             .client
