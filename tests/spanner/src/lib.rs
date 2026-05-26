@@ -23,5 +23,7 @@ pub mod query;
 pub mod read;
 pub mod read_only_transaction_options;
 pub mod read_write_transaction;
+pub mod read_write_transaction_options;
 pub mod test_proxy;
 pub mod write;
+pub mod write_only_transaction_options;
