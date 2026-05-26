@@ -95,7 +95,7 @@ pub(crate) struct ServiceAccountLookup {
 
 impl ServiceAccountLookup {
     async fn http_request_builder(&self) -> Result<RequestBuilder> {
-        let project_id = &self.project;
+        let project_id = super::client::enc(&self.project);
         let builder = self
             .inner
             .client
@@ -212,6 +212,34 @@ mod tests {
 
         let err = client.get_service_account("non-existent").send().await.expect_err("should fail with 404");
         assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_get_service_account_with_domain_prefix() -> anyhow::Result<()> {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/projects/example.com%3Amy-project-123/serviceAccount"),
+                request::headers(contains(("x-goog-api-client", super::X_GOOG_API_CLIENT_HEADER.as_str()))),
+            ])
+            .respond_with(
+                status_code(200).body(serde_json::json!({
+                    "kind": "storage#serviceAccount",
+                    "email_address": "service-123456@gs-project-accounts.iam.gserviceaccount.com"
+                }).to_string()),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let email = client.get_service_account("example.com:my-project-123").send().await?;
+        assert_eq!(email, "service-123456@gs-project-accounts.iam.gserviceaccount.com");
 
         Ok(())
     }
