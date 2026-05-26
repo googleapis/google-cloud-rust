@@ -322,12 +322,12 @@ impl WriteOnlyTransaction {
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
-                let commit_req = build_commit_request(
+                let commit_req = create_commit_request(
                     session_name.clone(),
                     tx.id.clone(),
                     mutations_proto,
                     tx.precommit_token,
-                    req_options.clone(),
+                    Some(req_options.clone()),
                     max_commit_delay,
                     return_commit_stats,
                 );
@@ -340,12 +340,12 @@ impl WriteOnlyTransaction {
                 // If a commit_response with a precommit_token is returned, then we need to
                 // retry the commit with the new precommit_token and without any mutations.
                 if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
-                    let retry_commit_req = build_commit_request(
+                    let retry_commit_req = create_commit_request(
                         session_name.clone(),
                         tx.id,
                         Vec::new(),
                         Some(new_token),
-                        req_options,
+                        Some(req_options),
                         max_commit_delay,
                         return_commit_stats,
                     );
@@ -437,12 +437,12 @@ impl WriteOnlyTransaction {
     }
 }
 
-fn build_commit_request(
+pub(crate) fn create_commit_request(
     session_name: String,
     transaction_id: bytes::Bytes,
     mutations: Vec<ProtoMutation>,
     precommit_token: Option<MultiplexedSessionPrecommitToken>,
-    req_options: RequestOptions,
+    request_options: Option<RequestOptions>,
     max_commit_delay: Option<Duration>,
     return_commit_stats: bool,
 ) -> CommitRequest {
@@ -451,7 +451,7 @@ fn build_commit_request(
         .set_transaction_id(transaction_id)
         .set_mutations(mutations)
         .set_or_clear_precommit_token(precommit_token)
-        .set_request_options(req_options)
+        .set_or_clear_request_options(request_options)
         .set_or_clear_max_commit_delay(max_commit_delay)
         .set_return_commit_stats(return_commit_stats)
 }

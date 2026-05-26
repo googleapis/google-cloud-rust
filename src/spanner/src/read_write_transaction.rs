@@ -39,6 +39,7 @@ use crate::read_only_transaction::{
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
+use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::Aip194Strict;
@@ -525,14 +526,15 @@ impl ReadWriteTransaction {
         mutations: Vec<ProtoMutation>,
         precommit_token: Option<crate::model::MultiplexedSessionPrecommitToken>,
     ) -> CommitRequest {
-        CommitRequest::default()
-            .set_session(self.context.session_name.clone())
-            .set_transaction_id(transaction_id)
-            .set_mutations(mutations)
-            .set_or_clear_precommit_token(precommit_token)
-            .set_or_clear_request_options(self.commit_request_options())
-            .set_or_clear_max_commit_delay(self.max_commit_delay)
-            .set_return_commit_stats(self.return_commit_stats)
+        create_commit_request(
+            self.context.session_name.clone(),
+            transaction_id,
+            mutations,
+            precommit_token,
+            self.commit_request_options(),
+            self.max_commit_delay,
+            self.return_commit_stats,
+        )
     }
 
     /// Commits the transaction.
