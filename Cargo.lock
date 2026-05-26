@@ -8051,6 +8051,7 @@ dependencies = [
  "google-cloud-spanner",
  "google-cloud-test-utils",
  "integration-tests-spanner",
+ "serial_test",
  "tokio",
  "tracing",
  "tracing-subscriber",

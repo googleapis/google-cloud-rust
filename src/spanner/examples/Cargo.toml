@@ -35,6 +35,7 @@ tracing.workspace          = true
 [dev-dependencies]
 google-cloud-test-utils   = { workspace = true }
 integration-tests-spanner = { workspace = true }
+serial_test               = { workspace = true }
 
 [features]
 run-integration-tests     = []

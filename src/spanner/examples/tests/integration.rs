@@ -13,134 +13,71 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "run-integration-tests"))]
+mod common;
+
+#[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use google_cloud_spanner::client::{DatabaseClient, Mutation};
+    use super::common::{clear_database_data, populate_test_data, setup_sample_emulator};
     use google_cloud_test_utils::errors::anydump;
-    use integration_tests_spanner::client::{create_database_client, update_database_ddl_batch};
-    use spanner_samples::query;
-
-    async fn setup_sample_emulator() -> anyhow::Result<Option<DatabaseClient>> {
-        let Some(database_client) = create_database_client().await else {
-            return Ok(None);
-        };
-
-        // Ensure the Singers and Albums tables exist in the provisioned test database.
-        update_database_ddl_batch(vec![
-            "CREATE TABLE IF NOT EXISTS Singers ( \
-                SingerId INT64 NOT NULL, \
-                FirstName STRING(1024), \
-                LastName STRING(1024), \
-                SingerInfo BYTES(MAX), \
-                FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], \" \")) STORED \
-             ) PRIMARY KEY (SingerId)"
-                .to_string(),
-            "CREATE TABLE IF NOT EXISTS Albums ( \
-                SingerId INT64 NOT NULL, \
-                AlbumId INT64 NOT NULL, \
-                AlbumTitle STRING(MAX) \
-             ) PRIMARY KEY (SingerId, AlbumId), \
-             INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
-                .to_string(),
-        ])
-        .await?;
-
-        // Populate standard sample data into Singers and Albums tables.
-        let write_transaction = database_client.write_only_transaction().build();
-        let mutations = vec![
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&1)
-                .set("FirstName")
-                .to(&"Marc")
-                .set("LastName")
-                .to(&"Richards")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&2)
-                .set("FirstName")
-                .to(&"Catalina")
-                .set("LastName")
-                .to(&"Smith")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&3)
-                .set("FirstName")
-                .to(&"Alice")
-                .set("LastName")
-                .to(&"Trentor")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&4)
-                .set("FirstName")
-                .to(&"Lea")
-                .set("LastName")
-                .to(&"Martin")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&5)
-                .set("FirstName")
-                .to(&"David")
-                .set("LastName")
-                .to(&"Lomond")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&1)
-                .set("AlbumId")
-                .to(&1)
-                .set("AlbumTitle")
-                .to(&"Total Junk")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&1)
-                .set("AlbumId")
-                .to(&2)
-                .set("AlbumTitle")
-                .to(&"Go, Go, Go")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&2)
-                .set("AlbumId")
-                .to(&1)
-                .set("AlbumTitle")
-                .to(&"Green")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&2)
-                .set("AlbumId")
-                .to(&2)
-                .set("AlbumTitle")
-                .to(&"Forever Hold Your Peace")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&2)
-                .set("AlbumId")
-                .to(&3)
-                .set("AlbumTitle")
-                .to(&"Terrified")
-                .build(),
-        ];
-        write_transaction.write_at_least_once(mutations).await?;
-
-        Ok(Some(database_client))
-    }
+    use integration_tests_spanner::client::update_database_ddl_batch;
+    use serial_test::serial;
+    use spanner_samples::{mutation, query, read};
 
     #[tokio::test]
+    #[serial]
     async fn query_samples() -> anyhow::Result<()> {
         let Some(database_client) = setup_sample_emulator().await.inspect_err(anydump)? else {
             return Ok(());
         };
 
+        // Clear and populate test data to ensure test isolation
+        clear_database_data(&database_client).await?;
+        populate_test_data(&database_client).await?;
+
         query::query_data::sample(&database_client)
             .await
             .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn mutation_and_read_samples() -> anyhow::Result<()> {
+        let Some(database_client) = setup_sample_emulator().await.inspect_err(anydump)? else {
+            return Ok(());
+        };
+
+        // Clear data for clean mutations testing
+        clear_database_data(&database_client).await?;
+
+        // 1. Test spanner_insert_data sample
+        mutation::insert_data::sample(&database_client)
+            .await
+            .inspect_err(anydump)?;
+
+        // 2. Test spanner_read_data sample
+        read::read_data::sample(&database_client)
+            .await
+            .inspect_err(anydump)?;
+
+        // 3. Add the MarketingBudget column to the Albums table
+        update_database_ddl_batch(vec![
+            "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64".to_string(),
+        ])
+        .await
+        .inspect_err(anydump)?;
+
+        // 4. Test spanner_update_data sample
+        mutation::update_data::sample(&database_client)
+            .await
+            .inspect_err(anydump)?;
+
+        // 5. Clean up schema changes by dropping the column to restore the clean slate
+        update_database_ddl_batch(vec![
+            "ALTER TABLE Albums DROP COLUMN MarketingBudget".to_string(),
+        ])
+        .await
+        .inspect_err(anydump)?;
+
+        Ok(())
     }
 }
