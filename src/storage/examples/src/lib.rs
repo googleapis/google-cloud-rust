@@ -592,6 +592,9 @@ pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running storage_quota_project example");
     client::quota_project::sample(&id, &project_id).await?;
 
+    tracing::info!("running storage_get_service_account example");
+    client::get_service_account::sample(&project_id).await?;
+
     Ok(())
 }
 

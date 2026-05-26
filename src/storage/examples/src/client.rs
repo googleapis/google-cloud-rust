@@ -13,5 +13,6 @@
 // limitations under the License.
 
 pub mod configure_retries;
+pub mod get_service_account;
 pub mod quota_project;
 pub mod set_client_endpoint;
