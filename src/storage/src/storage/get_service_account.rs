@@ -128,7 +128,6 @@ impl ServiceAccountLookup {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use crate::client::Storage;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use httptest::{
