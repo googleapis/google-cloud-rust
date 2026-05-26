@@ -23,6 +23,8 @@ use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
 };
+use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
+use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
@@ -68,6 +70,7 @@ pub use wkt::{DurationError, TimestampError};
 pub struct Spanner {
     pub(crate) channels: Vec<Channel>,
     pub(crate) counter: std::sync::Arc<AtomicUsize>,
+    pub(crate) config: ClientConfig,
 }
 
 pub struct Factory;
@@ -90,6 +93,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
         Ok(Spanner {
             channels,
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            config,
         })
     }
 }
@@ -154,6 +158,14 @@ pub(crate) fn amend_request_options_for_lar(
     options
 }
 
+fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
+    let mut ep = endpoint.trim_end_matches('/').to_string();
+    if is_emulator && ep.ends_with(":9010") {
+        ep = ep.replace(":9010", ":9020");
+    }
+    ep
+}
+
 #[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
@@ -173,6 +185,31 @@ impl Spanner {
         builder
             .with_endpoint(full_endpoint)
             .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+    }
+
+    /// Returns a builder for the [DatabaseAdmin] client.
+    ///
+    /// This builder is automatically pre-configured with the same endpoints, credentials,
+    /// and routing configurations as this `Spanner` instance.
+    /// If configured to use the Emulator (via `SPANNER_EMULATOR_HOST`), it maps the gRPC endpoint port
+    /// (`9010`) to the REST admin port (`9020`).
+    pub fn database_admin_builder(&self) -> DatabaseAdminBuilder {
+        let mut builder = DatabaseAdmin::builder();
+        if let Some(ref endpoint) = self.config.endpoint {
+            let is_emulator = std::env::var("SPANNER_EMULATOR_HOST")
+                .ok()
+                .filter(|s| !s.is_empty())
+                .is_some();
+            let ep = map_emulator_admin_endpoint(endpoint, is_emulator);
+            builder = builder.with_endpoint(ep);
+        }
+        if let Some(ref cred) = self.config.cred {
+            builder = builder.with_credentials(cred.clone());
+        }
+        if let Some(ref ud) = self.config.universe_domain {
+            builder = builder.with_universe_domain(ud.clone());
+        }
+        builder
     }
 
     /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for
@@ -216,6 +253,7 @@ impl Spanner {
                 grpc_client: None,
             }],
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            config: ClientConfig::default(),
         }
     }
 
@@ -379,6 +417,33 @@ mod tests {
             .expect("Failed to build client");
 
         assert_eq!(client.channels.len(), 4);
+    }
+
+    #[test]
+    fn test_map_emulator_admin_endpoint() {
+        // 1. Test normal endpoint without emulator (should remain unchanged)
+        assert_eq!(
+            map_emulator_admin_endpoint("https://spanner.googleapis.com", false),
+            "https://spanner.googleapis.com"
+        );
+
+        // 2. Test emulator endpoint mapping (9010 -> 9020)
+        assert_eq!(
+            map_emulator_admin_endpoint("http://localhost:9010", true),
+            "http://localhost:9020"
+        );
+
+        // 3. Test emulator endpoint with trailing slash (should be trimmed and mapped)
+        assert_eq!(
+            map_emulator_admin_endpoint("http://127.0.0.1:9010/", true),
+            "http://127.0.0.1:9020"
+        );
+
+        // 4. Test emulator endpoint without is_emulator active (should remain unchanged)
+        assert_eq!(
+            map_emulator_admin_endpoint("http://localhost:9010", false),
+            "http://localhost:9010"
+        );
     }
 
     #[tokio_test_no_panics]
