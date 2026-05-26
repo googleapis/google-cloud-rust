@@ -46,6 +46,7 @@ const EXTRA_STATEMENTS: [&str; 2] = [
         ColDate DATE, \
         ColTimestamp TIMESTAMP, \
         ColJson JSON, \
+        ColUuid UUID, \
         ColArrayBool ARRAY<BOOL>, \
         ColArrayInt64 ARRAY<INT64>, \
         ColArrayFloat32 ARRAY<FLOAT32>, \
@@ -55,7 +56,8 @@ const EXTRA_STATEMENTS: [&str; 2] = [
         ColArrayBytes ARRAY<BYTES(MAX)>, \
         ColArrayDate ARRAY<DATE>, \
         ColArrayTimestamp ARRAY<TIMESTAMP>, \
-        ColArrayJson ARRAY<JSON> \
+        ColArrayJson ARRAY<JSON>, \
+        ColArrayUuid ARRAY<UUID> \
      ) PRIMARY KEY (Id)",
     "CREATE INDEX Idx_AllTypes_ColString ON AllTypes (ColString)",
 ];

@@ -80,6 +80,9 @@ mod spanner {
         async fn run_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             integration_tests_spanner::write::write_only_transaction(db_client).await?;
             integration_tests_spanner::write::write(db_client).await?;
+            integration_tests_spanner::write::all_data_types_roundtrip(db_client).await?;
+            integration_tests_spanner::write::all_data_types_parameter_binding(db_client).await?;
+            integration_tests_spanner::write::interval_parameter_binding(db_client).await?;
             Ok(())
         }
 
