@@ -32,7 +32,7 @@ google-cloud-auth                      = { workspace = true, features = ["defaul
 google-cloud-gax                       = { workspace = true }
 google-cloud-longrunning               = { workspace = true }
 google-cloud-lro                       = { workspace = true }
-google-cloud-spanner                   = { workspace = true, features = ["unstable-stream"] }
+google-cloud-spanner                   = { workspace = true, features = ["default", "unstable-stream"] }
 google-cloud-spanner-admin-database-v1 = { path = "../../src/generated/spanner/admin/database/v1" }
 google-cloud-test-utils                = { workspace = true }
 google-cloud-wkt                       = { workspace = true }

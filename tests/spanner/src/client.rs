@@ -46,6 +46,7 @@ const EXTRA_STATEMENTS: [&str; 2] = [
         ColDate DATE, \
         ColTimestamp TIMESTAMP, \
         ColJson JSON, \
+        ColUuid UUID, \
         ColArrayBool ARRAY<BOOL>, \
         ColArrayInt64 ARRAY<INT64>, \
         ColArrayFloat32 ARRAY<FLOAT32>, \
@@ -55,10 +56,38 @@ const EXTRA_STATEMENTS: [&str; 2] = [
         ColArrayBytes ARRAY<BYTES(MAX)>, \
         ColArrayDate ARRAY<DATE>, \
         ColArrayTimestamp ARRAY<TIMESTAMP>, \
-        ColArrayJson ARRAY<JSON> \
+        ColArrayJson ARRAY<JSON>, \
+        ColArrayUuid ARRAY<UUID> \
      ) PRIMARY KEY (Id)",
     "CREATE INDEX Idx_AllTypes_ColString ON AllTypes (ColString)",
 ];
+
+const PG_EXTRA_STATEMENTS: [&str; 1] = ["CREATE TABLE AllTypes ( \
+        Id VARCHAR NOT NULL, \
+        ColBool BOOLEAN, \
+        ColInt64 BIGINT, \
+        ColFloat32 REAL, \
+        ColFloat64 DOUBLE PRECISION, \
+        ColNumeric NUMERIC, \
+        ColString VARCHAR, \
+        ColBytes BYTEA, \
+        ColDate DATE, \
+        ColTimestamp TIMESTAMPTZ, \
+        ColJson JSONB, \
+        ColUuid UUID, \
+        ColArrayBool BOOLEAN[], \
+        ColArrayInt64 BIGINT[], \
+        ColArrayFloat32 REAL[], \
+        ColArrayFloat64 DOUBLE PRECISION[], \
+        ColArrayNumeric NUMERIC[], \
+        ColArrayString VARCHAR[], \
+        ColArrayBytes BYTEA[], \
+        ColArrayDate DATE[], \
+        ColArrayTimestamp TIMESTAMPTZ[], \
+        ColArrayJson JSONB[], \
+        ColArrayUuid UUID[], \
+        PRIMARY KEY (Id) \
+     )"];
 
 pub fn get_emulator_host() -> Option<String> {
     var("SPANNER_EMULATOR_HOST").ok()
@@ -102,6 +131,23 @@ pub async fn get_database_id() -> &'static str {
         .await
 }
 
+static PG_DATABASE_ID: OnceCell<String> = OnceCell::const_new();
+static PROVISION_EMULATOR_PG: OnceCell<()> = OnceCell::const_new();
+static PROVISION_REAL_SPANNER_PG: OnceCell<()> = OnceCell::const_new();
+
+pub async fn get_pg_database_id() -> &'static str {
+    PG_DATABASE_ID
+        .get_or_init(|| async {
+            if let Ok(fixed_db) = var("GOOGLE_CLOUD_RUST_SPANNER_TEST_PG_DATABASE") {
+                return fixed_db;
+            }
+            let prefix = var("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE_PREFIX")
+                .unwrap_or_else(|_| "testdb".to_string());
+            format!("{}-pg-{}", prefix, LowercaseAlphanumeric.random_string(17))
+        })
+        .await
+}
+
 // Provisions the Spanner Emulator with a test instance and database.
 // ALREADY_EXISTS errors that are returned when creating an instance or database are ignored.
 pub async fn provision_emulator(endpoint: &str) {
@@ -130,12 +176,7 @@ pub fn get_emulator_rest_endpoint(grpc_endpoint: &str) -> String {
     }
 }
 
-async fn do_provision_emulator(endpoint: &str) {
-    // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
-    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
-    let client = Client::new();
-
-    // Create a test instance and ignore any ALREADY_EXISTS errors.
+async fn ensure_emulator_instance_created(client: &Client, rest_endpoint: &str) {
     let instance_payload = serde_json::json!({
         "instanceId": EMULATOR_INSTANCE_ID,
         "instance": {
@@ -156,43 +197,46 @@ async fn do_provision_emulator(endpoint: &str) {
     assert!(
         res.status().is_success() || res.status() == StatusCode::CONFLICT,
         "Failed to create instance: {}",
-        res.text().await.unwrap()
+        res.text().await.expect("Failed to extract response text")
     );
+}
 
-    // Create a test database and ignore any ALREADY_EXISTS errors.
-    let database_payload = serde_json::json!({
-        "createStatement": format!("CREATE DATABASE `{}`", get_database_id().await),
-        "extraStatements": EXTRA_STATEMENTS,
-    });
-    let res: Response = client
+async fn ensure_emulator_database_created(
+    client: &Client,
+    rest_endpoint: &str,
+    payload: &serde_json::Value,
+    dialect_name: &str,
+) {
+    let res = client
         .post(format!(
             "{}/v1/projects/{}/instances/{}/databases",
             rest_endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID
         ))
-        .json(&database_payload)
+        .json(payload)
         .send()
         .await
         .expect("Failed to send create database request");
     assert!(
         res.status().is_success() || res.status() == StatusCode::CONFLICT,
-        "Failed to create database: {}",
-        res.text().await.unwrap()
+        "Failed to create {} database: {}",
+        dialect_name,
+        res.text().await.expect("Failed to extract response text")
     );
+}
 
+async fn delete_all_data_from_all_types(database_id: &str) {
     let spanner_client = Spanner::builder()
         .build()
         .await
-        .expect("Failed to create Spanner client in provision_emulator");
+        .expect("Failed to create Spanner client for data cleanup");
     let db_client = spanner_client
         .database_client(format!(
             "projects/{}/instances/{}/databases/{}",
-            EMULATOR_PROJECT_ID,
-            EMULATOR_INSTANCE_ID,
-            get_database_id().await
+            EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID, database_id
         ))
         .build()
         .await
-        .expect("Failed to build database client in provision_emulator");
+        .expect("Failed to build database client for data cleanup");
 
     let write_tx = db_client.write_only_transaction().build();
     let mutation = Mutation::delete("AllTypes", KeySet::all());
@@ -200,6 +244,25 @@ async fn do_provision_emulator(endpoint: &str) {
         .write_at_least_once(vec![mutation])
         .await
         .expect("Failed to delete all data from AllTypes");
+}
+
+async fn do_provision_emulator(endpoint: &str) {
+    // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
+    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
+    let client = Client::new();
+
+    // Ensure the test instance is created
+    ensure_emulator_instance_created(&client, &rest_endpoint).await;
+
+    // Create a test database and ignore any ALREADY_EXISTS errors.
+    let database_payload = serde_json::json!({
+        "createStatement": format!("CREATE DATABASE `{}`", get_database_id().await),
+        "extraStatements": EXTRA_STATEMENTS,
+    });
+    ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "GoogleSQL").await;
+
+    // Clean up any leftover data from previous runs
+    delete_all_data_from_all_types(get_database_id().await).await;
 }
 
 async fn cleanup_stale_databases(
@@ -296,6 +359,109 @@ pub async fn cleanup_real_spanner() {
         .await;
 }
 
+async fn do_provision_emulator_pg(endpoint: &str) {
+    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
+    let client = Client::new();
+
+    // Ensure the test instance is created
+    ensure_emulator_instance_created(&client, &rest_endpoint).await;
+
+    let database_payload = serde_json::json!({
+        "createStatement": format!("CREATE DATABASE \"{}\"", get_pg_database_id().await),
+        "databaseDialect": "POSTGRESQL",
+    });
+    ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "PostgreSQL")
+        .await;
+
+    let ddl_payload = serde_json::json!({
+        "statements": PG_EXTRA_STATEMENTS
+    });
+    let res = client
+        .patch(format!(
+            "{}/v1/projects/{}/instances/{}/databases/{}/ddl",
+            rest_endpoint,
+            EMULATOR_PROJECT_ID,
+            EMULATOR_INSTANCE_ID,
+            get_pg_database_id().await
+        ))
+        .json(&ddl_payload)
+        .send()
+        .await
+        .expect("Failed to apply PG DDL schema");
+    assert!(res.status().is_success(), "Failed to apply PG schema DDL");
+
+    // Clean up any leftover data from previous runs
+    delete_all_data_from_all_types(get_pg_database_id().await).await;
+}
+
+async fn do_provision_real_spanner_pg(project: &str, instance: &str) {
+    use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
+
+    let admin_client = DatabaseAdmin::builder()
+        .build()
+        .await
+        .expect("Failed to create DatabaseAdmin client");
+
+    let parent = format!("projects/{}/instances/{}", project, instance);
+    let db_id = get_pg_database_id().await;
+
+    info!(
+        "Creating real Spanner PG database: {}/databases/{}",
+        parent, db_id
+    );
+
+    let _db = admin_client
+        .create_database()
+        .set_parent(parent)
+        .set_create_statement(format!("CREATE DATABASE \"{}\"", db_id))
+        .set_database_dialect(DatabaseDialect::Postgresql)
+        .poller()
+        .until_done()
+        .await
+        .expect("Failed to create PG database on real Spanner");
+
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        project, instance, db_id
+    );
+
+    admin_client
+        .update_database_ddl()
+        .set_database(db_path)
+        .set_statements(PG_EXTRA_STATEMENTS.iter().map(|s| s.to_string()))
+        .poller()
+        .until_done()
+        .await
+        .expect("Failed to apply PG schema DDL on real Spanner");
+}
+
+pub async fn cleanup_real_spanner_pg() {
+    if var("GOOGLE_CLOUD_RUST_SPANNER_TEST_PG_DATABASE").is_ok() {
+        return;
+    }
+    let Some((project, instance)) = get_real_spanner_config() else {
+        return;
+    };
+    let admin_client = match DatabaseAdmin::builder().build().await {
+        Ok(c) => c,
+        Err(e) => {
+            warn!("failed to create DatabaseAdmin client in PG cleanup: {e:?}");
+            return;
+        }
+    };
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        project,
+        instance,
+        get_pg_database_id().await
+    );
+    let _ = admin_client
+        .drop_database()
+        .set_database(db_path)
+        .send()
+        .await;
+}
+
 /// Creates a database client for the test instance and database.
 /// Returns None if neither SPANNER_EMULATOR_HOST nor GOOGLE_CLOUD_RUST_SPANNER_TEST_INSTANCE is set.
 /// This indicates that integration tests should be skipped.
@@ -359,6 +525,70 @@ async fn create_real_spanner_database_client(
         .await
         .expect("Failed to build database client");
 
+    Some(db_client)
+}
+
+pub async fn create_pg_database_client() -> Option<DatabaseClient> {
+    if let Some(host) = get_emulator_host() {
+        return create_emulator_pg_database_client(&host).await;
+    }
+
+    if let Some((project, instance)) = get_real_spanner_config() {
+        return create_real_spanner_pg_database_client(&project, &instance).await;
+    }
+
+    None
+}
+
+async fn create_emulator_pg_database_client(host: &str) -> Option<DatabaseClient> {
+    wait_for_emulator(host).await;
+    PROVISION_EMULATOR_PG
+        .get_or_init(|| async {
+            do_provision_emulator_pg(host).await;
+        })
+        .await;
+
+    let spanner_client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client");
+    let db_client = spanner_client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            EMULATOR_PROJECT_ID,
+            EMULATOR_INSTANCE_ID,
+            get_pg_database_id().await
+        ))
+        .build()
+        .await
+        .expect("Failed to build database client");
+    Some(db_client)
+}
+
+async fn create_real_spanner_pg_database_client(
+    project: &str,
+    instance: &str,
+) -> Option<DatabaseClient> {
+    PROVISION_REAL_SPANNER_PG
+        .get_or_init(|| async {
+            do_provision_real_spanner_pg(project, instance).await;
+        })
+        .await;
+
+    let spanner_client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client");
+    let db_client = spanner_client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            project,
+            instance,
+            get_pg_database_id().await
+        ))
+        .build()
+        .await
+        .expect("Failed to build database client");
     Some(db_client)
 }
 
@@ -467,6 +697,7 @@ pub async fn finish_test(total_test_suites: usize) {
             total_test_suites
         );
         cleanup_real_spanner().await;
+        cleanup_real_spanner_pg().await;
     }
 }
 
