@@ -453,7 +453,7 @@ pub fn retry_policy() -> impl google_cloud_gax::retry_policy::RetryPolicy {
 pub async fn service_account(builder: StorageBuilder) -> Result<()> {
     let client = builder.build().await?;
     let project = project_id()?;
-    
+
     tracing::info!("testing get_service_account() for project: {project}");
     let email = client.get_service_account(project).send().await?;
     tracing::info!("success with get_service_account, email={email}");
@@ -461,4 +461,3 @@ pub async fn service_account(builder: StorageBuilder) -> Result<()> {
     assert!(email.contains('@'));
     Ok(())
 }
-
