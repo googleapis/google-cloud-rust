@@ -17,6 +17,7 @@ pub mod batch_write;
 pub mod client;
 pub mod concurrent_inline_begin;
 pub mod directed_read;
+pub mod dml_returning;
 pub mod partitioned_dml;
 pub mod pg_dialect;
 pub mod query;
