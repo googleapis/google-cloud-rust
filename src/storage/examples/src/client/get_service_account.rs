@@ -20,10 +20,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
 
     // Fetches the email address of the GCS service agent for the given project.
     // If the service agent does not exist yet, the GCS control plane creates it under the hood.
-    let email = client
-        .get_service_account(project_id)
-        .send()
-        .await?;
+    let email = client.get_service_account(project_id).send().await?;
 
     println!("Service account email for project {project_id}: {email}");
 

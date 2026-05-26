@@ -82,7 +82,9 @@ where
 
     /// Sends the request and returns the GCS service account email address.
     pub async fn send(self) -> Result<String> {
-        self.stub.get_service_account(self.project, self.options).await
+        self.stub
+            .get_service_account(self.project, self.options)
+            .await
     }
 }
 
@@ -130,12 +132,7 @@ impl ServiceAccountLookup {
 mod tests {
     use crate::client::Storage;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use httptest::{
-        Expectation,
-        Server,
-        matchers::*,
-        responders::*,
-    };
+    use httptest::{Expectation, Server, matchers::*, responders::*};
 
     #[tokio::test]
     async fn test_get_service_account_success() -> anyhow::Result<()> {
@@ -161,7 +158,10 @@ mod tests {
             .await?;
 
         let email = client.get_service_account("my-project-123").send().await?;
-        assert_eq!(email, "service-123456@gs-project-accounts.iam.gserviceaccount.com");
+        assert_eq!(
+            email,
+            "service-123456@gs-project-accounts.iam.gserviceaccount.com"
+        );
 
         Ok(())
     }
@@ -187,8 +187,14 @@ mod tests {
             .build()
             .await?;
 
-        let email = client.get_service_account("projects/my-project-123").send().await?;
-        assert_eq!(email, "service-123456@gs-project-accounts.iam.gserviceaccount.com");
+        let email = client
+            .get_service_account("projects/my-project-123")
+            .send()
+            .await?;
+        assert_eq!(
+            email,
+            "service-123456@gs-project-accounts.iam.gserviceaccount.com"
+        );
 
         Ok(())
     }
@@ -197,9 +203,10 @@ mod tests {
     async fn test_get_service_account_not_found() -> anyhow::Result<()> {
         let server = Server::run();
         server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "/storage/v1/projects/non-existent/serviceAccount"),
-            ])
+            Expectation::matching(all_of![request::method_path(
+                "GET",
+                "/storage/v1/projects/non-existent/serviceAccount"
+            ),])
             .respond_with(status_code(404).body("Not Found")),
         );
 
@@ -209,7 +216,11 @@ mod tests {
             .build()
             .await?;
 
-        let err = client.get_service_account("non-existent").send().await.expect_err("should fail with 404");
+        let err = client
+            .get_service_account("non-existent")
+            .send()
+            .await
+            .expect_err("should fail with 404");
         assert_eq!(err.http_status_code(), Some(404));
 
         Ok(())
@@ -237,10 +248,15 @@ mod tests {
             .build()
             .await?;
 
-        let email = client.get_service_account("example.com:my-project-123").send().await?;
-        assert_eq!(email, "service-123456@gs-project-accounts.iam.gserviceaccount.com");
+        let email = client
+            .get_service_account("example.com:my-project-123")
+            .send()
+            .await?;
+        assert_eq!(
+            email,
+            "service-123456@gs-project-accounts.iam.gserviceaccount.com"
+        );
 
         Ok(())
     }
 }
-

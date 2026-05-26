@@ -923,13 +923,16 @@ mod tests {
         });
         let got: ProjectServiceAccount = serde_json::from_value(json)
             .expect("should deserialize ProjectServiceAccount successfully");
-        
+
         let mut want_unknown = std::collections::HashMap::new();
         want_unknown.insert("extra_field_1".to_string(), serde_json::json!("value_1"));
         want_unknown.insert("extra_field_2".to_string(), serde_json::json!(12345));
 
         assert_eq!(got.kind, "storage#serviceAccount");
-        assert_eq!(got.email_address, "service-123456@gs-project-accounts.iam.gserviceaccount.com");
+        assert_eq!(
+            got.email_address,
+            "service-123456@gs-project-accounts.iam.gserviceaccount.com"
+        );
         assert_eq!(got.unknown_fields, want_unknown);
     }
 }
