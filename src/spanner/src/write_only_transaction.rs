@@ -16,7 +16,8 @@ use crate::client::{DatabaseClient, Mutation, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
-    BeginTransactionRequest, CommitRequest, CommitResponse, RequestOptions, TransactionOptions,
+    BeginTransactionRequest, CommitRequest, CommitResponse, MultiplexedSessionPrecommitToken,
+    Mutation as ProtoMutation, RequestOptions, TransactionOptions,
 };
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
@@ -285,6 +286,9 @@ impl WriteOnlyTransaction {
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
         let channel_hint = client.spanner.next_channel_hint();
 
+        let max_commit_delay = self.max_commit_delay;
+        let return_commit_stats = self.return_commit_stats;
+
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let session_name = session_name.clone();
@@ -318,14 +322,15 @@ impl WriteOnlyTransaction {
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
-                let commit_req = CommitRequest::default()
-                    .set_session(session_name.clone())
-                    .set_mutations(mutations_proto)
-                    .set_transaction_id(tx.id.clone())
-                    .set_request_options(req_options.clone())
-                    .set_or_clear_precommit_token(tx.precommit_token)
-                    .set_or_clear_max_commit_delay(self.max_commit_delay)
-                    .set_return_commit_stats(self.return_commit_stats);
+                let commit_req = create_commit_request(
+                    session_name.clone(),
+                    tx.id.clone(),
+                    mutations_proto,
+                    tx.precommit_token,
+                    Some(req_options.clone()),
+                    max_commit_delay,
+                    return_commit_stats,
+                );
 
                 let response = client
                     .spanner
@@ -335,11 +340,15 @@ impl WriteOnlyTransaction {
                 // If a commit_response with a precommit_token is returned, then we need to
                 // retry the commit with the new precommit_token and without any mutations.
                 if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
-                    let retry_commit_req = CommitRequest::default()
-                        .set_session(session_name.clone())
-                        .set_transaction_id(tx.id)
-                        .set_request_options(req_options)
-                        .set_precommit_token(new_token);
+                    let retry_commit_req = create_commit_request(
+                        session_name.clone(),
+                        tx.id,
+                        Vec::new(),
+                        Some(new_token),
+                        Some(req_options),
+                        max_commit_delay,
+                        return_commit_stats,
+                    );
                     client
                         .spanner
                         .commit(retry_commit_req, gax_options, channel_hint)
@@ -426,6 +435,25 @@ impl WriteOnlyTransaction {
             GaxRequestOptions::default(),
         )
     }
+}
+
+pub(crate) fn create_commit_request(
+    session_name: String,
+    transaction_id: bytes::Bytes,
+    mutations: Vec<ProtoMutation>,
+    precommit_token: Option<MultiplexedSessionPrecommitToken>,
+    request_options: Option<RequestOptions>,
+    max_commit_delay: Option<Duration>,
+    return_commit_stats: bool,
+) -> CommitRequest {
+    CommitRequest::default()
+        .set_session(session_name)
+        .set_transaction_id(transaction_id)
+        .set_mutations(mutations)
+        .set_or_clear_precommit_token(precommit_token)
+        .set_or_clear_request_options(request_options)
+        .set_or_clear_max_commit_delay(max_commit_delay)
+        .set_return_commit_stats(return_commit_stats)
 }
 
 #[cfg(test)]
@@ -903,6 +931,107 @@ mod tests {
                 .seconds(),
             9999
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_with_commit_retry_preserves_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.mutation_key.is_some());
+
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let expected_delay = prost_types::Duration {
+            seconds: 0,
+            nanos: 200_000_000,
+        };
+
+        let expected_delay_clone = expected_delay;
+        let commit_call_count = std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0));
+        mock.expect_commit().times(2).returning(move |req| {
+            let count = commit_call_count.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+            let req = req.into_inner();
+            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+
+            // Verify options are present in both attempts
+            assert!(req.return_commit_stats, "Expected return_commit_stats to be true");
+            assert_eq!(req.max_commit_delay.as_ref(), Some(&expected_delay_clone), "Expected max_commit_delay to be 200ms");
+
+            if count == 0 {
+                assert!(!req.mutations.is_empty());
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                        multiplexed_session_retry: Some(
+                            spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                                spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                                    precommit_token: vec![4, 5, 6],
+                                    seq_num: 2,
+                                }
+                            )
+                        ),
+                        ..Default::default()
+                    },
+                ))
+            } else {
+                assert!(req.mutations.is_empty(), "Expected mutations to be empty on retry");
+                assert_eq!(
+                    req.precommit_token.expect("precommit_token required").precommit_token,
+                    vec![4, 5, 6]
+                );
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                        commit_timestamp: Some(prost_types::Timestamp {
+                            seconds: 9999,
+                            nanos: 0,
+                        }),
+                        commit_stats: Some(CommitStats { mutation_count: 12 }),
+                        ..Default::default()
+                    },
+                ))
+            }
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_return_commit_stats(true)
+            .with_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        let stats = res.commit_stats.expect("Expected commit stats in response");
+        assert_eq!(stats.mutation_count, 12);
+        assert_eq!(
+            res.commit_timestamp
+                .expect("timestamp should be present")
+                .seconds(),
+            9999
+        );
+
+        Ok(())
     }
 
     #[tokio_test_no_panics]

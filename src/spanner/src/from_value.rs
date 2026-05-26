@@ -173,6 +173,13 @@ impl FromValue for OffsetDateTime {
     }
 }
 
+impl FromValue for wkt::Timestamp {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        let dt = OffsetDateTime::from_value(value, type_)?;
+        wkt::Timestamp::try_from(dt).map_err(|e| ConvertError::Convert(Box::new(e)))
+    }
+}
+
 impl FromValue for Date {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Date {
@@ -490,6 +497,24 @@ mod tests {
 
         let v = "invalid timestamp".to_string().to_value();
         let err = SystemTime::from_value(&v, &types::timestamp()).unwrap_err();
+        assert!(format!("{}", err).contains("cannot convert value"));
+    }
+
+    #[test]
+    fn test_from_value_wkt_timestamp() {
+        let dt = OffsetDateTime::parse(
+            "2023-10-27T10:00:00Z",
+            &time::format_description::well_known::Rfc3339,
+        )
+        .expect("valid date time parsing");
+        let wkt_ts = wkt::Timestamp::try_from(dt).expect("valid wkt timestamp conversion");
+        let v = dt.to_value();
+        let res = wkt::Timestamp::from_value(&v, &types::timestamp())
+            .expect("valid wkt timestamp decoding");
+        assert_eq!(res, wkt_ts);
+
+        let v = "invalid timestamp".to_string().to_value();
+        let err = wkt::Timestamp::from_value(&v, &types::timestamp()).unwrap_err();
         assert!(format!("{}", err).contains("cannot convert value"));
     }
 

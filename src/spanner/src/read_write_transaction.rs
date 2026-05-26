@@ -42,6 +42,7 @@ use crate::read_only_transaction::{
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
+use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
@@ -597,6 +598,23 @@ impl ReadWriteTransaction {
         options
     }
 
+    fn build_commit_request(
+        &self,
+        transaction_id: bytes::Bytes,
+        mutations: Vec<ProtoMutation>,
+        precommit_token: Option<crate::model::MultiplexedSessionPrecommitToken>,
+    ) -> CommitRequest {
+        create_commit_request(
+            self.context.session_name.clone(),
+            transaction_id,
+            mutations,
+            precommit_token,
+            self.commit_request_options(),
+            self.max_commit_delay,
+            self.return_commit_stats,
+        )
+    }
+
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<CommitResponse> {
         let mutations = take(&mut *self.mutations.lock().unwrap());
@@ -627,14 +645,8 @@ impl ReadWriteTransaction {
         }
         let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
         let precommit_token = self.context.precommit_token_tracker.get();
-        let request = CommitRequest::default()
-            .set_session(self.context.session_name.clone())
-            .set_transaction_id(transaction_id.clone())
-            .set_mutations(mutations)
-            .set_or_clear_precommit_token(precommit_token)
-            .set_or_clear_request_options(self.context.amend_request_options(None))
-            .set_or_clear_max_commit_delay(self.max_commit_delay)
-            .set_return_commit_stats(self.return_commit_stats);
+
+        let request = self.build_commit_request(transaction_id.clone(), mutations, precommit_token);
 
         // TODO(#4972): make request options configurable
         let mut gax_options = GaxRequestOptions::default();
@@ -649,11 +661,11 @@ impl ReadWriteTransaction {
 
         let response =
             if let Some(new_precommit_token) = response.precommit_token().map(|b| (*b).clone()) {
-                let retry_commit_req = CommitRequest::default()
-                    .set_session(self.context.session_name.clone())
-                    .set_transaction_id(transaction_id)
-                    .set_precommit_token(*new_precommit_token)
-                    .set_or_clear_request_options(self.commit_request_options());
+                let retry_commit_req = self.build_commit_request(
+                    transaction_id,
+                    Vec::new(), // mutations are never re-sent in retry requests
+                    Some(*new_precommit_token),
+                );
 
                 // TODO(#4972): make request options configurable
                 let mut gax_options = GaxRequestOptions::default();
@@ -884,6 +896,10 @@ mod tests {
                     seq_num: 2,
                 })
             );
+            assert!(
+                req.mutations.is_empty(),
+                "Expected mutations to be empty in retried CommitRequest"
+            );
             Ok(tonic::Response::new(v1::CommitResponse {
                 commit_timestamp: Some(prost_types::Timestamp {
                     seconds: 1001,
@@ -933,6 +949,208 @@ mod tests {
         for addr in remotes.iter() {
             assert_eq!(*addr, first, "All RPCs should use the same gRPC channel");
         }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_retry_preserves_options() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // execute_update returns a precommit token.
+        mock.expect_execute_sql().once().returning(move |req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "UPDATE Users SET Name = 'Bob' WHERE Id = 1");
+
+            let mut metadata = v1::ResultSetMetadata {
+                row_type: Some(v1::StructType { fields: vec![] }),
+                ..Default::default()
+            };
+            metadata.transaction = Some(v1::Transaction {
+                id: vec![0, 0, 7],
+                ..Default::default()
+            });
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101],
+                    seq_num: 1,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Simulate that commit returns a precommit token in the response.
+        // This would normally not happen, but we test it here to verify
+        // that the commit is retried and the options are preserved.
+        let expected_delay = prost_types::Duration {
+            seconds: 0,
+            nanos: 200_000_000,
+        };
+
+        let expected_delay_clone = expected_delay;
+        mock.expect_commit().once().returning(move |req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101],
+                    seq_num: 1,
+                })
+            );
+            // Assert original options are present
+            assert!(
+                req.return_commit_stats,
+                "Expected return_commit_stats to be true in first commit"
+            );
+            assert_eq!(
+                req.max_commit_delay.as_ref(),
+                Some(&expected_delay_clone),
+                "Expected max_commit_delay to be set in first commit"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                multiplexed_session_retry: Some(
+                    v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                        v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![202],
+                            seq_num: 2,
+                        },
+                    ),
+                ),
+                ..Default::default()
+            }))
+        });
+
+        // Second commit retry is automatically issued with the new token and MUST preserve original options
+        mock.expect_commit().once().returning(move |req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![202],
+                    seq_num: 2,
+                })
+            );
+            assert!(
+                req.return_commit_stats,
+                "Expected return_commit_stats to be preserved in retried commit request"
+            );
+            assert_eq!(
+                req.max_commit_delay.as_ref(),
+                Some(&expected_delay),
+                "Expected max_commit_delay to be preserved in retried commit request"
+            );
+            assert!(
+                req.mutations.is_empty(),
+                "Expected mutations to be empty in retried CommitRequest"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1001,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_return_commit_stats(true)
+            .with_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let count = tx
+            .execute_update("UPDATE Users SET Name = 'Bob' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1);
+
+        let timestamp = tx.commit().await?;
+        assert_eq!(
+            timestamp
+                .commit_timestamp
+                .as_ref()
+                .expect("timestamp should be present")
+                .seconds(),
+            1001
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_carries_commit_priority() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_sql().once().returning(move |_req| {
+            let mut metadata = v1::ResultSetMetadata {
+                row_type: Some(v1::StructType { fields: vec![] }),
+                ..Default::default()
+            };
+            metadata.transaction = Some(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            });
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            let request_options = req
+                .request_options
+                .expect("Expected request_options in CommitRequest");
+            assert_eq!(
+                request_options.priority,
+                v1::request_options::Priority::Low as i32,
+                "Expected priority to be Priority::Low in CommitRequest"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_commit_priority(Priority::Low)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let count = tx
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1);
+
+        let _ = tx.commit().await?;
 
         Ok(())
     }
