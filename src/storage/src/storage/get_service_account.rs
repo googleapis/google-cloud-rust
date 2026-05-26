@@ -14,6 +14,7 @@
 
 use super::client::StorageInner;
 use crate::Result;
+use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::request_options::RequestOptions;
 use gaxi::http::NoBody;
 use gaxi::http::reqwest::{HeaderValue, Method, RequestBuilder};
@@ -100,7 +101,7 @@ impl ServiceAccountLookup {
             )
             .header(
                 "x-goog-api-client",
-                HeaderValue::from_static(&super::info::X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         Ok(builder)
