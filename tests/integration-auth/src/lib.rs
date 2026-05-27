@@ -715,7 +715,6 @@ where
     use http::Extensions;
 
     // Query headers to trigger background fetching and let it warm up/try fetching.
-    let mut locations_found = false;
     for _ in 0..10 {
         let cached_headers = creds.headers(Extensions::new()).await?;
         let headers = match cached_headers {
@@ -726,16 +725,10 @@ where
         };
         let locations = headers.get("x-goog-allowed-locations");
         if locations.is_some() {
-            locations_found = true;
-            break;
+            return Ok(());
         }
         tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
     }
 
-    assert!(
-        locations_found,
-        "x-goog-allowed-locations header was not injected into the headers"
-    );
-
-    Ok(())
+    anyhow::bail!("x-goog-allowed-locations header was not injected into the headers")
 }
