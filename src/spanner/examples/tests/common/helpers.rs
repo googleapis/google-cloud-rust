@@ -12,138 +12,82 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_spanner::client::{DatabaseClient, KeySet, Mutation};
-use integration_tests_spanner::client::{create_database_client, update_database_ddl_batch};
+use google_cloud_auth::credentials::anonymous::Builder as AnonymousBuilder;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use integration_tests_spanner::client::{
+    get_emulator_host, get_emulator_rest_endpoint, provision_emulator, wait_for_emulator,
+};
+use spanner_samples::{client, database};
 
-pub async fn setup_sample_emulator() -> anyhow::Result<Option<DatabaseClient>> {
-    let Some(database_client) = create_database_client().await else {
+pub struct TestDatabaseContext {
+    pub client: DatabaseClient,
+    pub admin_client: DatabaseAdmin,
+    pub database_name: String,
+}
+
+pub async fn setup_sample_database(
+    dialect: DatabaseDialect,
+) -> anyhow::Result<Option<TestDatabaseContext>> {
+    let Some(emulator_host) = get_emulator_host() else {
         return Ok(None);
     };
 
-    // Ensure the Singers and Albums tables exist in the provisioned test database.
-    update_database_ddl_batch(vec![
-        "CREATE TABLE IF NOT EXISTS Singers ( \
-            SingerId INT64 NOT NULL, \
-            FirstName STRING(1024), \
-            LastName STRING(1024), \
-            SingerInfo BYTES(MAX), \
-            FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], \" \")) STORED \
-         ) PRIMARY KEY (SingerId)"
-            .to_string(),
-        "CREATE TABLE IF NOT EXISTS Albums ( \
-            SingerId INT64 NOT NULL, \
-            AlbumId INT64 NOT NULL, \
-            AlbumTitle STRING(MAX) \
-         ) PRIMARY KEY (SingerId, AlbumId), \
-         INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
-            .to_string(),
-    ])
-    .await?;
+    // Ensure the emulator is running and the instance is provisioned
+    wait_for_emulator(&emulator_host).await;
+    provision_emulator(&emulator_host).await;
 
-    // Populate standard sample data into Singers and Albums tables.
-    populate_test_data(&database_client).await?;
+    // Initialize a temporary admin client for database creation samples
+    let mut admin_builder = DatabaseAdmin::builder();
+    let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
+    admin_builder = admin_builder
+        .with_endpoint(rest_endpoint)
+        .with_credentials(AnonymousBuilder::new().build());
+    let admin_client = admin_builder.build().await.map_err(anyhow::Error::from)?;
 
-    Ok(Some(database_client))
+    let instance_name = "projects/test-project/instances/test-instance";
+    let database_id = match dialect {
+        DatabaseDialect::GoogleStandardSql => {
+            format!("test-db-gsql-{}", LowercaseAlphanumeric.random_string(10))
+        }
+        DatabaseDialect::Postgresql => {
+            format!("test-db-pg-{}", LowercaseAlphanumeric.random_string(10))
+        }
+        _ => anyhow::bail!("Unsupported database dialect"),
+    };
+    let database_name = format!("{instance_name}/databases/{database_id}");
+
+    // Dynamically provision the test database and table schema using the correct dialect sample
+    match dialect {
+        DatabaseDialect::GoogleStandardSql => {
+            database::create_database::sample(&admin_client, instance_name, &database_id).await?;
+        }
+        DatabaseDialect::Postgresql => {
+            database::pg_create_database::sample(&admin_client, instance_name, &database_id)
+                .await?;
+        }
+        _ => anyhow::bail!("Unsupported database dialect"),
+    }
+
+    // Test the client initialization sample targeting this unique database
+    let (database_client, _) = client::init_client::sample(&database_name).await?;
+
+    Ok(Some(TestDatabaseContext {
+        client: database_client,
+        admin_client,
+        database_name,
+    }))
 }
 
-pub async fn clear_database_data(client: &DatabaseClient) -> anyhow::Result<()> {
-    let delete_transaction = client.write_only_transaction().build();
-    delete_transaction
-        .write(vec![
-            Mutation::delete("Albums", KeySet::all()),
-            Mutation::delete("Singers", KeySet::all()),
-        ])
-        .await
-        .map_err(anyhow::Error::from)?;
-    Ok(())
-}
-
-pub async fn populate_test_data(client: &DatabaseClient) -> anyhow::Result<()> {
-    let mutations = vec![
-        Mutation::new_insert_or_update_builder("Singers")
-            .set("SingerId")
-            .to(&1)
-            .set("FirstName")
-            .to(&"Marc")
-            .set("LastName")
-            .to(&"Richards")
-            .build(),
-        Mutation::new_insert_or_update_builder("Singers")
-            .set("SingerId")
-            .to(&2)
-            .set("FirstName")
-            .to(&"Catalina")
-            .set("LastName")
-            .to(&"Smith")
-            .build(),
-        Mutation::new_insert_or_update_builder("Singers")
-            .set("SingerId")
-            .to(&3)
-            .set("FirstName")
-            .to(&"Alice")
-            .set("LastName")
-            .to(&"Trentor")
-            .build(),
-        Mutation::new_insert_or_update_builder("Singers")
-            .set("SingerId")
-            .to(&4)
-            .set("FirstName")
-            .to(&"Lea")
-            .set("LastName")
-            .to(&"Martin")
-            .build(),
-        Mutation::new_insert_or_update_builder("Singers")
-            .set("SingerId")
-            .to(&5)
-            .set("FirstName")
-            .to(&"David")
-            .set("LastName")
-            .to(&"Lomond")
-            .build(),
-        Mutation::new_insert_or_update_builder("Albums")
-            .set("SingerId")
-            .to(&1)
-            .set("AlbumId")
-            .to(&1)
-            .set("AlbumTitle")
-            .to(&"Total Junk")
-            .build(),
-        Mutation::new_insert_or_update_builder("Albums")
-            .set("SingerId")
-            .to(&1)
-            .set("AlbumId")
-            .to(&2)
-            .set("AlbumTitle")
-            .to(&"Go, Go, Go")
-            .build(),
-        Mutation::new_insert_or_update_builder("Albums")
-            .set("SingerId")
-            .to(&2)
-            .set("AlbumId")
-            .to(&1)
-            .set("AlbumTitle")
-            .to(&"Green")
-            .build(),
-        Mutation::new_insert_or_update_builder("Albums")
-            .set("SingerId")
-            .to(&2)
-            .set("AlbumId")
-            .to(&2)
-            .set("AlbumTitle")
-            .to(&"Forever Hold Your Peace")
-            .build(),
-        Mutation::new_insert_or_update_builder("Albums")
-            .set("SingerId")
-            .to(&2)
-            .set("AlbumId")
-            .to(&3)
-            .set("AlbumTitle")
-            .to(&"Terrified")
-            .build(),
-    ];
-    let write_transaction = client.write_only_transaction().build();
-    write_transaction
-        .write(mutations)
+pub async fn teardown_sample_database(context: TestDatabaseContext) -> anyhow::Result<()> {
+    // Cleanly drop the dynamic database while the runtime is active and alive
+    context
+        .admin_client
+        .drop_database()
+        .set_database(context.database_name)
+        .send()
         .await
         .map_err(anyhow::Error::from)?;
     Ok(())

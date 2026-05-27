@@ -14,4 +14,4 @@
 
 mod helpers;
 
-pub use helpers::{clear_database_data, setup_sample_emulator};
+pub use helpers::{setup_sample_database, teardown_sample_database};
