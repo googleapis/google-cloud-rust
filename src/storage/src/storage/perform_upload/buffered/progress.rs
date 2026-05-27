@@ -45,6 +45,8 @@ pub struct InProgressUpload {
     ///
     /// When getting data from the source stream we may retrieve more data.
     remainder: VecDeque<bytes::Bytes>,
+    /// Indicates if the source stream has ended.
+    source_ended: bool,
 }
 
 struct Summary<'a>(&'a VecDeque<bytes::Bytes>);
@@ -102,6 +104,14 @@ impl InProgressUpload {
         self.persisted_size.is_none_or(|x| x != self.offset)
     }
 
+    pub fn is_last_chunk(&self) -> bool {
+        self.source_ended
+            || self
+                .hint
+                .exact()
+                .is_some_and(|len| self.offset + self.buffer_size as u64 == len)
+    }
+
     pub async fn next_buffer<S>(&mut self, payload: &mut S) -> Result<()>
     where
         S: StreamingSource,
@@ -146,6 +156,7 @@ impl InProgressUpload {
         }
         self.buffer = buffer;
         self.buffer_size = size;
+        self.source_ended = true;
         Ok(())
     }
 
@@ -154,7 +165,7 @@ impl InProgressUpload {
             (0, 0, Some(len)) => format!("bytes */{len}"),
             (n, o, Some(len)) => format!("bytes {o}-{}/{len}", o + n - 1),
             (0, o, None) => format!("bytes */{o}"),
-            (n, o, None) if n < self.target_size as u64 => {
+            (n, o, None) if n < self.target_size as u64 || self.source_ended => {
                 format!("bytes {o}-{}/{}", o + n - 1, o + n)
             }
             (n, o, _) => format!("bytes {o}-{}/*", o + n - 1),

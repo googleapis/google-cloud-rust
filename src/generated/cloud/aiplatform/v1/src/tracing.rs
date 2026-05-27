@@ -189,7 +189,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::DataFoundryService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -625,7 +675,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::DatasetService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -893,7 +993,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::DeploymentResourcePoolService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1203,7 +1353,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::EndpointService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1401,7 +1601,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::EvaluationService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1753,7 +2003,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FeatureOnlineStoreAdminService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1979,7 +2279,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FeatureOnlineStoreService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -2303,7 +2653,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FeatureRegistryService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -2515,7 +2915,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FeaturestoreOnlineServingService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -2979,7 +3429,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FeaturestoreService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -3233,7 +3733,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::GenAiCacheService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -3473,7 +4023,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::GenAiTuningService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -3769,7 +4369,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::IndexEndpointService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -4051,7 +4701,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::IndexService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -4726,7 +5426,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::JobService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -4938,7 +5688,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::LlmUtilityService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -5136,7 +5936,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::MatchService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -5754,7 +6604,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::MetadataService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -5966,7 +6866,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::MigrationService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -6178,7 +7128,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ModelGardenService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -6628,7 +7628,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ModelService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -7036,7 +8086,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::NotebookService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -7304,7 +8404,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::PersistentResourceService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -7656,7 +8806,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::PipelineService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -7938,7 +9138,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::PredictionService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -8150,7 +9400,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ReasoningEngineExecutionService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -8404,7 +9704,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ReasoningEngineService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -8686,7 +10036,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ScheduleService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -8968,7 +10368,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SessionService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -9222,7 +10672,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SpecialistPoolService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -9812,7 +11312,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::TensorboardService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -10164,7 +11714,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::VertexRagDataService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -10418,7 +12018,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::VertexRagService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -10812,7 +12462,57 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::VizierService::get_operation",
             self.inner.get_operation(req, options));
-        pending.await
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

@@ -80,11 +80,34 @@ mod spanner {
         async fn run_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             integration_tests_spanner::write::write_only_transaction(db_client).await?;
             integration_tests_spanner::write::write(db_client).await?;
+            integration_tests_spanner::write::all_data_types_roundtrip(db_client).await?;
+            integration_tests_spanner::write::all_data_types_parameter_binding(db_client).await?;
+            integration_tests_spanner::write::interval_parameter_binding(db_client).await?;
             Ok(())
         }
 
         async fn run_batch_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             batch_write::batch_write(db_client).await?;
+            batch_write::batch_write_partial_failure(db_client).await?;
+            Ok(())
+        }
+
+        async fn run_batch_dml_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::batch_dml::successful_batch_update(db_client).await?;
+            integration_tests_spanner::batch_dml::partial_batch_update_failure(db_client).await?;
+            integration_tests_spanner::batch_dml::empty_batch_statement_rejection(db_client).await?;
+            integration_tests_spanner::batch_dml::unsupported_query_in_batch_dml(db_client).await?;
+            integration_tests_spanner::batch_dml::unsupported_returning_clause(db_client).await?;
+            integration_tests_spanner::batch_dml::continue_after_empty_batch_statement(db_client)
+                .await?;
+            integration_tests_spanner::batch_dml::continue_after_invalid_first_statement_in_batch(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::batch_dml::continue_after_invalid_second_statement_in_batch(
+                db_client,
+            )
+            .await?;
             Ok(())
         }
 
@@ -113,6 +136,40 @@ mod spanner {
                 db_client,
             )
             .await?;
+            integration_tests_spanner::dml_returning::dml_then_return_execute_query(db_client).await?;
+            integration_tests_spanner::dml_returning::dml_then_return_execute_update(db_client).await?;
+            integration_tests_spanner::dml_returning::dml_then_return_unconsumed_query(db_client).await?;
+            integration_tests_spanner::read_write_transaction::consecutive_reads(db_client).await?;
+            integration_tests_spanner::read_write_transaction::mixed_reads_and_queries(db_client)
+                .await?;
+            integration_tests_spanner::read_write_transaction::multiple_execute_updates(db_client)
+                .await?;
+            integration_tests_spanner::read_write_transaction::read_your_writes_consistency(db_client)
+                .await?;
+            integration_tests_spanner::read_write_transaction::buffered_mutation_interleaving(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::initial_statement_failure_handling(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::intermediate_statement_constraint_error(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::buffered_mutation_commit_rejection(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::application_error_explicit_rollback(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::continue_after_initial_query_error(
+                db_client,
+            )
+            .await?;
             Ok(())
         }
 
@@ -128,6 +185,20 @@ mod spanner {
             integration_tests_spanner::read::read_with_limit(db_client).await?;
             integration_tests_spanner::read::read_with_index(db_client).await?;
             integration_tests_spanner::read::read_as_stream(db_client).await?;
+            Ok(())
+        }
+
+        async fn run_read_write_transaction_options_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::read_write_transaction_options::runner_commit_configurations(db_client).await?;
+            integration_tests_spanner::read_write_transaction_options::client_routing_success(db_client).await?;
+            integration_tests_spanner::read_write_transaction_options::unauthorized_database_role_rejection(db_client).await?;
+            integration_tests_spanner::read_write_transaction_options::timeout_exceeded_transaction_abort(db_client).await?;
+            Ok(())
+        }
+
+        async fn run_write_only_transaction_options_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::write_only_transaction_options::write_only_commit_configurations(db_client).await?;
+            integration_tests_spanner::write_only_transaction_options::write_only_at_least_once_commit_configurations(db_client).await?;
             Ok(())
         }
 
@@ -159,6 +230,17 @@ mod spanner {
             integration_tests_spanner::directed_read::read_only_with_directed_read(db_client).await?;
             integration_tests_spanner::directed_read::read_write_with_directed_read_error(db_client)
                 .await?;
+            Ok(())
+        }
+
+        async fn run_pg_dialect_tests(_db_client: &DatabaseClient) -> anyhow::Result<()> {
+            let db_client_val = match integration_tests_spanner::client::create_pg_database_client().await {
+                Some(c) => c,
+                None => {
+                    return Ok(());
+                }
+            };
+            integration_tests_spanner::pg_dialect::pg_dialect_types_roundtrip(&db_client_val).await?;
             Ok(())
         }
     }

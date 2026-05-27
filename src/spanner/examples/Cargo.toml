@@ -24,13 +24,16 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-anyhow.workspace           = true
-futures.workspace          = true
-google-cloud-gax.workspace = true
-google-cloud-spanner       = { workspace = true }
-tokio                      = { workspace = true, features = ["macros"] }
-tracing-subscriber         = { workspace = true, features = ["fmt", "std"] }
-tracing.workspace          = true
+anyhow.workspace                       = true
+futures.workspace                      = true
+google-cloud-auth                      = { workspace = true }
+google-cloud-gax.workspace             = true
+google-cloud-spanner                   = { workspace = true }
+google-cloud-spanner-admin-database-v1 = { workspace = true }
+google-cloud-lro                       = { workspace = true }
+tokio                                  = { workspace = true, features = ["macros"] }
+tracing-subscriber                     = { workspace = true, features = ["fmt", "std"] }
+tracing.workspace                      = true
 
 [dev-dependencies]
 google-cloud-test-utils   = { workspace = true }

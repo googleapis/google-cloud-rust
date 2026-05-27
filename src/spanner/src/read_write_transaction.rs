@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::BatchDml;
+use crate::Error;
 use crate::RequestOptions;
 use crate::client::{Mutation, amend_request_options_for_lar};
 use crate::database_client::DatabaseClient;
@@ -20,7 +21,9 @@ use crate::error::internal_error;
 use crate::model::CommitRequest;
 use crate::model::CommitResponse;
 use crate::model::ExecuteBatchDmlRequest;
+use crate::model::ExecuteBatchDmlResponse;
 use crate::model::Mutation as ProtoMutation;
+use crate::model::ResultSet as ProtoResultSet;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
@@ -39,7 +42,9 @@ use crate::read_only_transaction::{
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
+use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::Aip194Strict;
 use google_cloud_gax::retry_policy::RetryPolicy;
@@ -204,6 +209,73 @@ impl ReadWriteTransactionBuilder {
     }
 }
 
+trait CheckServiceError {
+    fn check_service_error(&self) -> Option<Error>;
+}
+
+impl CheckServiceError for ProtoResultSet {
+    fn check_service_error(&self) -> Option<Error> {
+        None
+    }
+}
+
+/// Normalizes responses from `ExecuteBatchDml`.
+/// If Spanner encounters an error during inline transaction initialization (such as a missing table),
+/// it returns an `Ok(ExecuteBatchDmlResponse)` containing the error status but with empty `result_sets`.
+/// This implementation evaluates that payload so fallback handlers can recover.
+impl CheckServiceError for ExecuteBatchDmlResponse {
+    fn check_service_error(&self) -> Option<Error> {
+        if self.result_sets.is_empty() {
+            if let Some(status) = &self.status {
+                if status.code != Code::Ok as i32 {
+                    let rpc_status = Status::default()
+                        .set_code(status.code)
+                        .set_message(status.message.clone());
+                    return Some(Error::service(rpc_status));
+                }
+            }
+        }
+        None
+    }
+}
+
+/// A scope-bound guard that manages the state of a lazy transaction start attempt.
+///
+/// If the first statement in a transaction is executed using an inline `BeginTransaction` option,
+/// the transaction selector is transitioned to the `Starting` state.
+/// If that initial statement execution fails, or if the transaction ID is not successfully returned,
+/// we must reset the starting state back to `NotStarted` and unlock any concurrent threads waiting
+/// for this transaction to start.
+///
+/// This struct implements the RAII pattern:
+/// - It is initialized with `active = true` when the statement is starting the transaction.
+/// - If the transaction successfully starts and yields a valid ID, the guard is `disarm()`ed.
+/// - If the scope exits early due to an error (e.g., aborted error, protocol error, etc.), the guard
+///   is dropped, and its `Drop` implementation automatically calls `maybe_reset_starting()` to
+///   restore the selector state and notify waiters.
+struct LazyTransactionStartGuard {
+    selector: ReadContextTransactionSelector,
+    active: bool,
+}
+
+impl LazyTransactionStartGuard {
+    fn new(selector: ReadContextTransactionSelector, active: bool) -> Self {
+        Self { selector, active }
+    }
+
+    fn disarm(&mut self) {
+        self.active = false;
+    }
+}
+
+impl Drop for LazyTransactionStartGuard {
+    fn drop(&mut self) {
+        if self.active {
+            self.selector.maybe_reset_starting();
+        }
+    }
+}
+
 /// Helper macro to execute a DML or BatchDML RPC with retry logic if the
 /// request included a BeginTransaction option.
 macro_rules! execute_with_retry {
@@ -216,6 +288,9 @@ macro_rules! execute_with_retry {
             Some(Selector::Begin(_))
         );
 
+        let mut guard =
+            LazyTransactionStartGuard::new($self.context.transaction_selector.clone(), is_starting);
+
         let response_result = $self
             .context
             .client
@@ -227,34 +302,45 @@ macro_rules! execute_with_retry {
             )
             .await;
 
-        let response = match response_result {
-            Ok(response) => {
+        let service_error = response_result
+            .as_ref()
+            .ok()
+            .and_then(|res| res.check_service_error());
+        let err_ref = response_result.as_ref().err().or(service_error.as_ref());
+
+        let response = match err_ref {
+            None => {
+                let response = response_result?;
                 if is_starting {
                     let id = $extract_id(&response).ok_or_else(|| {
-                        crate::error::internal_error("Transaction ID was not returned by Spanner")
+                        internal_error("Transaction ID was not returned by Spanner")
                     })?;
                     $self.context.transaction_selector.update(id, None)?;
+                    guard.disarm();
                 }
                 response
             }
-            Err(error) => {
+            Some(error) => {
                 if !is_starting {
-                    return Err(error);
+                    response_result?
+                } else if is_aborted(error) {
+                    response_result?
+                } else {
+                    $self.begin_explicitly_if_not_started(true).await?;
+
+                    $request.transaction =
+                        Some($self.context.transaction_selector.selector().await?);
+
+                    let res = $self
+                        .context
+                        .client
+                        .spanner
+                        .$rpc_method($request.clone(), $gax_options, $self.context.channel_hint)
+                        .await?;
+
+                    guard.disarm();
+                    res
                 }
-                if is_aborted(&error) {
-                    return Err(error);
-                }
-
-                $self.begin_explicitly_if_not_started(true).await?;
-
-                $request.transaction = Some($self.context.transaction_selector.selector().await?);
-
-                $self
-                    .context
-                    .client
-                    .spanner
-                    .$rpc_method($request.clone(), $gax_options, $self.context.channel_hint)
-                    .await?
             }
         };
 
@@ -502,13 +588,6 @@ impl ReadWriteTransaction {
         self.context.transaction_selector.is_starting()
     }
 
-    pub(crate) async fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
-        match &self.context.transaction_selector.selector().await?.selector {
-            Some(Selector::Id(id)) => Ok(id.clone()),
-            _ => Err(internal_error("Transaction ID is missing")),
-        }
-    }
-
     fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
         let mut options = self.context.amend_request_options(None);
         if self.commit_priority != Priority::Unspecified {
@@ -517,6 +596,23 @@ impl ReadWriteTransaction {
                 .priority = self.commit_priority.clone();
         }
         options
+    }
+
+    fn build_commit_request(
+        &self,
+        transaction_id: bytes::Bytes,
+        mutations: Vec<ProtoMutation>,
+        precommit_token: Option<crate::model::MultiplexedSessionPrecommitToken>,
+    ) -> CommitRequest {
+        create_commit_request(
+            self.context.session_name.clone(),
+            transaction_id,
+            mutations,
+            precommit_token,
+            self.commit_request_options(),
+            self.max_commit_delay,
+            self.return_commit_stats,
+        )
     }
 
     /// Commits the transaction.
@@ -549,14 +645,8 @@ impl ReadWriteTransaction {
         }
         let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
         let precommit_token = self.context.precommit_token_tracker.get();
-        let request = CommitRequest::default()
-            .set_session(self.context.session_name.clone())
-            .set_transaction_id(transaction_id.clone())
-            .set_mutations(mutations)
-            .set_or_clear_precommit_token(precommit_token)
-            .set_or_clear_request_options(self.context.amend_request_options(None))
-            .set_or_clear_max_commit_delay(self.max_commit_delay)
-            .set_return_commit_stats(self.return_commit_stats);
+
+        let request = self.build_commit_request(transaction_id.clone(), mutations, precommit_token);
 
         // TODO(#4972): make request options configurable
         let mut gax_options = GaxRequestOptions::default();
@@ -571,11 +661,11 @@ impl ReadWriteTransaction {
 
         let response =
             if let Some(new_precommit_token) = response.precommit_token().map(|b| (*b).clone()) {
-                let retry_commit_req = CommitRequest::default()
-                    .set_session(self.context.session_name.clone())
-                    .set_transaction_id(transaction_id)
-                    .set_precommit_token(*new_precommit_token)
-                    .set_or_clear_request_options(self.commit_request_options());
+                let retry_commit_req = self.build_commit_request(
+                    transaction_id,
+                    Vec::new(), // mutations are never re-sent in retry requests
+                    Some(*new_precommit_token),
+                );
 
                 // TODO(#4972): make request options configurable
                 let mut gax_options = GaxRequestOptions::default();
@@ -595,7 +685,9 @@ impl ReadWriteTransaction {
 
     /// Rolls back the transaction.
     pub(crate) async fn rollback(self) -> crate::Result<()> {
-        let transaction_id = self.transaction_id().await?;
+        let Some(transaction_id) = self.context.transaction_selector.get_id_no_wait()? else {
+            return Ok(());
+        };
 
         let request = RollbackRequest::default()
             .set_session(self.context.session_name.clone())
@@ -804,6 +896,10 @@ mod tests {
                     seq_num: 2,
                 })
             );
+            assert!(
+                req.mutations.is_empty(),
+                "Expected mutations to be empty in retried CommitRequest"
+            );
             Ok(tonic::Response::new(v1::CommitResponse {
                 commit_timestamp: Some(prost_types::Timestamp {
                     seconds: 1001,
@@ -853,6 +949,208 @@ mod tests {
         for addr in remotes.iter() {
             assert_eq!(*addr, first, "All RPCs should use the same gRPC channel");
         }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_retry_preserves_options() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // execute_update returns a precommit token.
+        mock.expect_execute_sql().once().returning(move |req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "UPDATE Users SET Name = 'Bob' WHERE Id = 1");
+
+            let mut metadata = v1::ResultSetMetadata {
+                row_type: Some(v1::StructType { fields: vec![] }),
+                ..Default::default()
+            };
+            metadata.transaction = Some(v1::Transaction {
+                id: vec![0, 0, 7],
+                ..Default::default()
+            });
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101],
+                    seq_num: 1,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Simulate that commit returns a precommit token in the response.
+        // This would normally not happen, but we test it here to verify
+        // that the commit is retried and the options are preserved.
+        let expected_delay = prost_types::Duration {
+            seconds: 0,
+            nanos: 200_000_000,
+        };
+
+        let expected_delay_clone = expected_delay;
+        mock.expect_commit().once().returning(move |req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101],
+                    seq_num: 1,
+                })
+            );
+            // Assert original options are present
+            assert!(
+                req.return_commit_stats,
+                "Expected return_commit_stats to be true in first commit"
+            );
+            assert_eq!(
+                req.max_commit_delay.as_ref(),
+                Some(&expected_delay_clone),
+                "Expected max_commit_delay to be set in first commit"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                multiplexed_session_retry: Some(
+                    v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                        v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![202],
+                            seq_num: 2,
+                        },
+                    ),
+                ),
+                ..Default::default()
+            }))
+        });
+
+        // Second commit retry is automatically issued with the new token and MUST preserve original options
+        mock.expect_commit().once().returning(move |req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![202],
+                    seq_num: 2,
+                })
+            );
+            assert!(
+                req.return_commit_stats,
+                "Expected return_commit_stats to be preserved in retried commit request"
+            );
+            assert_eq!(
+                req.max_commit_delay.as_ref(),
+                Some(&expected_delay),
+                "Expected max_commit_delay to be preserved in retried commit request"
+            );
+            assert!(
+                req.mutations.is_empty(),
+                "Expected mutations to be empty in retried CommitRequest"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1001,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_return_commit_stats(true)
+            .with_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let count = tx
+            .execute_update("UPDATE Users SET Name = 'Bob' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1);
+
+        let timestamp = tx.commit().await?;
+        assert_eq!(
+            timestamp
+                .commit_timestamp
+                .as_ref()
+                .expect("timestamp should be present")
+                .seconds(),
+            1001
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_carries_commit_priority() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_sql().once().returning(move |_req| {
+            let mut metadata = v1::ResultSetMetadata {
+                row_type: Some(v1::StructType { fields: vec![] }),
+                ..Default::default()
+            };
+            metadata.transaction = Some(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            });
+
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(metadata),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            let request_options = req
+                .request_options
+                .expect("Expected request_options in CommitRequest");
+            assert_eq!(
+                request_options.priority,
+                v1::request_options::Priority::Low as i32,
+                "Expected priority to be Priority::Low in CommitRequest"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_commit_priority(Priority::Low)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let count = tx
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1);
+
+        let _ = tx.commit().await?;
 
         Ok(())
     }
@@ -2493,6 +2791,307 @@ mod tests {
                 .seconds(),
             5000
         );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_batch_dml_aborted_retry() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First attempt: Inline begin, execute_batch_dml returns OK with status Aborted.
+        mock.expect_execute_batch_dml()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert!(matches!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![],
+                    status: Some(spanner_grpc_mock::google::rpc::Status {
+                        code: tonic::Code::Aborted as i32,
+                        message: "concurrent lock abort".into(),
+                        details: vec![],
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 2. TransactionRunner catches Aborted error and initiates attempt 2.
+        mock.expect_execute_batch_dml()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert!(matches!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        metadata: Some(v1::ResultSetMetadata {
+                            transaction: Some(v1::Transaction {
+                                id: vec![9, 9, 9],
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    status: Some(spanner_grpc_mock::google::rpc::Status {
+                        code: 0,
+                        message: "OK".into(),
+                        details: vec![],
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.transaction,
+                Some(v1::commit_request::Transaction::TransactionId(vec![
+                    9, 9, 9
+                ]))
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 999,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_retry_policy(
+                crate::transaction_retry_policy::BasicTransactionRetryPolicy {
+                    max_attempts: 3,
+                    total_timeout: std::time::Duration::from_secs(5),
+                },
+            )
+            .build()
+            .await?;
+
+        runner
+            .run(async |tx| {
+                let batch = BatchDml::builder()
+                    .add_statement("UPDATE Users SET active = true WHERE id = 1");
+                tx.execute_batch_update(batch.build()).await?;
+                Ok(())
+            })
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_first_dml_aborted_and_continue_success() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First statement (execute_sql) attempts inline begin and is aborted by Spanner
+        mock.expect_execute_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert!(matches!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+                Err(tonic::Status::new(
+                    tonic::Code::Aborted,
+                    "concurrent lock abort",
+                ))
+            });
+
+        // 2. Second statement (execute_sql) sees NotStarted and attempts inline begin again
+        mock.expect_execute_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert!(matches!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+                Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: vec![9, 9, 9],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Commit called with the transaction ID returned in step 2
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.transaction,
+                Some(v1::commit_request::Transaction::TransactionId(vec![
+                    9, 9, 9
+                ]))
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 999,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_retry_policy(
+                crate::transaction_retry_policy::BasicTransactionRetryPolicy {
+                    max_attempts: 1,
+                    total_timeout: std::time::Duration::from_secs(5),
+                },
+            )
+            .build()
+            .await?;
+
+        runner
+            .run(async |tx| {
+                // 1. First statement fails with Aborted. We catch it and continue.
+                let res = tx
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await;
+                assert!(res.is_err(), "First statement must return error");
+                assert!(is_aborted(&res.unwrap_err()), "Error must be Aborted");
+
+                // 2. Second statement continues. Without the fix, this would block/deadlock forever.
+                let count = tx
+                    .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                    .await?;
+                assert_eq!(count, 1);
+                Ok(())
+            })
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_first_batch_dml_aborted_and_continue_success()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First statement (execute_batch_dml) attempts inline begin and is aborted by Spanner
+        mock.expect_execute_batch_dml()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert!(matches!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+                Err(tonic::Status::new(
+                    tonic::Code::Aborted,
+                    "concurrent lock abort",
+                ))
+            });
+
+        // 2. Second statement (execute_sql) sees NotStarted and attempts inline begin again
+        mock.expect_execute_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert!(matches!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Begin(_)
+                ));
+                Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: vec![9, 9, 9],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Commit called with the transaction ID returned in step 2
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.transaction,
+                Some(v1::commit_request::Transaction::TransactionId(vec![
+                    9, 9, 9
+                ]))
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 999,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_retry_policy(
+                crate::transaction_retry_policy::BasicTransactionRetryPolicy {
+                    max_attempts: 1,
+                    total_timeout: std::time::Duration::from_secs(5),
+                },
+            )
+            .build()
+            .await?;
+
+        runner
+            .run(async |tx| {
+                // 1. First statement (Batch DML) fails with Aborted. We catch it and continue.
+                let batch = BatchDml::builder()
+                    .add_statement("UPDATE Users SET active = true WHERE id = 1");
+                let res = tx.execute_batch_update(batch.build()).await;
+                assert!(res.is_err(), "First statement must return error");
+                assert!(is_aborted(&res.unwrap_err()), "Error must be Aborted");
+
+                // 2. Second statement continues. Without the fix, this would block/deadlock forever.
+                let count = tx
+                    .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                    .await?;
+                assert_eq!(count, 1);
+                Ok(())
+            })
+            .await?;
+
         Ok(())
     }
 }
