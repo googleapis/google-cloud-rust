@@ -403,7 +403,7 @@ rustls                = { default-features = false, version = "0.23.38" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
-serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
+serde_json            = { default-features = false, version = "1.0.150", features = ["std"] }
 serde_yaml            = { default-features = false, version = "0.9" }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2                  = { default-features = false, version = "0.11.0" }
