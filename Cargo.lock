@@ -5917,6 +5917,7 @@ dependencies = [
  "google-cloud-language-v2",
  "google-cloud-secretmanager-v1",
  "google-cloud-test-utils",
+ "http",
  "httptest",
  "reqwest 0.13.4",
  "scoped-env",

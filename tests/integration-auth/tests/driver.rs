@@ -122,6 +122,13 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
+    async fn run_mds() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_auth::mds().await.inspect_err(anydump)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
     async fn run_id_token_adc() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         let with_impersonation = false;
