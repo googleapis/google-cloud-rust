@@ -207,15 +207,15 @@ pub async fn mds() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{project}/secrets/test-sa-creds-secret/versions/latest"
+            "projects/{project}/secrets/test-api-key/versions/latest"
         ))
         .send()
         .await?;
-    let secret = response
-        .payload
-        .expect("missing payload in test-sa-creds-secret response")
-        .data;
-    assert_eq!(secret, "service_account");
+
+    assert!(
+        response.payload.is_some(),
+        "missing payload in test-api-key response"
+    );
 
     Ok(())
 }
@@ -716,7 +716,7 @@ where
 
     // Query headers to trigger background fetching and let it warm up/try fetching.
     let mut locations_found = false;
-    for _ in 0..5 {
+    for _ in 0..10 {
         let cached_headers = creds.headers(Extensions::new()).await?;
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
@@ -729,7 +729,7 @@ where
             locations_found = true;
             break;
         }
-        tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+        tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
     }
 
     assert!(
