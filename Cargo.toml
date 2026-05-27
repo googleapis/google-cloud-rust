@@ -385,7 +385,7 @@ hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
 http-body             = { default-features = false, version = "1" }
 humantime             = { default-features = false, version = "2" }
-hyper                 = { default-features = false, version = "1.6" }
+hyper                 = { default-features = false, version = "1.10" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
 markdown              = { default-features = false, version = "1.0" }
 opentelemetry         = { default-features = false, version = "0.32" }
