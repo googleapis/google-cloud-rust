@@ -72,6 +72,13 @@ pub(crate) struct AwsSourcedCredentials {
     pub imdsv2_session_token_url: Option<String>,
     /// The audience for the x-goog-cloud-target-resource header.
     pub audience: String,
+    supplier: Option<AwsSupplierConfig>,
+}
+
+#[derive(Debug, Clone)]
+struct AwsSupplierConfig {
+    supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
+    subject_token_type: String,
 }
 
 impl AwsSourcedCredentials {
@@ -88,7 +95,19 @@ impl AwsSourcedCredentials {
             regional_cred_verification_url,
             imdsv2_session_token_url,
             audience,
+            supplier: None,
         }
+    }
+
+    pub(crate) fn with_security_credentials_supplier(
+        &mut self,
+        supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
+        subject_token_type: String,
+    ) {
+        self.supplier = Some(AwsSupplierConfig {
+            supplier,
+            subject_token_type,
+        });
     }
 }
 
@@ -130,16 +149,28 @@ impl SubjectTokenProvider for AwsSourcedCredentials {
     type Error = CredentialsError;
 
     async fn subject_token(&self) -> Result<SubjectToken> {
-        let client = Client::new();
-
-        let imdsv2_token = self.resolve_imdsv2_token(&client).await?;
-
-        let region = self
-            .resolve_region(&client, imdsv2_token.as_deref())
-            .await?;
-        let creds = self
-            .resolve_credentials(&client, imdsv2_token.as_deref())
-            .await?;
+        let (region, creds) = if let Some(supplier_config) = &self.supplier {
+            let options = SupplierOptions {
+                audience: self.audience.clone(),
+                subject_token_type: supplier_config.subject_token_type.clone(),
+            };
+            (
+                supplier_config.supplier.aws_region(options.clone()).await?,
+                supplier_config
+                    .supplier
+                    .aws_security_credentials(options)
+                    .await?,
+            )
+        } else {
+            let client = Client::new();
+            let imdsv2_token = self.resolve_imdsv2_token(&client).await?;
+            (
+                self.resolve_region(&client, imdsv2_token.as_deref())
+                    .await?,
+                self.resolve_credentials(&client, imdsv2_token.as_deref())
+                    .await?,
+            )
+        };
 
         build_aws_subject_token(
             &self.audience,
@@ -245,51 +276,6 @@ pub(crate) fn build_aws_subject_token(
         url::form_urlencoded::byte_serialize(json_token.as_bytes()).collect();
 
     Ok(SubjectTokenBuilder::new(subject_token).build())
-}
-
-/// Credential source for AWS workloads using caller-provided security credentials.
-#[derive(Debug, Clone)]
-pub(crate) struct AwsSupplierSourcedCredentials {
-    supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
-    audience: String,
-    subject_token_type: String,
-    regional_cred_verification_url: Option<String>,
-}
-
-impl AwsSupplierSourcedCredentials {
-    pub(crate) fn new(
-        supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
-        audience: String,
-        subject_token_type: String,
-        regional_cred_verification_url: Option<String>,
-    ) -> Self {
-        Self {
-            supplier,
-            audience,
-            subject_token_type,
-            regional_cred_verification_url,
-        }
-    }
-}
-
-impl SubjectTokenProvider for AwsSupplierSourcedCredentials {
-    type Error = CredentialsError;
-
-    async fn subject_token(&self) -> Result<SubjectToken> {
-        let options = SupplierOptions {
-            audience: self.audience.clone(),
-            subject_token_type: self.subject_token_type.clone(),
-        };
-        let region = self.supplier.aws_region(options.clone()).await?;
-        let creds = self.supplier.aws_security_credentials(options).await?;
-
-        build_aws_subject_token(
-            &self.audience,
-            &region,
-            &creds,
-            self.regional_cred_verification_url.as_deref(),
-        )
-    }
 }
 
 fn resolve_sts_url(template: Option<&str>, region: &str) -> Result<url::Url> {
@@ -534,6 +520,21 @@ mod tests {
         Ok(serde_json::from_str(&decoded_json)?)
     }
 
+    fn new_supplier_sourced_credentials(
+        supplier: Arc<dyn AwsSecurityCredentialsSupplier>,
+        regional_cred_verification_url: Option<String>,
+    ) -> AwsSourcedCredentials {
+        let mut creds = AwsSourcedCredentials::new(
+            None,
+            None,
+            regional_cred_verification_url,
+            None,
+            "supplier-audience".to_string(),
+        );
+        creds.with_security_credentials_supplier(supplier, TEST_AWS_SUBJECT_TOKEN_TYPE.to_string());
+        creds
+    }
+
     #[derive(Debug)]
     struct StaticAwsSupplier {
         region: String,
@@ -584,6 +585,26 @@ mod tests {
         }
     }
 
+    #[derive(Debug)]
+    struct FailingRegionSupplier;
+
+    #[async_trait::async_trait]
+    impl AwsSecurityCredentialsSupplier for FailingRegionSupplier {
+        async fn aws_region(
+            &self,
+            _options: SupplierOptions,
+        ) -> std::result::Result<String, CredentialsError> {
+            Err(CredentialsError::from_msg(false, "supplier region failed"))
+        }
+
+        async fn aws_security_credentials(
+            &self,
+            _options: SupplierOptions,
+        ) -> std::result::Result<AwsSecurityCredentials, CredentialsError> {
+            unreachable!("should not be called when region fails")
+        }
+    }
+
     #[test_case("us-east-1a", Some("us-east-1"); "zone_to_region")]
     #[test_case("us-east-1", Some("us-east-1"); "already_region")]
     #[test_case("us-gov-west-1a", Some("us-gov-west-1"); "gov_zone_to_region")]
@@ -623,10 +644,8 @@ mod tests {
                 session_token: Some("SUPPLIER_SESSION_TOKEN".to_string()),
             },
         });
-        let creds = AwsSupplierSourcedCredentials::new(
+        let creds = new_supplier_sourced_credentials(
             supplier,
-            "supplier-audience".to_string(),
-            TEST_AWS_SUBJECT_TOKEN_TYPE.to_string(),
             Some(
                 "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15"
                     .to_string(),
@@ -687,14 +706,14 @@ mod tests {
                 session_token: None,
             },
         });
-        let creds = AwsSupplierSourcedCredentials::new(
-            supplier,
-            "supplier-audience".to_string(),
-            TEST_AWS_SUBJECT_TOKEN_TYPE.to_string(),
-            None,
-        );
+        let creds = new_supplier_sourced_credentials(supplier, None);
 
         let val = decode_subject_token_json(creds.subject_token().await?)?;
+        assert_eq!(
+            val["url"],
+            "https://sts.eu-west-1.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15",
+            "{val:?}"
+        );
         let headers = val["headers"]
             .as_array()
             .ok_or("headers should be an array")?;
@@ -719,15 +738,20 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_supplier_error_propagates() {
-        let creds = AwsSupplierSourcedCredentials::new(
-            Arc::new(FailingCredentialsSupplier),
-            "supplier-audience".to_string(),
-            TEST_AWS_SUBJECT_TOKEN_TYPE.to_string(),
-            None,
-        );
+        let creds = new_supplier_sourced_credentials(Arc::new(FailingCredentialsSupplier), None);
 
         let err = creds.subject_token().await.unwrap_err();
         assert!(err.to_string().contains("supplier credentials failed"));
+        assert!(!err.is_transient());
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_supplier_region_error_propagates() {
+        let creds = new_supplier_sourced_credentials(Arc::new(FailingRegionSupplier), None);
+
+        let err = creds.subject_token().await.unwrap_err();
+        assert!(err.to_string().contains("supplier region failed"));
         assert!(!err.is_transient());
     }
 
