@@ -92,6 +92,25 @@ mod spanner {
             Ok(())
         }
 
+        async fn run_batch_dml_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::batch_dml::successful_batch_update(db_client).await?;
+            integration_tests_spanner::batch_dml::partial_batch_update_failure(db_client).await?;
+            integration_tests_spanner::batch_dml::empty_batch_statement_rejection(db_client).await?;
+            integration_tests_spanner::batch_dml::unsupported_query_in_batch_dml(db_client).await?;
+            integration_tests_spanner::batch_dml::unsupported_returning_clause(db_client).await?;
+            integration_tests_spanner::batch_dml::continue_after_empty_batch_statement(db_client)
+                .await?;
+            integration_tests_spanner::batch_dml::continue_after_invalid_first_statement_in_batch(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::batch_dml::continue_after_invalid_second_statement_in_batch(
+                db_client,
+            )
+            .await?;
+            Ok(())
+        }
+
         async fn run_read_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             integration_tests_spanner::read_write_transaction::successful_read_write_transaction(
                 db_client,
