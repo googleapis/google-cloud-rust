@@ -504,13 +504,23 @@ impl BusinessGlossaryService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1398,6 +1408,26 @@ impl CatalogService {
         super::builder::catalog_service::LookupEntry::new(self.inner.clone())
     }
 
+    /// Modifies an entry using the permission on the source system.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> Result<()> {
+    ///     let response = client.modify_entry()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn modify_entry(&self) -> super::builder::catalog_service::ModifyEntry {
+        super::builder::catalog_service::ModifyEntry::new(self.inner.clone())
+    }
+
     /// Searches for Entries matching the given query and scope.
     ///
     /// # Example
@@ -1800,13 +1830,23 @@ impl CatalogService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -2266,13 +2306,23 @@ impl CmekService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -2586,13 +2636,23 @@ impl ContentService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -3053,6 +3113,30 @@ impl DataProductService {
         super::builder::data_product_service::UpdateDataProduct::new(self.inner.clone())
     }
 
+    /// Requests access to a data product. This will trigger an access approval
+    /// workflow, and the requester will need to wait for the approval to be
+    /// granted before they will be able to access the data product assets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let response = client.request_data_product_access()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn request_data_product_access(
+        &self,
+    ) -> super::builder::data_product_service::RequestDataProductAccess {
+        super::builder::data_product_service::RequestDataProductAccess::new(self.inner.clone())
+    }
+
     /// Creates a data asset.
     ///
     /// # Long running operations
@@ -3199,13 +3283,23 @@ impl DataProductService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -4001,13 +4095,23 @@ impl DataTaxonomyService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -4532,6 +4636,26 @@ impl DataScanService {
         super::builder::data_scan_service::ListDataScanJobs::new(self.inner.clone())
     }
 
+    /// Cancels a running/pending DataScan job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_data_scan_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_data_scan_job(&self) -> super::builder::data_scan_service::CancelDataScanJob {
+        super::builder::data_scan_service::CancelDataScanJob::new(self.inner.clone())
+    }
+
     /// Generates recommended data quality rules based on the results of a data
     /// profiling scan.
     ///
@@ -4558,13 +4682,23 @@ impl DataScanService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -5077,13 +5211,23 @@ impl MetadataService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -6139,13 +6283,23 @@ impl DataplexService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

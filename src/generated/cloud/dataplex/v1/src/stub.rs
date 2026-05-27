@@ -557,6 +557,16 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CatalogService::modify_entry].
+    fn modify_entry(
+        &self,
+        _req: crate::model::ModifyEntryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Entry>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CatalogService::search_entries].
     fn search_entries(
         &self,
@@ -1221,6 +1231,17 @@ pub trait DataProductService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::DataProductService::request_data_product_access].
+    fn request_data_product_access(
+        &self,
+        _req: crate::model::RequestDataProductAccessRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RequestDataProductAccessResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::DataProductService::create_data_asset].
     fn create_data_asset(
         &self,
@@ -1794,6 +1815,17 @@ pub trait DataScanService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListDataScanJobsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataScanService::cancel_data_scan_job].
+    fn cancel_data_scan_job(
+        &self,
+        _req: crate::model::CancelDataScanJobRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CancelDataScanJobResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

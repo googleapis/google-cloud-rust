@@ -597,7 +597,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryRoutineReference {
             __project_id,
             __dataset_id,
             __routine_id,
-            __boundary_location_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -624,8 +623,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryRoutineReference {
                             "dataset_id" => Ok(__FieldTag::__dataset_id),
                             "routineId" => Ok(__FieldTag::__routine_id),
                             "routine_id" => Ok(__FieldTag::__routine_id),
-                            "boundaryLocationId" => Ok(__FieldTag::__boundary_location_id),
-                            "boundary_location_id" => Ok(__FieldTag::__boundary_location_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -680,15 +677,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryRoutineReference {
                             result.routine_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
-                        }
-                        __FieldTag::__boundary_location_id => {
-                            if !fields.insert(__FieldTag::__boundary_location_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for boundary_location_id",
-                                ));
-                            }
-                            result.boundary_location_id =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1226,6 +1214,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LookerQuery {
             __filters,
             __sorts,
             __limit,
+            __query_id,
+            __client_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1252,6 +1242,10 @@ impl<'de> serde::de::Deserialize<'de> for super::LookerQuery {
                             "filters" => Ok(__FieldTag::__filters),
                             "sorts" => Ok(__FieldTag::__sorts),
                             "limit" => Ok(__FieldTag::__limit),
+                            "queryId" => Ok(__FieldTag::__query_id),
+                            "query_id" => Ok(__FieldTag::__query_id),
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1332,6 +1326,24 @@ impl<'de> serde::de::Deserialize<'de> for super::LookerQuery {
                                 ));
                             }
                             result.limit =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__query_id => {
+                            if !fields.insert(__FieldTag::__query_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_id",
+                                ));
+                            }
+                            result.query_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -1553,6 +1565,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ConversationOptions {
         enum __FieldTag {
             __analysis,
             __datasource,
+            __model,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1575,6 +1588,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ConversationOptions {
                         match value {
                             "analysis" => Ok(__FieldTag::__analysis),
                             "datasource" => Ok(__FieldTag::__datasource),
+                            "model" => Ok(__FieldTag::__model),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1619,6 +1633,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ConversationOptions {
                             result.datasource = map
                                 .next_value::<std::option::Option<crate::model::DatasourceOptions>>(
                                 )?;
+                        }
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map.next_value::<std::option::Option<crate::model::conversation_options::Model>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5113,10 +5136,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ChatRequest {
             __conversation_reference,
             __data_agent_context,
             __client_managed_resource_context,
+            __looker_settings,
             __parent,
             __messages,
             __credentials,
             __thinking_mode,
+            __model,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5149,11 +5174,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ChatRequest {
                             "client_managed_resource_context" => {
                                 Ok(__FieldTag::__client_managed_resource_context)
                             }
+                            "lookerSettings" => Ok(__FieldTag::__looker_settings),
+                            "looker_settings" => Ok(__FieldTag::__looker_settings),
                             "parent" => Ok(__FieldTag::__parent),
                             "messages" => Ok(__FieldTag::__messages),
                             "credentials" => Ok(__FieldTag::__credentials),
                             "thinkingMode" => Ok(__FieldTag::__thinking_mode),
                             "thinking_mode" => Ok(__FieldTag::__thinking_mode),
+                            "model" => Ok(__FieldTag::__model),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5257,6 +5285,26 @@ impl<'de> serde::de::Deserialize<'de> for super::ChatRequest {
                                 ),
                             );
                         }
+                        __FieldTag::__looker_settings => {
+                            if !fields.insert(__FieldTag::__looker_settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for looker_settings",
+                                ));
+                            }
+                            if result.datasource_settings.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `datasource_settings`, a oneof with full ID .google.cloud.geminidataanalytics.v1.ChatRequest.looker_settings, latest field was lookerSettings",
+                                ));
+                            }
+                            result.datasource_settings = std::option::Option::Some(
+                                crate::model::chat_request::DatasourceSettings::LookerSettings(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::LookerSettings>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__parent => {
                             if !fields.insert(__FieldTag::__parent) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -5291,6 +5339,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ChatRequest {
                                 ));
                             }
                             result.thinking_mode = map.next_value::<std::option::Option<crate::model::chat_request::ThinkingMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map.next_value::<std::option::Option<crate::model::chat_request::Model>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5723,6 +5779,87 @@ impl<'de> serde::de::Deserialize<'de> for super::Message {
                             }
                             result.message_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::LookerSettings {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enable_dev_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LookerSettings")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enableDevMode" => Ok(__FieldTag::__enable_dev_mode),
+                            "enable_dev_mode" => Ok(__FieldTag::__enable_dev_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::LookerSettings;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LookerSettings")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enable_dev_mode => {
+                            if !fields.insert(__FieldTag::__enable_dev_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_dev_mode",
+                                ));
+                            }
+                            result.enable_dev_mode = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -8278,7 +8415,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReference {
             __dataset_id,
             __table_id,
             __schema,
-            __location_boundary,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8306,8 +8442,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReference {
                             "tableId" => Ok(__FieldTag::__table_id),
                             "table_id" => Ok(__FieldTag::__table_id),
                             "schema" => Ok(__FieldTag::__schema),
-                            "locationBoundary" => Ok(__FieldTag::__location_boundary),
-                            "location_boundary" => Ok(__FieldTag::__location_boundary),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8371,15 +8505,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReference {
                             }
                             result.schema =
                                 map.next_value::<std::option::Option<crate::model::Schema>>()?;
-                        }
-                        __FieldTag::__location_boundary => {
-                            if !fields.insert(__FieldTag::__location_boundary) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for location_boundary",
-                                ));
-                            }
-                            result.location_boundary =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8803,7 +8928,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryPropertyGraphReference 
             __project_id,
             __dataset_id,
             __property_graph_id,
-            __location_boundary,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8830,8 +8954,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryPropertyGraphReference 
                             "dataset_id" => Ok(__FieldTag::__dataset_id),
                             "propertyGraphId" => Ok(__FieldTag::__property_graph_id),
                             "property_graph_id" => Ok(__FieldTag::__property_graph_id),
-                            "locationBoundary" => Ok(__FieldTag::__location_boundary),
-                            "location_boundary" => Ok(__FieldTag::__location_boundary),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8886,15 +9008,6 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryPropertyGraphReference 
                             result.property_graph_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
-                        }
-                        __FieldTag::__location_boundary => {
-                            if !fields.insert(__FieldTag::__location_boundary) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for location_boundary",
-                                ));
-                            }
-                            result.location_boundary =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -1588,6 +1588,17 @@ pub struct CaPool {
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     pub publishing_options: std::option::Option<crate::model::ca_pool::PublishingOptions>,
 
+    /// Optional. When
+    /// [EncryptionSpec][google.cloud.security.privateca.v1.EncryptionSpec] is
+    /// provided, the [Subject][google.cloud.security.privateca.v1.Subject],
+    /// [SubjectAltNames][google.cloud.security.privateca.v1.SubjectAltNames], and
+    /// the PEM-encoded certificate fields will be encrypted at rest.
+    ///
+    /// [google.cloud.security.privateca.v1.EncryptionSpec]: crate::model::EncryptionSpec
+    /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
+    /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
+    pub encryption_spec: std::option::Option<crate::model::EncryptionSpec>,
+
     /// Optional. Labels with user-defined metadata.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -1692,6 +1703,39 @@ impl CaPool {
         T: std::convert::Into<crate::model::ca_pool::PublishingOptions>,
     {
         self.publishing_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [encryption_spec][crate::model::CaPool::encryption_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::EncryptionSpec;
+    /// let x = CaPool::new().set_encryption_spec(EncryptionSpec::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionSpec>,
+    {
+        self.encryption_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_spec][crate::model::CaPool::encryption_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::EncryptionSpec;
+    /// let x = CaPool::new().set_or_clear_encryption_spec(Some(EncryptionSpec::default()/* use setters */));
+    /// let x = CaPool::new().set_or_clear_encryption_spec(None::<EncryptionSpec>);
+    /// ```
+    pub fn set_or_clear_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionSpec>,
+    {
+        self.encryption_spec = v.map(|x| x.into());
         self
     }
 
@@ -2000,16 +2044,38 @@ pub mod ca_pool {
         pub allowed_key_types:
             std::vec::Vec<crate::model::ca_pool::issuance_policy::AllowedKeyType>,
 
-        /// Optional. The duration to backdate all certificates issued from this
-        /// [CaPool][google.cloud.security.privateca.v1.CaPool]. If not set, the
-        /// certificates will be issued with a not_before_time of the issuance time
-        /// (i.e. the current time). If set, the certificates will be issued with a
-        /// not_before_time of the issuance time minus the backdate_duration. The
-        /// not_after_time will be adjusted to preserve the requested lifetime. The
-        /// backdate_duration must be less than or equal to 48 hours.
+        /// Optional. If set, all certificates issued from this
+        /// [CaPool][google.cloud.security.privateca.v1.CaPool] will be backdated by
+        /// this duration. The 'not_before_time' will be the issuance time minus this
+        /// [backdate_duration][google.cloud.security.privateca.v1.CaPool.IssuancePolicy.backdate_duration],
+        /// and the 'not_after_time' will be adjusted to preserve the requested
+        /// lifetime. The maximum duration that a certificate can be backdated with
+        /// these options is 48 hours in the past.
+        /// This option cannot be set if
+        /// [allow_requester_specified_not_before_time][google.cloud.security.privateca.v1.CaPool.IssuancePolicy.allow_requester_specified_not_before_time]
+        /// is set.
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
+        /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.allow_requester_specified_not_before_time]: crate::model::ca_pool::IssuancePolicy::allow_requester_specified_not_before_time
+        /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.backdate_duration]: crate::model::ca_pool::IssuancePolicy::backdate_duration
         pub backdate_duration: std::option::Option<wkt::Duration>,
+
+        /// Optional. If set to true, allows requesters to specify the
+        /// [requested_not_before_time][google.cloud.security.privateca.v1.Certificate.requested_not_before_time]
+        /// field when creating a
+        /// [Certificate][google.cloud.security.privateca.v1.Certificate].
+        /// Certificates requested with this option enabled will have a
+        /// 'not_before_time' equal to the value specified in the request. The
+        /// 'not_after_time' will be adjusted to preserve the requested lifetime. The
+        /// maximum time that a certificate can be backdated with these options is 48
+        /// hours in the past. This option cannot be set if
+        /// [backdate_duration][google.cloud.security.privateca.v1.CaPool.IssuancePolicy.backdate_duration]
+        /// is set.
+        ///
+        /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.backdate_duration]: crate::model::ca_pool::IssuancePolicy::backdate_duration
+        /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+        /// [google.cloud.security.privateca.v1.Certificate.requested_not_before_time]: crate::model::Certificate::requested_not_before_time
+        pub allow_requester_specified_not_before_time: bool,
 
         /// Optional. The maximum lifetime allowed for issued
         /// [Certificates][google.cloud.security.privateca.v1.Certificate]. Note that
@@ -2146,6 +2212,21 @@ pub mod ca_pool {
             T: std::convert::Into<wkt::Duration>,
         {
             self.backdate_duration = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [allow_requester_specified_not_before_time][crate::model::ca_pool::IssuancePolicy::allow_requester_specified_not_before_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// let x = IssuancePolicy::new().set_allow_requester_specified_not_before_time(true);
+        /// ```
+        pub fn set_allow_requester_specified_not_before_time<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.allow_requester_specified_not_before_time = v.into();
             self
         }
 
@@ -2982,6 +3063,42 @@ pub mod ca_pool {
     }
 }
 
+/// The configuration used for encrypting data at rest.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EncryptionSpec {
+    /// The resource name for a Cloud KMS key in the format
+    /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
+    pub cloud_kms_key: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EncryptionSpec {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_kms_key][crate::model::EncryptionSpec::cloud_kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_privateca_v1::model::EncryptionSpec;
+    /// let x = EncryptionSpec::new().set_cloud_kms_key("example");
+    /// ```
+    pub fn set_cloud_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cloud_kms_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EncryptionSpec {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.security.privateca.v1.EncryptionSpec"
+    }
+}
+
 /// A
 /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList]
 /// corresponds to a signed X.509 certificate Revocation List (CRL). A CRL
@@ -3578,6 +3695,28 @@ pub struct Certificate {
     /// Optional. Labels with user-defined metadata.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. The requested
+    /// [not_before_time][google.cloud.security.privateca.v1.CertificateDescription.SubjectDescription.not_before_time]
+    /// of this [Certificate][google.cloud.security.privateca.v1.Certificate]. This
+    /// field may only be set if the
+    /// [CaPool.IssuancePolicy.allow_requester_specified_not_before_time][google.cloud.security.privateca.v1.CaPool.IssuancePolicy.allow_requester_specified_not_before_time]
+    /// field is set to true for the issuing
+    /// [CaPool][google.cloud.security.privateca.v1.CaPool].
+    ///
+    /// If this field is specified, the certificate will be issued with this
+    /// 'not_before_time'. If this is not specified, the 'not_before_time' will be
+    /// set to the issuance time or issuance time minus
+    /// [backdate_duration][google.cloud.security.privateca.v1.CaPool.IssuancePolicy.backdate_duration]
+    /// depending on the [CaPool][google.cloud.security.privateca.v1.CaPool]
+    /// configuration.
+    ///
+    /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
+    /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.allow_requester_specified_not_before_time]: crate::model::ca_pool::IssuancePolicy::allow_requester_specified_not_before_time
+    /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.backdate_duration]: crate::model::ca_pool::IssuancePolicy::backdate_duration
+    /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+    /// [google.cloud.security.privateca.v1.CertificateDescription.SubjectDescription.not_before_time]: crate::model::certificate_description::SubjectDescription::not_before_time
+    pub requested_not_before_time: std::option::Option<wkt::Timestamp>,
+
     /// The config used to create a signed X.509 certificate.
     pub certificate_config: std::option::Option<crate::model::certificate::CertificateConfig>,
 
@@ -3873,6 +4012,39 @@ impl Certificate {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [requested_not_before_time][crate::model::Certificate::requested_not_before_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_requested_not_before_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_requested_not_before_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.requested_not_before_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_not_before_time][crate::model::Certificate::requested_not_before_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_requested_not_before_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_requested_not_before_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_requested_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.requested_not_before_time = v.map(|x| x.into());
         self
     }
 
@@ -8085,9 +8257,19 @@ impl wkt::message::Message for GetCertificateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesRequest {
-    /// Required. The resource name of the location associated with the
+    /// Required. The resource name of the parent associated with the
     /// [Certificates][google.cloud.security.privateca.v1.Certificate], in the
-    /// format `projects/*/locations/*/caPools/*`.
+    /// format `projects/*/locations/*/caPools/*`. The parent resource name can be
+    /// in one of two forms:
+    ///
+    /// 1. **Specific CA Pool:** To list certificates within a single CA Pool:
+    ///    `projects/*/locations/*/caPools/*`
+    ///
+    /// 1. **All CA Pools in a Location:** To list certificates across *all* CA
+    ///    Pools in a given project and location, use the wildcard character (`-`)
+    ///    in place of the CA Pool ID.
+    ///    Example: `projects/*/locations/*/caPools/-`
+    ///
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     pub parent: std::string::String,

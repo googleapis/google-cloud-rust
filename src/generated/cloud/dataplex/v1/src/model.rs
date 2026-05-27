@@ -1735,6 +1735,1674 @@ impl wkt::message::Message for Session {
     }
 }
 
+/// Represents a proposed change to a metadata resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ChangeRequest {
+    /// Identifier. The relative resource name of the ChangeRequest, of the form:
+    /// projects/{project_number}/locations/{location_id}/changeRequests/{change_request_id}
+    pub name: std::string::String,
+
+    /// Output only. System generated globally unique ID for the ChangeRequest.
+    pub uid: std::string::String,
+
+    /// Output only. The time when the ChangeRequest was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the ChangeRequest was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Justification of the ChangeRequest. This should explain
+    /// *why* the change is needed or why it should be approved.
+    pub justification: std::string::String,
+
+    /// Optional. User-defined labels for the ChangeRequest.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The email address of the user who created the ChangeRequest.
+    pub author: std::string::String,
+
+    /// Output only. The current state of the ChangeRequest.
+    pub state: crate::model::change_request::State,
+
+    /// Output only. The full resource name of the target resource to be modified.
+    /// Example:
+    /// //dataplex.googleapis.com/projects/my-project/locations/us-central1/entryGroups/my-group/entries/my-entry
+    pub resource: std::string::String,
+
+    /// Output only. The type of change represented by the change_payload.
+    /// This field is derived from the populated field in the change_payload oneof.
+    pub change_type: crate::model::change_request::ChangeType,
+
+    /// Output only. The reason provided for rejecting the ChangeRequest.
+    pub rejection_comment: std::string::String,
+
+    /// Output only. The email address of the user who approved/rejected the
+    /// ChangeRequest.
+    pub approver: std::string::String,
+
+    /// Optional. This checksum is computed by the service. It can be sent on
+    /// update and delete requests to ensure the client has an up-to-date value
+    /// before proceeding.
+    pub etag: std::string::String,
+
+    /// Detailed specification of the change, embedding the original request.
+    pub change_payload: std::option::Option<crate::model::change_request::ChangePayload>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ChangeRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ChangeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let change_request_id = "change_request_id";
+    /// let x = ChangeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/changeRequests/{change_request_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::ChangeRequest::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ChangeRequest::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use wkt::Timestamp;
+    /// let x = ChangeRequest::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ChangeRequest::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use wkt::Timestamp;
+    /// let x = ChangeRequest::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ChangeRequest::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ChangeRequest::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use wkt::Timestamp;
+    /// let x = ChangeRequest::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ChangeRequest::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use wkt::Timestamp;
+    /// let x = ChangeRequest::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ChangeRequest::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [justification][crate::model::ChangeRequest::justification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_justification("example");
+    /// ```
+    pub fn set_justification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.justification = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ChangeRequest::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [author][crate::model::ChangeRequest::author].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_author("example");
+    /// ```
+    pub fn set_author<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.author = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::ChangeRequest::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::change_request::State;
+    /// let x0 = ChangeRequest::new().set_state(State::New);
+    /// let x1 = ChangeRequest::new().set_state(State::Approved);
+    /// let x2 = ChangeRequest::new().set_state(State::Rejected);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::change_request::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [resource][crate::model::ChangeRequest::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_resource("example");
+    /// ```
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of [change_type][crate::model::ChangeRequest::change_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::change_request::ChangeType;
+    /// let x0 = ChangeRequest::new().set_change_type(ChangeType::CreateEntry);
+    /// let x1 = ChangeRequest::new().set_change_type(ChangeType::UpdateEntry);
+    /// let x2 = ChangeRequest::new().set_change_type(ChangeType::DeleteEntry);
+    /// ```
+    pub fn set_change_type<T: std::convert::Into<crate::model::change_request::ChangeType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_type = v.into();
+        self
+    }
+
+    /// Sets the value of [rejection_comment][crate::model::ChangeRequest::rejection_comment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_rejection_comment("example");
+    /// ```
+    pub fn set_rejection_comment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rejection_comment = v.into();
+        self
+    }
+
+    /// Sets the value of [approver][crate::model::ChangeRequest::approver].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_approver("example");
+    /// ```
+    pub fn set_approver<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.approver = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ChangeRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = ChangeRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload].
+    ///
+    /// Note that all the setters affecting `change_payload` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::CreateEntryRequest;
+    /// let x = ChangeRequest::new().set_change_payload(Some(
+    ///     google_cloud_dataplex_v1::model::change_request::ChangePayload::CreateEntry(CreateEntryRequest::default().into())));
+    /// ```
+    pub fn set_change_payload<
+        T: std::convert::Into<std::option::Option<crate::model::change_request::ChangePayload>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = v.into();
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `CreateEntry`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_entry(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateEntryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::CreateEntry(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `CreateEntry`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::CreateEntryRequest;
+    /// let x = ChangeRequest::new().set_create_entry(CreateEntryRequest::default()/* use setters */);
+    /// assert!(x.create_entry().is_some());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_create_entry<
+        T: std::convert::Into<std::boxed::Box<crate::model::CreateEntryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::CreateEntry(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `UpdateEntry`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_entry(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateEntryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::UpdateEntry(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `UpdateEntry`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// let x = ChangeRequest::new().set_update_entry(UpdateEntryRequest::default()/* use setters */);
+    /// assert!(x.update_entry().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_update_entry<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpdateEntryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::UpdateEntry(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `DeleteEntry`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_entry(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteEntryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::DeleteEntry(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `DeleteEntry`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::DeleteEntryRequest;
+    /// let x = ChangeRequest::new().set_delete_entry(DeleteEntryRequest::default()/* use setters */);
+    /// assert!(x.delete_entry().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_delete_entry<
+        T: std::convert::Into<std::boxed::Box<crate::model::DeleteEntryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::DeleteEntry(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `CreateEntryLink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_entry_link(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateEntryLinkRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::CreateEntryLink(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `CreateEntryLink`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::CreateEntryLinkRequest;
+    /// let x = ChangeRequest::new().set_create_entry_link(CreateEntryLinkRequest::default()/* use setters */);
+    /// assert!(x.create_entry_link().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_create_entry_link<
+        T: std::convert::Into<std::boxed::Box<crate::model::CreateEntryLinkRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::CreateEntryLink(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `DeleteEntryLink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_entry_link(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteEntryLinkRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::DeleteEntryLink(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `DeleteEntryLink`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::DeleteEntryLinkRequest;
+    /// let x = ChangeRequest::new().set_delete_entry_link(DeleteEntryLinkRequest::default()/* use setters */);
+    /// assert!(x.delete_entry_link().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_delete_entry_link<
+        T: std::convert::Into<std::boxed::Box<crate::model::DeleteEntryLinkRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::DeleteEntryLink(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `CreateGlossary`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_glossary(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateGlossaryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::CreateGlossary(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `CreateGlossary`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::CreateGlossaryRequest;
+    /// let x = ChangeRequest::new().set_create_glossary(CreateGlossaryRequest::default()/* use setters */);
+    /// assert!(x.create_glossary().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_create_glossary<
+        T: std::convert::Into<std::boxed::Box<crate::model::CreateGlossaryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::CreateGlossary(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `UpdateGlossary`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_glossary(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateGlossaryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::UpdateGlossary(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `UpdateGlossary`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::UpdateGlossaryRequest;
+    /// let x = ChangeRequest::new().set_update_glossary(UpdateGlossaryRequest::default()/* use setters */);
+    /// assert!(x.update_glossary().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_update_glossary<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpdateGlossaryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::UpdateGlossary(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `DeleteGlossary`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_glossary(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteGlossaryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::DeleteGlossary(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `DeleteGlossary`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::DeleteGlossaryRequest;
+    /// let x = ChangeRequest::new().set_delete_glossary(DeleteGlossaryRequest::default()/* use setters */);
+    /// assert!(x.delete_glossary().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_delete_glossary<
+        T: std::convert::Into<std::boxed::Box<crate::model::DeleteGlossaryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::DeleteGlossary(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `CreateGlossaryCategory`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_glossary_category(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateGlossaryCategoryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::CreateGlossaryCategory(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `CreateGlossaryCategory`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::CreateGlossaryCategoryRequest;
+    /// let x = ChangeRequest::new().set_create_glossary_category(CreateGlossaryCategoryRequest::default()/* use setters */);
+    /// assert!(x.create_glossary_category().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_create_glossary_category<
+        T: std::convert::Into<std::boxed::Box<crate::model::CreateGlossaryCategoryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::CreateGlossaryCategory(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `UpdateGlossaryCategory`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_glossary_category(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateGlossaryCategoryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::UpdateGlossaryCategory(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `UpdateGlossaryCategory`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::UpdateGlossaryCategoryRequest;
+    /// let x = ChangeRequest::new().set_update_glossary_category(UpdateGlossaryCategoryRequest::default()/* use setters */);
+    /// assert!(x.update_glossary_category().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_update_glossary_category<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpdateGlossaryCategoryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::UpdateGlossaryCategory(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `DeleteGlossaryCategory`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_glossary_category(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteGlossaryCategoryRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::DeleteGlossaryCategory(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `DeleteGlossaryCategory`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::DeleteGlossaryCategoryRequest;
+    /// let x = ChangeRequest::new().set_delete_glossary_category(DeleteGlossaryCategoryRequest::default()/* use setters */);
+    /// assert!(x.delete_glossary_category().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_delete_glossary_category<
+        T: std::convert::Into<std::boxed::Box<crate::model::DeleteGlossaryCategoryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::DeleteGlossaryCategory(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `CreateGlossaryTerm`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_glossary_term(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateGlossaryTermRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::CreateGlossaryTerm(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `CreateGlossaryTerm`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::CreateGlossaryTermRequest;
+    /// let x = ChangeRequest::new().set_create_glossary_term(CreateGlossaryTermRequest::default()/* use setters */);
+    /// assert!(x.create_glossary_term().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_create_glossary_term<
+        T: std::convert::Into<std::boxed::Box<crate::model::CreateGlossaryTermRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::CreateGlossaryTerm(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `UpdateGlossaryTerm`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_glossary_term(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateGlossaryTermRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::UpdateGlossaryTerm(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `UpdateGlossaryTerm`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::UpdateGlossaryTermRequest;
+    /// let x = ChangeRequest::new().set_update_glossary_term(UpdateGlossaryTermRequest::default()/* use setters */);
+    /// assert!(x.update_glossary_term().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_update_glossary_term<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpdateGlossaryTermRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::UpdateGlossaryTerm(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `DeleteGlossaryTerm`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_glossary_term(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteGlossaryTermRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::DeleteGlossaryTerm(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `DeleteGlossaryTerm`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::DeleteGlossaryTermRequest;
+    /// let x = ChangeRequest::new().set_delete_glossary_term(DeleteGlossaryTermRequest::default()/* use setters */);
+    /// assert!(x.delete_glossary_term().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.data_product_access_request().is_none());
+    /// ```
+    pub fn set_delete_glossary_term<
+        T: std::convert::Into<std::boxed::Box<crate::model::DeleteGlossaryTermRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::DeleteGlossaryTerm(v.into()),
+        );
+        self
+    }
+
+    /// The value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// if it holds a `DataProductAccessRequest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_product_access_request(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataProductAccessRequest>> {
+        #[allow(unreachable_patterns)]
+        self.change_payload.as_ref().and_then(|v| match v {
+            crate::model::change_request::ChangePayload::DataProductAccessRequest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [change_payload][crate::model::ChangeRequest::change_payload]
+    /// to hold a `DataProductAccessRequest`.
+    ///
+    /// Note that all the setters affecting `change_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// use google_cloud_dataplex_v1::model::DataProductAccessRequest;
+    /// let x = ChangeRequest::new().set_data_product_access_request(DataProductAccessRequest::default()/* use setters */);
+    /// assert!(x.data_product_access_request().is_some());
+    /// assert!(x.create_entry().is_none());
+    /// assert!(x.update_entry().is_none());
+    /// assert!(x.delete_entry().is_none());
+    /// assert!(x.create_entry_link().is_none());
+    /// assert!(x.delete_entry_link().is_none());
+    /// assert!(x.create_glossary().is_none());
+    /// assert!(x.update_glossary().is_none());
+    /// assert!(x.delete_glossary().is_none());
+    /// assert!(x.create_glossary_category().is_none());
+    /// assert!(x.update_glossary_category().is_none());
+    /// assert!(x.delete_glossary_category().is_none());
+    /// assert!(x.create_glossary_term().is_none());
+    /// assert!(x.update_glossary_term().is_none());
+    /// assert!(x.delete_glossary_term().is_none());
+    /// ```
+    pub fn set_data_product_access_request<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataProductAccessRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_payload = std::option::Option::Some(
+            crate::model::change_request::ChangePayload::DataProductAccessRequest(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ChangeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ChangeRequest"
+    }
+}
+
+/// Defines additional types related to [ChangeRequest].
+pub mod change_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible states of a ChangeRequest.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State unspecified.
+        Unspecified,
+        /// The change is proposed and new.
+        New,
+        /// The change has been approved.
+        Approved,
+        /// The change has been rejected.
+        Rejected,
+        /// The change request has expired.
+        Expired,
+        /// The approved change has been revoked.
+        Revoked,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::New => std::option::Option::Some(1),
+                Self::Approved => std::option::Option::Some(2),
+                Self::Rejected => std::option::Option::Some(3),
+                Self::Expired => std::option::Option::Some(4),
+                Self::Revoked => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::New => std::option::Option::Some("NEW"),
+                Self::Approved => std::option::Option::Some("APPROVED"),
+                Self::Rejected => std::option::Option::Some("REJECTED"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::Revoked => std::option::Option::Some("REVOKED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::New,
+                2 => Self::Approved,
+                3 => Self::Rejected,
+                4 => Self::Expired,
+                5 => Self::Revoked,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "NEW" => Self::New,
+                "APPROVED" => Self::Approved,
+                "REJECTED" => Self::Rejected,
+                "EXPIRED" => Self::Expired,
+                "REVOKED" => Self::Revoked,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::New => serializer.serialize_i32(1),
+                Self::Approved => serializer.serialize_i32(2),
+                Self::Rejected => serializer.serialize_i32(3),
+                Self::Expired => serializer.serialize_i32(4),
+                Self::Revoked => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dataplex.v1.ChangeRequest.State",
+            ))
+        }
+    }
+
+    /// Enum representing the type of change in the payload.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ChangeType {
+        /// State unspecified.
+        Unspecified,
+        /// Request to create an Entry.
+        CreateEntry,
+        /// Request to update an Entry.
+        UpdateEntry,
+        /// Request to delete an Entry.
+        DeleteEntry,
+        /// Request to create an EntryLink.
+        CreateEntryLink,
+        /// Request to delete an EntryLink.
+        DeleteEntryLink,
+        /// Request to create a Glossary.
+        CreateGlossary,
+        /// Request to update a Glossary.
+        UpdateGlossary,
+        /// Request to delete a Glossary.
+        DeleteGlossary,
+        /// Request to create a GlossaryCategory.
+        CreateGlossaryCategory,
+        /// Request to update a GlossaryCategory.
+        UpdateGlossaryCategory,
+        /// Request to delete a GlossaryCategory.
+        DeleteGlossaryCategory,
+        /// Request to create a GlossaryTerm.
+        CreateGlossaryTerm,
+        /// Request to update a GlossaryTerm.
+        UpdateGlossaryTerm,
+        /// Request to delete a GlossaryTerm.
+        DeleteGlossaryTerm,
+        /// Request to request Data Product access.
+        RequestDataProductAccess,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ChangeType::value] or
+        /// [ChangeType::name].
+        UnknownValue(change_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod change_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ChangeType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CreateEntry => std::option::Option::Some(1),
+                Self::UpdateEntry => std::option::Option::Some(2),
+                Self::DeleteEntry => std::option::Option::Some(3),
+                Self::CreateEntryLink => std::option::Option::Some(4),
+                Self::DeleteEntryLink => std::option::Option::Some(5),
+                Self::CreateGlossary => std::option::Option::Some(7),
+                Self::UpdateGlossary => std::option::Option::Some(8),
+                Self::DeleteGlossary => std::option::Option::Some(9),
+                Self::CreateGlossaryCategory => std::option::Option::Some(10),
+                Self::UpdateGlossaryCategory => std::option::Option::Some(11),
+                Self::DeleteGlossaryCategory => std::option::Option::Some(13),
+                Self::CreateGlossaryTerm => std::option::Option::Some(14),
+                Self::UpdateGlossaryTerm => std::option::Option::Some(15),
+                Self::DeleteGlossaryTerm => std::option::Option::Some(17),
+                Self::RequestDataProductAccess => std::option::Option::Some(33),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CHANGE_TYPE_UNSPECIFIED"),
+                Self::CreateEntry => std::option::Option::Some("CREATE_ENTRY"),
+                Self::UpdateEntry => std::option::Option::Some("UPDATE_ENTRY"),
+                Self::DeleteEntry => std::option::Option::Some("DELETE_ENTRY"),
+                Self::CreateEntryLink => std::option::Option::Some("CREATE_ENTRY_LINK"),
+                Self::DeleteEntryLink => std::option::Option::Some("DELETE_ENTRY_LINK"),
+                Self::CreateGlossary => std::option::Option::Some("CREATE_GLOSSARY"),
+                Self::UpdateGlossary => std::option::Option::Some("UPDATE_GLOSSARY"),
+                Self::DeleteGlossary => std::option::Option::Some("DELETE_GLOSSARY"),
+                Self::CreateGlossaryCategory => {
+                    std::option::Option::Some("CREATE_GLOSSARY_CATEGORY")
+                }
+                Self::UpdateGlossaryCategory => {
+                    std::option::Option::Some("UPDATE_GLOSSARY_CATEGORY")
+                }
+                Self::DeleteGlossaryCategory => {
+                    std::option::Option::Some("DELETE_GLOSSARY_CATEGORY")
+                }
+                Self::CreateGlossaryTerm => std::option::Option::Some("CREATE_GLOSSARY_TERM"),
+                Self::UpdateGlossaryTerm => std::option::Option::Some("UPDATE_GLOSSARY_TERM"),
+                Self::DeleteGlossaryTerm => std::option::Option::Some("DELETE_GLOSSARY_TERM"),
+                Self::RequestDataProductAccess => {
+                    std::option::Option::Some("REQUEST_DATA_PRODUCT_ACCESS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ChangeType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ChangeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CreateEntry,
+                2 => Self::UpdateEntry,
+                3 => Self::DeleteEntry,
+                4 => Self::CreateEntryLink,
+                5 => Self::DeleteEntryLink,
+                7 => Self::CreateGlossary,
+                8 => Self::UpdateGlossary,
+                9 => Self::DeleteGlossary,
+                10 => Self::CreateGlossaryCategory,
+                11 => Self::UpdateGlossaryCategory,
+                13 => Self::DeleteGlossaryCategory,
+                14 => Self::CreateGlossaryTerm,
+                15 => Self::UpdateGlossaryTerm,
+                17 => Self::DeleteGlossaryTerm,
+                33 => Self::RequestDataProductAccess,
+                _ => Self::UnknownValue(change_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ChangeType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CHANGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CREATE_ENTRY" => Self::CreateEntry,
+                "UPDATE_ENTRY" => Self::UpdateEntry,
+                "DELETE_ENTRY" => Self::DeleteEntry,
+                "CREATE_ENTRY_LINK" => Self::CreateEntryLink,
+                "DELETE_ENTRY_LINK" => Self::DeleteEntryLink,
+                "CREATE_GLOSSARY" => Self::CreateGlossary,
+                "UPDATE_GLOSSARY" => Self::UpdateGlossary,
+                "DELETE_GLOSSARY" => Self::DeleteGlossary,
+                "CREATE_GLOSSARY_CATEGORY" => Self::CreateGlossaryCategory,
+                "UPDATE_GLOSSARY_CATEGORY" => Self::UpdateGlossaryCategory,
+                "DELETE_GLOSSARY_CATEGORY" => Self::DeleteGlossaryCategory,
+                "CREATE_GLOSSARY_TERM" => Self::CreateGlossaryTerm,
+                "UPDATE_GLOSSARY_TERM" => Self::UpdateGlossaryTerm,
+                "DELETE_GLOSSARY_TERM" => Self::DeleteGlossaryTerm,
+                "REQUEST_DATA_PRODUCT_ACCESS" => Self::RequestDataProductAccess,
+                _ => Self::UnknownValue(change_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ChangeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CreateEntry => serializer.serialize_i32(1),
+                Self::UpdateEntry => serializer.serialize_i32(2),
+                Self::DeleteEntry => serializer.serialize_i32(3),
+                Self::CreateEntryLink => serializer.serialize_i32(4),
+                Self::DeleteEntryLink => serializer.serialize_i32(5),
+                Self::CreateGlossary => serializer.serialize_i32(7),
+                Self::UpdateGlossary => serializer.serialize_i32(8),
+                Self::DeleteGlossary => serializer.serialize_i32(9),
+                Self::CreateGlossaryCategory => serializer.serialize_i32(10),
+                Self::UpdateGlossaryCategory => serializer.serialize_i32(11),
+                Self::DeleteGlossaryCategory => serializer.serialize_i32(13),
+                Self::CreateGlossaryTerm => serializer.serialize_i32(14),
+                Self::UpdateGlossaryTerm => serializer.serialize_i32(15),
+                Self::DeleteGlossaryTerm => serializer.serialize_i32(17),
+                Self::RequestDataProductAccess => serializer.serialize_i32(33),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ChangeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ChangeType>::new(
+                ".google.cloud.dataplex.v1.ChangeRequest.ChangeType",
+            ))
+        }
+    }
+
+    /// Detailed specification of the change, embedding the original request.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ChangePayload {
+        /// Payload for creating an Entry.
+        CreateEntry(std::boxed::Box<crate::model::CreateEntryRequest>),
+        /// Payload for updating an Entry.
+        UpdateEntry(std::boxed::Box<crate::model::UpdateEntryRequest>),
+        /// Payload for deleting an Entry.
+        DeleteEntry(std::boxed::Box<crate::model::DeleteEntryRequest>),
+        /// Payload for creating an EntryLink.
+        CreateEntryLink(std::boxed::Box<crate::model::CreateEntryLinkRequest>),
+        /// Payload for deleting an EntryLink.
+        DeleteEntryLink(std::boxed::Box<crate::model::DeleteEntryLinkRequest>),
+        /// Payload for creating a Glossary.
+        CreateGlossary(std::boxed::Box<crate::model::CreateGlossaryRequest>),
+        /// Payload for updating a Glossary.
+        UpdateGlossary(std::boxed::Box<crate::model::UpdateGlossaryRequest>),
+        /// Payload for deleting a Glossary.
+        DeleteGlossary(std::boxed::Box<crate::model::DeleteGlossaryRequest>),
+        /// Payload for creating a GlossaryCategory.
+        CreateGlossaryCategory(std::boxed::Box<crate::model::CreateGlossaryCategoryRequest>),
+        /// Payload for updating a GlossaryCategory.
+        UpdateGlossaryCategory(std::boxed::Box<crate::model::UpdateGlossaryCategoryRequest>),
+        /// Payload for deleting a GlossaryCategory.
+        DeleteGlossaryCategory(std::boxed::Box<crate::model::DeleteGlossaryCategoryRequest>),
+        /// Payload for creating a GlossaryTerm.
+        CreateGlossaryTerm(std::boxed::Box<crate::model::CreateGlossaryTermRequest>),
+        /// Payload for updating a GlossaryTerm.
+        UpdateGlossaryTerm(std::boxed::Box<crate::model::UpdateGlossaryTermRequest>),
+        /// Payload for deleting a GlossaryTerm.
+        DeleteGlossaryTerm(std::boxed::Box<crate::model::DeleteGlossaryTermRequest>),
+        /// Payload for Data Product access request.
+        DataProductAccessRequest(std::boxed::Box<crate::model::DataProductAccessRequest>),
+    }
+}
+
+/// Message for requesting access to a Data Product. This will be used to
+/// create a ChangeRequest of type REQUEST_DATA_PRODUCT_ACCESS.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataProductAccessRequest {
+    /// Required. The resource name of the data product.
+    /// Format:
+    /// projects/{project_number}/locations/{location_id}/dataProducts/{data_product_id}
+    pub parent: std::string::String,
+
+    /// Required. The ID of the access group for which access is being requested.
+    /// This corresponds to the unique identifier of the AccessGroup defined in the
+    /// Data Product.
+    pub access_group_id: std::string::String,
+
+    /// Output only. The display name of the access group defined in the Data
+    /// Product for which access is being requested.
+    pub access_group_display_name: std::string::String,
+
+    /// Optional. The principal for which access is being requested in IAM format.
+    /// If not specified, the requestor's principal will be used.
+    /// Example: `serviceAccount:my-sa@my-project.iam.gserviceaccount.com`.
+    /// Only service account principals are currently supported.
+    /// <https://cloud.google.com/iam/docs/principal-identifiers>
+    pub requested_principal: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataProductAccessRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::DataProductAccessRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProductAccessRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = DataProductAccessRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [access_group_id][crate::model::DataProductAccessRequest::access_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProductAccessRequest;
+    /// let x = DataProductAccessRequest::new().set_access_group_id("example");
+    /// ```
+    pub fn set_access_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.access_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [access_group_display_name][crate::model::DataProductAccessRequest::access_group_display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProductAccessRequest;
+    /// let x = DataProductAccessRequest::new().set_access_group_display_name("example");
+    /// ```
+    pub fn set_access_group_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.access_group_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [requested_principal][crate::model::DataProductAccessRequest::requested_principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProductAccessRequest;
+    /// let x = DataProductAccessRequest::new().set_requested_principal("example");
+    /// ```
+    pub fn set_requested_principal<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.requested_principal = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_principal][crate::model::DataProductAccessRequest::requested_principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProductAccessRequest;
+    /// let x = DataProductAccessRequest::new().set_or_clear_requested_principal(Some("example"));
+    /// let x = DataProductAccessRequest::new().set_or_clear_requested_principal(None::<String>);
+    /// ```
+    pub fn set_or_clear_requested_principal<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.requested_principal = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataProductAccessRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DataProductAccessRequest"
+    }
+}
+
 /// A Glossary represents a collection of GlossaryCategories and GlossaryTerms
 /// defined by the user. Glossary is a top level resource and is the Google Cloud
 /// parent resource of all the GlossaryCategories and GlossaryTerms within it.
@@ -5543,7 +7211,7 @@ pub mod entry_type {
     }
 }
 
-/// An aspect is a single piece of metadata describing an entry.
+/// Represents a single piece of metadata describing an entry or entry link.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Aspect {
@@ -8429,6 +10097,9 @@ pub struct GetEntryRequest {
 
     /// Optional. View to control which parts of an entry the service should
     /// return.
+    /// **Please check the limitations on returned aspects in the Entry view
+    /// documentation. Amount of returned aspects depends on the selected Entry
+    /// View.**
     pub view: crate::model::EntryView,
 
     /// Optional. Limits the aspects returned to the provided aspect types.
@@ -8530,6 +10201,9 @@ pub struct LookupEntryRequest {
 
     /// Optional. View to control which parts of an entry the service should
     /// return.
+    /// **Please check the limitations on returned aspects in the Entry view
+    /// documentation. Amount of returned aspects depends on the selected Entry
+    /// View.**
     pub view: crate::model::EntryView,
 
     /// Optional. Limits the aspects returned to the provided aspect types.
@@ -8645,15 +10319,27 @@ pub struct LookupContextRequest {
     /// following form: `projects/{project}/locations/{location}`.
     pub name: std::string::String,
 
-    /// Required. The entry names to lookup context for. The request should have
-    /// max 10 of those.
+    /// Required. The entry names to look up the context for. The maximum number of
+    /// resources for a request is limited to 10.
     ///
     /// ## Examples:
     ///
-    /// projects/{project}/locations/{location}/entryGroups/{entry_group}/entries/{entry}
+    /// `projects/{project}/locations/{location}/entryGroups/{entry_group}/entries/{entry}`
     pub resources: std::vec::Vec<std::string::String>,
 
+    /// Optional. The text representing contextual information for which metadata
+    /// context is being requested.
+    pub context: std::string::String,
+
     /// Optional. Allows to configure the context.
+    ///
+    /// Supported options:
+    ///
+    /// - `format` - The format of the context (one of `yaml`,
+    ///   `xml`, `json`, default is `yaml`).
+    /// - `context_budget` - If provided, the output will be intelligently
+    ///   truncated on a best-effort basis to contain approximately the desired
+    ///   amount of characters. There is no guarantee to achieve the specific amount.
     pub options: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8694,6 +10380,18 @@ impl LookupContextRequest {
         self
     }
 
+    /// Sets the value of [context][crate::model::LookupContextRequest::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::LookupContextRequest;
+    /// let x = LookupContextRequest::new().set_context("example");
+    /// ```
+    pub fn set_context<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.context = v.into();
+        self
+    }
+
     /// Sets the value of [options][crate::model::LookupContextRequest::options].
     ///
     /// # Example
@@ -8722,11 +10420,177 @@ impl wkt::message::Message for LookupContextRequest {
     }
 }
 
+/// Modify Entry request using permissions in the source system.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ModifyEntryRequest {
+    /// Required. The project to which the request should be attributed in the
+    /// following form: `projects/{project}/locations/{location}`.
+    pub name: std::string::String,
+
+    /// Required. The entry to modify.
+    pub entry: std::option::Option<crate::model::Entry>,
+
+    /// Optional. Mask of fields to update. To update Aspects, the update_mask must
+    /// contain the value "aspects".
+    ///
+    /// If the update_mask is empty, the service will update all modifiable fields
+    /// present in the request.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If set to true, any aspects not specified in the request will be
+    /// deleted. The default is false.
+    pub delete_missing_aspects: bool,
+
+    /// Optional. The aspect keys which the service should modify. It supports
+    /// the following syntaxes:
+    ///
+    /// * `<aspect_type_reference>` - matches an aspect of the given type and empty
+    ///   path.
+    /// * `<aspect_type_reference>@path` - matches an aspect of the given type and
+    ///   specified path. For example, to attach an aspect to a field that is
+    ///   specified by the `schema` aspect, the path should have the format
+    ///   `Schema.<field_name>`.
+    /// * `<aspect_type_reference>@*` - matches aspects of the given type for all
+    ///   paths.
+    /// * `*@path` - matches aspects of all types on the given path.
+    ///
+    /// The service will not remove existing aspects matching the syntax unless
+    /// `delete_missing_aspects` is set to true.
+    ///
+    /// If this field is left empty, the service treats it as specifying
+    /// exactly those Aspects present in the request.
+    pub aspect_keys: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ModifyEntryRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ModifyEntryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// let x = ModifyEntryRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [entry][crate::model::ModifyEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = ModifyEntryRequest::new().set_entry(Entry::default()/* use setters */);
+    /// ```
+    pub fn set_entry<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Entry>,
+    {
+        self.entry = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entry][crate::model::ModifyEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = ModifyEntryRequest::new().set_or_clear_entry(Some(Entry::default()/* use setters */));
+    /// let x = ModifyEntryRequest::new().set_or_clear_entry(None::<Entry>);
+    /// ```
+    pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Entry>,
+    {
+        self.entry = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::ModifyEntryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// use wkt::FieldMask;
+    /// let x = ModifyEntryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::ModifyEntryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// use wkt::FieldMask;
+    /// let x = ModifyEntryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ModifyEntryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_missing_aspects][crate::model::ModifyEntryRequest::delete_missing_aspects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// let x = ModifyEntryRequest::new().set_delete_missing_aspects(true);
+    /// ```
+    pub fn set_delete_missing_aspects<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.delete_missing_aspects = v.into();
+        self
+    }
+
+    /// Sets the value of [aspect_keys][crate::model::ModifyEntryRequest::aspect_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ModifyEntryRequest;
+    /// let x = ModifyEntryRequest::new().set_aspect_keys(["a", "b", "c"]);
+    /// ```
+    pub fn set_aspect_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.aspect_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ModifyEntryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ModifyEntryRequest"
+    }
+}
+
 /// Lookup Context response.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupContextResponse {
-    /// LLM generated context for the resources.
+    /// Pre-formatted block of text containing the context for the requested
+    /// resources.
     pub context: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15450,6 +17314,11 @@ pub mod data_discovery_spec {
         pub json_options:
             std::option::Option<crate::model::data_discovery_spec::storage_config::JsonOptions>,
 
+        /// Optional. Specifies configuration for unstructured data discovery.
+        pub unstructured_data_options: std::option::Option<
+            crate::model::data_discovery_spec::storage_config::UnstructuredDataOptions,
+        >,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -15556,6 +17425,46 @@ pub mod data_discovery_spec {
             T: std::convert::Into<crate::model::data_discovery_spec::storage_config::JsonOptions>,
         {
             self.json_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [unstructured_data_options][crate::model::data_discovery_spec::StorageConfig::unstructured_data_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::UnstructuredDataOptions;
+        /// let x = StorageConfig::new().set_unstructured_data_options(UnstructuredDataOptions::default()/* use setters */);
+        /// ```
+        pub fn set_unstructured_data_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::data_discovery_spec::storage_config::UnstructuredDataOptions,
+                >,
+        {
+            self.unstructured_data_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [unstructured_data_options][crate::model::data_discovery_spec::StorageConfig::unstructured_data_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::UnstructuredDataOptions;
+        /// let x = StorageConfig::new().set_or_clear_unstructured_data_options(Some(UnstructuredDataOptions::default()/* use setters */));
+        /// let x = StorageConfig::new().set_or_clear_unstructured_data_options(None::<UnstructuredDataOptions>);
+        /// ```
+        pub fn set_or_clear_unstructured_data_options<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::data_discovery_spec::storage_config::UnstructuredDataOptions,
+                >,
+        {
+            self.unstructured_data_options = v.map(|x| x.into());
             self
         }
     }
@@ -15735,6 +17644,45 @@ pub mod data_discovery_spec {
         impl wkt::message::Message for JsonOptions {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dataplex.v1.DataDiscoverySpec.StorageConfig.JsonOptions"
+            }
+        }
+
+        /// Describes options for unstructured data discovery.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct UnstructuredDataOptions {
+            /// Optional. Specifies whether deeper semantic inference over the objects'
+            /// contents using GenAI is enabled.
+            pub semantic_inference_enabled: bool,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl UnstructuredDataOptions {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [semantic_inference_enabled][crate::model::data_discovery_spec::storage_config::UnstructuredDataOptions::semantic_inference_enabled].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::UnstructuredDataOptions;
+            /// let x = UnstructuredDataOptions::new().set_semantic_inference_enabled(true);
+            /// ```
+            pub fn set_semantic_inference_enabled<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.semantic_inference_enabled = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for UnstructuredDataOptions {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataplex.v1.DataDiscoverySpec.StorageConfig.UnstructuredDataOptions"
             }
         }
     }
@@ -17359,6 +19307,10 @@ pub struct DataProduct {
     pub access_groups:
         std::collections::HashMap<std::string::String, crate::model::data_product::AccessGroup>,
 
+    /// Optional. Configuration for access approval for the data product.
+    pub access_approval_config:
+        std::option::Option<crate::model::data_product::AccessApprovalConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17580,6 +19532,39 @@ impl DataProduct {
         self.access_groups = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [access_approval_config][crate::model::DataProduct::access_approval_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProduct;
+    /// use google_cloud_dataplex_v1::model::data_product::AccessApprovalConfig;
+    /// let x = DataProduct::new().set_access_approval_config(AccessApprovalConfig::default()/* use setters */);
+    /// ```
+    pub fn set_access_approval_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::data_product::AccessApprovalConfig>,
+    {
+        self.access_approval_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_approval_config][crate::model::DataProduct::access_approval_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProduct;
+    /// use google_cloud_dataplex_v1::model::data_product::AccessApprovalConfig;
+    /// let x = DataProduct::new().set_or_clear_access_approval_config(Some(AccessApprovalConfig::default()/* use setters */));
+    /// let x = DataProduct::new().set_or_clear_access_approval_config(None::<AccessApprovalConfig>);
+    /// ```
+    pub fn set_or_clear_access_approval_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::data_product::AccessApprovalConfig>,
+    {
+        self.access_approval_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for DataProduct {
@@ -17598,6 +19583,10 @@ pub mod data_product {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Principal {
+        /// Optional. Specifies the email of the producer service account, as per
+        /// <https://cloud.google.com/iam/docs/principals-overview#service-account>.
+        pub service_account: std::option::Option<std::string::String>,
+
         /// The type of the principal entity.
         pub r#type: std::option::Option<crate::model::data_product::principal::Type>,
 
@@ -17608,6 +19597,37 @@ pub mod data_product {
         /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [service_account][crate::model::data_product::Principal::service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_product::Principal;
+        /// let x = Principal::new().set_service_account("example");
+        /// ```
+        pub fn set_service_account<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.service_account = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_account][crate::model::data_product::Principal::service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_product::Principal;
+        /// let x = Principal::new().set_or_clear_service_account(Some("example"));
+        /// let x = Principal::new().set_or_clear_service_account(None::<String>);
+        /// ```
+        pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.service_account = v.map(|x| x.into());
+            self
         }
 
         /// Sets the value of [r#type][crate::model::data_product::Principal::type].
@@ -17793,6 +19813,48 @@ pub mod data_product {
     impl wkt::message::Message for AccessGroup {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataplex.v1.DataProduct.AccessGroup"
+        }
+    }
+
+    /// Configuration for access approval for the data product.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccessApprovalConfig {
+        /// Optional. Specifies the email addresses of users who are potential
+        /// approvers and are notified when an access request is made for the data
+        /// product. The maximum number of emails allowed is 10.
+        pub approver_emails: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AccessApprovalConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [approver_emails][crate::model::data_product::AccessApprovalConfig::approver_emails].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_product::AccessApprovalConfig;
+        /// let x = AccessApprovalConfig::new().set_approver_emails(["a", "b", "c"]);
+        /// ```
+        pub fn set_approver_emails<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.approver_emails = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AccessApprovalConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataProduct.AccessApprovalConfig"
         }
     }
 }
@@ -18641,6 +20703,141 @@ impl wkt::message::Message for UpdateDataProductRequest {
     }
 }
 
+/// Message for requesting access to a Data Product.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RequestDataProductAccessRequest {
+    /// Required. The resource name of the data product.
+    /// Format:
+    /// projects/{project_number}/locations/{location_id}/dataProducts/{data_product_id}
+    pub parent: std::string::String,
+
+    /// Required. The change request for the data product access request.
+    pub change_request: std::option::Option<crate::model::ChangeRequest>,
+
+    /// Optional. Validates the request without actually creating the access change
+    /// request. Defaults to false.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RequestDataProductAccessRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::RequestDataProductAccessRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::RequestDataProductAccessRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_product_id = "data_product_id";
+    /// let x = RequestDataProductAccessRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/dataProducts/{data_product_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [change_request][crate::model::RequestDataProductAccessRequest::change_request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::RequestDataProductAccessRequest;
+    /// use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = RequestDataProductAccessRequest::new().set_change_request(ChangeRequest::default()/* use setters */);
+    /// ```
+    pub fn set_change_request<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ChangeRequest>,
+    {
+        self.change_request = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [change_request][crate::model::RequestDataProductAccessRequest::change_request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::RequestDataProductAccessRequest;
+    /// use google_cloud_dataplex_v1::model::ChangeRequest;
+    /// let x = RequestDataProductAccessRequest::new().set_or_clear_change_request(Some(ChangeRequest::default()/* use setters */));
+    /// let x = RequestDataProductAccessRequest::new().set_or_clear_change_request(None::<ChangeRequest>);
+    /// ```
+    pub fn set_or_clear_change_request<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ChangeRequest>,
+    {
+        self.change_request = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::RequestDataProductAccessRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::RequestDataProductAccessRequest;
+    /// let x = RequestDataProductAccessRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RequestDataProductAccessRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.RequestDataProductAccessRequest"
+    }
+}
+
+/// Response message for requesting access to a Data Product.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RequestDataProductAccessResponse {
+    /// The resource name of the created ChangeRequest.
+    /// Format:
+    /// projects/{project_number}/locations/{location_id}/changeRequests/{change_request_id}
+    pub change_request_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RequestDataProductAccessResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [change_request_name][crate::model::RequestDataProductAccessResponse::change_request_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::RequestDataProductAccessResponse;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let change_request_id = "change_request_id";
+    /// let x = RequestDataProductAccessResponse::new().set_change_request_name(format!("projects/{project_id}/locations/{location_id}/changeRequests/{change_request_id}"));
+    /// ```
+    pub fn set_change_request_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_request_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RequestDataProductAccessResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.RequestDataProductAccessResponse"
+    }
+}
+
 /// Request message for creating a data asset.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -19207,6 +21404,9 @@ pub struct DataProfileSpec {
     /// Dataplex Universal Catalog metadata.
     pub catalog_publishing_enabled: bool,
 
+    /// Optional. The execution mode for the profile scan.
+    pub mode: crate::model::data_profile_spec::Mode,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -19348,6 +21548,23 @@ impl DataProfileSpec {
     /// ```
     pub fn set_catalog_publishing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.catalog_publishing_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [mode][crate::model::DataProfileSpec::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::Mode;
+    /// let x0 = DataProfileSpec::new().set_mode(Mode::Standard);
+    /// let x1 = DataProfileSpec::new().set_mode(Mode::Lightweight);
+    /// ```
+    pub fn set_mode<T: std::convert::Into<crate::model::data_profile_spec::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
         self
     }
 }
@@ -19514,6 +21731,144 @@ pub mod data_profile_spec {
     impl wkt::message::Message for SelectedFields {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataplex.v1.DataProfileSpec.SelectedFields"
+        }
+    }
+
+    /// Defines the execution mode for the profile scan.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Performs standard profiling. The behavior is controlled by other fields
+        /// such as `sampling_percent`, `row_filter`, and column filters.
+        /// This mode allows for full scans or custom sampling.
+        Standard,
+        /// Specifies lightweight profiling mode. This mode is optimized for
+        /// low-latency, low-fidelity profiling.
+        ///
+        /// When this mode is selected, the following fields must not be set:
+        /// `sampling_percent`, `row_filter`, `include_fields`, and `exclude_fields`.
+        Lightweight,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::Lightweight => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::Lightweight => std::option::Option::Some("LIGHTWEIGHT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::Lightweight,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "STANDARD" => Self::Standard,
+                "LIGHTWEIGHT" => Self::Lightweight,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::Lightweight => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.dataplex.v1.DataProfileSpec.Mode",
+            ))
         }
     }
 }
@@ -20783,6 +23138,28 @@ pub struct DataQualitySpec {
     /// Dataplex Universal Catalog metadata.
     pub catalog_publishing_enabled: bool,
 
+    /// Optional. If enabled, the data scan will retrieve rules defined in the
+    /// dataplex-types.global.data-rules aspect on all paths of the catalog entry
+    /// corresponding to the BigQuery table resource and all attached glossary
+    /// terms. The path that data-rules aspect is attached on the table entry
+    /// defines the column that the rule will be evaluated against. For glossary
+    /// terms, the path that the terms are attached on the table entry defines the
+    /// column that the rule will be evaluated against. At the start of scan
+    /// execution, the rules reflect the latest state retrieved from the catalog
+    /// entry and any updates on the rules thereafter are ignored for that
+    /// execution. The updates will be reflected from the next execution. Rules
+    /// defined in the datascan must be empty if this field is enabled.
+    pub enable_catalog_based_rules: bool,
+
+    /// Optional. Filter for selectively running a subset of rules. You can filter
+    /// the request by the name or attribute key-value pairs defined on the rule.
+    /// If not specified, all rules are run. The filter is applicable to both, the
+    /// rules retrieved from catalog and explicitly defined rules in the scan.
+    /// Please see [filter
+    /// syntax](https://docs.cloud.google.com/dataplex/docs/auto-data-quality-overview#rule-filtering)
+    /// for more details.
+    pub filter: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -20880,6 +23257,30 @@ impl DataQualitySpec {
     /// ```
     pub fn set_catalog_publishing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.catalog_publishing_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_catalog_based_rules][crate::model::DataQualitySpec::enable_catalog_based_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataQualitySpec::new().set_enable_catalog_based_rules(true);
+    /// ```
+    pub fn set_enable_catalog_based_rules<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_catalog_based_rules = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::DataQualitySpec::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataQualitySpec::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -22582,6 +24983,15 @@ pub struct DataQualityRule {
     /// Default is false.
     pub suspended: bool,
 
+    /// Optional. Map of attribute name and value linked to the rule. The rules to
+    /// evaluate can be filtered based on attributes provided here and a filter
+    /// expression provided in the DataQualitySpec.filter field.
+    pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. Contains information about the source of the rule and its
+    /// relationship with the BigQuery table, where applicable.
+    pub rule_source: std::option::Option<crate::model::data_quality_rule::RuleSource>,
+
     /// Optional. Specifies the debug queries for this rule.
     /// Currently, only one query is supported, but this may be expanded in the
     /// future.
@@ -22683,6 +25093,60 @@ impl DataQualityRule {
         self
     }
 
+    /// Sets the value of [attributes][crate::model::DataQualityRule::attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_attributes([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [rule_source][crate::model::DataQualityRule::rule_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::RuleSource;
+    /// let x = DataQualityRule::new().set_rule_source(RuleSource::default()/* use setters */);
+    /// ```
+    pub fn set_rule_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::data_quality_rule::RuleSource>,
+    {
+        self.rule_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rule_source][crate::model::DataQualityRule::rule_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::RuleSource;
+    /// let x = DataQualityRule::new().set_or_clear_rule_source(Some(RuleSource::default()/* use setters */));
+    /// let x = DataQualityRule::new().set_or_clear_rule_source(None::<RuleSource>);
+    /// ```
+    pub fn set_or_clear_rule_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::data_quality_rule::RuleSource>,
+    {
+        self.rule_source = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [debug_queries][crate::model::DataQualityRule::debug_queries].
     ///
     /// # Example
@@ -22763,6 +25227,7 @@ impl DataQualityRule {
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_range_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::RangeExpectation>>,
@@ -22812,6 +25277,7 @@ impl DataQualityRule {
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_non_null_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::NonNullExpectation>>,
@@ -22861,6 +25327,7 @@ impl DataQualityRule {
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_set_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::SetExpectation>>,
@@ -22910,6 +25377,7 @@ impl DataQualityRule {
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_regex_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::RegexExpectation>>,
@@ -22959,6 +25427,7 @@ impl DataQualityRule {
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_uniqueness_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::UniquenessExpectation>>,
@@ -23009,6 +25478,7 @@ impl DataQualityRule {
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_statistic_range_expectation<
         T: std::convert::Into<
@@ -23061,6 +25531,7 @@ impl DataQualityRule {
     /// assert!(x.statistic_range_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_row_condition_expectation<
         T: std::convert::Into<
@@ -23113,6 +25584,7 @@ impl DataQualityRule {
     /// assert!(x.statistic_range_expectation().is_none());
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.sql_assertion().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_table_condition_expectation<
         T: std::convert::Into<
@@ -23163,6 +25635,7 @@ impl DataQualityRule {
     /// assert!(x.statistic_range_expectation().is_none());
     /// assert!(x.row_condition_expectation().is_none());
     /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.template_reference().is_none());
     /// ```
     pub fn set_sql_assertion<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::SqlAssertion>>,
@@ -23172,6 +25645,56 @@ impl DataQualityRule {
     ) -> Self {
         self.rule_type = std::option::Option::Some(
             crate::model::data_quality_rule::RuleType::SqlAssertion(v.into()),
+        );
+        self
+    }
+
+    /// The value of [rule_type][crate::model::DataQualityRule::rule_type]
+    /// if it holds a `TemplateReference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn template_reference(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::data_quality_rule::TemplateReference>>
+    {
+        #[allow(unreachable_patterns)]
+        self.rule_type.as_ref().and_then(|v| match v {
+            crate::model::data_quality_rule::RuleType::TemplateReference(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [rule_type][crate::model::DataQualityRule::rule_type]
+    /// to hold a `TemplateReference`.
+    ///
+    /// Note that all the setters affecting `rule_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::TemplateReference;
+    /// let x = DataQualityRule::new().set_template_reference(TemplateReference::default()/* use setters */);
+    /// assert!(x.template_reference().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
+    pub fn set_template_reference<
+        T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::TemplateReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rule_type = std::option::Option::Some(
+            crate::model::data_quality_rule::RuleType::TemplateReference(v.into()),
         );
         self
     }
@@ -23798,6 +26321,510 @@ pub mod data_quality_rule {
         }
     }
 
+    /// A rule that constructs a SQL statement to evaluate using a rule template
+    /// and parameter values. If the constructed statement returns any rows, this
+    /// rule fails
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TemplateReference {
+        /// Required. The template entry name. Entry must be of EntryType
+        /// `projects/dataplex-types/locations/global/entryTypes/data-quality-rule-template`
+        /// and contains top-level aspect of AspectType
+        /// `projects/dataplex-types/locations/global/aspectTypes/data-quality-rule-template`.
+        /// The format is:
+        /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}`
+        pub name: std::string::String,
+
+        /// Optional. Provides the map of parameter name and value.
+        /// The maximum size of the field is 120KB (encoded as UTF-8).
+        pub values: std::collections::HashMap<
+            std::string::String,
+            crate::model::data_quality_rule::template_reference::ParameterValue,
+        >,
+
+        /// Output only. The resolved SQL statement generated from the template with
+        /// parameters substituted. It is only populated in the result.
+        pub resolved_sql: std::string::String,
+
+        /// Output only. The rule template used to resolve the rule. It is only
+        /// populated in the result.
+        pub rule_template: std::option::Option<crate::model::DataQualityRuleTemplate>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TemplateReference {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::data_quality_rule::TemplateReference::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::TemplateReference;
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let entry_group_id = "entry_group_id";
+        /// # let entry_id = "entry_id";
+        /// let x = TemplateReference::new().set_name(format!("projects/{project_id}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}"));
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [values][crate::model::data_quality_rule::TemplateReference::values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::TemplateReference;
+        /// use google_cloud_dataplex_v1::model::data_quality_rule::template_reference::ParameterValue;
+        /// let x = TemplateReference::new().set_values([
+        ///     ("key0", ParameterValue::default()/* use setters */),
+        ///     ("key1", ParameterValue::default()/* use (different) setters */),
+        /// ]);
+        /// ```
+        pub fn set_values<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<
+                    crate::model::data_quality_rule::template_reference::ParameterValue,
+                >,
+        {
+            use std::iter::Iterator;
+            self.values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [resolved_sql][crate::model::data_quality_rule::TemplateReference::resolved_sql].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::TemplateReference;
+        /// let x = TemplateReference::new().set_resolved_sql("example");
+        /// ```
+        pub fn set_resolved_sql<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.resolved_sql = v.into();
+            self
+        }
+
+        /// Sets the value of [rule_template][crate::model::data_quality_rule::TemplateReference::rule_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::TemplateReference;
+        /// use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+        /// let x = TemplateReference::new().set_rule_template(DataQualityRuleTemplate::default()/* use setters */);
+        /// ```
+        pub fn set_rule_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataQualityRuleTemplate>,
+        {
+            self.rule_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule_template][crate::model::data_quality_rule::TemplateReference::rule_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::TemplateReference;
+        /// use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+        /// let x = TemplateReference::new().set_or_clear_rule_template(Some(DataQualityRuleTemplate::default()/* use setters */));
+        /// let x = TemplateReference::new().set_or_clear_rule_template(None::<DataQualityRuleTemplate>);
+        /// ```
+        pub fn set_or_clear_rule_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataQualityRuleTemplate>,
+        {
+            self.rule_template = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for TemplateReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRule.TemplateReference"
+        }
+    }
+
+    /// Defines additional types related to [TemplateReference].
+    pub mod template_reference {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents a parameter value.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ParameterValue {
+            /// Required. Represents the string value of the parameter.
+            pub value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ParameterValue {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [value][crate::model::data_quality_rule::template_reference::ParameterValue::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_quality_rule::template_reference::ParameterValue;
+            /// let x = ParameterValue::new().set_value("example");
+            /// ```
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ParameterValue {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRule.TemplateReference.ParameterValue"
+            }
+        }
+    }
+
+    /// Represents the rule source information from Catalog.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RuleSource {
+        /// Output only. Rule path elements represent information about the
+        /// individual items in the relationship path between the scan resource and
+        /// rule origin in that order.
+        pub rule_path_elements:
+            std::vec::Vec<crate::model::data_quality_rule::rule_source::RulePathElement>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RuleSource {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [rule_path_elements][crate::model::data_quality_rule::RuleSource::rule_path_elements].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RuleSource;
+        /// use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::RulePathElement;
+        /// let x = RuleSource::new()
+        ///     .set_rule_path_elements([
+        ///         RulePathElement::default()/* use setters */,
+        ///         RulePathElement::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_rule_path_elements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_quality_rule::rule_source::RulePathElement>,
+        {
+            use std::iter::Iterator;
+            self.rule_path_elements = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RuleSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRule.RuleSource"
+        }
+    }
+
+    /// Defines additional types related to [RuleSource].
+    pub mod rule_source {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Path Element represents the direct relationship between the rule origin
+        /// (aspects) to the BigQuery Entry. Ordering of the rule relationship will
+        /// be maintained such that the first entry in the list is the closest
+        /// ancestor (BigQuery table itself). A blank source denotes that the rule is
+        /// derived directly from the DataScan itself.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RulePathElement {
+            /// The source type of the rule.
+            pub source_type: std::option::Option<
+                crate::model::data_quality_rule::rule_source::rule_path_element::SourceType,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RulePathElement {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [source_type][crate::model::data_quality_rule::rule_source::RulePathElement::source_type].
+            ///
+            /// Note that all the setters affecting `source_type` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::RulePathElement;
+            /// use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntrySource;
+            /// let x = RulePathElement::new().set_source_type(Some(
+            ///     google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::SourceType::EntrySource(EntrySource::default().into())));
+            /// ```
+            pub fn set_source_type<T: std::convert::Into<std::option::Option<crate::model::data_quality_rule::rule_source::rule_path_element::SourceType>>>(mut self, v: T) -> Self
+            {
+                self.source_type = v.into();
+                self
+            }
+
+            /// The value of [source_type][crate::model::data_quality_rule::rule_source::RulePathElement::source_type]
+            /// if it holds a `EntrySource`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn entry_source(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::data_quality_rule::rule_source::rule_path_element::EntrySource,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.source_type.as_ref().and_then(|v| match v {
+                    crate::model::data_quality_rule::rule_source::rule_path_element::SourceType::EntrySource(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [source_type][crate::model::data_quality_rule::rule_source::RulePathElement::source_type]
+            /// to hold a `EntrySource`.
+            ///
+            /// Note that all the setters affecting `source_type` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::RulePathElement;
+            /// use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntrySource;
+            /// let x = RulePathElement::new().set_entry_source(EntrySource::default()/* use setters */);
+            /// assert!(x.entry_source().is_some());
+            /// assert!(x.entry_link_source().is_none());
+            /// ```
+            pub fn set_entry_source<T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::rule_source::rule_path_element::EntrySource>>>(mut self, v: T) -> Self{
+                self.source_type = std::option::Option::Some(
+                    crate::model::data_quality_rule::rule_source::rule_path_element::SourceType::EntrySource(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [source_type][crate::model::data_quality_rule::rule_source::RulePathElement::source_type]
+            /// if it holds a `EntryLinkSource`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn entry_link_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource>>{
+                #[allow(unreachable_patterns)]
+                self.source_type.as_ref().and_then(|v| match v {
+                    crate::model::data_quality_rule::rule_source::rule_path_element::SourceType::EntryLinkSource(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [source_type][crate::model::data_quality_rule::rule_source::RulePathElement::source_type]
+            /// to hold a `EntryLinkSource`.
+            ///
+            /// Note that all the setters affecting `source_type` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::RulePathElement;
+            /// use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource;
+            /// let x = RulePathElement::new().set_entry_link_source(EntryLinkSource::default()/* use setters */);
+            /// assert!(x.entry_link_source().is_some());
+            /// assert!(x.entry_source().is_none());
+            /// ```
+            pub fn set_entry_link_source<T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource>>>(mut self, v: T) -> Self{
+                self.source_type = std::option::Option::Some(
+                    crate::model::data_quality_rule::rule_source::rule_path_element::SourceType::EntryLinkSource(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for RulePathElement {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRule.RuleSource.RulePathElement"
+            }
+        }
+
+        /// Defines additional types related to [RulePathElement].
+        pub mod rule_path_element {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Entry source represents information about the related source entry.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct EntrySource {
+                /// Output only. The entry type to represent the current characteristics
+                /// of the entry in the form of:
+                /// `projects/{project_id_or_number}/locations/{location_id}/entryTypes/{entry-type-id}`.
+                pub entry_type: std::string::String,
+
+                /// Output only. The entry name in the form of:
+                /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}`
+                pub entry: std::string::String,
+
+                /// Output only. The display name of the entry.
+                pub display_name: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl EntrySource {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [entry_type][crate::model::data_quality_rule::rule_source::rule_path_element::EntrySource::entry_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntrySource;
+                /// let x = EntrySource::new().set_entry_type("example");
+                /// ```
+                pub fn set_entry_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.entry_type = v.into();
+                    self
+                }
+
+                /// Sets the value of [entry][crate::model::data_quality_rule::rule_source::rule_path_element::EntrySource::entry].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntrySource;
+                /// let x = EntrySource::new().set_entry("example");
+                /// ```
+                pub fn set_entry<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.entry = v.into();
+                    self
+                }
+
+                /// Sets the value of [display_name][crate::model::data_quality_rule::rule_source::rule_path_element::EntrySource::display_name].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntrySource;
+                /// let x = EntrySource::new().set_display_name("example");
+                /// ```
+                pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.display_name = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for EntrySource {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRule.RuleSource.RulePathElement.EntrySource"
+                }
+            }
+
+            /// Entry link source represents information about the entry link.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct EntryLinkSource {
+                /// Output only. The entry link type to represent the current
+                /// relationship between the entry and the next entry in the path.
+                /// In the form of:
+                /// `projects/{project_id_or_number}/locations/{location_id}/entryLinkTypes/{entry_link_type_id}`
+                pub entry_link_type: std::string::String,
+
+                /// Output only. The entry link name in the form of:
+                /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}`
+                pub entry_link: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl EntryLinkSource {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [entry_link_type][crate::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource::entry_link_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource;
+                /// let x = EntryLinkSource::new().set_entry_link_type("example");
+                /// ```
+                pub fn set_entry_link_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.entry_link_type = v.into();
+                    self
+                }
+
+                /// Sets the value of [entry_link][crate::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource::entry_link].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource;
+                /// let x = EntryLinkSource::new().set_entry_link("example");
+                /// ```
+                pub fn set_entry_link<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.entry_link = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for EntryLinkSource {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRule.RuleSource.RulePathElement.EntryLinkSource"
+                }
+            }
+
+            /// The source type of the rule.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum SourceType {
+                /// Output only. Entry source represents information about the related
+                /// source entry.
+                EntrySource(std::boxed::Box<crate::model::data_quality_rule::rule_source::rule_path_element::EntrySource>),
+                /// Output only. Entry link source represents information about the entry
+                /// link.
+                EntryLinkSource(std::boxed::Box<crate::model::data_quality_rule::rule_source::rule_path_element::EntryLinkSource>),
+            }
+        }
+    }
+
     /// Specifies a SQL statement that is evaluated to return up to 10 scalar
     /// values that are used to debug rules. If the rule fails, the values can help
     /// diagnose the cause of the failure.
@@ -23909,6 +26936,10 @@ pub mod data_quality_rule {
         /// Aggregate rule which evaluates the number of rows returned for the
         /// provided statement. If any rows are returned, this rule fails.
         SqlAssertion(std::boxed::Box<crate::model::data_quality_rule::SqlAssertion>),
+        /// Aggregate rule which references a rule template and provides the
+        /// parameters to be substituted in the template. If any rows are returned,
+        /// this rule fails.
+        TemplateReference(std::boxed::Box<crate::model::data_quality_rule::TemplateReference>),
     }
 }
 
@@ -24023,6 +27054,234 @@ impl DataQualityColumnResult {
 impl wkt::message::Message for DataQualityColumnResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataplex.v1.DataQualityColumnResult"
+    }
+}
+
+/// DataQualityRuleTemplate represents a template which can be reused across
+/// multiple data quality rules.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataQualityRuleTemplate {
+    /// Output only. The name of the rule template in the format:
+    /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}`
+    pub name: std::string::String,
+
+    /// Output only. The dimension a rule template belongs to. Rule level results
+    /// are also aggregated at the dimension level.
+    pub dimension: std::string::String,
+
+    /// Output only. Collection of SQLs for data quality rules. Currently only one
+    /// SQL is supported.
+    pub sql_collection: std::vec::Vec<crate::model::data_quality_rule_template::Sql>,
+
+    /// Output only. Description for input parameters
+    pub input_parameters: std::collections::HashMap<
+        std::string::String,
+        crate::model::data_quality_rule_template::ParameterDescription,
+    >,
+
+    /// Output only. A list of features or properties supported by this rule
+    /// template.
+    pub capabilities: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataQualityRuleTemplate {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DataQualityRuleTemplate::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+    /// let x = DataQualityRuleTemplate::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [dimension][crate::model::DataQualityRuleTemplate::dimension].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+    /// let x = DataQualityRuleTemplate::new().set_dimension("example");
+    /// ```
+    pub fn set_dimension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dimension = v.into();
+        self
+    }
+
+    /// Sets the value of [sql_collection][crate::model::DataQualityRuleTemplate::sql_collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule_template::Sql;
+    /// let x = DataQualityRuleTemplate::new()
+    ///     .set_sql_collection([
+    ///         Sql::default()/* use setters */,
+    ///         Sql::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sql_collection<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::data_quality_rule_template::Sql>,
+    {
+        use std::iter::Iterator;
+        self.sql_collection = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [input_parameters][crate::model::DataQualityRuleTemplate::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule_template::ParameterDescription;
+    /// let x = DataQualityRuleTemplate::new().set_input_parameters([
+    ///     ("key0", ParameterDescription::default()/* use setters */),
+    ///     ("key1", ParameterDescription::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_input_parameters<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::data_quality_rule_template::ParameterDescription>,
+    {
+        use std::iter::Iterator;
+        self.input_parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [capabilities][crate::model::DataQualityRuleTemplate::capabilities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleTemplate;
+    /// let x = DataQualityRuleTemplate::new().set_capabilities(["a", "b", "c"]);
+    /// ```
+    pub fn set_capabilities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.capabilities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DataQualityRuleTemplate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRuleTemplate"
+    }
+}
+
+/// Defines additional types related to [DataQualityRuleTemplate].
+pub mod data_quality_rule_template {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Templatized SQL query for data quality rules. It can have parameters that
+    /// can be substituted with values when a rule is created using this template.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Sql {
+        /// Output only. Templatized SQL query for data quality rules.
+        pub query: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Sql {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [query][crate::model::data_quality_rule_template::Sql::query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule_template::Sql;
+        /// let x = Sql::new().set_query("example");
+        /// ```
+        pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.query = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Sql {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRuleTemplate.Sql"
+        }
+    }
+
+    /// Description of the input parameter. It can include the type(s) supported
+    /// by the parameter and intended usage. It is for information purposes only
+    /// and does not affect the behavior of the rule template.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ParameterDescription {
+        /// Output only. Description of the input parameter. It can include the
+        /// type(s) supported by the parameter and intended usage. It is for
+        /// information purposes only and does not affect the behavior of the rule
+        /// template.
+        pub description: std::string::String,
+
+        /// Output only. The default value for the parameter if no value is provided.
+        pub default_value: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ParameterDescription {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [description][crate::model::data_quality_rule_template::ParameterDescription::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule_template::ParameterDescription;
+        /// let x = ParameterDescription::new().set_description("example");
+        /// ```
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+
+        /// Sets the value of [default_value][crate::model::data_quality_rule_template::ParameterDescription::default_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule_template::ParameterDescription;
+        /// let x = ParameterDescription::new().set_default_value("example");
+        /// ```
+        pub fn set_default_value<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.default_value = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ParameterDescription {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataQualityRuleTemplate.ParameterDescription"
+        }
     }
 }
 
@@ -26534,7 +29793,8 @@ pub struct CreateDataScanRequest {
     /// Required. DataScan resource.
     pub data_scan: std::option::Option<crate::model::DataScan>,
 
-    /// Required. DataScan identifier.
+    /// Optional. DataScan identifier. If not provided, a unique ID will be
+    /// generated with the prefix "data-scan-".
     ///
     /// * Must contain only lowercase letters, numbers and hyphens.
     /// * Must start with a letter.
@@ -27682,6 +30942,68 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListDataScanJob
     }
 }
 
+/// Request message for the `CancelDataScanJob` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CancelDataScanJobRequest {
+    /// Required. The resource name of the DataScanJob:
+    /// `projects/{project_id_or_number}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{data_scan_job_id}`
+    /// where `project_id_or_number` refers to a *project_id* or *project_number*
+    /// and `location_id` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CancelDataScanJobRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CancelDataScanJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::CancelDataScanJobRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let data_scan_id = "data_scan_id";
+    /// # let job_id = "job_id";
+    /// let x = CancelDataScanJobRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{job_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CancelDataScanJobRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.CancelDataScanJobRequest"
+    }
+}
+
+/// Response message for the `CancelDataScanJob` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CancelDataScanJobResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CancelDataScanJobResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for CancelDataScanJobResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.CancelDataScanJobResponse"
+    }
+}
+
 /// Request details for generating data quality rule recommendations.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -27784,10 +31106,11 @@ impl wkt::message::Message for GenerateDataQualityRulesResponse {
 /// * Data discovery: scans data in Cloud Storage buckets to extract and then
 ///   catalog metadata. For more information, see [Discover and catalog Cloud
 ///   Storage data](https://cloud.google.com/bigquery/docs/automatic-discovery).
-/// * Data documentation: analyzes the table details and generates insights
-///   including descriptions and sample SQL queries for the table. For more
-///   information, see [Generate data insights in
-///   BigQuery](https://cloud.google.com/bigquery/docs/data-insights).
+/// * Data documentation: analyzes the table or dataset metadata and generates
+///   insights. For tables, insights include descriptions and sample SQL
+///   queries. For datasets, insights include descriptions, schema relationships
+///   and sample SQL queries. For more information, see [Generate data insights
+///   in BigQuery](https://cloud.google.com/bigquery/docs/data-insights).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataScan {
@@ -27836,6 +31159,10 @@ pub struct DataScan {
 
     /// Output only. The type of DataScan.
     pub r#type: crate::model::DataScanType,
+
+    /// Optional. Immutable. The identity to run the datascan.
+    /// If not specified, defaults to the Dataplex Service Agent.
+    pub execution_identity: std::option::Option<crate::model::ExecutionIdentity>,
 
     /// Data scan related setting.
     /// The settings are required and immutable. After you configure the settings
@@ -28119,6 +31446,39 @@ impl DataScan {
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::DataScanType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [execution_identity][crate::model::DataScan::execution_identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::ExecutionIdentity;
+    /// let x = DataScan::new().set_execution_identity(ExecutionIdentity::default()/* use setters */);
+    /// ```
+    pub fn set_execution_identity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecutionIdentity>,
+    {
+        self.execution_identity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [execution_identity][crate::model::DataScan::execution_identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::ExecutionIdentity;
+    /// let x = DataScan::new().set_or_clear_execution_identity(Some(ExecutionIdentity::default()/* use setters */));
+    /// let x = DataScan::new().set_or_clear_execution_identity(None::<ExecutionIdentity>);
+    /// ```
+    pub fn set_or_clear_execution_identity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecutionIdentity>,
+    {
+        self.execution_identity = v.map(|x| x.into());
         self
     }
 
@@ -28803,6 +32163,280 @@ pub mod data_scan {
     }
 }
 
+/// The identity to run the datascan.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecutionIdentity {
+    /// The identity to run the datascan.
+    pub identity: std::option::Option<crate::model::execution_identity::Identity>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecutionIdentity {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity][crate::model::ExecutionIdentity::identity].
+    ///
+    /// Note that all the setters affecting `identity` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ExecutionIdentity;
+    /// use google_cloud_dataplex_v1::model::execution_identity::DataplexServiceAgent;
+    /// let x = ExecutionIdentity::new().set_identity(Some(
+    ///     google_cloud_dataplex_v1::model::execution_identity::Identity::DataplexServiceAgent(DataplexServiceAgent::default().into())));
+    /// ```
+    pub fn set_identity<
+        T: std::convert::Into<std::option::Option<crate::model::execution_identity::Identity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity = v.into();
+        self
+    }
+
+    /// The value of [identity][crate::model::ExecutionIdentity::identity]
+    /// if it holds a `DataplexServiceAgent`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dataplex_service_agent(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::execution_identity::DataplexServiceAgent>>
+    {
+        #[allow(unreachable_patterns)]
+        self.identity.as_ref().and_then(|v| match v {
+            crate::model::execution_identity::Identity::DataplexServiceAgent(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [identity][crate::model::ExecutionIdentity::identity]
+    /// to hold a `DataplexServiceAgent`.
+    ///
+    /// Note that all the setters affecting `identity` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ExecutionIdentity;
+    /// use google_cloud_dataplex_v1::model::execution_identity::DataplexServiceAgent;
+    /// let x = ExecutionIdentity::new().set_dataplex_service_agent(DataplexServiceAgent::default()/* use setters */);
+    /// assert!(x.dataplex_service_agent().is_some());
+    /// assert!(x.user_credential().is_none());
+    /// assert!(x.service_account().is_none());
+    /// ```
+    pub fn set_dataplex_service_agent<
+        T: std::convert::Into<std::boxed::Box<crate::model::execution_identity::DataplexServiceAgent>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity = std::option::Option::Some(
+            crate::model::execution_identity::Identity::DataplexServiceAgent(v.into()),
+        );
+        self
+    }
+
+    /// The value of [identity][crate::model::ExecutionIdentity::identity]
+    /// if it holds a `UserCredential`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_credential(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::execution_identity::UserCredential>>
+    {
+        #[allow(unreachable_patterns)]
+        self.identity.as_ref().and_then(|v| match v {
+            crate::model::execution_identity::Identity::UserCredential(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [identity][crate::model::ExecutionIdentity::identity]
+    /// to hold a `UserCredential`.
+    ///
+    /// Note that all the setters affecting `identity` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ExecutionIdentity;
+    /// use google_cloud_dataplex_v1::model::execution_identity::UserCredential;
+    /// let x = ExecutionIdentity::new().set_user_credential(UserCredential::default()/* use setters */);
+    /// assert!(x.user_credential().is_some());
+    /// assert!(x.dataplex_service_agent().is_none());
+    /// assert!(x.service_account().is_none());
+    /// ```
+    pub fn set_user_credential<
+        T: std::convert::Into<std::boxed::Box<crate::model::execution_identity::UserCredential>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity = std::option::Option::Some(
+            crate::model::execution_identity::Identity::UserCredential(v.into()),
+        );
+        self
+    }
+
+    /// The value of [identity][crate::model::ExecutionIdentity::identity]
+    /// if it holds a `ServiceAccount`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_account(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::execution_identity::ServiceAccount>>
+    {
+        #[allow(unreachable_patterns)]
+        self.identity.as_ref().and_then(|v| match v {
+            crate::model::execution_identity::Identity::ServiceAccount(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [identity][crate::model::ExecutionIdentity::identity]
+    /// to hold a `ServiceAccount`.
+    ///
+    /// Note that all the setters affecting `identity` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::ExecutionIdentity;
+    /// use google_cloud_dataplex_v1::model::execution_identity::ServiceAccount;
+    /// let x = ExecutionIdentity::new().set_service_account(ServiceAccount::default()/* use setters */);
+    /// assert!(x.service_account().is_some());
+    /// assert!(x.dataplex_service_agent().is_none());
+    /// assert!(x.user_credential().is_none());
+    /// ```
+    pub fn set_service_account<
+        T: std::convert::Into<std::boxed::Box<crate::model::execution_identity::ServiceAccount>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity = std::option::Option::Some(
+            crate::model::execution_identity::Identity::ServiceAccount(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExecutionIdentity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ExecutionIdentity"
+    }
+}
+
+/// Defines additional types related to [ExecutionIdentity].
+pub mod execution_identity {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The Dataplex service agent associated with the user's project.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DataplexServiceAgent {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataplexServiceAgent {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for DataplexServiceAgent {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.ExecutionIdentity.DataplexServiceAgent"
+        }
+    }
+
+    /// The credential of the calling user.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UserCredential {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UserCredential {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for UserCredential {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.ExecutionIdentity.UserCredential"
+        }
+    }
+
+    /// The service account
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ServiceAccount {
+        /// Required. Service account email. The datascan will execute with this
+        /// service account's credentials. The user calling this API must have
+        /// permissions to act as this service account. Dataplex service agent must
+        /// be granted iam.serviceAccounts.getAccessToken permission on this service
+        /// account, for example, through the iam.serviceAccountTokenCreator role .
+        pub email: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ServiceAccount {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [email][crate::model::execution_identity::ServiceAccount::email].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::execution_identity::ServiceAccount;
+        /// let x = ServiceAccount::new().set_email("example");
+        /// ```
+        pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.email = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ServiceAccount {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.ExecutionIdentity.ServiceAccount"
+        }
+    }
+
+    /// The identity to run the datascan.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Identity {
+        /// Optional. The Dataplex service agent associated with the user's project.
+        DataplexServiceAgent(
+            std::boxed::Box<crate::model::execution_identity::DataplexServiceAgent>,
+        ),
+        /// Optional. The credential of the calling user. Supports only ONE_TIME
+        /// trigger type.
+        UserCredential(std::boxed::Box<crate::model::execution_identity::UserCredential>),
+        /// Optional. The provided service account.
+        ServiceAccount(std::boxed::Box<crate::model::execution_identity::ServiceAccount>),
+    }
+}
+
 /// A DataScanJob represents an instance of DataScan execution.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -28819,6 +32453,9 @@ pub struct DataScanJob {
 
     /// Output only. The time when the DataScanJob was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. A message indicating partial failure details.
+    pub partial_failure_message: std::string::String,
 
     /// Output only. The time when the DataScanJob was started.
     pub start_time: std::option::Option<wkt::Timestamp>,
@@ -28908,6 +32545,21 @@ impl DataScanJob {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [partial_failure_message][crate::model::DataScanJob::partial_failure_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = DataScanJob::new().set_partial_failure_message("example");
+    /// ```
+    pub fn set_partial_failure_message<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partial_failure_message = v.into();
         self
     }
 
@@ -29446,6 +33098,8 @@ pub mod data_scan_job {
         Failed,
         /// The DataScanJob has been created but not started to run yet.
         Pending,
+        /// The DataScanJob succeeded with errors.
+        SucceededWithErrors,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -29475,6 +33129,7 @@ pub mod data_scan_job {
                 Self::Succeeded => std::option::Option::Some(4),
                 Self::Failed => std::option::Option::Some(5),
                 Self::Pending => std::option::Option::Some(7),
+                Self::SucceededWithErrors => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -29492,6 +33147,7 @@ pub mod data_scan_job {
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
                 Self::Pending => std::option::Option::Some("PENDING"),
+                Self::SucceededWithErrors => std::option::Option::Some("SUCCEEDED_WITH_ERRORS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -29520,6 +33176,7 @@ pub mod data_scan_job {
                 4 => Self::Succeeded,
                 5 => Self::Failed,
                 7 => Self::Pending,
+                8 => Self::SucceededWithErrors,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -29538,6 +33195,7 @@ pub mod data_scan_job {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "PENDING" => Self::Pending,
+                "SUCCEEDED_WITH_ERRORS" => Self::SucceededWithErrors,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -29558,6 +33216,7 @@ pub mod data_scan_job {
                 Self::Succeeded => serializer.serialize_i32(4),
                 Self::Failed => serializer.serialize_i32(5),
                 Self::Pending => serializer.serialize_i32(7),
+                Self::SucceededWithErrors => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -34982,6 +38641,11 @@ pub mod data_quality_scan_rule_result {
         ///
         /// [google.cloud.dataplex.v1.DataQualityRule.SqlAssertion]: crate::model::data_quality_rule::SqlAssertion
         SqlAssertion,
+        /// See
+        /// [DataQualityRule.TemplateReference][google.cloud.dataplex.v1.DataQualityRule.TemplateReference].
+        ///
+        /// [google.cloud.dataplex.v1.DataQualityRule.TemplateReference]: crate::model::data_quality_rule::TemplateReference
+        TemplateReference,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [RuleType::value] or
@@ -35014,6 +38678,7 @@ pub mod data_quality_scan_rule_result {
                 Self::TableConditionExpectation => std::option::Option::Some(7),
                 Self::UniquenessExpectation => std::option::Option::Some(8),
                 Self::SqlAssertion => std::option::Option::Some(9),
+                Self::TemplateReference => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -35040,6 +38705,7 @@ pub mod data_quality_scan_rule_result {
                 }
                 Self::UniquenessExpectation => std::option::Option::Some("UNIQUENESS_EXPECTATION"),
                 Self::SqlAssertion => std::option::Option::Some("SQL_ASSERTION"),
+                Self::TemplateReference => std::option::Option::Some("TEMPLATE_REFERENCE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -35071,6 +38737,7 @@ pub mod data_quality_scan_rule_result {
                 7 => Self::TableConditionExpectation,
                 8 => Self::UniquenessExpectation,
                 9 => Self::SqlAssertion,
+                10 => Self::TemplateReference,
                 _ => Self::UnknownValue(rule_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -35092,6 +38759,7 @@ pub mod data_quality_scan_rule_result {
                 "TABLE_CONDITION_EXPECTATION" => Self::TableConditionExpectation,
                 "UNIQUENESS_EXPECTATION" => Self::UniquenessExpectation,
                 "SQL_ASSERTION" => Self::SqlAssertion,
+                "TEMPLATE_REFERENCE" => Self::TemplateReference,
                 _ => Self::UnknownValue(rule_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -35115,6 +38783,7 @@ pub mod data_quality_scan_rule_result {
                 Self::TableConditionExpectation => serializer.serialize_i32(7),
                 Self::UniquenessExpectation => serializer.serialize_i32(8),
                 Self::SqlAssertion => serializer.serialize_i32(9),
+                Self::TemplateReference => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -40008,8 +43677,13 @@ pub mod data_source {
         /// //storage.googleapis.com/projects/PROJECT_ID/buckets/BUCKET_ID
         /// or
         /// BigQuery table of type "TABLE" for
-        /// DataProfileScan/DataQualityScan/DataDocumentationScan Format:
+        /// DataProfileScan/DataQualityScan/DataDocumentationScan
+        /// Format:
         /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
+        /// or
+        /// BigQuery dataset for DataDocumentationScan only
+        /// Format:
+        /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID
         Resource(std::string::String),
     }
 }

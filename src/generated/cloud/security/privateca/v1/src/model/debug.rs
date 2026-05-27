@@ -95,6 +95,7 @@ impl std::fmt::Debug for super::CaPool {
         debug_struct.field("tier", &self.tier);
         debug_struct.field("issuance_policy", &self.issuance_policy);
         debug_struct.field("publishing_options", &self.publishing_options);
+        debug_struct.field("encryption_spec", &self.encryption_spec);
         debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -121,6 +122,10 @@ impl std::fmt::Debug for super::ca_pool::IssuancePolicy {
         let mut debug_struct = f.debug_struct("IssuancePolicy");
         debug_struct.field("allowed_key_types", &self.allowed_key_types);
         debug_struct.field("backdate_duration", &self.backdate_duration);
+        debug_struct.field(
+            "allow_requester_specified_not_before_time",
+            &self.allow_requester_specified_not_before_time,
+        );
         debug_struct.field("maximum_lifetime", &self.maximum_lifetime);
         debug_struct.field("allowed_issuance_modes", &self.allowed_issuance_modes);
         debug_struct.field("baseline_values", &self.baseline_values);
@@ -182,6 +187,17 @@ impl std::fmt::Debug for super::ca_pool::issuance_policy::IssuanceModes {
     }
 }
 
+impl std::fmt::Debug for super::EncryptionSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionSpec");
+        debug_struct.field("cloud_kms_key", &self.cloud_kms_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CertificateRevocationList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateRevocationList");
@@ -233,6 +249,7 @@ impl std::fmt::Debug for super::Certificate {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("requested_not_before_time", &self.requested_not_before_time);
         debug_struct.field("certificate_config", &self.certificate_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

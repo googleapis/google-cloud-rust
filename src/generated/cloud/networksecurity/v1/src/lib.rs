@@ -34,7 +34,9 @@
 //! * [Intercept](client/struct.Intercept.html)
 //! * [Mirroring](client/struct.Mirroring.html)
 //! * [NetworkSecurity](client/struct.NetworkSecurity.html)
+//! * [SecurityProfileGroupService](client/struct.SecurityProfileGroupService.html)
 //! * [OrganizationSecurityProfileGroupService](client/struct.OrganizationSecurityProfileGroupService.html)
+//! * [SSERealmService](client/struct.SSERealmService.html)
 //!
 //! # Features
 //!
