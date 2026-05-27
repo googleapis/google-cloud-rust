@@ -1678,7 +1678,7 @@ dependencies = [
  "mutants",
  "p256",
  "regex",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "rsa",
  "rustc_version",
  "rustls",
@@ -3011,7 +3011,7 @@ dependencies = [
  "pretty_assertions",
  "prost",
  "prost-types",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "rustc_version",
  "scoped-env",
  "serde",
@@ -5897,7 +5897,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-workflows-v1",
  "httptest",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "serde",
  "serde_json",
  "tokio",
@@ -5918,7 +5918,7 @@ dependencies = [
  "google-cloud-secretmanager-v1",
  "google-cloud-test-utils",
  "httptest",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "scoped-env",
  "serde_json",
  "serial_test",
@@ -6079,7 +6079,7 @@ dependencies = [
  "opentelemetry_sdk",
  "pretty_assertions",
  "rand 0.10.1",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "scoped-env",
  "serde",
  "serde_json",
@@ -6186,7 +6186,7 @@ dependencies = [
  "prost",
  "prost-types",
  "rand 0.10.1",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "serde_json",
  "spanner-grpc-mock",
  "time",
@@ -6214,7 +6214,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "http",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "storage-samples",
  "test-case",
  "tokio",
@@ -7373,9 +7373,9 @@ dependencies = [
 
 [[package]]
 name = "reqwest"
-version = "0.13.3"
+version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62e0021ea2c22aed41653bc7e1419abb2c97e038ff2c33d0e1309e49a97deec0"
+checksum = "219c5811de6525e5416c7d5d53bb656d3afdbc6c5af816e0802bcfa42dbdc1c3"
 dependencies = [
  "base64",
  "bytes",
@@ -8310,7 +8310,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "google-cloud-auth",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
 ]
 
 [[package]]
@@ -8903,7 +8903,7 @@ dependencies = [
  "opentelemetry",
  "opentelemetry-otlp",
  "opentelemetry_sdk",
- "reqwest 0.13.3",
+ "reqwest 0.13.4",
  "serde_json",
  "storage-samples",
  "tempfile",
