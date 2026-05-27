@@ -4697,6 +4697,7 @@ dependencies = [
  "mockall",
  "prost",
  "prost-types",
+ "rand 0.10.1",
  "rust_decimal",
  "serde",
  "serde_json",

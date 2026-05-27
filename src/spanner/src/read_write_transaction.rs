@@ -150,6 +150,7 @@ impl ReadWriteTransactionBuilder {
             self.transaction_tag.clone(),
             channel_hint,
             request_options,
+            None,
         )
         .await?;
 
@@ -246,7 +247,7 @@ macro_rules! execute_with_retry {
                     return Err(error);
                 }
 
-                $self.begin_explicitly_if_not_started(true).await?;
+                $self.begin_explicitly_if_not_started(true, None).await?;
 
                 $request.transaction = Some($self.context.transaction_selector.selector().await?);
 
@@ -484,6 +485,7 @@ impl ReadWriteTransaction {
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
         is_stream_fallback: bool,
+        mutation_key: Option<crate::model::Mutation>,
     ) -> crate::Result<bool> {
         let mut begin_options = crate::RequestOptions::default();
         if let Some(d) = self.deadline {
@@ -495,7 +497,7 @@ impl ReadWriteTransaction {
             begin_options,
         );
         self.context
-            .begin_explicitly_if_not_started(begin_options, is_stream_fallback)
+            .begin_explicitly_if_not_started(begin_options, is_stream_fallback, mutation_key)
             .await
     }
 
@@ -547,7 +549,6 @@ impl ReadWriteTransaction {
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
-            // TODO(#5821): Include mutation_key during explicit transaction initialization fallback to preserve blind write intent on multiplexed sessions.
             let mut begin_options = crate::RequestOptions::default();
             if let Some(d) = self.deadline {
                 let remaining = d.saturating_duration_since(Instant::now());
@@ -557,9 +558,10 @@ impl ReadWriteTransaction {
                 self.context.client.leader_aware_routing_enabled,
                 begin_options,
             );
+            let mutation_key = Mutation::select_mutation_key(&mutations);
             if self
                 .context
-                .begin_explicitly_if_not_started(begin_options, false)
+                .begin_explicitly_if_not_started(begin_options, false, mutation_key)
                 .await?
             {
                 id = self.context.transaction_selector.get_id_no_wait()?;
@@ -2661,6 +2663,18 @@ mod tests {
             assert_eq!(
                 req.session,
                 "projects/p/instances/i/databases/d/sessions/123"
+            );
+            assert!(
+                req.mutation_key.is_some(),
+                "mutation_key should be populated when starting transaction at commit time"
+            );
+            let key = req
+                .mutation_key
+                .as_ref()
+                .expect("mutation_key is populated");
+            assert!(
+                key.operation.is_some(),
+                "mutation_key should have an operation"
             );
             Ok(tonic::Response::new(v1::Transaction {
                 id: vec![7, 7, 7],

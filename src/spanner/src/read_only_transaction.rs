@@ -307,6 +307,7 @@ impl MultiUseReadOnlyTransactionBuilder {
             None,
             channel_hint,
             request_options,
+            None,
         )
         .await?;
 
@@ -472,10 +473,12 @@ pub(crate) async fn execute_begin_transaction(
     transaction_tag: Option<String>,
     channel_hint: usize,
     request_options: crate::RequestOptions,
+    mutation_key: Option<crate::model::Mutation>,
 ) -> crate::Result<crate::model::Transaction> {
     let mut request = crate::model::BeginTransactionRequest::default()
         .set_session(session_name)
-        .set_options(options);
+        .set_options(options)
+        .set_or_clear_mutation_key(mutation_key);
     if let Some(tag) = transaction_tag {
         request = request
             .set_request_options(crate::model::RequestOptions::default().set_transaction_tag(tag));
@@ -577,6 +580,7 @@ pub(crate) struct ExplicitBeginParams {
     pub(crate) request_options: crate::RequestOptions,
     pub(crate) is_stream_fallback: bool,
     pub(crate) precommit_token_tracker: crate::precommit::PrecommitTokenTracker,
+    pub(crate) mutation_key: Option<crate::model::Mutation>,
 }
 
 impl ReadContextTransactionSelector {
@@ -650,6 +654,7 @@ impl ReadContextTransactionSelector {
             params.transaction_tag,
             params.channel_hint,
             params.request_options,
+            params.mutation_key,
         )
         .await
         {
@@ -855,6 +860,7 @@ impl ReadContext {
         &self,
         request_options: crate::RequestOptions,
         is_stream_fallback: bool,
+        mutation_key: Option<crate::model::Mutation>,
     ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
             return Ok(false);
@@ -873,6 +879,7 @@ impl ReadContext {
                 request_options,
                 is_stream_fallback,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
+                mutation_key,
             })
             .await?;
         Ok(true)
@@ -895,7 +902,7 @@ macro_rules! execute_stream_with_retry {
                     return Err(e);
                 }
                 if $self
-                    .begin_explicitly_if_not_started($gax_options.clone(), true)
+                    .begin_explicitly_if_not_started($gax_options.clone(), true, None)
                     .await?
                 {
                     $request.transaction = Some($self.transaction_selector.selector().await?);
