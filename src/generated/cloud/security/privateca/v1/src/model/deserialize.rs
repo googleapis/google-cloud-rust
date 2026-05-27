@@ -650,6 +650,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CaPool {
             __tier,
             __issuance_policy,
             __publishing_options,
+            __encryption_spec,
             __labels,
             Unknown(std::string::String),
         }
@@ -677,6 +678,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CaPool {
                             "issuance_policy" => Ok(__FieldTag::__issuance_policy),
                             "publishingOptions" => Ok(__FieldTag::__publishing_options),
                             "publishing_options" => Ok(__FieldTag::__publishing_options),
+                            "encryptionSpec" => Ok(__FieldTag::__encryption_spec),
+                            "encryption_spec" => Ok(__FieldTag::__encryption_spec),
                             "labels" => Ok(__FieldTag::__labels),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -740,6 +743,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CaPool {
                             }
                             result.publishing_options = map.next_value::<std::option::Option<crate::model::ca_pool::PublishingOptions>>()?
                                 ;
+                        }
+                        __FieldTag::__encryption_spec => {
+                            if !fields.insert(__FieldTag::__encryption_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_spec",
+                                ));
+                            }
+                            result.encryption_spec = map
+                                .next_value::<std::option::Option<crate::model::EncryptionSpec>>(
+                                )?;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -890,6 +903,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ca_pool::IssuancePolicy {
         enum __FieldTag {
             __allowed_key_types,
             __backdate_duration,
+            __allow_requester_specified_not_before_time,
             __maximum_lifetime,
             __allowed_issuance_modes,
             __baseline_values,
@@ -919,6 +933,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ca_pool::IssuancePolicy {
                             "allowed_key_types" => Ok(__FieldTag::__allowed_key_types),
                             "backdateDuration" => Ok(__FieldTag::__backdate_duration),
                             "backdate_duration" => Ok(__FieldTag::__backdate_duration),
+                            "allowRequesterSpecifiedNotBeforeTime" => {
+                                Ok(__FieldTag::__allow_requester_specified_not_before_time)
+                            }
+                            "allow_requester_specified_not_before_time" => {
+                                Ok(__FieldTag::__allow_requester_specified_not_before_time)
+                            }
                             "maximumLifetime" => Ok(__FieldTag::__maximum_lifetime),
                             "maximum_lifetime" => Ok(__FieldTag::__maximum_lifetime),
                             "allowedIssuanceModes" => Ok(__FieldTag::__allowed_issuance_modes),
@@ -976,6 +996,18 @@ impl<'de> serde::de::Deserialize<'de> for super::ca_pool::IssuancePolicy {
                             }
                             result.backdate_duration =
                                 map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__allow_requester_specified_not_before_time => {
+                            if !fields
+                                .insert(__FieldTag::__allow_requester_specified_not_before_time)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allow_requester_specified_not_before_time",
+                                ));
+                            }
+                            result.allow_requester_specified_not_before_time = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__maximum_lifetime => {
                             if !fields.insert(__FieldTag::__maximum_lifetime) {
@@ -1445,6 +1477,87 @@ impl<'de> serde::de::Deserialize<'de> for super::ca_pool::issuance_policy::Issua
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::EncryptionSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __cloud_kms_key,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EncryptionSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "cloudKmsKey" => Ok(__FieldTag::__cloud_kms_key),
+                            "cloud_kms_key" => Ok(__FieldTag::__cloud_kms_key),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::EncryptionSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EncryptionSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__cloud_kms_key => {
+                            if !fields.insert(__FieldTag::__cloud_kms_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_kms_key",
+                                ));
+                            }
+                            result.cloud_kms_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::CertificateRevocationList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1783,6 +1896,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Certificate {
             __create_time,
             __update_time,
             __labels,
+            __requested_not_before_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1831,6 +1945,10 @@ impl<'de> serde::de::Deserialize<'de> for super::Certificate {
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
                             "labels" => Ok(__FieldTag::__labels),
+                            "requestedNotBeforeTime" => Ok(__FieldTag::__requested_not_before_time),
+                            "requested_not_before_time" => {
+                                Ok(__FieldTag::__requested_not_before_time)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2011,6 +2129,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Certificate {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__requested_not_before_time => {
+                            if !fields.insert(__FieldTag::__requested_not_before_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for requested_not_before_time",
+                                ));
+                            }
+                            result.requested_not_before_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

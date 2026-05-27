@@ -1015,6 +1015,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_project_firewall_endpoints(
+        &self,
+        req: crate::model::ListFirewallEndpointsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFirewallEndpointsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FirewallActivation::list_project_firewall_endpoints",
+            self.inner.list_project_firewall_endpoints(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_firewall_endpoint(
         &self,
         req: crate::model::GetFirewallEndpointRequest,
@@ -1025,6 +1039,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FirewallActivation::get_firewall_endpoint",
             self.inner.get_firewall_endpoint(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_project_firewall_endpoint(
+        &self,
+        req: crate::model::GetFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallEndpoint>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FirewallActivation::get_project_firewall_endpoint",
+            self.inner.get_project_firewall_endpoint(req, options));
         pending.await
     }
 
@@ -1043,6 +1071,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_project_firewall_endpoint(
+        &self,
+        req: crate::model::CreateFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FirewallActivation::create_project_firewall_endpoint",
+            self.inner.create_project_firewall_endpoint(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_firewall_endpoint(
         &self,
         req: crate::model::DeleteFirewallEndpointRequest,
@@ -1057,6 +1099,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_project_firewall_endpoint(
+        &self,
+        req: crate::model::DeleteFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FirewallActivation::delete_project_firewall_endpoint",
+            self.inner.delete_project_firewall_endpoint(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_firewall_endpoint(
         &self,
         req: crate::model::UpdateFirewallEndpointRequest,
@@ -1067,6 +1123,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::FirewallActivation::update_firewall_endpoint",
             self.inner.update_firewall_endpoint(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_project_firewall_endpoint(
+        &self,
+        req: crate::model::UpdateFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FirewallActivation::update_project_firewall_endpoint",
+            self.inner.update_project_firewall_endpoint(req, options));
         pending.await
     }
 
@@ -3172,6 +3242,363 @@ where
     }
 }
 
+/// Implements a [SecurityProfileGroupService](super::stub::SecurityProfileGroupService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct SecurityProfileGroupService<T>
+where
+    T: super::stub::SecurityProfileGroupService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> SecurityProfileGroupService<T>
+where
+    T: super::stub::SecurityProfileGroupService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::SecurityProfileGroupService for SecurityProfileGroupService<T>
+where
+    T: super::stub::SecurityProfileGroupService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_security_profile_groups(
+        &self,
+        req: crate::model::ListSecurityProfileGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSecurityProfileGroupsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::list_security_profile_groups",
+            self.inner.list_security_profile_groups(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_security_profile_group(
+        &self,
+        req: crate::model::GetSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityProfileGroup>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::get_security_profile_group",
+            self.inner.get_security_profile_group(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_security_profile_group(
+        &self,
+        req: crate::model::CreateSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::create_security_profile_group",
+            self.inner.create_security_profile_group(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_security_profile_group(
+        &self,
+        req: crate::model::UpdateSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::update_security_profile_group",
+            self.inner.update_security_profile_group(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_security_profile_group(
+        &self,
+        req: crate::model::DeleteSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::delete_security_profile_group",
+            self.inner.delete_security_profile_group(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_security_profiles(
+        &self,
+        req: crate::model::ListSecurityProfilesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSecurityProfilesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::list_security_profiles",
+            self.inner.list_security_profiles(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_security_profile(
+        &self,
+        req: crate::model::GetSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityProfile>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::get_security_profile",
+            self.inner.get_security_profile(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_security_profile(
+        &self,
+        req: crate::model::CreateSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::create_security_profile",
+            self.inner.create_security_profile(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_security_profile(
+        &self,
+        req: crate::model::UpdateSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::update_security_profile",
+            self.inner.update_security_profile(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_security_profile(
+        &self,
+        req: crate::model::DeleteSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::delete_security_profile",
+            self.inner.delete_security_profile(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::list_locations",
+            self.inner.list_locations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::get_location",
+            self.inner.get_location(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::get_operation",
+            self.inner.get_operation(req, options));
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityProfileGroupService::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements a [OrganizationSecurityProfileGroupService](super::stub::OrganizationSecurityProfileGroupService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OrganizationSecurityProfileGroupService<T>
@@ -3511,6 +3938,335 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OrganizationSecurityProfileGroupService::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [SSERealmService](super::stub::SSERealmService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct SSERealmService<T>
+where
+    T: super::stub::SSERealmService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> SSERealmService<T>
+where
+    T: super::stub::SSERealmService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::SSERealmService for SSERealmService<T>
+where
+    T: super::stub::SSERealmService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_sac_realms(
+        &self,
+        req: crate::model::ListSACRealmsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSACRealmsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::list_sac_realms",
+            self.inner.list_sac_realms(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_sac_realm(
+        &self,
+        req: crate::model::GetSACRealmRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SACRealm>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::get_sac_realm",
+            self.inner.get_sac_realm(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_sac_realm(
+        &self,
+        req: crate::model::CreateSACRealmRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::create_sac_realm",
+            self.inner.create_sac_realm(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_sac_realm(
+        &self,
+        req: crate::model::DeleteSACRealmRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::delete_sac_realm",
+            self.inner.delete_sac_realm(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_sac_attachments(
+        &self,
+        req: crate::model::ListSACAttachmentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSACAttachmentsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::list_sac_attachments",
+            self.inner.list_sac_attachments(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_sac_attachment(
+        &self,
+        req: crate::model::GetSACAttachmentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SACAttachment>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::get_sac_attachment",
+            self.inner.get_sac_attachment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_sac_attachment(
+        &self,
+        req: crate::model::CreateSACAttachmentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::create_sac_attachment",
+            self.inner.create_sac_attachment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_sac_attachment(
+        &self,
+        req: crate::model::DeleteSACAttachmentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::delete_sac_attachment",
+            self.inner.delete_sac_attachment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::list_locations",
+            self.inner.list_locations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::get_location",
+            self.inner.get_location(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::get_operation",
+            self.inner.get_operation(req, options));
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
+                _span.record("gcp.longrunning.poll_attempt_count", attempt);
+                _span.record("gcp.longrunning.done", false);
+            }
+        }
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::POLL_ATTEMPT_COUNT
+                .try_with(|c| *c)
+                .is_ok()
+            {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SSERealmService::cancel_operation",
             self.inner.cancel_operation(req, options));
         pending.await
     }

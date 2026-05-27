@@ -19,7 +19,9 @@ The main types to work with this crate are the clients:
 - [Intercept]
 - [Mirroring]
 - [NetworkSecurity]
+- [SecurityProfileGroupService]
 - [OrganizationSecurityProfileGroupService]
+- [SSERealmService]
 
 ## Features
 
@@ -42,4 +44,6 @@ The main types to work with this crate are the clients:
 [Intercept]: https://docs.rs/google-cloud-networksecurity-v1/1.10.0/google_cloud_networksecurity_v1/client/struct.Intercept.html
 [Mirroring]: https://docs.rs/google-cloud-networksecurity-v1/1.10.0/google_cloud_networksecurity_v1/client/struct.Mirroring.html
 [NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/1.10.0/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html
+[SecurityProfileGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.10.0/google_cloud_networksecurity_v1/client/struct.SecurityProfileGroupService.html
 [OrganizationSecurityProfileGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.10.0/google_cloud_networksecurity_v1/client/struct.OrganizationSecurityProfileGroupService.html
+[SSERealmService]: https://docs.rs/google-cloud-networksecurity-v1/1.10.0/google_cloud_networksecurity_v1/client/struct.SSERealmService.html

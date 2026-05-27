@@ -2907,6 +2907,18 @@ impl serde::ser::Serialize for super::PointInTimeRestoreContext {
         if self.preferred_secondary_zone.is_some() {
             state.serialize_entry("preferredSecondaryZone", &self.preferred_secondary_zone)?;
         }
+        if self.target_instance_settings.is_some() {
+            state.serialize_entry("targetInstanceSettings", &self.target_instance_settings)?;
+        }
+        if !self.target_instance_clear_settings_field_names.is_empty() {
+            state.serialize_entry(
+                "targetInstanceClearSettingsFieldNames",
+                &self.target_instance_clear_settings_field_names,
+            )?;
+        }
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5483,6 +5495,15 @@ impl serde::ser::Serialize for super::PscConfig {
         if !self.network_attachment_uri.is_empty() {
             state.serialize_entry("networkAttachmentUri", &self.network_attachment_uri)?;
         }
+        if self.psc_auto_dns_enabled.is_some() {
+            state.serialize_entry("pscAutoDnsEnabled", &self.psc_auto_dns_enabled)?;
+        }
+        if self.psc_write_endpoint_dns_enabled.is_some() {
+            state.serialize_entry(
+                "pscWriteEndpointDnsEnabled",
+                &self.psc_write_endpoint_dns_enabled,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -6369,6 +6390,9 @@ impl serde::ser::Serialize for super::Settings {
         }
         if self.read_pool_auto_scale_config.is_some() {
             state.serialize_entry("readPoolAutoScaleConfig", &self.read_pool_auto_scale_config)?;
+        }
+        if self.accelerated_replica_mode.is_some() {
+            state.serialize_entry("acceleratedReplicaMode", &self.accelerated_replica_mode)?;
         }
         if self.auto_upgrade_enabled.is_some() {
             state.serialize_entry("autoUpgradeEnabled", &self.auto_upgrade_enabled)?;

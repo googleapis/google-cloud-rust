@@ -90,7 +90,6 @@ impl std::fmt::Debug for super::BigQueryRoutineReference {
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("dataset_id", &self.dataset_id);
         debug_struct.field("routine_id", &self.routine_id);
-        debug_struct.field("boundary_location_id", &self.boundary_location_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -172,6 +171,8 @@ impl std::fmt::Debug for super::LookerQuery {
         debug_struct.field("filters", &self.filters);
         debug_struct.field("sorts", &self.sorts);
         debug_struct.field("limit", &self.limit);
+        debug_struct.field("query_id", &self.query_id);
+        debug_struct.field("client_id", &self.client_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -209,6 +210,7 @@ impl std::fmt::Debug for super::ConversationOptions {
         let mut debug_struct = f.debug_struct("ConversationOptions");
         debug_struct.field("analysis", &self.analysis);
         debug_struct.field("datasource", &self.datasource);
+        debug_struct.field("model", &self.model);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -630,7 +632,9 @@ impl std::fmt::Debug for super::ChatRequest {
         debug_struct.field("messages", &self.messages);
         debug_struct.field("credentials", &self.credentials);
         debug_struct.field("thinking_mode", &self.thinking_mode);
+        debug_struct.field("model", &self.model);
         debug_struct.field("context_provider", &self.context_provider);
+        debug_struct.field("datasource_settings", &self.datasource_settings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -681,6 +685,17 @@ impl std::fmt::Debug for super::Message {
         debug_struct.field("timestamp", &self.timestamp);
         debug_struct.field("message_id", &self.message_id);
         debug_struct.field("kind", &self.kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::LookerSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookerSettings");
+        debug_struct.field("enable_dev_mode", &self.enable_dev_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -944,7 +959,6 @@ impl std::fmt::Debug for super::BigQueryTableReference {
         debug_struct.field("dataset_id", &self.dataset_id);
         debug_struct.field("table_id", &self.table_id);
         debug_struct.field("schema", &self.schema);
-        debug_struct.field("location_boundary", &self.location_boundary);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1005,7 +1019,6 @@ impl std::fmt::Debug for super::BigQueryPropertyGraphReference {
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("dataset_id", &self.dataset_id);
         debug_struct.field("property_graph_id", &self.property_graph_id);
-        debug_struct.field("location_boundary", &self.location_boundary);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

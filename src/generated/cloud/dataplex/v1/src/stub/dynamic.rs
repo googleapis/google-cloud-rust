@@ -537,6 +537,12 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Entry>>;
 
+    async fn modify_entry(
+        &self,
+        req: crate::model::ModifyEntryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Entry>>;
+
     async fn search_entries(
         &self,
         req: crate::model::SearchEntriesRequest,
@@ -888,6 +894,15 @@ impl<T: super::CatalogService> CatalogService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Entry>> {
         T::lookup_entry(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn modify_entry(
+        &self,
+        req: crate::model::ModifyEntryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Entry>> {
+        T::modify_entry(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1554,6 +1569,12 @@ pub trait DataProductService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn request_data_product_access(
+        &self,
+        req: crate::model::RequestDataProductAccessRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RequestDataProductAccessResponse>>;
+
     async fn create_data_asset(
         &self,
         req: crate::model::CreateDataAssetRequest,
@@ -1695,6 +1716,15 @@ impl<T: super::DataProductService> DataProductService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_data_product(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn request_data_product_access(
+        &self,
+        req: crate::model::RequestDataProductAccessRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RequestDataProductAccessResponse>> {
+        T::request_data_product_access(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -2285,6 +2315,12 @@ pub trait DataScanService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListDataScanJobsResponse>>;
 
+    async fn cancel_data_scan_job(
+        &self,
+        req: crate::model::CancelDataScanJobRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CancelDataScanJobResponse>>;
+
     async fn generate_data_quality_rules(
         &self,
         req: crate::model::GenerateDataQualityRulesRequest,
@@ -2429,6 +2465,15 @@ impl<T: super::DataScanService> DataScanService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListDataScanJobsResponse>> {
         T::list_data_scan_jobs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_data_scan_job(
+        &self,
+        req: crate::model::CancelDataScanJobRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CancelDataScanJobResponse>> {
+        T::cancel_data_scan_job(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

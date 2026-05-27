@@ -1274,6 +1274,12 @@ impl std::fmt::Debug for super::PointInTimeRestoreContext {
         debug_struct.field("allocated_ip_range", &self.allocated_ip_range);
         debug_struct.field("preferred_zone", &self.preferred_zone);
         debug_struct.field("preferred_secondary_zone", &self.preferred_secondary_zone);
+        debug_struct.field("target_instance_settings", &self.target_instance_settings);
+        debug_struct.field(
+            "target_instance_clear_settings_field_names",
+            &self.target_instance_clear_settings_field_names,
+        );
+        debug_struct.field("region", &self.region);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2387,6 +2393,11 @@ impl std::fmt::Debug for super::PscConfig {
         debug_struct.field("allowed_consumer_projects", &self.allowed_consumer_projects);
         debug_struct.field("psc_auto_connections", &self.psc_auto_connections);
         debug_struct.field("network_attachment_uri", &self.network_attachment_uri);
+        debug_struct.field("psc_auto_dns_enabled", &self.psc_auto_dns_enabled);
+        debug_struct.field(
+            "psc_write_endpoint_dns_enabled",
+            &self.psc_write_endpoint_dns_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2722,6 +2733,7 @@ impl std::fmt::Debug for super::Settings {
             "read_pool_auto_scale_config",
             &self.read_pool_auto_scale_config,
         );
+        debug_struct.field("accelerated_replica_mode", &self.accelerated_replica_mode);
         debug_struct.field("auto_upgrade_enabled", &self.auto_upgrade_enabled);
         debug_struct.field("entraid_config", &self.entraid_config);
         debug_struct.field("data_api_access", &self.data_api_access);
