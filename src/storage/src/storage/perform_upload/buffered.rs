@@ -21,6 +21,7 @@ use crate::error::WriteError;
 use crate::storage::checksum::details::{
     Checksum, update as checksum_update, validate as checksum_validate,
 };
+use base64::Engine;
 use gaxi::attempt_info::AttemptInfo;
 use gaxi::http::HttpRequestBuilder;
 use gaxi::http::reqwest::{HeaderValue, Method};
@@ -84,6 +85,7 @@ where
         url: &mut Option<String>,
         attempt_count: u32,
     ) -> Result<Object> {
+        let is_resume = url.is_some();
         let upload_url = if let Some(u) = url.as_deref() {
             u
         } else {
@@ -91,14 +93,20 @@ where
             url.insert(u).as_str()
         };
 
+        let mut is_partial_resume = false;
         if progress.needs_query() {
             match self.query_resumable_upload_attempt(upload_url, 0).await? {
                 ResumableUploadStatus::Finalized(object) => return Ok(*object),
                 ResumableUploadStatus::Partial(persisted_size) => {
+                    if persisted_size > 0 {
+                        is_partial_resume = true;
+                    }
                     progress.handle_partial(persisted_size)?;
                 }
             };
         }
+
+        let should_send_checksum = !is_resume && !is_partial_resume;
 
         loop {
             progress
@@ -112,7 +120,9 @@ where
                     "//storage.googleapis.com/{}",
                     self.resource().bucket
                 )));
-            let builder = self.partial_upload_request(upload_url, progress).await?;
+            let builder = self
+                .partial_upload_request(upload_url, progress, should_send_checksum)
+                .await?;
             // TODO(#4862) - maybe this should also use attempt_count ?
             let response = builder.send(options, AttemptInfo::new(0)).await?;
             match super::query_resumable_upload_handle_response(response).await {
@@ -134,6 +144,7 @@ where
         &self,
         upload_url: &str,
         progress: &mut InProgressUpload,
+        should_send_checksum: bool,
     ) -> Result<HttpRequestBuilder> {
         let range = progress.range_header();
         let builder = self
@@ -148,6 +159,17 @@ where
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
+
+        let mut builder = builder;
+        if should_send_checksum && progress.is_last_chunk() {
+            let computed = self.payload.lock().await.final_checksum();
+            if let Some(crc32c) = computed.crc32c {
+                let bytes = crc32c.to_be_bytes();
+                let encoded = base64::prelude::BASE64_STANDARD.encode(bytes);
+                builder = builder.header("x-goog-hash", format!("crc32c={encoded}"));
+            }
+        }
+
         Ok(builder.body(progress.put_body()))
     }
 
