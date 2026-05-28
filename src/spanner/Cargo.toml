@@ -44,6 +44,7 @@ gaxi                                   = { workspace = true, features = ["_inter
 google-cloud-auth                      = { workspace = true }
 google-cloud-gax                       = { workspace = true }
 google-cloud-spanner-admin-database-v1 = { workspace = true }
+google-cloud-spanner-admin-instance-v1 = { workspace = true }
 google-cloud-rpc                       = { workspace = true }
 http.workspace                         = true
 prost.workspace                        = true

@@ -34,6 +34,7 @@ google-cloud-longrunning               = { workspace = true }
 google-cloud-lro                       = { workspace = true }
 google-cloud-spanner                   = { workspace = true, features = ["default", "unstable-stream"] }
 google-cloud-spanner-admin-database-v1 = { path = "../../src/generated/spanner/admin/database/v1" }
+google-cloud-spanner-admin-instance-v1 = { path = "../../src/generated/spanner/admin/instance/v1" }
 google-cloud-test-utils                = { workspace = true }
 google-cloud-wkt                       = { workspace = true }
 http                                   = { workspace = true }
