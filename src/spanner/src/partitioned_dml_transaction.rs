@@ -92,10 +92,9 @@ impl PartitionedDmlTransactionBuilder {
     /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///     
-    ///     let retry_policy = BasicTransactionRetryPolicy {
-    ///         max_attempts: 5,
-    ///         total_timeout: Duration::from_secs(60),
-    ///     };
+    ///     let retry_policy = BasicTransactionRetryPolicy::new()
+    ///         .with_max_attempts(5)
+    ///         .with_total_timeout(Duration::from_secs(60));
     ///
     ///     let transaction = db_client
     ///         .partitioned_dml_transaction()
@@ -396,10 +395,9 @@ mod tests {
         let mock = create_session_mock();
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let policy = BasicTransactionRetryPolicy {
-            max_attempts: 10,
-            total_timeout: std::time::Duration::from_secs(42),
-        };
+        let policy = BasicTransactionRetryPolicy::new()
+            .with_max_attempts(10)
+            .with_total_timeout(std::time::Duration::from_secs(42));
 
         let _transaction = db_client
             .partitioned_dml_transaction()

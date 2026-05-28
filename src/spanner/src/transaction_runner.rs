@@ -309,10 +309,9 @@ impl TransactionRunnerBuilder {
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     ///
-    /// let retry_policy = BasicTransactionRetryPolicy {
-    ///     max_attempts: 5,
-    ///     total_timeout: Duration::from_secs(60),
-    /// };
+    /// let retry_policy = BasicTransactionRetryPolicy::new()
+    ///     .with_max_attempts(5)
+    ///     .with_total_timeout(Duration::from_secs(60));
     ///
     /// let runner = db_client
     ///     .read_write_transaction()
@@ -1319,10 +1318,9 @@ mod tests {
         let mock = create_session_mock();
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let retry_policy = BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: std::time::Duration::from_secs(10),
-        };
+        let retry_policy = BasicTransactionRetryPolicy::new()
+            .with_max_attempts(1)
+            .with_total_timeout(std::time::Duration::from_secs(10));
 
         // Validate builder chaining safely accepts and compiles options dynamically
         let _runner = TransactionRunnerBuilder::new(db_client)

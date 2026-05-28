@@ -27,8 +27,9 @@ pub struct Type(pub(crate) crate::generated::gapic_dataplane::model::Type);
 macro_rules! define_type_code {
     ($($variant:ident = $val:expr),* $(,)?) => {
         /// Spanner type code.
-        #[derive(Clone, Debug, PartialEq, Copy, Default)]
+        #[derive(Clone, Debug, PartialEq, Eq, Copy, Hash, Default)]
         #[repr(i32)]
+        #[non_exhaustive]
         pub enum TypeCode {
             #[default]
             Unspecified = 0,
@@ -272,6 +273,7 @@ pub(crate) fn create_type(code: TypeCode) -> Type {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::hash::Hash;
 
     #[test]
     fn test_type_code_round_trip() {
@@ -420,6 +422,15 @@ mod tests {
     #[test]
     fn test_auto_traits() {
         static_assertions::assert_impl_all!(Type: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(TypeCode: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(
+            TypeCode: Send,
+            Sync,
+            Clone,
+            Copy,
+            std::fmt::Debug,
+            PartialEq,
+            Eq,
+            Hash
+        );
     }
 }
