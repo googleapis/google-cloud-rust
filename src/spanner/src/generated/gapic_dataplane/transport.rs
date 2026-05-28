@@ -68,7 +68,7 @@ impl super::stub::Spanner for Spanner {
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -125,7 +125,7 @@ impl super::stub::Spanner for Spanner {
     async fn batch_create_sessions(
         &self,
         req: crate::model::BatchCreateSessionsRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::BatchCreateSessionsResponse>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -183,7 +183,7 @@ impl super::stub::Spanner for Spanner {
     async fn get_session(
         &self,
         req: crate::model::GetSessionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -237,7 +237,7 @@ impl super::stub::Spanner for Spanner {
     async fn list_sessions(
         &self,
         req: crate::model::ListSessionsRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -291,7 +291,7 @@ impl super::stub::Spanner for Spanner {
     async fn delete_session(
         &self,
         req: crate::model::DeleteSessionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<()>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -348,7 +348,7 @@ impl super::stub::Spanner for Spanner {
     async fn execute_sql(
         &self,
         req: crate::model::ExecuteSqlRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -402,7 +402,7 @@ impl super::stub::Spanner for Spanner {
     async fn execute_batch_dml(
         &self,
         req: crate::model::ExecuteBatchDmlRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ExecuteBatchDmlResponse>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -460,7 +460,7 @@ impl super::stub::Spanner for Spanner {
     async fn read(
         &self,
         req: crate::model::ReadRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -514,7 +514,7 @@ impl super::stub::Spanner for Spanner {
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::Transaction>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -572,7 +572,7 @@ impl super::stub::Spanner for Spanner {
     async fn commit(
         &self,
         req: crate::model::CommitRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::CommitResponse>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -626,7 +626,7 @@ impl super::stub::Spanner for Spanner {
     async fn rollback(
         &self,
         req: crate::model::RollbackRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<()>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -680,7 +680,7 @@ impl super::stub::Spanner for Spanner {
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionResponse>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
@@ -738,7 +738,7 @@ impl super::stub::Spanner for Spanner {
     async fn partition_read(
         &self,
         req: crate::model::PartitionReadRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionResponse>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},

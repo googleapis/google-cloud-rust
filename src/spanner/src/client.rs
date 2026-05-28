@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::{
     BeginTransactionRequest, CommitRequest, CommitResponse, CreateSessionRequest,
@@ -20,9 +21,7 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
-use google_cloud_gax::options::{
-    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
-};
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
 use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 use http::{
@@ -113,7 +112,7 @@ macro_rules! define_idempotent_rpc {
         pub(crate) async fn $method(
             &self,
             request: $request_type,
-            options: crate::RequestOptions,
+            options: crate::GaxRequestOptions,
             channel_hint: usize,
         ) -> crate::Result<$response_type> {
             self.get_channel(channel_hint)
@@ -127,7 +126,7 @@ macro_rules! define_idempotent_rpc {
     };
 }
 
-fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
+fn with_default_idempotency(mut options: crate::GaxRequestOptions) -> crate::GaxRequestOptions {
     if options.idempotent().is_none() {
         options.set_idempotency(true);
     }
@@ -287,7 +286,7 @@ impl Spanner {
     pub(crate) fn execute_streaming_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
         channel_hint: usize,
     ) -> builder::ExecuteStreamingSql {
         let channel = self.get_channel(channel_hint);
@@ -307,7 +306,7 @@ impl Spanner {
     pub(crate) fn streaming_read(
         &self,
         request: crate::model::ReadRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
         channel_hint: usize,
     ) -> builder::StreamingRead {
         let channel = self.get_channel(channel_hint);
@@ -323,7 +322,7 @@ impl Spanner {
     pub(crate) fn batch_write(
         &self,
         request: crate::model::BatchWriteRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
         channel_hint: usize,
     ) -> builder::BatchWrite {
         let channel = self.get_channel(channel_hint);
@@ -507,7 +506,7 @@ mod tests {
         let session = client
             .create_session(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -615,7 +614,7 @@ mod tests {
         let result_set = client
             .execute_sql(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -658,7 +657,7 @@ mod tests {
         let response = client
             .execute_batch_dml(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -697,7 +696,7 @@ mod tests {
         let result_set = client
             .read(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -735,7 +734,7 @@ mod tests {
         let tx = client
             .begin_transaction(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -777,7 +776,7 @@ mod tests {
         let response = client
             .commit(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -810,7 +809,7 @@ mod tests {
         client
             .rollback(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -856,7 +855,7 @@ mod tests {
         let mut stream = client
             .execute_streaming_sql(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .send()
@@ -908,7 +907,7 @@ mod tests {
         let mut stream = client
             .streaming_read(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .send()
@@ -950,7 +949,7 @@ mod tests {
         let mut stream = client
             .batch_write(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .send()
@@ -990,7 +989,7 @@ mod tests {
         let mut stream = client
             .execute_streaming_sql(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .send()
@@ -1042,7 +1041,7 @@ mod tests {
         let session = client
             .create_session(
                 req,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 client.next_channel_hint(),
             )
             .await
@@ -1082,7 +1081,7 @@ mod tests {
         req.database =
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
-        let mut options = crate::RequestOptions::default();
+        let mut options = crate::GaxRequestOptions::default();
         options.set_idempotency(false);
 
         let result = client

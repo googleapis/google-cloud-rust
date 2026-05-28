@@ -14,7 +14,7 @@
 
 use crate::client::Spanner;
 use crate::model::{CreateSessionRequest, Session};
-use crate::{RequestOptions, Result};
+use crate::{GaxRequestOptions, Result};
 use std::sync::{Arc, RwLock, Weak};
 use std::time::Duration;
 use tokio::time::{Instant, sleep};
@@ -33,7 +33,7 @@ pub(crate) struct ManagedSessionMaintainer {
     pub(crate) session: RwLock<ManagedSession>,
     pub(crate) database_name: String,
     pub(crate) database_role: String,
-    pub(crate) options: RequestOptions,
+    pub(crate) options: GaxRequestOptions,
 }
 
 #[derive(Debug)]
@@ -58,7 +58,7 @@ impl ManagedSessionMaintainer {
         spanner: Spanner,
         database_name: String,
         database_role: String,
-        options: RequestOptions,
+        options: GaxRequestOptions,
     ) -> Result<Arc<Self>> {
         let session =
             Self::create_session(&spanner, &database_name, &database_role, &options).await?;
@@ -124,7 +124,7 @@ impl ManagedSessionMaintainer {
         spanner: &Spanner,
         database_name: &str,
         database_role: &str,
-        options: &RequestOptions,
+        options: &GaxRequestOptions,
     ) -> Result<Session> {
         let request = CreateSessionRequest::new()
             .set_database(database_name)
@@ -217,7 +217,7 @@ mod tests {
             spanner,
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
-            RequestOptions::default(),
+            GaxRequestOptions::default(),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -287,7 +287,7 @@ mod tests {
             spanner,
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
-            RequestOptions::default(),
+            GaxRequestOptions::default(),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -329,7 +329,7 @@ mod tests {
             spanner,
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
-            RequestOptions::default(),
+            GaxRequestOptions::default(),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -393,7 +393,7 @@ mod tests {
             spanner,
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
-            RequestOptions::default(),
+            GaxRequestOptions::default(),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -542,7 +542,7 @@ mod tests {
             spanner.clone(),
             "projects/p/instances/i/databases/d".to_string(),
             "test-role".to_string(),
-            RequestOptions::default(),
+            GaxRequestOptions::default(),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");

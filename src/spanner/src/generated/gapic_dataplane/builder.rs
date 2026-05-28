@@ -23,7 +23,7 @@ pub mod spanner {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>,
         request: R,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -34,7 +34,7 @@ pub mod spanner {
             Self {
                 stub,
                 request: R::default(),
-                options: crate::RequestOptions::default(),
+                options: crate::GaxRequestOptions::default(),
             }
         }
     }
@@ -55,7 +55,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -101,7 +101,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for CreateSession {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -125,7 +125,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -175,7 +175,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for BatchCreateSessions {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -196,7 +196,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -220,7 +220,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for GetSession {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -241,7 +241,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -309,7 +309,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ListSessions {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -330,7 +330,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -354,7 +354,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteSession {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -375,7 +375,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -565,7 +565,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ExecuteSql {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -586,7 +586,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -677,7 +677,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ExecuteBatchDml {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -698,7 +698,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -882,7 +882,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Read {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -906,7 +906,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1006,7 +1006,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for BeginTransaction {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -1027,7 +1027,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1177,7 +1177,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Commit {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -1198,7 +1198,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1230,7 +1230,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Rollback {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -1251,7 +1251,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1348,7 +1348,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for PartitionQuery {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }
@@ -1369,7 +1369,7 @@ pub mod spanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1476,7 +1476,7 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for PartitionRead {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
+        fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
             &mut self.0.options
         }
     }

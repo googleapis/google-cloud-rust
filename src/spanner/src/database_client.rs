@@ -253,7 +253,7 @@ pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
     database_role: Option<String>,
-    options: Option<crate::RequestOptions>,
+    options: Option<crate::GaxRequestOptions>,
     leader_aware_routing_enabled: bool,
 }
 
@@ -312,7 +312,7 @@ impl DatabaseClientBuilder {
     ///     # Ok(())
     /// # }
     /// ```
-    pub fn with_request_options(mut self, options: crate::RequestOptions) -> Self {
+    pub fn with_request_options(mut self, options: crate::GaxRequestOptions) -> Self {
         self.options = Some(options);
         self
     }
@@ -463,7 +463,7 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        let mut options = crate::RequestOptions::default();
+        let mut options = crate::GaxRequestOptions::default();
         options.set_retry_policy(google_cloud_gax::retry_policy::Aip194Strict);
         options.set_idempotency(true);
 

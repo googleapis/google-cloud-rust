@@ -45,7 +45,7 @@ where
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -59,7 +59,7 @@ where
     async fn batch_create_sessions(
         &self,
         req: crate::model::BatchCreateSessionsRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::BatchCreateSessionsResponse>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -73,7 +73,7 @@ where
     async fn get_session(
         &self,
         req: crate::model::GetSessionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -87,7 +87,7 @@ where
     async fn list_sessions(
         &self,
         req: crate::model::ListSessionsRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -101,7 +101,7 @@ where
     async fn delete_session(
         &self,
         req: crate::model::DeleteSessionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<()>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -115,7 +115,7 @@ where
     async fn execute_sql(
         &self,
         req: crate::model::ExecuteSqlRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -129,7 +129,7 @@ where
     async fn execute_batch_dml(
         &self,
         req: crate::model::ExecuteBatchDmlRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ExecuteBatchDmlResponse>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -143,7 +143,7 @@ where
     async fn read(
         &self,
         req: crate::model::ReadRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -157,7 +157,7 @@ where
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::Transaction>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -171,7 +171,7 @@ where
     async fn commit(
         &self,
         req: crate::model::CommitRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::CommitResponse>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -185,7 +185,7 @@ where
     async fn rollback(
         &self,
         req: crate::model::RollbackRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<()>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -199,7 +199,7 @@ where
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionResponse>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
@@ -213,7 +213,7 @@ where
     async fn partition_read(
         &self,
         req: crate::model::PartitionReadRequest,
-        options: crate::RequestOptions,
+        options: crate::GaxRequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionResponse>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),

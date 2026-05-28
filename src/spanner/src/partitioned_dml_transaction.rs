@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
@@ -24,7 +25,6 @@ use crate::statement::Statement;
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 
 /// A builder for [PartitionedDmlTransaction].
 ///

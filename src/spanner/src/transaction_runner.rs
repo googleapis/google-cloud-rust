@@ -193,6 +193,57 @@ impl TransactionRunnerBuilder {
         self
     }
 
+    /// Sets the request options to use for the `BeginTransaction` RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::GaxRequestOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let mut begin_options = GaxRequestOptions::default();
+    /// begin_options.set_attempt_timeout(Duration::from_secs(5));
+    ///
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_begin_transaction_request_options(begin_options)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_transaction_request_options(
+        mut self,
+        options: crate::GaxRequestOptions,
+    ) -> Self {
+        self.builder = self.builder.with_begin_transaction_request_options(options);
+        self
+    }
+
+    /// Sets the request options to use for the `Commit` RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::GaxRequestOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let mut commit_options = GaxRequestOptions::default();
+    /// commit_options.set_attempt_timeout(Duration::from_secs(10));
+    ///
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_commit_request_options(commit_options)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_request_options(mut self, options: crate::GaxRequestOptions) -> Self {
+        self.builder = self.builder.with_commit_request_options(options);
+        self
+    }
+
     /// Sets the RPC priority to use for the commit of this transaction.
     ///
     /// # Example

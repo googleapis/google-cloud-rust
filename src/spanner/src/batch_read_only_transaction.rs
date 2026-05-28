@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::database_client::DatabaseClient;
 use crate::model::PartitionOptions;
 use crate::precommit::PrecommitTokenTracker;
@@ -23,7 +24,6 @@ use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
@@ -166,7 +166,7 @@ impl BatchReadOnlyTransaction {
             .spanner
             .partition_query(
                 request,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 self.inner.context.channel_hint,
             )
             .await?;
@@ -229,7 +229,7 @@ impl BatchReadOnlyTransaction {
             .spanner
             .partition_read(
                 request,
-                crate::RequestOptions::default(),
+                crate::GaxRequestOptions::default(),
                 self.inner.context.channel_hint,
             )
             .await?;

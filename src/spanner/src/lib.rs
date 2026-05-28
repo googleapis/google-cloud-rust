@@ -35,10 +35,10 @@ pub use batch_write_transaction::{
 pub use error::BatchUpdateError;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 pub use rust_decimal::Decimal;
 
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
-pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 

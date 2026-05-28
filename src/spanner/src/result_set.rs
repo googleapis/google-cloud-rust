@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::google::spanner::v1::{self, PartialResultSet};
@@ -27,7 +28,6 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 use google_cloud_gax::retry_state::RetryState;
 use std::collections::VecDeque;

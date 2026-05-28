@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::key::KeySet;
 use crate::model::DirectedReadOptions;
 use crate::model::read_request::{LockHint, OrderBy};
 use crate::model::request_options::Priority;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::time::Duration;
 

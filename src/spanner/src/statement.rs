@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::model::DirectedReadOptions;
 use crate::model::execute_sql_request::QueryMode;
 use crate::model::execute_sql_request::QueryOptions;
@@ -20,7 +21,6 @@ use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::collections::BTreeMap;
 use std::time::Duration;

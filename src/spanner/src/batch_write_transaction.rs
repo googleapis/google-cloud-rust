@@ -103,7 +103,7 @@ impl BatchWriteTransaction {
         let stream = self
             .client
             .spanner
-            .batch_write(req, crate::RequestOptions::default(), self.channel_hint)
+            .batch_write(req, crate::GaxRequestOptions::default(), self.channel_hint)
             .send()
             .await?;
         Ok(BatchWriteResponseStream { inner: stream })

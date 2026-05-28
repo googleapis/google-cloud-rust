@@ -230,6 +230,7 @@ pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
     begin_transaction_option: BeginTransactionOption,
+    begin_transaction_request_options: Option<crate::GaxRequestOptions>,
 }
 
 impl MultiUseReadOnlyTransactionBuilder {
@@ -238,6 +239,7 @@ impl MultiUseReadOnlyTransactionBuilder {
             client,
             timestamp_bound: None,
             begin_transaction_option: BeginTransactionOption::InlineBegin,
+            begin_transaction_request_options: None,
         }
     }
 
@@ -276,6 +278,33 @@ impl MultiUseReadOnlyTransactionBuilder {
         self
     }
 
+    /// Sets the request options to use for the `BeginTransaction` RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::GaxRequestOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let mut begin_options = GaxRequestOptions::default();
+    /// begin_options.set_attempt_timeout(Duration::from_secs(5));
+    ///
+    /// let tx = db_client.read_only_transaction()
+    ///     .with_begin_transaction_request_options(begin_options)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_transaction_request_options(
+        mut self,
+        options: crate::GaxRequestOptions,
+    ) -> Self {
+        self.begin_transaction_request_options = Some(options);
+        self
+    }
+
     /// Sets the timestamp bound for the read-only transaction.
     ///
     /// # Example
@@ -298,7 +327,7 @@ impl MultiUseReadOnlyTransactionBuilder {
         session_name: String,
         options: TransactionOptions,
         channel_hint: usize,
-        request_options: crate::RequestOptions,
+        request_options: crate::GaxRequestOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
         let response = execute_begin_transaction(
             &self.client,
@@ -346,7 +375,9 @@ impl MultiUseReadOnlyTransactionBuilder {
                     session_name.clone(),
                     options,
                     channel_hint,
-                    crate::RequestOptions::default(),
+                    self.begin_transaction_request_options
+                        .clone()
+                        .unwrap_or_default(),
                 )
                 .await?
             }
@@ -471,7 +502,7 @@ pub(crate) async fn execute_begin_transaction(
     options: crate::model::TransactionOptions,
     transaction_tag: Option<String>,
     channel_hint: usize,
-    request_options: crate::RequestOptions,
+    request_options: crate::GaxRequestOptions,
 ) -> crate::Result<crate::model::Transaction> {
     let mut request = crate::model::BeginTransactionRequest::default()
         .set_session(session_name)
@@ -574,7 +605,7 @@ pub(crate) struct ExplicitBeginParams {
     pub(crate) session_name: String,
     pub(crate) transaction_tag: Option<String>,
     pub(crate) channel_hint: usize,
-    pub(crate) request_options: crate::RequestOptions,
+    pub(crate) request_options: crate::GaxRequestOptions,
     pub(crate) is_stream_fallback: bool,
     pub(crate) precommit_token_tracker: crate::precommit::PrecommitTokenTracker,
 }
@@ -853,7 +884,7 @@ impl ReadContext {
     /// fallback mechanism when an initial implicit begin attempt failed.
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
-        request_options: crate::RequestOptions,
+        request_options: crate::GaxRequestOptions,
         is_stream_fallback: bool,
     ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {

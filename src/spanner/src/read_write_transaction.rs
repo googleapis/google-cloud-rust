@@ -14,7 +14,7 @@
 
 use crate::BatchDml;
 use crate::Error;
-use crate::RequestOptions;
+use crate::GaxRequestOptions;
 use crate::client::{Mutation, amend_request_options_for_lar};
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
@@ -45,7 +45,6 @@ use crate::transaction_retry_policy::is_aborted;
 use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::Aip194Strict;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
@@ -69,6 +68,8 @@ pub(crate) struct ReadWriteTransactionBuilder {
     return_commit_stats: bool,
     commit_priority: Priority,
     begin_transaction_option: BeginTransactionOption,
+    begin_transaction_request_options: Option<GaxRequestOptions>,
+    commit_request_options: Option<GaxRequestOptions>,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -83,6 +84,8 @@ impl ReadWriteTransactionBuilder {
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
             begin_transaction_option: BeginTransactionOption::InlineBegin,
+            begin_transaction_request_options: None,
+            commit_request_options: None,
         }
     }
 
@@ -136,8 +139,21 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+    pub(crate) fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
         self.begin_transaction_option = option;
+        self
+    }
+
+    pub(crate) fn with_begin_transaction_request_options(
+        mut self,
+        options: GaxRequestOptions,
+    ) -> Self {
+        self.begin_transaction_request_options = Some(options);
+        self
+    }
+
+    pub(crate) fn with_commit_request_options(mut self, options: GaxRequestOptions) -> Self {
+        self.commit_request_options = Some(options);
         self
     }
 
@@ -145,7 +161,7 @@ impl ReadWriteTransactionBuilder {
         &self,
         session_name: String,
         channel_hint: usize,
-        request_options: crate::RequestOptions,
+        request_options: crate::GaxRequestOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
         let response = crate::read_only_transaction::execute_begin_transaction(
             &self.client,
@@ -171,8 +187,10 @@ impl ReadWriteTransactionBuilder {
         let channel_hint = self.client.spanner.next_channel_hint();
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
-                // TODO(#4972): make request options configurable
-                let mut options = RequestOptions::default();
+                let mut options = self
+                    .begin_transaction_request_options
+                    .clone()
+                    .unwrap_or_default();
                 if let Some(d) = deadline {
                     let remaining = d.saturating_duration_since(Instant::now());
                     options.set_attempt_timeout(remaining);
@@ -205,6 +223,8 @@ impl ReadWriteTransactionBuilder {
             deadline,
             commit_priority: self.commit_priority.clone(),
             mutations: Arc::new(Mutex::new(Vec::new())),
+            begin_transaction_request_options: self.begin_transaction_request_options.clone(),
+            commit_request_options: self.commit_request_options.clone(),
         })
     }
 }
@@ -358,6 +378,8 @@ pub struct ReadWriteTransaction {
     return_commit_stats: bool,
     commit_priority: Priority,
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
+    begin_transaction_request_options: Option<GaxRequestOptions>,
+    commit_request_options: Option<GaxRequestOptions>,
 }
 
 impl ReadWriteTransaction {
@@ -570,7 +592,10 @@ impl ReadWriteTransaction {
         &self,
         is_stream_fallback: bool,
     ) -> crate::Result<bool> {
-        let mut begin_options = crate::RequestOptions::default();
+        let mut begin_options = self
+            .begin_transaction_request_options
+            .clone()
+            .unwrap_or_default();
         if let Some(d) = self.deadline {
             let remaining = d.saturating_duration_since(Instant::now());
             begin_options.set_attempt_timeout(remaining);
@@ -626,7 +651,10 @@ impl ReadWriteTransaction {
                 ));
             }
             // TODO(#5821): Include mutation_key during explicit transaction initialization fallback to preserve blind write intent on multiplexed sessions.
-            let mut begin_options = crate::RequestOptions::default();
+            let mut begin_options = self
+                .begin_transaction_request_options
+                .clone()
+                .unwrap_or_default();
             if let Some(d) = self.deadline {
                 let remaining = d.saturating_duration_since(Instant::now());
                 begin_options.set_attempt_timeout(remaining);
@@ -648,8 +676,7 @@ impl ReadWriteTransaction {
 
         let request = self.build_commit_request(transaction_id.clone(), mutations, precommit_token);
 
-        // TODO(#4972): make request options configurable
-        let mut gax_options = GaxRequestOptions::default();
+        let mut gax_options = self.commit_request_options.clone().unwrap_or_default();
         self.amend_gax_options(&mut gax_options);
 
         let response = self
@@ -667,8 +694,7 @@ impl ReadWriteTransaction {
                     Some(*new_precommit_token),
                 );
 
-                // TODO(#4972): make request options configurable
-                let mut gax_options = GaxRequestOptions::default();
+                let mut gax_options = self.commit_request_options.clone().unwrap_or_default();
                 self.amend_gax_options(&mut gax_options);
 
                 self.context
@@ -693,7 +719,7 @@ impl ReadWriteTransaction {
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
-        let mut gax_options = RequestOptions::default();
+        let mut gax_options = GaxRequestOptions::default();
         self.amend_gax_options(&mut gax_options);
 
         self.context
@@ -3092,6 +3118,176 @@ mod tests {
             })
             .await?;
 
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_lazy_begin_fallback_propagates_custom_options()
+    -> anyhow::Result<()> {
+        use http::{HeaderMap, HeaderName, HeaderValue};
+
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First statement execution uses inline-begin and fails with Unavailable (transient error)
+        // TODO(#5778): This should actually be retried automatically by GAX.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Begin(_))
+                )
+            })
+            .returning(move |_req| Err(tonic::Status::unavailable("transient error")));
+
+        // 2. Fallback explicit BeginTransaction is executed and propagates custom options
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |req| {
+                assert_eq!(
+                    req.metadata()
+                        .get("x-custom-fallback-begin")
+                        .expect("custom header should be present")
+                        .to_str()
+                        .unwrap(),
+                    "true",
+                    "Fallback begin must propagate custom begin transaction request options"
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Statement is retried and now includes a Transaction ID.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Id(_))
+                )
+            })
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.transaction.unwrap().selector.unwrap(),
+                    v1::transaction_selector::Selector::Id(vec![42].into())
+                );
+                Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 4. Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(prost_types::Timestamp {
+                        seconds: 1234,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut begin_opts = crate::GaxRequestOptions::default();
+        let mut begin_headers = HeaderMap::new();
+        begin_headers.insert(
+            HeaderName::from_static("x-custom-fallback-begin"),
+            HeaderValue::from_static("true"),
+        );
+        begin_opts = begin_opts.insert_extension(begin_headers);
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_begin_transaction_request_options(begin_opts)
+            .build()
+            .await?;
+
+        let res = runner
+            .run(async |tx| {
+                let count = tx
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                assert_eq!(count, 1);
+                Ok(())
+            })
+            .await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_under_deadline_delegates_to_custom_retry_policy()
+    -> anyhow::Result<()> {
+        use google_cloud_gax::retry_policy::NeverRetry;
+
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![8, 8, 8],
+                ..Default::default()
+            }))
+        });
+
+        // Commit fails with Unavailable. Since we use NeverRetry, it must fail immediately without retry.
+        mock.expect_commit()
+            .once()
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut commit_opts = crate::GaxRequestOptions::default();
+        commit_opts.set_retry_policy(NeverRetry);
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_commit_request_options(commit_opts)
+            .with_transaction_timeout(StdDuration::from_secs(5))
+            .build()
+            .await?;
+
+        let res = runner.run(async |_tx| Ok(())).await;
+
+        assert!(
+            res.is_err(),
+            "Should fail because NeverRetry aborted retries"
+        );
+        let err = res.unwrap_err();
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(Code::Unavailable),
+            "Error code should be Unavailable"
+        );
         Ok(())
     }
 }

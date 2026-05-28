@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::GaxRequestOptions;
 use crate::client::{DatabaseClient, Mutation, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
@@ -23,7 +24,6 @@ use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
 use bytes::Bytes;
-use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use std::sync::{Arc, Mutex};
 use wkt::Duration;
 
@@ -36,6 +36,8 @@ pub struct WriteOnlyTransactionBuilder {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
+    begin_transaction_request_options: Option<GaxRequestOptions>,
+    commit_request_options: Option<GaxRequestOptions>,
 }
 
 impl WriteOnlyTransactionBuilder {
@@ -48,6 +50,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: false,
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
+            begin_transaction_request_options: None,
+            commit_request_options: None,
         }
     }
 
@@ -201,6 +205,52 @@ impl WriteOnlyTransactionBuilder {
         self
     }
 
+    /// Sets the request options to use for the `BeginTransaction` RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::GaxRequestOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let mut begin_options = GaxRequestOptions::default();
+    /// begin_options.set_attempt_timeout(Duration::from_secs(5));
+    ///
+    /// let tx = db_client.write_only_transaction()
+    ///     .with_begin_transaction_request_options(begin_options)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_transaction_request_options(mut self, options: GaxRequestOptions) -> Self {
+        self.begin_transaction_request_options = Some(options);
+        self
+    }
+
+    /// Sets the request options to use for the `Commit` RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::GaxRequestOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let mut commit_options = GaxRequestOptions::default();
+    /// commit_options.set_attempt_timeout(Duration::from_secs(10));
+    ///
+    /// let tx = db_client.write_only_transaction()
+    ///     .with_commit_request_options(commit_options)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_request_options(mut self, options: GaxRequestOptions) -> Self {
+        self.commit_request_options = Some(options);
+        self
+    }
+
     /// Builds the [WriteOnlyTransaction].
     ///
     /// # Example
@@ -223,6 +273,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
             return_commit_stats: self.return_commit_stats,
             commit_priority: self.commit_priority,
+            begin_transaction_request_options: self.begin_transaction_request_options,
+            commit_request_options: self.commit_request_options,
         }
     }
 }
@@ -239,6 +291,8 @@ pub struct WriteOnlyTransaction {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
+    begin_transaction_request_options: Option<GaxRequestOptions>,
+    commit_request_options: Option<GaxRequestOptions>,
 }
 
 impl WriteOnlyTransaction {
@@ -274,7 +328,8 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let gax_options = self.gax_options();
+        let begin_gax_options = self.begin_gax_options();
+        let commit_gax_options = self.commit_gax_options();
         let req_options = RequestOptions::default()
             .set_transaction_tag(self.transaction_tag.unwrap_or_default())
             .set_priority(self.commit_priority.clone());
@@ -296,7 +351,8 @@ impl WriteOnlyTransaction {
             let mutations_proto = mutations_proto.clone();
             let mutation_key = mutation_key.clone();
             let previous_transaction_id = previous_transaction_id.clone();
-            let gax_options = gax_options.clone();
+            let begin_gax_options = begin_gax_options.clone();
+            let commit_gax_options = commit_gax_options.clone();
 
             async move {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
@@ -318,7 +374,7 @@ impl WriteOnlyTransaction {
 
                 let tx = client
                     .spanner
-                    .begin_transaction(begin_req, gax_options.clone(), channel_hint)
+                    .begin_transaction(begin_req, begin_gax_options.clone(), channel_hint)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -334,7 +390,7 @@ impl WriteOnlyTransaction {
 
                 let response = client
                     .spanner
-                    .commit(commit_req, gax_options.clone(), channel_hint)
+                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -351,7 +407,7 @@ impl WriteOnlyTransaction {
                     );
                     client
                         .spanner
-                        .commit(retry_commit_req, gax_options, channel_hint)
+                        .commit(retry_commit_req, commit_gax_options, channel_hint)
                         .await
                 } else {
                     Ok(response)
@@ -397,7 +453,7 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let gax_options = self.gax_options();
+        let gax_options = self.commit_gax_options();
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
             .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
@@ -429,10 +485,19 @@ impl WriteOnlyTransaction {
         .await
     }
 
-    fn gax_options(&self) -> GaxRequestOptions {
+    fn begin_gax_options(&self) -> GaxRequestOptions {
         amend_request_options_for_lar(
             self.client.leader_aware_routing_enabled,
-            GaxRequestOptions::default(),
+            self.begin_transaction_request_options
+                .clone()
+                .unwrap_or_default(),
+        )
+    }
+
+    fn commit_gax_options(&self) -> GaxRequestOptions {
+        amend_request_options_for_lar(
+            self.client.leader_aware_routing_enabled,
+            self.commit_request_options.clone().unwrap_or_default(),
         )
     }
 }

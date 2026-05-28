@@ -34,7 +34,7 @@ use std::sync::LazyLock;
 pub(crate) struct ExecuteStreamingSql {
     grpc_client: gaxi::grpc::Client,
     request: ExecuteSqlRequest,
-    options: crate::RequestOptions,
+    options: crate::GaxRequestOptions,
 }
 
 impl ExecuteStreamingSql {
@@ -42,7 +42,7 @@ impl ExecuteStreamingSql {
         Self {
             grpc_client,
             request: ExecuteSqlRequest::default(),
-            options: crate::RequestOptions::default(),
+            options: crate::GaxRequestOptions::default(),
         }
     }
 
@@ -53,7 +53,7 @@ impl ExecuteStreamingSql {
     }
 
     /// Sets all the options, replacing any prior values.
-    pub(crate) fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+    pub(crate) fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
     }
@@ -76,7 +76,7 @@ impl ExecuteStreamingSql {
 }
 
 impl crate::RequestBuilder for ExecuteStreamingSql {
-    fn request_options(&mut self) -> &mut crate::RequestOptions {
+    fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
         &mut self.options
     }
 }
@@ -86,7 +86,7 @@ impl crate::RequestBuilder for ExecuteStreamingSql {
 pub(crate) struct StreamingRead {
     grpc_client: gaxi::grpc::Client,
     request: ReadRequest,
-    options: crate::RequestOptions,
+    options: crate::GaxRequestOptions,
 }
 
 impl StreamingRead {
@@ -94,7 +94,7 @@ impl StreamingRead {
         Self {
             grpc_client,
             request: ReadRequest::default(),
-            options: crate::RequestOptions::default(),
+            options: crate::GaxRequestOptions::default(),
         }
     }
 
@@ -105,7 +105,7 @@ impl StreamingRead {
     }
 
     /// Sets all the options, replacing any prior values.
-    pub(crate) fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+    pub(crate) fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
     }
@@ -128,7 +128,7 @@ impl StreamingRead {
 }
 
 impl crate::RequestBuilder for StreamingRead {
-    fn request_options(&mut self) -> &mut crate::RequestOptions {
+    fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
         &mut self.options
     }
 }
@@ -138,7 +138,7 @@ impl crate::RequestBuilder for StreamingRead {
 pub(crate) struct BatchWrite {
     grpc_client: gaxi::grpc::Client,
     request: BatchWriteRequest,
-    options: crate::RequestOptions,
+    options: crate::GaxRequestOptions,
 }
 
 impl BatchWrite {
@@ -146,7 +146,7 @@ impl BatchWrite {
         Self {
             grpc_client,
             request: BatchWriteRequest::default(),
-            options: crate::RequestOptions::default(),
+            options: crate::GaxRequestOptions::default(),
         }
     }
 
@@ -157,7 +157,7 @@ impl BatchWrite {
     }
 
     /// Sets all the options, replacing any prior values.
-    pub(crate) fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+    pub(crate) fn with_options<V: Into<crate::GaxRequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
     }
@@ -180,7 +180,7 @@ impl BatchWrite {
 }
 
 impl crate::RequestBuilder for BatchWrite {
-    fn request_options(&mut self) -> &mut crate::RequestOptions {
+    fn request_options(&mut self) -> &mut crate::GaxRequestOptions {
         &mut self.options
     }
 }
@@ -197,7 +197,7 @@ static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
 async fn make_server_streaming_request<Req, Res>(
     grpc_client: &gaxi::grpc::Client,
     request: Req,
-    options: crate::RequestOptions,
+    options: crate::GaxRequestOptions,
     method_name: &'static str,
     path_str: &'static str,
     session: &str,
