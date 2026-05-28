@@ -765,6 +765,7 @@ mod tests {
     use crate::result_set::tests::adapt;
     use gaxi::grpc::tonic;
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
@@ -3220,9 +3221,12 @@ mod tests {
 
         let res = runner
             .run(async |tx| {
-                let count = tx
-                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
-                    .await?;
+                let mut query_opts = crate::GaxRequestOptions::default();
+                query_opts.set_retry_policy(NeverRetry);
+                let stmt = Statement::builder("UPDATE Users SET active = true WHERE id = 1")
+                    .build()
+                    .with_gax_options(query_opts);
+                let count = tx.execute_update(stmt).await?;
                 assert_eq!(count, 1);
                 Ok(())
             })
@@ -3235,8 +3239,6 @@ mod tests {
     #[tokio_test_no_panics]
     async fn read_write_transaction_commit_under_deadline_delegates_to_custom_retry_policy()
     -> anyhow::Result<()> {
-        use google_cloud_gax::retry_policy::NeverRetry;
-
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|_| {
             Ok(tonic::Response::new(v1::Transaction {
@@ -3442,9 +3444,12 @@ mod tests {
 
         let res = runner
             .run(async |tx| {
-                let count = tx
-                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
-                    .await?;
+                let mut query_opts = crate::GaxRequestOptions::default();
+                query_opts.set_retry_policy(NeverRetry);
+                let stmt = Statement::builder("UPDATE Users SET active = true WHERE id = 1")
+                    .build()
+                    .with_gax_options(query_opts);
+                let count = tx.execute_update(stmt).await?;
                 assert_eq!(count, 1);
                 Ok(())
             })

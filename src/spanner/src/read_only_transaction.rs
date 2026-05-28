@@ -1018,6 +1018,7 @@ pub(crate) mod tests {
     use crate::value::Value;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
     use google_cloud_gax::options::internal::RequestOptionsExt;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::MockSpanner;
@@ -2989,6 +2990,7 @@ pub(crate) mod tests {
         // Statement has its own custom options (e.g. query-specific header), which acts as the fallback options.
         // The fallback begin_transaction should ignore the query options and use the transaction's begin options.
         let mut query_opts = crate::GaxRequestOptions::default();
+        query_opts.set_retry_policy(NeverRetry);
         let mut query_headers = HeaderMap::new();
         query_headers.insert(
             HeaderName::from_static("x-query-only-header"),
