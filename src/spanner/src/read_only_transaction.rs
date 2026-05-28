@@ -1016,7 +1016,6 @@ pub(crate) mod tests {
     use crate::result_set::tests::adapt;
     use crate::result_set::tests::string_val;
     use crate::value::Value;
-    use ::tonic as extern_tonic;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
     use google_cloud_gax::options::internal::RequestOptionsExt;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -2852,22 +2851,18 @@ pub(crate) mod tests {
         mock.expect_begin_transaction()
             .once()
             .in_sequence(&mut sequence)
-            .returning(
-                |req: extern_tonic::Request<mock_v1::BeginTransactionRequest>| {
-                    assert_eq!(
-                        req.metadata()
-                            .get("x-custom-begin-ro")
-                            .expect("custom header should be present")
-                            .to_str()
-                            .unwrap(),
-                        "true"
-                    );
-                    Ok(tonic::Response::new(mock_v1::Transaction {
-                        id: vec![42],
-                        ..Default::default()
-                    }))
-                },
-            );
+            .withf(|req| {
+                req.metadata()
+                    .get("x-custom-begin-ro")
+                    .and_then(|v| v.to_str().ok())
+                    == Some("true")
+            })
+            .returning(|_| {
+                Ok(tonic::Response::new(mock_v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
 
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
@@ -2909,7 +2904,7 @@ pub(crate) mod tests {
         mock.expect_execute_streaming_sql()
             .once()
             .in_sequence(&mut sequence)
-            .withf(|req: &extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
+            .withf(|req| {
                 matches!(
                     req.get_ref()
                         .transaction
@@ -2918,67 +2913,53 @@ pub(crate) mod tests {
                     Some(mock_v1::transaction_selector::Selector::Begin(_))
                 )
             })
-            .returning(
-                move |_req: extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
-                    Err(tonic::Status::unavailable("transient error"))
-                },
-            );
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
 
         // 2. Fallback explicit BeginTransaction is executed and propagates custom options
         mock.expect_begin_transaction()
             .once()
             .in_sequence(&mut sequence)
-            .returning(
-                move |req: extern_tonic::Request<mock_v1::BeginTransactionRequest>| {
-                    assert_eq!(
-                        req.metadata()
-                            .get("x-custom-fallback-begin-ro")
-                            .expect("custom header should be present")
-                            .to_str()
-                            .unwrap(),
-                        "true",
-                        "Fallback begin must propagate custom begin transaction request options"
-                    );
-                    assert!(
-                        req.metadata().get("x-query-only-header").is_none(),
-                        "Fallback begin must ignore statement-level query options when transaction-level options are set"
-                    );
-                    Ok(tonic::Response::new(mock_v1::Transaction {
-                        id: vec![42],
-                        ..Default::default()
-                    }))
-                },
-            );
+            .withf(|req| {
+                req.metadata()
+                    .get("x-custom-fallback-begin-ro")
+                    .and_then(|v| v.to_str().ok())
+                    == Some("true")
+                    && req.metadata().get("x-query-only-header").is_none()
+            })
+            .returning(|_| {
+                Ok(tonic::Response::new(mock_v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
 
         // 3. Query is retried and matches the Id variant, succeeding this time
         mock.expect_execute_streaming_sql()
             .once()
             .in_sequence(&mut sequence)
-            .withf(|req: &extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
+            .withf(|req| {
                 matches!(
                     req.get_ref()
                         .transaction
                         .as_ref()
                         .and_then(|t| t.selector.as_ref()),
-                    Some(mock_v1::transaction_selector::Selector::Id(_))
+                    Some(mock_v1::transaction_selector::Selector::Id(id)) if id == &vec![42]
                 )
             })
-            .returning(
-                move |_req: extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
-                    let mut result_set_partial = setup_select1();
-                    result_set_partial
-                        .metadata
-                        .as_mut()
-                        .expect("metadata should be present")
-                        .transaction = Some(mock_v1::Transaction {
-                        id: vec![42],
-                        ..Default::default()
-                    });
-                    Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
-                        result_set_partial,
-                    )])))
-                },
-            );
+            .returning(|_| {
+                let mut result_set_partial = setup_select1();
+                result_set_partial
+                    .metadata
+                    .as_mut()
+                    .expect("metadata should be present")
+                    .transaction = Some(mock_v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                });
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    result_set_partial,
+                )])))
+            });
 
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {

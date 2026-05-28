@@ -1297,15 +1297,13 @@ mod tests {
         mock.expect_begin_transaction()
             .once()
             .in_sequence(&mut seq)
-            .returning(move |req| {
-                assert_eq!(
-                    req.metadata()
-                        .get("x-custom-begin-wo")
-                        .expect("begin header required")
-                        .to_str()
-                        .unwrap(),
-                    "true"
-                );
+            .withf(|req| {
+                req.metadata()
+                    .get("x-custom-begin-wo")
+                    .and_then(|v| v.to_str().ok())
+                    == Some("true")
+            })
+            .returning(|_| {
                 Ok(Response::new(Transaction {
                     id: vec![42],
                     ..Default::default()
@@ -1315,15 +1313,13 @@ mod tests {
         mock.expect_commit()
             .once()
             .in_sequence(&mut seq)
-            .returning(move |req| {
-                assert_eq!(
-                    req.metadata()
-                        .get("x-custom-commit-wo")
-                        .expect("commit header required")
-                        .to_str()
-                        .unwrap(),
-                    "true"
-                );
+            .withf(|req| {
+                req.metadata()
+                    .get("x-custom-commit-wo")
+                    .and_then(|v| v.to_str().ok())
+                    == Some("true")
+            })
+            .returning(|_| {
                 Ok(Response::new(CommitResponse {
                     commit_timestamp: Some(Timestamp {
                         seconds: 8888,
@@ -1388,23 +1384,23 @@ mod tests {
 
         mock.expect_begin_transaction().never();
 
-        mock.expect_commit().once().returning(move |req| {
-            assert_eq!(
+        mock.expect_commit()
+            .once()
+            .withf(|req| {
                 req.metadata()
                     .get("x-custom-commit-at-least-once")
-                    .expect("commit header required")
-                    .to_str()
-                    .unwrap(),
-                "true"
-            );
-            Ok(Response::new(CommitResponse {
-                commit_timestamp: Some(Timestamp {
-                    seconds: 7777,
-                    nanos: 0,
-                }),
-                ..Default::default()
-            }))
-        });
+                    .and_then(|v| v.to_str().ok())
+                    == Some("true")
+            })
+            .returning(|_| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 7777,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
 
         let (db_client, _server) = setup_db_client(mock).await;
 
