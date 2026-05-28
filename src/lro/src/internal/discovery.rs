@@ -121,8 +121,9 @@ where
             #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
                 if let Some(name) = op.name() {
-                    let _ =
-                        crate::internal::LRO_RECORDER.try_with(|r| r.record_destination_id(name));
+                    if let Some(recorder) = crate::internal::LroRecorder::current() {
+                        recorder.record_destination_id(name);
+                    }
                 }
             }
             let (op, poll) = self::handle_start(result);
@@ -136,8 +137,9 @@ where
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
             #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref next_name) = op {
-                let _ =
-                    crate::internal::LRO_RECORDER.try_with(|r| r.record_destination_id(next_name));
+                if let Some(recorder) = crate::internal::LroRecorder::current() {
+                    recorder.record_destination_id(next_name);
+                }
             }
             self.operation = op;
             return Some(poll);
@@ -615,11 +617,8 @@ mod tests {
         let span = test_span();
         let poller_ref = &mut poller;
         let recorder = crate::internal::LroRecorder::new(span.clone());
-        let _ = crate::internal::LRO_RECORDER
-            .scope(
-                recorder,
-                async move { poller_ref.poll().instrument(span).await },
-            )
+        let _ = recorder
+            .scope(async move { poller_ref.poll().instrument(span).await })
             .await;
 
         {
@@ -639,10 +638,8 @@ mod tests {
         let span = test_span();
         let poller_ref2 = &mut poller;
         let recorder2 = crate::internal::LroRecorder::new(span.clone());
-        let _ = crate::internal::LRO_RECORDER
-            .scope(recorder2, async move {
-                poller_ref2.poll().instrument(span).await
-            })
+        let _ = recorder2
+            .scope(async move { poller_ref2.poll().instrument(span).await })
             .await;
 
         {

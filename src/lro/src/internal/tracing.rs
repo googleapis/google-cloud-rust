@@ -26,7 +26,7 @@ tokio::task_local! {
 
 #[cfg(google_cloud_unstable_tracing)]
 tokio::task_local! {
-    pub(crate) static LRO_RECORDER: LroRecorder;
+    static LRO_RECORDER: LroRecorder;
 }
 
 #[cfg(google_cloud_unstable_tracing)]
@@ -45,6 +45,19 @@ impl LroRecorder {
             poll_attempt_count: 0,
             started: false,
         }
+    }
+
+    /// Returns the recorder in the current task scope.
+    pub fn current() -> Option<Self> {
+        LRO_RECORDER.try_get().ok()
+    }
+
+    /// Runs a future within the scope of this recorder.
+    pub async fn scope<F, T>(&self, future: F) -> T
+    where
+        F: std::future::Future<Output = T>,
+    {
+        LRO_RECORDER.scope(self.clone(), future).await
     }
 
     #[cfg(test)]
@@ -74,14 +87,12 @@ impl LroRecorder {
             0 // Initial triggers record nothing
         };
         let span = self.span.clone();
-        let recorder = self.clone();
-        LRO_RECORDER
-            .scope(recorder, async move {
-                POLL_ATTEMPT_COUNT
-                    .scope(attempt, async move { f(span).await })
-                    .await
-            })
-            .await
+        self.scope(async move {
+            POLL_ATTEMPT_COUNT
+                .scope(attempt, async move { f(span).await })
+                .await
+        })
+        .await
     }
 
     pub async fn record_action<F, Fut, T>(&self, f: F) -> T
@@ -90,10 +101,7 @@ impl LroRecorder {
         Fut: std::future::Future<Output = T>,
     {
         let span = self.span.clone();
-        let recorder = self.clone();
-        LRO_RECORDER
-            .scope(recorder, async move { f(span).await })
-            .await
+        self.scope(async move { f(span).await }).await
     }
 }
 
@@ -150,10 +158,9 @@ where
         #[cfg(google_cloud_unstable_tracing)]
         {
             let inner = &mut self.inner;
-            return self
-                .recorder
+            self.recorder
                 .record_poll(|span| async move { inner.poll().instrument(span).await })
-                .await;
+                .await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
@@ -174,7 +181,7 @@ where
             if let Err(ref e) = result {
                 recorder.record_error(e);
             }
-            return result;
+            result
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         {
@@ -299,7 +306,7 @@ mod tests {
         let span_clone = span.clone();
         recorder_mut
             .record_poll(|_| async move {
-                let active_recorder = LRO_RECORDER.try_with(|r| r.clone()).unwrap();
+                let active_recorder = LroRecorder::current().unwrap();
                 assert_eq!(
                     active_recorder.span().metadata().unwrap().name(),
                     "test_lro_span"
@@ -312,7 +319,7 @@ mod tests {
         let span_clone2 = span.clone();
         recorder
             .record_action(|_| async move {
-                let active_recorder = LRO_RECORDER.try_with(|r| r.clone()).unwrap();
+                let active_recorder = LroRecorder::current().unwrap();
                 assert_eq!(
                     active_recorder.span().metadata().unwrap().name(),
                     "test_lro_span"
