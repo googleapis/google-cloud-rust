@@ -597,14 +597,7 @@ impl ReadWriteTransaction {
             .begin_transaction_request_options
             .clone()
             .unwrap_or_default();
-        if let Some(d) = self.deadline {
-            let remaining = d.saturating_duration_since(Instant::now());
-            begin_options.set_attempt_timeout(remaining);
-        }
-        begin_options = amend_request_options_for_lar(
-            self.context.client.leader_aware_routing_enabled,
-            begin_options,
-        );
+        self.amend_gax_options(&mut begin_options);
         self.context
             .begin_explicitly_if_not_started(begin_options, is_stream_fallback)
             .await
@@ -656,14 +649,7 @@ impl ReadWriteTransaction {
                 .begin_transaction_request_options
                 .clone()
                 .unwrap_or_default();
-            if let Some(d) = self.deadline {
-                let remaining = d.saturating_duration_since(Instant::now());
-                begin_options.set_attempt_timeout(remaining);
-            }
-            begin_options = amend_request_options_for_lar(
-                self.context.client.leader_aware_routing_enabled,
-                begin_options,
-            );
+            self.amend_gax_options(&mut begin_options);
             if self
                 .context
                 .begin_explicitly_if_not_started(begin_options, false)
