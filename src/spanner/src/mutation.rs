@@ -34,7 +34,12 @@ use std::vec::IntoIter;
 ///
 /// Use the methods on `Mutation` to create a builder for the desired operation type.
 #[derive(Clone, Debug, PartialEq)]
-pub enum Mutation {
+pub struct Mutation {
+    pub(crate) inner: InternalMutation,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub(crate) enum InternalMutation {
     /// Inserts a new row in a table. If the row already exists, the write or transaction fails with
     /// `ALREADY_EXISTS`.
     Insert(Write),
@@ -53,19 +58,19 @@ pub enum Mutation {
 
 /// A mutation that inserts, updates, or replaces rows in a table.
 #[derive(Clone, Debug, PartialEq)]
-pub struct Write {
-    pub table: String,
-    pub columns: Vec<String>,
-    pub values: Vec<Value>,
+pub(crate) struct Write {
+    pub(crate) table: String,
+    pub(crate) columns: Vec<String>,
+    pub(crate) values: Vec<Value>,
 }
 
 /// A mutation that deletes rows from a table.
 #[derive(Clone, Debug, PartialEq)]
-pub struct Delete {
-    pub table: String,
+pub(crate) struct Delete {
+    pub(crate) table: String,
     // This will be replaced with the KeySet definition from the
     // spanner-keys branch once it has been merged.
-    pub key_set: KeySet,
+    pub(crate) key_set: KeySet,
 }
 
 impl Mutation {
@@ -131,23 +136,29 @@ impl Mutation {
     /// // Example omitted temporarily until the new KeySet API is merged
     /// ```
     pub fn delete(table: impl Into<String>, key_set: KeySet) -> Mutation {
-        Mutation::Delete(Delete {
-            table: table.into(),
-            key_set,
-        })
+        Mutation {
+            inner: InternalMutation::Delete(Delete {
+                table: table.into(),
+                key_set,
+            }),
+        }
     }
 
     pub(crate) fn build_proto(self) -> crate::model::Mutation {
-        match self {
-            Mutation::Insert(write) => crate::model::Mutation::new().set_insert(write.into_proto()),
-            Mutation::Update(write) => crate::model::Mutation::new().set_update(write.into_proto()),
-            Mutation::InsertOrUpdate(write) => {
+        match self.inner {
+            InternalMutation::Insert(write) => {
+                crate::model::Mutation::new().set_insert(write.into_proto())
+            }
+            InternalMutation::Update(write) => {
+                crate::model::Mutation::new().set_update(write.into_proto())
+            }
+            InternalMutation::InsertOrUpdate(write) => {
                 crate::model::Mutation::new().set_insert_or_update(write.into_proto())
             }
-            Mutation::Replace(write) => {
+            InternalMutation::Replace(write) => {
                 crate::model::Mutation::new().set_replace(write.into_proto())
             }
-            Mutation::Delete(delete) => {
+            InternalMutation::Delete(delete) => {
                 crate::model::Mutation::new().set_delete(delete.into_proto())
             }
         }
@@ -245,12 +256,13 @@ impl WriteBuilder {
             columns: self.columns,
             values: self.values,
         };
-        match self.mutation_type {
-            MutationType::Insert => Mutation::Insert(write),
-            MutationType::Update => Mutation::Update(write),
-            MutationType::InsertOrUpdate => Mutation::InsertOrUpdate(write),
-            MutationType::Replace => Mutation::Replace(write),
-        }
+        let inner = match self.mutation_type {
+            MutationType::Insert => InternalMutation::Insert(write),
+            MutationType::Update => InternalMutation::Update(write),
+            MutationType::InsertOrUpdate => InternalMutation::InsertOrUpdate(write),
+            MutationType::Replace => InternalMutation::Replace(write),
+        };
+        Mutation { inner }
     }
 }
 
@@ -377,8 +389,8 @@ mod tests {
             .to(&"Alice")
             .build();
 
-        match mutation {
-            Mutation::Insert(write) => {
+        match mutation.inner {
+            InternalMutation::Insert(write) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId", "UserName"]);
                 assert_eq!(write.values.len(), 2);
@@ -396,8 +408,8 @@ mod tests {
             .to(&1)
             .build();
 
-        match mutation {
-            Mutation::Update(write) => {
+        match mutation.inner {
+            InternalMutation::Update(write) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
@@ -414,8 +426,8 @@ mod tests {
             .to(&1)
             .build();
 
-        match mutation {
-            Mutation::InsertOrUpdate(write) => {
+        match mutation.inner {
+            InternalMutation::InsertOrUpdate(write) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
@@ -432,8 +444,8 @@ mod tests {
             .to(&1)
             .build();
 
-        match mutation {
-            Mutation::Replace(write) => {
+        match mutation.inner {
+            InternalMutation::Replace(write) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
