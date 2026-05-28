@@ -42,7 +42,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn create_session(
         &self,
         _req: crate::model::CreateSessionRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Session>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
@@ -52,7 +52,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn batch_create_sessions(
         &self,
         _req: crate::model::BatchCreateSessionsRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::BatchCreateSessionsResponse>>,
     > + Send {
@@ -63,7 +63,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn get_session(
         &self,
         _req: crate::model::GetSessionRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Session>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
@@ -73,7 +73,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn list_sessions(
         &self,
         _req: crate::model::ListSessionsRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListSessionsResponse>>,
     > + Send {
@@ -84,7 +84,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn delete_session(
         &self,
         _req: crate::model::DeleteSessionRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -93,7 +93,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn execute_sql(
         &self,
         _req: crate::model::ExecuteSqlRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ResultSet>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
@@ -103,7 +103,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn execute_batch_dml(
         &self,
         _req: crate::model::ExecuteBatchDmlRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ExecuteBatchDmlResponse>>,
     > + Send {
@@ -114,7 +114,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn read(
         &self,
         _req: crate::model::ReadRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ResultSet>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
@@ -124,7 +124,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn begin_transaction(
         &self,
         _req: crate::model::BeginTransactionRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Transaction>>>
     + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -134,7 +134,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn commit(
         &self,
         _req: crate::model::CommitRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::CommitResponse>>,
     > + Send {
@@ -145,7 +145,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn rollback(
         &self,
         _req: crate::model::RollbackRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -154,7 +154,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn partition_query(
         &self,
         _req: crate::model::PartitionQueryRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::PartitionResponse>>,
     > + Send {
@@ -165,7 +165,7 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     fn partition_read(
         &self,
         _req: crate::model::PartitionReadRequest,
-        _options: crate::GaxRequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::PartitionResponse>>,
     > + Send {

@@ -35,6 +35,7 @@ pub use batch_write_transaction::{
 pub use error::BatchUpdateError;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub use google_cloud_gax::options::RequestOptions;
 pub use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 pub use rust_decimal::Decimal;
 
