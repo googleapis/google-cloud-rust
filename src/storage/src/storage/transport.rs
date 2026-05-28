@@ -18,7 +18,7 @@ use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
-use crate::storage::get_service_account::ServiceAccountLookup;
+use crate::storage::get_service_account::{GetServiceAccountRequest, ServiceAccountLookup};
 use crate::storage::info::INSTRUMENTATION;
 use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
@@ -65,12 +65,12 @@ impl Storage {
 
     async fn get_service_account_plain(
         &self,
-        project: String,
+        request: GetServiceAccountRequest,
         options: RequestOptions,
     ) -> Result<String> {
         let service_account = ServiceAccountLookup {
             inner: self.inner.clone(),
-            project,
+            project: request.project,
             options,
         };
         service_account.response().await
@@ -80,14 +80,19 @@ impl Storage {
         name = "get_service_account",
         level = tracing::Level::DEBUG,
         ret,
-        err(Debug)
+        err(Debug),
+        skip(request)
     )]
     async fn get_service_account_tracing(
         &self,
-        project: String,
+        request: GetServiceAccountRequest,
         options: RequestOptions,
     ) -> Result<String> {
-        let resource_name = format!("//storage.googleapis.com/projects/{}", project);
+        let project_id = request
+            .project
+            .strip_prefix("projects/")
+            .unwrap_or(&request.project);
+        let resource_name = format!("//storage.googleapis.com/projects/{}", project_id);
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.metric.clone(),
             info: *INSTRUMENTATION,
@@ -100,7 +105,7 @@ impl Storage {
                             .set_resource_name(resource_name),
                     );
                 }
-                self.get_service_account_plain(project, options).await
+                self.get_service_account_plain(request, options).await
             }
         );
         pending.await
@@ -312,13 +317,13 @@ impl super::stub::Storage for Storage {
     /// Implements [crate::client::Storage::get_service_account].
     async fn get_service_account(
         &self,
-        project: String,
+        request: GetServiceAccountRequest,
         options: RequestOptions,
     ) -> Result<String> {
         if self.tracing {
-            self.get_service_account_tracing(project, options).await
+            self.get_service_account_tracing(request, options).await
         } else {
-            self.get_service_account_plain(project, options).await
+            self.get_service_account_plain(request, options).await
         }
     }
 

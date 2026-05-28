@@ -20,6 +20,22 @@ use gaxi::http::NoBody;
 use gaxi::http::reqwest::{HeaderValue, Method, RequestBuilder};
 use std::sync::Arc;
 
+/// Request message for [Storage::get_service_account][crate::client::Storage::get_service_account].
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetServiceAccountRequest {
+    /// The project name, either `projects/{projectId}` or `projects/{projectNumber}`.
+    pub project: String,
+}
+
+impl GetServiceAccountRequest {
+    /// Creates a new request with the given project.
+    pub fn new(project: impl Into<String>) -> Self {
+        Self {
+            project: project.into(),
+        }
+    }
+}
+
 /// The request builder for [Storage::get_service_account][crate::client::Storage::get_service_account] calls.
 #[derive(Clone, Debug)]
 pub struct GetServiceAccount<S>
@@ -36,10 +52,6 @@ where
     S: crate::storage::stub::Storage + 'static,
 {
     pub(crate) fn new(stub: Arc<S>, project: String, options: RequestOptions) -> Self {
-        let project = project
-            .strip_prefix("projects/")
-            .unwrap_or(&project)
-            .to_string();
         Self {
             stub,
             project,
@@ -82,9 +94,10 @@ where
 
     /// Sends the request and returns the GCS service account email address.
     pub async fn send(self) -> Result<String> {
-        self.stub
-            .get_service_account(self.project, self.options)
-            .await
+        let request = GetServiceAccountRequest {
+            project: self.project,
+        };
+        self.stub.get_service_account(request, self.options).await
     }
 }
 
@@ -97,7 +110,11 @@ pub(crate) struct ServiceAccountLookup {
 
 impl ServiceAccountLookup {
     async fn http_request_builder(&self) -> Result<RequestBuilder> {
-        let project_id = super::client::enc(&self.project);
+        let project_id = self
+            .project
+            .strip_prefix("projects/")
+            .unwrap_or(&self.project);
+        let project_id = super::client::enc(project_id);
         let builder = self
             .inner
             .client
@@ -118,14 +135,19 @@ impl ServiceAccountLookup {
         let response = self
             .inner
             .client
-            .execute::<NoBody, crate::storage::v1::ProjectServiceAccount>(
-                builder,
-                None,
-                self.options.gax().clone(),
-            )
+            .execute::<NoBody, ProjectServiceAccount>(builder, None, self.options.gax().clone())
             .await?;
         Ok(response.into_body().email_address)
     }
+}
+
+#[derive(Debug, Default, serde::Deserialize, serde::Serialize, PartialEq, Clone)]
+#[serde(default)]
+struct ProjectServiceAccount {
+    kind: String,
+    email_address: String,
+    #[serde(flatten)]
+    unknown_fields: std::collections::HashMap<String, serde_json::Value>,
 }
 
 #[cfg(test)]

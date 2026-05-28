@@ -358,16 +358,6 @@ pub(crate) fn insert_body(resource: &crate::model::Object) -> serde_json::Value 
     )
 }
 
-#[derive(Debug, Default, serde::Deserialize, serde::Serialize, PartialEq, Clone)]
-#[serde(default, rename_all = "camelCase")]
-pub(crate) struct ProjectServiceAccount {
-    pub kind: String,
-    #[serde(rename = "email_address")]
-    pub email_address: String,
-    #[serde(flatten)]
-    pub unknown_fields: std::collections::HashMap<String, serde_json::Value>,
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -25,6 +25,8 @@ use crate::{
 };
 use gaxi::unimplemented::UNIMPLEMENTED;
 
+use crate::storage::get_service_account::GetServiceAccountRequest;
+
 /// Defines the trait used to implement [crate::client::Storage].
 ///
 /// Application developers may need to implement this trait to mock
@@ -40,7 +42,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     /// Implements [crate::client::Storage::get_service_account].
     fn get_service_account(
         &self,
-        _project: String,
+        _request: GetServiceAccountRequest,
         _options: RequestOptions,
     ) -> impl std::future::Future<Output = Result<String>> + Send {
         unimplemented_stub::<String>()

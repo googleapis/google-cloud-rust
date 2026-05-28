@@ -225,13 +225,11 @@ where
 
     /// Fetches the email address of the GCS service account for the given project.
     ///
-    /// # Design Note (Architectural Exception):
-    /// Logically, this administrative operation belongs to the control plane (`StorageControl`).
-    /// However, since the GCS gRPC control plane does not support project service account retrieval,
-    /// we place it here in the handwritten REST client to avoid altering machine-generated code.
-    ///
     /// # Parameters
-    /// * `project` - the Project ID or project number.
+    /// * `project` - the project name, either `projects/{projectId}` or `projects/{projectNumber}`.
+    ///     See [The project resource] for more information about projects and their identifiers.
+    ///
+    /// [The project resource]: https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy#projects
     pub fn get_service_account<P>(&self, project: P) -> GetServiceAccount<S>
     where
         P: Into<String>,
