@@ -191,9 +191,6 @@ impl serde::ser::Serialize for super::BigQueryRoutineReference {
         if !self.routine_id.is_empty() {
             state.serialize_entry("routineId", &self.routine_id)?;
         }
-        if self.boundary_location_id.is_some() {
-            state.serialize_entry("boundaryLocationId", &self.boundary_location_id)?;
-        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -362,6 +359,12 @@ impl serde::ser::Serialize for super::LookerQuery {
         if self.limit.is_some() {
             state.serialize_entry("limit", &self.limit)?;
         }
+        if self.query_id.is_some() {
+            state.serialize_entry("queryId", &self.query_id)?;
+        }
+        if self.client_id.is_some() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -439,6 +442,9 @@ impl serde::ser::Serialize for super::ConversationOptions {
         }
         if self.datasource.is_some() {
             state.serialize_entry("datasource", &self.datasource)?;
+        }
+        if self.model.is_some() {
+            state.serialize_entry("model", &self.model)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1428,6 +1434,9 @@ impl serde::ser::Serialize for super::ChatRequest {
         if let Some(value) = self.client_managed_resource_context() {
             state.serialize_entry("clientManagedResourceContext", value)?;
         }
+        if let Some(value) = self.looker_settings() {
+            state.serialize_entry("lookerSettings", value)?;
+        }
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
         }
@@ -1439,6 +1448,9 @@ impl serde::ser::Serialize for super::ChatRequest {
         }
         if !wkt::internal::is_default(&self.thinking_mode) {
             state.serialize_entry("thinkingMode", &self.thinking_mode)?;
+        }
+        if !wkt::internal::is_default(&self.model) {
+            state.serialize_entry("model", &self.model)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1548,6 +1560,28 @@ impl serde::ser::Serialize for super::Message {
         }
         if !self.message_id.is_empty() {
             state.serialize_entry("messageId", &self.message_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LookerSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_dev_mode) {
+            state.serialize_entry("enableDevMode", &self.enable_dev_mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2197,9 +2231,6 @@ impl serde::ser::Serialize for super::BigQueryTableReference {
         if self.schema.is_some() {
             state.serialize_entry("schema", &self.schema)?;
         }
-        if self.location_boundary.is_some() {
-            state.serialize_entry("locationBoundary", &self.location_boundary)?;
-        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2327,9 +2358,6 @@ impl serde::ser::Serialize for super::BigQueryPropertyGraphReference {
         }
         if !self.property_graph_id.is_empty() {
             state.serialize_entry("propertyGraphId", &self.property_graph_id)?;
-        }
-        if self.location_boundary.is_some() {
-            state.serialize_entry("locationBoundary", &self.location_boundary)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

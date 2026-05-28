@@ -199,6 +199,9 @@ impl serde::ser::Serialize for super::CaPool {
         if self.publishing_options.is_some() {
             state.serialize_entry("publishingOptions", &self.publishing_options)?;
         }
+        if self.encryption_spec.is_some() {
+            state.serialize_entry("encryptionSpec", &self.encryption_spec)?;
+        }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
@@ -254,6 +257,12 @@ impl serde::ser::Serialize for super::ca_pool::IssuancePolicy {
         }
         if self.backdate_duration.is_some() {
             state.serialize_entry("backdateDuration", &self.backdate_duration)?;
+        }
+        if !wkt::internal::is_default(&self.allow_requester_specified_not_before_time) {
+            state.serialize_entry(
+                "allowRequesterSpecifiedNotBeforeTime",
+                &self.allow_requester_specified_not_before_time,
+            )?;
         }
         if self.maximum_lifetime.is_some() {
             state.serialize_entry("maximumLifetime", &self.maximum_lifetime)?;
@@ -387,6 +396,28 @@ impl serde::ser::Serialize for super::ca_pool::issuance_policy::IssuanceModes {
                 "allowConfigBasedIssuance",
                 &self.allow_config_based_issuance,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EncryptionSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.cloud_kms_key.is_empty() {
+            state.serialize_entry("cloudKmsKey", &self.cloud_kms_key)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -537,6 +568,9 @@ impl serde::ser::Serialize for super::Certificate {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.requested_not_before_time.is_some() {
+            state.serialize_entry("requestedNotBeforeTime", &self.requested_not_before_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -2780,6 +2780,14 @@ pub struct AuthzPolicy {
     /// to 5 rules.
     pub http_rules: std::vec::Vec<crate::model::authz_policy::AuthzRule>,
 
+    /// Optional. A list of authorization network rules to match against the
+    /// incoming request. A policy match occurs when at least one network rule
+    /// matches the request.
+    /// At least one network rule is required for Allow or Deny Action if no HTTP
+    /// rules are provided. Network rules are mutually exclusive with HTTP rules.
+    /// Limited to 5 rules.
+    pub network_rules: std::vec::Vec<crate::model::authz_policy::AuthzRule>,
+
     /// Required. Can be one of `ALLOW`, `DENY`, `CUSTOM`.
     ///
     /// When the action is `CUSTOM`, `customProvider` must be specified.
@@ -2995,6 +3003,28 @@ impl AuthzPolicy {
         self
     }
 
+    /// Sets the value of [network_rules][crate::model::AuthzPolicy::network_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+    /// let x = AuthzPolicy::new()
+    ///     .set_network_rules([
+    ///         AuthzRule::default()/* use setters */,
+    ///         AuthzRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_network_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::authz_policy::AuthzRule>,
+    {
+        use std::iter::Iterator;
+        self.network_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [action][crate::model::AuthzPolicy::action].
     ///
     /// # Example
@@ -3080,14 +3110,17 @@ pub mod authz_policy {
     #[non_exhaustive]
     pub struct Target {
         /// Optional. All gateways and forwarding rules referenced by this policy and
-        /// extensions must share the same load balancing scheme. Supported values:
+        /// extensions must share the same load balancing scheme. Required only when
+        /// targeting forwarding rules. If targeting Secure Web Proxy, this field
+        /// must be `INTERNAL_MANAGED` or not specified. Must not be specified
+        /// when targeting Agent Gateway. Supported values:
         /// `INTERNAL_MANAGED` and `EXTERNAL_MANAGED`. For more information, refer
         /// to [Backend services
         /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
         pub load_balancing_scheme: crate::model::authz_policy::LoadBalancingScheme,
 
-        /// Required. A list of references to the Forwarding Rules on which this
-        /// policy will be applied.
+        /// Required. A list of references to the Forwarding Rules, Secure Web Proxy
+        /// Gateways, or Agent Gateways on which this policy will be applied.
         pub resources: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4366,6 +4399,13 @@ pub mod authz_policy {
                     crate::model::authz_policy::authz_rule::to::request_operation::Mcp,
                 >,
 
+                /// Optional. A list of SNIs to match against. The match can be one of
+                /// exact, prefix, suffix, or contains (substring match). If there is no
+                /// SNI (i.e. plaintext HTTP traffic), the request will be denied.
+                /// Matches are always case sensitive unless the ignoreCase is set.
+                /// Limited to 10 SNIs per Authorization Policy.
+                pub snis: std::vec::Vec<crate::model::authz_policy::authz_rule::StringMatch>,
+
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
@@ -4501,6 +4541,28 @@ pub mod authz_policy {
                         >,
                 {
                     self.mcp = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [snis][crate::model::authz_policy::authz_rule::to::RequestOperation::snis].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+                /// let x = RequestOperation::new()
+                ///     .set_snis([
+                ///         StringMatch::default()/* use setters */,
+                ///         StringMatch::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_snis<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+                {
+                    use std::iter::Iterator;
+                    self.snis = v.into_iter().map(|i| i.into()).collect();
                     self
                 }
             }
@@ -8450,10 +8512,10 @@ pub struct FirewallEndpoint {
     /// <https://google.aip.dev/128>.
     pub reconciling: bool,
 
-    /// Output only. List of networks that are associated with this endpoint in the
-    /// local zone. This is a projection of the FirewallEndpointAssociations
-    /// pointing at this endpoint. A network will only appear in this list after
-    /// traffic routing is fully configured. Format:
+    /// Output only. Deprecated: List of networks that are associated with this
+    /// endpoint in the local zone. This is a projection of the
+    /// FirewallEndpointAssociations pointing at this endpoint. A network will only
+    /// appear in this list after traffic routing is fully configured. Format:
     /// projects/{project}/global/networks/{name}.
     #[deprecated]
     pub associated_networks: std::vec::Vec<std::string::String>,
@@ -24366,6 +24428,1757 @@ impl DeleteServerTlsPolicyRequest {
 impl wkt::message::Message for DeleteServerTlsPolicyRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networksecurity.v1.DeleteServerTlsPolicyRequest"
+    }
+}
+
+/// Represents a Secure Access Connect (SAC) realm resource.
+///
+/// A Secure Access Connect realm establishes a connection between your Google
+/// Cloud project and an SSE service.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SACRealm {
+    /// Identifier. Resource name, in the form
+    /// `projects/{project}/locations/global/sacRealms/{sacRealm}`.
+    pub name: std::string::String,
+
+    /// Output only. Timestamp when the realm was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the realm was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Optional list of labels applied to the resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Immutable. SSE service provider associated with the realm.
+    pub security_service: crate::model::sac_realm::SecurityService,
+
+    /// Output only. Key to be shared with SSE service provider during pairing.
+    pub pairing_key: std::option::Option<crate::model::sac_realm::PairingKey>,
+
+    /// Output only. State of the realm.
+    pub state: crate::model::sac_realm::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SACRealm {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SACRealm::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let sac_realm_id = "sac_realm_id";
+    /// let x = SACRealm::new().set_name(format!("projects/{project_id}/locations/{location_id}/sacRealms/{sac_realm_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SACRealm::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use wkt::Timestamp;
+    /// let x = SACRealm::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SACRealm::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use wkt::Timestamp;
+    /// let x = SACRealm::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SACRealm::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::SACRealm::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use wkt::Timestamp;
+    /// let x = SACRealm::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::SACRealm::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use wkt::Timestamp;
+    /// let x = SACRealm::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SACRealm::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::SACRealm::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// let x = SACRealm::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [security_service][crate::model::SACRealm::security_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use google_cloud_networksecurity_v1::model::sac_realm::SecurityService;
+    /// let x0 = SACRealm::new().set_security_service(SecurityService::PaloAltoPrismaAccess);
+    /// ```
+    pub fn set_security_service<T: std::convert::Into<crate::model::sac_realm::SecurityService>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.security_service = v.into();
+        self
+    }
+
+    /// Sets the value of [pairing_key][crate::model::SACRealm::pairing_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use google_cloud_networksecurity_v1::model::sac_realm::PairingKey;
+    /// let x = SACRealm::new().set_pairing_key(PairingKey::default()/* use setters */);
+    /// ```
+    pub fn set_pairing_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::sac_realm::PairingKey>,
+    {
+        self.pairing_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pairing_key][crate::model::SACRealm::pairing_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use google_cloud_networksecurity_v1::model::sac_realm::PairingKey;
+    /// let x = SACRealm::new().set_or_clear_pairing_key(Some(PairingKey::default()/* use setters */));
+    /// let x = SACRealm::new().set_or_clear_pairing_key(None::<PairingKey>);
+    /// ```
+    pub fn set_or_clear_pairing_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::sac_realm::PairingKey>,
+    {
+        self.pairing_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SACRealm::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use google_cloud_networksecurity_v1::model::sac_realm::State;
+    /// let x0 = SACRealm::new().set_state(State::PendingPartnerAttachment);
+    /// let x1 = SACRealm::new().set_state(State::PartnerAttached);
+    /// let x2 = SACRealm::new().set_state(State::PartnerDetached);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::sac_realm::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SACRealm {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.SACRealm"
+    }
+}
+
+/// Defines additional types related to [SACRealm].
+pub mod sac_realm {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Key to be shared with SSE service provider to establish global handshake.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PairingKey {
+        /// Output only. Key value.
+        pub key: std::string::String,
+
+        /// Output only. Timestamp in UTC of when this resource is considered
+        /// expired. It expires 7 days after creation.
+        pub expire_time: std::option::Option<wkt::Timestamp>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PairingKey {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [key][crate::model::sac_realm::PairingKey::key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::sac_realm::PairingKey;
+        /// let x = PairingKey::new().set_key("example");
+        /// ```
+        pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.key = v.into();
+            self
+        }
+
+        /// Sets the value of [expire_time][crate::model::sac_realm::PairingKey::expire_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::sac_realm::PairingKey;
+        /// use wkt::Timestamp;
+        /// let x = PairingKey::new().set_expire_time(Timestamp::default()/* use setters */);
+        /// ```
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::sac_realm::PairingKey::expire_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::sac_realm::PairingKey;
+        /// use wkt::Timestamp;
+        /// let x = PairingKey::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+        /// let x = PairingKey::new().set_or_clear_expire_time(None::<Timestamp>);
+        /// ```
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.expire_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for PairingKey {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.SACRealm.PairingKey"
+        }
+    }
+
+    /// SSE service provider
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SecurityService {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// [Palo Alto Networks Prisma
+        /// Access](https://www.paloaltonetworks.com/sase/access).
+        PaloAltoPrismaAccess,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SecurityService::value] or
+        /// [SecurityService::name].
+        UnknownValue(security_service::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod security_service {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SecurityService {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PaloAltoPrismaAccess => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SECURITY_SERVICE_UNSPECIFIED"),
+                Self::PaloAltoPrismaAccess => std::option::Option::Some("PALO_ALTO_PRISMA_ACCESS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SecurityService {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SecurityService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SecurityService {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PaloAltoPrismaAccess,
+                _ => Self::UnknownValue(security_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SecurityService {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SECURITY_SERVICE_UNSPECIFIED" => Self::Unspecified,
+                "PALO_ALTO_PRISMA_ACCESS" => Self::PaloAltoPrismaAccess,
+                _ => Self::UnknownValue(security_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SecurityService {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PaloAltoPrismaAccess => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SecurityService {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SecurityService>::new(
+                ".google.cloud.networksecurity.v1.SACRealm.SecurityService",
+            ))
+        }
+    }
+
+    /// State of the realm.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// No state specified. This should not be used.
+        Unspecified,
+        /// Has never been attached to a partner.
+        /// Used only for Prisma Access.
+        PendingPartnerAttachment,
+        /// Currently attached to a partner.
+        PartnerAttached,
+        /// Was once attached to a partner but has been detached.
+        PartnerDetached,
+        /// Is not attached to a partner and has an expired pairing key.
+        /// Used only for Prisma Access.
+        KeyExpired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingPartnerAttachment => std::option::Option::Some(7),
+                Self::PartnerAttached => std::option::Option::Some(1),
+                Self::PartnerDetached => std::option::Option::Some(2),
+                Self::KeyExpired => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::PendingPartnerAttachment => {
+                    std::option::Option::Some("PENDING_PARTNER_ATTACHMENT")
+                }
+                Self::PartnerAttached => std::option::Option::Some("PARTNER_ATTACHED"),
+                Self::PartnerDetached => std::option::Option::Some("PARTNER_DETACHED"),
+                Self::KeyExpired => std::option::Option::Some("KEY_EXPIRED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PartnerAttached,
+                2 => Self::PartnerDetached,
+                3 => Self::KeyExpired,
+                7 => Self::PendingPartnerAttachment,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_PARTNER_ATTACHMENT" => Self::PendingPartnerAttachment,
+                "PARTNER_ATTACHED" => Self::PartnerAttached,
+                "PARTNER_DETACHED" => Self::PartnerDetached,
+                "KEY_EXPIRED" => Self::KeyExpired,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingPartnerAttachment => serializer.serialize_i32(7),
+                Self::PartnerAttached => serializer.serialize_i32(1),
+                Self::PartnerDetached => serializer.serialize_i32(2),
+                Self::KeyExpired => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.SACRealm.State",
+            ))
+        }
+    }
+}
+
+/// Request for `ListSACRealms` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSACRealmsRequest {
+    /// Required. The parent, in the form `projects/{project}/locations/global`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. An expression that filters the list of results.
+    pub filter: std::string::String,
+
+    /// Optional. Sort the results by a certain order.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSACRealmsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSACRealmsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSACRealmsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSACRealmsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsRequest;
+    /// let x = ListSACRealmsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSACRealmsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsRequest;
+    /// let x = ListSACRealmsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListSACRealmsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsRequest;
+    /// let x = ListSACRealmsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListSACRealmsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsRequest;
+    /// let x = ListSACRealmsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSACRealmsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSACRealmsRequest"
+    }
+}
+
+/// Response for `ListSACRealms` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSACRealmsResponse {
+    /// The list of SACRealms.
+    pub sac_realms: std::vec::Vec<crate::model::SACRealm>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSACRealmsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sac_realms][crate::model::ListSACRealmsResponse::sac_realms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsResponse;
+    /// use google_cloud_networksecurity_v1::model::SACRealm;
+    /// let x = ListSACRealmsResponse::new()
+    ///     .set_sac_realms([
+    ///         SACRealm::default()/* use setters */,
+    ///         SACRealm::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sac_realms<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SACRealm>,
+    {
+        use std::iter::Iterator;
+        self.sac_realms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSACRealmsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsResponse;
+    /// let x = ListSACRealmsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListSACRealmsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACRealmsResponse;
+    /// let x = ListSACRealmsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSACRealmsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSACRealmsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSACRealmsResponse {
+    type PageItem = crate::model::SACRealm;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.sac_realms
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for `GetSACRealm` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSACRealmRequest {
+    /// Required. Name of the resource, in the form
+    /// `projects/{project}/locations/global/sacRealms/{sacRealm}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSACRealmRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSACRealmRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetSACRealmRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let sac_realm_id = "sac_realm_id";
+    /// let x = GetSACRealmRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sacRealms/{sac_realm_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSACRealmRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetSACRealmRequest"
+    }
+}
+
+/// Request for `CreateSACRealm` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSACRealmRequest {
+    /// Required. The parent, in the form `projects/{project}/locations/global`.
+    pub parent: std::string::String,
+
+    /// Required. ID of the created realm.
+    /// The ID must be 1-63 characters long, and comply with
+    /// <a href="https://www.ietf.org/rfc/rfc1035.txt" target="_blank">RFC1035</a>.
+    /// Specifically, it must be 1-63 characters long and match the regular
+    /// expression `[a-z]([-a-z0-9]*[a-z0-9])?`
+    /// which means the first character must be a lowercase letter, and all
+    /// following characters must be a dash, lowercase letter, or digit, except
+    /// the last character, which cannot be a dash.
+    pub sac_realm_id: std::string::String,
+
+    /// Required. The resource being created.
+    pub sac_realm: std::option::Option<crate::model::SACRealm>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSACRealmRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSACRealmRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACRealmRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSACRealmRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [sac_realm_id][crate::model::CreateSACRealmRequest::sac_realm_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACRealmRequest;
+    /// let x = CreateSACRealmRequest::new().set_sac_realm_id("example");
+    /// ```
+    pub fn set_sac_realm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sac_realm_id = v.into();
+        self
+    }
+
+    /// Sets the value of [sac_realm][crate::model::CreateSACRealmRequest::sac_realm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACRealmRequest;
+    /// use google_cloud_networksecurity_v1::model::SACRealm;
+    /// let x = CreateSACRealmRequest::new().set_sac_realm(SACRealm::default()/* use setters */);
+    /// ```
+    pub fn set_sac_realm<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SACRealm>,
+    {
+        self.sac_realm = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sac_realm][crate::model::CreateSACRealmRequest::sac_realm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACRealmRequest;
+    /// use google_cloud_networksecurity_v1::model::SACRealm;
+    /// let x = CreateSACRealmRequest::new().set_or_clear_sac_realm(Some(SACRealm::default()/* use setters */));
+    /// let x = CreateSACRealmRequest::new().set_or_clear_sac_realm(None::<SACRealm>);
+    /// ```
+    pub fn set_or_clear_sac_realm<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SACRealm>,
+    {
+        self.sac_realm = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateSACRealmRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACRealmRequest;
+    /// let x = CreateSACRealmRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSACRealmRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateSACRealmRequest"
+    }
+}
+
+/// Request for `DeleteSACRealm` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSACRealmRequest {
+    /// Required. Name of the resource, in the form
+    /// `projects/{project}/locations/global/sacRealms/{sacRealm}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSACRealmRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSACRealmRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSACRealmRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let sac_realm_id = "sac_realm_id";
+    /// let x = DeleteSACRealmRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sacRealms/{sac_realm_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteSACRealmRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSACRealmRequest;
+    /// let x = DeleteSACRealmRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSACRealmRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteSACRealmRequest"
+    }
+}
+
+/// Represents a Secure Access Connect (SAC) attachment resource.
+///
+/// A Secure Access Connect attachment enables NCC Gateway to process traffic
+/// with an SSE product.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SACAttachment {
+    /// Identifier. Resource name, in the form
+    /// `projects/{project}/locations/{location}/sacAttachments/{sac_attachment}`.
+    pub name: std::string::String,
+
+    /// Output only. Timestamp when the attachment was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the attachment was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Optional list of labels applied to the resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. SAC Realm which owns the attachment. This can be input as an ID
+    /// or a full resource name. The output always has the form
+    /// `projects/{project_number}/locations/{location}/sacRealms/{sac_realm}`.
+    pub sac_realm: std::string::String,
+
+    /// Required. NCC Gateway associated with the attachment. This can be input as
+    /// an ID or a full resource name. The output always has the form
+    /// `projects/{project_number}/locations/{location}/spokes/{ncc_gateway}`.
+    pub ncc_gateway: std::string::String,
+
+    /// Output only. State of the attachment.
+    pub state: crate::model::sac_attachment::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SACAttachment {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SACAttachment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let sac_attachment_id = "sac_attachment_id";
+    /// let x = SACAttachment::new().set_name(format!("projects/{project_id}/locations/{location_id}/sacAttachments/{sac_attachment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SACAttachment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// use wkt::Timestamp;
+    /// let x = SACAttachment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SACAttachment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// use wkt::Timestamp;
+    /// let x = SACAttachment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SACAttachment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::SACAttachment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// use wkt::Timestamp;
+    /// let x = SACAttachment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::SACAttachment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// use wkt::Timestamp;
+    /// let x = SACAttachment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SACAttachment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::SACAttachment::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// let x = SACAttachment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [sac_realm][crate::model::SACAttachment::sac_realm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// let x = SACAttachment::new().set_sac_realm("example");
+    /// ```
+    pub fn set_sac_realm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sac_realm = v.into();
+        self
+    }
+
+    /// Sets the value of [ncc_gateway][crate::model::SACAttachment::ncc_gateway].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// let x = SACAttachment::new().set_ncc_gateway("example");
+    /// ```
+    pub fn set_ncc_gateway<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ncc_gateway = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SACAttachment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// use google_cloud_networksecurity_v1::model::sac_attachment::State;
+    /// let x0 = SACAttachment::new().set_state(State::PendingPartnerAttachment);
+    /// let x1 = SACAttachment::new().set_state(State::PartnerAttached);
+    /// let x2 = SACAttachment::new().set_state(State::PartnerDetached);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::sac_attachment::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SACAttachment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.SACAttachment"
+    }
+}
+
+/// Defines additional types related to [SACAttachment].
+pub mod sac_attachment {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the attachment.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// No state specified. This should not be used.
+        Unspecified,
+        /// Has never been attached to a partner.
+        PendingPartnerAttachment,
+        /// Currently attached to a partner.
+        PartnerAttached,
+        /// Was once attached to a partner but has been detached.
+        PartnerDetached,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingPartnerAttachment => std::option::Option::Some(1),
+                Self::PartnerAttached => std::option::Option::Some(2),
+                Self::PartnerDetached => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::PendingPartnerAttachment => {
+                    std::option::Option::Some("PENDING_PARTNER_ATTACHMENT")
+                }
+                Self::PartnerAttached => std::option::Option::Some("PARTNER_ATTACHED"),
+                Self::PartnerDetached => std::option::Option::Some("PARTNER_DETACHED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PendingPartnerAttachment,
+                2 => Self::PartnerAttached,
+                3 => Self::PartnerDetached,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_PARTNER_ATTACHMENT" => Self::PendingPartnerAttachment,
+                "PARTNER_ATTACHED" => Self::PartnerAttached,
+                "PARTNER_DETACHED" => Self::PartnerDetached,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingPartnerAttachment => serializer.serialize_i32(1),
+                Self::PartnerAttached => serializer.serialize_i32(2),
+                Self::PartnerDetached => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.SACAttachment.State",
+            ))
+        }
+    }
+}
+
+/// Request for `ListSACAttachments` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSACAttachmentsRequest {
+    /// Required. The parent, in the form
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. An expression that filters the list of results.
+    pub filter: std::string::String,
+
+    /// Optional. Sort the results by a certain order.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSACAttachmentsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSACAttachmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListSACAttachmentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSACAttachmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsRequest;
+    /// let x = ListSACAttachmentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSACAttachmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsRequest;
+    /// let x = ListSACAttachmentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListSACAttachmentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsRequest;
+    /// let x = ListSACAttachmentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListSACAttachmentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsRequest;
+    /// let x = ListSACAttachmentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSACAttachmentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSACAttachmentsRequest"
+    }
+}
+
+/// Response for `ListSACAttachments` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSACAttachmentsResponse {
+    /// The list of SACAttachments.
+    pub sac_attachments: std::vec::Vec<crate::model::SACAttachment>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSACAttachmentsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sac_attachments][crate::model::ListSACAttachmentsResponse::sac_attachments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsResponse;
+    /// use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// let x = ListSACAttachmentsResponse::new()
+    ///     .set_sac_attachments([
+    ///         SACAttachment::default()/* use setters */,
+    ///         SACAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sac_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SACAttachment>,
+    {
+        use std::iter::Iterator;
+        self.sac_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSACAttachmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsResponse;
+    /// let x = ListSACAttachmentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListSACAttachmentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSACAttachmentsResponse;
+    /// let x = ListSACAttachmentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSACAttachmentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSACAttachmentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSACAttachmentsResponse {
+    type PageItem = crate::model::SACAttachment;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.sac_attachments
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for `GetSACAttachment` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSACAttachmentRequest {
+    /// Required. Name of the resource, in the form
+    /// `projects/{project}/locations/{location}/sacAttachments/{sac_attachment}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSACAttachmentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSACAttachmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetSACAttachmentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let sac_attachment_id = "sac_attachment_id";
+    /// let x = GetSACAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sacAttachments/{sac_attachment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSACAttachmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetSACAttachmentRequest"
+    }
+}
+
+/// Request for `CreateSACAttachment` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSACAttachmentRequest {
+    /// Required. The parent, in the form
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. ID of the created attachment.
+    /// The ID must be 1-63 characters long, and comply with
+    /// <a href="https://www.ietf.org/rfc/rfc1035.txt" target="_blank">RFC1035</a>.
+    /// Specifically, it must be 1-63 characters long and match the regular
+    /// expression `[a-z]([-a-z0-9]*[a-z0-9])?`
+    /// which means the first character must be a lowercase letter, and all
+    /// following characters must be a dash, lowercase letter, or digit, except
+    /// the last character, which cannot be a dash.
+    pub sac_attachment_id: std::string::String,
+
+    /// Required. The resource being created.
+    pub sac_attachment: std::option::Option<crate::model::SACAttachment>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSACAttachmentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSACAttachmentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACAttachmentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateSACAttachmentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [sac_attachment_id][crate::model::CreateSACAttachmentRequest::sac_attachment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACAttachmentRequest;
+    /// let x = CreateSACAttachmentRequest::new().set_sac_attachment_id("example");
+    /// ```
+    pub fn set_sac_attachment_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sac_attachment_id = v.into();
+        self
+    }
+
+    /// Sets the value of [sac_attachment][crate::model::CreateSACAttachmentRequest::sac_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACAttachmentRequest;
+    /// use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// let x = CreateSACAttachmentRequest::new().set_sac_attachment(SACAttachment::default()/* use setters */);
+    /// ```
+    pub fn set_sac_attachment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SACAttachment>,
+    {
+        self.sac_attachment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sac_attachment][crate::model::CreateSACAttachmentRequest::sac_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACAttachmentRequest;
+    /// use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// let x = CreateSACAttachmentRequest::new().set_or_clear_sac_attachment(Some(SACAttachment::default()/* use setters */));
+    /// let x = CreateSACAttachmentRequest::new().set_or_clear_sac_attachment(None::<SACAttachment>);
+    /// ```
+    pub fn set_or_clear_sac_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SACAttachment>,
+    {
+        self.sac_attachment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateSACAttachmentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSACAttachmentRequest;
+    /// let x = CreateSACAttachmentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSACAttachmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateSACAttachmentRequest"
+    }
+}
+
+/// Request for `DeleteSACAttachment` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSACAttachmentRequest {
+    /// Required. Name of the resource, in the form
+    /// `projects/{project}/locations/{location}/sacAttachments/{sac_attachment}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSACAttachmentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSACAttachmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSACAttachmentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let sac_attachment_id = "sac_attachment_id";
+    /// let x = DeleteSACAttachmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sacAttachments/{sac_attachment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteSACAttachmentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSACAttachmentRequest;
+    /// let x = DeleteSACAttachmentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSACAttachmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteSACAttachmentRequest"
     }
 }
 

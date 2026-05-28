@@ -1480,28 +1480,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -1800,6 +1778,26 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1875,25 +1873,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2155,6 +2134,23 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2335,40 +2331,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -2847,6 +2809,38 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2922,25 +2916,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3202,6 +3177,23 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3334,28 +3326,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -3654,6 +3624,26 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3729,25 +3719,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -4009,6 +3980,23 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -6133,6 +6121,72 @@ impl super::stub::CatalogService for CatalogService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn modify_entry(
+        &self,
+        req: crate::model::ModifyEntryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Entry>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:modifyEntry", var_name,);
+                let path_template = "/v1/{name}:modifyEntry";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataplex.v1.CatalogService/ModifyEntry")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn search_entries(
         &self,
         req: crate::model::SearchEntriesRequest,
@@ -7557,28 +7611,6 @@ impl super::stub::CatalogService for CatalogService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -7877,6 +7909,26 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -7952,25 +8004,6 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -8232,6 +8265,23 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -8412,40 +8462,6 @@ impl super::stub::CatalogService for CatalogService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -8924,6 +8940,38 @@ impl super::stub::CatalogService for CatalogService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -8999,25 +9047,6 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -9279,6 +9308,23 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -9411,28 +9457,6 @@ impl super::stub::CatalogService for CatalogService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -9731,6 +9755,26 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -9806,25 +9850,6 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -10086,6 +10111,23 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -11201,28 +11243,6 @@ impl super::stub::CmekService for CmekService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -11521,6 +11541,26 @@ impl super::stub::CmekService for CmekService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -11596,25 +11636,6 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -11876,6 +11897,23 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -12056,40 +12094,6 @@ impl super::stub::CmekService for CmekService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -12568,6 +12572,38 @@ impl super::stub::CmekService for CmekService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -12643,25 +12679,6 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -12923,6 +12940,23 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -13055,28 +13089,6 @@ impl super::stub::CmekService for CmekService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -13375,6 +13387,26 @@ impl super::stub::CmekService for CmekService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -13450,25 +13482,6 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -13730,6 +13743,23 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -14468,28 +14498,6 @@ impl super::stub::ContentService for ContentService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -14788,6 +14796,26 @@ impl super::stub::ContentService for ContentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -14863,25 +14891,6 @@ impl super::stub::ContentService for ContentService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -15143,6 +15152,23 @@ impl super::stub::ContentService for ContentService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -15323,40 +15349,6 @@ impl super::stub::ContentService for ContentService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -15835,6 +15827,38 @@ impl super::stub::ContentService for ContentService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -15910,25 +15934,6 @@ impl super::stub::ContentService for ContentService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -16190,6 +16195,23 @@ impl super::stub::ContentService for ContentService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -16322,28 +16344,6 @@ impl super::stub::ContentService for ContentService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -16642,6 +16642,26 @@ impl super::stub::ContentService for ContentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -16717,25 +16737,6 @@ impl super::stub::ContentService for ContentService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -16997,6 +16998,23 @@ impl super::stub::ContentService for ContentService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -17866,6 +17884,80 @@ impl super::stub::DataProductService for DataProductService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn request_data_product_access(
+        &self,
+        req: crate::model::RequestDataProductAccessRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RequestDataProductAccessResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataProducts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:requestAccess", var_parent,);
+                let path_template = "/v1/{parent}:requestAccess";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataplex.v1.DataProductService/RequestDataProductAccess",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn create_data_asset(
         &self,
         req: crate::model::CreateDataAssetRequest,
@@ -18495,28 +18587,6 @@ impl super::stub::DataProductService for DataProductService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -18815,6 +18885,26 @@ impl super::stub::DataProductService for DataProductService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -18890,25 +18980,6 @@ impl super::stub::DataProductService for DataProductService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -19170,6 +19241,23 @@ impl super::stub::DataProductService for DataProductService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -19350,40 +19438,6 @@ impl super::stub::DataProductService for DataProductService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -19862,6 +19916,38 @@ impl super::stub::DataProductService for DataProductService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -19937,25 +20023,6 @@ impl super::stub::DataProductService for DataProductService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -20217,6 +20284,23 @@ impl super::stub::DataProductService for DataProductService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -20349,28 +20433,6 @@ impl super::stub::DataProductService for DataProductService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -20669,6 +20731,26 @@ impl super::stub::DataProductService for DataProductService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -20744,25 +20826,6 @@ impl super::stub::DataProductService for DataProductService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -21024,6 +21087,23 @@ impl super::stub::DataProductService for DataProductService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -22948,28 +23028,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -23268,6 +23326,26 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -23343,25 +23421,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -23623,6 +23682,23 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -23803,40 +23879,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -24315,6 +24357,38 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -24390,25 +24464,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -24670,6 +24725,23 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -24802,28 +24874,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -25122,6 +25172,26 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -25197,25 +25267,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -25477,6 +25528,23 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -26584,6 +26652,82 @@ impl super::stub::DataScanService for DataScanService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn cancel_data_scan_job(
+        &self,
+        req: crate::model::CancelDataScanJobRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CancelDataScanJobResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataScans/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/jobs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataScans/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/jobs/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/dataScans/*/jobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataplex.v1.DataScanService/CancelDataScanJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn generate_data_quality_rules(
         &self,
         req: crate::model::GenerateDataQualityRulesRequest,
@@ -26928,28 +27072,6 @@ impl super::stub::DataScanService for DataScanService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -27248,6 +27370,26 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -27323,25 +27465,6 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -27603,6 +27726,23 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -27783,40 +27923,6 @@ impl super::stub::DataScanService for DataScanService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -28295,6 +28401,38 @@ impl super::stub::DataScanService for DataScanService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -28370,25 +28508,6 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -28650,6 +28769,23 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -28782,28 +28918,6 @@ impl super::stub::DataScanService for DataScanService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -29102,6 +29216,26 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -29177,25 +29311,6 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -29457,6 +29572,23 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -30946,28 +31078,6 @@ impl super::stub::MetadataService for MetadataService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -31266,6 +31376,26 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -31341,25 +31471,6 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -31621,6 +31732,23 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -31801,40 +31929,6 @@ impl super::stub::MetadataService for MetadataService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -32313,6 +32407,38 @@ impl super::stub::MetadataService for MetadataService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -32388,25 +32514,6 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -32668,6 +32775,23 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -32800,28 +32924,6 @@ impl super::stub::MetadataService for MetadataService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -33120,6 +33222,26 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -33195,25 +33317,6 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -33475,6 +33578,23 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -36341,28 +36461,6 @@ impl super::stub::DataplexService for DataplexService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -36661,6 +36759,26 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -36736,25 +36854,6 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -37016,6 +37115,23 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -37196,40 +37312,6 @@ impl super::stub::DataplexService for DataplexService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-                let path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -37708,6 +37790,38 @@ impl super::stub::DataplexService for DataplexService {
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -37783,25 +37897,6 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -38063,6 +38158,23 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "organizations/*/locations/*/encryptionConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }
@@ -38195,28 +38307,6 @@ impl super::stub::DataplexService for DataplexService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/lakes/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/environments/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-                let path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
                         Segment::Literal("/dataScans/"),
                         Segment::SingleWildcard,
                     ],
@@ -38515,6 +38605,26 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dataDomains/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -38590,25 +38700,6 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/lakes/*/tasks/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/lakes/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/lakes/*/environments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -38870,6 +38961,23 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataDomains/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataDomains/*",
                     );
                     paths.push(builder.build());
                 }

@@ -763,6 +763,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn modify_entry(
+        &self,
+        req: crate::model::ModifyEntryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Entry>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CatalogService::modify_entry",
+            self.inner.modify_entry(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn search_entries(
         &self,
         req: crate::model::SearchEntriesRequest,
@@ -1764,6 +1778,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn request_data_product_access(
+        &self,
+        req: crate::model::RequestDataProductAccessRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RequestDataProductAccessResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataProductService::request_data_product_access",
+            self.inner.request_data_product_access(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_data_asset(
         &self,
         req: crate::model::CreateDataAssetRequest,
@@ -2586,6 +2614,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::DataScanService::list_data_scan_jobs",
             self.inner.list_data_scan_jobs(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_data_scan_job(
+        &self,
+        req: crate::model::CancelDataScanJobRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CancelDataScanJobResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataScanService::cancel_data_scan_job",
+            self.inner.cancel_data_scan_job(req, options));
         pending.await
     }
 

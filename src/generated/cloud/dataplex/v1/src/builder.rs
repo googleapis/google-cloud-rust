@@ -4709,6 +4709,125 @@ pub mod catalog_service {
         }
     }
 
+    /// The request builder for [CatalogService::modify_entry][crate::client::CatalogService::modify_entry] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ModifyEntry;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ModifyEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ModifyEntry(RequestBuilder<crate::model::ModifyEntryRequest>);
+
+    impl ModifyEntry {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ModifyEntryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Entry> {
+            (*self.0.stub)
+                .modify_entry(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ModifyEntryRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [entry][crate::model::ModifyEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::ModifyEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::ModifyEntryRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ModifyEntryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [delete_missing_aspects][crate::model::ModifyEntryRequest::delete_missing_aspects].
+        pub fn set_delete_missing_aspects<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.delete_missing_aspects = v.into();
+            self
+        }
+
+        /// Sets the value of [aspect_keys][crate::model::ModifyEntryRequest::aspect_keys].
+        pub fn set_aspect_keys<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.aspect_keys = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ModifyEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [CatalogService::search_entries][crate::client::CatalogService::search_entries] calls.
     ///
     /// # Example
@@ -5681,6 +5800,12 @@ pub mod catalog_service {
         {
             use std::iter::Iterator;
             self.0.request.resources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [context][crate::model::LookupContextRequest::context].
+        pub fn set_context<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.context = v.into();
             self
         }
 
@@ -9982,6 +10107,101 @@ pub mod data_product_service {
         }
     }
 
+    /// The request builder for [DataProductService::request_data_product_access][crate::client::DataProductService::request_data_product_access] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::RequestDataProductAccess;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RequestDataProductAccess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RequestDataProductAccess(
+        RequestBuilder<crate::model::RequestDataProductAccessRequest>,
+    );
+
+    impl RequestDataProductAccess {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RequestDataProductAccessRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RequestDataProductAccessResponse> {
+            (*self.0.stub)
+                .request_data_product_access(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::RequestDataProductAccessRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [change_request][crate::model::RequestDataProductAccessRequest::change_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_change_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ChangeRequest>,
+        {
+            self.0.request.change_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [change_request][crate::model::RequestDataProductAccessRequest::change_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_change_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ChangeRequest>,
+        {
+            self.0.request.change_request = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RequestDataProductAccessRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RequestDataProductAccess {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [DataProductService::create_data_asset][crate::client::DataProductService::create_data_asset] calls.
     ///
     /// # Example
@@ -14140,8 +14360,6 @@ pub mod data_scan_service {
         }
 
         /// Sets the value of [data_scan_id][crate::model::CreateDataScanRequest::data_scan_id].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_data_scan_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.data_scan_id = v.into();
             self
@@ -14848,6 +15066,71 @@ pub mod data_scan_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ListDataScanJobs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataScanService::cancel_data_scan_job][crate::client::DataScanService::cancel_data_scan_job] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::CancelDataScanJob;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelDataScanJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelDataScanJob(RequestBuilder<crate::model::CancelDataScanJobRequest>);
+
+    impl CancelDataScanJob {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CancelDataScanJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::CancelDataScanJobResponse> {
+            (*self.0.stub)
+                .cancel_data_scan_job(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::CancelDataScanJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelDataScanJob {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

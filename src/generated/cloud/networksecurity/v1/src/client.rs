@@ -406,20 +406,21 @@ impl AddressGroupService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1038,20 +1039,21 @@ impl OrganizationAddressGroupService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1516,20 +1518,21 @@ impl DnsThreatDetectorService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1871,6 +1874,31 @@ impl FirewallActivation {
         super::builder::firewall_activation::ListFirewallEndpoints::new(self.inner.clone())
     }
 
+    /// Lists FirewallEndpoints in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_project_firewall_endpoints()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_project_firewall_endpoints(
+        &self,
+    ) -> super::builder::firewall_activation::ListProjectFirewallEndpoints {
+        super::builder::firewall_activation::ListProjectFirewallEndpoints::new(self.inner.clone())
+    }
+
     /// Gets details of a single org Endpoint.
     ///
     /// # Example
@@ -1891,6 +1919,28 @@ impl FirewallActivation {
         &self,
     ) -> super::builder::firewall_activation::GetFirewallEndpoint {
         super::builder::firewall_activation::GetFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Gets details of a single project Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.get_project_firewall_endpoint()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_project_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::GetProjectFirewallEndpoint {
+        super::builder::firewall_activation::GetProjectFirewallEndpoint::new(self.inner.clone())
     }
 
     /// Creates a new FirewallEndpoint in a given organization and location.
@@ -1930,6 +1980,39 @@ impl FirewallActivation {
         super::builder::firewall_activation::CreateFirewallEndpoint::new(self.inner.clone())
     }
 
+    /// Creates a new FirewallEndpoint in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.create_project_firewall_endpoint()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_project_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::CreateProjectFirewallEndpoint {
+        super::builder::firewall_activation::CreateProjectFirewallEndpoint::new(self.inner.clone())
+    }
+
     /// Deletes a single org Endpoint.
     ///
     /// # Long running operations
@@ -1960,6 +2043,38 @@ impl FirewallActivation {
         &self,
     ) -> super::builder::firewall_activation::DeleteFirewallEndpoint {
         super::builder::firewall_activation::DeleteFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Deletes a single project Endpoint.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     client.delete_project_firewall_endpoint()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_project_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::DeleteProjectFirewallEndpoint {
+        super::builder::firewall_activation::DeleteProjectFirewallEndpoint::new(self.inner.clone())
     }
 
     /// Update a single org Endpoint.
@@ -1999,6 +2114,39 @@ impl FirewallActivation {
         &self,
     ) -> super::builder::firewall_activation::UpdateFirewallEndpoint {
         super::builder::firewall_activation::UpdateFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Update a single project Endpoint.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.update_project_firewall_endpoint()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_project_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::UpdateProjectFirewallEndpoint {
+        super::builder::firewall_activation::UpdateProjectFirewallEndpoint::new(self.inner.clone())
     }
 
     /// Lists Associations in a given project and location.
@@ -2167,20 +2315,21 @@ impl FirewallActivation {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -3136,20 +3285,21 @@ impl Intercept {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -4104,20 +4254,21 @@ impl Mirroring {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -5809,20 +5960,21 @@ impl NetworkSecurity {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -6023,6 +6175,676 @@ impl NetworkSecurity {
     /// ```
     pub fn cancel_operation(&self) -> super::builder::network_security::CancelOperation {
         super::builder::network_security::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = SecurityProfileGroupService::builder().build().await?;
+///     let mut list = client.list_security_profile_groups()
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// SecurityProfileGroup is a resource that defines an action for specific threat
+/// signatures or severity levels.
+///
+/// # Configuration
+///
+/// To configure `SecurityProfileGroupService` use the `with_*` methods in the type returned
+/// by [builder()][SecurityProfileGroupService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::security_profile_group_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::security_profile_group_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SecurityProfileGroupService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `SecurityProfileGroupService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SecurityProfileGroupService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SecurityProfileGroupService>,
+}
+
+impl SecurityProfileGroupService {
+    /// Returns a builder for [SecurityProfileGroupService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// let client = SecurityProfileGroupService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::security_profile_group_service::ClientBuilder {
+        crate::new_client_builder(super::builder::security_profile_group_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::SecurityProfileGroupService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::SecurityProfileGroupService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SecurityProfileGroupService> {
+        super::transport::SecurityProfileGroupService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SecurityProfileGroupService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SecurityProfileGroupService::new)
+    }
+
+    /// Lists SecurityProfileGroups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_security_profile_groups()
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_security_profile_groups(
+        &self,
+    ) -> super::builder::security_profile_group_service::ListSecurityProfileGroups {
+        super::builder::security_profile_group_service::ListSecurityProfileGroups::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single SecurityProfileGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_group_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_security_profile_group()
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_security_profile_group(
+        &self,
+    ) -> super::builder::security_profile_group_service::GetSecurityProfileGroup {
+        super::builder::security_profile_group_service::GetSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Creates a new SecurityProfileGroup in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_security_profile_group()
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+    ///         .set_security_profile_group(
+    ///             SecurityProfileGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_security_profile_group(
+        &self,
+    ) -> super::builder::security_profile_group_service::CreateSecurityProfileGroup {
+        super::builder::security_profile_group_service::CreateSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates the parameters of a single SecurityProfileGroup.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_group_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_security_profile_group()
+    ///         .set_security_profile_group(
+    ///             SecurityProfileGroup::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_security_profile_group(
+        &self,
+    ) -> super::builder::security_profile_group_service::UpdateSecurityProfileGroup {
+        super::builder::security_profile_group_service::UpdateSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single SecurityProfileGroup.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_group_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_security_profile_group()
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfileGroups/{security_profile_group_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_security_profile_group(
+        &self,
+    ) -> super::builder::security_profile_group_service::DeleteSecurityProfileGroup {
+        super::builder::security_profile_group_service::DeleteSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists SecurityProfiles in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_security_profiles()
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_security_profiles(
+        &self,
+    ) -> super::builder::security_profile_group_service::ListSecurityProfiles {
+        super::builder::security_profile_group_service::ListSecurityProfiles::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single SecurityProfile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_security_profile()
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_security_profile(
+        &self,
+    ) -> super::builder::security_profile_group_service::GetSecurityProfile {
+        super::builder::security_profile_group_service::GetSecurityProfile::new(self.inner.clone())
+    }
+
+    /// Creates a new SecurityProfile in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_security_profile()
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+    ///         .set_security_profile(
+    ///             SecurityProfile::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_security_profile(
+        &self,
+    ) -> super::builder::security_profile_group_service::CreateSecurityProfile {
+        super::builder::security_profile_group_service::CreateSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates the parameters of a single SecurityProfile.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_security_profile()
+    ///         .set_security_profile(
+    ///             SecurityProfile::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_security_profile(
+        &self,
+    ) -> super::builder::security_profile_group_service::UpdateSecurityProfile {
+        super::builder::security_profile_group_service::UpdateSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single SecurityProfile.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService, organization_id: &str, location_id: &str, security_profile_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_security_profile()
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityProfiles/{security_profile_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_security_profile(
+        &self,
+    ) -> super::builder::security_profile_group_service::DeleteSecurityProfile {
+        super::builder::security_profile_group_service::DeleteSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::security_profile_group_service::ListLocations {
+        super::builder::security_profile_group_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::security_profile_group_service::GetLocation {
+        super::builder::security_profile_group_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::security_profile_group_service::SetIamPolicy {
+        super::builder::security_profile_group_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::security_profile_group_service::GetIamPolicy {
+        super::builder::security_profile_group_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::security_profile_group_service::TestIamPermissions {
+        super::builder::security_profile_group_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::security_profile_group_service::ListOperations {
+        super::builder::security_profile_group_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::security_profile_group_service::GetOperation {
+        super::builder::security_profile_group_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::security_profile_group_service::DeleteOperation {
+        super::builder::security_profile_group_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::security_profile_group_service::CancelOperation {
+        super::builder::security_profile_group_service::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -6477,20 +7299,21 @@ impl OrganizationSecurityProfileGroupService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -6727,5 +7550,552 @@ impl OrganizationSecurityProfileGroupService {
         super::builder::organization_security_profile_group_service::CancelOperation::new(
             self.inner.clone(),
         )
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::SSERealmService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = SSERealmService::builder().build().await?;
+///     let mut list = client.list_sac_realms()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service describing handlers for resources
+///
+/// # Configuration
+///
+/// To configure `SSERealmService` use the `with_*` methods in the type returned
+/// by [builder()][SSERealmService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sse_realm_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sse_realm_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SSERealmService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `SSERealmService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SSERealmService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SSERealmService>,
+}
+
+impl SSERealmService {
+    /// Returns a builder for [SSERealmService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// let client = SSERealmService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::sse_realm_service::ClientBuilder {
+        crate::new_client_builder(super::builder::sse_realm_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::SSERealmService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SSERealmService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SSERealmService> {
+        super::transport::SSERealmService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SSERealmService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SSERealmService::new)
+    }
+
+    /// Lists SACRealms in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sac_realms()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_sac_realms(&self) -> super::builder::sse_realm_service::ListSACRealms {
+        super::builder::sse_realm_service::ListSACRealms::new(self.inner.clone())
+    }
+
+    /// Returns the specified realm.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str, sac_realm_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_sac_realm()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sacRealms/{sac_realm_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_sac_realm(&self) -> super::builder::sse_realm_service::GetSACRealm {
+        super::builder::sse_realm_service::GetSACRealm::new(self.inner.clone())
+    }
+
+    /// Creates a new SACRealm in a given project.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::SACRealm;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_sac_realm()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_sac_realm(
+    ///             SACRealm::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_sac_realm(&self) -> super::builder::sse_realm_service::CreateSACRealm {
+        super::builder::sse_realm_service::CreateSACRealm::new(self.inner.clone())
+    }
+
+    /// Deletes the specified realm.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str, sac_realm_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_sac_realm()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sacRealms/{sac_realm_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_sac_realm(&self) -> super::builder::sse_realm_service::DeleteSACRealm {
+        super::builder::sse_realm_service::DeleteSACRealm::new(self.inner.clone())
+    }
+
+    /// Lists SACAttachments in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sac_attachments()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_sac_attachments(&self) -> super::builder::sse_realm_service::ListSACAttachments {
+        super::builder::sse_realm_service::ListSACAttachments::new(self.inner.clone())
+    }
+
+    /// Returns the specified attachment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str, sac_attachment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_sac_attachment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sacAttachments/{sac_attachment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_sac_attachment(&self) -> super::builder::sse_realm_service::GetSACAttachment {
+        super::builder::sse_realm_service::GetSACAttachment::new(self.inner.clone())
+    }
+
+    /// Creates a new SACAttachment in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::SACAttachment;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_sac_attachment()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_sac_attachment(
+    ///             SACAttachment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_sac_attachment(&self) -> super::builder::sse_realm_service::CreateSACAttachment {
+        super::builder::sse_realm_service::CreateSACAttachment::new(self.inner.clone())
+    }
+
+    /// Deletes the specified attachment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService, project_id: &str, location_id: &str, sac_attachment_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_sac_attachment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sacAttachments/{sac_attachment_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_sac_attachment(&self) -> super::builder::sse_realm_service::DeleteSACAttachment {
+        super::builder::sse_realm_service::DeleteSACAttachment::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::sse_realm_service::ListLocations {
+        super::builder::sse_realm_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::sse_realm_service::GetLocation {
+        super::builder::sse_realm_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::sse_realm_service::SetIamPolicy {
+        super::builder::sse_realm_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::sse_realm_service::GetIamPolicy {
+        super::builder::sse_realm_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::sse_realm_service::TestIamPermissions {
+        super::builder::sse_realm_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::sse_realm_service::ListOperations {
+        super::builder::sse_realm_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::sse_realm_service::GetOperation {
+        super::builder::sse_realm_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::sse_realm_service::DeleteOperation {
+        super::builder::sse_realm_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::SSERealmService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &SSERealmService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::sse_realm_service::CancelOperation {
+        super::builder::sse_realm_service::CancelOperation::new(self.inner.clone())
     }
 }

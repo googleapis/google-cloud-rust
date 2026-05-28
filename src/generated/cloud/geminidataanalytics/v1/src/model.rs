@@ -783,13 +783,6 @@ pub struct BigQueryRoutineReference {
     /// The routine ID of the routine.
     pub routine_id: std::string::String,
 
-    /// Optional. The location to restrict BigQuery operations to.
-    ///
-    /// If unspecified, this value defaults to the location of the endpoint.
-    ///
-    /// Examples: "us-central1", "europe-west1".
-    pub boundary_location_id: std::option::Option<std::string::String>,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -832,37 +825,6 @@ impl BigQueryRoutineReference {
     /// ```
     pub fn set_routine_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.routine_id = v.into();
-        self
-    }
-
-    /// Sets the value of [boundary_location_id][crate::model::BigQueryRoutineReference::boundary_location_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryRoutineReference;
-    /// let x = BigQueryRoutineReference::new().set_boundary_location_id("example");
-    /// ```
-    pub fn set_boundary_location_id<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.boundary_location_id = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [boundary_location_id][crate::model::BigQueryRoutineReference::boundary_location_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryRoutineReference;
-    /// let x = BigQueryRoutineReference::new().set_or_clear_boundary_location_id(Some("example"));
-    /// let x = BigQueryRoutineReference::new().set_or_clear_boundary_location_id(None::<String>);
-    /// ```
-    pub fn set_or_clear_boundary_location_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.boundary_location_id = v.map(|x| x.into());
         self
     }
 }
@@ -1321,6 +1283,16 @@ pub struct LookerQuery {
     /// Optional. Limit in the query.
     pub limit: std::option::Option<std::string::String>,
 
+    /// Optional. The primary identifier for the query resource in Looker, used for
+    /// API operations. Maps to `id` (or `slug`) in the Looker API `Query`
+    /// resource.
+    pub query_id: std::option::Option<std::string::String>,
+
+    /// Optional. The short alphanumeric identifier for the query, used for share
+    /// links and Explore URLs (e.g., in the `qid` parameter). Maps to `client_id`
+    /// in the Looker API `Query` resource.
+    pub client_id: std::option::Option<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1438,6 +1410,68 @@ impl LookerQuery {
         T: std::convert::Into<std::string::String>,
     {
         self.limit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [query_id][crate::model::LookerQuery::query_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::LookerQuery;
+    /// let x = LookerQuery::new().set_query_id("example");
+    /// ```
+    pub fn set_query_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.query_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_id][crate::model::LookerQuery::query_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::LookerQuery;
+    /// let x = LookerQuery::new().set_or_clear_query_id(Some("example"));
+    /// let x = LookerQuery::new().set_or_clear_query_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_query_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.query_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client_id][crate::model::LookerQuery::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::LookerQuery;
+    /// let x = LookerQuery::new().set_client_id("example");
+    /// ```
+    pub fn set_client_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_id][crate::model::LookerQuery::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::LookerQuery;
+    /// let x = LookerQuery::new().set_or_clear_client_id(Some("example"));
+    /// let x = LookerQuery::new().set_or_clear_client_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_client_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_id = v.map(|x| x.into());
         self
     }
 }
@@ -1609,6 +1643,9 @@ pub struct ConversationOptions {
     /// Optional. Options for datasources.
     pub datasource: std::option::Option<crate::model::DatasourceOptions>,
 
+    /// Optional. The model to use for the agent loop.
+    pub model: std::option::Option<crate::model::conversation_options::Model>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1683,11 +1720,180 @@ impl ConversationOptions {
         self.datasource = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [model][crate::model::ConversationOptions::model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ConversationOptions;
+    /// use google_cloud_geminidataanalytics_v1::model::conversation_options::Model;
+    /// let x0 = ConversationOptions::new().set_model(Model::LatestGaModel);
+    /// ```
+    pub fn set_model<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::conversation_options::Model>,
+    {
+        self.model = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [model][crate::model::ConversationOptions::model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ConversationOptions;
+    /// use google_cloud_geminidataanalytics_v1::model::conversation_options::Model;
+    /// let x0 = ConversationOptions::new().set_or_clear_model(Some(Model::LatestGaModel));
+    /// let x_none = ConversationOptions::new().set_or_clear_model(None::<Model>);
+    /// ```
+    pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::conversation_options::Model>,
+    {
+        self.model = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ConversationOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.geminidataanalytics.v1.ConversationOptions"
+    }
+}
+
+/// Defines additional types related to [ConversationOptions].
+pub mod conversation_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Allowed models for the agent/conversation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Model {
+        /// No model specified. The model may be set on the chat request, or the
+        /// default model will be used. Currently, this is
+        /// `gemini-3.0-flash-preview`.
+        Unspecified,
+        /// Use the most up-to-date non-preview model. Currently, this is
+        /// `gemini-2.5-flash`. This constrains the request level settings. The
+        /// default will change to `gemini-2.5-flash`, and setting `thinking_mode`
+        /// will not be supported.
+        LatestGaModel,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Model::value] or
+        /// [Model::name].
+        UnknownValue(model::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod model {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Model {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::LatestGaModel => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODEL_UNSPECIFIED"),
+                Self::LatestGaModel => std::option::Option::Some("LATEST_GA_MODEL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Model {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Model {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Model {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::LatestGaModel,
+                _ => Self::UnknownValue(model::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Model {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODEL_UNSPECIFIED" => Self::Unspecified,
+                "LATEST_GA_MODEL" => Self::LatestGaModel,
+                _ => Self::UnknownValue(model::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Model {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::LatestGaModel => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Model {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Model>::new(
+                ".google.cloud.geminidataanalytics.v1.ConversationOptions.Model",
+            ))
+        }
     }
 }
 
@@ -5118,6 +5324,10 @@ pub struct ChatRequest {
     /// Defaults to THINKING_MODE_UNSPECIFIED if not specified.
     pub thinking_mode: crate::model::chat_request::ThinkingMode,
 
+    /// Optional. The model to use for the agent loop when processing the request.
+    /// This setting only has an effect when context.options.model is not set.
+    pub model: crate::model::chat_request::Model,
+
     /// Context Provider for the chat request.
     /// It can either be -
     /// inline_context, which is a context provided inline in the request.
@@ -5125,6 +5335,10 @@ pub struct ChatRequest {
     /// conversation_reference, which is a reference to a persisted conversation
     /// and context using conversation_id and agent_id.
     pub context_provider: std::option::Option<crate::model::chat_request::ContextProvider>,
+
+    /// Optional settings to customize request behavior, specific to the target
+    /// datasource.
+    pub datasource_settings: std::option::Option<crate::model::chat_request::DatasourceSettings>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5216,6 +5430,22 @@ impl ChatRequest {
         v: T,
     ) -> Self {
         self.thinking_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [model][crate::model::ChatRequest::model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ChatRequest;
+    /// use google_cloud_geminidataanalytics_v1::model::chat_request::Model;
+    /// let x0 = ChatRequest::new().set_model(Model::LatestGaModel);
+    /// ```
+    pub fn set_model<T: std::convert::Into<crate::model::chat_request::Model>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.model = v.into();
         self
     }
 
@@ -5408,6 +5638,68 @@ impl ChatRequest {
         );
         self
     }
+
+    /// Sets the value of [datasource_settings][crate::model::ChatRequest::datasource_settings].
+    ///
+    /// Note that all the setters affecting `datasource_settings` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ChatRequest;
+    /// use google_cloud_geminidataanalytics_v1::model::LookerSettings;
+    /// let x = ChatRequest::new().set_datasource_settings(Some(
+    ///     google_cloud_geminidataanalytics_v1::model::chat_request::DatasourceSettings::LookerSettings(LookerSettings::default().into())));
+    /// ```
+    pub fn set_datasource_settings<
+        T: std::convert::Into<std::option::Option<crate::model::chat_request::DatasourceSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.datasource_settings = v.into();
+        self
+    }
+
+    /// The value of [datasource_settings][crate::model::ChatRequest::datasource_settings]
+    /// if it holds a `LookerSettings`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn looker_settings(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::LookerSettings>> {
+        #[allow(unreachable_patterns)]
+        self.datasource_settings.as_ref().and_then(|v| match v {
+            crate::model::chat_request::DatasourceSettings::LookerSettings(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [datasource_settings][crate::model::ChatRequest::datasource_settings]
+    /// to hold a `LookerSettings`.
+    ///
+    /// Note that all the setters affecting `datasource_settings` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ChatRequest;
+    /// use google_cloud_geminidataanalytics_v1::model::LookerSettings;
+    /// let x = ChatRequest::new().set_looker_settings(LookerSettings::default()/* use setters */);
+    /// assert!(x.looker_settings().is_some());
+    /// ```
+    pub fn set_looker_settings<
+        T: std::convert::Into<std::boxed::Box<crate::model::LookerSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.datasource_settings = std::option::Option::Some(
+            crate::model::chat_request::DatasourceSettings::LookerSettings(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for ChatRequest {
@@ -5553,6 +5845,135 @@ pub mod chat_request {
         }
     }
 
+    /// Model selection for the agent.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Model {
+        /// No model specified. The default model will be used. Currently, this is
+        /// `gemini-3.0-flash-preview`.
+        Unspecified,
+        /// Use the most up-to-date non-preview model. Currently, this is
+        /// `gemini-2.5-flash`. This constrains the request level settings. The
+        /// default will change to `gemini-2.5-flash`, and setting `thinking_mode`
+        /// will not be supported.
+        LatestGaModel,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Model::value] or
+        /// [Model::name].
+        UnknownValue(model::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod model {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Model {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::LatestGaModel => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODEL_UNSPECIFIED"),
+                Self::LatestGaModel => std::option::Option::Some("LATEST_GA_MODEL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Model {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Model {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Model {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::LatestGaModel,
+                _ => Self::UnknownValue(model::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Model {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODEL_UNSPECIFIED" => Self::Unspecified,
+                "LATEST_GA_MODEL" => Self::LatestGaModel,
+                _ => Self::UnknownValue(model::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Model {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::LatestGaModel => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Model {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Model>::new(
+                ".google.cloud.geminidataanalytics.v1.ChatRequest.Model",
+            ))
+        }
+    }
+
     /// Context Provider for the chat request.
     /// It can either be -
     /// inline_context, which is a context provided inline in the request.
@@ -5577,6 +5998,15 @@ pub mod chat_request {
         /// conversations and agents, instead they create and manage their own
         /// conversations and agents resources.
         ClientManagedResourceContext(std::boxed::Box<crate::model::ClientManagedResourceContext>),
+    }
+
+    /// Optional settings to customize request behavior, specific to the target
+    /// datasource.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DatasourceSettings {
+        /// Optional. Looker specific settings.
+        LookerSettings(std::boxed::Box<crate::model::LookerSettings>),
     }
 }
 
@@ -6127,6 +6557,46 @@ pub mod message {
         UserMessage(std::boxed::Box<crate::model::UserMessage>),
         /// A message from the system in response to the user.
         SystemMessage(std::boxed::Box<crate::model::SystemMessage>),
+    }
+}
+
+/// Message to hold Looker specific custom settings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LookerSettings {
+    /// Optional. Whether to operate in Looker's Development Mode.
+    /// If true, the API session will be switched to the "dev" workspace,
+    /// allowing interaction with LookML changes in the user's development branch.
+    /// If false or unset, the session remains in the default state (Production
+    /// Mode).
+    /// See <https://cloud.google.com/looker/docs/dev-mode-prod-mode>.
+    pub enable_dev_mode: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LookerSettings {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enable_dev_mode][crate::model::LookerSettings::enable_dev_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::LookerSettings;
+    /// let x = LookerSettings::new().set_enable_dev_mode(true);
+    /// ```
+    pub fn set_enable_dev_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_dev_mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LookerSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.LookerSettings"
     }
 }
 
@@ -9110,13 +9580,6 @@ pub struct BigQueryTableReference {
     /// Optional. The schema of the datasource.
     pub schema: std::option::Option<crate::model::Schema>,
 
-    /// Optional. The location to restrict BigQuery operations to.
-    ///
-    /// If unspecified, this value defaults to the location of the endpoint.
-    ///
-    /// Examples: "us-central1", "europe-west1".
-    pub location_boundary: std::option::Option<std::string::String>,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9192,37 +9655,6 @@ impl BigQueryTableReference {
         T: std::convert::Into<crate::model::Schema>,
     {
         self.schema = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [location_boundary][crate::model::BigQueryTableReference::location_boundary].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryTableReference;
-    /// let x = BigQueryTableReference::new().set_location_boundary("example");
-    /// ```
-    pub fn set_location_boundary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.location_boundary = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [location_boundary][crate::model::BigQueryTableReference::location_boundary].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryTableReference;
-    /// let x = BigQueryTableReference::new().set_or_clear_location_boundary(Some("example"));
-    /// let x = BigQueryTableReference::new().set_or_clear_location_boundary(None::<String>);
-    /// ```
-    pub fn set_or_clear_location_boundary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.location_boundary = v.map(|x| x.into());
         self
     }
 }
@@ -9580,9 +10012,6 @@ pub struct BigQueryPropertyGraphReference {
     /// Required. The property graph id.
     pub property_graph_id: std::string::String,
 
-    /// Optional. The location boundary of the graph.
-    pub location_boundary: std::option::Option<std::string::String>,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9628,37 +10057,6 @@ impl BigQueryPropertyGraphReference {
         v: T,
     ) -> Self {
         self.property_graph_id = v.into();
-        self
-    }
-
-    /// Sets the value of [location_boundary][crate::model::BigQueryPropertyGraphReference::location_boundary].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryPropertyGraphReference;
-    /// let x = BigQueryPropertyGraphReference::new().set_location_boundary("example");
-    /// ```
-    pub fn set_location_boundary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.location_boundary = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [location_boundary][crate::model::BigQueryPropertyGraphReference::location_boundary].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryPropertyGraphReference;
-    /// let x = BigQueryPropertyGraphReference::new().set_or_clear_location_boundary(Some("example"));
-    /// let x = BigQueryPropertyGraphReference::new().set_or_clear_location_boundary(None::<String>);
-    /// ```
-    pub fn set_or_clear_location_boundary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.location_boundary = v.map(|x| x.into());
         self
     }
 }
