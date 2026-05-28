@@ -17,7 +17,7 @@ use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::mutation::Operation;
 use crate::to_value::ToValue;
 use crate::value::Value;
-use rand::RngExt;
+use rand::seq::IteratorRandom;
 use std::slice::Iter;
 use std::vec::IntoIter;
 
@@ -167,51 +167,36 @@ impl Mutation {
             return None;
         }
 
-        // 1. Filter for any mutations other than Operation::Insert, Send, or Ack
-        let non_inserts: Vec<_> = mutations
+        // 1. Filter for any mutations other than Operation::Insert, Send, or Ack, selecting one randomly.
+        let selected_non_insert = mutations
             .iter()
             .filter(|m| {
-                if let Some(op) = &m.operation {
+                m.operation.as_ref().is_some_and(|op| {
                     !matches!(
                         op,
                         Operation::Insert(_) | Operation::Send(_) | Operation::Ack(_)
                     )
-                } else {
-                    false
-                }
+                })
             })
-            .collect();
+            .choose(&mut rand::rng())
+            .cloned();
 
-        if !non_inserts.is_empty() {
-            // Return one of the non-inserts randomly.
-            let idx = select_random_index(non_inserts.len());
-            return Some((*non_inserts[idx]).clone());
+        if selected_non_insert.is_some() {
+            return selected_non_insert;
         }
 
         // 2. If only Inserts are present, choose the one with the largest number of values (rows).
-        let mut max_insert: Option<&crate::model::Mutation> = None;
-        let mut max_rows = 0;
-
-        for m in mutations {
-            if let Some(Operation::Insert(write)) = &m.operation {
-                let rows = write.values.len();
-                if max_insert.is_none() || rows > max_rows {
-                    max_insert = Some(m);
-                    max_rows = rows;
-                }
-            }
-        }
+        let max_insert = mutations
+            .iter()
+            .filter_map(|m| match &m.operation {
+                Some(Operation::Insert(write)) => Some((m, write.values.len())),
+                _ => None,
+            })
+            .max_by_key(|&(_, rows)| rows)
+            .map(|(m, _)| m);
 
         max_insert.cloned().or_else(|| mutations.first().cloned())
     }
-}
-
-/// Helper to select a pseudo-random index in the range `[0, len)` using standard rand.
-fn select_random_index(len: usize) -> usize {
-    if len == 0 {
-        return 0;
-    }
-    rand::rng().random_range(0..len)
 }
 
 impl Write {
