@@ -3361,4 +3361,164 @@ mod tests {
         assert!(res.commit_response.commit_timestamp.is_some());
         Ok(())
     }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_fallback_begin_under_deadline() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First statement execution fails with Unavailable (transient error)
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Begin(_))
+                )
+            })
+            .returning(move |_req| Err(tonic::Status::unavailable("transient error")));
+
+        // 2. Fallback explicit BeginTransaction is executed and sets attempt timeout based on remaining transaction deadline (approx 5 seconds).
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert!(
+                    duration >= StdDuration::from_millis(4000)
+                        && duration <= StdDuration::from_millis(6000),
+                    "Fallback begin timeout is wrong: {:?}",
+                    duration
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Statement retry succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Id(_))
+                )
+            })
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 4. Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(prost_types::Timestamp {
+                        seconds: 1234,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_transaction_timeout(StdDuration::from_secs(5))
+            .build()
+            .await?;
+
+        let res = runner
+            .run(async |tx| {
+                let count = tx
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                assert_eq!(count, 1);
+                Ok(())
+            })
+            .await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_fallback_begin_under_deadline() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Transaction was never started (empty runner block), so commit falls back to explicit BeginTransaction.
+        // Assert fallback explicit BeginTransaction sets timeout based on remaining transaction deadline (approx 5 seconds).
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert!(
+                    duration >= StdDuration::from_millis(4000)
+                        && duration <= StdDuration::from_millis(6000),
+                    "Fallback begin timeout inside commit is wrong: {:?}",
+                    duration
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        // 2. Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(prost_types::Timestamp {
+                        seconds: 5678,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_transaction_timeout(StdDuration::from_secs(5))
+            .build()
+            .await?;
+
+        let res = runner.run(async |_tx| Ok(())).await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
+        Ok(())
+    }
 }
