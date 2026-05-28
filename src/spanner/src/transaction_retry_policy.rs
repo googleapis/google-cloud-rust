@@ -40,9 +40,38 @@ pub trait TransactionRetryPolicy: Send + Sync {
 #[derive(Clone, Debug)]
 pub struct BasicTransactionRetryPolicy {
     /// The maximum number of attempts to make. If 0, this field is ignored.
-    pub max_attempts: u32,
+    max_attempts: u32,
     /// The total maximum time to spend retrying. If 0, this field is ignored.
-    pub total_timeout: Duration,
+    total_timeout: Duration,
+}
+
+impl BasicTransactionRetryPolicy {
+    /// Creates a new basic transaction retry policy with no limits.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets the maximum number of attempts to make.
+    pub fn with_max_attempts(mut self, max_attempts: u32) -> Self {
+        self.max_attempts = max_attempts;
+        self
+    }
+
+    /// Sets the total maximum time to spend retrying.
+    pub fn with_total_timeout(mut self, total_timeout: Duration) -> Self {
+        self.total_timeout = total_timeout;
+        self
+    }
+
+    /// Returns the maximum number of attempts configured.
+    pub fn max_attempts(&self) -> u32 {
+        self.max_attempts
+    }
+
+    /// Returns the total maximum time configured.
+    pub fn total_timeout(&self) -> Duration {
+        self.total_timeout
+    }
 }
 
 impl Default for BasicTransactionRetryPolicy {
@@ -251,10 +280,9 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_max_attempts_exceeded() {
-        let policy = BasicTransactionRetryPolicy {
-            max_attempts: 2,
-            total_timeout: Duration::from_secs(0),
-        };
+        let policy = BasicTransactionRetryPolicy::new()
+            .with_max_attempts(2)
+            .with_total_timeout(Duration::from_secs(0));
         let attempts = Arc::new(AtomicU32::new(0));
 
         let res = retry_aborted(&policy, || {
@@ -326,10 +354,9 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_total_timeout_exceeded() {
-        let policy = BasicTransactionRetryPolicy {
-            max_attempts: 0,
-            total_timeout: Duration::from_secs(1),
-        };
+        let policy = BasicTransactionRetryPolicy::new()
+            .with_max_attempts(0)
+            .with_total_timeout(Duration::from_secs(1));
         let attempts = Arc::new(AtomicU32::new(0));
 
         let res = retry_aborted(&policy, || {

@@ -21,7 +21,11 @@ pub(crate) const SPANNER_DATE_FORMAT: &[time::format_description::FormatItem<'st
 use prost_types::Value as ProtoValue;
 
 /// Kind indicates the type of the value.
+///
+/// This enum maps 1-to-1 with the frozen specification of JSON/Protobuf types
+/// in `google.protobuf.Value`, and is guaranteed not to grow.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[allow(clippy::exhaustive_enums, reason = "Value kinds are frozen JSON types")]
 pub enum Kind {
     Null,
     Number,

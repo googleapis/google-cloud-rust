@@ -29,6 +29,7 @@ macro_rules! define_type_code {
         /// Spanner type code.
         #[derive(Clone, Debug, PartialEq, Copy, Default)]
         #[repr(i32)]
+        #[non_exhaustive]
         pub enum TypeCode {
             #[default]
             Unspecified = 0,

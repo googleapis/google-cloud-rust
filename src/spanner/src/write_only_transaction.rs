@@ -181,10 +181,9 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///
-    /// let retry_policy = BasicTransactionRetryPolicy {
-    ///     max_attempts: 5,
-    ///     total_timeout: Duration::from_secs(60),
-    /// };
+    /// let retry_policy = BasicTransactionRetryPolicy::new()
+    ///     .with_max_attempts(5)
+    ///     .with_total_timeout(Duration::from_secs(60));
     ///
     /// let transaction = db_client.write_only_transaction()
     ///     .with_retry_policy(retry_policy)

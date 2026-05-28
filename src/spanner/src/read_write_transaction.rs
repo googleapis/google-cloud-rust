@@ -750,6 +750,7 @@ mod tests {
     use crate::BatchUpdateError;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::adapt;
+    use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
     use gaxi::grpc::tonic;
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -2876,10 +2877,9 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(
-                crate::transaction_retry_policy::BasicTransactionRetryPolicy {
-                    max_attempts: 3,
-                    total_timeout: std::time::Duration::from_secs(5),
-                },
+                BasicTransactionRetryPolicy::new()
+                    .with_max_attempts(3)
+                    .with_total_timeout(std::time::Duration::from_secs(5)),
             )
             .build()
             .await?;
@@ -2966,10 +2966,9 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(
-                crate::transaction_retry_policy::BasicTransactionRetryPolicy {
-                    max_attempts: 1,
-                    total_timeout: std::time::Duration::from_secs(5),
-                },
+                BasicTransactionRetryPolicy::new()
+                    .with_max_attempts(1)
+                    .with_total_timeout(std::time::Duration::from_secs(5)),
             )
             .build()
             .await?;
@@ -3066,10 +3065,9 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(
-                crate::transaction_retry_policy::BasicTransactionRetryPolicy {
-                    max_attempts: 1,
-                    total_timeout: std::time::Duration::from_secs(5),
-                },
+                BasicTransactionRetryPolicy::new()
+                    .with_max_attempts(1)
+                    .with_total_timeout(std::time::Duration::from_secs(5)),
             )
             .build()
             .await?;
