@@ -253,6 +253,15 @@ pub(crate) mod tests {
         );
     }
 
+    #[test]
+    fn basic_retry_policy_getters() {
+        let policy = BasicTransactionRetryPolicy::new()
+            .with_max_attempts(3)
+            .with_total_timeout(Duration::from_secs(10));
+        assert_eq!(policy.max_attempts(), 3);
+        assert_eq!(policy.total_timeout(), Duration::from_secs(10));
+    }
+
     #[tokio::test]
     async fn retry_aborted_success_first_try() {
         let policy = BasicTransactionRetryPolicy::default();
