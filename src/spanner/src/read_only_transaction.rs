@@ -107,6 +107,7 @@ impl SingleUseReadOnlyTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
                 channel_hint,
+                begin_transaction_request_options: None,
             },
         }
     }
@@ -394,6 +395,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
                 channel_hint,
+                begin_transaction_request_options: self.begin_transaction_request_options.clone(),
             },
         })
     }
@@ -858,6 +860,7 @@ pub(crate) struct ReadContext {
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
     pub(crate) transaction_tag: Option<String>,
     pub(crate) channel_hint: usize,
+    pub(crate) begin_transaction_request_options: Option<crate::GaxRequestOptions>,
 }
 
 impl ReadContext {
@@ -884,7 +887,7 @@ impl ReadContext {
     /// fallback mechanism when an initial implicit begin attempt failed.
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
-        request_options: crate::GaxRequestOptions,
+        fallback_options: crate::GaxRequestOptions,
         is_stream_fallback: bool,
     ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
@@ -895,13 +898,18 @@ impl ReadContext {
             return Ok(false);
         }
 
+        let options = self
+            .begin_transaction_request_options
+            .clone()
+            .unwrap_or(fallback_options);
+
         self.transaction_selector
             .begin_explicitly(ExplicitBeginParams {
                 client: self.client.clone(),
                 session_name: self.session_name.clone(),
                 transaction_tag: self.transaction_tag.clone(),
                 channel_hint: self.channel_hint,
-                request_options,
+                request_options: options,
                 is_stream_fallback,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
             })
@@ -1008,10 +1016,14 @@ pub(crate) mod tests {
     use crate::result_set::tests::adapt;
     use crate::result_set::tests::string_val;
     use crate::value::Value;
+    use ::tonic as extern_tonic;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
+    use google_cloud_gax::options::internal::RequestOptionsExt;
     use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
+    use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+    use spanner_grpc_mock::google::spanner::v1::Session;
     use std::sync::mpsc::channel as std_channel;
     use std::sync::{Arc, Mutex as StdMutex};
     use tokio::sync::oneshot::channel as oneshot_channel;
@@ -2826,6 +2838,190 @@ pub(crate) mod tests {
             let next_result = result_set.next().await;
             assert!(next_result.is_none(), "expected None, got {next_result:?}");
         }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_begin_with_custom_options() -> anyhow::Result<()> {
+        use http::{HeaderMap, HeaderName, HeaderValue};
+
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(
+                |req: extern_tonic::Request<mock_v1::BeginTransactionRequest>| {
+                    assert_eq!(
+                        req.metadata()
+                            .get("x-custom-begin-ro")
+                            .expect("custom header should be present")
+                            .to_str()
+                            .unwrap(),
+                        "true"
+                    );
+                    Ok(tonic::Response::new(mock_v1::Transaction {
+                        id: vec![42],
+                        ..Default::default()
+                    }))
+                },
+            );
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut begin_opts = crate::GaxRequestOptions::default();
+        let mut begin_headers = HeaderMap::new();
+        begin_headers.insert(
+            HeaderName::from_static("x-custom-begin-ro"),
+            HeaderValue::from_static("true"),
+        );
+        begin_opts = begin_opts.insert_extension(begin_headers);
+
+        let _transaction = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_begin_transaction_request_options(begin_opts)
+            .build()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_lazy_begin_fallback_propagates_custom_options()
+    -> anyhow::Result<()> {
+        use http::{HeaderMap, HeaderName, HeaderValue};
+
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First query execution fails with Unavailable (transient error)
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req: &extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(mock_v1::transaction_selector::Selector::Begin(_))
+                )
+            })
+            .returning(
+                move |_req: extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
+                    Err(tonic::Status::unavailable("transient error"))
+                },
+            );
+
+        // 2. Fallback explicit BeginTransaction is executed and propagates custom options
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(
+                move |req: extern_tonic::Request<mock_v1::BeginTransactionRequest>| {
+                    assert_eq!(
+                        req.metadata()
+                            .get("x-custom-fallback-begin-ro")
+                            .expect("custom header should be present")
+                            .to_str()
+                            .unwrap(),
+                        "true",
+                        "Fallback begin must propagate custom begin transaction request options"
+                    );
+                    assert!(
+                        req.metadata().get("x-query-only-header").is_none(),
+                        "Fallback begin must ignore statement-level query options when transaction-level options are set"
+                    );
+                    Ok(tonic::Response::new(mock_v1::Transaction {
+                        id: vec![42],
+                        ..Default::default()
+                    }))
+                },
+            );
+
+        // 3. Query is retried and matches the Id variant, succeeding this time
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req: &extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(mock_v1::transaction_selector::Selector::Id(_))
+                )
+            })
+            .returning(
+                move |_req: extern_tonic::Request<mock_v1::ExecuteSqlRequest>| {
+                    let mut result_set_partial = setup_select1();
+                    result_set_partial
+                        .metadata
+                        .as_mut()
+                        .expect("metadata should be present")
+                        .transaction = Some(mock_v1::Transaction {
+                        id: vec![42],
+                        ..Default::default()
+                    });
+                    Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                        result_set_partial,
+                    )])))
+                },
+            );
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut begin_opts = crate::GaxRequestOptions::default();
+        let mut begin_headers = HeaderMap::new();
+        begin_headers.insert(
+            HeaderName::from_static("x-custom-fallback-begin-ro"),
+            HeaderValue::from_static("true"),
+        );
+        begin_opts = begin_opts.insert_extension(begin_headers);
+
+        let transaction = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_begin_transaction_request_options(begin_opts)
+            .build()
+            .await?;
+
+        // Statement has its own custom options (e.g. query-specific header), which acts as the fallback options.
+        // The fallback begin_transaction should ignore the query options and use the transaction's begin options.
+        let mut query_opts = crate::GaxRequestOptions::default();
+        let mut query_headers = HeaderMap::new();
+        query_headers.insert(
+            HeaderName::from_static("x-query-only-header"),
+            HeaderValue::from_static("true"),
+        );
+        query_opts = query_opts.insert_extension(query_headers);
+        let stmt = Statement::builder("SELECT 1")
+            .build()
+            .with_gax_options(query_opts);
+
+        let mut rs = transaction.execute_query(stmt).await?;
+
+        let row = rs.next().await.expect("has row")?;
+        assert_eq!(row.raw_values(), [Value(string_val("1"))]);
 
         Ok(())
     }

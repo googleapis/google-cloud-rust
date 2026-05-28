@@ -66,6 +66,7 @@ mockall.workspace                  = true
 spanner-grpc-mock                  = { path = "grpc-mock" }
 static_assertions.workspace        = true
 tokio                              = { workspace = true, features = ["test-util"] }
+tonic.workspace                    = true
 
 [lints]
 workspace = true

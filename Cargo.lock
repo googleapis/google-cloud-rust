@@ -4707,6 +4707,7 @@ dependencies = [
  "thiserror",
  "time",
  "tokio",
+ "tonic",
  "tracing",
  "url",
 ]

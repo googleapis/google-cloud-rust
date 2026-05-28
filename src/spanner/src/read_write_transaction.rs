@@ -216,6 +216,7 @@ impl ReadWriteTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new(),
                 transaction_tag: self.transaction_tag.clone(),
                 channel_hint,
+                begin_transaction_request_options: self.begin_transaction_request_options.clone(),
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
@@ -3182,7 +3183,7 @@ mod tests {
                 let req = req.into_inner();
                 assert_eq!(
                     req.transaction.unwrap().selector.unwrap(),
-                    v1::transaction_selector::Selector::Id(vec![42].into())
+                    v1::transaction_selector::Selector::Id(vec![42])
                 );
                 Ok(tonic::Response::new(v1::ResultSet {
                     metadata: Some(v1::ResultSetMetadata {
@@ -3288,6 +3289,76 @@ mod tests {
             Some(Code::Unavailable),
             "Error code should be Unavailable"
         );
+        Ok(())
+    }
+
+    fn parse_grpc_timeout(metadata: &gaxi::grpc::tonic::MetadataMap) -> Option<StdDuration> {
+        let timeout_header = metadata.get("grpc-timeout")?.to_str().ok()?;
+        let numeric_part: String = timeout_header
+            .chars()
+            .filter(|c| c.is_ascii_digit())
+            .collect();
+        let unit_part: String = timeout_header
+            .chars()
+            .filter(|c| c.is_ascii_alphabetic())
+            .collect();
+        let value: u64 = numeric_part.parse().ok()?;
+        let duration = match unit_part.as_str() {
+            "n" => StdDuration::from_nanos(value),
+            "u" => StdDuration::from_micros(value),
+            "m" => StdDuration::from_millis(value),
+            "S" => StdDuration::from_secs(value),
+            "M" => StdDuration::from_secs(value * 60),
+            "H" => StdDuration::from_secs(value * 3600),
+            _ => return None,
+        };
+        Some(duration)
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_timeout_combination() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![8, 8, 8],
+                ..Default::default()
+            }))
+        });
+
+        // Assert that the commit attempt timeout of 2 seconds propagates as the gRPC timeout header metadata (approx 2000m/2000000u).
+        mock.expect_commit().once().returning(|req| {
+            let duration = parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+            assert_eq!(
+                duration,
+                StdDuration::from_secs(2),
+                "Timeout duration should be exactly 2 seconds"
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 999,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut commit_opts = crate::GaxRequestOptions::default();
+        commit_opts.set_attempt_timeout(StdDuration::from_secs(2));
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_commit_request_options(commit_opts)
+            .with_transaction_timeout(StdDuration::from_secs(10))
+            .build()
+            .await?;
+
+        let res = runner.run(async |_tx| Ok(())).await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
         Ok(())
     }
 }

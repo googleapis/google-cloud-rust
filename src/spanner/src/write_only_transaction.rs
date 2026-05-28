@@ -1278,4 +1278,162 @@ mod tests {
             .await;
         assert!(res.is_ok());
     }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_with_custom_options() -> anyhow::Result<()> {
+        use google_cloud_gax::options::internal::RequestOptionsExt;
+        use http::{HeaderMap, HeaderName, HeaderValue};
+
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                assert_eq!(
+                    req.metadata()
+                        .get("x-custom-begin-wo")
+                        .expect("begin header required")
+                        .to_str()
+                        .unwrap(),
+                    "true"
+                );
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                assert_eq!(
+                    req.metadata()
+                        .get("x-custom-commit-wo")
+                        .expect("commit header required")
+                        .to_str()
+                        .unwrap(),
+                    "true"
+                );
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 8888,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut begin_opts = crate::GaxRequestOptions::default();
+        let mut begin_headers = HeaderMap::new();
+        begin_headers.insert(
+            HeaderName::from_static("x-custom-begin-wo"),
+            HeaderValue::from_static("true"),
+        );
+        begin_opts = begin_opts.insert_extension(begin_headers);
+
+        let mut commit_opts = crate::GaxRequestOptions::default();
+        let mut commit_headers = HeaderMap::new();
+        commit_headers.insert(
+            HeaderName::from_static("x-custom-commit-wo"),
+            HeaderValue::from_static("true"),
+        );
+        commit_opts = commit_opts.insert_extension(commit_headers);
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_begin_transaction_request_options(begin_opts)
+            .with_commit_request_options(commit_opts)
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            8888
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_at_least_once_with_custom_commit_options() -> anyhow::Result<()> {
+        use google_cloud_gax::options::internal::RequestOptionsExt;
+        use http::{HeaderMap, HeaderName, HeaderValue};
+
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().never();
+
+        mock.expect_commit().once().returning(move |req| {
+            assert_eq!(
+                req.metadata()
+                    .get("x-custom-commit-at-least-once")
+                    .expect("commit header required")
+                    .to_str()
+                    .unwrap(),
+                "true"
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 7777,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut commit_opts = crate::GaxRequestOptions::default();
+        let mut commit_headers = HeaderMap::new();
+        commit_headers.insert(
+            HeaderName::from_static("x-custom-commit-at-least-once"),
+            HeaderValue::from_static("true"),
+        );
+        commit_opts = commit_opts.insert_extension(commit_headers);
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_commit_request_options(commit_opts)
+            .build()
+            .write_at_least_once(vec![mutation])
+            .await?;
+
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            7777
+        );
+        Ok(())
+    }
 }
