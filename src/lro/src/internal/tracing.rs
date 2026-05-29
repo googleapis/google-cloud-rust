@@ -21,7 +21,13 @@ use crate::POLL_ATTEMPT_COUNT;
 
 #[cfg(google_cloud_unstable_tracing)]
 tokio::task_local! {
-    static LRO_SPAN: Span;
+    /// A task-local context propagating the active LRO `Span`.
+    ///
+    /// This is accessed across module boundaries to dynamically retrieve the
+    /// active span context, allowing the inner pollers to record the LRO's actual
+    /// operation name/resource destination ID when first fetched, without requiring
+    /// passing tracing parameters through all method signatures.
+    pub(crate) static LRO_SPAN: Span;
 }
 
 #[cfg(google_cloud_unstable_tracing)]
