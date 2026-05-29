@@ -25,9 +25,14 @@ use time::{Date, OffsetDateTime};
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {
-    /// The value kind is not what we expected.
+    /// The value kind is not as expected.
     #[error("expected {want:?}, got {got:?}")]
-    KindMismatch { want: Kind, got: Kind },
+    KindMismatch {
+        /// The expected Spanner value kind.
+        want: Kind,
+        /// The actual Spanner value kind.
+        got: Kind,
+    },
 
     /// The value is null, but the target type does not support nulls.
     #[error("expected non-null value, got null")]
@@ -40,8 +45,19 @@ pub enum ConvertError {
 
 type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 
-/// Converts Spanner [Value] to Rust types.
+/// Converts a Spanner [Value] into a Rust type.
+///
+/// Implementations are provided for all standard types like `String`, primitive integer
+/// and float types, decimals, timestamps, dates, vectors, and options for nullable fields.
 pub trait FromValue: Sized {
+    /// Converts a Spanner value into the target Rust type, using the provided
+    /// Spanner `Type` metadata for compatibility checks.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
+    /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if 
+    /// parsing or decoding the inner value format fails.
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError>;
 }
 

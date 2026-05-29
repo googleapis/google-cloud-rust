@@ -73,6 +73,9 @@ pub struct Spanner {
     pub(crate) config: ClientConfig,
 }
 
+/// A factory for constructing `Spanner` clients.
+///
+/// TODO(#5430) - entire module exports and structure needs a review.
 pub struct Factory;
 
 impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
@@ -168,6 +171,9 @@ fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
 
 #[allow(dead_code)]
 impl Spanner {
+    /// Returns a builder for the `Spanner` client.
+    ///
+    /// TODO(#5430) - entire module exports and structure needs a review.
     pub fn builder() -> ClientBuilder {
         let builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
         // The Spanner client should automatically use the Spanner emulator if the

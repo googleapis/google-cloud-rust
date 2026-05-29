@@ -27,13 +27,21 @@ pub struct Type(pub(crate) crate::generated::gapic_dataplane::model::Type);
 macro_rules! define_type_code {
     ($($variant:ident = $val:expr),* $(,)?) => {
         /// Spanner type code.
+        ///
+        /// Maps directly to the gRPC type codes defined in
+        /// [`crate::generated::gapic_dataplane::model::TypeCode`].
         #[derive(Clone, Debug, PartialEq, Eq, Copy, Hash, Default)]
         #[repr(i32)]
         #[non_exhaustive]
         pub enum TypeCode {
+            /// Not specified.
             #[default]
             Unspecified = 0,
-            $($variant = $val),*,
+            $(
+                #[doc = concat!("Spanner `", stringify!($variant), "` data type.")]
+                $variant = $val
+            ),*,
+            /// An unknown or unsupported type code value.
             Unknown(i32),
         }
 

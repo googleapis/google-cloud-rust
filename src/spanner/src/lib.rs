@@ -19,8 +19,6 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 
-// TODO(#5537) - fix missing docs and remove this.
-#![allow(missing_docs, reason = "docs not yet complete")]
 // TODO(#5566) - stabilize API and remove this.
 #![allow(clippy::exhaustive_enums, reason = "API not yet stable")]
 
@@ -42,12 +40,31 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+/// Batch DML support.
+///
+/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod batch_dml;
+
+/// Spanner client implementation.
+///
+/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod client;
+
+/// Client builder utility.
+///
+/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
+
+/// Batch read-only transaction support.
+///
+/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod batch_read_only_transaction;
+
+/// Spanner data models.
+///
+/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
