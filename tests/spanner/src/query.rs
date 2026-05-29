@@ -500,10 +500,12 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
 
     // Create a raw gRPC client that connects to the Spanner Emulator or real Spanner.
     // This will be used by the proxy server to forward requests.
-    let mut endpoint = Channel::from_shared(destination_endpoint.clone())?;
-    if destination_endpoint.starts_with("https") {
-        endpoint = endpoint.tls_config(ClientTlsConfig::new().with_enabled_roots())?;
-    }
+    let endpoint = Channel::from_shared(destination_endpoint.clone())?;
+    let endpoint = if destination_endpoint.starts_with("https") {
+        endpoint.tls_config(ClientTlsConfig::new().with_enabled_roots())?
+    } else {
+        endpoint
+    };
     let endpoint = endpoint.connect().await?;
     let latch_clone = Arc::clone(&latch);
     let begin_entered_clone = Arc::clone(&begin_transaction_entered_latch);
