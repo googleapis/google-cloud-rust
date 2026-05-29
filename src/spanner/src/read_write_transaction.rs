@@ -759,9 +759,11 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
     fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
         self.inner.on_error(state, error)
     }
+
     fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
         self.inner.on_throttle(state, error)
     }
+
     fn remaining_time(&self, state: &RetryState) -> Option<StdDuration> {
         let remaining = self.deadline.saturating_duration_since(Instant::now());
         let attempt_timeout = self
