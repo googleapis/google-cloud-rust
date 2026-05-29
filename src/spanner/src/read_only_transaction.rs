@@ -22,8 +22,11 @@ use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use crate::transaction_retry_policy::is_aborted;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::mem::replace;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use tokio::sync::Notify;
 
 /// A builder for [SingleUseReadOnlyTransaction].
@@ -107,6 +110,7 @@ impl SingleUseReadOnlyTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
                 channel_hint,
+                begin_transaction_request_options: None,
             },
         }
     }
@@ -230,6 +234,7 @@ pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
     begin_transaction_option: BeginTransactionOption,
+    begin_gax_options: crate::RequestOptions,
 }
 
 impl MultiUseReadOnlyTransactionBuilder {
@@ -238,6 +243,7 @@ impl MultiUseReadOnlyTransactionBuilder {
             client,
             timestamp_bound: None,
             begin_transaction_option: BeginTransactionOption::InlineBegin,
+            begin_gax_options: crate::RequestOptions::default(),
         }
     }
 
@@ -273,6 +279,72 @@ impl MultiUseReadOnlyTransactionBuilder {
     /// Default is `BeginTransactionOption::InlineBegin`.
     pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
         self.begin_transaction_option = option;
+        self
+    }
+
+    /// Sets the per-attempt timeout for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.read_only_transaction()
+    ///     .with_begin_attempt_timeout(Duration::from_secs(10))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Note: This timeout is only used if the transaction uses the `ExplicitBegin` transaction option.
+    pub fn with_begin_attempt_timeout(mut self, timeout: Duration) -> Self {
+        self.begin_gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.read_only_transaction()
+    ///     .with_begin_retry_policy(NeverRetry)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Note: This policy is only used if the transaction uses the `ExplicitBegin` transaction option.
+    pub fn with_begin_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.begin_gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.read_only_transaction()
+    ///     .with_begin_backoff_policy(ExponentialBackoff::default())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Note: This policy is only used if the transaction uses the `ExplicitBegin` transaction option.
+    pub fn with_begin_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.begin_gax_options.set_backoff_policy(policy);
         self
     }
 
@@ -346,7 +418,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                     session_name.clone(),
                     options,
                     channel_hint,
-                    crate::RequestOptions::default(),
+                    self.begin_gax_options.clone(),
                 )
                 .await?
             }
@@ -363,6 +435,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
                 channel_hint,
+                begin_transaction_request_options: Some(self.begin_gax_options.clone()),
             },
         })
     }
@@ -827,6 +900,7 @@ pub(crate) struct ReadContext {
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
     pub(crate) transaction_tag: Option<String>,
     pub(crate) channel_hint: usize,
+    pub(crate) begin_transaction_request_options: Option<crate::RequestOptions>,
 }
 
 impl ReadContext {
@@ -853,7 +927,7 @@ impl ReadContext {
     /// fallback mechanism when an initial implicit begin attempt failed.
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
-        request_options: crate::RequestOptions,
+        fallback_options: crate::RequestOptions,
         is_stream_fallback: bool,
     ) -> crate::Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
@@ -864,13 +938,18 @@ impl ReadContext {
             return Ok(false);
         }
 
+        let options = self
+            .begin_transaction_request_options
+            .clone()
+            .unwrap_or(fallback_options);
+
         self.transaction_selector
             .begin_explicitly(ExplicitBeginParams {
                 client: self.client.clone(),
                 session_name: self.session_name.clone(),
                 transaction_tag: self.transaction_tag.clone(),
                 channel_hint: self.channel_hint,
-                request_options,
+                request_options: options,
                 is_stream_fallback,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
             })
@@ -978,8 +1057,12 @@ pub(crate) mod tests {
     use crate::result_set::tests::string_val;
     use crate::value::Value;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
+    use google_cloud_gax::error::rpc::Code as GaxCode;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use mock_v1::transaction_selector::Selector;
+    use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::mpsc::channel as std_channel;
     use std::sync::{Arc, Mutex as StdMutex};
@@ -2795,6 +2878,164 @@ pub(crate) mod tests {
             let next_result = result_set.next().await;
             assert!(next_result.is_none(), "expected None, got {next_result:?}");
         }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_begin_with_never_retry() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let res = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_begin_retry_policy(NeverRetry)
+            .build()
+            .await;
+
+        assert!(res.is_err(), "should fail immediately without retry");
+        let err = res.unwrap_err();
+        assert_eq!(err.status().expect("status").code, GaxCode::Unavailable);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_lazy_begin_fallback_never_retry() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First query execution fails with Unavailable (transient error)
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        // 2. Fallback explicit BeginTransaction is executed exactly once and fails
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let transaction = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_begin_retry_policy(NeverRetry)
+            .build()
+            .await?;
+
+        let stmt = Statement::builder("SELECT 1").build();
+        let res = transaction.execute_query(stmt).await;
+
+        assert!(
+            res.is_err(),
+            "should fail immediately during fallback without retrying the fallback RPC"
+        );
+        let err = res.unwrap_err();
+        assert_eq!(err.status().expect("status").code, GaxCode::Unavailable);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_begin_with_attempt_timeout() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                let timeout_header = req.metadata().get("grpc-timeout");
+                assert!(
+                    timeout_header.is_some(),
+                    "grpc-timeout header should be present"
+                );
+                let val = timeout_header.unwrap().to_str().unwrap();
+                assert!(
+                    val.contains("5000") || val.contains("5"),
+                    "timeout header value '{}' should represent 5 seconds",
+                    val
+                );
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(mock_v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let _transaction = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_begin_attempt_timeout(std::time::Duration::from_secs(5))
+            .build()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_builder_sets_gax_options() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let builder = db_client
+            .read_only_transaction()
+            .with_begin_attempt_timeout(Duration::from_secs(5))
+            .with_begin_retry_policy(NeverRetry)
+            .with_begin_backoff_policy(ExponentialBackoff::default());
+
+        assert_eq!(
+            *builder.begin_gax_options.attempt_timeout(),
+            Some(Duration::from_secs(5))
+        );
+        assert!(builder.begin_gax_options.retry_policy().is_some());
+        assert!(builder.begin_gax_options.backoff_policy().is_some());
 
         Ok(())
     }
