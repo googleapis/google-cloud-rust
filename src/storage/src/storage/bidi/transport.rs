@@ -42,49 +42,63 @@ impl ObjectDescriptorTransport {
         use gaxi::prost::FromProto;
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
+
+        // Convert the requested `ReadRange`s to proto format.
         let requested_ranges = ranges.into_iter().map(|r| r.0).collect::<Vec<_>>();
         let proto_ranges = requested_ranges
             .iter()
             .enumerate()
             .map(|(id, r)| r.as_proto(id as i64))
             .collect::<Vec<_>>();
+
+        // Establish the gRPC connection and extract object metadata.
         let (mut initial, headers, connection) = connector.connect(proto_ranges).await?;
         let object = FromProto::cnv(initial.metadata.take().ok_or_else(|| {
             Error::deser("initial response in bidi read must contain object metadata")
         })?)
         .expect("transforming from proto Object never fails");
         let object = Arc::new(object);
-        let (active, readers) = Self::map_ranges(requested_ranges, &tx, &object);
-        let mut worker = super::worker::Worker::new(connector, active);
+
+        // Construct the initial `ActiveRead`s and their corresponding `ReadObjectResponse` streams.
+        let (actives, responses) = requested_ranges
+            .into_iter()
+            .map(|r| Self::map_range(r, &tx, &object))
+            .unzip();
+
+        // Process any data ranges in the initial response and spawn the worker task.
+        let mut worker = super::worker::Worker::new(connector, actives);
         worker
             .handle_response_success(initial)
             .await
             .map_err(Error::io)?;
         let _handle = tokio::spawn(worker.run(connection, rx));
+
         Ok((
             Self {
                 object,
                 headers,
                 tx,
             },
-            readers,
+            responses,
         ))
     }
 
-    fn map_ranges(
-        ranges: Vec<RequestedRange>,
+    /// Builds the `ActiveRead`-`ReadObjectResponse` pair corresponding
+    /// to the given `RequestedRange`.
+    ///
+    /// The returned `ActiveRead` needs to be registered with the Worker
+    /// either via `Worker::new` or via `ObjectDescriptorTransport.tx.send` (once
+    /// the worker is running); otherwise, the corresponding `ReadObjectResponse` will
+    /// never receive any bytes.
+    fn map_range(
+        range: RequestedRange,
         requests: &Sender<ActiveRead>,
         object: &Arc<Object>,
-    ) -> (Vec<ActiveRead>, Vec<ReadObjectResponse>) {
-        ranges
-            .into_iter()
-            .map(|r| {
-                let (tx, rx) = tokio::sync::mpsc::channel(100);
-                let active = ActiveRead::new(tx, r);
-                let reader = RangeReader::new(rx, object.clone(), requests.clone());
-                (active, ReadObjectResponse::new(Box::new(reader)))
-            })
-            .unzip()
+    ) -> (ActiveRead, ReadObjectResponse) {
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let active = ActiveRead::new(tx, range);
+        let reader = RangeReader::new(rx, object.clone(), requests.clone());
+        (active, ReadObjectResponse::new(Box::new(reader)))
     }
 }
 
@@ -97,17 +111,12 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
-        let (tx, rx) = tokio::sync::mpsc::channel(100);
-        let range = ActiveRead::new(tx, range.0);
+        let (active, response) = Self::map_range(range.0, &self.tx, &self.object);
         self.tx
-            .send(range)
+            .send(active)
             .await
             .expect("worker never exits while ObjectDescriptor is live");
-        ReadObjectResponse::new(Box::new(RangeReader::new(
-            rx,
-            self.object.clone(),
-            self.tx.clone(),
-        )))
+        response
     }
 
     fn headers(&self) -> HeaderMap {

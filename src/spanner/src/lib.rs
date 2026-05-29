@@ -19,9 +19,6 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 
-// TODO(#5566) - stabilize API and remove this.
-#![allow(clippy::exhaustive_enums, reason = "API not yet stable")]
-
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
 pub use batch_read_only_transaction::{
