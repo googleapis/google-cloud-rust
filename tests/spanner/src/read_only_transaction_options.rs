@@ -49,9 +49,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
         .await
         .transpose()?
         .expect("Expected current timestamp row");
-    // TODO(#5684): Add FromValue/ToValue trait implementations for wkt::Timestamp to avoid conversion boilerplate.
-    let spanner_now: OffsetDateTime = row.get(0);
-    let spanner_now_wkt = WktTimestamp::try_from(spanner_now).expect("valid wkt timestamp");
+    let spanner_now_wkt: WktTimestamp = row.get(0);
 
     // Insert a new row in a read-write transaction.
     let id = format!("read-ts-{}", LowercaseAlphanumeric.random_string(10));
@@ -85,7 +83,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     // Query the database at the exact past timestamp.
     let tx = db_client
         .read_only_transaction()
-        .with_timestamp_bound(TimestampBound::read_timestamp(spanner_now))
+        .with_timestamp_bound(TimestampBound::read_timestamp(spanner_now_wkt))
         .build()
         .await?;
 
@@ -127,9 +125,8 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
         .await
         .transpose()?
         .expect("Expected current timestamp row");
-    // TODO(#5728): Add FromValue/ToValue trait implementations for wkt::Timestamp to avoid conversion boilerplate.
+    let spanner_now_wkt: WktTimestamp = row.get(0);
     let spanner_now: OffsetDateTime = row.get(0);
-    let spanner_now_wkt = WktTimestamp::try_from(spanner_now).expect("valid wkt timestamp");
 
     assert!(
         read_ts < spanner_now_wkt,
