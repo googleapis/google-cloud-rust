@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{get_database_id, get_emulator_host, update_database_ddl};
+use crate::client::{
+    get_database_id, get_emulator_host, get_real_spanner_config, update_database_ddl,
+};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
 use google_cloud_spanner::client::{
@@ -23,7 +25,7 @@ use google_cloud_spanner::model::result_set_stats::RowCount;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::sync::Arc;
 use tokio::sync::Notify;
-use tonic::transport::Channel;
+use tonic::transport::{Channel, ClientTlsConfig};
 use tracing::info;
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
@@ -483,24 +485,26 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
 // transaction could delete the row in the time between the first attempt failed, and the
 // BeginTransaction RPC has been executed.
 pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let emulator_host = match get_emulator_host() {
-        Some(host) => host,
-        None => {
-            // TODO(#5682): enable this on real Spanner
-            info!(
-                "Skipping inline_begin_fallback test on real Spanner as it requires local proxy against emulator"
-            );
-            return Ok(());
-        }
+    let destination_endpoint = match get_emulator_host() {
+        Some(host) => format!("http://{}", host),
+        None => "https://spanner.googleapis.com:443".to_string(),
     };
+
+    let (project_id, instance_id) = match get_real_spanner_config() {
+        Some((project, instance)) => (project, instance),
+        None => ("test-project".to_string(), "test-instance".to_string()),
+    };
+
     let latch = Arc::new(Notify::new());
     let begin_transaction_entered_latch = Arc::new(Notify::new());
 
-    // Create a raw gRPC client that connects to the Spanner Emulator.
-    // This will be used by the proxy server to forward requests to the Emulator.
-    let endpoint = Channel::from_shared(format!("http://{}", emulator_host))?
-        .connect()
-        .await?;
+    // Create a raw gRPC client that connects to the Spanner Emulator or real Spanner.
+    // This will be used by the proxy server to forward requests.
+    let mut endpoint = Channel::from_shared(destination_endpoint.clone())?;
+    if destination_endpoint.starts_with("https") {
+        endpoint = endpoint.tls_config(ClientTlsConfig::new().with_enabled_roots())?;
+    }
+    let endpoint = endpoint.connect().await?;
     let latch_clone = Arc::clone(&latch);
     let begin_entered_clone = Arc::clone(&begin_transaction_entered_latch);
 
@@ -519,7 +523,17 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         }) as BoxFuture<'static, InterceptionResult>
     };
 
-    let proxy = PassThroughProxy::new(endpoint, interceptor);
+    let uri = destination_endpoint.parse::<http::Uri>()?;
+    let scheme = uri
+        .scheme()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing scheme"))?;
+    let authority = uri
+        .authority()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing authority"))?;
+
+    let proxy = PassThroughProxy::new(endpoint, scheme, authority, interceptor);
     let proxy_server = proxy.start("127.0.0.1:0").await?;
 
     // We build the Spanner DatabaseClient pointing directly to our proxy address over gRPC.
@@ -528,7 +542,9 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         .build()
         .await?
         .database_client(format!(
-            "projects/test-project/instances/test-instance/databases/{}",
+            "projects/{}/instances/{}/databases/{}",
+            project_id,
+            instance_id,
             get_database_id().await
         ))
         .build()

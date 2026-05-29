@@ -19,7 +19,7 @@ use google_cloud_spanner::client::{
     BeginTransactionOption, ResultSet, Row, Spanner, TimestampBound,
 };
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
-use http::{Request, Response, StatusCode};
+use http::{Request, Response, StatusCode, Uri};
 use http_body::Frame;
 use http_body_util::Full;
 use http_body_util::StreamBody;
@@ -187,7 +187,17 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
         }) as BoxFuture<'static, InterceptionResult>
     };
 
-    let proxy = PassThroughProxy::new(emulator_channel, interceptor);
+    let endpoint_str = format!("http://{}", emulator_host);
+    let uri = endpoint_str.parse::<Uri>()?;
+    let scheme = uri
+        .scheme()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing scheme"))?;
+    let authority = uri
+        .authority()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing authority"))?;
+    let proxy = PassThroughProxy::new(emulator_channel, scheme, authority, interceptor);
     let proxy_server = proxy.start("127.0.0.1:0").await?;
 
     // 5. Build Client pointing to Interceptor
