@@ -134,7 +134,7 @@ pub use internal::{PollerOptions, TracingDetails};
 
 #[cfg(google_cloud_unstable_tracing)]
 tokio::task_local! {
-    pub static POLL_ATTEMPT_COUNT: u32;
+    pub(crate) static POLL_ATTEMPT_COUNT: u32;
 }
 
 pub(crate) mod sealed {
