@@ -1363,7 +1363,11 @@ mod tests {
             }))),
         );
 
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let signer = Builder::default()
             .with_endpoint(&endpoint)
@@ -1418,7 +1422,11 @@ mod tests {
             }))),
         );
 
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let creds = Builder::default()
             .with_endpoint(&endpoint)

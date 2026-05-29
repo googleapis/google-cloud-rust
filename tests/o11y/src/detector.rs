@@ -362,7 +362,7 @@ mod tests {
             .respond_with(status_code(200).body(MOCK_METADATA)),
         );
         let detector = GoogleCloudResourceDetector::builder()
-            .with_endpoint(server.url("").to_string())
+            .with_endpoint(server.url("/").to_string())
             .build()
             .await?;
         let resource = detector.detect();
@@ -528,7 +528,7 @@ mod tests {
         );
 
         let detector = GoogleCloudResourceDetectorBuilder::new()
-            .with_endpoint(server.url("").to_string())
+            .with_endpoint(server.url("/").to_string())
             .with_attempt_count(3);
 
         let builder = Resource::builder_empty();
@@ -605,7 +605,7 @@ mod tests {
         );
 
         let detector = GoogleCloudResourceDetectorBuilder::new()
-            .with_endpoint(server.url("").to_string())
+            .with_endpoint(server.url("/").to_string())
             .with_attempt_count(3);
 
         let result = detector.fetch_instance_metadata().await?;
@@ -633,7 +633,7 @@ mod tests {
         );
 
         let detector = GoogleCloudResourceDetectorBuilder::new()
-            .with_endpoint(server.url("").to_string())
+            .with_endpoint(server.url("/").to_string())
             .with_attempt_timeout(Duration::from_millis(100))
             .with_attempt_count(2);
 
@@ -656,7 +656,7 @@ mod tests {
         );
 
         let detector = GoogleCloudResourceDetectorBuilder::new()
-            .with_endpoint(server.url("").to_string())
+            .with_endpoint(server.url("/").to_string())
             .with_attempt_count(3);
 
         let result = detector.fetch_instance_metadata().await;
@@ -674,7 +674,7 @@ mod tests {
             .respond_with(status_code(200).body(MOCK_METADATA)),
         );
         let detector =
-            GoogleCloudResourceDetectorBuilder::new().with_endpoint(server.url("").to_string());
+            GoogleCloudResourceDetectorBuilder::new().with_endpoint(server.url("/").to_string());
         (server, detector)
     }
 

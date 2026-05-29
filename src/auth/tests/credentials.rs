@@ -584,7 +584,7 @@ mod tests {
 
         let test_quota_project = "test-quota-project";
         let mdcs = MdsBuilder::default()
-            .with_endpoint(server.url("").to_string().trim_end_matches("/"))
+            .with_endpoint(server.url("/").to_string().trim_end_matches('/'))
             .with_quota_project_id(test_quota_project)
             .build_access_token_credentials()?;
 
