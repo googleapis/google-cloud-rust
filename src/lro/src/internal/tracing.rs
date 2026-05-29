@@ -66,7 +66,6 @@ impl LroRecorder {
         LRO_RECORDER.scope(self.clone(), future).await
     }
 
-    #[cfg(test)]
     pub fn span(&self) -> &Span {
         &self.span
     }
@@ -329,7 +328,10 @@ mod tests {
         recorder
             .record_action(|_| async move {
                 let active_recorder = LroRecorder::current().unwrap();
-                assert_eq!(active_recorder.span.metadata().name(), "test_lro_span");
+                assert_eq!(
+                    active_recorder.span.metadata().unwrap().name(),
+                    "test_lro_span"
+                );
                 assert_eq!(active_recorder.span, span_clone);
             })
             .await;
