@@ -51,7 +51,7 @@ mod tests {
         let mut config = ClientConfig::default();
         config.disable_follow_redirects = true;
         config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("")).await?;
+        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
 
         let builder = client.http_builder_with_url(
             Method::PUT,
