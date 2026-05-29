@@ -21,8 +21,6 @@
 
 // TODO(#5537) - fix missing docs and remove this.
 #![allow(missing_docs, reason = "docs not yet complete")]
-// TODO(#5566) - stabilize API and remove this.
-#![allow(clippy::exhaustive_enums, reason = "API not yet stable")]
 
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
