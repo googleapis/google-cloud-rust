@@ -67,10 +67,11 @@ mod tests {
 
     mock! {
         PollerA {}
-        impl sealed::Poller for PollerA {}
+        impl sealed::Poller for PollerA {
+            async fn backoff(&mut self, state: &PollingState);
+        }
         impl Poller<ResponseType, MetadataType> for PollerA {
             async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>>;
-            async fn backoff(&mut self, state: &PollingState);
             async fn until_done(self) -> google_cloud_gax::Result<ResponseType>;
             #[cfg(feature = "unstable-stream")]
             fn into_stream(
