@@ -27,11 +27,18 @@ use prost_types::Value as ProtoValue;
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[allow(clippy::exhaustive_enums, reason = "Value kinds are frozen JSON types")]
 pub enum Kind {
+    /// Represents a null value of any data type.
     Null,
+    /// Represents a floating point value.
     Number,
+    /// Represents a UTF-8 string value or encoded representations of other data types,
+    /// such as base64-encoded bytes, decimals, dates, timestamps, and integers.
     String,
+    /// Represents a boolean value.
     Bool,
+    /// Represents a structured object containing a collection of key-value pairs.
     Struct,
+    /// Represents an ordered list of values.
     List,
 }
 

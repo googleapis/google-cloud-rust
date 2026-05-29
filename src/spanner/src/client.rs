@@ -73,6 +73,7 @@ pub struct Spanner {
     pub(crate) config: ClientConfig,
 }
 
+/// A factory for constructing `Spanner` clients.
 pub struct Factory;
 
 impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
@@ -166,8 +167,35 @@ fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
     ep
 }
 
-#[allow(dead_code)]
 impl Spanner {
+    /// Returns a builder for the `Spanner` client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder().build().await?;
+    ///
+    /// let db_client = spanner
+    ///     .database_client("projects/my-project/instances/my-instance/databases/my-db")
+    ///     .build()
+    ///     .await?;
+    ///
+    /// let tx = db_client.single_use().build();
+    /// let mut rs = tx.execute_query("SELECT 1").await?;
+    ///
+    /// while let Some(row) = rs.next().await {
+    ///     let row = row?;
+    ///     let val: i64 = row.get(0);
+    ///     assert_eq!(val, 1);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// The returned builder is pre-configured with standard defaults. It automatically
+    /// detects and connects to the Spanner emulator if the `SPANNER_EMULATOR_HOST`
+    /// environment variable is set.
     pub fn builder() -> ClientBuilder {
         let builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
         // The Spanner client should automatically use the Spanner emulator if the
@@ -273,7 +301,6 @@ impl Spanner {
         ExecuteBatchDmlRequest,
         ExecuteBatchDmlResponse
     );
-    define_idempotent_rpc!(read, crate::model::ReadRequest, crate::model::ResultSet);
     define_idempotent_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
     define_idempotent_rpc!(commit, CommitRequest, CommitResponse);
     define_idempotent_rpc!(rollback, RollbackRequest, ());
@@ -664,45 +691,6 @@ mod tests {
             .await
             .expect("Failed to call execute_batch_dml");
         assert!(response.status.is_some());
-    }
-
-    #[tokio_test_no_panics]
-    async fn test_read() {
-        use crate::model::ReadRequest;
-
-        let mut mock = MockSpanner::new();
-        mock.expect_read().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(mock_v1::ResultSet {
-                metadata: None,
-                rows: vec![],
-                stats: None,
-                precommit_token: None,
-                cache_update: None,
-            }))
-        });
-
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
-        let client = Spanner::builder()
-            .with_endpoint(address)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await
-            .expect("Failed to build client");
-
-        let mut req = ReadRequest::new();
-        req.table = "test_table".to_string();
-
-        let result_set = client
-            .read(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
-            .await
-            .expect("Failed to call read");
-        assert!(result_set.metadata.is_none());
     }
 
     #[tokio_test_no_panics]
