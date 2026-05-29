@@ -22,7 +22,18 @@ use std::time::SystemTime;
 use time::{Date, OffsetDateTime};
 
 /// Converts Rust types to Spanner [Value].
+///
+/// This trait is used to encode native Rust types into the generic `Value`
+/// representation suitable for transmission to Cloud Spanner (such as in query parameters
+/// or mutation values).
+///
+/// Implementations are provided for standard Rust types, mapping them to their appropriate
+/// Spanner values. For example, optional types naturally map to `Value::Null` when they are `None`.
 pub trait ToValue {
+    /// Encodes this Rust type as a Spanner `Value`.
+    ///
+    /// Implementations are responsible for using the correct value kind for the
+    /// corresponding data type in Spanner.
     fn to_value(&self) -> Value;
 }
 

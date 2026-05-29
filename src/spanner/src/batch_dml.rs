@@ -101,6 +101,7 @@ pub struct BatchDml {
 }
 
 impl BatchDml {
+    /// Creates a new builder for constructing a [`BatchDml`] request.
     pub fn builder() -> BatchDmlBuilder {
         BatchDmlBuilder::new()
     }

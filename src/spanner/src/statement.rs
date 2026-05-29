@@ -231,7 +231,7 @@ impl StatementBuilder {
 /// ```
 #[derive(Clone, Debug)]
 pub struct Statement {
-    pub sql: String,
+    pub(crate) sql: String,
     pub(crate) params: BTreeMap<String, Value>,
     pub(crate) param_types: BTreeMap<String, Type>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
@@ -245,6 +245,11 @@ impl Statement {
     /// Creates a new statement builder.
     pub fn builder(sql: impl Into<String>) -> StatementBuilder {
         StatementBuilder::new(sql)
+    }
+
+    /// Returns the SQL query string of this statement.
+    pub fn sql(&self) -> &str {
+        &self.sql
     }
 
     pub(crate) fn gax_options(&self) -> &GaxRequestOptions {

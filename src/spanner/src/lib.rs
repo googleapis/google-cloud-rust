@@ -19,9 +19,6 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 
-// TODO(#5537) - fix missing docs and remove this.
-#![allow(missing_docs, reason = "docs not yet complete")]
-
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
 pub use batch_read_only_transaction::{
@@ -40,12 +37,21 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+/// Batch DML support.
 pub mod batch_dml;
+
+/// Spanner client implementation.
 pub mod client;
+
+/// Client builder utility.
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
+
+/// Batch read-only transaction support.
 pub mod batch_read_only_transaction;
+
+/// Spanner data models.
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }

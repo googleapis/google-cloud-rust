@@ -33,6 +33,13 @@ macro_rules! key {
     };
 }
 
+/// A primary key or index key in Spanner.
+///
+/// A `Key` consists of an ordered collection of one or more Spanner [`Value`]s.
+/// The elements must match the correct column order as defined by the table or
+/// index schema.
+///
+/// For a simpler way to construct a `Key` instance, use the [`key!`] macro.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Key {
     pub(crate) values: Vec<Value>,
