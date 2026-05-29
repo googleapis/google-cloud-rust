@@ -50,6 +50,7 @@ use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
+use std::cmp::min;
 use std::mem::take;
 use std::sync::Arc;
 use std::sync::Mutex;
@@ -756,8 +757,14 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
     fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
         self.inner.on_throttle(state, error)
     }
-    fn remaining_time(&self, _state: &RetryState) -> Option<StdDuration> {
-        Some(self.deadline.saturating_duration_since(Instant::now()))
+    fn remaining_time(&self, state: &RetryState) -> Option<StdDuration> {
+        let remaining = self.deadline.saturating_duration_since(Instant::now());
+        let attempt_timeout = self
+            .inner
+            .remaining_time(state)
+            .map(|inner| min(remaining, inner))
+            .unwrap_or(remaining);
+        Some(attempt_timeout)
     }
 }
 
@@ -3533,10 +3540,64 @@ mod tests {
         let bounded = TransactionBoundedRetryPolicy { inner, deadline };
 
         let state = RetryState::new(true);
-        let status = Status::default().set_code(Code::Unavailable).set_message("error");
+        let status = Status::default()
+            .set_code(Code::Unavailable)
+            .set_message("error");
         let error = GaxError::service(status);
 
         let res = bounded.on_throttle(&state, error);
         assert!(matches!(res, ThrottleResult::Exhausted(_)));
+    }
+
+    #[test]
+    fn test_transaction_bounded_retry_policy_remaining_time_capping() {
+        #[derive(Debug)]
+        struct RemainingTimeTestPolicy {
+            timeout: Option<StdDuration>,
+        }
+        impl RetryPolicy for RemainingTimeTestPolicy {
+            fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
+                RetryResult::Continue(error)
+            }
+            fn remaining_time(&self, _state: &RetryState) -> Option<StdDuration> {
+                self.timeout
+            }
+        }
+
+        let state = RetryState::new(true);
+
+        // Case A: Inner policy timeout (3s) is shorter than remaining transaction deadline (approx 10s)
+        let inner = Arc::new(RemainingTimeTestPolicy {
+            timeout: Some(StdDuration::from_secs(3)),
+        });
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+        let remaining = bounded.remaining_time(&state).expect("remaining time");
+        assert!(
+            remaining >= StdDuration::from_millis(2500)
+                && remaining <= StdDuration::from_millis(3500)
+        );
+
+        // Case B: Transaction deadline (approx 2s) is shorter than inner policy timeout (10s)
+        let inner = Arc::new(RemainingTimeTestPolicy {
+            timeout: Some(StdDuration::from_secs(10)),
+        });
+        let deadline = Instant::now() + StdDuration::from_secs(2);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+        let remaining = bounded.remaining_time(&state).expect("remaining time");
+        assert!(
+            remaining >= StdDuration::from_millis(1500)
+                && remaining <= StdDuration::from_millis(2500)
+        );
+
+        // Case C: Inner policy timeout is None (returns transaction remaining approx 10s)
+        let inner = Arc::new(RemainingTimeTestPolicy { timeout: None });
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+        let remaining = bounded.remaining_time(&state).expect("remaining time");
+        assert!(
+            remaining >= StdDuration::from_millis(9500)
+                && remaining <= StdDuration::from_millis(10500)
+        );
     }
 }
