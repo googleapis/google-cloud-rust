@@ -46,10 +46,10 @@ use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::retry_policy::Aip194Strict;
-use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
+use google_cloud_gax::throttle_result::ThrottleResult;
 use std::mem::take;
 use std::sync::Arc;
 use std::sync::Mutex;
@@ -753,6 +753,9 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
     fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
         self.inner.on_error(state, error)
     }
+    fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
+        self.inner.on_throttle(state, error)
+    }
     fn remaining_time(&self, _state: &RetryState) -> Option<StdDuration> {
         Some(self.deadline.saturating_duration_since(Instant::now()))
     }
@@ -769,6 +772,8 @@ mod tests {
     use gaxi::grpc::tonic::MetadataMap;
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::HeaderMap;
     use prost_types::Timestamp;
@@ -3508,5 +3513,30 @@ mod tests {
         assert!(
             timeout >= StdDuration::from_millis(1500) && timeout <= StdDuration::from_millis(2500)
         );
+    }
+
+    #[test]
+    fn test_transaction_bounded_retry_policy_throttle_delegation() {
+        #[derive(Debug)]
+        struct ThrottleTestPolicy;
+        impl RetryPolicy for ThrottleTestPolicy {
+            fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
+                RetryResult::Continue(error)
+            }
+            fn on_throttle(&self, _state: &RetryState, error: GaxError) -> ThrottleResult {
+                ThrottleResult::Exhausted(error)
+            }
+        }
+
+        let inner = Arc::new(ThrottleTestPolicy);
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+
+        let state = RetryState::new(true);
+        let status = Status::default().set_code(Code::Unavailable).set_message("error");
+        let error = GaxError::service(status);
+
+        let res = bounded.on_throttle(&state, error);
+        assert!(matches!(res, ThrottleResult::Exhausted(_)));
     }
 }
