@@ -271,16 +271,17 @@ fn parse_region_from_zone(zone: &str) -> Option<&str> {
     if zone.is_empty() {
         return None;
     }
-    if let Some(last_char) = zone.chars().last() {
-        if last_char.is_ascii_alphabetic() && zone.len() > 1 {
-            let potential_region = &zone[..zone.len() - 1];
-            if potential_region
-                .chars()
-                .last()
-                .is_some_and(|c| c.is_ascii_digit())
-            {
-                return Some(potential_region);
-            }
+    if let Some(last_char) = zone.chars().last()
+        && last_char.is_ascii_alphabetic()
+        && zone.len() > 1
+    {
+        let potential_region = &zone[..zone.len() - 1];
+        if potential_region
+            .chars()
+            .last()
+            .is_some_and(|c| c.is_ascii_digit())
+        {
+            return Some(potential_region);
         }
     }
     Some(zone)

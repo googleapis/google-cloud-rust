@@ -86,10 +86,10 @@ impl STSHandler {
             params.insert("actor_token_type", actor_token_type);
         }
 
-        if let Some(options) = req.extra_options {
-            if let Ok(value) = serde_json::to_value(options) {
-                params.insert("options", value.to_string());
-            }
+        if let Some(options) = req.extra_options
+            && let Ok(value) = serde_json::to_value(options)
+        {
+            params.insert("options", value.to_string());
         }
 
         self.execute(req.url, req.authentication, req.headers, params)
