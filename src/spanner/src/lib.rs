@@ -38,30 +38,20 @@ pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
 /// Batch DML support.
-///
-/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod batch_dml;
 
 /// Spanner client implementation.
-///
-/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod client;
 
 /// Client builder utility.
-///
-/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
 
 /// Batch read-only transaction support.
-///
-/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod batch_read_only_transaction;
 
 /// Spanner data models.
-///
-/// TODO(#5430) - entire module exports and structure needs a review.
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }

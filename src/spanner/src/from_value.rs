@@ -56,7 +56,7 @@ pub trait FromValue: Sized {
     /// # Errors
     ///
     /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
-    /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if 
+    /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if
     /// parsing or decoding the inner value format fails.
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError>;
 }
