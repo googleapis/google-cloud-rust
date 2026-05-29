@@ -38,8 +38,8 @@ pub struct WriteOnlyTransactionBuilder {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
-    begin_gax_options: Option<crate::RequestOptions>,
-    commit_gax_options: Option<crate::RequestOptions>,
+    begin_gax_options: GaxRequestOptions,
+    commit_gax_options: GaxRequestOptions,
 }
 
 impl WriteOnlyTransactionBuilder {
@@ -52,8 +52,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: false,
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
-            begin_gax_options: None,
-            commit_gax_options: None,
+            begin_gax_options: GaxRequestOptions::default(),
+            commit_gax_options: GaxRequestOptions::default(),
         }
     }
 
@@ -221,9 +221,7 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn with_begin_attempt_timeout(mut self, timeout: std::time::Duration) -> Self {
-        self.begin_gax_options
-            .get_or_insert_with(crate::RequestOptions::default)
-            .set_attempt_timeout(timeout);
+        self.begin_gax_options.set_attempt_timeout(timeout);
         self
     }
 
@@ -242,9 +240,7 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn with_begin_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
-        self.begin_gax_options
-            .get_or_insert_with(crate::RequestOptions::default)
-            .set_retry_policy(policy);
+        self.begin_gax_options.set_retry_policy(policy);
         self
     }
 
@@ -263,9 +259,7 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn with_begin_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
-        self.begin_gax_options
-            .get_or_insert_with(crate::RequestOptions::default)
-            .set_backoff_policy(policy);
+        self.begin_gax_options.set_backoff_policy(policy);
         self
     }
 
@@ -284,9 +278,7 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn with_commit_attempt_timeout(mut self, timeout: std::time::Duration) -> Self {
-        self.commit_gax_options
-            .get_or_insert_with(crate::RequestOptions::default)
-            .set_attempt_timeout(timeout);
+        self.commit_gax_options.set_attempt_timeout(timeout);
         self
     }
 
@@ -305,9 +297,7 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn with_commit_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
-        self.commit_gax_options
-            .get_or_insert_with(crate::RequestOptions::default)
-            .set_retry_policy(policy);
+        self.commit_gax_options.set_retry_policy(policy);
         self
     }
 
@@ -326,9 +316,7 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn with_commit_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
-        self.commit_gax_options
-            .get_or_insert_with(crate::RequestOptions::default)
-            .set_backoff_policy(policy);
+        self.commit_gax_options.set_backoff_policy(policy);
         self
     }
 
@@ -372,8 +360,8 @@ pub struct WriteOnlyTransaction {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
-    begin_gax_options: Option<crate::RequestOptions>,
-    commit_gax_options: Option<crate::RequestOptions>,
+    begin_gax_options: GaxRequestOptions,
+    commit_gax_options: GaxRequestOptions,
 }
 
 impl WriteOnlyTransaction {
@@ -569,14 +557,14 @@ impl WriteOnlyTransaction {
     fn begin_gax_options(&self) -> GaxRequestOptions {
         amend_request_options_for_lar(
             self.client.leader_aware_routing_enabled,
-            self.begin_gax_options.clone().unwrap_or_default(),
+            self.begin_gax_options.clone(),
         )
     }
 
     fn commit_gax_options(&self) -> GaxRequestOptions {
         amend_request_options_for_lar(
             self.client.leader_aware_routing_enabled,
-            self.commit_gax_options.clone().unwrap_or_default(),
+            self.commit_gax_options.clone(),
         )
     }
 }
@@ -607,10 +595,8 @@ mod tests {
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic::Response;
     use google_cloud_gax::exponential_backoff::ExponentialBackoff;
-    use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
-    use http::{HeaderMap, HeaderName, HeaderValue};
     use prost_types::Duration as ProstDuration;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -1383,10 +1369,7 @@ mod tests {
             .with_commit_retry_policy(NeverRetry)
             .with_commit_backoff_policy(ExponentialBackoff::default());
 
-        let begin_gax = builder
-            .begin_gax_options
-            .as_ref()
-            .expect("begin_gax_options missing");
+        let begin_gax = &builder.begin_gax_options;
         assert_eq!(
             *begin_gax.attempt_timeout(),
             Some(StdDuration::from_secs(5))
@@ -1394,10 +1377,7 @@ mod tests {
         assert!(begin_gax.retry_policy().is_some());
         assert!(begin_gax.backoff_policy().is_some());
 
-        let commit_gax = builder
-            .commit_gax_options
-            .as_ref()
-            .expect("commit_gax_options missing");
+        let commit_gax = &builder.commit_gax_options;
         assert_eq!(
             *commit_gax.attempt_timeout(),
             Some(StdDuration::from_secs(10))
