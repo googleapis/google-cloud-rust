@@ -56,8 +56,7 @@ where
     #[cfg(feature = "unstable-stream")]
     fn into_stream(
         self,
-    ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin {
-        let span = self.span.clone();
-        crate::into_stream(self).instrument(span)
+    ) -> impl futures::Stream<Item = crate::PollingResult<ResponseType, MetadataType>> + Unpin {
+        crate::into_stream(self)
     }
 }
