@@ -309,13 +309,18 @@ impl ValueBinder {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct MutationGroup {
-    pub mutations: Vec<Mutation>,
+    mutations: Vec<Mutation>,
 }
 
 impl MutationGroup {
     /// Creates a new mutation group from a list of mutations.
     pub fn new(mutations: Vec<Mutation>) -> Self {
         Self { mutations }
+    }
+
+    /// Returns a reference to the collection of mutations in this group.
+    pub fn mutations(&self) -> &[Mutation] {
+        &self.mutations
     }
 
     #[allow(dead_code)]
