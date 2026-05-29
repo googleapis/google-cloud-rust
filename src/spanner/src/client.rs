@@ -166,7 +166,6 @@ fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
     ep
 }
 
-#[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
         let builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
@@ -273,7 +272,6 @@ impl Spanner {
         ExecuteBatchDmlRequest,
         ExecuteBatchDmlResponse
     );
-    define_idempotent_rpc!(read, crate::model::ReadRequest, crate::model::ResultSet);
     define_idempotent_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
     define_idempotent_rpc!(commit, CommitRequest, CommitResponse);
     define_idempotent_rpc!(rollback, RollbackRequest, ());
@@ -664,45 +662,6 @@ mod tests {
             .await
             .expect("Failed to call execute_batch_dml");
         assert!(response.status.is_some());
-    }
-
-    #[tokio_test_no_panics]
-    async fn test_read() {
-        use crate::model::ReadRequest;
-
-        let mut mock = MockSpanner::new();
-        mock.expect_read().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(mock_v1::ResultSet {
-                metadata: None,
-                rows: vec![],
-                stats: None,
-                precommit_token: None,
-                cache_update: None,
-            }))
-        });
-
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
-        let client = Spanner::builder()
-            .with_endpoint(address)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await
-            .expect("Failed to build client");
-
-        let mut req = ReadRequest::new();
-        req.table = "test_table".to_string();
-
-        let result_set = client
-            .read(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
-            .await
-            .expect("Failed to call read");
-        assert!(result_set.metadata.is_none());
     }
 
     #[tokio_test_no_panics]
