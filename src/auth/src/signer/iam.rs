@@ -234,7 +234,11 @@ mod tests {
                 "signedBlob": signed_blob,
             }))),
         );
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let mut mock = MockCredentials::new();
         mock.expect_headers().return_once(|_extensions| {
@@ -279,7 +283,11 @@ mod tests {
             ),])
             .respond_with(status_code(500)),
         );
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let mut mock = MockCredentials::new();
         mock.expect_headers().return_once(|_extensions| {
@@ -321,7 +329,11 @@ mod tests {
                 }))
             ]),
         );
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let mut mock = MockCredentials::new();
         mock.expect_headers().returning(|_extensions| {

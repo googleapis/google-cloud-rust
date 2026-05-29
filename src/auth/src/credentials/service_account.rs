@@ -1142,7 +1142,11 @@ mod tests {
             }))),
         );
 
-        let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let iam_endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let creds = Builder::new(service_account_key.clone())
             .maybe_iam_endpoint_override(Some(iam_endpoint))

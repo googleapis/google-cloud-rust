@@ -2529,7 +2529,11 @@ mod tests {
             }
         });
 
-        let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let iam_endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let creds = Builder::new(contents)
             .maybe_iam_endpoint_override(Some(iam_endpoint))

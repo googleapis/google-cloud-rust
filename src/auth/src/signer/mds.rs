@@ -155,7 +155,11 @@ mod tests {
         });
 
         let creds = Credentials::from(mock);
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
         let client = MDSClient::new(Some(endpoint.clone()));
         let mut signer = MDSSigner::new(client, creds);
         signer.iam_endpoint_override = Some(endpoint);

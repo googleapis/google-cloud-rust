@@ -2462,7 +2462,11 @@ mod tests {
         let builder_from_json = Builder::new(impersonated_credential);
 
         for builder in [builder_from_source, builder_from_json] {
-            let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+            let iam_endpoint = server
+                .url("/")
+                .to_string()
+                .trim_end_matches('/')
+                .to_string();
             let signer = builder
                 .maybe_iam_endpoint_override(Some(iam_endpoint))
                 .without_access_boundary()
@@ -2616,7 +2620,11 @@ mod tests {
         let builder_from_json = Builder::new(impersonated_credential);
 
         for builder in [builder_from_source, builder_from_json] {
-            let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+            let iam_endpoint = server
+                .url("/")
+                .to_string()
+                .trim_end_matches('/')
+                .to_string();
             let creds = builder
                 .maybe_iam_endpoint_override(Some(iam_endpoint))
                 .build_credentials()?;
@@ -2699,7 +2707,7 @@ mod tests {
             )
         );
 
-        let endpoint = server.url("").to_string();
+        let endpoint = server.url("/").to_string();
         let endpoint = endpoint.trim_end_matches('/');
 
         let creds = builder
