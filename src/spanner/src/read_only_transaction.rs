@@ -23,6 +23,7 @@ use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::mem::replace;
 use std::sync::{Arc, Mutex};
@@ -944,10 +945,10 @@ impl ReadContext {
             return Ok(false);
         }
 
-        let options = self
-            .begin_transaction_request_options
-            .clone()
-            .unwrap_or(fallback_options);
+        let options = merge_request_options(
+            fallback_options,
+            self.begin_transaction_request_options.as_ref(),
+        );
 
         self.transaction_selector
             .begin_explicitly(ExplicitBeginParams {
@@ -962,6 +963,38 @@ impl ReadContext {
             .await?;
         Ok(true)
     }
+}
+
+/// Merges the configured fields from a `source` `RequestOptions` into a `destination` `RequestOptions`.
+/// Configured options in `source` will override those in `destination`.
+fn merge_request_options(
+    mut destination: crate::RequestOptions,
+    source: Option<&crate::RequestOptions>,
+) -> crate::RequestOptions {
+    let Some(source) = source else {
+        return destination;
+    };
+
+    if let Some(timeout) = source.attempt_timeout() {
+        destination.set_attempt_timeout(*timeout);
+    }
+    if let Some(retry) = source.retry_policy() {
+        destination.set_retry_policy(retry.clone());
+    }
+    if let Some(backoff) = source.backoff_policy() {
+        destination.set_backoff_policy(backoff.clone());
+    }
+    if let Some(src_headers) = source.get_extension::<http::HeaderMap>() {
+        let mut dest_headers = destination
+            .get_extension::<http::HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        for (name, value) in src_headers.iter() {
+            dest_headers.insert(name.clone(), value.clone());
+        }
+        destination = destination.insert_extension(dest_headers);
+    }
+    destination
 }
 
 /// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
@@ -1067,6 +1100,7 @@ pub(crate) mod tests {
     use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::{HeaderMap, HeaderName, HeaderValue};
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
@@ -3036,11 +3070,11 @@ pub(crate) mod tests {
             .with_begin_retry_policy(NeverRetry)
             .with_begin_backoff_policy(ExponentialBackoff::default());
 
-        let gax = builder.begin_gax_options.as_ref().expect("begin_gax_options missing");
-        assert_eq!(
-            *gax.attempt_timeout(),
-            Some(Duration::from_secs(5))
-        );
+        let gax = builder
+            .begin_gax_options
+            .as_ref()
+            .expect("begin_gax_options missing");
+        assert_eq!(*gax.attempt_timeout(), Some(Duration::from_secs(5)));
         assert!(gax.retry_policy().is_some());
         assert!(gax.backoff_policy().is_some());
 
@@ -3066,9 +3100,16 @@ pub(crate) mod tests {
             .in_sequence(&mut sequence)
             .withf(|req| {
                 let timeout_header = req.metadata().get("grpc-timeout");
-                assert!(timeout_header.is_some(), "grpc-timeout header should be present");
+                assert!(
+                    timeout_header.is_some(),
+                    "grpc-timeout header should be present"
+                );
                 let val = timeout_header.unwrap().to_str().unwrap();
-                assert!(val.contains("5000") || val.contains("5"), "timeout header value '{}' should represent 5 seconds", val);
+                assert!(
+                    val.contains("5000") || val.contains("5"),
+                    "timeout header value '{}' should represent 5 seconds",
+                    val
+                );
                 true
             })
             .returning(|_| {
@@ -3076,6 +3117,34 @@ pub(crate) mod tests {
                     id: vec![42],
                     ..Default::default()
                 }))
+            });
+
+        // 3. Query is retried with the successfully obtained transaction ID, succeeding this time
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(mock_v1::transaction_selector::Selector::Id(id)) if id == &vec![42]
+                )
+            })
+            .returning(|_| {
+                let mut result_set_partial = setup_select1();
+                result_set_partial
+                    .metadata
+                    .as_mut()
+                    .expect("metadata should be present")
+                    .transaction = Some(mock_v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                });
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    result_set_partial,
+                )])))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -3096,10 +3165,149 @@ pub(crate) mod tests {
 
         let mut stmt_opts = crate::RequestOptions::default();
         stmt_opts.set_attempt_timeout(Duration::from_secs(5));
-        let stmt = Statement::builder("SELECT 1").build().with_gax_options(stmt_opts);
+        let stmt = Statement::builder("SELECT 1")
+            .build()
+            .with_gax_options(stmt_opts);
 
-        let _res = transaction.execute_query(stmt).await;
+        let mut rs = transaction.execute_query(stmt).await?;
+        let row = rs.next().await.expect("has row")?;
+        assert_eq!(row.raw_values(), [Value(string_val("1"))]);
 
         Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_only_transaction_lazy_begin_fallback_merges_custom_options() -> anyhow::Result<()>
+    {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First query execution fails with Unavailable (transient error)
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        // 2. Fallback explicit BeginTransaction must have BOTH:
+        // - attempt_timeout of 5 seconds (inherited from statement's options)
+        // - retry_policy of NeverRetry (inherited from transaction's begin options)
+        // If it did not merge correctly, the timeout header would be missing, or it would retry.
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                let timeout_header = req.metadata().get("grpc-timeout");
+                assert!(
+                    timeout_header.is_some(),
+                    "grpc-timeout header should be present"
+                );
+                let val = timeout_header.unwrap().to_str().unwrap();
+                assert!(
+                    val.contains("5000") || val.contains("5"),
+                    "timeout header value '{}' should represent 5 seconds",
+                    val
+                );
+                true
+            })
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let transaction = db_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_begin_retry_policy(NeverRetry)
+            .build()
+            .await?;
+
+        let mut stmt_opts = crate::RequestOptions::default();
+        stmt_opts.set_attempt_timeout(Duration::from_secs(5));
+        let stmt = Statement::builder("SELECT 1")
+            .build()
+            .with_gax_options(stmt_opts);
+
+        let res = transaction.execute_query(stmt).await;
+
+        assert!(
+            res.is_err(),
+            "should fail immediately because of NeverRetry"
+        );
+        let err = res.unwrap_err();
+        assert_eq!(err.status().expect("status").code, GaxCode::Unavailable);
+
+        Ok(())
+    }
+
+    #[test]
+    fn test_merge_request_options() {
+        // Case 1: Destination has values, source is empty (Destination preserved)
+        let mut dest = crate::RequestOptions::default();
+        dest.set_attempt_timeout(Duration::from_secs(2));
+        dest.set_retry_policy(NeverRetry);
+
+        // Source is None (Destination preserved)
+        let merged = merge_request_options(dest, None);
+
+        assert_eq!(*merged.attempt_timeout(), Some(Duration::from_secs(2)));
+        assert!(merged.retry_policy().is_some());
+
+        // Case 2: Source has overriding values, destination is empty (Source overrides)
+        let dest = crate::RequestOptions::default();
+
+        let mut source = crate::RequestOptions::default();
+        source.set_attempt_timeout(Duration::from_secs(5));
+        source.set_retry_policy(NeverRetry);
+
+        let merged = merge_request_options(dest, Some(&source));
+
+        assert_eq!(*merged.attempt_timeout(), Some(Duration::from_secs(5)));
+        assert!(merged.retry_policy().is_some());
+
+        // Case 3: Both have distinct custom headers (Headers must merge/combine)
+        let mut dest = crate::RequestOptions::default();
+        let mut dest_headers = HeaderMap::new();
+        dest_headers.insert(
+            HeaderName::from_static("x-goog-spanner-route-to-leader"),
+            HeaderValue::from_static("true"),
+        );
+        dest = dest.insert_extension(dest_headers);
+
+        let mut source = crate::RequestOptions::default();
+        let mut src_headers = HeaderMap::new();
+        src_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("custom-value"),
+        );
+        source = source.insert_extension(src_headers);
+
+        let merged = merge_request_options(dest, Some(&source));
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap missing");
+
+        assert_eq!(
+            merged_headers
+                .get("x-goog-spanner-route-to-leader")
+                .unwrap()
+                .to_str()
+                .unwrap(),
+            "true"
+        );
+        assert_eq!(
+            merged_headers
+                .get("x-custom-header")
+                .unwrap()
+                .to_str()
+                .unwrap(),
+            "custom-value"
+        );
     }
 }
