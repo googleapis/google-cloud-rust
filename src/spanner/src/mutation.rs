@@ -17,6 +17,7 @@ use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::mutation::Operation;
 use crate::to_value::ToValue;
 use crate::value::Value;
+use rand::seq::IteratorRandom;
 use std::slice::Iter;
 use std::vec::IntoIter;
 
@@ -165,24 +166,47 @@ impl Mutation {
     }
 
     /// Selects the best mutation to act as a routing `mutation_key`.
-    /// Prefers any non-`Insert` and non-`InsertOrUpdate` variation (like `Delete`, `Replace`, `Update`)
+    /// Prefers any non-`Insert` variation (like `Update`, `InsertOrUpdate`, `Replace`, `Delete`)
     /// since inserts more often use auto-generated columns (e.g. for primary key generation).
     /// Using a mutation with only non-generated values as the mutation key is preferred, as it reduces
     /// the overhead internally in Spanner.
+    /// If only `Insert` mutations are present, it selects the insert mutation with the largest number of rows.
     pub(crate) fn select_mutation_key(
         mutations: &[crate::model::Mutation],
     ) -> Option<crate::model::Mutation> {
-        mutations
+        if mutations.is_empty() {
+            return None;
+        }
+
+        // 1. Filter for any mutations other than Operation::Insert, Send, or Ack, selecting one randomly.
+        let selected_non_insert = mutations
             .iter()
-            .find(|m| {
-                if let Some(op) = &m.operation {
-                    !matches!(op, Operation::Insert(_) | Operation::InsertOrUpdate(_))
-                } else {
-                    false
-                }
+            .filter(|m| {
+                m.operation.as_ref().is_some_and(|op| {
+                    !matches!(
+                        op,
+                        Operation::Insert(_) | Operation::Send(_) | Operation::Ack(_)
+                    )
+                })
             })
-            .or_else(|| mutations.first())
-            .cloned()
+            .choose(&mut rand::rng())
+            .cloned();
+
+        if selected_non_insert.is_some() {
+            return selected_non_insert;
+        }
+
+        // 2. If only Inserts are present, choose the one with the largest number of values (rows).
+        let max_insert = mutations
+            .iter()
+            .filter_map(|m| match &m.operation {
+                Some(Operation::Insert(write)) => Some((m, write.values.len())),
+                _ => None,
+            })
+            .max_by_key(|&(_, rows)| rows)
+            .map(|(m, _)| m);
+
+        max_insert.cloned().or_else(|| mutations.first().cloned())
     }
 }
 
@@ -552,7 +576,7 @@ mod tests {
     }
 
     #[test]
-    fn test_select_mutation_key_only_insert() {
+    fn test_select_mutation_key_prefers_insert_or_update_over_insert() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
             .to(&1)
@@ -565,7 +589,33 @@ mod tests {
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone()];
         let key = Mutation::select_mutation_key(&mutations);
-        assert_eq!(key, Some(m1));
+        assert_eq!(key, Some(m2));
+    }
+
+    #[test]
+    fn test_select_mutation_key_only_insert_prefers_largest() {
+        let m1 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build()
+            .build_proto();
+
+        // Create an insert mutation with two rows (larger than m1 which has one row)
+        let row1 = vec![serde_json::json!("2")]
+            .into_iter()
+            .collect::<wkt::ListValue>();
+        let row2 = vec![serde_json::json!("3")]
+            .into_iter()
+            .collect::<wkt::ListValue>();
+        let write2 = crate::model::mutation::Write::new()
+            .set_table("Users")
+            .set_columns(vec!["UserId".to_string()])
+            .set_values(vec![row1, row2]);
+        let m2 = crate::model::Mutation::new().set_insert(write2);
+
+        let mutations = vec![m1.clone(), m2.clone()];
+        let key = Mutation::select_mutation_key(&mutations);
+        assert_eq!(key, Some(m2));
     }
 
     #[test]
@@ -586,8 +636,13 @@ mod tests {
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone(), m3.clone()];
-        let key = Mutation::select_mutation_key(&mutations);
-        assert_eq!(key, Some(m2));
+        let key = Mutation::select_mutation_key(&mutations).expect("Expected a key");
+        // Either of the non-insert mutations (m2 or m3) can be selected randomly.
+        assert!(
+            key == m2 || key == m3,
+            "Expected either m2 or m3 to be selected, got {:?}",
+            key
+        );
     }
 
     #[test]
@@ -603,8 +658,13 @@ mod tests {
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone()];
-        let key = Mutation::select_mutation_key(&mutations);
-        assert_eq!(key, Some(m1));
+        let key = Mutation::select_mutation_key(&mutations).expect("Expected a key");
+        // Either non-insert mutation can be selected randomly.
+        assert!(
+            key == m1 || key == m2,
+            "Expected either m1 or m2 to be selected, got {:?}",
+            key
+        );
     }
 
     #[test]

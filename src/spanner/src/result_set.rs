@@ -492,6 +492,7 @@ impl ResultSet {
                 request_options: self.gax_options.clone(),
                 is_stream_fallback: true,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
+                mutation_key: None,
             })
             .await?;
 
