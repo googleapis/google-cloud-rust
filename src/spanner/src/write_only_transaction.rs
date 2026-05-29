@@ -23,7 +23,9 @@ use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
 use bytes::Bytes;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::sync::{Arc, Mutex};
 use wkt::Duration;
 
@@ -36,6 +38,8 @@ pub struct WriteOnlyTransactionBuilder {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
+    begin_gax_options: Option<crate::RequestOptions>,
+    commit_gax_options: Option<crate::RequestOptions>,
 }
 
 impl WriteOnlyTransactionBuilder {
@@ -48,6 +52,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: false,
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
+            begin_gax_options: None,
+            commit_gax_options: None,
         }
     }
 
@@ -200,6 +206,132 @@ impl WriteOnlyTransactionBuilder {
         self
     }
 
+    /// Sets the per-attempt timeout for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_begin_attempt_timeout(Duration::from_secs(5))
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_attempt_timeout(mut self, timeout: std::time::Duration) -> Self {
+        self.begin_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_begin_retry_policy(NeverRetry)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.begin_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_begin_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.begin_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_backoff_policy(policy);
+        self
+    }
+
+    /// Sets the per-attempt timeout for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_attempt_timeout(Duration::from_secs(5))
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_attempt_timeout(mut self, timeout: std::time::Duration) -> Self {
+        self.commit_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_retry_policy(NeverRetry)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.commit_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.commit_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_backoff_policy(policy);
+        self
+    }
+
     /// Builds the [WriteOnlyTransaction].
     ///
     /// # Example
@@ -222,6 +354,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
             return_commit_stats: self.return_commit_stats,
             commit_priority: self.commit_priority,
+            begin_gax_options: self.begin_gax_options,
+            commit_gax_options: self.commit_gax_options,
         }
     }
 }
@@ -238,6 +372,8 @@ pub struct WriteOnlyTransaction {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
+    begin_gax_options: Option<crate::RequestOptions>,
+    commit_gax_options: Option<crate::RequestOptions>,
 }
 
 impl WriteOnlyTransaction {
@@ -273,7 +409,8 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let gax_options = self.gax_options();
+        let begin_gax_options = self.begin_gax_options();
+        let commit_gax_options = self.commit_gax_options();
         let req_options = RequestOptions::default()
             .set_transaction_tag(self.transaction_tag.unwrap_or_default())
             .set_priority(self.commit_priority.clone());
@@ -295,7 +432,8 @@ impl WriteOnlyTransaction {
             let mutations_proto = mutations_proto.clone();
             let mutation_key = mutation_key.clone();
             let previous_transaction_id = previous_transaction_id.clone();
-            let gax_options = gax_options.clone();
+            let begin_gax_options = begin_gax_options.clone();
+            let commit_gax_options = commit_gax_options.clone();
 
             async move {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
@@ -317,7 +455,7 @@ impl WriteOnlyTransaction {
 
                 let tx = client
                     .spanner
-                    .begin_transaction(begin_req, gax_options.clone(), channel_hint)
+                    .begin_transaction(begin_req, begin_gax_options, channel_hint)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -333,7 +471,7 @@ impl WriteOnlyTransaction {
 
                 let response = client
                     .spanner
-                    .commit(commit_req, gax_options.clone(), channel_hint)
+                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -350,7 +488,7 @@ impl WriteOnlyTransaction {
                     );
                     client
                         .spanner
-                        .commit(retry_commit_req, gax_options, channel_hint)
+                        .commit(retry_commit_req, commit_gax_options, channel_hint)
                         .await
                 } else {
                     Ok(response)
@@ -396,7 +534,7 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let gax_options = self.gax_options();
+        let commit_gax_options = self.commit_gax_options();
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
             .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
@@ -416,22 +554,29 @@ impl WriteOnlyTransaction {
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let request = request.clone();
-            let gax_options = gax_options.clone();
+            let commit_gax_options = commit_gax_options.clone();
 
             async move {
                 client
                     .spanner
-                    .commit(request, gax_options, channel_hint)
+                    .commit(request, commit_gax_options, channel_hint)
                     .await
             }
         })
         .await
     }
 
-    fn gax_options(&self) -> GaxRequestOptions {
+    fn begin_gax_options(&self) -> GaxRequestOptions {
         amend_request_options_for_lar(
             self.client.leader_aware_routing_enabled,
-            GaxRequestOptions::default(),
+            self.begin_gax_options.clone().unwrap_or_default(),
+        )
+    }
+
+    fn commit_gax_options(&self) -> GaxRequestOptions {
+        amend_request_options_for_lar(
+            self.client.leader_aware_routing_enabled,
+            self.commit_gax_options.clone().unwrap_or_default(),
         )
     }
 }
@@ -461,7 +606,11 @@ mod tests {
     use crate::client::Spanner;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic::Response;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use google_cloud_gax::options::internal::RequestOptionsExt as _;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::{HeaderMap, HeaderName, HeaderValue};
     use prost_types::Duration as ProstDuration;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -469,6 +618,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::Transaction;
     use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use std::time::Duration as StdDuration;
     use wkt::Duration;
 
     pub(crate) async fn setup_db_client(
@@ -1211,5 +1361,193 @@ mod tests {
             .write_at_least_once(vec![mutation])
             .await;
         assert!(res.is_ok());
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_builder_sets_gax_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                ..Default::default()
+            }))
+        });
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let builder = db_client
+            .write_only_transaction()
+            .with_begin_attempt_timeout(StdDuration::from_secs(5))
+            .with_begin_retry_policy(NeverRetry)
+            .with_begin_backoff_policy(ExponentialBackoff::default())
+            .with_commit_attempt_timeout(StdDuration::from_secs(10))
+            .with_commit_retry_policy(NeverRetry)
+            .with_commit_backoff_policy(ExponentialBackoff::default());
+
+        let begin_gax = builder
+            .begin_gax_options
+            .as_ref()
+            .expect("begin_gax_options missing");
+        assert_eq!(
+            *begin_gax.attempt_timeout(),
+            Some(StdDuration::from_secs(5))
+        );
+        assert!(begin_gax.retry_policy().is_some());
+        assert!(begin_gax.backoff_policy().is_some());
+
+        let commit_gax = builder
+            .commit_gax_options
+            .as_ref()
+            .expect("commit_gax_options missing");
+        assert_eq!(
+            *commit_gax.attempt_timeout(),
+            Some(StdDuration::from_secs(10))
+        );
+        assert!(commit_gax.retry_policy().is_some());
+        assert!(commit_gax.backoff_policy().is_some());
+
+        Ok(())
+    }
+
+    fn parse_grpc_timeout(metadata: &gaxi::grpc::tonic::MetadataMap) -> Option<StdDuration> {
+        let timeout_header = metadata.get("grpc-timeout")?.to_str().ok()?;
+        let numeric_part: String = timeout_header
+            .chars()
+            .take_while(|c| c.is_ascii_digit())
+            .collect();
+        let value = numeric_part.parse::<u64>().ok()?;
+        let unit = timeout_header.trim_start_matches(&numeric_part);
+        let duration = match unit {
+            "u" => StdDuration::from_micros(value),
+            "m" => StdDuration::from_millis(value),
+            "S" => StdDuration::from_secs(value),
+            "M" => StdDuration::from_secs(value * 60),
+            "H" => StdDuration::from_secs(value * 3600),
+            _ => return None,
+        };
+        Some(duration)
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_with_custom_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(duration, StdDuration::from_secs(5));
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(duration, StdDuration::from_secs(10));
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 8888,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_begin_attempt_timeout(StdDuration::from_secs(5))
+            .with_commit_attempt_timeout(StdDuration::from_secs(10))
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            8888
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_at_least_once_with_custom_commit_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().never();
+
+        mock.expect_commit()
+            .once()
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(duration, StdDuration::from_secs(7));
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 7777,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_commit_attempt_timeout(StdDuration::from_secs(7))
+            .build()
+            .write_at_least_once(vec![mutation])
+            .await?;
+
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            7777
+        );
+        Ok(())
     }
 }
