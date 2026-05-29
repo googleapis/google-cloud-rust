@@ -735,7 +735,7 @@ pub(crate) fn amend_gax_options(
         };
         options.set_retry_policy(bounded_policy);
     }
-    *options = amend_request_options_for_lar(leader_aware_routing_enabled, options.clone());
+    *options = amend_request_options_for_lar(leader_aware_routing_enabled, take(options));
 }
 
 /// A retry policy that wraps another policy and bounds the total execution time
@@ -3168,9 +3168,12 @@ mod tests {
 
         let res = runner
             .run(async |tx| {
-                let _count = tx
-                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
-                    .await?;
+                let mut stmt_opts = crate::RequestOptions::default();
+                stmt_opts.set_retry_policy(NeverRetry);
+                let stmt = Statement::builder("UPDATE Users SET active = true WHERE id = 1")
+                    .build()
+                    .with_gax_options(stmt_opts);
+                let _count = tx.execute_update(stmt).await?;
                 Ok(())
             })
             .await;
