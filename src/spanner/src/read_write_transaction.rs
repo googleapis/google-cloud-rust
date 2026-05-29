@@ -46,10 +46,11 @@ use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::retry_policy::Aip194Strict;
-use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
+use google_cloud_gax::throttle_result::ThrottleResult;
+use std::cmp::min;
 use std::mem::take;
 use std::sync::Arc;
 use std::sync::Mutex;
@@ -69,6 +70,8 @@ pub(crate) struct ReadWriteTransactionBuilder {
     return_commit_stats: bool,
     commit_priority: Priority,
     begin_transaction_option: BeginTransactionOption,
+    begin_gax_options: Option<crate::RequestOptions>,
+    commit_gax_options: Option<crate::RequestOptions>,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -83,6 +86,8 @@ impl ReadWriteTransactionBuilder {
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
             begin_transaction_option: BeginTransactionOption::InlineBegin,
+            begin_gax_options: None,
+            commit_gax_options: None,
         }
     }
 
@@ -141,6 +146,22 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
+    pub(crate) fn with_begin_transaction_request_options(
+        mut self,
+        options: Option<crate::RequestOptions>,
+    ) -> Self {
+        self.begin_gax_options = options;
+        self
+    }
+
+    pub(crate) fn with_commit_request_options(
+        mut self,
+        options: Option<crate::RequestOptions>,
+    ) -> Self {
+        self.commit_gax_options = options;
+        self
+    }
+
     async fn begin(
         &self,
         session_name: String,
@@ -172,15 +193,11 @@ impl ReadWriteTransactionBuilder {
         let channel_hint = self.client.spanner.next_channel_hint();
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
-                // TODO(#4972): make request options configurable
-                let mut options = RequestOptions::default();
-                if let Some(d) = deadline {
-                    let remaining = d.saturating_duration_since(Instant::now());
-                    options.set_attempt_timeout(remaining);
-                }
-                options = amend_request_options_for_lar(
+                let mut options = self.begin_gax_options.clone().unwrap_or_default();
+                amend_gax_options(
                     self.client.leader_aware_routing_enabled,
-                    options,
+                    deadline,
+                    &mut options,
                 );
 
                 self.begin(session_name.clone(), channel_hint, options)
@@ -206,6 +223,8 @@ impl ReadWriteTransactionBuilder {
             deadline,
             commit_priority: self.commit_priority.clone(),
             mutations: Arc::new(Mutex::new(Vec::new())),
+            begin_gax_options: self.begin_gax_options.clone(),
+            commit_gax_options: self.commit_gax_options.clone(),
         })
     }
 }
@@ -359,6 +378,8 @@ pub struct ReadWriteTransaction {
     return_commit_stats: bool,
     commit_priority: Priority,
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
+    begin_gax_options: Option<crate::RequestOptions>,
+    commit_gax_options: Option<crate::RequestOptions>,
 }
 
 impl ReadWriteTransaction {
@@ -572,15 +593,8 @@ impl ReadWriteTransaction {
         is_stream_fallback: bool,
         mutation_key: Option<crate::model::Mutation>,
     ) -> crate::Result<bool> {
-        let mut begin_options = crate::RequestOptions::default();
-        if let Some(d) = self.deadline {
-            let remaining = d.saturating_duration_since(Instant::now());
-            begin_options.set_attempt_timeout(remaining);
-        }
-        begin_options = amend_request_options_for_lar(
-            self.context.client.leader_aware_routing_enabled,
-            begin_options,
-        );
+        let mut begin_options = self.begin_gax_options.clone().unwrap_or_default();
+        self.amend_gax_options(&mut begin_options);
         self.context
             .begin_explicitly_if_not_started(begin_options, is_stream_fallback, mutation_key)
             .await
@@ -627,19 +641,9 @@ impl ReadWriteTransaction {
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
-            let mut begin_options = crate::RequestOptions::default();
-            if let Some(d) = self.deadline {
-                let remaining = d.saturating_duration_since(Instant::now());
-                begin_options.set_attempt_timeout(remaining);
-            }
-            begin_options = amend_request_options_for_lar(
-                self.context.client.leader_aware_routing_enabled,
-                begin_options,
-            );
             let mutation_key = Mutation::select_mutation_key(&mutations);
             if self
-                .context
-                .begin_explicitly_if_not_started(begin_options, false, mutation_key)
+                .begin_explicitly_if_not_started(false, mutation_key)
                 .await?
             {
                 id = self.context.transaction_selector.get_id_no_wait()?;
@@ -650,8 +654,7 @@ impl ReadWriteTransaction {
 
         let request = self.build_commit_request(transaction_id.clone(), mutations, precommit_token);
 
-        // TODO(#4972): make request options configurable
-        let mut gax_options = GaxRequestOptions::default();
+        let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
         self.amend_gax_options(&mut gax_options);
 
         let response = self
@@ -669,8 +672,7 @@ impl ReadWriteTransaction {
                     Some(*new_precommit_token),
                 );
 
-                // TODO(#4972): make request options configurable
-                let mut gax_options = GaxRequestOptions::default();
+                let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
                 self.amend_gax_options(&mut gax_options);
 
                 self.context
@@ -708,22 +710,38 @@ impl ReadWriteTransaction {
     }
 
     fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
-        if let Some(deadline) = self.deadline {
-            let inner_policy = options
-                .retry_policy()
-                .clone()
-                .unwrap_or_else(|| Arc::new(Aip194Strict));
-            let bounded_policy = TransactionBoundedRetryPolicy {
-                inner: inner_policy,
-                deadline,
-            };
-            options.set_retry_policy(bounded_policy);
-        }
-        *options = amend_request_options_for_lar(
+        amend_gax_options(
             self.context.client.leader_aware_routing_enabled,
-            options.clone(),
+            self.deadline,
+            options,
         );
     }
+}
+
+pub(crate) fn amend_gax_options(
+    leader_aware_routing_enabled: bool,
+    deadline: Option<Instant>,
+    options: &mut GaxRequestOptions,
+) {
+    if let Some(deadline) = deadline {
+        let remaining = deadline.saturating_duration_since(Instant::now());
+        let attempt_timeout = match options.attempt_timeout() {
+            Some(custom_timeout) => std::cmp::min(*custom_timeout, remaining),
+            None => remaining,
+        };
+        options.set_attempt_timeout(attempt_timeout);
+
+        let inner_policy = options
+            .retry_policy()
+            .clone()
+            .unwrap_or_else(|| Arc::new(Aip194Strict));
+        let bounded_policy = TransactionBoundedRetryPolicy {
+            inner: inner_policy,
+            deadline,
+        };
+        options.set_retry_policy(bounded_policy);
+    }
+    *options = amend_request_options_for_lar(leader_aware_routing_enabled, take(options));
 }
 
 /// A retry policy that wraps another policy and bounds the total execution time
@@ -741,8 +759,19 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
     fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
         self.inner.on_error(state, error)
     }
-    fn remaining_time(&self, _state: &RetryState) -> Option<StdDuration> {
-        Some(self.deadline.saturating_duration_since(Instant::now()))
+
+    fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
+        self.inner.on_throttle(state, error)
+    }
+
+    fn remaining_time(&self, state: &RetryState) -> Option<StdDuration> {
+        let remaining = self.deadline.saturating_duration_since(Instant::now());
+        let attempt_timeout = self
+            .inner
+            .remaining_time(state)
+            .map(|inner| min(remaining, inner))
+            .unwrap_or(remaining);
+        Some(attempt_timeout)
     }
 }
 
@@ -754,11 +783,18 @@ mod tests {
     use crate::result_set::tests::adapt;
     use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
     use gaxi::grpc::tonic;
+    use gaxi::grpc::tonic::MetadataMap;
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
+    use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::HeaderMap;
+    use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
     use std::sync::Mutex;
+    use std::time::Duration as StdDuration;
 
     #[test]
     fn auto_traits() {
@@ -3105,5 +3141,482 @@ mod tests {
             .await?;
 
         Ok(())
+    }
+
+    fn parse_grpc_timeout(metadata: &MetadataMap) -> Option<StdDuration> {
+        let timeout_header = metadata.get("grpc-timeout")?.to_str().ok()?;
+        let numeric_part: String = timeout_header
+            .chars()
+            .take_while(|c| c.is_ascii_digit())
+            .collect();
+        let value = numeric_part.parse::<u64>().ok()?;
+        let unit = timeout_header.trim_start_matches(&numeric_part);
+        let duration = match unit {
+            "u" => StdDuration::from_micros(value),
+            "m" => StdDuration::from_millis(value),
+            "S" => StdDuration::from_secs(value),
+            "M" => StdDuration::from_secs(value * 60),
+            "H" => StdDuration::from_secs(value * 3600),
+            _ => return None,
+        };
+        Some(duration)
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_lazy_begin_fallback_never_retry() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First statement execution uses inline-begin and fails with Unavailable (transient error)
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Begin(_))
+                )
+            })
+            .returning(move |_req| Err(tonic::Status::unavailable("transient error")));
+
+        // 2. Fallback explicit BeginTransaction is executed exactly once and fails (because we configure NeverRetry)
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_req| Err(tonic::Status::unavailable("transient error")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_begin_retry_policy(NeverRetry)
+            .build()
+            .await?;
+
+        let res = runner
+            .run(async |tx| {
+                let mut stmt_opts = crate::RequestOptions::default();
+                stmt_opts.set_retry_policy(NeverRetry);
+                let stmt = Statement::builder("UPDATE Users SET active = true WHERE id = 1")
+                    .build()
+                    .with_gax_options(stmt_opts);
+                let _count = tx.execute_update(stmt).await?;
+                Ok(())
+            })
+            .await;
+
+        assert!(
+            res.is_err(),
+            "Should fail immediately because NeverRetry aborted retries of explicit begin"
+        );
+        let err = res.unwrap_err();
+        assert_eq!(err.status().map(|s| s.code), Some(Code::Unavailable));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_under_deadline_delegates_to_custom_retry_policy()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![8, 8, 8],
+                ..Default::default()
+            }))
+        });
+
+        // Commit fails with Unavailable. Since we use NeverRetry, it must fail immediately without retry.
+        mock.expect_commit()
+            .once()
+            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_commit_retry_policy(NeverRetry)
+            .with_transaction_timeout(StdDuration::from_secs(5))
+            .build()
+            .await?;
+
+        let res = runner.run(async |_tx| Ok(())).await;
+
+        assert!(
+            res.is_err(),
+            "Should fail because NeverRetry aborted retries"
+        );
+        let err = res.unwrap_err();
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(Code::Unavailable),
+            "Error code should be Unavailable"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_timeout_combination() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![8, 8, 8],
+                ..Default::default()
+            }))
+        });
+
+        // Assert that the commit attempt timeout of 2 seconds propagates as the gRPC timeout header metadata (approx 2000m/2000000u).
+        mock.expect_commit()
+            .once()
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(
+                    duration,
+                    StdDuration::from_secs(2),
+                    "Timeout duration should be exactly 2 seconds"
+                );
+                true
+            })
+            .returning(|_| {
+                Ok(tonic::Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 999,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_commit_attempt_timeout(StdDuration::from_secs(2))
+            .with_transaction_timeout(StdDuration::from_secs(10))
+            .build()
+            .await?;
+
+        let res = runner.run(async |_tx| Ok(())).await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_fallback_begin_under_deadline() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. First statement execution fails with Unavailable (transient error)
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Begin(_))
+                )
+            })
+            .returning(move |_req| Err(tonic::Status::unavailable("transient error")));
+
+        // 2. Fallback explicit BeginTransaction is executed and sets attempt timeout based on remaining transaction deadline (approx 5 seconds).
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert!(
+                    duration >= StdDuration::from_millis(4000)
+                        && duration <= StdDuration::from_millis(6000),
+                    "Fallback begin timeout is wrong: {:?}",
+                    duration
+                );
+                true
+            })
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Statement retry succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                matches!(
+                    req.get_ref()
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(v1::transaction_selector::Selector::Id(_))
+                )
+            })
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 4. Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1234,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_transaction_timeout(StdDuration::from_secs(5))
+            .build()
+            .await?;
+
+        let res = runner
+            .run(async |tx| {
+                let mut query_opts = crate::RequestOptions::default();
+                query_opts.set_retry_policy(NeverRetry);
+                let stmt = Statement::builder("UPDATE Users SET active = true WHERE id = 1")
+                    .build()
+                    .with_gax_options(query_opts);
+                let count = tx.execute_update(stmt).await?;
+                assert_eq!(count, 1);
+                Ok(())
+            })
+            .await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_fallback_begin_under_deadline() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Transaction was never started (empty runner block), so commit falls back to explicit BeginTransaction.
+        // Assert fallback explicit BeginTransaction sets timeout based on remaining transaction deadline (approx 5 seconds).
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert!(
+                    duration >= StdDuration::from_millis(4000)
+                        && duration <= StdDuration::from_millis(6000),
+                    "Fallback begin timeout inside commit is wrong: {:?}",
+                    duration
+                );
+                true
+            })
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        // 2. Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_req| {
+                Ok(tonic::Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 5678,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_transaction_timeout(StdDuration::from_secs(5))
+            .build()
+            .await?;
+
+        let res = runner.run(async |_tx| Ok(())).await?;
+
+        assert!(res.commit_response.commit_timestamp.is_some());
+        Ok(())
+    }
+
+    #[test]
+    fn test_amend_gax_options() {
+        // Case 1: No Deadline, LAR disabled
+        let mut options = RequestOptions::default();
+        options.set_attempt_timeout(StdDuration::from_secs(4));
+        amend_gax_options(false, None, &mut options);
+        assert_eq!(*options.attempt_timeout(), Some(StdDuration::from_secs(4)));
+        assert!(options.retry_policy().is_none());
+
+        // Case 2: No Deadline, LAR enabled
+        let mut options = RequestOptions::default();
+        amend_gax_options(true, None, &mut options);
+        // Verify LAR extension is added
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap extension missing");
+        assert_eq!(
+            headers
+                .get("x-goog-spanner-route-to-leader")
+                .unwrap()
+                .to_str()
+                .unwrap(),
+            "true"
+        );
+
+        // Case 3: Deadline present, no custom timeout.
+        // Since Instant::now() is called inside amend_gax_options slightly after the test's
+        // Instant::now() call, the remaining time will be slightly less than 5 seconds.
+        // Therefore, we assert that it falls within a very close range.
+        let mut options = RequestOptions::default();
+        let deadline = Instant::now() + StdDuration::from_secs(5);
+        amend_gax_options(false, Some(deadline), &mut options);
+        let timeout = options.attempt_timeout().expect("attempt timeout missing");
+        assert!(
+            timeout >= StdDuration::from_millis(4500) && timeout <= StdDuration::from_millis(5500)
+        );
+        assert!(
+            options.retry_policy().is_some(),
+            "retry policy should be wrapped"
+        );
+
+        // Case 4: Deadline present, custom timeout shorter than deadline.
+        // Since custom timeout is 2s and remaining deadline is 10s, it does not depend
+        // on Time/Instant and must be exactly 2s.
+        let mut options = RequestOptions::default();
+        options.set_attempt_timeout(StdDuration::from_secs(2));
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        amend_gax_options(false, Some(deadline), &mut options);
+        assert_eq!(*options.attempt_timeout(), Some(StdDuration::from_secs(2)));
+
+        // Case 5: Deadline present, custom timeout longer than deadline.
+        // The remaining deadline (approx 2 seconds) is shorter than custom timeout (10s).
+        // Due to slight time passing, remaining will be slightly less than 2 seconds.
+        let mut options = RequestOptions::default();
+        options.set_attempt_timeout(StdDuration::from_secs(10));
+        let deadline = Instant::now() + StdDuration::from_secs(2);
+        amend_gax_options(false, Some(deadline), &mut options);
+        let timeout = options.attempt_timeout().expect("attempt timeout missing");
+        assert!(
+            timeout >= StdDuration::from_millis(1500) && timeout <= StdDuration::from_millis(2500)
+        );
+    }
+
+    #[test]
+    fn test_transaction_bounded_retry_policy_throttle_delegation() {
+        #[derive(Debug)]
+        struct ThrottleTestPolicy;
+        impl RetryPolicy for ThrottleTestPolicy {
+            fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
+                RetryResult::Continue(error)
+            }
+            fn on_throttle(&self, _state: &RetryState, error: GaxError) -> ThrottleResult {
+                ThrottleResult::Exhausted(error)
+            }
+        }
+
+        let inner = Arc::new(ThrottleTestPolicy);
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+
+        let state = RetryState::new(true);
+        let status = Status::default()
+            .set_code(Code::Unavailable)
+            .set_message("error");
+        let error = GaxError::service(status);
+
+        let res = bounded.on_throttle(&state, error);
+        assert!(matches!(res, ThrottleResult::Exhausted(_)));
+    }
+
+    #[test]
+    fn test_transaction_bounded_retry_policy_remaining_time_capping() {
+        #[derive(Debug)]
+        struct RemainingTimeTestPolicy {
+            timeout: Option<StdDuration>,
+        }
+        impl RetryPolicy for RemainingTimeTestPolicy {
+            fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
+                RetryResult::Continue(error)
+            }
+            fn remaining_time(&self, _state: &RetryState) -> Option<StdDuration> {
+                self.timeout
+            }
+        }
+
+        let state = RetryState::new(true);
+
+        // Case A: Inner policy timeout (3s) is shorter than remaining transaction deadline (approx 10s)
+        let inner = Arc::new(RemainingTimeTestPolicy {
+            timeout: Some(StdDuration::from_secs(3)),
+        });
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+        let remaining = bounded.remaining_time(&state).expect("remaining time");
+        assert!(
+            remaining >= StdDuration::from_millis(2500)
+                && remaining <= StdDuration::from_millis(3500)
+        );
+
+        // Case B: Transaction deadline (approx 2s) is shorter than inner policy timeout (10s)
+        let inner = Arc::new(RemainingTimeTestPolicy {
+            timeout: Some(StdDuration::from_secs(10)),
+        });
+        let deadline = Instant::now() + StdDuration::from_secs(2);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+        let remaining = bounded.remaining_time(&state).expect("remaining time");
+        assert!(
+            remaining >= StdDuration::from_millis(1500)
+                && remaining <= StdDuration::from_millis(2500)
+        );
+
+        // Case C: Inner policy timeout is None (returns transaction remaining approx 10s)
+        let inner = Arc::new(RemainingTimeTestPolicy { timeout: None });
+        let deadline = Instant::now() + StdDuration::from_secs(10);
+        let bounded = TransactionBoundedRetryPolicy { inner, deadline };
+        let remaining = bounded.remaining_time(&state).expect("remaining time");
+        assert!(
+            remaining >= StdDuration::from_millis(9500)
+                && remaining <= StdDuration::from_millis(10500)
+        );
     }
 }
