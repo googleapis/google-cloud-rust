@@ -1366,9 +1366,9 @@ libraries:
       - googleapis
     skip_release: true
   - name: google-cloud-spanner
+    version: 0.34.0-preview
     copyright_year: "2026"
     output: src/spanner
-    skip_release: true
     rust:
       modules:
         - module_path: crate::generated::gapic_dataplane::model
