@@ -497,6 +497,7 @@ mod tests {
             ("network.peer.address", server_addr.ip().to_string().into()),
             ("network.peer.port", (server_addr.port() as i64).into()),
             ("url.full", format!("{}/test", server_url).into()),
+            ("gcp.resource.destination.id", TEST_RESOURCE.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -558,6 +559,7 @@ mod tests {
             ("url.full", "https://127.0.0.1:1/test".into()),
             ("http.request.method", "GET".into()),
             ("otel.status_code", "ERROR".into()),
+            ("gcp.resource.destination.id", TEST_RESOURCE.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -608,6 +610,7 @@ mod tests {
             ("url.full", format!("{}/test", server_url).into()),
             ("http.request.method", "GET".into()),
             ("otel.status_code", "UNSET".into()),
+            ("gcp.resource.destination.id", TEST_RESOURCE.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -651,6 +654,7 @@ mod tests {
             ("http.request.method", "GET".into()),
             ("otel.status_code", "ERROR".into()),
             ("error.type", "CLIENT_CONNECTION_ERROR".into()),
+            ("gcp.resource.destination.id", TEST_RESOURCE.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

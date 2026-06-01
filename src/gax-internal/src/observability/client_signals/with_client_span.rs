@@ -19,9 +19,10 @@
 use super::RequestRecorder;
 use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
-    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
-    HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT,
-    OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
+    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION,
+    GCP_RESOURCE_DESTINATION_ID, GCP_SCHEMA_URL, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT,
+    NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT, OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION,
+    RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
 use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
@@ -85,6 +86,7 @@ where
                     { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
+                    { GCP_RESOURCE_DESTINATION_ID } = snapshot.resource_name(),
                     { OTEL_STATUS_CODE } = otel_status_codes::UNSET
                 );
             }
@@ -110,6 +112,7 @@ where
                     { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
+                    { GCP_RESOURCE_DESTINATION_ID } = snapshot.resource_name(),
                     { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
                     { OTEL_STATUS_DESCRIPTION } = error.to_string()
                 );
@@ -187,6 +190,10 @@ mod tests {
                 ("server.address", "example.com"),
                 ("server.port", "443"),
                 ("url.full", "https://example.com/"),
+                (
+                    "gcp.resource.destination.id",
+                    "//test.googleapis.com/test-only",
+                ),
             ]
             .map(|(k, v)| (k, v.to_string())),
         );
@@ -257,6 +264,10 @@ mod tests {
                 ("error.type", "404"),
                 ("http.request.method", "GET"),
                 ("http.response.status_code", "404"),
+                (
+                    "gcp.resource.destination.id",
+                    "//test.googleapis.com/test-only",
+                ),
             ]
             .into_iter()
             .map(|(k, v)| (k, v.to_string()))
