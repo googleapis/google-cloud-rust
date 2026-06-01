@@ -91,12 +91,12 @@ impl ReadWriteTransactionBuilder {
         }
     }
 
-    pub(crate) fn with_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
+    pub(crate) fn set_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
         self.options = self.options.set_isolation_level(isolation_level);
         self
     }
 
-    pub(crate) fn with_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
+    pub(crate) fn set_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
         if let Some(Mode::ReadWrite(rw)) = self.options.mode.take() {
             self.options = self
                 .options
@@ -105,7 +105,7 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub(crate) fn with_previous_transaction_id(mut self, id: Option<bytes::Bytes>) -> Self {
+    pub(crate) fn set_previous_transaction_id(mut self, id: Option<bytes::Bytes>) -> Self {
         if let Some(id) = id {
             if let Some(Mode::ReadWrite(rw)) = self.options.mode.take() {
                 self.options = self
@@ -116,27 +116,27 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub(crate) fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+    pub(crate) fn set_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
         self
     }
 
-    pub(crate) fn with_commit_priority(mut self, priority: Priority) -> Self {
+    pub(crate) fn set_commit_priority(mut self, priority: Priority) -> Self {
         self.commit_priority = priority;
         self
     }
 
-    pub(crate) fn with_max_commit_delay(mut self, delay: Duration) -> Self {
+    pub(crate) fn set_max_commit_delay(mut self, delay: Duration) -> Self {
         self.max_commit_delay = Some(delay);
         self
     }
 
-    pub(crate) fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+    pub(crate) fn set_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
         self.options = self.options.set_exclude_txn_from_change_streams(exclude);
         self
     }
 
-    pub(crate) fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
+    pub(crate) fn set_return_commit_stats(mut self, return_stats: bool) -> Self {
         self.return_commit_stats = return_stats;
         self
     }
@@ -1107,8 +1107,8 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
-            .with_return_commit_stats(true)
-            .with_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .set_return_commit_stats(true)
+            .set_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1179,7 +1179,7 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
-            .with_commit_priority(Priority::Low)
+            .set_commit_priority(Priority::Low)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1909,8 +1909,8 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_isolation_level(IsolationLevel::Serializable)
-            .with_read_lock_mode(ReadLockMode::Pessimistic)
+            .set_isolation_level(IsolationLevel::Serializable)
+            .set_read_lock_mode(ReadLockMode::Pessimistic)
             .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
@@ -1935,7 +1935,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
@@ -2229,7 +2229,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
+            .set_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
             .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
@@ -2761,7 +2761,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
-            .with_transaction_tag("fallback-test-tag")
+            .set_transaction_tag("fallback-test-tag")
             .build(None)
             .await?;
 

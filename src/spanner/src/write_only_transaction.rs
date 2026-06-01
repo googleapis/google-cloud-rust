@@ -65,14 +65,14 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
     ///
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
-    pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+    pub fn set_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
         self
     }
@@ -86,12 +86,12 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_commit_priority(Priority::Low)
+    ///     .set_commit_priority(Priority::Low)
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_commit_priority(mut self, priority: Priority) -> Self {
+    pub fn set_commit_priority(mut self, priority: Priority) -> Self {
         self.commit_priority = priority;
         self
     }
@@ -105,7 +105,7 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_max_commit_delay(Duration::try_from("0.1s").unwrap())
+    ///     .set_max_commit_delay(Duration::try_from("0.1s").unwrap())
     ///     .build();
     /// # Ok(())
     /// # }
@@ -116,7 +116,7 @@ impl WriteOnlyTransactionBuilder {
     /// Increasing this value can increase throughput at the expense of latency.
     /// The value must be between 0 and 500 milliseconds. If not set, or set to 0,
     /// Spanner does not delay the commit.
-    pub fn with_max_commit_delay(mut self, delay: Duration) -> Self {
+    pub fn set_max_commit_delay(mut self, delay: Duration) -> Self {
         self.max_commit_delay = Some(delay);
         self
     }
@@ -129,7 +129,7 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_exclude_txn_from_change_streams(true)
+    ///     .set_exclude_txn_from_change_streams(true)
     ///     .build();
     /// # Ok(())
     /// # }
@@ -142,7 +142,7 @@ impl WriteOnlyTransactionBuilder {
     ///
     /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
     /// tracking columns modified by this transaction.
-    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+    pub fn set_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
         self.exclude_txn_from_change_streams = exclude;
         self
     }
@@ -160,7 +160,7 @@ impl WriteOnlyTransactionBuilder {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_return_commit_stats(true)
+    ///     .set_return_commit_stats(true)
     ///     .build()
     ///     .write(vec![mutation])
     ///     .await?;
@@ -173,7 +173,7 @@ impl WriteOnlyTransactionBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
-    pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
+    pub fn set_return_commit_stats(mut self, return_stats: bool) -> Self {
         self.return_commit_stats = return_stats;
         self
     }
@@ -380,7 +380,7 @@ impl WriteOnlyTransaction {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write(vec![mutation])
     ///     .await?;
@@ -501,7 +501,7 @@ impl WriteOnlyTransaction {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write_at_least_once(vec![mutation])
     ///     .await?;
@@ -682,8 +682,8 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_transaction_tag("my_tag")
-            .with_commit_priority(Priority::High)
+            .set_transaction_tag("my_tag")
+            .set_commit_priority(Priority::High)
             .build()
             .write_at_least_once(vec![mutation])
             .await;
@@ -818,7 +818,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_return_commit_stats(true)
+            .set_return_commit_stats(true)
             .build()
             .write_at_least_once(vec![mutation])
             .await?;
@@ -868,7 +868,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_return_commit_stats(true)
+            .set_return_commit_stats(true)
             .build()
             .write(vec![mutation])
             .await?;
@@ -919,7 +919,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .build()
             .write_at_least_once(vec![mutation])
             .await;
@@ -973,7 +973,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .build()
             .write(vec![mutation])
             .await;
@@ -1151,8 +1151,8 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_return_commit_stats(true)
-            .with_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .set_return_commit_stats(true)
+            .set_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
             .build()
             .write(vec![mutation])
             .await?;
@@ -1300,7 +1300,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_max_commit_delay(Duration::try_from("0.1s").unwrap())
+            .set_max_commit_delay(Duration::try_from("0.1s").unwrap())
             .build()
             .write_at_least_once(vec![mutation])
             .await;

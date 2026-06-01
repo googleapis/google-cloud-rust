@@ -609,7 +609,7 @@ pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()
     let sql = "SELECT 1";
     let query_options = QueryOptions::default().set_optimizer_version("1");
     let stmt = Statement::builder(sql)
-        .with_query_options(query_options)
+        .set_query_options(query_options)
         .build();
 
     let mut rs = rot.execute_query(stmt).await?;
@@ -625,7 +625,7 @@ pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
     let sql = "SELECT 1 as num";
     let stmt = Statement::builder(sql)
-        .with_query_mode(QueryMode::Plan)
+        .set_query_mode(QueryMode::Plan)
         .build();
 
     let mut rs = rot.execute_query(stmt).await?;
@@ -658,7 +658,7 @@ pub async fn query_profile(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
     let sql = "SELECT 1 as num";
     let stmt = Statement::builder(sql)
-        .with_query_mode(QueryMode::Profile)
+        .set_query_mode(QueryMode::Profile)
         .build();
 
     let mut rs = rot.execute_query(stmt).await?;
@@ -682,7 +682,7 @@ pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .run(async |tx| {
             let sql = "UPDATE AllTypes SET ColBool = TRUE WHERE Id = @id";
             let stmt = Statement::builder(sql)
-                .with_query_mode(QueryMode::Plan)
+                .set_query_mode(QueryMode::Plan)
                 .build();
 
             let mut rs = tx.execute_query(stmt).await?;

@@ -24,7 +24,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     // 1. Strong read-only transaction (Default / Strong)
     let tx = db_client
         .read_only_transaction()
-        .with_timestamp_bound(TimestampBound::strong())
+        .set_timestamp_bound(TimestampBound::strong())
         .build()
         .await?;
 
@@ -83,7 +83,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     // Query the database at the exact past timestamp.
     let tx = db_client
         .read_only_transaction()
-        .with_timestamp_bound(TimestampBound::read_timestamp(spanner_now_wkt))
+        .set_timestamp_bound(TimestampBound::read_timestamp(spanner_now_wkt))
         .build()
         .await?;
 
@@ -102,7 +102,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     // 3. Exact staleness (1 second)
     let tx = db_client
         .read_only_transaction()
-        .with_timestamp_bound(TimestampBound::exact_staleness(Duration::from_secs(1)))
+        .set_timestamp_bound(TimestampBound::exact_staleness(Duration::from_secs(1)))
         .build()
         .await?;
 
@@ -140,7 +140,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     let spanner_now_minus_5 = spanner_now - time::Duration::seconds(5);
     let tx = db_client
         .single_use()
-        .with_timestamp_bound(TimestampBound::min_read_timestamp(spanner_now_minus_5))
+        .set_timestamp_bound(TimestampBound::min_read_timestamp(spanner_now_minus_5))
         .build();
 
     let mut rs = tx
@@ -152,7 +152,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     // Note: max_staleness can only be set for single-use read-only transactions.
     let tx = db_client
         .single_use()
-        .with_timestamp_bound(TimestampBound::max_staleness(Duration::from_secs(5)))
+        .set_timestamp_bound(TimestampBound::max_staleness(Duration::from_secs(5)))
         .build();
 
     let mut rs = tx

@@ -75,10 +75,10 @@ pub async fn write_only_commit_configurations(db_client: &DatabaseClient) -> any
     run_write_only_options_test(db_client, "wo-conf", 101, |client, mutations| {
         client
             .write_only_transaction()
-            .with_commit_priority(Priority::Low)
-            .with_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
-            .with_exclude_txn_from_change_streams(true)
-            .with_return_commit_stats(true)
+            .set_commit_priority(Priority::Low)
+            .set_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
+            .set_exclude_txn_from_change_streams(true)
+            .set_return_commit_stats(true)
             .build()
             .write(mutations)
     })
@@ -91,10 +91,10 @@ pub async fn write_only_at_least_once_commit_configurations(
     run_write_only_options_test(db_client, "wo-least-once", 202, |client, mutations| {
         client
             .write_only_transaction()
-            .with_commit_priority(Priority::Low)
-            .with_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
-            .with_exclude_txn_from_change_streams(true)
-            .with_return_commit_stats(true)
+            .set_commit_priority(Priority::Low)
+            .set_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
+            .set_exclude_txn_from_change_streams(true)
+            .set_return_commit_stats(true)
             .build()
             .write_at_least_once(mutations)
     })
