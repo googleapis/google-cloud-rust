@@ -82,10 +82,10 @@ impl Args {
         if self.min_range_count == 0 {
             bail!("invalid min-range-count, must be greater than zero")
         }
-        if let RandomSize::Values(v) = &self.range_size {
-            if v.is_empty() {
-                bail!("empty list of values in range-size")
-            }
+        if let RandomSize::Values(v) = &self.range_size
+            && v.is_empty()
+        {
+            bail!("empty list of values in range-size")
         }
         if self.range_size.min() == 0 {
             bail!("invalid range-size, minimum must be greater than zero")

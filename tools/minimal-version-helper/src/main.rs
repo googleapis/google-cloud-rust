@@ -87,34 +87,36 @@ fn prep(is_local: bool) -> Result<()> {
         .and_then(|d| d.as_table_like_mut())
     {
         for (key, value) in deps.iter_mut() {
-            if let Some(dep_table) = value.as_table_like_mut() {
-                if dep_table.contains_key("path") && dep_table.contains_key("version") {
-                    let package_name = dep_table
-                        .get("package")
-                        .and_then(|v| v.as_str())
-                        .unwrap_or(key.get()) // if there is no name specified, use the key.
-                        .to_string();
-                    path_deps.insert(
-                        package_name.clone(),
-                        Package {
-                            version: dep_table
-                                .get("version")
-                                .expect("version key exists")
-                                .as_str()
-                                .expect("version value is a &str")
-                                .to_string(),
-                            path: dep_table
-                                .get("path")
-                                .expect("path key exists")
-                                .as_str()
-                                .expect("path value is a &str")
-                                .to_string(),
-                        },
-                    );
-                    // Remove path from the Cargo.toml.
-                    dep_table.remove("path");
-                }
+            let Some(dep_table) = value.as_table_like_mut() else {
+                continue;
+            };
+            if !dep_table.contains_key("path") || !dep_table.contains_key("version") {
+                continue;
             }
+            let package_name = dep_table
+                .get("package")
+                .and_then(|v| v.as_str())
+                .unwrap_or(key.get()) // if there is no name specified, use the key.
+                .to_string();
+            path_deps.insert(
+                package_name.clone(),
+                Package {
+                    version: dep_table
+                        .get("version")
+                        .expect("version key exists")
+                        .as_str()
+                        .expect("version value is a &str")
+                        .to_string(),
+                    path: dep_table
+                        .get("path")
+                        .expect("path key exists")
+                        .as_str()
+                        .expect("path value is a &str")
+                        .to_string(),
+                },
+            );
+            // Remove path from the Cargo.toml.
+            dep_table.remove("path");
         }
     }
 

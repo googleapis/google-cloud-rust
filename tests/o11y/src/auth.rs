@@ -217,10 +217,11 @@ mod tests {
                     data: headers.clone(),
                 }),
                 MockState::NotModified(expected_etag) => {
-                    if let Some(etag) = extensions.get::<EntityTag>() {
-                        if etag == expected_etag {
-                            return Ok(CacheableResource::NotModified);
-                        }
+                    if extensions
+                        .get::<EntityTag>()
+                        .is_some_and(|etag| etag == expected_etag)
+                    {
+                        return Ok(CacheableResource::NotModified);
                     }
                     // Fallback if etag doesn't match or is missing
                     Err(CredentialsError::from_msg(false, "etag mismatch"))

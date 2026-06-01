@@ -359,7 +359,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.87.0"
+rust-version = "1.88.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take
@@ -521,6 +521,7 @@ google-cloud-storage                   = { default-features = false, path = "src
 google-cloud-pubsub                    = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                   = { default-features = false, path = "src/spanner" }
 google-cloud-spanner-admin-database-v1 = { default-features = false, path = "src/generated/spanner/admin/database/v1" }
+google-cloud-spanner-admin-instance-v1 = { default-features = false, path = "src/generated/spanner/admin/instance/v1" }
 google-cloud-bigquery-v2               = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
 google-cloud-iam-credentials-v1        = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2               = { default-features = false, path = "src/generated/cloud/language/v2" }

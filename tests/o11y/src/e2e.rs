@@ -91,14 +91,14 @@ pub async fn wait_for_trace(
                 }
             }
             Err(e) => {
-                if let Some(status) = e.status() {
-                    if status.code == Code::NotFound || status.code == Code::Internal {
-                        println!(
-                            "Trace not found yet (or internal error), retrying... Error: {:?}",
-                            e
-                        );
-                        continue;
-                    }
+                if let Some(status) = e.status()
+                    && (status.code == Code::NotFound || status.code == Code::Internal)
+                {
+                    println!(
+                        "Trace not found yet (or internal error), retrying... Error: {:?}",
+                        e
+                    );
+                    continue;
                 }
                 return Err(e.into());
             }

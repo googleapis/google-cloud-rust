@@ -174,10 +174,10 @@ impl InProgressUpload {
 
     pub fn put_body(&self) -> Body {
         let stream = unfold(Some(self.buffer.clone()), move |state| async move {
-            if let Some(mut payload) = state {
-                if let Some(next) = payload.pop_front() {
-                    return Some((Ok::<bytes::Bytes, Error>(next), Some(payload)));
-                }
+            if let Some(mut payload) = state
+                && let Some(next) = payload.pop_front()
+            {
+                return Some((Ok::<bytes::Bytes, Error>(next), Some(payload)));
             }
             None
         });
