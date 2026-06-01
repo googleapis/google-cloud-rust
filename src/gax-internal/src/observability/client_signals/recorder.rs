@@ -359,13 +359,13 @@ impl ClientSnapshot {
     ///
     /// Use with the "server.address" attribute.
     pub fn server_address(&self) -> String {
-        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
-            if let Some(host) = uri.host() {
-                return host
-                    .trim_start_matches('[')
-                    .trim_end_matches(']')
-                    .to_string();
-            }
+        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok())
+            && let Some(host) = uri.host()
+        {
+            return host
+                .trim_start_matches('[')
+                .trim_end_matches(']')
+                .to_string();
         }
         self.info.default_host.to_string()
     }
@@ -376,10 +376,10 @@ impl ClientSnapshot {
     ///
     /// Use with the "server.port" attribute after casting to `i64`.
     pub fn server_port(&self) -> u16 {
-        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
-            if let Some(host) = uri.authority().and_then(|a| a.port_u16()) {
-                return host;
-            }
+        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok())
+            && let Some(host) = uri.authority().and_then(|a| a.port_u16())
+        {
+            return host;
         }
         HTTPS_PORT
     }

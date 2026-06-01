@@ -839,10 +839,10 @@ impl ReadContextTransactionSelector {
                 let guard = lazy
                     .lock()
                     .map_err(|_| internal_error("transaction state mutex poisoned"))?;
-                if let TransactionState::Started(selector, _) = &*guard {
-                    if let Some(Selector::Id(id)) = &selector.selector {
-                        return Ok(Some(id.clone()));
-                    }
+                if let TransactionState::Started(selector, _) = &*guard
+                    && let Some(Selector::Id(id)) = &selector.selector
+                {
+                    return Ok(Some(id.clone()));
                 }
             }
         }

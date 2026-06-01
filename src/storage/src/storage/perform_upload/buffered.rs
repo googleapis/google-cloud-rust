@@ -222,10 +222,9 @@ where
             .resource
             .as_ref()
             .and_then(|r| r.checksums.as_ref())
+            && let Err(mismatch) = self::checksum_validate(pre, &object.checksums)
         {
-            if let Err(mismatch) = self::checksum_validate(pre, &object.checksums) {
-                return err(mismatch, object);
-            }
+            return err(mismatch, object);
         }
         let computed = self.payload.lock().await.final_checksum();
         if let Err(mismatch) = self::checksum_validate(&computed, &object.checksums) {

@@ -47,12 +47,12 @@ impl ResultSetMetadata {
         let mut column_types = Vec::new();
         let mut undeclared_parameters = std::collections::BTreeMap::new();
 
-        if let Some(m) = &metadata {
-            if let Some(undeclared) = &m.undeclared_parameters {
-                for field in &undeclared.fields {
-                    let param_type = field.r#type.clone().map(Into::into).unwrap_or_default();
-                    undeclared_parameters.insert(field.name.clone(), param_type);
-                }
+        if let Some(m) = &metadata
+            && let Some(undeclared) = &m.undeclared_parameters
+        {
+            for field in &undeclared.fields {
+                let param_type = field.r#type.clone().map(Into::into).unwrap_or_default();
+                undeclared_parameters.insert(field.name.clone(), param_type);
             }
         }
 

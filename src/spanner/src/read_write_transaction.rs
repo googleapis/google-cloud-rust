@@ -106,12 +106,12 @@ impl ReadWriteTransactionBuilder {
     }
 
     pub(crate) fn with_previous_transaction_id(mut self, id: Option<bytes::Bytes>) -> Self {
-        if let Some(id) = id {
-            if let Some(Mode::ReadWrite(rw)) = self.options.mode.take() {
-                self.options = self
-                    .options
-                    .set_read_write(rw.set_multiplexed_session_previous_transaction_id(id));
-            }
+        if let Some(id) = id
+            && let Some(Mode::ReadWrite(rw)) = self.options.mode.take()
+        {
+            self.options = self
+                .options
+                .set_read_write(rw.set_multiplexed_session_previous_transaction_id(id));
         }
         self
     }
@@ -246,15 +246,14 @@ impl CheckServiceError for ProtoResultSet {
 /// This implementation evaluates that payload so fallback handlers can recover.
 impl CheckServiceError for ExecuteBatchDmlResponse {
     fn check_service_error(&self) -> Option<Error> {
-        if self.result_sets.is_empty() {
-            if let Some(status) = &self.status {
-                if status.code != Code::Ok as i32 {
-                    let rpc_status = Status::default()
-                        .set_code(status.code)
-                        .set_message(status.message.clone());
-                    return Some(Error::service(rpc_status));
-                }
-            }
+        if self.result_sets.is_empty()
+            && let Some(status) = &self.status
+            && status.code != Code::Ok as i32
+        {
+            let rpc_status = Status::default()
+                .set_code(status.code)
+                .set_message(status.message.clone());
+            return Some(Error::service(rpc_status));
         }
         None
     }

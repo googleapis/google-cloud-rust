@@ -187,10 +187,10 @@ mod tests {
                 .execute(request)
                 .await
                 .map_err(|e| google_cloud_gax::error::Error::io(e.to_string()));
-            if let Some(recorder) = RequestRecorder::current() {
-                if let Ok(r) = &res {
-                    recorder.on_http_response(r);
-                }
+            if let Some(recorder) = RequestRecorder::current()
+                && let Ok(r) = &res
+            {
+                recorder.on_http_response(r);
             }
             res
         };
@@ -308,10 +308,10 @@ mod tests {
                 .execute(request)
                 .await
                 .map_err(|e| google_cloud_gax::error::Error::io(e.to_string()));
-            if let Some(recorder) = RequestRecorder::current() {
-                if let Ok(r) = &res {
-                    recorder.on_http_response(r);
-                }
+            if let Some(recorder) = RequestRecorder::current()
+                && let Ok(r) = &res
+            {
+                recorder.on_http_response(r);
             }
             res
         };

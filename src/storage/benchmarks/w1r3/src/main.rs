@@ -134,10 +134,10 @@ async fn main() -> anyhow::Result<()> {
     }
     tracing::info!("DONE");
 
-    if let Some(tracer_provider) = tracer_provider {
-        if let Err(e) = tracer_provider.shutdown() {
-            eprintln!("error shutting down trace provider: {e}");
-        }
+    if let Some(tracer_provider) = tracer_provider
+        && let Err(e) = tracer_provider.shutdown()
+    {
+        eprintln!("error shutting down trace provider: {e}");
     }
 
     Ok(())
