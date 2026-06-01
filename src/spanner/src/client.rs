@@ -20,10 +20,12 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
+use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
 };
 use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
+use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
@@ -35,6 +37,7 @@ use std::sync::{
 
 pub use crate::database_client::DatabaseClient;
 pub use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 
 /// A client for the [Spanner] API.
 ///
@@ -197,7 +200,26 @@ impl Spanner {
     /// If configured to use the Emulator (via `SPANNER_EMULATOR_HOST`), it maps the gRPC endpoint port
     /// (`9010`) to the REST admin port (`9020`).
     pub fn database_admin_builder(&self) -> DatabaseAdminBuilder {
-        let mut builder = DatabaseAdmin::builder();
+        self.configure_admin_builder(DatabaseAdmin::builder())
+    }
+
+    /// Returns a builder for the [InstanceAdmin] client.
+    ///
+    /// This builder is automatically pre-configured with the same endpoints, credentials,
+    /// and routing configurations as this `Spanner` instance.
+    /// If configured to use the Emulator (via `SPANNER_EMULATOR_HOST`), it maps the gRPC endpoint port
+    /// (`9010`) to the REST admin port (`9020`).
+    pub fn instance_admin_builder(&self) -> InstanceAdminBuilder {
+        self.configure_admin_builder(InstanceAdmin::builder())
+    }
+
+    fn configure_admin_builder<F, C>(
+        &self,
+        mut builder: GaxClientBuilder<F, C>,
+    ) -> GaxClientBuilder<F, C>
+    where
+        C: Clone + From<Credentials>,
+    {
         if let Some(ref endpoint) = self.config.endpoint {
             let is_emulator = std::env::var("SPANNER_EMULATOR_HOST")
                 .ok()

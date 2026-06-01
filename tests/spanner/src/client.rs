@@ -18,9 +18,13 @@ use google_cloud_lro::Poller;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
 use google_cloud_spanner::{KeySet, Mutation};
 use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
+use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+use google_cloud_spanner_admin_instance_v1::model::Instance;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Timestamp;
-use reqwest::{Client, Response, StatusCode};
+use http::StatusCode;
+use reqwest::Client;
 use spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner as MockSpannerTrait;
 use std::env::var;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -177,52 +181,89 @@ pub fn get_emulator_rest_endpoint(grpc_endpoint: &str) -> String {
     }
 }
 
-async fn ensure_emulator_instance_created(client: &Client, rest_endpoint: &str) {
-    let instance_payload = serde_json::json!({
-        "instanceId": EMULATOR_INSTANCE_ID,
-        "instance": {
-            "config": "emulator-config",
-            "displayName": "Test Instance",
-            "nodeCount": 1
-        }
-    });
-    let res: Response = client
-        .post(format!(
-            "{}/v1/projects/{}/instances",
-            rest_endpoint, EMULATOR_PROJECT_ID
+async fn ensure_emulator_instance_created(admin_client: &InstanceAdmin) {
+    let parent = format!("projects/{}", EMULATOR_PROJECT_ID);
+    let instance = Instance::new()
+        .set_config(format!(
+            "projects/{}/instanceConfigs/emulator-config",
+            EMULATOR_PROJECT_ID
         ))
-        .json(&instance_payload)
-        .send()
-        .await
-        .expect("Failed to send create instance request");
-    assert!(
-        res.status().is_success() || res.status() == StatusCode::CONFLICT,
-        "Failed to create instance: {}",
-        res.text().await.expect("Failed to extract response text")
-    );
+        .set_display_name("Test Instance")
+        .set_node_count(1);
+
+    let res = admin_client
+        .create_instance()
+        .set_parent(parent)
+        .set_instance_id(EMULATOR_INSTANCE_ID)
+        .set_instance(instance)
+        .poller()
+        .until_done()
+        .await;
+
+    match res {
+        Ok(_) => {}
+        Err(e) => {
+            if e.http_status_code() != Some(StatusCode::CONFLICT.as_u16()) {
+                panic!("Failed to create emulator instance: {:?}", e);
+            }
+        }
+    }
 }
 
-async fn ensure_emulator_database_created(
-    client: &Client,
-    rest_endpoint: &str,
-    payload: &serde_json::Value,
-    dialect_name: &str,
-) {
-    let res = client
-        .post(format!(
-            "{}/v1/projects/{}/instances/{}/databases",
-            rest_endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID
-        ))
-        .json(payload)
-        .send()
-        .await
-        .expect("Failed to send create database request");
-    assert!(
-        res.status().is_success() || res.status() == StatusCode::CONFLICT,
-        "Failed to create {} database: {}",
-        dialect_name,
-        res.text().await.expect("Failed to extract response text")
+async fn create_database_and_tables(
+    admin_client: &DatabaseAdmin,
+    project: &str,
+    instance: &str,
+    database_id: &str,
+    extra_statements: &[&str],
+) -> Result<()> {
+    let parent = format!("projects/{}/instances/{}", project, instance);
+    let create_statement = format!("CREATE DATABASE `{}`", database_id);
+
+    admin_client
+        .create_database()
+        .set_parent(parent)
+        .set_create_statement(create_statement)
+        .set_extra_statements(extra_statements.iter().map(|s| s.to_string()))
+        .poller()
+        .until_done()
+        .await?;
+    Ok(())
+}
+
+async fn create_pg_database_and_tables(
+    admin_client: &DatabaseAdmin,
+    project: &str,
+    instance: &str,
+    database_id: &str,
+    extra_statements: &[&str],
+) -> Result<()> {
+    let parent = format!("projects/{}/instances/{}", project, instance);
+    let create_statement = format!("CREATE DATABASE \"{}\"", database_id);
+
+    admin_client
+        .create_database()
+        .set_parent(parent)
+        .set_create_statement(create_statement)
+        .set_database_dialect(DatabaseDialect::Postgresql)
+        .poller()
+        .until_done()
+        .await?;
+
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        project, instance, database_id
     );
+
+    admin_client
+        .update_database_ddl()
+        .set_database(db_path)
+        .set_statements(extra_statements.iter().map(|s| s.to_string()))
+        .poller()
+        .until_done()
+        .await?;
+
+    Ok(())
 }
 
 async fn delete_all_data_from_all_types(database_id: &str) {
@@ -247,20 +288,42 @@ async fn delete_all_data_from_all_types(database_id: &str) {
         .expect("Failed to delete all data from AllTypes");
 }
 
-async fn do_provision_emulator(endpoint: &str) {
-    // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
-    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
-    let client = Client::new();
+async fn setup_admin_clients() -> (InstanceAdmin, DatabaseAdmin) {
+    let spanner = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client");
+
+    let instance_admin = spanner
+        .instance_admin_builder()
+        .build()
+        .await
+        .expect("Failed to build instance admin");
+    let database_admin = spanner
+        .database_admin_builder()
+        .build()
+        .await
+        .expect("Failed to build database admin");
+
+    (instance_admin, database_admin)
+}
+
+async fn do_provision_emulator(_endpoint: &str) {
+    let (instance_admin, database_admin) = setup_admin_clients().await;
 
     // Ensure the test instance is created
-    ensure_emulator_instance_created(&client, &rest_endpoint).await;
+    ensure_emulator_instance_created(&instance_admin).await;
 
-    // Create a test database and ignore any ALREADY_EXISTS errors.
-    let database_payload = serde_json::json!({
-        "createStatement": format!("CREATE DATABASE `{}`", get_database_id().await),
-        "extraStatements": EXTRA_STATEMENTS,
-    });
-    ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "GoogleSQL").await;
+    // Create database and tables
+    create_database_and_tables(
+        &database_admin,
+        EMULATOR_PROJECT_ID,
+        EMULATOR_INSTANCE_ID,
+        get_database_id().await,
+        &EXTRA_STATEMENTS,
+    )
+    .await
+    .expect("Failed to create database and tables on emulator");
 
     // Clean up any leftover data from previous runs
     delete_all_data_from_all_types(get_database_id().await).await;
@@ -295,49 +358,46 @@ async fn cleanup_stale_databases(
 }
 
 async fn do_provision_real_spanner(project: &str, instance: &str) {
-    let admin_client = DatabaseAdmin::builder()
-        .build()
-        .await
-        .expect("Failed to create DatabaseAdmin client");
+    let (_, database_admin) = setup_admin_clients().await;
 
     // Clean up stale databases from previous aborted runs.
-    if let Err(e) = cleanup_stale_databases(&admin_client, project, instance).await {
+    if let Err(e) = cleanup_stale_databases(&database_admin, project, instance).await {
         warn!("failed to clean up stale databases: {e:?}");
     }
 
-    let parent = format!("projects/{}/instances/{}", project, instance);
-    let db_id = get_database_id().await;
-    let create_statement = format!("CREATE DATABASE `{}`", db_id);
-
     info!(
-        "Creating real Spanner database: {}/databases/{}",
-        parent, db_id
+        "Creating real Spanner database: projects/{}/instances/{}/databases/{}",
+        project,
+        instance,
+        get_database_id().await
     );
 
-    let _db = admin_client
-        .create_database()
-        .set_parent(parent)
-        .set_create_statement(create_statement)
-        .set_extra_statements(EXTRA_STATEMENTS)
-        .poller()
-        .until_done()
-        .await
-        .expect("Failed to create real Spanner database");
+    create_database_and_tables(
+        &database_admin,
+        project,
+        instance,
+        get_database_id().await,
+        &EXTRA_STATEMENTS,
+    )
+    .await
+    .expect("Failed to create database and tables on real Spanner");
 
     info!("Successfully created real Spanner database.");
 }
 
-pub async fn cleanup_real_spanner() {
-    if var("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE").is_ok() {
-        info!("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE is set. Skipping test database drop.");
-        return;
-    }
-
+async fn cleanup_database(database_id: &str) {
     let Some((project, instance)) = get_real_spanner_config() else {
         return;
     };
 
-    let admin_client = match DatabaseAdmin::builder().build().await {
+    let spanner = match Spanner::builder().build().await {
+        Ok(s) => s,
+        Err(e) => {
+            warn!("failed to create Spanner client in cleanup: {e:?}");
+            return;
+        }
+    };
+    let admin_client = match spanner.database_admin_builder().build().await {
         Ok(c) => c,
         Err(e) => {
             warn!("failed to create DatabaseAdmin client in cleanup: {e:?}");
@@ -347,9 +407,7 @@ pub async fn cleanup_real_spanner() {
 
     let db_path = format!(
         "projects/{}/instances/{}/databases/{}",
-        project,
-        instance,
-        get_database_id().await
+        project, instance, database_id
     );
 
     info!("Dropping real Spanner database: {}", db_path);
@@ -360,107 +418,61 @@ pub async fn cleanup_real_spanner() {
         .await;
 }
 
-async fn do_provision_emulator_pg(endpoint: &str) {
-    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
-    let client = Client::new();
+pub async fn cleanup_real_spanner() {
+    if var("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE").is_ok() {
+        info!("GOOGLE_CLOUD_RUST_SPANNER_TEST_DATABASE is set. Skipping test database drop.");
+        return;
+    }
+    cleanup_database(get_database_id().await).await;
+}
+
+async fn do_provision_emulator_pg(_endpoint: &str) {
+    let (instance_admin, database_admin) = setup_admin_clients().await;
 
     // Ensure the test instance is created
-    ensure_emulator_instance_created(&client, &rest_endpoint).await;
+    ensure_emulator_instance_created(&instance_admin).await;
 
-    let database_payload = serde_json::json!({
-        "createStatement": format!("CREATE DATABASE \"{}\"", get_pg_database_id().await),
-        "databaseDialect": "POSTGRESQL",
-    });
-    ensure_emulator_database_created(&client, &rest_endpoint, &database_payload, "PostgreSQL")
-        .await;
-
-    let ddl_payload = serde_json::json!({
-        "statements": PG_EXTRA_STATEMENTS
-    });
-    let res = client
-        .patch(format!(
-            "{}/v1/projects/{}/instances/{}/databases/{}/ddl",
-            rest_endpoint,
-            EMULATOR_PROJECT_ID,
-            EMULATOR_INSTANCE_ID,
-            get_pg_database_id().await
-        ))
-        .json(&ddl_payload)
-        .send()
-        .await
-        .expect("Failed to apply PG DDL schema");
-    assert!(res.status().is_success(), "Failed to apply PG schema DDL");
+    // Create PG database and tables
+    create_pg_database_and_tables(
+        &database_admin,
+        EMULATOR_PROJECT_ID,
+        EMULATOR_INSTANCE_ID,
+        get_pg_database_id().await,
+        &PG_EXTRA_STATEMENTS,
+    )
+    .await
+    .expect("Failed to create PG database and tables on emulator");
 
     // Clean up any leftover data from previous runs
     delete_all_data_from_all_types(get_pg_database_id().await).await;
 }
 
 async fn do_provision_real_spanner_pg(project: &str, instance: &str) {
-    use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
-
-    let admin_client = DatabaseAdmin::builder()
-        .build()
-        .await
-        .expect("Failed to create DatabaseAdmin client");
-
-    let parent = format!("projects/{}/instances/{}", project, instance);
-    let db_id = get_pg_database_id().await;
+    let (_, database_admin) = setup_admin_clients().await;
 
     info!(
-        "Creating real Spanner PG database: {}/databases/{}",
-        parent, db_id
+        "Creating real Spanner PG database: projects/{}/instances/{}/databases/{}",
+        project,
+        instance,
+        get_pg_database_id().await
     );
 
-    let _db = admin_client
-        .create_database()
-        .set_parent(parent)
-        .set_create_statement(format!("CREATE DATABASE \"{}\"", db_id))
-        .set_database_dialect(DatabaseDialect::Postgresql)
-        .poller()
-        .until_done()
-        .await
-        .expect("Failed to create PG database on real Spanner");
-
-    let db_path = format!(
-        "projects/{}/instances/{}/databases/{}",
-        project, instance, db_id
-    );
-
-    admin_client
-        .update_database_ddl()
-        .set_database(db_path)
-        .set_statements(PG_EXTRA_STATEMENTS.iter().map(|s| s.to_string()))
-        .poller()
-        .until_done()
-        .await
-        .expect("Failed to apply PG schema DDL on real Spanner");
+    create_pg_database_and_tables(
+        &database_admin,
+        project,
+        instance,
+        get_pg_database_id().await,
+        &PG_EXTRA_STATEMENTS,
+    )
+    .await
+    .expect("Failed to create PG database and tables on real Spanner");
 }
 
 pub async fn cleanup_real_spanner_pg() {
     if var("GOOGLE_CLOUD_RUST_SPANNER_TEST_PG_DATABASE").is_ok() {
         return;
     }
-    let Some((project, instance)) = get_real_spanner_config() else {
-        return;
-    };
-    let admin_client = match DatabaseAdmin::builder().build().await {
-        Ok(c) => c,
-        Err(e) => {
-            warn!("failed to create DatabaseAdmin client in PG cleanup: {e:?}");
-            return;
-        }
-    };
-    let db_path = format!(
-        "projects/{}/instances/{}/databases/{}",
-        project,
-        instance,
-        get_pg_database_id().await
-    );
-    let _ = admin_client
-        .drop_database()
-        .set_database(db_path)
-        .send()
-        .await;
+    cleanup_database(get_pg_database_id().await).await;
 }
 
 /// Creates a database client for the test instance and database.

@@ -30,3 +30,4 @@ pub use crate::transaction_runner::TransactionRunnerBuilder;
 pub use crate::write_only_transaction::WriteOnlyTransactionBuilder;
 
 pub use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
+pub use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
