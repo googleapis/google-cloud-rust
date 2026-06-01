@@ -216,6 +216,7 @@ impl ReadWriteTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new(),
                 transaction_tag: self.transaction_tag.clone(),
                 channel_hint,
+                begin_transaction_request_options: None,
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
