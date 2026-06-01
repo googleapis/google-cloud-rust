@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::BatchDml;
 use crate::Error;
+use crate::Mutation;
 use crate::RequestOptions;
-use crate::client::{Mutation, amend_request_options_for_lar};
+use crate::batch::BatchDml;
+use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::CommitRequest;
@@ -387,7 +388,8 @@ impl ReadWriteTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Mutation;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
@@ -483,8 +485,8 @@ impl ReadWriteTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # use google_cloud_spanner::batch_dml::BatchDml;
+    /// # use google_cloud_spanner::{Spanner, Statement};
+    /// # use google_cloud_spanner::batch::BatchDml;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
@@ -512,9 +514,9 @@ impl ReadWriteTransaction {
     ///
     /// # Error Handling Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # use google_cloud_spanner::batch_dml::BatchDml;
-    /// # use google_cloud_spanner::BatchUpdateError;
+    /// # use google_cloud_spanner::{Spanner, Statement};
+    /// # use google_cloud_spanner::batch::BatchDml;
+    /// # use google_cloud_spanner::error::BatchUpdateError;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// # let runner = db_client.read_write_transaction().build().await?;
@@ -778,7 +780,7 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::BatchUpdateError;
+    use crate::error::BatchUpdateError;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::adapt;
     use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
@@ -1815,7 +1817,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn read_write_transaction_execute_query() {
-        use crate::client::Statement;
+        use crate::Statement;
         let mut mock = create_session_mock();
 
         mock.expect_begin_transaction().once().returning(|req| {

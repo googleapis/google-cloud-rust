@@ -33,8 +33,7 @@ use wkt::Duration;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::client::Spanner;
-/// # use google_cloud_spanner::client::Statement;
+/// # use google_cloud_spanner::{Spanner, Statement};
 /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let runner = db_client.read_write_transaction().build().await?;
@@ -73,7 +72,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use std::time::Duration;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -98,7 +97,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use std::time::Duration;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -122,7 +121,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_gax::retry_policy::NeverRetry;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -146,7 +145,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -170,7 +169,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use std::time::Duration;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -192,7 +191,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_gax::retry_policy::NeverRetry;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -214,7 +213,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -236,7 +235,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_spanner::model::transaction_options::IsolationLevel;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -259,7 +258,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_spanner::model::transaction_options::read_write::ReadLockMode;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -282,7 +281,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
@@ -305,7 +304,8 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, BeginTransactionOption};
+    /// # use google_cloud_spanner::Spanner;
+    /// # use google_cloud_spanner::transaction::BeginTransactionOption;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
@@ -341,7 +341,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use google_cloud_spanner::model::request_options::Priority;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -362,7 +362,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # use wkt::Duration;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -389,7 +389,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Spanner;
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
@@ -416,7 +416,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::{Spanner, Statement};
     /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
@@ -448,8 +448,8 @@ impl TransactionRunnerBuilder {
     /// # Example
     /// ```
     /// # use std::time::Duration;
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::BasicTransactionRetryPolicy;
+    /// # use google_cloud_spanner::Spanner;
+    /// # use google_cloud_spanner::transaction::BasicTransactionRetryPolicy;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     ///
@@ -474,8 +474,7 @@ impl TransactionRunnerBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::{Spanner, Statement};
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
@@ -522,8 +521,7 @@ impl TransactionRunner {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::{Spanner, Statement};
     /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
@@ -621,7 +619,7 @@ impl TransactionRunner {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::client::Mutation;
+    use crate::Mutation;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;

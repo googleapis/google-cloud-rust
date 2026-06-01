@@ -13,10 +13,11 @@
 // limitations under the License.
 
 use crate::client::create_database_client;
-use google_cloud_spanner::Partition;
-use google_cloud_spanner::client::{DatabaseClient, KeySet, Mutation, ReadRequest, Statement};
+use google_cloud_spanner::batch::Partition;
+use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::key;
 use google_cloud_spanner::model::PartitionOptions;
+use google_cloud_spanner::{KeySet, Mutation, ReadRequest, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use serde_json;
 

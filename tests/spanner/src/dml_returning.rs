@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use anyhow::Result;
-use google_cloud_spanner::client::{DatabaseClient, Mutation, Statement};
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::{Mutation, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn dml_then_return_execute_query(db_client: &DatabaseClient) -> Result<()> {

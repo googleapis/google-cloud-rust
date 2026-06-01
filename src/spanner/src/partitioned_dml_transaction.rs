@@ -30,7 +30,8 @@ use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::client::{Spanner, Statement};
+/// # use google_cloud_spanner::client::Spanner;
+/// # use google_cloud_spanner::Statement;
 /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 ///     let transaction = db_client.partitioned_dml_transaction().build().await?;
@@ -88,7 +89,7 @@ impl PartitionedDmlTransactionBuilder {
     /// ```
     /// # use std::time::Duration;
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::BasicTransactionRetryPolicy;
+    /// # use google_cloud_spanner::transaction::BasicTransactionRetryPolicy;
     /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///     
@@ -143,7 +144,8 @@ impl PartitionedDmlTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.partitioned_dml_transaction().build().await?;

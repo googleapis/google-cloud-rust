@@ -15,7 +15,8 @@
 use anyhow::Result;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_lro::Poller;
-use google_cloud_spanner::client::{DatabaseClient, KeySet, Mutation, Spanner};
+use google_cloud_spanner::client::{DatabaseClient, Spanner};
+use google_cloud_spanner::{KeySet, Mutation};
 use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Timestamp;

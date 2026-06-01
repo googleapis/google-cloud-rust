@@ -25,8 +25,8 @@ use std::time::Duration;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::client::ReadRequest;
-/// # use google_cloud_spanner::client::KeySet;
+/// # use google_cloud_spanner::ReadRequest;
+/// # use google_cloud_spanner::KeySet;
 /// # use google_cloud_spanner::key;
 /// // Read all rows from a table using its primary key.
 /// let read_all = ReadRequest::builder("Users", vec!["Id", "Name"])
@@ -54,7 +54,7 @@ impl ReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// let request = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
     /// ```
     ///
@@ -79,7 +79,7 @@ impl ReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// # use google_cloud_spanner::key;
     /// let request = ReadRequest::builder("Users", vec!["Id", "Name"]).with_index("UsersByIndex", key![1_i64]);
     /// ```
@@ -126,7 +126,7 @@ impl ConfiguredReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// let request = ReadRequest::builder("Users", vec!["Id"])
     ///     .with_keys(KeySet::all())
     ///     .with_limit(10)
@@ -143,7 +143,7 @@ impl ConfiguredReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// let request = ReadRequest::builder("Users", vec!["Id"])
     ///     .with_keys(KeySet::all())
     ///     .with_request_tag("my-tag")
@@ -162,7 +162,7 @@ impl ConfiguredReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// # use google_cloud_spanner::model::request_options::Priority;
     /// let request = ReadRequest::builder("Users", vec!["Id"])
     ///     .with_keys(KeySet::all())
@@ -179,8 +179,8 @@ impl ConfiguredReadRequestBuilder {
     /// Sets the directed read options for this request.
     ///
     /// ```
-    /// # use google_cloud_spanner::client::ReadRequest;
-    /// # use google_cloud_spanner::client::KeySet;
+    /// # use google_cloud_spanner::ReadRequest;
+    /// # use google_cloud_spanner::KeySet;
     /// # use google_cloud_spanner::model::DirectedReadOptions;
     /// let dro = DirectedReadOptions::default();
     /// let req = ReadRequest::builder("MyTable", vec!["col1"])
@@ -200,7 +200,7 @@ impl ConfiguredReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// # use google_cloud_spanner::model::read_request::OrderBy;
     /// let request = ReadRequest::builder("Users", vec!["Id"])
     ///     .with_keys(KeySet::all())
@@ -223,7 +223,7 @@ impl ConfiguredReadRequestBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::{ReadRequest, KeySet};
     /// # use google_cloud_spanner::model::read_request::LockHint;
     /// let request = ReadRequest::builder("Users", vec!["Id"])
     ///     .with_keys(KeySet::all())
@@ -305,7 +305,7 @@ impl ReadRequest {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::ReadRequest;
+    /// # use google_cloud_spanner::ReadRequest;
     /// let builder = ReadRequest::builder("Users", vec!["Id", "Name"]);
     /// ```
     ///

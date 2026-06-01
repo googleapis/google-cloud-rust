@@ -14,12 +14,12 @@
 
 use std::sync::Arc;
 
-/// Metadata about a [`ResultSet`](crate::client::ResultSet).
+/// Metadata about a [`ResultSet`](crate::ResultSet).
 ///
 /// # Example
 ///
 /// ```
-/// # use google_cloud_spanner::client::{Spanner, Statement, TypeCode};
+/// # use google_cloud_spanner::{Spanner, Statement, TypeCode};
 /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Spanner::builder().build().await?;
 /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;

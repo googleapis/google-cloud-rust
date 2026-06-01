@@ -19,15 +19,26 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 
-pub use batch_dml::BatchDml;
-pub use batch_dml::BatchDmlBuilder;
-pub use batch_read_only_transaction::{
-    BatchReadOnlyTransaction, BatchReadOnlyTransactionBuilder, Partition,
-};
-pub use batch_write_transaction::{
-    BatchWriteResponseStream, BatchWriteTransaction, BatchWriteTransactionBuilder,
-};
-pub use error::BatchUpdateError;
+// Re-exports of core client and data primitives at the crate root.
+pub use client::DatabaseClient;
+pub use client::Spanner;
+pub use key::Key;
+pub use key::KeyRange;
+pub use key::KeySet;
+pub use mutation::Mutation;
+pub use mutation::MutationGroup;
+pub use read::ReadRequest;
+pub use result_set::ResultSet;
+pub use result_set_metadata::ResultSetMetadata;
+pub use row::Row;
+pub use statement::Statement;
+pub use timestamp_bound::TimestampBound;
+pub use to_value::ToValue;
+pub use types::Type;
+pub use types::TypeCode;
+pub use value::Kind;
+pub use value::Value;
+
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 pub use rust_decimal::Decimal;
@@ -37,24 +48,34 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-/// Batch DML support.
-pub mod batch_dml;
-
-/// Spanner client implementation.
+/// Spanner client implementations.
 pub mod client;
 
-/// Client builder utility.
-pub mod builder {
-    pub use crate::database_client::DatabaseClientBuilder;
-}
+/// Consolidates all client and request builders.
+pub mod builder;
 
-/// Batch read-only transaction support.
-pub mod batch_read_only_transaction;
+/// Crate error types.
+pub mod error;
 
-/// Spanner data models.
+/// Transaction-scoped interfaces and transaction runners.
+pub mod transaction;
+
+/// Batch execution and query partitioning support.
+pub mod batch;
+
+/// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
+
+/// Mocking and stub definitions.
+pub mod stub {
+    pub use crate::generated::gapic_dataplane::stub::*;
+}
+
+// Internal modules
+pub(crate) mod batch_dml;
+pub(crate) mod batch_read_only_transaction;
 pub(crate) mod batch_write_transaction;
 pub(crate) mod database_client;
 pub(crate) mod from_value;
@@ -79,7 +100,6 @@ pub(crate) mod types;
 pub(crate) mod value;
 pub(crate) mod write_only_transaction;
 
-pub(crate) mod error;
 mod status;
 
 #[allow(dead_code)]

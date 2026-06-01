@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_spanner::client::{
-    BeginTransactionOption, DatabaseClient, Mutation, Statement, TimestampBound,
-};
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::transaction::BeginTransactionOption;
+use google_cloud_spanner::{Mutation, Statement, TimestampBound};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Timestamp as WktTimestamp;
 use std::time::Duration;

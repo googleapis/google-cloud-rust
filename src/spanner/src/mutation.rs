@@ -25,7 +25,7 @@ use std::vec::IntoIter;
 ///
 /// # Example
 /// ```rust
-/// use google_cloud_spanner::client::Mutation;
+/// use google_cloud_spanner::Mutation;
 ///
 /// let mutation = Mutation::new_insert_builder("Users")
 ///     .set("UserId").to(&1)
@@ -79,7 +79,7 @@ impl Mutation {
     ///
     /// # Example
     /// ```rust
-    /// use google_cloud_spanner::client::Mutation;
+    /// use google_cloud_spanner::Mutation;
     /// let mutation = Mutation::new_insert_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .build();
@@ -92,7 +92,7 @@ impl Mutation {
     ///
     /// # Example
     /// ```rust
-    /// use google_cloud_spanner::client::Mutation;
+    /// use google_cloud_spanner::Mutation;
     /// let mutation = Mutation::new_update_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .set("UserName").to(&"Bob")
@@ -106,7 +106,7 @@ impl Mutation {
     ///
     /// # Example
     /// ```rust
-    /// use google_cloud_spanner::client::Mutation;
+    /// use google_cloud_spanner::Mutation;
     /// let mutation = Mutation::new_insert_or_update_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .set("UserName").to(&"Bob")
@@ -120,7 +120,7 @@ impl Mutation {
     ///
     /// # Example
     /// ```rust
-    /// use google_cloud_spanner::client::Mutation;
+    /// use google_cloud_spanner::Mutation;
     /// let mutation = Mutation::new_replace_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .set("UserName").to(&"Bob")
@@ -261,7 +261,7 @@ impl WriteBuilder {
     ///
     /// # Example
     /// ```rust
-    /// use google_cloud_spanner::client::Mutation;
+    /// use google_cloud_spanner::Mutation;
     /// let mutation = Mutation::new_insert_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .build();
@@ -305,7 +305,7 @@ impl ValueBinder {
     }
 }
 
-/// A group of mutations that are applied atomically in a [crate::BatchWriteTransaction].
+/// A group of mutations that are applied atomically in a [crate::batch::BatchWriteTransaction].
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct MutationGroup {

@@ -15,9 +15,9 @@
 use crate::client::{get_database_id, get_emulator_host, provision_emulator, update_database_ddl};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
-use google_cloud_spanner::client::{
-    BeginTransactionOption, ResultSet, Row, Spanner, TimestampBound,
-};
+use google_cloud_spanner::client::Spanner;
+use google_cloud_spanner::transaction::BeginTransactionOption;
+use google_cloud_spanner::{ResultSet, Row, TimestampBound};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use http::{Request, Response, StatusCode, Uri};
 use http_body::Frame;

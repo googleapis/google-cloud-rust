@@ -15,6 +15,9 @@
 use google_cloud_gax::error::rpc::Status;
 use std::error::Error;
 
+pub use crate::from_value::ConvertError;
+pub use wkt::{DurationError, TimestampError};
+
 /// An unexpected error that occurs when the client receives data from Spanner
 /// that it cannot properly parse or handle. This typically indicates a bug in
 /// the client library or the Spanner service itself, though other causes are possible.

@@ -15,8 +15,8 @@
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use google_cloud_spanner::Decimal;
-use google_cloud_spanner::client::Kind;
-use google_cloud_spanner::client::{DatabaseClient, Mutation, Statement, Value};
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::{Kind, Mutation, Statement, Value};
 use prost_types::value::Kind as ProtoKind;
 use prost_types::{ListValue, Value as ProtoValue};
 use std::str::FromStr;
@@ -682,7 +682,7 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
     let read_tx = db_client.single_use().build();
     let mut result_set = read_tx
         .execute_read(
-            google_cloud_spanner::client::ReadRequest::builder(
+            google_cloud_spanner::ReadRequest::builder(
                 "AllTypes",
                 vec![
                     "ColBool",
@@ -710,7 +710,7 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
                 ],
             )
             .with_keys(
-                google_cloud_spanner::client::KeySet::builder()
+                google_cloud_spanner::KeySet::builder()
                     .add_key(google_cloud_spanner::key![id])
                     .build(),
             )
@@ -868,7 +868,7 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
     let read_tx_null = db_client.single_use().build();
     let mut result_set_null = read_tx_null
         .execute_read(
-            google_cloud_spanner::client::ReadRequest::builder(
+            google_cloud_spanner::ReadRequest::builder(
                 "AllTypes",
                 vec![
                     "ColBool",
@@ -896,7 +896,7 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
                 ],
             )
             .with_keys(
-                google_cloud_spanner::client::KeySet::builder()
+                google_cloud_spanner::KeySet::builder()
                     .add_key(google_cloud_spanner::key![id_null])
                     .build(),
             )

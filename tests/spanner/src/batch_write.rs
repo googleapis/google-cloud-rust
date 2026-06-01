@@ -14,9 +14,9 @@
 
 use anyhow::Result;
 use google_cloud_gax::error::rpc::Code;
-use google_cloud_spanner::client::MutationGroup;
-use google_cloud_spanner::client::{DatabaseClient, Mutation, Statement};
+use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::model::BatchWriteResponse;
+use google_cloud_spanner::{Mutation, MutationGroup, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::time::Duration;
 use tokio::time::sleep;

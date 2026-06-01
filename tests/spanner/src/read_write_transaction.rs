@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_spanner::client::{DatabaseClient, Mutation, ReadRequest, Statement};
+use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::key;
+use google_cloud_spanner::{Mutation, ReadRequest, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {

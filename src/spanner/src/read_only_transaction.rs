@@ -31,7 +31,7 @@ use tokio::sync::Notify;
 /// # Example
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
-/// # use google_cloud_spanner::client::TimestampBound;
+/// # use google_cloud_spanner::TimestampBound;
 /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let read_only_tx = db_client.single_use()
@@ -58,7 +58,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::TimestampBound;
+    /// # use google_cloud_spanner::TimestampBound;
     /// # async fn set_bound(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let builder = db_client.single_use().with_timestamp_bound(TimestampBound::strong());
@@ -118,7 +118,7 @@ impl SingleUseReadOnlyTransactionBuilder {
 /// # Example
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
-/// # use google_cloud_spanner::client::Statement;
+/// # use google_cloud_spanner::Statement;
 /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let tx = db_client.single_use().build();
@@ -140,7 +140,7 @@ impl SingleUseReadOnlyTransaction {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db_client.single_use().build();
@@ -166,7 +166,8 @@ impl SingleUseReadOnlyTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::{KeySet, ReadRequest};
     /// # use google_cloud_spanner::key;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -216,7 +217,7 @@ pub enum BeginTransactionOption {
 /// # Example
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
-/// # use google_cloud_spanner::client::TimestampBound;
+/// # use google_cloud_spanner::TimestampBound;
 /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let read_only_tx = db_client.read_only_transaction()
@@ -245,8 +246,9 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, BeginTransactionOption};
-    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::transaction::BeginTransactionOption;
+    /// # use google_cloud_spanner::Statement;
     /// # async fn set_begin_option(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.read_only_transaction().with_begin_transaction_option(BeginTransactionOption::ExplicitBegin).build().await?;
@@ -281,7 +283,7 @@ impl MultiUseReadOnlyTransactionBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::TimestampBound;
+    /// # use google_cloud_spanner::TimestampBound;
     /// # async fn set_bound(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let builder = db_client.read_only_transaction().with_timestamp_bound(TimestampBound::strong());
@@ -375,7 +377,7 @@ impl MultiUseReadOnlyTransactionBuilder {
 /// # Example
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
-/// # use google_cloud_spanner::client::Statement;
+/// # use google_cloud_spanner::Statement;
 /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let tx = db_client.read_only_transaction().build().await?;
@@ -406,7 +408,7 @@ impl MultiUseReadOnlyTransaction {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db_client.read_only_transaction().build().await?;
@@ -432,7 +434,8 @@ impl MultiUseReadOnlyTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::{KeySet, ReadRequest};
     /// # use google_cloud_spanner::key;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -980,7 +983,7 @@ impl ReadContext {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::client::Statement;
+    use crate::Statement;
     use crate::result_set::tests::adapt;
     use crate::result_set::tests::string_val;
     use crate::value::Value;
@@ -1107,7 +1110,7 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_single_query() {
         use super::super::result_set::tests::string_val;
-        use crate::client::Statement;
+        use crate::Statement;
         use crate::value::Value;
 
         let mut mock = create_session_mock();
@@ -1142,7 +1145,7 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_multi_query() {
         use super::super::result_set::tests::string_val;
-        use crate::client::Statement;
+        use crate::Statement;
         use crate::value::Value;
         use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 
@@ -1218,7 +1221,7 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_multi_query_inline_begin() -> anyhow::Result<()> {
         use super::super::result_set::tests::string_val;
-        use crate::client::Statement;
+        use crate::Statement;
         use crate::value::Value;
         use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 
@@ -1312,8 +1315,8 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_single_read() {
         use super::super::result_set::tests::string_val;
-        use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
+        use crate::{KeySet, ReadRequest};
 
         let mut mock = create_session_mock();
 
@@ -1348,8 +1351,8 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_multi_read() -> anyhow::Result<()> {
         use super::super::result_set::tests::string_val;
-        use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
+        use crate::{KeySet, ReadRequest};
         use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 
         let mut mock = create_session_mock();
@@ -1624,8 +1627,8 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn inline_begin_read_failure_retry_success() -> anyhow::Result<()> {
-        use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
+        use crate::{KeySet, ReadRequest};
         use gaxi::grpc::tonic::Status;
         use tonic::Response;
 
@@ -1695,7 +1698,7 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn single_use_query_send_error_returns_immediately() -> anyhow::Result<()> {
-        use crate::client::Statement;
+        use crate::Statement;
         use gaxi::grpc::tonic::Status;
 
         let mut mock = create_session_mock();
@@ -1724,7 +1727,7 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn inline_begin_already_started_query_send_error_returns_immediately()
     -> anyhow::Result<()> {
-        use crate::client::Statement;
+        use crate::Statement;
         use gaxi::grpc::tonic::Status;
         use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 
@@ -2288,7 +2291,7 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn execute_concurrent_reads_inline_begin() -> anyhow::Result<()> {
-        use crate::client::{KeySet, ReadRequest};
+        use crate::{KeySet, ReadRequest};
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().never();
 
