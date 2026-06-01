@@ -42,7 +42,7 @@ pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Resu
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("batch-success-tag")
+        .set_transaction_tag("batch-success-tag")
         .build()
         .await?;
 
@@ -128,7 +128,7 @@ pub async fn partial_batch_update_failure(db_client: &DatabaseClient) -> anyhow:
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("batch-partial-tag")
+        .set_transaction_tag("batch-partial-tag")
         .build()
         .await?;
 
@@ -179,7 +179,7 @@ pub async fn partial_batch_update_failure(db_client: &DatabaseClient) -> anyhow:
 pub async fn empty_batch_statement_rejection(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("batch-empty-tag")
+        .set_transaction_tag("batch-empty-tag")
         .build()
         .await?;
 
@@ -207,7 +207,7 @@ pub async fn empty_batch_statement_rejection(db_client: &DatabaseClient) -> anyh
 pub async fn unsupported_query_in_batch_dml(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("batch-query-tag")
+        .set_transaction_tag("batch-query-tag")
         .build()
         .await?;
 
@@ -252,7 +252,7 @@ pub async fn unsupported_returning_clause(db_client: &DatabaseClient) -> anyhow:
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("batch-returning-tag")
+        .set_transaction_tag("batch-returning-tag")
         .build()
         .await?;
 
@@ -292,7 +292,7 @@ pub async fn continue_after_empty_batch_statement(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("continue-empty-tag")
+        .set_transaction_tag("continue-empty-tag")
         .build()
         .await?;
 
@@ -340,7 +340,7 @@ pub async fn continue_after_invalid_first_statement_in_batch(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("continue-invalid-tag")
+        .set_transaction_tag("continue-invalid-tag")
         .build()
         .await?;
 
@@ -406,7 +406,7 @@ pub async fn continue_after_invalid_second_statement_in_batch(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("continue-second-invalid-tag")
+        .set_transaction_tag("continue-second-invalid-tag")
         .build()
         .await?;
 

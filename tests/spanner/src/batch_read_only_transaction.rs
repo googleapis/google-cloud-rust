@@ -247,7 +247,7 @@ pub async fn partition_tuning_and_data_boost(db_client: &DatabaseClient) -> anyh
         .expect("Failed to create executor database client");
     let mut rows_received = 0;
     for partition in partitions {
-        let boosted_partition = partition.with_data_boost(true);
+        let boosted_partition = partition.set_data_boost(true);
         let mut result_set = boosted_partition.execute(&execution_client).await?;
         while let Some(row) = result_set.next().await.transpose()? {
             rows_received += 1;

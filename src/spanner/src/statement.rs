@@ -94,12 +94,12 @@ impl StatementBuilder {
     /// ```
     /// # use google_cloud_spanner::client::Statement;
     /// let statement = Statement::builder("SELECT * FROM users")
-    ///     .with_request_tag("my-tag")
+    ///     .set_request_tag("my-tag")
     ///     .build();
     /// ```
     ///
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
-    pub fn with_request_tag(mut self, tag: impl Into<String>) -> Self {
+    pub fn set_request_tag(mut self, tag: impl Into<String>) -> Self {
         self.request_options
             .get_or_insert_with(crate::model::RequestOptions::default)
             .request_tag = tag.into();
@@ -113,10 +113,10 @@ impl StatementBuilder {
     /// # use google_cloud_spanner::client::Statement;
     /// # use google_cloud_spanner::model::request_options::Priority;
     /// let statement = Statement::builder("SELECT * FROM users")
-    ///     .with_priority(Priority::Low)
+    ///     .set_priority(Priority::Low)
     ///     .build();
     /// ```
-    pub fn with_priority(mut self, priority: Priority) -> Self {
+    pub fn set_priority(mut self, priority: Priority) -> Self {
         self.request_options
             .get_or_insert_with(crate::model::RequestOptions::default)
             .priority = priority;
@@ -130,13 +130,13 @@ impl StatementBuilder {
     /// # use google_cloud_spanner::model::DirectedReadOptions;
     /// let dro = DirectedReadOptions::default();
     /// let stmt = Statement::builder("SELECT * FROM users")
-    ///     .with_directed_read_options(dro)
+    ///     .set_directed_read_options(dro)
     ///     .build();
     /// ```
     ///
     /// DirectedReadOptions can only be specified for a read-only transaction,
     /// otherwise Spanner returns an INVALID_ARGUMENT error.
-    pub fn with_directed_read_options(mut self, options: DirectedReadOptions) -> Self {
+    pub fn set_directed_read_options(mut self, options: DirectedReadOptions) -> Self {
         self.directed_read_options = Some(options);
         self
     }
@@ -150,10 +150,10 @@ impl StatementBuilder {
     /// let options = QueryOptions::default()
     ///     .set_optimizer_version("latest");
     /// let statement = Statement::builder("SELECT * FROM users")
-    ///     .with_query_options(options)
+    ///     .set_query_options(options)
     ///     .build();
     /// ```
-    pub fn with_query_options(mut self, options: QueryOptions) -> Self {
+    pub fn set_query_options(mut self, options: QueryOptions) -> Self {
         self.query_options = Some(options);
         self
     }
@@ -165,10 +165,10 @@ impl StatementBuilder {
     /// # use google_cloud_spanner::client::Statement;
     /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
     /// let statement = Statement::builder("SELECT * FROM users")
-    ///     .with_query_mode(QueryMode::Plan)
+    ///     .set_query_mode(QueryMode::Plan)
     ///     .build();
     /// ```
-    pub fn with_query_mode(mut self, mode: QueryMode) -> Self {
+    pub fn set_query_mode(mut self, mode: QueryMode) -> Self {
         self.query_mode = Some(mode);
         self
     }
@@ -273,13 +273,13 @@ impl Statement {
     /// let statement = Statement::builder("SELECT * FROM users WHERE id = @id")
     ///     .add_param("id", &42)
     ///     .build();
-    /// let mut query_plan = tx.execute_query(statement.clone().with_query_mode(QueryMode::Plan)).await?;
+    /// let mut query_plan = tx.execute_query(statement.clone().set_query_mode(QueryMode::Plan)).await?;
     /// # Ok(())
     /// # }
     /// ```
     ///
     /// This method consumes the statement and returns a new one with the specified mode.
-    pub fn with_query_mode(mut self, mode: QueryMode) -> Self {
+    pub fn set_query_mode(mut self, mode: QueryMode) -> Self {
         self.query_mode = Some(mode);
         self
     }
@@ -468,7 +468,7 @@ mod tests {
     #[test]
     fn with_request_tag() {
         let stmt = Statement::builder("SELECT * FROM users")
-            .with_request_tag("tag1")
+            .set_request_tag("tag1")
             .build();
         assert_eq!(
             stmt.request_options
@@ -481,7 +481,7 @@ mod tests {
     #[test]
     fn with_priority() {
         let stmt = Statement::builder("SELECT * FROM users")
-            .with_priority(Priority::High)
+            .set_priority(Priority::High)
             .build();
         assert_eq!(
             stmt.request_options
@@ -495,7 +495,7 @@ mod tests {
     fn with_directed_read_options() {
         let dro = DirectedReadOptions::default();
         let stmt = Statement::builder("SELECT * FROM users")
-            .with_directed_read_options(dro.clone())
+            .set_directed_read_options(dro.clone())
             .build();
         assert_eq!(stmt.directed_read_options, Some(dro));
     }
@@ -504,7 +504,7 @@ mod tests {
     fn with_query_options() -> anyhow::Result<()> {
         let query_options = QueryOptions::default().set_optimizer_version("1");
         let stmt = Statement::builder("SELECT * FROM users")
-            .with_query_options(query_options.clone())
+            .set_query_options(query_options.clone())
             .build();
         assert_eq!(
             stmt.query_options
@@ -527,7 +527,7 @@ mod tests {
     #[test]
     fn with_query_mode() -> anyhow::Result<()> {
         let stmt = Statement::builder("SELECT * FROM users")
-            .with_query_mode(QueryMode::Plan)
+            .set_query_mode(QueryMode::Plan)
             .build();
         assert_eq!(stmt.query_mode, Some(QueryMode::Plan));
 
@@ -541,7 +541,7 @@ mod tests {
         let stmt = Statement::builder("SELECT * FROM users").build();
         assert_eq!(stmt.query_mode, None);
 
-        let stmt = stmt.with_query_mode(QueryMode::Profile);
+        let stmt = stmt.set_query_mode(QueryMode::Profile);
         assert_eq!(stmt.query_mode, Some(QueryMode::Profile));
 
         let req = stmt.into_request();

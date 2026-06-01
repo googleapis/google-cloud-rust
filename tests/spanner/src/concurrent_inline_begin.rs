@@ -213,7 +213,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     // 6. Spawn 20 tasks with random workloads
     let tx = intercepted_db
         .read_only_transaction()
-        .with_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
+        .set_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
         .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
