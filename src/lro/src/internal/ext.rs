@@ -42,10 +42,18 @@ where
 {
     fn with_options(self, options: PollerOptions) -> impl Poller<ResponseType, MetadataType> {
         if let Some(t) = options.tracing {
+            let method_name = if t.method_name.is_empty() {
+                "google_longrunning::Operations/Wait"
+            } else {
+                t.method_name
+            };
             let span = tracing::info_span!(
                 "LRO Wait",
-                "gcp.rpc.method" = t.method_name,
-                "gcp.longrunning.operation_name" = tracing::field::Empty
+                "otel.name" = method_name,
+                "gcp.rpc.method" = method_name,
+                "gcp.resource.destination.id" = tracing::field::Empty,
+                "otel.status_code" = tracing::field::Empty,
+                "otel.status_description" = tracing::field::Empty
             );
             let traced = Tracing::new(self, span);
             return Either::Right(traced);
