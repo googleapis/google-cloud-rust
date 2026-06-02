@@ -294,6 +294,12 @@ impl Builder {
         self
     }
 
+    #[cfg(all(test, google_cloud_unstable_trust_boundaries))]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
     fn build_token_provider(self) -> BuildResult<ServiceAccountTokenProvider> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
@@ -653,13 +659,6 @@ mod tests {
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     const SSJ_REGEX: &str = r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)";
-
-    impl Builder {
-        fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
-            self.iam_endpoint_override = iam_endpoint_override;
-            self
-        }
-    }
 
     #[test]
     #[parallel]
@@ -1119,6 +1118,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
         use crate::credentials::tests::get_access_boundary_from_headers;
         use httptest::responders::json_encoded;
