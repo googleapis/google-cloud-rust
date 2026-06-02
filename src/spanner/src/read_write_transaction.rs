@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::Error;
-use crate::Mutation;
 use crate::RequestOptions;
 use crate::batch::BatchDml;
 use crate::client::amend_request_options_for_lar;
@@ -36,6 +35,7 @@ use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
+use crate::mutation::Mutation;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
     BeginTransactionOption, ReadContext, ReadContextTransactionSelector, TransactionState,
@@ -389,7 +389,7 @@ impl ReadWriteTransaction {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Mutation;
+    /// # use google_cloud_spanner::mutation::Mutation;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
@@ -485,7 +485,8 @@ impl ReadWriteTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::batch::BatchDml;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -514,7 +515,8 @@ impl ReadWriteTransaction {
     ///
     /// # Error Handling Example
     /// ```
-    /// # use google_cloud_spanner::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::batch::BatchDml;
     /// # use google_cloud_spanner::error::BatchUpdateError;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
@@ -1817,7 +1819,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn read_write_transaction_execute_query() {
-        use crate::Statement;
+        use crate::statement::Statement;
         let mut mock = create_session_mock();
 
         mock.expect_begin_transaction().once().returning(|req| {

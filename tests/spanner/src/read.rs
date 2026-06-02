@@ -14,7 +14,9 @@
 
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::key;
-use google_cloud_spanner::{KeyRange, KeySet, Mutation, ReadRequest};
+use google_cloud_spanner::key::{KeyRange, KeySet};
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::read::ReadRequest;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn read_single_key(db_client: &DatabaseClient) -> anyhow::Result<()> {

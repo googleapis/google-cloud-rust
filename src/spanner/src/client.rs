@@ -391,8 +391,9 @@ impl Channel {
 mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;
+    use crate::read::ReadRequest;
     use crate::result_set::tests::adapt;
-    use crate::{ReadRequest, Statement};
+    use crate::statement::Statement;
     use gaxi::grpc::tonic::MetadataMap;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;

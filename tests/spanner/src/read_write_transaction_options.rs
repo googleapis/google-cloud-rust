@@ -16,7 +16,8 @@ use crate::client::{get_database_id, get_emulator_host, get_real_spanner_config}
 use google_cloud_spanner::Result as SpannerResult;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
 use google_cloud_spanner::model::request_options::Priority;
-use google_cloud_spanner::{Mutation, Statement};
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Duration as WktDuration;
 use std::time::Duration;

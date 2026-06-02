@@ -20,25 +20,20 @@
 //!
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
-// Re-exports of core client and data primitives at the crate root.
-pub use client::DatabaseClient;
-pub use client::Spanner;
-pub use key::Key;
-pub use key::KeyRange;
-pub use key::KeySet;
-pub use mutation::Mutation;
-pub use mutation::MutationGroup;
-pub use read::ReadRequest;
-pub use result_set::ResultSet;
-pub use result_set_metadata::ResultSetMetadata;
-pub use row::Row;
-pub use statement::Statement;
-pub use timestamp_bound::TimestampBound;
-pub use to_value::ToValue;
-pub use types::Type;
-pub use types::TypeCode;
-pub use value::Kind;
-pub use value::Value;
+// Public domain modules.
+
+/// Key and key range definition types.
+pub mod key;
+/// Write mutations and transaction commit binders.
+pub mod mutation;
+/// Configurable read requests and builders.
+pub mod read;
+/// Spanner execution result streams and rows.
+pub mod result;
+/// SQL statement builders and parameter bindings.
+pub mod statement;
+/// Type and value representations and conversion traits.
+pub mod value;
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -80,11 +75,8 @@ pub(crate) mod batch_read_only_transaction;
 pub(crate) mod batch_write_transaction;
 pub(crate) mod database_client;
 pub(crate) mod from_value;
-pub(crate) mod key;
-pub(crate) mod mutation;
 pub(crate) mod partitioned_dml_transaction;
 pub(crate) mod precommit;
-pub(crate) mod read;
 pub(crate) mod read_only_transaction;
 pub(crate) mod read_write_transaction;
 pub(crate) mod result_set;
@@ -92,13 +84,11 @@ pub(crate) mod result_set_metadata;
 pub(crate) mod row;
 pub(crate) mod server_streaming;
 pub(crate) mod session_maintainer;
-pub(crate) mod statement;
 pub(crate) mod timestamp_bound;
 pub(crate) mod to_value;
 pub(crate) mod transaction_retry_policy;
 pub(crate) mod transaction_runner;
 pub(crate) mod types;
-pub(crate) mod value;
 pub(crate) mod write_only_transaction;
 
 mod status;

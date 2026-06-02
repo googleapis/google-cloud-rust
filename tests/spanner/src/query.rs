@@ -20,8 +20,10 @@ use futures::future::BoxFuture;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
 use google_cloud_spanner::model::result_set_stats::RowCount;
+use google_cloud_spanner::result::Row;
+use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::transaction::BeginTransactionOption;
-use google_cloud_spanner::{Kind, Statement, TypeCode};
+use google_cloud_spanner::value::{Kind, TypeCode};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::sync::Arc;
 use tokio::sync::Notify;
@@ -342,7 +344,7 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     Ok(())
 }
 
-fn verify_null_row(row: &google_cloud_spanner::Row) {
+fn verify_null_row(row: &Row) {
     let raw_values = row.raw_values();
     assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
     assert!(
@@ -351,7 +353,7 @@ fn verify_null_row(row: &google_cloud_spanner::Row) {
     );
 }
 
-fn verify_row_1(row: &google_cloud_spanner::Row) {
+fn verify_row_1(row: &Row) {
     let raw_values = row.raw_values();
     assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
     assert_eq!(raw_values[0].as_string(), "1"); // INT64 is encoded as string
@@ -396,7 +398,7 @@ fn verify_row_1(row: &google_cloud_spanner::Row) {
     );
 }
 
-fn verify_row_2(row: &google_cloud_spanner::Row) {
+fn verify_row_2(row: &Row) {
     let raw_values = row.raw_values();
     assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
     assert_eq!(raw_values[0].as_string(), "2");

@@ -15,7 +15,8 @@
 use anyhow::Result;
 use google_cloud_spanner::Decimal;
 use google_cloud_spanner::client::DatabaseClient;
-use google_cloud_spanner::{Mutation, Statement};
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::str::FromStr;
 

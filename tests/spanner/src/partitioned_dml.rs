@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use google_cloud_spanner::client::DatabaseClient;
-use google_cloud_spanner::{Mutation, Statement};
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn partitioned_dml_update(db_client: &DatabaseClient) -> anyhow::Result<()> {

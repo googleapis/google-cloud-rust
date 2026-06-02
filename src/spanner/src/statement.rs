@@ -29,7 +29,7 @@ use std::time::Duration;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::Statement;
+/// # use google_cloud_spanner::statement::Statement;
 /// let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
 ///     .add_param("id", &42)
 ///     .build();
@@ -92,7 +92,7 @@ impl StatementBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// let statement = Statement::builder("SELECT * FROM users")
     ///     .set_request_tag("my-tag")
     ///     .build();
@@ -110,7 +110,7 @@ impl StatementBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::model::request_options::Priority;
     /// let statement = Statement::builder("SELECT * FROM users")
     ///     .set_priority(Priority::Low)
@@ -126,7 +126,7 @@ impl StatementBuilder {
     /// Sets the directed read options for this statement.
     ///
     /// ```
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::model::DirectedReadOptions;
     /// let dro = DirectedReadOptions::default();
     /// let stmt = Statement::builder("SELECT * FROM users")
@@ -145,7 +145,7 @@ impl StatementBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::model::execute_sql_request::QueryOptions;
     /// let options = QueryOptions::default()
     ///     .set_optimizer_version("latest");
@@ -162,7 +162,7 @@ impl StatementBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
     /// let statement = Statement::builder("SELECT * FROM users")
     ///     .set_query_mode(QueryMode::Plan)
@@ -210,7 +210,8 @@ impl StatementBuilder {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::{Spanner, Statement};
+/// # use google_cloud_spanner::client::Spanner;
+/// # use google_cloud_spanner::statement::Statement;
 /// # async fn test_doc() -> Result<(), google_cloud_spanner::Error> {
 /// let client = Spanner::builder().build().await.unwrap();
 /// let db = client.database_client("projects/p/instances/i/databases/d").build().await.unwrap();
@@ -265,7 +266,7 @@ impl Statement {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
     /// # use google_cloud_spanner::transaction::SingleUseReadOnlyTransaction;
     /// # async fn test_doc(tx: SingleUseReadOnlyTransaction) -> Result<(), google_cloud_spanner::Error> {

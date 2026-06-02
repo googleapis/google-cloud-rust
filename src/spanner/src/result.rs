@@ -12,14 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Re-exports for Spanner transactions.
+//! Public types for Spanner execution results.
 
-pub use crate::partitioned_dml_transaction::PartitionedDmlTransaction;
-pub use crate::read_only_transaction::{
-    BeginTransactionOption, MultiUseReadOnlyTransaction, SingleUseReadOnlyTransaction,
-};
-pub use crate::read_write_transaction::ReadWriteTransaction;
-pub use crate::timestamp_bound::TimestampBound;
-pub use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
-pub use crate::transaction_runner::TransactionRunner;
-pub use crate::write_only_transaction::WriteOnlyTransaction;
+pub use crate::result_set::ResultSet;
+pub use crate::result_set_metadata::ResultSetMetadata;
+pub use crate::row::Row;

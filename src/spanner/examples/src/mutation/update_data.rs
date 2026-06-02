@@ -13,8 +13,8 @@
 // limitations under the License.
 
 // [START spanner_update_data]
-use google_cloud_spanner::Mutation;
 use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::mutation::Mutation;
 
 pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let mutations = vec![

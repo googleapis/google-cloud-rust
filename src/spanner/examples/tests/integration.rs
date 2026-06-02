@@ -19,8 +19,8 @@ mod common;
 mod tests {
     use super::common::{setup_sample_database, teardown_sample_database};
     use google_cloud_lro::Poller;
-    use google_cloud_spanner::Statement;
     use google_cloud_spanner::client::DatabaseClient;
+    use google_cloud_spanner::statement::Statement;
     use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
     use google_cloud_test_utils::errors::anydump;
     use spanner_samples::{mutation, query, read};

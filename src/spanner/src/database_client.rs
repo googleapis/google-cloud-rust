@@ -59,7 +59,7 @@ impl DatabaseClient {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db_client.single_use().build();
@@ -83,7 +83,7 @@ impl DatabaseClient {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db_client.read_only_transaction().build().await?;
@@ -107,7 +107,7 @@ impl DatabaseClient {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.batch_read_only_transaction().build().await?;
@@ -126,7 +126,7 @@ impl DatabaseClient {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.partitioned_dml_transaction().build().await?;
@@ -150,7 +150,7 @@ impl DatabaseClient {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Statement;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
@@ -175,7 +175,7 @@ impl DatabaseClient {
     /// # Example
     /// ```rust
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::Mutation;
+    /// # use google_cloud_spanner::mutation::Mutation;
     /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Spanner::builder().build().await?;
     /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -205,7 +205,9 @@ impl DatabaseClient {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::{Spanner, Mutation, MutationGroup};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::mutation::Mutation;
+    /// # use google_cloud_spanner::mutation::MutationGroup;
     /// # use google_cloud_gax::error::rpc::Code;
     /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Spanner::builder().build().await?;

@@ -59,7 +59,9 @@ impl BatchWriteTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::{Mutation, Spanner, MutationGroup};
+    /// # use google_cloud_spanner::mutation::Mutation;
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::mutation::MutationGroup;
     /// # use google_cloud_gax::error::rpc::Code;
     /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Spanner::builder().build().await?;
@@ -146,8 +148,8 @@ impl BatchWriteResponseStream {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::Mutation;
     use crate::client::Spanner;
+    use crate::mutation::Mutation;
     use crate::result_set::tests::adapt;
     use anyhow::Result;
     use gaxi::grpc::tonic::Response;

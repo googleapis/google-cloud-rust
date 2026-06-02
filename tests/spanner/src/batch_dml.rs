@@ -15,7 +15,8 @@
 use google_cloud_spanner::batch::BatchDml;
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::error::BatchUpdateError;
-use google_cloud_spanner::{Mutation, Statement};
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Result<()> {

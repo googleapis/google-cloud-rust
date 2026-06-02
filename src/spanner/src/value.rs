@@ -18,6 +18,10 @@ pub(crate) const SPANNER_TIMESTAMP_FORMAT: &[time::format_description::FormatIte
 pub(crate) const SPANNER_DATE_FORMAT: &[time::format_description::FormatItem<'static>] =
     time::macros::format_description!("[year]-[month]-[day]");
 
+pub use crate::from_value::FromValue;
+pub use crate::to_value::ToValue;
+pub use crate::types::{Type, TypeCode};
+
 use prost_types::Value as ProtoValue;
 
 /// Kind indicates the type of the value.

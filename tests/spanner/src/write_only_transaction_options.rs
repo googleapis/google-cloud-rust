@@ -16,7 +16,8 @@ use crate::client::get_emulator_host;
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::model::CommitResponse;
 use google_cloud_spanner::model::request_options::Priority;
-use google_cloud_spanner::{Mutation, Statement};
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Duration as WktDuration;
 

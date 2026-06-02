@@ -13,8 +13,8 @@
 // limitations under the License.
 
 // [START spanner_query_data]
-use google_cloud_spanner::Statement;
 use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
 
 pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let statement = Statement::builder("SELECT SingerId, AlbumId, AlbumTitle FROM Albums").build();
