@@ -58,52 +58,72 @@ where
     }
 
     // Preconditions
+
+    /// Makes the operation conditional on whether the source object's current generation
+    /// matches the given value.
     pub fn if_source_generation_match(mut self, v: i64) -> Self {
         self.request.if_source_generation_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the source object's current generation
+    /// does not match the given value.
     pub fn if_source_generation_not_match(mut self, v: i64) -> Self {
         self.request.if_source_generation_not_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the source object's current metageneration
+    /// matches the given value.
     pub fn if_source_metageneration_match(mut self, v: i64) -> Self {
         self.request.if_source_metageneration_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the source object's current metageneration
+    /// does not match the given value.
     pub fn if_source_metageneration_not_match(mut self, v: i64) -> Self {
         self.request.if_source_metageneration_not_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the destination object's current generation
+    /// matches the given value.
     pub fn if_generation_match(mut self, v: i64) -> Self {
         self.request.if_generation_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the destination object's current generation
+    /// does not match the given value.
     pub fn if_generation_not_match(mut self, v: i64) -> Self {
         self.request.if_generation_not_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the destination object's current metageneration
+    /// matches the given value.
     pub fn if_metageneration_match(mut self, v: i64) -> Self {
         self.request.if_metageneration_match = Some(v);
         self
     }
 
+    /// Makes the operation conditional on whether the destination object's current metageneration
+    /// does not match the given value.
     pub fn if_metageneration_not_match(mut self, v: i64) -> Self {
         self.request.if_metageneration_not_match = Some(v);
         self
     }
 
     // Common options
+
+    /// Overrides the default request options.
     pub fn with_options(mut self, options: RequestOptions) -> Self {
         self.options = options;
         self
     }
 
+    /// Sends the move object request to the server.
     pub async fn send(self) -> Result<Object> {
         self.stub.move_object(self.request, self.options).await
     }
