@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{DatabaseClient, Mutation, amend_request_options_for_lar};
+use crate::client::{DatabaseClient, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
     BeginTransactionRequest, CommitRequest, CommitResponse, MultiplexedSessionPrecommitToken,
     Mutation as ProtoMutation, RequestOptions, TransactionOptions,
 };
+use crate::mutation::Mutation;
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
@@ -151,7 +152,8 @@ impl WriteOnlyTransactionBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # use google_cloud_spanner::mutation::Mutation;
+    /// # use google_cloud_spanner::client::Spanner;
     /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Spanner::builder().build().await?;
     /// # let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -183,7 +185,8 @@ impl WriteOnlyTransactionBuilder {
     /// # Example
     /// ```
     /// # use std::time::Duration;
-    /// # use google_cloud_spanner::client::{BasicTransactionRetryPolicy, Spanner};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::transaction::BasicTransactionRetryPolicy;
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///
@@ -369,7 +372,8 @@ impl WriteOnlyTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # use google_cloud_spanner::mutation::Mutation;
+    /// # use google_cloud_spanner::client::Spanner;
     /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Spanner::builder().build().await?;
     /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -490,7 +494,8 @@ impl WriteOnlyTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # use google_cloud_spanner::mutation::Mutation;
+    /// # use google_cloud_spanner::client::Spanner;
     /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Spanner::builder().build().await?;
     /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;

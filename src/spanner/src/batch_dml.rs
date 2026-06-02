@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::Statement;
 use crate::error::{BatchUpdateError, internal_error};
 use crate::model::result_set_stats::RowCount;
 use crate::model::{ExecuteBatchDmlResponse, RequestOptions};
+use crate::statement::Statement;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::error::rpc::Status as RpcStatus;
@@ -47,8 +47,8 @@ impl BatchDmlBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Statement;
-    /// # use google_cloud_spanner::batch_dml::BatchDml;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # use google_cloud_spanner::batch::BatchDml;
     /// let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
     /// let batch = BatchDml::builder()
     ///     .add_statement(statement1)

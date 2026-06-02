@@ -25,9 +25,7 @@ use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
 };
 use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
-use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
-use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
@@ -38,31 +36,8 @@ use std::sync::{
 };
 
 pub use crate::database_client::DatabaseClient;
-pub use crate::error::SpannerInternalError;
-pub use crate::from_value::{ConvertError, FromValue};
-pub use crate::key::{Key, KeyRange, KeySet, KeySetBuilder};
-pub use crate::mutation::{Mutation, MutationGroup, ValueBinder, WriteBuilder};
-pub use crate::read::ConfiguredReadRequestBuilder;
-pub use crate::read::ReadRequest;
-pub use crate::read::ReadRequestBuilder;
-pub use crate::read_only_transaction::BeginTransactionOption;
-pub use crate::read_only_transaction::MultiUseReadOnlyTransaction;
-pub use crate::read_only_transaction::MultiUseReadOnlyTransactionBuilder;
-pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
-pub use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
-pub use crate::read_write_transaction::ReadWriteTransaction;
-pub use crate::result_set::ResultSet;
-pub use crate::result_set_metadata::ResultSetMetadata;
-pub use crate::row::Row;
-pub use crate::statement::Statement;
-pub use crate::timestamp_bound::TimestampBound;
-pub use crate::to_value::ToValue;
-pub use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
-pub use crate::transaction_runner::TransactionRunner;
-pub use crate::transaction_runner::TransactionRunnerBuilder;
-pub use crate::types::{Type, TypeCode};
-pub use crate::value::{Kind, Value};
-pub use wkt::{DurationError, TimestampError};
+pub use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 
 /// A client for the [Spanner] API.
 ///
@@ -416,7 +391,9 @@ impl Channel {
 mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;
+    use crate::read::ReadRequest;
     use crate::result_set::tests::adapt;
+    use crate::statement::Statement;
     use gaxi::grpc::tonic::MetadataMap;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;

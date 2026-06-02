@@ -20,7 +20,7 @@ use std::fmt::Debug;
 /// # Example
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
-/// # use google_cloud_spanner::client::TimestampBound;
+/// # use google_cloud_spanner::transaction::TimestampBound;
 /// # async fn test_doc() -> Result<(), google_cloud_spanner::Error> {
 /// let client = Spanner::builder().build().await.unwrap();
 /// let db = client.database_client("projects/p/instances/i/databases/d").build().await.unwrap();

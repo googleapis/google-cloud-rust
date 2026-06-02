@@ -42,7 +42,8 @@ use futures::Stream;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::client::{ResultSet, Row};
+/// # use google_cloud_spanner::result::ResultSet;
+/// # use google_cloud_spanner::result::Row;
 /// # async fn process_result_set(mut rs: ResultSet) -> Result<(), google_cloud_spanner::Error> {
 /// while let Some(row) = rs.next().await {
 ///     let row: Row = row?;
@@ -196,7 +197,8 @@ impl ResultSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ResultSet, Row};
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use google_cloud_spanner::result::Row;
     /// # async fn fetch_metadata(mut rs: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
     /// if let Some(metadata) = rs.metadata() {
     ///     for column in metadata.column_names() {
@@ -214,7 +216,8 @@ impl ResultSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ResultSet, Row};
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use google_cloud_spanner::result::Row;
     /// # async fn process_stats(mut rs: ResultSet) -> Result<(), google_cloud_spanner::Error> {
     /// while let Some(row) = rs.next().await {
     ///     let row = row?;
@@ -237,7 +240,9 @@ impl ResultSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{DatabaseClient, Statement, ResultSet};
+    /// # use google_cloud_spanner::client::DatabaseClient;
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn check_update_count(db_client: &DatabaseClient) -> Result<(), Box<dyn std::error::Error>> {
     /// let runner = db_client.read_write_transaction().build().await?;
     /// runner.run(async |tx| {
@@ -272,7 +277,8 @@ impl ResultSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{ResultSet, Row};
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use google_cloud_spanner::result::Row;
     /// # async fn fetch_next(mut rs: ResultSet) -> Result<(), google_cloud_spanner::Error> {
     /// if let Some(row) = rs.next().await.transpose()? {
     ///     // Process the row
@@ -323,7 +329,7 @@ impl ResultSet {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_spanner::client::ResultSet;
+    /// # use google_cloud_spanner::result::ResultSet;
     /// # use futures::TryStreamExt;
     /// # use std::future::ready;
     /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
@@ -725,11 +731,11 @@ impl ResultSet {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::client::BeginTransactionOption;
     use crate::client::Spanner;
-    use crate::client::Statement;
     use crate::key::KeySet;
     use crate::read::ReadRequest;
+    use crate::statement::Statement;
+    use crate::transaction::BeginTransactionOption;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;

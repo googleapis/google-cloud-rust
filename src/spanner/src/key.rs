@@ -27,8 +27,8 @@ use crate::value::Value;
 #[macro_export]
 macro_rules! key {
     ($($val:expr),* $(,)?) => {
-        $crate::client::Key::new(vec![
-            $($crate::client::ToValue::to_value(&$val)),*
+        $crate::key::Key::new(vec![
+            $($crate::value::ToValue::to_value(&$val)),*
         ])
     };
 }
@@ -76,7 +76,7 @@ pub(crate) enum Endpoint {
 ///
 /// # Example
 /// ```
-/// use google_cloud_spanner::client::KeyRange;
+/// use google_cloud_spanner::key::KeyRange;
 /// use google_cloud_spanner::key;
 ///
 /// let range = KeyRange::closed_open(key![1_i64], key![10_i64]);
@@ -92,7 +92,7 @@ impl KeyRange {
     ///
     /// # Example
     /// ```
-    /// use google_cloud_spanner::client::KeyRange;
+    /// use google_cloud_spanner::key::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range [1, 10)
@@ -109,7 +109,7 @@ impl KeyRange {
     ///
     /// # Example
     /// ```
-    /// use google_cloud_spanner::client::KeyRange;
+    /// use google_cloud_spanner::key::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range [1, 10]
@@ -126,7 +126,7 @@ impl KeyRange {
     ///
     /// # Example
     /// ```
-    /// use google_cloud_spanner::client::KeyRange;
+    /// use google_cloud_spanner::key::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range (1, 10]
@@ -143,7 +143,7 @@ impl KeyRange {
     ///
     /// # Example
     /// ```
-    /// use google_cloud_spanner::client::KeyRange;
+    /// use google_cloud_spanner::key::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range (1, 10)
@@ -176,7 +176,8 @@ impl KeyRange {
 ///
 /// # Example
 /// ```
-/// use google_cloud_spanner::client::{KeySet, KeyRange};
+/// use google_cloud_spanner::key::KeySet;
+/// use google_cloud_spanner::key::KeyRange;
 /// use google_cloud_spanner::key;
 ///
 /// let keyset = KeySet::builder()

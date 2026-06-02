@@ -81,7 +81,8 @@ impl Row {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -113,7 +114,8 @@ impl Row {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -141,7 +143,8 @@ impl Row {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -184,7 +187,8 @@ impl Row {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
     /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;

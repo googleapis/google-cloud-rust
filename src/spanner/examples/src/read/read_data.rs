@@ -13,7 +13,9 @@
 // limitations under the License.
 
 // [START spanner_read_data]
-use google_cloud_spanner::client::{DatabaseClient, KeySet, ReadRequest};
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::key::KeySet;
+use google_cloud_spanner::read::ReadRequest;
 
 pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     // Build a read request to read all rows in the Albums table
