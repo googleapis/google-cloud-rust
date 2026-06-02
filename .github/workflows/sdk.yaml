@@ -152,6 +152,11 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          # Disable caching completely during release runs. This gives us peace
+          # of mind w.r.t. cache poisoning attacks that install nefarious
+          # versions of `mdbook` or otherwise create evil instances of the
+          # user guide.
+          if: github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
