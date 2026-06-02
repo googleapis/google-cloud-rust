@@ -44,10 +44,12 @@ where
         Src: Into<String>,
         D: Into<String>,
     {
-        let mut request = MoveObjectRequest::default();
-        request.bucket = bucket.into();
-        request.source_object = source_object.into();
-        request.destination_object = destination_object.into();
+        let request = MoveObjectRequest {
+            bucket: bucket.into(),
+            source_object: source_object.into(),
+            destination_object: destination_object.into(),
+            ..Default::default()
+        };
         Self {
             stub,
             request,

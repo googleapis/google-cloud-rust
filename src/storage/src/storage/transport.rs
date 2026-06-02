@@ -836,13 +836,13 @@ mod tests {
 
     #[tokio::test]
     async fn move_object() -> anyhow::Result<()> {
-        use crate::google::storage::v2::Object as ProtoObject;
+        use storage_grpc_mock::google::storage::v2::Object as ProtoObject;
         use storage_grpc_mock::{MockStorage, start};
 
         let guard = TestLayer::initialize();
 
         let mut mock = MockStorage::new();
-        mock.expect_move_object().once().handle(|req| {
+        mock.expect_move_object().once().returning(|req| {
             let r = req.into_inner();
             assert_eq!(r.bucket, "projects/_/buckets/test-bucket");
             assert_eq!(r.source_object, "src-obj");
@@ -856,7 +856,7 @@ mod tests {
             assert_eq!(r.if_metageneration_match, Some(22));
             assert_eq!(r.if_metageneration_not_match, Some(23));
 
-            Ok(tonic::Response::new(ProtoObject {
+            Ok(gaxi::grpc::tonic::Response::new(ProtoObject {
                 bucket: "projects/_/buckets/test-bucket".to_string(),
                 name: "dst-obj".to_string(),
                 generation: 42,
