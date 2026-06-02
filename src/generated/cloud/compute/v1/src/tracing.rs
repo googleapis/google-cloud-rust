@@ -383,31 +383,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -647,31 +624,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -951,31 +905,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -1297,31 +1228,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -1475,31 +1383,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -1935,31 +1820,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -2127,31 +1989,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -2487,31 +2326,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -2693,31 +2509,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -2913,31 +2706,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -3119,31 +2889,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -3325,31 +3072,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -3531,31 +3255,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -3737,31 +3438,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -4087,31 +3765,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -4279,31 +3934,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -4499,31 +4131,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -4705,31 +4314,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -4911,31 +4497,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -5217,31 +4780,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -5395,31 +4935,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -5841,31 +5358,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -6089,31 +5583,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -6225,31 +5696,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -6445,31 +5893,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -7267,31 +6692,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -7473,31 +6875,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -7707,31 +7086,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -7943,31 +7299,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -8149,31 +7482,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -8397,31 +7707,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -8733,31 +8020,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -9039,31 +8303,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -9259,31 +8500,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -9565,31 +8783,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -9743,31 +8938,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -9977,31 +9149,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -10379,31 +9528,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -10727,31 +9853,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -11045,31 +10148,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -11265,31 +10345,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -11672,31 +10729,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -11878,31 +10912,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -12028,31 +11039,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -12332,31 +11320,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -12538,31 +11503,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -12758,31 +11700,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -12964,31 +11883,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -13198,31 +12094,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -13474,31 +12347,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -13652,31 +12502,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -13872,31 +12699,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -14290,31 +13094,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -14496,31 +13277,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -14702,31 +13460,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -14908,31 +13643,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -15128,31 +13840,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -15308,31 +13997,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -15740,31 +14406,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -15918,31 +14561,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -16082,31 +14702,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -16204,31 +14801,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -16410,31 +14984,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -16630,31 +15181,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -16836,31 +15364,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -17184,31 +15689,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -17376,31 +15858,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -17710,31 +16169,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -17846,31 +16282,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -18080,31 +16493,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -18244,31 +16634,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -18436,31 +16803,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -18614,31 +16958,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -18820,31 +17141,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -18984,31 +17282,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -19190,31 +17465,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -19484,31 +17736,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -19648,31 +17877,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -19868,31 +18074,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -20130,31 +18313,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -20364,31 +18524,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -20528,31 +18665,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -20692,31 +18806,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -21038,31 +19129,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -21216,31 +19284,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -21494,31 +19539,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -21728,31 +19750,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -21864,31 +19863,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -22098,31 +20074,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -22276,31 +20229,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -22482,31 +20412,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -22802,31 +20709,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -23078,31 +20962,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -23256,31 +21117,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -23462,31 +21300,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -23724,31 +21539,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -23930,31 +21722,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -24220,31 +21989,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -24468,31 +22214,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -24688,31 +22411,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -24880,31 +22580,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -25128,31 +22805,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -25348,31 +23002,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -25540,31 +23171,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -25718,31 +23326,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
@@ -25982,31 +23567,8 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        _span.record("gcp.longrunning.done", op.done);
-                        if op.done {
-                            let code = match &op.result {
-                                Some(
-                                    google_cloud_longrunning::model::operation::Result::Error(
-                                        status,
-                                    ),
-                                ) => status.code,
-                                _ => 0,
-                            };
-                            _span.record("gcp.longrunning.status_code", code);
-                            if let Some(
-                                google_cloud_longrunning::model::operation::Result::Error(status),
-                            ) = &op.result
-                            {
-                                _span.record("otel.status_code", "ERROR");
-                                _span.record("otel.status_description", &status.message);
-                                _span.record("rpc.response.status_code", status.code);
-                                _span.record(
-                                    "error.type",
-                                    google_cloud_gax::error::rpc::Code::from(status.code)
-                                        .to_string(),
-                                );
-                            }
-                        }
+                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
+                        _span.record("gcp.longrunning.done", done);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
