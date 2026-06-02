@@ -242,9 +242,9 @@ where
     {
         MoveObject::new(
             self.stub.clone(),
-            bucket.into(),
-            source_object.into(),
-            destination_object.into(),
+            bucket,
+            source_object,
+            destination_object,
             self.options.clone(),
         )
     }

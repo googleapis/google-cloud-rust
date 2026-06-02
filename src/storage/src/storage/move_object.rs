@@ -32,17 +32,22 @@ impl<S> MoveObject<S>
 where
     S: crate::storage::stub::Storage + 'static,
 {
-    pub(crate) fn new(
+    pub(crate) fn new<B, Src, D>(
         stub: Arc<S>,
-        bucket: String,
-        source_object: String,
-        destination_object: String,
+        bucket: B,
+        source_object: Src,
+        destination_object: D,
         options: RequestOptions,
-    ) -> Self {
+    ) -> Self
+    where
+        B: Into<String>,
+        Src: Into<String>,
+        D: Into<String>,
+    {
         let mut request = MoveObjectRequest::default();
-        request.bucket = bucket;
-        request.source_object = source_object;
-        request.destination_object = destination_object;
+        request.bucket = bucket.into();
+        request.source_object = source_object.into();
+        request.destination_object = destination_object.into();
         Self {
             stub,
             request,
