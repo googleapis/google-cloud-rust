@@ -1386,7 +1386,6 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
         use crate::credentials::tests::get_access_boundary_from_headers;
         use crate::mds::MDS_UNIVERSE_DOMAIN_URI;
