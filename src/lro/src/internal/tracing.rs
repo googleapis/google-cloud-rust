@@ -17,20 +17,6 @@ use google_cloud_gax::polling_state::PollingState;
 use tracing::{Instrument, Span, info_span};
 
 #[cfg(google_cloud_unstable_tracing)]
-use crate::POLL_ATTEMPT_COUNT;
-
-#[cfg(google_cloud_unstable_tracing)]
-tokio::task_local! {
-    /// A task-local context propagating the active LRO `Span`.
-    ///
-    /// This is accessed across module boundaries to dynamically retrieve the
-    /// active span context, allowing the inner pollers to record the LRO's actual
-    /// operation name/resource destination ID when first fetched, without requiring
-    /// passing tracing parameters through all method signatures.
-    pub(crate) static LRO_SPAN: Span;
-}
-
-#[cfg(google_cloud_unstable_tracing)]
 tokio::task_local! {
     static LRO_RECORDER: LroRecorder;
 }
@@ -38,19 +24,24 @@ tokio::task_local! {
 #[cfg(google_cloud_unstable_tracing)]
 /// A recorder that manages LRO spans and propagates active telemetry context.
 ///
-/// Since `LroRecorder` is cloned to establish task-local scopes (like `LRO_RECORDER`),
-/// it is designed to be completely **stateless** and read-only, wrapping only the active LRO `Span`.
-/// Stateful counting (e.g., `poll_attempt_count`) is managed entirely on the decorator itself,
-/// completely eliminating any risk of divergent state or cloning race conditions.
+/// To prevent concurrent mutation race conditions under multi-threaded tokio executors,
+/// `LroRecorder` is completely immutable. Context updates (like setting the transient `attempt_count`
+/// during a polling cycle) are performed using copy-on-write builders (`with_attempt_count`)
+/// to establish new immutable task-local scopes.
 #[derive(Clone, Debug)]
-pub(crate) struct LroRecorder {
+pub struct LroRecorder {
     span: Span,
+    attempt_count: Option<u32>,
 }
 
 #[cfg(google_cloud_unstable_tracing)]
 impl LroRecorder {
+    /// Creates a new `LroRecorder` wrapping the given tracing `Span`.
     pub fn new(span: Span) -> Self {
-        Self { span }
+        Self {
+            span,
+            attempt_count: None,
+        }
     }
 
     /// Returns the recorder in the current task scope.
@@ -66,8 +57,25 @@ impl LroRecorder {
         LRO_RECORDER.scope(self.clone(), future).await
     }
 
+    /// Returns the active LRO tracing `Span` wrapped by this recorder.
     pub fn span(&self) -> &Span {
         &self.span
+    }
+
+    /// Returns the current LRO polling attempt count, if active.
+    pub fn attempt_count(&self) -> Option<u32> {
+        self.attempt_count
+    }
+
+    /// Creates a new clone of `LroRecorder` carrying the specified LRO polling attempt count.
+    ///
+    /// Since `LroRecorder` is immutable to guarantee thread-safety, this updates the context
+    /// via copy-on-write, returning a new value to be bound to a new task-local scope.
+    pub fn with_attempt_count(&self, count: u32) -> Self {
+        Self {
+            span: self.span.clone(),
+            attempt_count: Some(count),
+        }
     }
 
     pub fn record_destination_id(&self, name: &str) {
@@ -163,14 +171,11 @@ where
             let inner = &mut self.inner;
             let span = self.recorder.span().clone();
 
-            // We map both the stateless LRO span context scope AND the transient POLL_ATTEMPT_COUNT
-            // task-local key (using our stateful `attempt` count) for the duration of the active poll future.
-            self.recorder
-                .scope(async move {
-                    POLL_ATTEMPT_COUNT
-                        .scope(attempt, async move { inner.poll().instrument(span).await })
-                        .await
-                })
+            // We map the consolidated LroRecorder (holding the active LRO span and stateful attempt count)
+            // for the duration of the active poll future.
+            let recorder = self.recorder.with_attempt_count(attempt);
+            recorder
+                .scope(async move { inner.poll().instrument(span).await })
                 .await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
@@ -283,7 +288,9 @@ mod tests {
     #[cfg(google_cloud_unstable_tracing)]
     impl Poller<Duration, Timestamp> for CountingPoller {
         async fn poll(&mut self) -> Option<PollingResult<Duration, Timestamp>> {
-            let attempt = POLL_ATTEMPT_COUNT.try_with(|c| *c).unwrap();
+            let attempt = LroRecorder::current()
+                .and_then(|r| r.attempt_count())
+                .unwrap();
             self.attempts.push(attempt);
             Some(PollingResult::InProgress(None))
         }
