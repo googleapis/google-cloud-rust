@@ -677,6 +677,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Recommendation {
             __etag,
             __associated_insights,
             __xor_group_id,
+            __target_resources,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -716,6 +717,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Recommendation {
                             "associated_insights" => Ok(__FieldTag::__associated_insights),
                             "xorGroupId" => Ok(__FieldTag::__xor_group_id),
                             "xor_group_id" => Ok(__FieldTag::__xor_group_id),
+                            "targetResources" => Ok(__FieldTag::__target_resources),
+                            "target_resources" => Ok(__FieldTag::__target_resources),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -854,6 +857,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Recommendation {
                             result.xor_group_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__target_resources => {
+                            if !fields.insert(__FieldTag::__target_resources) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_resources",
+                                ));
+                            }
+                            result.target_resources = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1819,6 +1830,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Impact {
             __security_projection,
             __sustainability_projection,
             __reliability_projection,
+            __service,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1852,6 +1864,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Impact {
                             }
                             "reliabilityProjection" => Ok(__FieldTag::__reliability_projection),
                             "reliability_projection" => Ok(__FieldTag::__reliability_projection),
+                            "service" => Ok(__FieldTag::__service),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1967,6 +1980,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Impact {
                                     .unwrap_or_default(),
                                 ),
                             );
+                        }
+                        __FieldTag::__service => {
+                            if !fields.insert(__FieldTag::__service) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service",
+                                ));
+                            }
+                            result.service = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -14248,6 +14248,14 @@ pub struct YarnApplication {
     /// possibly, access.
     pub tracking_url: std::string::String,
 
+    /// Optional. The cumulative CPU time consumed by the application for a job,
+    /// measured in vcore-seconds.
+    pub vcore_seconds: i64,
+
+    /// Optional. The cumulative memory usage of the application for a job,
+    /// measured in mb-seconds.
+    pub memory_mb_seconds: i64,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14308,6 +14316,30 @@ impl YarnApplication {
     /// ```
     pub fn set_tracking_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tracking_url = v.into();
+        self
+    }
+
+    /// Sets the value of [vcore_seconds][crate::model::YarnApplication::vcore_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::YarnApplication;
+    /// let x = YarnApplication::new().set_vcore_seconds(42);
+    /// ```
+    pub fn set_vcore_seconds<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.vcore_seconds = v.into();
+        self
+    }
+
+    /// Sets the value of [memory_mb_seconds][crate::model::YarnApplication::memory_mb_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::YarnApplication;
+    /// let x = YarnApplication::new().set_memory_mb_seconds(42);
+    /// ```
+    pub fn set_memory_mb_seconds<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.memory_mb_seconds = v.into();
         self
     }
 }
@@ -15786,15 +15818,18 @@ pub struct ListJobsRequest {
     ///
     /// [field = value] AND [field [= value]] ...
     ///
-    /// where **field** is `status.state` or `labels.[KEY]`, and `[KEY]` is a label
-    /// key. **value** can be `*` to match all values.
+    /// where **field** is `status.state` or `insertTime`, or `labels.[KEY]`, and
+    /// `[KEY]` is a label key. **value** can be `*` to match all values.
     /// `status.state` can be either `ACTIVE` or `NON_ACTIVE`.
-    /// Only the logical `AND` operator is supported; space-separated items are
-    /// treated as having an implicit `AND` operator.
+    /// Allows `insertTime` to be a timestamp in RFC 3339 format in double quotes,
+    /// such as `2025-01-01T00:00:00Z`. Only the logical `AND` operator is
+    /// supported; space-separated items are treated as having an implicit `AND`
+    /// operator.
     ///
     /// Example filter:
     ///
-    /// status.state = ACTIVE AND labels.env = staging AND labels.starred = *
+    /// status.state = ACTIVE AND labels.env = staging AND labels.starred = * AND
+    /// insertTime <= "2025-01-01T00:00:00Z"
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

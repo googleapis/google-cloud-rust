@@ -473,6 +473,9 @@ impl serde::ser::Serialize for super::ContentItem {
         if let Some(value) = self.byte_item() {
             state.serialize_entry("byteItem", value)?;
         }
+        if let Some(value) = self.conversation() {
+            state.serialize_entry("conversation", value)?;
+        }
         if self.content_metadata.is_some() {
             state.serialize_entry("contentMetadata", &self.content_metadata)?;
         }
@@ -497,6 +500,56 @@ impl serde::ser::Serialize for super::ContentMetadata {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.properties.is_empty() {
             state.serialize_entry("properties", &self.properties)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Conversation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.messages.is_empty() {
+            state.serialize_entry("messages", &self.messages)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ConversationMessage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.content.is_empty() {
+            state.serialize_entry("content", &self.content)?;
+        }
+        if !wkt::internal::is_default(&self.message_type) {
+            state.serialize_entry("messageType", &self.message_type)?;
+        }
+        if !self.participant_id.is_empty() {
+            state.serialize_entry("participantId", &self.participant_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -718,12 +771,68 @@ impl serde::ser::Serialize for super::ContentLocation {
         if let Some(value) = self.metadata_location() {
             state.serialize_entry("metadataLocation", value)?;
         }
+        if let Some(value) = self.conversation_location() {
+            state.serialize_entry("conversationLocation", value)?;
+        }
         if self.container_timestamp.is_some() {
             state.serialize_entry("containerTimestamp", &self.container_timestamp)?;
         }
         if !self.container_version.is_empty() {
             state.serialize_entry("containerVersion", &self.container_version)?;
         }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ConversationLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.message_index() {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("messageIndex", &__With(value))?;
+        }
+        if let Some(value) = self.all_messages() {
+            state.serialize_entry("allMessages", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::conversation_location::AllMessages {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

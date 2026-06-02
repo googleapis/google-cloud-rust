@@ -2567,6 +2567,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NodeConfig {
             __service_account,
             __metadata,
             __image_type,
+            __node_image_config,
             __labels,
             __local_ssd_count,
             __tags,
@@ -2640,6 +2641,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NodeConfig {
                             "metadata" => Ok(__FieldTag::__metadata),
                             "imageType" => Ok(__FieldTag::__image_type),
                             "image_type" => Ok(__FieldTag::__image_type),
+                            "nodeImageConfig" => Ok(__FieldTag::__node_image_config),
+                            "node_image_config" => Ok(__FieldTag::__node_image_config),
                             "labels" => Ok(__FieldTag::__labels),
                             "localSsdCount" => Ok(__FieldTag::__local_ssd_count),
                             "local_ssd_count" => Ok(__FieldTag::__local_ssd_count),
@@ -2839,6 +2842,16 @@ impl<'de> serde::de::Deserialize<'de> for super::NodeConfig {
                             result.image_type = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__node_image_config => {
+                            if !fields.insert(__FieldTag::__node_image_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for node_image_config",
+                                ));
+                            }
+                            result.node_image_config = map
+                                .next_value::<std::option::Option<crate::model::CustomImageConfig>>(
+                                )?;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -4118,6 +4131,99 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceConfig {
                             }
                             result.enable_integrity_monitoring = map
                                 .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CustomImageConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __image,
+            __image_project,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomImageConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "image" => Ok(__FieldTag::__image),
+                            "imageProject" => Ok(__FieldTag::__image_project),
+                            "image_project" => Ok(__FieldTag::__image_project),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CustomImageConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomImageConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__image => {
+                            if !fields.insert(__FieldTag::__image) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image",
+                                ));
+                            }
+                            result.image = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image_project => {
+                            if !fields.insert(__FieldTag::__image_project) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_project",
+                                ));
+                            }
+                            result.image_project = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -6277,6 +6383,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AddonsConfig {
             __pod_snapshot_config,
             __slurm_operator_config,
             __slice_controller_config,
+            __agent_sandbox_config,
             __node_readiness_config,
             Unknown(std::string::String),
         }
@@ -6362,6 +6469,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AddonsConfig {
                             "slurm_operator_config" => Ok(__FieldTag::__slurm_operator_config),
                             "sliceControllerConfig" => Ok(__FieldTag::__slice_controller_config),
                             "slice_controller_config" => Ok(__FieldTag::__slice_controller_config),
+                            "agentSandboxConfig" => Ok(__FieldTag::__agent_sandbox_config),
+                            "agent_sandbox_config" => Ok(__FieldTag::__agent_sandbox_config),
                             "nodeReadinessConfig" => Ok(__FieldTag::__node_readiness_config),
                             "node_readiness_config" => Ok(__FieldTag::__node_readiness_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -6566,6 +6675,15 @@ impl<'de> serde::de::Deserialize<'de> for super::AddonsConfig {
                                 ));
                             }
                             result.slice_controller_config = map.next_value::<std::option::Option<crate::model::SliceControllerConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__agent_sandbox_config => {
+                            if !fields.insert(__FieldTag::__agent_sandbox_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for agent_sandbox_config",
+                                ));
+                            }
+                            result.agent_sandbox_config = map.next_value::<std::option::Option<crate::model::AgentSandboxConfig>>()?
                                 ;
                         }
                         __FieldTag::__node_readiness_config => {
@@ -8072,6 +8190,86 @@ impl<'de> serde::de::Deserialize<'de> for super::SlurmOperatorConfig {
             type Value = super::SlurmOperatorConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SlurmOperatorConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AgentSandboxConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AgentSandboxConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AgentSandboxConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AgentSandboxConfig")
             }
             fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
             where
@@ -11925,6 +12123,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterUpdate {
             __desired_addons_config,
             __desired_node_pool_id,
             __desired_image_type,
+            __desired_image,
+            __desired_image_project,
             __desired_database_encryption,
             __desired_workload_identity_config,
             __desired_mesh_certificates,
@@ -12033,6 +12233,10 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterUpdate {
                             "desired_node_pool_id" => Ok(__FieldTag::__desired_node_pool_id),
                             "desiredImageType" => Ok(__FieldTag::__desired_image_type),
                             "desired_image_type" => Ok(__FieldTag::__desired_image_type),
+                            "desiredImage" => Ok(__FieldTag::__desired_image),
+                            "desired_image" => Ok(__FieldTag::__desired_image),
+                            "desiredImageProject" => Ok(__FieldTag::__desired_image_project),
+                            "desired_image_project" => Ok(__FieldTag::__desired_image_project),
                             "desiredDatabaseEncryption" => {
                                 Ok(__FieldTag::__desired_database_encryption)
                             }
@@ -12483,6 +12687,26 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterUpdate {
                                 ));
                             }
                             result.desired_image_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__desired_image => {
+                            if !fields.insert(__FieldTag::__desired_image) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for desired_image",
+                                ));
+                            }
+                            result.desired_image = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__desired_image_project => {
+                            if !fields.insert(__FieldTag::__desired_image_project) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for desired_image_project",
+                                ));
+                            }
+                            result.desired_image_project = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -14693,6 +14917,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateNodePoolRequest {
             __node_version,
             __image_type,
             __name,
+            __image,
+            __image_project,
             __locations,
             __workload_metadata_config,
             __upgrade_settings,
@@ -14756,6 +14982,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateNodePoolRequest {
                             "imageType" => Ok(__FieldTag::__image_type),
                             "image_type" => Ok(__FieldTag::__image_type),
                             "name" => Ok(__FieldTag::__name),
+                            "image" => Ok(__FieldTag::__image),
+                            "imageProject" => Ok(__FieldTag::__image_project),
+                            "image_project" => Ok(__FieldTag::__image_project),
                             "locations" => Ok(__FieldTag::__locations),
                             "workloadMetadataConfig" => Ok(__FieldTag::__workload_metadata_config),
                             "workload_metadata_config" => {
@@ -14905,6 +15134,26 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateNodePoolRequest {
                                 ));
                             }
                             result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image => {
+                            if !fields.insert(__FieldTag::__image) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image",
+                                ));
+                            }
+                            result.image = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image_project => {
+                            if !fields.insert(__FieldTag::__image_project) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_project",
+                                ));
+                            }
+                            result.image_project = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -23285,6 +23534,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkConfig {
             __in_transit_encryption_config,
             __enable_cilium_clusterwide_network_policy,
             __default_enable_private_nodes,
+            __dataplane_v2_config,
             __disable_l4_lb_firewall_reconciliation,
             Unknown(std::string::String),
         }
@@ -23368,6 +23618,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkConfig {
                             "default_enable_private_nodes" => {
                                 Ok(__FieldTag::__default_enable_private_nodes)
                             }
+                            "dataplaneV2Config" => Ok(__FieldTag::__dataplane_v2_config),
+                            "dataplane_v2_config" => Ok(__FieldTag::__dataplane_v2_config),
                             "disableL4LbFirewallReconciliation" => {
                                 Ok(__FieldTag::__disable_l4_lb_firewall_reconciliation)
                             }
@@ -23554,6 +23806,16 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkConfig {
                             }
                             result.default_enable_private_nodes =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__dataplane_v2_config => {
+                            if !fields.insert(__FieldTag::__dataplane_v2_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dataplane_v2_config",
+                                ));
+                            }
+                            result.dataplane_v2_config = map
+                                .next_value::<std::option::Option<crate::model::DataplaneV2Config>>(
+                                )?;
                         }
                         __FieldTag::__disable_l4_lb_firewall_reconciliation => {
                             if !fields.insert(__FieldTag::__disable_l4_lb_firewall_reconciliation) {
@@ -29392,6 +29654,87 @@ impl<'de> serde::de::Deserialize<'de> for super::MonitoringComponentConfig {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DataplaneV2Config {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __scalability_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DataplaneV2Config")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "scalabilityMode" => Ok(__FieldTag::__scalability_mode),
+                            "scalability_mode" => Ok(__FieldTag::__scalability_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DataplaneV2Config;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DataplaneV2Config")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__scalability_mode => {
+                            if !fields.insert(__FieldTag::__scalability_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for scalability_mode",
+                                ));
+                            }
+                            result.scalability_mode = map.next_value::<std::option::Option<
+                                crate::model::dataplane_v_2_config::ScalabilityMode,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

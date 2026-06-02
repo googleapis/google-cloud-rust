@@ -52,6 +52,9 @@ pub struct LinuxNodeConfig {
     /// net.core.wmem_max
     /// net.core.optmem_max
     /// net.core.somaxconn
+    /// net.ipv4.neigh.default.gc_thresh1
+    /// net.ipv4.neigh.default.gc_thresh2
+    /// net.ipv4.neigh.default.gc_thresh3
     /// net.ipv4.tcp_rmem
     /// net.ipv4.tcp_wmem
     /// net.ipv4.tcp_tw_reuse
@@ -67,6 +70,8 @@ pub struct LinuxNodeConfig {
     /// net.netfilter.nf_conntrack_tcp_timeout_time_wait
     /// net.netfilter.nf_conntrack_tcp_timeout_established
     /// net.netfilter.nf_conntrack_acct
+    /// kernel.keys.maxkeys
+    /// kernel.keys.maxbytes
     /// kernel.shmmni
     /// kernel.shmmax
     /// kernel.shmall
@@ -3631,6 +3636,10 @@ pub struct NodeConfig {
     /// for available image types.
     pub image_type: std::string::String,
 
+    /// The node image configuration to use for this node pool.  Note that this is
+    /// only applicable for node pools using image_type=CUSTOM.
+    pub node_image_config: std::option::Option<crate::model::CustomImageConfig>,
+
     /// The Kubernetes labels (key/value pairs) to apply to each node. The values
     /// in this field are added to the set of default labels Kubernetes applies to
     /// nodes.
@@ -3915,6 +3924,39 @@ impl NodeConfig {
     /// ```
     pub fn set_image_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_type = v.into();
+        self
+    }
+
+    /// Sets the value of [node_image_config][crate::model::NodeConfig::node_image_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::CustomImageConfig;
+    /// let x = NodeConfig::new().set_node_image_config(CustomImageConfig::default()/* use setters */);
+    /// ```
+    pub fn set_node_image_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomImageConfig>,
+    {
+        self.node_image_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_image_config][crate::model::NodeConfig::node_image_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::CustomImageConfig;
+    /// let x = NodeConfig::new().set_or_clear_node_image_config(Some(CustomImageConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_node_image_config(None::<CustomImageConfig>);
+    /// ```
+    pub fn set_or_clear_node_image_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomImageConfig>,
+    {
+        self.node_image_config = v.map(|x| x.into());
         self
     }
 
@@ -6605,6 +6647,56 @@ impl wkt::message::Message for ShieldedInstanceConfig {
     }
 }
 
+/// CustomImageConfig contains the information r
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomImageConfig {
+    /// The name of the image to use for this node.
+    pub image: std::string::String,
+
+    /// The project containing the image to use for this node.
+    pub image_project: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomImageConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [image][crate::model::CustomImageConfig::image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::CustomImageConfig;
+    /// let x = CustomImageConfig::new().set_image("example");
+    /// ```
+    pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image = v.into();
+        self
+    }
+
+    /// Sets the value of [image_project][crate::model::CustomImageConfig::image_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::CustomImageConfig;
+    /// let x = CustomImageConfig::new().set_image_project("example");
+    /// ```
+    pub fn set_image_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_project = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomImageConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.CustomImageConfig"
+    }
+}
+
 /// SandboxConfig contains configurations of the sandbox to use for the node.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -9120,6 +9212,9 @@ pub struct AddonsConfig {
     /// Optional. Configuration for the slice controller add-on.
     pub slice_controller_config: std::option::Option<crate::model::SliceControllerConfig>,
 
+    /// Optional. Configuration for the AgentSandbox addon.
+    pub agent_sandbox_config: std::option::Option<crate::model::AgentSandboxConfig>,
+
     /// Optional. Configuration for NodeReadinessController add-on.
     pub node_readiness_config: std::option::Option<crate::model::NodeReadinessConfig>,
 
@@ -9770,6 +9865,39 @@ impl AddonsConfig {
         T: std::convert::Into<crate::model::SliceControllerConfig>,
     {
         self.slice_controller_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [agent_sandbox_config][crate::model::AddonsConfig::agent_sandbox_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::AgentSandboxConfig;
+    /// let x = AddonsConfig::new().set_agent_sandbox_config(AgentSandboxConfig::default()/* use setters */);
+    /// ```
+    pub fn set_agent_sandbox_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentSandboxConfig>,
+    {
+        self.agent_sandbox_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent_sandbox_config][crate::model::AddonsConfig::agent_sandbox_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::AgentSandboxConfig;
+    /// let x = AddonsConfig::new().set_or_clear_agent_sandbox_config(Some(AgentSandboxConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_agent_sandbox_config(None::<AgentSandboxConfig>);
+    /// ```
+    pub fn set_or_clear_agent_sandbox_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentSandboxConfig>,
+    {
+        self.agent_sandbox_config = v.map(|x| x.into());
         self
     }
 
@@ -10831,6 +10959,41 @@ impl SlurmOperatorConfig {
 impl wkt::message::Message for SlurmOperatorConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.SlurmOperatorConfig"
+    }
+}
+
+/// Configuration for the AgentSandbox addon.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentSandboxConfig {
+    /// Optional. Whether AgentSandbox is enabled for this cluster.
+    pub enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentSandboxConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::AgentSandboxConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AgentSandboxConfig;
+    /// let x = AgentSandboxConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AgentSandboxConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.AgentSandboxConfig"
     }
 }
 
@@ -17114,6 +17277,16 @@ pub struct ClusterUpdate {
     /// NOTE: Set the "desired_node_pool" field as well.
     pub desired_image_type: std::string::String,
 
+    /// The desired name of the image to use for this node.
+    /// This is used to create clusters using a custom image.
+    /// NOTE: Set the "desired_node_pool" field as well.
+    pub desired_image: std::string::String,
+
+    /// The project containing the desired image to use for this node.
+    /// This is used to create clusters using a custom image.
+    /// NOTE: Set the "desired_node_pool" field as well.
+    pub desired_image_project: std::string::String,
+
     /// Configuration of etcd encryption.
     pub desired_database_encryption: std::option::Option<crate::model::DatabaseEncryption>,
 
@@ -17550,6 +17723,33 @@ impl ClusterUpdate {
         v: T,
     ) -> Self {
         self.desired_image_type = v.into();
+        self
+    }
+
+    /// Sets the value of [desired_image][crate::model::ClusterUpdate::desired_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_image("example");
+    /// ```
+    pub fn set_desired_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.desired_image = v.into();
+        self
+    }
+
+    /// Sets the value of [desired_image_project][crate::model::ClusterUpdate::desired_image_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_image_project("example");
+    /// ```
+    pub fn set_desired_image_project<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.desired_image_project = v.into();
         self
     }
 
@@ -22023,6 +22223,14 @@ pub struct UpdateNodePoolRequest {
     /// `projects/*/locations/*/clusters/*/nodePools/*`.
     pub name: std::string::String,
 
+    /// The desired name of the image name to use for this node.
+    /// This is used to create clusters using a custom image.
+    pub image: std::string::String,
+
+    /// The project containing the desired image to use for this node pool.
+    /// This is used to create clusters using a custom image.
+    pub image_project: std::string::String,
+
     /// The desired list of Google Compute Engine
     /// [zones](https://cloud.google.com/compute/docs/zones#available)
     /// in which the node pool's nodes should be located. Changing the locations
@@ -22254,6 +22462,30 @@ impl UpdateNodePoolRequest {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [image][crate::model::UpdateNodePoolRequest::image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_image("example");
+    /// ```
+    pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image = v.into();
+        self
+    }
+
+    /// Sets the value of [image_project][crate::model::UpdateNodePoolRequest::image_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_image_project("example");
+    /// ```
+    pub fn set_image_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_project = v.into();
         self
     }
 
@@ -32906,6 +33138,9 @@ pub struct NetworkConfig {
     /// [ClusterUpdate.desired_default_enable_private_nodes][google.container.v1.ClusterUpdate.desired_default_enable_private_nodes]
     pub default_enable_private_nodes: std::option::Option<bool>,
 
+    /// Optional. DataplaneV2Config specifies the DPv2 configuration.
+    pub dataplane_v2_config: std::option::Option<crate::model::DataplaneV2Config>,
+
     /// Disable L4 load balancer VPC firewalls to enable firewall policies.
     pub disable_l4_lb_firewall_reconciliation: std::option::Option<bool>,
 
@@ -33308,6 +33543,39 @@ impl NetworkConfig {
         T: std::convert::Into<bool>,
     {
         self.default_enable_private_nodes = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dataplane_v2_config][crate::model::NetworkConfig::dataplane_v2_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DataplaneV2Config;
+    /// let x = NetworkConfig::new().set_dataplane_v2_config(DataplaneV2Config::default()/* use setters */);
+    /// ```
+    pub fn set_dataplane_v2_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataplaneV2Config>,
+    {
+        self.dataplane_v2_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dataplane_v2_config][crate::model::NetworkConfig::dataplane_v2_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DataplaneV2Config;
+    /// let x = NetworkConfig::new().set_or_clear_dataplane_v2_config(Some(DataplaneV2Config::default()/* use setters */));
+    /// let x = NetworkConfig::new().set_or_clear_dataplane_v2_config(None::<DataplaneV2Config>);
+    /// ```
+    pub fn set_or_clear_dataplane_v2_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataplaneV2Config>,
+    {
+        self.dataplane_v2_config = v.map(|x| x.into());
         self
     }
 
@@ -40776,6 +41044,202 @@ pub mod monitoring_component_config {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Component>::new(
                 ".google.container.v1.MonitoringComponentConfig.Component",
+            ))
+        }
+    }
+}
+
+/// DataplaneV2Config is the configuration for DPv2.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataplaneV2Config {
+    /// Optional. Scalability mode for the cluster.
+    pub scalability_mode: std::option::Option<crate::model::dataplane_v_2_config::ScalabilityMode>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataplaneV2Config {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scalability_mode][crate::model::DataplaneV2Config::scalability_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DataplaneV2Config;
+    /// use google_cloud_container_v1::model::dataplane_v_2_config::ScalabilityMode;
+    /// let x0 = DataplaneV2Config::new().set_scalability_mode(ScalabilityMode::Disabled);
+    /// let x1 = DataplaneV2Config::new().set_scalability_mode(ScalabilityMode::ScaleOptimized);
+    /// ```
+    pub fn set_scalability_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dataplane_v_2_config::ScalabilityMode>,
+    {
+        self.scalability_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scalability_mode][crate::model::DataplaneV2Config::scalability_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DataplaneV2Config;
+    /// use google_cloud_container_v1::model::dataplane_v_2_config::ScalabilityMode;
+    /// let x0 = DataplaneV2Config::new().set_or_clear_scalability_mode(Some(ScalabilityMode::Disabled));
+    /// let x1 = DataplaneV2Config::new().set_or_clear_scalability_mode(Some(ScalabilityMode::ScaleOptimized));
+    /// let x_none = DataplaneV2Config::new().set_or_clear_scalability_mode(None::<ScalabilityMode>);
+    /// ```
+    pub fn set_or_clear_scalability_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dataplane_v_2_config::ScalabilityMode>,
+    {
+        self.scalability_mode = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataplaneV2Config {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.DataplaneV2Config"
+    }
+}
+
+/// Defines additional types related to [DataplaneV2Config].
+pub mod dataplane_v_2_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Options on how to scale the cluster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ScalabilityMode {
+        /// Default value.
+        Unspecified,
+        /// Disables the scale optimized mode for DPv2.
+        Disabled,
+        /// Enables the scale optimized mode for DPv2.
+        ScaleOptimized,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ScalabilityMode::value] or
+        /// [ScalabilityMode::name].
+        UnknownValue(scalability_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scalability_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ScalabilityMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(3),
+                Self::ScaleOptimized => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCALABILITY_MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::ScaleOptimized => std::option::Option::Some("SCALE_OPTIMIZED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ScalabilityMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ScalabilityMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ScalabilityMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                3 => Self::Disabled,
+                4 => Self::ScaleOptimized,
+                _ => Self::UnknownValue(scalability_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ScalabilityMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCALABILITY_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "SCALE_OPTIMIZED" => Self::ScaleOptimized,
+                _ => Self::UnknownValue(scalability_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ScalabilityMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(3),
+                Self::ScaleOptimized => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ScalabilityMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScalabilityMode>::new(
+                ".google.container.v1.DataplaneV2Config.ScalabilityMode",
             ))
         }
     }

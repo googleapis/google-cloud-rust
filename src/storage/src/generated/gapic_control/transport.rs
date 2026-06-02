@@ -2240,6 +2240,321 @@ impl super::stub::StorageControl for StorageControl {
             )
     }
 
+    async fn get_intelligence_finding(
+        &self,
+        req: crate::model::GetIntelligenceFindingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceFinding>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetIntelligenceFinding",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetIntelligenceFinding",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceFinding;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetIntelligenceFinding");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceFinding>)
+    }
+
+    async fn list_intelligence_findings(
+        &self,
+        req: crate::model::ListIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIntelligenceFindingsResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "ListIntelligenceFindings",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/ListIntelligenceFindings",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::ListIntelligenceFindingsResponse;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/ListIntelligenceFindings",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(
+                gaxi::grpc::to_gax_response::<TR, crate::model::ListIntelligenceFindingsResponse>,
+            )
+    }
+
+    async fn summarize_intelligence_findings(
+        &self,
+        req: crate::model::SummarizeIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SummarizeIntelligenceFindingsResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "SummarizeIntelligenceFindings",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/SummarizeIntelligenceFindings",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::SummarizeIntelligenceFindingsResponse;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/SummarizeIntelligenceFindings",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::model::SummarizeIntelligenceFindingsResponse,
+                >,
+            )
+    }
+
+    async fn get_intelligence_finding_revision(
+        &self,
+        req: crate::model::GetIntelligenceFindingRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceFindingRevision>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetIntelligenceFindingRevision",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetIntelligenceFindingRevision",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceFindingRevision;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/GetIntelligenceFindingRevision",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceFindingRevision>)
+    }
+
+    async fn list_intelligence_finding_revisions(
+        &self,
+        req: crate::model::ListIntelligenceFindingRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "ListIntelligenceFindingRevisions",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/ListIntelligenceFindingRevisions",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::ListIntelligenceFindingRevisionsResponse;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/ListIntelligenceFindingRevisions",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::model::ListIntelligenceFindingRevisionsResponse,
+                >,
+            )
+    }
+
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,

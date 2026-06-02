@@ -1023,3 +1023,838 @@ impl ::prost::Name for GetProjectIntelligenceConfigRequest {
             .into()
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IntelligenceFinding {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(enumeration = "FindingType", tag = "3")]
+    pub r#type: i32,
+    #[prost(enumeration = "FindingCategory", tag = "4")]
+    pub category: i32,
+    #[prost(enumeration = "FindingSeverity", tag = "5")]
+    pub severity: i32,
+    #[prost(message, optional, tag = "6")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "7")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(string, tag = "8")]
+    pub target_resource: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "9")]
+    pub associated_resources: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "10")]
+    pub observation_period: ::core::option::Option<
+        super::super::super::r#type::Interval,
+    >,
+    #[prost(
+        oneof = "intelligence_finding::IntelligenceFindingDetails",
+        tags = "11, 12, 13, 14"
+    )]
+    pub intelligence_finding_details: ::core::option::Option<
+        intelligence_finding::IntelligenceFindingDetails,
+    >,
+}
+/// Nested message and enum types in `IntelligenceFinding`.
+pub mod intelligence_finding {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ColdlineAndArchivalStorageOperationsSpike {
+        #[prost(double, tag = "1")]
+        pub percentage_increase: f64,
+        #[prost(int64, tag = "2")]
+        pub total_operations_count: i64,
+        #[prost(message, repeated, tag = "3")]
+        pub top_buckets: ::prost::alloc::vec::Vec<
+            coldline_and_archival_storage_operations_spike::BucketContribution,
+        >,
+    }
+    /// Nested message and enum types in `ColdlineAndArchivalStorageOperationsSpike`.
+    pub mod coldline_and_archival_storage_operations_spike {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct BucketContribution {
+            #[prost(string, tag = "1")]
+            pub bucket: ::prost::alloc::string::String,
+            #[prost(double, tag = "2")]
+            pub percentage_increase: f64,
+            #[prost(int64, tag = "3")]
+            pub total_operations_count: i64,
+            #[prost(oneof = "bucket_contribution::Details", tags = "4, 5")]
+            pub details: ::core::option::Option<bucket_contribution::Details>,
+        }
+        /// Nested message and enum types in `BucketContribution`.
+        pub mod bucket_contribution {
+            #[derive(Clone, PartialEq, ::prost::Message)]
+            pub struct Contribution {
+                #[prost(message, repeated, tag = "1")]
+                pub top_prefixes: ::prost::alloc::vec::Vec<
+                    contribution::PrefixContribution,
+                >,
+            }
+            /// Nested message and enum types in `Contribution`.
+            pub mod contribution {
+                #[derive(Clone, PartialEq, ::prost::Message)]
+                pub struct PrefixContribution {
+                    #[prost(string, tag = "1")]
+                    pub prefix: ::prost::alloc::string::String,
+                    #[prost(double, tag = "2")]
+                    pub percentage_increase: f64,
+                    #[prost(int64, tag = "3")]
+                    pub total_operations_count: i64,
+                }
+                impl ::prost::Name for PrefixContribution {
+                    const NAME: &'static str = "PrefixContribution";
+                    const PACKAGE: &'static str = "google.storage.control.v2";
+                    fn full_name() -> ::prost::alloc::string::String {
+                        "google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution.Contribution.PrefixContribution"
+                            .into()
+                    }
+                    fn type_url() -> ::prost::alloc::string::String {
+                        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution.Contribution.PrefixContribution"
+                            .into()
+                    }
+                }
+            }
+            impl ::prost::Name for Contribution {
+                const NAME: &'static str = "Contribution";
+                const PACKAGE: &'static str = "google.storage.control.v2";
+                fn full_name() -> ::prost::alloc::string::String {
+                    "google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution.Contribution"
+                        .into()
+                }
+                fn type_url() -> ::prost::alloc::string::String {
+                    "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution.Contribution"
+                        .into()
+                }
+            }
+            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            pub enum Details {
+                #[prost(message, tag = "4")]
+                Contribution(Contribution),
+                #[prost(message, tag = "5")]
+                Error(super::super::super::super::super::super::rpc::Status),
+            }
+        }
+        impl ::prost::Name for BucketContribution {
+            const NAME: &'static str = "BucketContribution";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for ColdlineAndArchivalStorageOperationsSpike {
+        const NAME: &'static str = "ColdlineAndArchivalStorageOperationsSpike";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct CrossRegionEgressSpike {
+        #[prost(int64, tag = "1")]
+        pub total_egress_bytes: i64,
+        #[prost(double, tag = "2")]
+        pub percentage_increase: f64,
+        #[prost(message, repeated, tag = "3")]
+        pub top_buckets: ::prost::alloc::vec::Vec<
+            cross_region_egress_spike::BucketContribution,
+        >,
+    }
+    /// Nested message and enum types in `CrossRegionEgressSpike`.
+    pub mod cross_region_egress_spike {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct BucketContribution {
+            #[prost(string, tag = "1")]
+            pub bucket: ::prost::alloc::string::String,
+            #[prost(int64, tag = "2")]
+            pub total_egress_bytes: i64,
+            #[prost(double, tag = "3")]
+            pub percentage_increase: f64,
+            #[prost(oneof = "bucket_contribution::Details", tags = "4, 5")]
+            pub details: ::core::option::Option<bucket_contribution::Details>,
+        }
+        /// Nested message and enum types in `BucketContribution`.
+        pub mod bucket_contribution {
+            #[derive(Clone, PartialEq, ::prost::Message)]
+            pub struct Contribution {
+                #[prost(message, repeated, tag = "1")]
+                pub top_prefixes: ::prost::alloc::vec::Vec<
+                    contribution::PrefixContribution,
+                >,
+            }
+            /// Nested message and enum types in `Contribution`.
+            pub mod contribution {
+                #[derive(Clone, PartialEq, ::prost::Message)]
+                pub struct PrefixContribution {
+                    #[prost(string, tag = "1")]
+                    pub prefix: ::prost::alloc::string::String,
+                    #[prost(int64, tag = "2")]
+                    pub total_egress_bytes: i64,
+                    #[prost(double, tag = "3")]
+                    pub percentage_increase: f64,
+                }
+                impl ::prost::Name for PrefixContribution {
+                    const NAME: &'static str = "PrefixContribution";
+                    const PACKAGE: &'static str = "google.storage.control.v2";
+                    fn full_name() -> ::prost::alloc::string::String {
+                        "google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution.Contribution.PrefixContribution"
+                            .into()
+                    }
+                    fn type_url() -> ::prost::alloc::string::String {
+                        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution.Contribution.PrefixContribution"
+                            .into()
+                    }
+                }
+            }
+            impl ::prost::Name for Contribution {
+                const NAME: &'static str = "Contribution";
+                const PACKAGE: &'static str = "google.storage.control.v2";
+                fn full_name() -> ::prost::alloc::string::String {
+                    "google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution.Contribution"
+                        .into()
+                }
+                fn type_url() -> ::prost::alloc::string::String {
+                    "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution.Contribution"
+                        .into()
+                }
+            }
+            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            pub enum Details {
+                #[prost(message, tag = "4")]
+                Contribution(Contribution),
+                #[prost(message, tag = "5")]
+                Error(super::super::super::super::super::super::rpc::Status),
+            }
+        }
+        impl ::prost::Name for BucketContribution {
+            const NAME: &'static str = "BucketContribution";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for CrossRegionEgressSpike {
+        const NAME: &'static str = "CrossRegionEgressSpike";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ThrottledRequestSpike {
+        #[prost(int64, tag = "1")]
+        pub throttled_requests: i64,
+        #[prost(double, tag = "2")]
+        pub percentage_increase: f64,
+        #[prost(message, repeated, tag = "3")]
+        pub top_buckets: ::prost::alloc::vec::Vec<
+            throttled_request_spike::BucketContribution,
+        >,
+    }
+    /// Nested message and enum types in `ThrottledRequestSpike`.
+    pub mod throttled_request_spike {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct BucketContribution {
+            #[prost(string, tag = "1")]
+            pub bucket: ::prost::alloc::string::String,
+            #[prost(int64, tag = "2")]
+            pub throttled_requests: i64,
+            #[prost(double, tag = "3")]
+            pub percentage_increase: f64,
+            #[prost(oneof = "bucket_contribution::Details", tags = "4, 5")]
+            pub details: ::core::option::Option<bucket_contribution::Details>,
+        }
+        /// Nested message and enum types in `BucketContribution`.
+        pub mod bucket_contribution {
+            #[derive(Clone, PartialEq, ::prost::Message)]
+            pub struct Contribution {
+                #[prost(message, repeated, tag = "1")]
+                pub top_prefixes: ::prost::alloc::vec::Vec<
+                    contribution::PrefixContribution,
+                >,
+            }
+            /// Nested message and enum types in `Contribution`.
+            pub mod contribution {
+                #[derive(Clone, PartialEq, ::prost::Message)]
+                pub struct PrefixContribution {
+                    #[prost(string, tag = "1")]
+                    pub prefix: ::prost::alloc::string::String,
+                    #[prost(int64, tag = "2")]
+                    pub throttled_requests: i64,
+                    #[prost(double, tag = "3")]
+                    pub percentage_increase: f64,
+                }
+                impl ::prost::Name for PrefixContribution {
+                    const NAME: &'static str = "PrefixContribution";
+                    const PACKAGE: &'static str = "google.storage.control.v2";
+                    fn full_name() -> ::prost::alloc::string::String {
+                        "google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution.Contribution.PrefixContribution"
+                            .into()
+                    }
+                    fn type_url() -> ::prost::alloc::string::String {
+                        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution.Contribution.PrefixContribution"
+                            .into()
+                    }
+                }
+            }
+            impl ::prost::Name for Contribution {
+                const NAME: &'static str = "Contribution";
+                const PACKAGE: &'static str = "google.storage.control.v2";
+                fn full_name() -> ::prost::alloc::string::String {
+                    "google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution.Contribution"
+                        .into()
+                }
+                fn type_url() -> ::prost::alloc::string::String {
+                    "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution.Contribution"
+                        .into()
+                }
+            }
+            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            pub enum Details {
+                #[prost(message, tag = "4")]
+                Contribution(Contribution),
+                #[prost(message, tag = "5")]
+                Error(super::super::super::super::super::super::rpc::Status),
+            }
+        }
+        impl ::prost::Name for BucketContribution {
+            const NAME: &'static str = "BucketContribution";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for ThrottledRequestSpike {
+        const NAME: &'static str = "ThrottledRequestSpike";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct StorageGrowthAboveTrend {
+        #[prost(int64, tag = "1")]
+        pub total_storage_growth_bytes: i64,
+        #[prost(double, tag = "2")]
+        pub percentage_increase: f64,
+        #[prost(message, repeated, tag = "3")]
+        pub top_buckets: ::prost::alloc::vec::Vec<
+            storage_growth_above_trend::BucketContribution,
+        >,
+    }
+    /// Nested message and enum types in `StorageGrowthAboveTrend`.
+    pub mod storage_growth_above_trend {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct BucketContribution {
+            #[prost(string, tag = "1")]
+            pub bucket: ::prost::alloc::string::String,
+            #[prost(int64, tag = "2")]
+            pub total_storage_growth_bytes: i64,
+            #[prost(double, tag = "3")]
+            pub percentage_increase: f64,
+            #[prost(oneof = "bucket_contribution::Details", tags = "5")]
+            pub details: ::core::option::Option<bucket_contribution::Details>,
+        }
+        /// Nested message and enum types in `BucketContribution`.
+        pub mod bucket_contribution {
+            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            pub enum Details {
+                #[prost(message, tag = "5")]
+                Error(super::super::super::super::super::super::rpc::Status),
+            }
+        }
+        impl ::prost::Name for BucketContribution {
+            const NAME: &'static str = "BucketContribution";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.IntelligenceFinding.StorageGrowthAboveTrend.BucketContribution"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.StorageGrowthAboveTrend.BucketContribution"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for StorageGrowthAboveTrend {
+        const NAME: &'static str = "StorageGrowthAboveTrend";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceFinding.StorageGrowthAboveTrend"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.StorageGrowthAboveTrend"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum IntelligenceFindingDetails {
+        #[prost(message, tag = "11")]
+        ColdlineAndArchivalStorageOperationsSpike(
+            ColdlineAndArchivalStorageOperationsSpike,
+        ),
+        #[prost(message, tag = "12")]
+        ThrottledRequestsSpike(ThrottledRequestSpike),
+        #[prost(message, tag = "13")]
+        CrossRegionEgressSpike(CrossRegionEgressSpike),
+        #[prost(message, tag = "14")]
+        StorageGrowthAboveTrend(StorageGrowthAboveTrend),
+    }
+}
+impl ::prost::Name for IntelligenceFinding {
+    const NAME: &'static str = "IntelligenceFinding";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.IntelligenceFinding".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IntelligenceFindingRevision {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub snapshot: ::core::option::Option<IntelligenceFinding>,
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+impl ::prost::Name for IntelligenceFindingRevision {
+    const NAME: &'static str = "IntelligenceFindingRevision";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.IntelligenceFindingRevision".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.IntelligenceFindingRevision"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct GetIntelligenceFindingRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetIntelligenceFindingRequest {
+    const NAME: &'static str = "GetIntelligenceFindingRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetIntelligenceFindingRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetIntelligenceFindingRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ListIntelligenceFindingsRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub filter: ::prost::alloc::string::String,
+    #[prost(int32, tag = "3")]
+    pub page_size: i32,
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListIntelligenceFindingsRequest {
+    const NAME: &'static str = "ListIntelligenceFindingsRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListIntelligenceFindingsRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingsRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListIntelligenceFindingsResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub intelligence_findings: ::prost::alloc::vec::Vec<IntelligenceFinding>,
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListIntelligenceFindingsResponse {
+    const NAME: &'static str = "ListIntelligenceFindingsResponse";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListIntelligenceFindingsResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingsResponse"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct SummarizeIntelligenceFindingsRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(
+        enumeration = "summarize_intelligence_findings_request::ResourceScope",
+        tag = "2"
+    )]
+    pub resource_scope: i32,
+    #[prost(string, tag = "3")]
+    pub filter: ::prost::alloc::string::String,
+    #[prost(int32, tag = "4")]
+    pub page_size: i32,
+    #[prost(string, tag = "5")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `SummarizeIntelligenceFindingsRequest`.
+pub mod summarize_intelligence_findings_request {
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum ResourceScope {
+        Unspecified = 0,
+        Parent = 1,
+        Project = 2,
+    }
+    impl ResourceScope {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "RESOURCE_SCOPE_UNSPECIFIED",
+                Self::Parent => "PARENT",
+                Self::Project => "PROJECT",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "RESOURCE_SCOPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PARENT" => Some(Self::Parent),
+                "PROJECT" => Some(Self::Project),
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for SummarizeIntelligenceFindingsRequest {
+    const NAME: &'static str = "SummarizeIntelligenceFindingsRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.SummarizeIntelligenceFindingsRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.SummarizeIntelligenceFindingsRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SummarizeIntelligenceFindingsResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub finding_summaries: ::prost::alloc::vec::Vec<FindingSummary>,
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for SummarizeIntelligenceFindingsResponse {
+    const NAME: &'static str = "SummarizeIntelligenceFindingsResponse";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.SummarizeIntelligenceFindingsResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.SummarizeIntelligenceFindingsResponse"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct GetIntelligenceFindingRevisionRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetIntelligenceFindingRevisionRequest {
+    const NAME: &'static str = "GetIntelligenceFindingRevisionRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetIntelligenceFindingRevisionRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetIntelligenceFindingRevisionRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ListIntelligenceFindingRevisionsRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListIntelligenceFindingRevisionsRequest {
+    const NAME: &'static str = "ListIntelligenceFindingRevisionsRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListIntelligenceFindingRevisionsRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingRevisionsRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListIntelligenceFindingRevisionsResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub intelligence_finding_revisions: ::prost::alloc::vec::Vec<
+        IntelligenceFindingRevision,
+    >,
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListIntelligenceFindingRevisionsResponse {
+    const NAME: &'static str = "ListIntelligenceFindingRevisionsResponse";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListIntelligenceFindingRevisionsResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingRevisionsResponse"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FindingSummary {
+    #[prost(enumeration = "FindingType", tag = "1")]
+    pub r#type: i32,
+    #[prost(enumeration = "FindingCategory", tag = "2")]
+    pub category: i32,
+    #[prost(string, tag = "4")]
+    pub target_resource: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "5")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "6")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(enumeration = "FindingSeverity", tag = "7")]
+    pub severity: i32,
+    #[prost(message, repeated, tag = "8")]
+    pub summary_details: ::prost::alloc::vec::Vec<finding_summary::SummaryDetails>,
+}
+/// Nested message and enum types in `FindingSummary`.
+pub mod finding_summary {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct SummaryDetails {
+        #[prost(enumeration = "summary_details::ResourceType", tag = "3")]
+        pub resource_type: i32,
+        #[prost(string, tag = "4")]
+        pub description: ::prost::alloc::string::String,
+        #[prost(oneof = "summary_details::Magnitude", tags = "1, 2")]
+        pub magnitude: ::core::option::Option<summary_details::Magnitude>,
+    }
+    /// Nested message and enum types in `SummaryDetails`.
+    pub mod summary_details {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum ResourceType {
+            Unspecified = 0,
+            Project = 1,
+            Bucket = 2,
+        }
+        impl ResourceType {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "RESOURCE_TYPE_UNSPECIFIED",
+                    Self::Project => "PROJECT",
+                    Self::Bucket => "BUCKET",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "RESOURCE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "PROJECT" => Some(Self::Project),
+                    "BUCKET" => Some(Self::Bucket),
+                    _ => None,
+                }
+            }
+        }
+        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+        pub enum Magnitude {
+            #[prost(int64, tag = "1")]
+            Count(i64),
+            #[prost(float, tag = "2")]
+            Percentage(f32),
+        }
+    }
+    impl ::prost::Name for SummaryDetails {
+        const NAME: &'static str = "SummaryDetails";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.FindingSummary.SummaryDetails".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.FindingSummary.SummaryDetails"
+                .into()
+        }
+    }
+}
+impl ::prost::Name for FindingSummary {
+    const NAME: &'static str = "FindingSummary";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.FindingSummary".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.FindingSummary".into()
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FindingType {
+    Unspecified = 0,
+    ColdlineAndArchivalStorageOperationsSpike = 1,
+    ThrottledRequestSpike = 2,
+    CrossRegionEgressSpike = 3,
+    StorageGrowthAboveTrend = 4,
+}
+impl FindingType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::Unspecified => "FINDING_TYPE_UNSPECIFIED",
+            Self::ColdlineAndArchivalStorageOperationsSpike => {
+                "FINDING_TYPE_COLDLINE_AND_ARCHIVAL_STORAGE_OPERATIONS_SPIKE"
+            }
+            Self::ThrottledRequestSpike => "FINDING_TYPE_THROTTLED_REQUEST_SPIKE",
+            Self::CrossRegionEgressSpike => "FINDING_TYPE_CROSS_REGION_EGRESS_SPIKE",
+            Self::StorageGrowthAboveTrend => "FINDING_TYPE_STORAGE_GROWTH_ABOVE_TREND",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FINDING_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "FINDING_TYPE_COLDLINE_AND_ARCHIVAL_STORAGE_OPERATIONS_SPIKE" => {
+                Some(Self::ColdlineAndArchivalStorageOperationsSpike)
+            }
+            "FINDING_TYPE_THROTTLED_REQUEST_SPIKE" => Some(Self::ThrottledRequestSpike),
+            "FINDING_TYPE_CROSS_REGION_EGRESS_SPIKE" => {
+                Some(Self::CrossRegionEgressSpike)
+            }
+            "FINDING_TYPE_STORAGE_GROWTH_ABOVE_TREND" => {
+                Some(Self::StorageGrowthAboveTrend)
+            }
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FindingCategory {
+    Unspecified = 0,
+    DataManagement = 1,
+    Performance = 2,
+}
+impl FindingCategory {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::Unspecified => "FINDING_CATEGORY_UNSPECIFIED",
+            Self::DataManagement => "FINDING_CATEGORY_DATA_MANAGEMENT",
+            Self::Performance => "FINDING_CATEGORY_PERFORMANCE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FINDING_CATEGORY_UNSPECIFIED" => Some(Self::Unspecified),
+            "FINDING_CATEGORY_DATA_MANAGEMENT" => Some(Self::DataManagement),
+            "FINDING_CATEGORY_PERFORMANCE" => Some(Self::Performance),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FindingSeverity {
+    Unspecified = 0,
+    Critical = 1,
+}
+impl FindingSeverity {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::Unspecified => "FINDING_SEVERITY_UNSPECIFIED",
+            Self::Critical => "FINDING_SEVERITY_CRITICAL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FINDING_SEVERITY_UNSPECIFIED" => Some(Self::Unspecified),
+            "FINDING_SEVERITY_CRITICAL" => Some(Self::Critical),
+            _ => None,
+        }
+    }
+}
