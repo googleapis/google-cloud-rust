@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::model::{Object, ReadObjectRequest};
+use crate::model::{MoveObjectRequest, Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::request_options::RequestOptions;
@@ -80,6 +80,15 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = Result<(Descriptor, Vec<ReadObjectResponse>)>> + Send
     {
         unimplemented_stub::<(Descriptor, Vec<ReadObjectResponse>)>()
+    }
+
+    /// Implements [crate::client::Storage::move_object].
+    fn move_object(
+        &self,
+        _req: MoveObjectRequest,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send {
+        unimplemented_stub::<Object>()
     }
 }
 

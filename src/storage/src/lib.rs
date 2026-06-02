@@ -94,6 +94,7 @@ pub mod builder {
     pub mod storage {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
+        pub use crate::storage::move_object::MoveObject;
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::read_object::ReadObject;
         pub use crate::storage::signed_url::SignedUrlBuilder;

@@ -91,6 +91,55 @@ pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -
     Ok(())
 }
 
+pub async fn move_object(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
+    let client = builder.build().await?;
+    tracing::info!("testing move_object()");
+    const MOVE_CONTENTS: &str = "atomic move content";
+    let src_name = format!("{prefix}/move-src.txt");
+    let dst_name = format!("{prefix}/move-dst.txt");
+
+    // 1. Write source object
+    let _ = client
+        .write_object(bucket_name, &src_name, MOVE_CONTENTS)
+        .set_if_generation_match(0)
+        .send_unbuffered()
+        .await?;
+
+    // 2. Move to destination
+    let moved = client
+        .move_object(bucket_name, &src_name, &dst_name)
+        .if_generation_match(0)
+        .send()
+        .await?;
+
+    assert_eq!(moved.bucket, bucket_name);
+    assert_eq!(moved.name, dst_name);
+
+    // 3. Read destination and verify content
+    let mut dst_response = client.read_object(bucket_name, &dst_name).send().await?;
+    let mut dst_contents = Vec::new();
+    while let Some(b) = dst_response.next().await.transpose()? {
+        dst_contents.extend_from_slice(&b);
+    }
+    assert_eq!(dst_contents, MOVE_CONTENTS.as_bytes());
+
+    // 4. Read source and verify it is gone (NotFound)
+    let src_response = client.read_object(bucket_name, &src_name).send().await;
+    assert!(
+        src_response.as_ref().err().is_some_and(|e| {
+            e.http_status_code() == Some(404)
+                || e.status().is_some_and(|s| s.code == google_cloud_gax::error::rpc::Code::NotFound)
+        }),
+        "source object should be deleted after move, got: {src_response:?}"
+    );
+
+    // 5. Clean up destination
+    let _ = client.read_object(bucket_name, &dst_name).send().await?; // verify it can be read one more time before delete
+
+    tracing::info!("success with move_object()");
+    Ok(())
+}
+
 pub async fn signed_urls(
     builder: StorageBuilder,
     signer: &Signer,

@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod tests {
     use gcs::Result;
-    use gcs::model::{Object, ReadObjectRequest};
+    use gcs::model::{MoveObjectRequest, Object, ReadObjectRequest};
     use gcs::model_ext::{ObjectHighlights, WriteObjectRequest};
     use gcs::read_object::ReadObjectResponse;
     use gcs::request_options::RequestOptions;
@@ -54,6 +54,11 @@ mod tests {
                 _request: OpenObjectRequest,
                 _options: RequestOptions,
             ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)>;
+            async fn move_object(
+                &self,
+                _req: MoveObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<Object>;
         }
     }
 
@@ -352,4 +357,39 @@ mod tests {
         update_organization_intelligence_config,
         get_operation
     );
+
+    #[tokio::test]
+    async fn mock_move_object_success() -> anyhow::Result<()> {
+        let want_bucket = "projects/_/buckets/my-bucket".to_string();
+        let want_src = "src-object".to_string();
+        let want_dst = "dst-object".to_string();
+
+        let mut mock = MockStorage::new();
+        mock.expect_move_object().return_once(move |req, _| {
+            assert_eq!(req.bucket, "projects/_/buckets/my-bucket");
+            assert_eq!(req.source_object, "src-object");
+            assert_eq!(req.destination_object, "dst-object");
+            assert_eq!(req.if_source_generation_match, Some(42));
+            assert_eq!(req.if_generation_not_match, Some(100));
+
+            let mut resp = Object::default();
+            resp.bucket = "projects/_/buckets/my-bucket".to_string();
+            resp.name = "dst-object".to_string();
+            resp.generation = 12345;
+            Ok(resp)
+        });
+
+        let client = gcs::client::Storage::from_stub(mock);
+        let resp = client
+            .move_object(&want_bucket, &want_src, &want_dst)
+            .if_source_generation_match(42)
+            .if_generation_not_match(100)
+            .send()
+            .await?;
+
+        assert_eq!(resp.bucket, want_bucket);
+        assert_eq!(resp.name, want_dst);
+        assert_eq!(resp.generation, 12345);
+        Ok(())
+    }
 }

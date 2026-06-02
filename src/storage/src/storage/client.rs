@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::request_options::RequestOptions;
+use crate::builder::storage::MoveObject;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
@@ -220,6 +221,32 @@ where
         O: Into<String>,
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
+    }
+
+    /// Moves or renames a source object to a destination object atomically.
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket containing both source and destination objects (e.g., "projects/_/buckets/my-bucket").
+    /// * `source_object` - the name of the source object.
+    /// * `destination_object` - the name of the destination object.
+    pub fn move_object<B, Src, D>(
+        &self,
+        bucket: B,
+        source_object: Src,
+        destination_object: D,
+    ) -> MoveObject<S>
+    where
+        B: Into<String>,
+        Src: Into<String>,
+        D: Into<String>,
+    {
+        MoveObject::new(
+            self.stub.clone(),
+            bucket.into(),
+            source_object.into(),
+            destination_object.into(),
+            self.options.clone(),
+        )
     }
 
     /// Opens an object to read its contents using concurrent ranged reads.

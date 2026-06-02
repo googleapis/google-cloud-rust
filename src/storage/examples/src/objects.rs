@@ -39,6 +39,7 @@ pub mod list_object_contexts;
 #[allow(dead_code)]
 pub mod make_public;
 pub mod move_file;
+pub mod move_file_atomic;
 pub mod object_csek_to_cmek;
 pub mod open_multiple_objects_ranged_read;
 pub mod open_object_multiple_ranged_read;

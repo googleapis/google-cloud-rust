@@ -14,11 +14,11 @@
 
 use super::tracing::{TracingObjectDescriptor, TracingResponse};
 use crate::Result;
-use crate::model::{Object, ReadObjectRequest};
+use crate::model::{MoveObjectRequest, Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
-use crate::storage::info::INSTRUMENTATION;
+use crate::storage::info::{self, INSTRUMENTATION};
 use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
@@ -262,6 +262,78 @@ impl Storage {
             .collect::<Vec<_>>();
         Ok((descriptor, readers))
     }
+
+    async fn move_object_plain(
+        &self,
+        request: MoveObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options.gax(), false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "MoveObject"));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/MoveObject");
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&request).map(|m| &m.bucket).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&request).map(|m| &m.bucket).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "bucket",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::storage::v2::Object;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.v2.Storage/MoveObject");
+            recorder.on_client_request(attributes);
+        }
+        let response = self
+            .inner
+            .grpc
+            .execute(
+                extensions,
+                path,
+                request.to_proto().map_err(crate::Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, Object>)?;
+        Ok(response.into_body())
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -324,6 +396,16 @@ impl super::stub::Storage for Storage {
             return self.open_object_tracing(request, options).await;
         }
         self.open_object_plain(request, options).await
+    }
+
+    /// Implements [crate::client::Storage::move_object].
+    #[tracing::instrument(name = "move_object", level = tracing::Level::DEBUG, ret, err(Debug))]
+    async fn move_object(
+        &self,
+        request: MoveObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        self.move_object_plain(request, options).await
     }
 }
 
@@ -722,5 +804,66 @@ mod tests {
             mismatch.is_empty(),
             "mismatch = {mismatch:?}\ngot      = {got:?}\nwant     = {want:?}"
         );
+    }
+
+    #[tokio::test]
+    async fn move_object() -> anyhow::Result<()> {
+        use crate::google::storage::v2::Object as ProtoObject;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let guard = TestLayer::initialize();
+
+        let mut mock = MockStorage::new();
+        mock.expect_move_object().once().handle(|req| {
+            let r = req.into_inner();
+            assert_eq!(r.bucket, "projects/_/buckets/test-bucket");
+            assert_eq!(r.source_object, "src-obj");
+            assert_eq!(r.destination_object, "dst-obj");
+            assert_eq!(r.if_source_generation_match, Some(10));
+            assert_eq!(r.if_source_generation_not_match, Some(11));
+            assert_eq!(r.if_source_metageneration_match, Some(12));
+            assert_eq!(r.if_source_metageneration_not_match, Some(13));
+            assert_eq!(r.if_generation_match, Some(20));
+            assert_eq!(r.if_generation_not_match, Some(21));
+            assert_eq!(r.if_metageneration_match, Some(22));
+            assert_eq!(r.if_metageneration_not_match, Some(23));
+
+            Ok(tonic::Response::new(ProtoObject {
+                bucket: "projects/_/buckets/test-bucket".to_string(),
+                name: "dst-obj".to_string(),
+                generation: 42,
+                ..Default::default()
+            }))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+
+        let response = client
+            .move_object("projects/_/buckets/test-bucket", "src-obj", "dst-obj")
+            .if_source_generation_match(10)
+            .if_source_generation_not_match(11)
+            .if_source_metageneration_match(12)
+            .if_source_metageneration_not_match(13)
+            .if_generation_match(20)
+            .if_generation_not_match(21)
+            .if_metageneration_match(22)
+            .if_metageneration_not_match(23)
+            .send()
+            .await?;
+
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(response.name, "dst-obj");
+        assert_eq!(response.generation, 42);
+
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "move_object");
+        Ok(())
     }
 }

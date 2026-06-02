@@ -76,6 +76,12 @@ mod storage {
                 }
             }
 
+            tracing::info!("testing move_object");
+            let builder = Storage::builder();
+            integration_tests_storage::move_object(builder, &bucket.name, "move-object-test")
+                .await
+                .inspect_err(anydump)?;
+
             integration_tests_storage::read_object::run(&bucket.name)
                 .await
                 .inspect_err(anydump)?;

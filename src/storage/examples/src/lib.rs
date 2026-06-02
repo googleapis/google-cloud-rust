@@ -356,6 +356,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "compose-source-object-2",
         "update-storage-class",
         "object-to-move",
+        "object-to-move-atomic",
     ]
     .into_iter()
     .for_each(|name| writers.push(make_object(&client, &id, name)));
@@ -474,6 +475,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::compose_file::sample(&control, &id).await?;
     tracing::info!("running move_file example");
     objects::move_file::sample(&control, &id, &id).await?;
+    tracing::info!("running move_file_atomic example");
+    objects::move_file_atomic::sample(&client, &id).await?;
 
     #[cfg(feature = "skipped-integration-tests")]
     {
