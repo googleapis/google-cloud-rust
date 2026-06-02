@@ -29,6 +29,7 @@ tokio::task_local! {
 /// during a polling cycle) are performed using copy-on-write builders (`with_attempt_count`)
 /// to establish new immutable task-local scopes.
 #[derive(Clone, Debug)]
+#[non_exhaustive]
 pub struct LroRecorder {
     span: Span,
     attempt_count: Option<u32>,
