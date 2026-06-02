@@ -128,7 +128,8 @@ pub async fn move_object(builder: StorageBuilder, bucket_name: &str, prefix: &st
     assert!(
         src_response.as_ref().err().is_some_and(|e| {
             e.http_status_code() == Some(404)
-                || e.status().is_some_and(|s| s.code == google_cloud_gax::error::rpc::Code::NotFound)
+                || e.status()
+                    .is_some_and(|s| s.code == google_cloud_gax::error::rpc::Code::NotFound)
         }),
         "source object should be deleted after move, got: {src_response:?}"
     );
