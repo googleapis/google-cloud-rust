@@ -52,6 +52,7 @@ pub async fn service_account() -> anyhow::Result<()> {
     let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
     let creds = AccessTokenCredentialBuilder::default().build_access_token_credentials()?;
 
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&creds).await?;
 
     // Construct a new SecretManager client using the credentials.
@@ -89,6 +90,7 @@ pub async fn service_account_with_audience() -> anyhow::Result<()> {
         ))
         .build_access_token_credentials()?;
 
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&creds).await?;
 
     // Construct a new SecretManager client using the credentials.
@@ -128,6 +130,7 @@ pub async fn impersonated() -> anyhow::Result<()> {
             ))
             .build_access_token_credentials()?;
 
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&impersonated_creds).await?;
 
     let client = SecretManagerService::builder()
@@ -191,6 +194,7 @@ pub async fn mds() -> anyhow::Result<()> {
     // Uses MDS on CI
     let creds = AccessTokenCredentialBuilder::default().build_access_token_credentials()?;
 
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&creds).await?;
 
     // Construct a new SecretManager client using the MDS credentials.
@@ -714,6 +718,7 @@ pub async fn id_token_impersonated() -> anyhow::Result<()> {
     Ok(())
 }
 
+#[cfg(google_cloud_unstable_trust_boundaries)]
 pub async fn verify_access_boundaries<C>(creds: &C) -> anyhow::Result<()>
 where
     C: google_cloud_auth::credentials::CredentialsProvider + ?Sized,

@@ -79,7 +79,9 @@ impl AccessBoundary {
     {
         let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
 
-        tokio::spawn(refresh_task(provider, tx_header));
+        if Self::is_enabled() {
+            tokio::spawn(refresh_task(provider, tx_header));
+        }
 
         Self { rx_header }
     }
@@ -87,6 +89,16 @@ impl AccessBoundary {
     pub(crate) fn new_no_op() -> Self {
         let (_, rx_header) = watch::channel((None, EntityTag::new()));
         Self { rx_header }
+    }
+    fn is_enabled() -> bool {
+        #[cfg(google_cloud_unstable_trust_boundaries)]
+        {
+            true
+        }
+        #[cfg(not(google_cloud_unstable_trust_boundaries))]
+        {
+            false
+        }
     }
 
     fn latest_header_value_and_entity_tag(&self) -> (Option<String>, EntityTag) {
@@ -246,6 +258,15 @@ where
             cache: Arc::new(Mutex::new(EntityTagCache::new())),
         }
     }
+
+    #[cfg(all(test, google_cloud_unstable_trust_boundaries))]
+    pub(crate) async fn wait_for_boundary(&self) {
+        let mut rx = self.access_boundary.rx_header.clone();
+        if rx.borrow().0.is_some() {
+            return;
+        }
+        let _ = rx.changed().await;
+    }
 }
 
 impl<T> CredentialsWithAccessBoundary<T>
@@ -286,6 +307,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        if !AccessBoundary::is_enabled() {
+            return self.credentials.headers(extensions).await;
+        }
+
         let tag = extensions.get::<EntityTag>();
         let mut guard = self.cache.lock().await;
 
@@ -654,19 +679,6 @@ pub(crate) mod tests {
         }
     }
 
-    impl<T> CredentialsWithAccessBoundary<T>
-    where
-        T: dynamic::AccessTokenCredentialsProvider + 'static,
-    {
-        pub(crate) async fn wait_for_boundary(&self) {
-            let mut rx = self.access_boundary.rx_header.clone();
-            if rx.borrow().0.is_some() {
-                return;
-            }
-            let _ = rx.changed().await;
-        }
-    }
-
     #[test]
     #[parallel]
     fn test_service_account_url() {
@@ -703,6 +715,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_fetch_access_boundary_success() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -751,6 +764,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_fetch_access_boundary_mds_success() -> TestResult {
         use crate::mds::MDS_DEFAULT_URI;
 
@@ -1059,6 +1073,7 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     #[parallel]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_entity_tag_caching_behavior() -> TestResult {
         let mut mock_creds = MockCredentials::new();
         let latest_token_etag = Arc::new(std::sync::RwLock::new(EntityTag::new()));
@@ -1235,6 +1250,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_credentials_with_access_boundary_non_default_universe() -> TestResult {
         let mut mock = MockCredentials::new();
         mock.expect_headers().returning(|_extensions| {
@@ -1267,6 +1283,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn test_mds_provider_non_default_universe() -> TestResult {
         let mut mock = MockCredentials::new();
         mock.expect_universe_domain()
