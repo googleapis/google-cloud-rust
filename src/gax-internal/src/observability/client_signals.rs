@@ -727,6 +727,10 @@ mod tests {
                 ("server.address", "example.com"),
                 ("server.port", "443"),
                 ("url.full", "/google.test.v1.EchoService/Echo"),
+                (
+                    "gcp.resource.destination.id",
+                    "//test.googleapis.com/test-only",
+                ),
             ]
             .map(|(k, v)| (k, v.to_string())),
         );
