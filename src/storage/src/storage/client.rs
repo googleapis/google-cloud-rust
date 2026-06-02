@@ -231,7 +231,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let moved = client
     ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
-    ///     .if_generation_match(0)
+    ///     .set_if_generation_match(0)
     ///     .send()
     ///     .await?;
     /// # Ok(()) }
@@ -241,17 +241,12 @@ where
     /// * `bucket` - the bucket containing both source and destination objects (e.g., "projects/_/buckets/my-bucket").
     /// * `source_object` - the name of the source object.
     /// * `destination_object` - the name of the destination object.
-    pub fn move_object<B, Src, D>(
+    pub fn move_object(
         &self,
-        bucket: B,
-        source_object: Src,
-        destination_object: D,
-    ) -> MoveObject<S>
-    where
-        B: Into<String>,
-        Src: Into<String>,
-        D: Into<String>,
-    {
+        bucket: impl Into<String>,
+        source_object: impl Into<String>,
+        destination_object: impl Into<String>,
+    ) -> MoveObject<S> {
         MoveObject::new(
             self.stub.clone(),
             bucket,

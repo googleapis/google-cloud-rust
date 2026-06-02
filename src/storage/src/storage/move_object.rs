@@ -32,18 +32,13 @@ impl<S> MoveObject<S>
 where
     S: crate::storage::stub::Storage + 'static,
 {
-    pub(crate) fn new<B, Src, D>(
+    pub(crate) fn new(
         stub: Arc<S>,
-        bucket: B,
-        source_object: Src,
-        destination_object: D,
+        bucket: impl Into<String>,
+        source_object: impl Into<String>,
+        destination_object: impl Into<String>,
         options: RequestOptions,
-    ) -> Self
-    where
-        B: Into<String>,
-        Src: Into<String>,
-        D: Into<String>,
-    {
+    ) -> Self {
         let request = MoveObjectRequest {
             bucket: bucket.into(),
             source_object: source_object.into(),
@@ -59,67 +54,292 @@ where
 
     // Preconditions
 
-    /// Makes the operation conditional on whether the source object's current generation
-    /// matches the given value.
-    pub fn if_source_generation_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the source object generation to match.
+    ///
+    /// With this precondition the request fails if the source object's current
+    /// generation does not match the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_source_generation_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_source_generation_match(mut self, v: i64) -> Self {
         self.request.if_source_generation_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the source object's current generation
-    /// does not match the given value.
-    pub fn if_source_generation_not_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the source object generation to not match.
+    ///
+    /// With this precondition the request fails if the source object's current
+    /// generation matches the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_source_generation_not_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_source_generation_not_match(mut self, v: i64) -> Self {
         self.request.if_source_generation_not_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the source object's current metageneration
-    /// matches the given value.
-    pub fn if_source_metageneration_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the source object metageneration to match.
+    ///
+    /// With this precondition the request fails if the source object's current
+    /// metageneration does not match the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_source_metageneration_match(1)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_source_metageneration_match(mut self, v: i64) -> Self {
         self.request.if_source_metageneration_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the source object's current metageneration
-    /// does not match the given value.
-    pub fn if_source_metageneration_not_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the source object metageneration to not match.
+    ///
+    /// With this precondition the request fails if the source object's current
+    /// metageneration matches the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_source_metageneration_not_match(1)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_source_metageneration_not_match(mut self, v: i64) -> Self {
         self.request.if_source_metageneration_not_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the destination object's current generation
-    /// matches the given value.
-    pub fn if_generation_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the destination object generation to match.
+    ///
+    /// With this precondition the request fails if the destination object's current
+    /// generation does not match the provided value. A common value is `0`, which
+    /// prevents the move from succeeding if a destination object already exists.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_generation_match(0)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_generation_match(mut self, v: i64) -> Self {
         self.request.if_generation_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the destination object's current generation
-    /// does not match the given value.
-    pub fn if_generation_not_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the destination object generation to not match.
+    ///
+    /// With this precondition the request fails if the destination object's current
+    /// generation matches the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_generation_not_match(0)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_generation_not_match(mut self, v: i64) -> Self {
         self.request.if_generation_not_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the destination object's current metageneration
-    /// matches the given value.
-    pub fn if_metageneration_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the destination object metageneration to match.
+    ///
+    /// With this precondition the request fails if the destination object's current
+    /// metageneration does not match the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_metageneration_match(1)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_metageneration_match(mut self, v: i64) -> Self {
         self.request.if_metageneration_match = Some(v);
         self
     }
 
-    /// Makes the operation conditional on whether the destination object's current metageneration
-    /// does not match the given value.
-    pub fn if_metageneration_not_match(mut self, v: i64) -> Self {
+    /// Set a [request precondition] on the destination object metageneration to not match.
+    ///
+    /// With this precondition the request fails if the destination object's current
+    /// metageneration matches the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .set_if_metageneration_not_match(1)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_metageneration_not_match(mut self, v: i64) -> Self {
         self.request.if_metageneration_not_match = Some(v);
         self
     }
 
     // Common options
 
-    /// Overrides the default request options.
-    pub fn with_options(mut self, options: RequestOptions) -> Self {
-        self.options = options;
+    /// Configure the idempotency for this move request.
+    ///
+    /// By default, the client library treats move requests without preconditions
+    /// as non-idempotent. Atomic moves may succeed multiple times, but retrying
+    /// them without preconditions could cause unforeseen outcomes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .with_idempotency(true)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_idempotency(mut self, v: bool) -> Self {
+        self.options.idempotency = Some(v);
+        self
+    }
+
+    /// The retry policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::retry_policy::RetryableErrors;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .with_retry_policy(
+    ///         RetryableErrors
+    ///             .with_attempt_limit(5)
+    ///             .with_time_limit(Duration::from_secs(90)),
+    ///     )
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<google_cloud_gax::retry_policy::RetryPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.retry_policy = v.into().into();
+        self
+    }
+
+    /// The backoff policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .with_backoff_policy(ExponentialBackoff::default())
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<google_cloud_gax::backoff_policy::BackoffPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.backoff_policy = v.into().into();
+        self
+    }
+
+    /// The retry throttler used for this request.
+    ///
+    /// Most of the time you want to use the same throttler for all the requests
+    /// in a client, and even the same throttler for many clients. Rarely it
+    /// may be necessary to use a custom throttler for some subset of the
+    /// requests.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .with_retry_throttler(adhoc_throttler())
+    ///     .send()
+    ///     .await?;
+    /// fn adhoc_throttler() -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
+    ///     # panic!();
+    /// }
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_throttler<V: Into<google_cloud_gax::retry_throttler::RetryThrottlerArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.retry_throttler = v.into().into();
         self
     }
 

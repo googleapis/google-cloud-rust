@@ -22,7 +22,7 @@ pub async fn sample(client: &Storage, bucket_id: &str) -> anyhow::Result<()> {
 
     let moved = client
         .move_object(&bucket, SOURCE_NAME, DEST_NAME)
-        .if_generation_match(0) // succeeds only if destination does not exist
+        .set_if_generation_match(0) // succeeds only if destination does not exist
         .send()
         .await?;
 

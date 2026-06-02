@@ -339,11 +339,6 @@ impl Storage {
         }
 
         type TR = crate::google::storage::v2::Object;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            let attributes = gaxi::observability::ClientRequestAttributes::default()
-                .set_rpc_method("google.storage.v2.Storage/MoveObject");
-            recorder.on_client_request(attributes);
-        }
         let response = self
             .inner
             .grpc
@@ -875,14 +870,14 @@ mod tests {
 
         let response = client
             .move_object("projects/_/buckets/test-bucket", "src-obj", "dst-obj")
-            .if_source_generation_match(10)
-            .if_source_generation_not_match(11)
-            .if_source_metageneration_match(12)
-            .if_source_metageneration_not_match(13)
-            .if_generation_match(20)
-            .if_generation_not_match(21)
-            .if_metageneration_match(22)
-            .if_metageneration_not_match(23)
+            .set_if_source_generation_match(10)
+            .set_if_source_generation_not_match(11)
+            .set_if_source_metageneration_match(12)
+            .set_if_source_metageneration_not_match(13)
+            .set_if_generation_match(20)
+            .set_if_generation_not_match(21)
+            .set_if_metageneration_match(22)
+            .set_if_metageneration_not_match(23)
             .send()
             .await?;
 

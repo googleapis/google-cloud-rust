@@ -108,7 +108,7 @@ pub async fn move_object(builder: StorageBuilder, bucket_name: &str, prefix: &st
     // 2. Move to destination
     let moved = client
         .move_object(bucket_name, &src_name, &dst_name)
-        .if_generation_match(0)
+        .set_if_generation_match(0)
         .send()
         .await?;
 
@@ -116,11 +116,8 @@ pub async fn move_object(builder: StorageBuilder, bucket_name: &str, prefix: &st
     assert_eq!(moved.name, dst_name);
 
     // 3. Read destination and verify content
-    let mut dst_response = client.read_object(bucket_name, &dst_name).send().await?;
-    let mut dst_contents = Vec::new();
-    while let Some(b) = dst_response.next().await.transpose()? {
-        dst_contents.extend_from_slice(&b);
-    }
+    let dst_response = client.read_object(bucket_name, &dst_name).send().await?;
+    let dst_contents = read_all(dst_response).await?;
     assert_eq!(dst_contents, MOVE_CONTENTS.as_bytes());
 
     // 4. Read source and verify it is gone (NotFound)
@@ -135,7 +132,13 @@ pub async fn move_object(builder: StorageBuilder, bucket_name: &str, prefix: &st
     );
 
     // 5. Clean up destination
-    let _ = client.read_object(bucket_name, &dst_name).send().await?; // verify it can be read one more time before delete
+    let control = StorageControl::builder().build().await?;
+    control
+        .delete_object()
+        .set_bucket(bucket_name)
+        .set_object(&dst_name)
+        .send()
+        .await?;
 
     tracing::info!("success with move_object()");
     Ok(())

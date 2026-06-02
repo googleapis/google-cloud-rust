@@ -365,25 +365,30 @@ mod tests {
         let want_dst = "dst-object".to_string();
 
         let mut mock = MockStorage::new();
-        mock.expect_move_object().return_once(move |req, _| {
-            assert_eq!(req.bucket, "projects/_/buckets/my-bucket");
-            assert_eq!(req.source_object, "src-object");
-            assert_eq!(req.destination_object, "dst-object");
-            assert_eq!(req.if_source_generation_match, Some(42));
-            assert_eq!(req.if_generation_not_match, Some(100));
+        mock.expect_move_object().return_once({
+            let want_bucket = want_bucket.clone();
+            let want_src = want_src.clone();
+            let want_dst = want_dst.clone();
+            move |req, _| {
+                assert_eq!(req.bucket, want_bucket);
+                assert_eq!(req.source_object, want_src);
+                assert_eq!(req.destination_object, want_dst);
+                assert_eq!(req.if_source_generation_match, Some(42));
+                assert_eq!(req.if_generation_not_match, Some(100));
 
-            let mut resp = Object::default();
-            resp.bucket = "projects/_/buckets/my-bucket".to_string();
-            resp.name = "dst-object".to_string();
-            resp.generation = 12345;
-            Ok(resp)
+                let mut resp = Object::default();
+                resp.bucket = want_bucket.clone();
+                resp.name = want_dst.clone();
+                resp.generation = 12345;
+                Ok(resp)
+            }
         });
 
         let client = gcs::client::Storage::from_stub(mock);
         let resp = client
             .move_object(&want_bucket, &want_src, &want_dst)
-            .if_source_generation_match(42)
-            .if_generation_not_match(100)
+            .set_if_source_generation_match(42)
+            .set_if_generation_not_match(100)
             .send()
             .await?;
 
