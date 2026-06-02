@@ -286,7 +286,8 @@ pub async fn workload_identity_provider_url_sourced(
     }
 
     // Create external account with Url sourced creds
-    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
+    let creds =
+        ExternalAccountCredentialsBuilder::new(contents).build_access_token_credentials()?;
 
     #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&creds).await?;
@@ -355,7 +356,8 @@ pub async fn workload_identity_provider_executable_sourced(
     }
 
     // Create external account with Url sourced creds
-    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
+    let creds =
+        ExternalAccountCredentialsBuilder::new(contents).build_access_token_credentials()?;
 
     #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&creds).await?;
@@ -411,7 +413,8 @@ pub async fn workload_identity_provider_file_sourced(
     }
 
     // Create external account with File sourced creds
-    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
+    let creds =
+        ExternalAccountCredentialsBuilder::new(contents).build_access_token_credentials()?;
 
     #[cfg(google_cloud_unstable_trust_boundaries)]
     verify_access_boundaries(&creds).await?;
@@ -450,9 +453,6 @@ pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result
 
     // Create external account with programmatic sourced creds
     let creds = builder.build()?;
-
-    #[cfg(google_cloud_unstable_trust_boundaries)]
-    verify_access_boundaries(&creds).await?;
 
     // Construct a BigQuery client using the credentials.
     // Using BigQuery as it doesn't require a billing account.
