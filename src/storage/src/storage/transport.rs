@@ -19,6 +19,7 @@ use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
 use crate::storage::info::{self, INSTRUMENTATION};
+use crate::storage::move_object::Mover;
 use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
@@ -293,66 +294,12 @@ impl Storage {
         request: MoveObjectRequest,
         options: RequestOptions,
     ) -> Result<Object> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
+        let mover = Mover {
+            inner: self.inner.clone(),
+            request,
+            options,
         };
-        let options =
-            google_cloud_gax::options::internal::set_default_idempotency(options.gax(), false);
-        let extensions = {
-            let mut e = Extensions::new();
-            e.insert(GrpcMethod::new("google.storage.v2.Storage", "MoveObject"));
-            e
-        };
-        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/MoveObject");
-        let x_goog_request_params = {
-            use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[None
-                .or_else(|| {
-                    gaxi::routing_parameter::value(
-                        Some(&request).map(|m| &m.bucket).map(|s| s.as_str()),
-                        &[],
-                        &[Segment::MultiWildcard],
-                        &[],
-                    )
-                })
-                .map(|v| ("bucket", v))])
-        };
-        if x_goog_request_params.is_empty() {
-            use gaxi::path_parameter::PathMismatchBuilder;
-            use gaxi::routing_parameter::Segment;
-            use google_cloud_gax::error::binding::BindingError;
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&request).map(|m| &m.bucket).map(|s| s.as_str()),
-                    &[Segment::MultiWildcard],
-                    "bucket",
-                    "**",
-                );
-                paths.push(builder.build());
-            }
-            return Err(google_cloud_gax::error::Error::binding(BindingError {
-                paths,
-            }));
-        }
-
-        type TR = crate::google::storage::v2::Object;
-        let response = self
-            .inner
-            .grpc
-            .execute(
-                extensions,
-                path,
-                request.to_proto().map_err(crate::Error::deser)?,
-                options,
-                &info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
-            )
-            .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, Object>)?;
-        Ok(response.into_body())
+        mover.response().await
     }
 }
 
