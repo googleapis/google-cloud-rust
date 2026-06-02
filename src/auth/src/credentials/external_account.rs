@@ -746,12 +746,6 @@ impl Builder {
         self
     }
 
-    #[cfg(all(test, google_cloud_unstable_trust_boundaries))]
-    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
-        self.iam_endpoint_override = iam_endpoint_override;
-        self
-    }
-
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -1546,6 +1540,13 @@ mod tests {
     use std::fmt;
     use test_case::test_case;
     use time::OffsetDateTime;
+
+    impl Builder {
+        fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+            self.iam_endpoint_override = iam_endpoint_override;
+            self
+        }
+    }
 
     #[derive(Debug)]
     struct TestProviderError;
@@ -2476,7 +2477,6 @@ mod tests {
         "workforce_pool"
     )]
     #[tokio::test]
-    #[cfg(google_cloud_unstable_trust_boundaries)]
     async fn e2e_access_boundary(audience: &str, iam_path: &str) -> anyhow::Result<()> {
         use crate::credentials::tests::get_access_boundary_from_headers;
 
