@@ -529,10 +529,8 @@ impl ReqwestClient {
 }
 
 pub fn map_send_error(err: ::reqwest::Error) -> Error {
-    if let Some(e) = as_inner::<hyper::Error, _>(&err) {
-        if e.is_user() {
-            return Error::ser(err);
-        }
+    if as_inner::<hyper::Error, _>(&err).is_some_and(|e| e.is_user()) {
+        return Error::ser(err);
     }
     match err {
         e if e.is_connect() => Error::connect(e),

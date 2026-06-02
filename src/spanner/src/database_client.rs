@@ -180,7 +180,7 @@ impl DatabaseClient {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write(vec![mutation])
     ///     .await?;

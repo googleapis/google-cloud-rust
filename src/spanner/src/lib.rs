@@ -14,15 +14,11 @@
 
 //! Google Cloud Client Libraries for Rust - Spanner
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
-
-// TODO(#5537) - fix missing docs and remove this.
-#![allow(missing_docs, reason = "docs not yet complete")]
-// TODO(#5566) - stabilize API and remove this.
-#![allow(clippy::exhaustive_enums, reason = "API not yet stable")]
+//! **WARNING:** this is a preview release of the crate. We believe the APIs to be stable. We also
+//! are seeking feedback about the APIs and may need to make breaking changes if we discover that
+//! some parts are hard to use.
+//!
+//! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
@@ -42,12 +38,21 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+/// Batch DML support.
 pub mod batch_dml;
+
+/// Spanner client implementation.
 pub mod client;
+
+/// Client builder utility.
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
+
+/// Batch read-only transaction support.
 pub mod batch_read_only_transaction;
+
+/// Spanner data models.
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }

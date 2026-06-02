@@ -37,7 +37,7 @@ locals {
   unstable_flags = join(" ", [
     "--cfg google_cloud_unstable_trust_boundaries",
     "--cfg google_cloud_unstable_storage_bidi",
-    "--cfg google_cloud_unstable_grpc_server_streaming"
+    "--cfg google_cloud_unstable_grpc_server_streaming",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
@@ -138,7 +138,7 @@ locals {
       config       = "complex.yaml"
       flags        = local.unstable_flags
       script       = "test"
-      rust_version = "1.87"
+      rust_version = "1.88"
     }
     test-unstable-cfg = {
       config = "complex.yaml"

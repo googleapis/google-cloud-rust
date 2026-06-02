@@ -44,7 +44,7 @@ impl<R, M> Operation<R, M> {
         }
     }
 
-    fn name(&self) -> String {
+    pub(crate) fn name(&self) -> String {
         self.inner.name.clone()
     }
     fn done(&self) -> bool {

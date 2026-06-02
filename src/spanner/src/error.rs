@@ -28,6 +28,9 @@ use std::error::Error;
 #[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum SpannerInternalError {
+    /// Indicates that Spanner returned data in an unexpected or unparsable format.
+    ///
+    /// This represents an unexpected state and is an indication of an internal bug.
     #[error("unexpected data received from Spanner: {0}")]
     UnexpectedData(String),
 }

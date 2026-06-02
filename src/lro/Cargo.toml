@@ -53,6 +53,10 @@ google-cloud-wkt         = { workspace = true }
 [target.'cfg(google_cloud_unstable_tracing)'.dependencies]
 tracing = { workspace = true }
 
+[target.'cfg(google_cloud_unstable_tracing)'.dev-dependencies]
+tracing-subscriber      = { workspace = true, features = ["registry"] }
+google-cloud-test-utils = { workspace = true }
+
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]
 # DO NOT USE: this allows us to detect semver changes in types used in the

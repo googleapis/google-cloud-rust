@@ -16,13 +16,16 @@ use crate::client::{DatabaseClient, Mutation, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
-    BeginTransactionRequest, CommitRequest, CommitResponse, RequestOptions, TransactionOptions,
+    BeginTransactionRequest, CommitRequest, CommitResponse, MultiplexedSessionPrecommitToken,
+    Mutation as ProtoMutation, RequestOptions, TransactionOptions,
 };
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
 use bytes::Bytes;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::sync::{Arc, Mutex};
 use wkt::Duration;
 
@@ -35,6 +38,8 @@ pub struct WriteOnlyTransactionBuilder {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
+    begin_gax_options: GaxRequestOptions,
+    commit_gax_options: GaxRequestOptions,
 }
 
 impl WriteOnlyTransactionBuilder {
@@ -47,6 +52,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: false,
             return_commit_stats: false,
             commit_priority: Priority::Unspecified,
+            begin_gax_options: GaxRequestOptions::default(),
+            commit_gax_options: GaxRequestOptions::default(),
         }
     }
 
@@ -58,14 +65,14 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
     ///
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
-    pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+    pub fn set_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
         self
     }
@@ -79,12 +86,12 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_commit_priority(Priority::Low)
+    ///     .set_commit_priority(Priority::Low)
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_commit_priority(mut self, priority: Priority) -> Self {
+    pub fn set_commit_priority(mut self, priority: Priority) -> Self {
         self.commit_priority = priority;
         self
     }
@@ -98,7 +105,7 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_max_commit_delay(Duration::try_from("0.1s").unwrap())
+    ///     .set_max_commit_delay(Duration::try_from("0.1s").unwrap())
     ///     .build();
     /// # Ok(())
     /// # }
@@ -109,7 +116,7 @@ impl WriteOnlyTransactionBuilder {
     /// Increasing this value can increase throughput at the expense of latency.
     /// The value must be between 0 and 500 milliseconds. If not set, or set to 0,
     /// Spanner does not delay the commit.
-    pub fn with_max_commit_delay(mut self, delay: Duration) -> Self {
+    pub fn set_max_commit_delay(mut self, delay: Duration) -> Self {
         self.max_commit_delay = Some(delay);
         self
     }
@@ -122,7 +129,7 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .with_exclude_txn_from_change_streams(true)
+    ///     .set_exclude_txn_from_change_streams(true)
     ///     .build();
     /// # Ok(())
     /// # }
@@ -135,7 +142,7 @@ impl WriteOnlyTransactionBuilder {
     ///
     /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
     /// tracking columns modified by this transaction.
-    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+    pub fn set_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
         self.exclude_txn_from_change_streams = exclude;
         self
     }
@@ -153,7 +160,7 @@ impl WriteOnlyTransactionBuilder {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_return_commit_stats(true)
+    ///     .set_return_commit_stats(true)
     ///     .build()
     ///     .write(vec![mutation])
     ///     .await?;
@@ -166,7 +173,7 @@ impl WriteOnlyTransactionBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
-    pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
+    pub fn set_return_commit_stats(mut self, return_stats: bool) -> Self {
         self.return_commit_stats = return_stats;
         self
     }
@@ -180,10 +187,9 @@ impl WriteOnlyTransactionBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///
-    /// let retry_policy = BasicTransactionRetryPolicy {
-    ///     max_attempts: 5,
-    ///     total_timeout: Duration::from_secs(60),
-    /// };
+    /// let retry_policy = BasicTransactionRetryPolicy::new()
+    ///     .with_max_attempts(5)
+    ///     .with_total_timeout(Duration::from_secs(60));
     ///
     /// let transaction = db_client.write_only_transaction()
     ///     .with_retry_policy(retry_policy)
@@ -197,6 +203,120 @@ impl WriteOnlyTransactionBuilder {
     /// or not. The default is to retry indefinitely until the transaction succeeds.
     pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
         self.retry_policy = Box::new(policy);
+        self
+    }
+
+    /// Sets the per-attempt timeout for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_begin_attempt_timeout(Duration::from_secs(5))
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_attempt_timeout(mut self, timeout: std::time::Duration) -> Self {
+        self.begin_gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_begin_retry_policy(NeverRetry)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.begin_gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_begin_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_begin_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.begin_gax_options.set_backoff_policy(policy);
+        self
+    }
+
+    /// Sets the per-attempt timeout for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_attempt_timeout(Duration::from_secs(5))
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_attempt_timeout(mut self, timeout: std::time::Duration) -> Self {
+        self.commit_gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_retry_policy(NeverRetry)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.commit_gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_commit_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.commit_gax_options.set_backoff_policy(policy);
         self
     }
 
@@ -222,6 +342,8 @@ impl WriteOnlyTransactionBuilder {
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
             return_commit_stats: self.return_commit_stats,
             commit_priority: self.commit_priority,
+            begin_gax_options: self.begin_gax_options,
+            commit_gax_options: self.commit_gax_options,
         }
     }
 }
@@ -238,6 +360,8 @@ pub struct WriteOnlyTransaction {
     exclude_txn_from_change_streams: bool,
     return_commit_stats: bool,
     commit_priority: Priority,
+    begin_gax_options: GaxRequestOptions,
+    commit_gax_options: GaxRequestOptions,
 }
 
 impl WriteOnlyTransaction {
@@ -256,7 +380,7 @@ impl WriteOnlyTransaction {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write(vec![mutation])
     ///     .await?;
@@ -273,7 +397,8 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let gax_options = self.gax_options();
+        let begin_gax_options = self.begin_gax_options();
+        let commit_gax_options = self.commit_gax_options();
         let req_options = RequestOptions::default()
             .set_transaction_tag(self.transaction_tag.unwrap_or_default())
             .set_priority(self.commit_priority.clone());
@@ -285,6 +410,9 @@ impl WriteOnlyTransaction {
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
         let channel_hint = client.spanner.next_channel_hint();
 
+        let max_commit_delay = self.max_commit_delay;
+        let return_commit_stats = self.return_commit_stats;
+
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let session_name = session_name.clone();
@@ -292,7 +420,8 @@ impl WriteOnlyTransaction {
             let mutations_proto = mutations_proto.clone();
             let mutation_key = mutation_key.clone();
             let previous_transaction_id = previous_transaction_id.clone();
-            let gax_options = gax_options.clone();
+            let begin_gax_options = begin_gax_options.clone();
+            let commit_gax_options = commit_gax_options.clone();
 
             async move {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
@@ -314,35 +443,40 @@ impl WriteOnlyTransaction {
 
                 let tx = client
                     .spanner
-                    .begin_transaction(begin_req, gax_options.clone(), channel_hint)
+                    .begin_transaction(begin_req, begin_gax_options, channel_hint)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
-                let commit_req = CommitRequest::default()
-                    .set_session(session_name.clone())
-                    .set_mutations(mutations_proto)
-                    .set_transaction_id(tx.id.clone())
-                    .set_request_options(req_options.clone())
-                    .set_or_clear_precommit_token(tx.precommit_token)
-                    .set_or_clear_max_commit_delay(self.max_commit_delay)
-                    .set_return_commit_stats(self.return_commit_stats);
+                let commit_req = create_commit_request(
+                    session_name.clone(),
+                    tx.id.clone(),
+                    mutations_proto,
+                    tx.precommit_token,
+                    Some(req_options.clone()),
+                    max_commit_delay,
+                    return_commit_stats,
+                );
 
                 let response = client
                     .spanner
-                    .commit(commit_req, gax_options.clone(), channel_hint)
+                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
                 // retry the commit with the new precommit_token and without any mutations.
                 if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
-                    let retry_commit_req = CommitRequest::default()
-                        .set_session(session_name.clone())
-                        .set_transaction_id(tx.id)
-                        .set_request_options(req_options)
-                        .set_precommit_token(new_token);
+                    let retry_commit_req = create_commit_request(
+                        session_name.clone(),
+                        tx.id,
+                        Vec::new(),
+                        Some(new_token),
+                        Some(req_options),
+                        max_commit_delay,
+                        return_commit_stats,
+                    );
                     client
                         .spanner
-                        .commit(retry_commit_req, gax_options, channel_hint)
+                        .commit(retry_commit_req, commit_gax_options, channel_hint)
                         .await
                 } else {
                     Ok(response)
@@ -367,7 +501,7 @@ impl WriteOnlyTransaction {
     ///     .build();
     ///
     /// let response = db.write_only_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write_at_least_once(vec![mutation])
     ///     .await?;
@@ -388,7 +522,7 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let gax_options = self.gax_options();
+        let commit_gax_options = self.commit_gax_options();
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
             .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
@@ -408,24 +542,50 @@ impl WriteOnlyTransaction {
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let request = request.clone();
-            let gax_options = gax_options.clone();
+            let commit_gax_options = commit_gax_options.clone();
 
             async move {
                 client
                     .spanner
-                    .commit(request, gax_options, channel_hint)
+                    .commit(request, commit_gax_options, channel_hint)
                     .await
             }
         })
         .await
     }
 
-    fn gax_options(&self) -> GaxRequestOptions {
+    fn begin_gax_options(&self) -> GaxRequestOptions {
         amend_request_options_for_lar(
             self.client.leader_aware_routing_enabled,
-            GaxRequestOptions::default(),
+            self.begin_gax_options.clone(),
         )
     }
+
+    fn commit_gax_options(&self) -> GaxRequestOptions {
+        amend_request_options_for_lar(
+            self.client.leader_aware_routing_enabled,
+            self.commit_gax_options.clone(),
+        )
+    }
+}
+
+pub(crate) fn create_commit_request(
+    session_name: String,
+    transaction_id: bytes::Bytes,
+    mutations: Vec<ProtoMutation>,
+    precommit_token: Option<MultiplexedSessionPrecommitToken>,
+    request_options: Option<RequestOptions>,
+    max_commit_delay: Option<Duration>,
+    return_commit_stats: bool,
+) -> CommitRequest {
+    CommitRequest::default()
+        .set_session(session_name)
+        .set_transaction_id(transaction_id)
+        .set_mutations(mutations)
+        .set_or_clear_precommit_token(precommit_token)
+        .set_or_clear_request_options(request_options)
+        .set_or_clear_max_commit_delay(max_commit_delay)
+        .set_return_commit_stats(return_commit_stats)
 }
 
 #[cfg(test)]
@@ -434,6 +594,8 @@ mod tests {
     use crate::client::Spanner;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic::Response;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Duration as ProstDuration;
     use prost_types::Timestamp;
@@ -442,6 +604,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::Transaction;
     use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use std::time::Duration as StdDuration;
     use wkt::Duration;
 
     pub(crate) async fn setup_db_client(
@@ -519,8 +682,8 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_transaction_tag("my_tag")
-            .with_commit_priority(Priority::High)
+            .set_transaction_tag("my_tag")
+            .set_commit_priority(Priority::High)
             .build()
             .write_at_least_once(vec![mutation])
             .await;
@@ -655,7 +818,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_return_commit_stats(true)
+            .set_return_commit_stats(true)
             .build()
             .write_at_least_once(vec![mutation])
             .await?;
@@ -705,7 +868,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_return_commit_stats(true)
+            .set_return_commit_stats(true)
             .build()
             .write(vec![mutation])
             .await?;
@@ -756,7 +919,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .build()
             .write_at_least_once(vec![mutation])
             .await;
@@ -810,7 +973,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .build()
             .write(vec![mutation])
             .await;
@@ -903,6 +1066,107 @@ mod tests {
                 .seconds(),
             9999
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_with_commit_retry_preserves_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.mutation_key.is_some());
+
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let expected_delay = prost_types::Duration {
+            seconds: 0,
+            nanos: 200_000_000,
+        };
+
+        let expected_delay_clone = expected_delay;
+        let commit_call_count = std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0));
+        mock.expect_commit().times(2).returning(move |req| {
+            let count = commit_call_count.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+            let req = req.into_inner();
+            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+
+            // Verify options are present in both attempts
+            assert!(req.return_commit_stats, "Expected return_commit_stats to be true");
+            assert_eq!(req.max_commit_delay.as_ref(), Some(&expected_delay_clone), "Expected max_commit_delay to be 200ms");
+
+            if count == 0 {
+                assert!(!req.mutations.is_empty());
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                        multiplexed_session_retry: Some(
+                            spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                                spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                                    precommit_token: vec![4, 5, 6],
+                                    seq_num: 2,
+                                }
+                            )
+                        ),
+                        ..Default::default()
+                    },
+                ))
+            } else {
+                assert!(req.mutations.is_empty(), "Expected mutations to be empty on retry");
+                assert_eq!(
+                    req.precommit_token.expect("precommit_token required").precommit_token,
+                    vec![4, 5, 6]
+                );
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                        commit_timestamp: Some(prost_types::Timestamp {
+                            seconds: 9999,
+                            nanos: 0,
+                        }),
+                        commit_stats: Some(CommitStats { mutation_count: 12 }),
+                        ..Default::default()
+                    },
+                ))
+            }
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .set_return_commit_stats(true)
+            .set_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        let stats = res.commit_stats.expect("Expected commit stats in response");
+        assert_eq!(stats.mutation_count, 12);
+        assert_eq!(
+            res.commit_timestamp
+                .expect("timestamp should be present")
+                .seconds(),
+            9999
+        );
+
+        Ok(())
     }
 
     #[tokio_test_no_panics]
@@ -1036,7 +1300,7 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .with_max_commit_delay(Duration::try_from("0.1s").unwrap())
+            .set_max_commit_delay(Duration::try_from("0.1s").unwrap())
             .build()
             .write_at_least_once(vec![mutation])
             .await;
@@ -1083,5 +1347,187 @@ mod tests {
             .write_at_least_once(vec![mutation])
             .await;
         assert!(res.is_ok());
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_builder_sets_gax_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                ..Default::default()
+            }))
+        });
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let builder = db_client
+            .write_only_transaction()
+            .with_begin_attempt_timeout(StdDuration::from_secs(5))
+            .with_begin_retry_policy(NeverRetry)
+            .with_begin_backoff_policy(ExponentialBackoff::default())
+            .with_commit_attempt_timeout(StdDuration::from_secs(10))
+            .with_commit_retry_policy(NeverRetry)
+            .with_commit_backoff_policy(ExponentialBackoff::default());
+
+        let begin_gax = &builder.begin_gax_options;
+        assert_eq!(
+            *begin_gax.attempt_timeout(),
+            Some(StdDuration::from_secs(5))
+        );
+        assert!(begin_gax.retry_policy().is_some());
+        assert!(begin_gax.backoff_policy().is_some());
+
+        let commit_gax = &builder.commit_gax_options;
+        assert_eq!(
+            *commit_gax.attempt_timeout(),
+            Some(StdDuration::from_secs(10))
+        );
+        assert!(commit_gax.retry_policy().is_some());
+        assert!(commit_gax.backoff_policy().is_some());
+
+        Ok(())
+    }
+
+    fn parse_grpc_timeout(metadata: &gaxi::grpc::tonic::MetadataMap) -> Option<StdDuration> {
+        let timeout_header = metadata.get("grpc-timeout")?.to_str().ok()?;
+        let numeric_part: String = timeout_header
+            .chars()
+            .take_while(|c| c.is_ascii_digit())
+            .collect();
+        let value = numeric_part.parse::<u64>().ok()?;
+        let unit = timeout_header.trim_start_matches(&numeric_part);
+        let duration = match unit {
+            "u" => StdDuration::from_micros(value),
+            "m" => StdDuration::from_millis(value),
+            "S" => StdDuration::from_secs(value),
+            "M" => StdDuration::from_secs(value * 60),
+            "H" => StdDuration::from_secs(value * 3600),
+            _ => return None,
+        };
+        Some(duration)
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_with_custom_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(duration, StdDuration::from_secs(5));
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(duration, StdDuration::from_secs(10));
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 8888,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_begin_attempt_timeout(StdDuration::from_secs(5))
+            .with_commit_attempt_timeout(StdDuration::from_secs(10))
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            8888
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_at_least_once_with_custom_commit_options() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().never();
+
+        mock.expect_commit()
+            .once()
+            .withf(|req| {
+                let duration =
+                    parse_grpc_timeout(req.metadata()).expect("valid grpc-timeout header");
+                assert_eq!(duration, StdDuration::from_secs(7));
+                true
+            })
+            .returning(|_| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 7777,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_commit_attempt_timeout(StdDuration::from_secs(7))
+            .build()
+            .write_at_least_once(vec![mutation])
+            .await?;
+
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            7777
+        );
+        Ok(())
     }
 }

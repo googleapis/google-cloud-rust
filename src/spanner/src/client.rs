@@ -20,9 +20,14 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
+use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
 };
+use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
+use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
+use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
@@ -47,7 +52,6 @@ pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
 pub use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
 pub use crate::read_write_transaction::ReadWriteTransaction;
 pub use crate::result_set::ResultSet;
-pub use crate::result_set::ResultSetError;
 pub use crate::result_set_metadata::ResultSetMetadata;
 pub use crate::row::Row;
 pub use crate::statement::Statement;
@@ -69,8 +73,10 @@ pub use wkt::{DurationError, TimestampError};
 pub struct Spanner {
     pub(crate) channels: Vec<Channel>,
     pub(crate) counter: std::sync::Arc<AtomicUsize>,
+    pub(crate) config: ClientConfig,
 }
 
+/// A factory for constructing `Spanner` clients.
 pub struct Factory;
 
 impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
@@ -91,6 +97,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
         Ok(Spanner {
             channels,
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            config,
         })
     }
 }
@@ -155,8 +162,43 @@ pub(crate) fn amend_request_options_for_lar(
     options
 }
 
-#[allow(dead_code)]
+fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
+    let mut ep = endpoint.trim_end_matches('/').to_string();
+    if is_emulator && ep.ends_with(":9010") {
+        ep = ep.replace(":9010", ":9020");
+    }
+    ep
+}
+
 impl Spanner {
+    /// Returns a builder for the `Spanner` client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder().build().await?;
+    ///
+    /// let db_client = spanner
+    ///     .database_client("projects/my-project/instances/my-instance/databases/my-db")
+    ///     .build()
+    ///     .await?;
+    ///
+    /// let tx = db_client.single_use().build();
+    /// let mut rs = tx.execute_query("SELECT 1").await?;
+    ///
+    /// while let Some(row) = rs.next().await {
+    ///     let row = row?;
+    ///     let val: i64 = row.get(0);
+    ///     assert_eq!(val, 1);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// The returned builder is pre-configured with standard defaults. It automatically
+    /// detects and connects to the Spanner emulator if the `SPANNER_EMULATOR_HOST`
+    /// environment variable is set.
     pub fn builder() -> ClientBuilder {
         let builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
         // The Spanner client should automatically use the Spanner emulator if the
@@ -174,6 +216,50 @@ impl Spanner {
         builder
             .with_endpoint(full_endpoint)
             .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+    }
+
+    /// Returns a builder for the [DatabaseAdmin] client.
+    ///
+    /// This builder is automatically pre-configured with the same endpoints, credentials,
+    /// and routing configurations as this `Spanner` instance.
+    /// If configured to use the Emulator (via `SPANNER_EMULATOR_HOST`), it maps the gRPC endpoint port
+    /// (`9010`) to the REST admin port (`9020`).
+    pub fn database_admin_builder(&self) -> DatabaseAdminBuilder {
+        self.configure_admin_builder(DatabaseAdmin::builder())
+    }
+
+    /// Returns a builder for the [InstanceAdmin] client.
+    ///
+    /// This builder is automatically pre-configured with the same endpoints, credentials,
+    /// and routing configurations as this `Spanner` instance.
+    /// If configured to use the Emulator (via `SPANNER_EMULATOR_HOST`), it maps the gRPC endpoint port
+    /// (`9010`) to the REST admin port (`9020`).
+    pub fn instance_admin_builder(&self) -> InstanceAdminBuilder {
+        self.configure_admin_builder(InstanceAdmin::builder())
+    }
+
+    fn configure_admin_builder<F, C>(
+        &self,
+        mut builder: GaxClientBuilder<F, C>,
+    ) -> GaxClientBuilder<F, C>
+    where
+        C: Clone + From<Credentials>,
+    {
+        if let Some(ref endpoint) = self.config.endpoint {
+            let is_emulator = std::env::var("SPANNER_EMULATOR_HOST")
+                .ok()
+                .filter(|s| !s.is_empty())
+                .is_some();
+            let ep = map_emulator_admin_endpoint(endpoint, is_emulator);
+            builder = builder.with_endpoint(ep);
+        }
+        if let Some(ref cred) = self.config.cred {
+            builder = builder.with_credentials(cred.clone());
+        }
+        if let Some(ref ud) = self.config.universe_domain {
+            builder = builder.with_universe_domain(ud.clone());
+        }
+        builder
     }
 
     /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for
@@ -217,6 +303,7 @@ impl Spanner {
                 grpc_client: None,
             }],
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            config: ClientConfig::default(),
         }
     }
 
@@ -236,7 +323,6 @@ impl Spanner {
         ExecuteBatchDmlRequest,
         ExecuteBatchDmlResponse
     );
-    define_idempotent_rpc!(read, crate::model::ReadRequest, crate::model::ResultSet);
     define_idempotent_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
     define_idempotent_rpc!(commit, CommitRequest, CommitResponse);
     define_idempotent_rpc!(rollback, RollbackRequest, ());
@@ -380,6 +466,33 @@ mod tests {
             .expect("Failed to build client");
 
         assert_eq!(client.channels.len(), 4);
+    }
+
+    #[test]
+    fn test_map_emulator_admin_endpoint() {
+        // 1. Test normal endpoint without emulator (should remain unchanged)
+        assert_eq!(
+            map_emulator_admin_endpoint("https://spanner.googleapis.com", false),
+            "https://spanner.googleapis.com"
+        );
+
+        // 2. Test emulator endpoint mapping (9010 -> 9020)
+        assert_eq!(
+            map_emulator_admin_endpoint("http://localhost:9010", true),
+            "http://localhost:9020"
+        );
+
+        // 3. Test emulator endpoint with trailing slash (should be trimmed and mapped)
+        assert_eq!(
+            map_emulator_admin_endpoint("http://127.0.0.1:9010/", true),
+            "http://127.0.0.1:9020"
+        );
+
+        // 4. Test emulator endpoint without is_emulator active (should remain unchanged)
+        assert_eq!(
+            map_emulator_admin_endpoint("http://localhost:9010", false),
+            "http://localhost:9010"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -600,45 +713,6 @@ mod tests {
             .await
             .expect("Failed to call execute_batch_dml");
         assert!(response.status.is_some());
-    }
-
-    #[tokio_test_no_panics]
-    async fn test_read() {
-        use crate::model::ReadRequest;
-
-        let mut mock = MockSpanner::new();
-        mock.expect_read().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(mock_v1::ResultSet {
-                metadata: None,
-                rows: vec![],
-                stats: None,
-                precommit_token: None,
-                cache_update: None,
-            }))
-        });
-
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
-        let client = Spanner::builder()
-            .with_endpoint(address)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await
-            .expect("Failed to build client");
-
-        let mut req = ReadRequest::new();
-        req.table = "test_table".to_string();
-
-        let result_set = client
-            .read(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
-            .await
-            .expect("Failed to call read");
-        assert!(result_set.metadata.is_none());
     }
 
     #[tokio_test_no_panics]
@@ -1087,7 +1161,16 @@ mod tests {
                 "grpc-timeout header should be present for read"
             );
 
-            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            let (tx, rx) = tokio::sync::mpsc::channel(1);
+            let metadata = mock_v1::ResultSetMetadata {
+                transaction: None,
+                ..Default::default()
+            };
+            let prs = mock_v1::PartialResultSet {
+                metadata: Some(metadata),
+                ..Default::default()
+            };
+            tx.try_send(Ok(prs)).unwrap();
             Ok(Response::new(rx))
         });
 

@@ -25,8 +25,10 @@ run-auth-integration-tests  = []
 run-byoid-integration-tests = []
 
 [dependencies]
+tokio.workspace      = true
 anyhow.workspace     = true
 bytes.workspace      = true
+http.workspace       = true
 scoped-env.workspace = true
 tempfile.workspace   = true
 serde_json.workspace = true

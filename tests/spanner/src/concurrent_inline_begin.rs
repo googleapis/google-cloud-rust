@@ -19,7 +19,7 @@ use google_cloud_spanner::client::{
     BeginTransactionOption, ResultSet, Row, Spanner, TimestampBound,
 };
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
-use http::{Request, Response, StatusCode};
+use http::{Request, Response, StatusCode, Uri};
 use http_body::Frame;
 use http_body_util::Full;
 use http_body_util::StreamBody;
@@ -187,7 +187,17 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
         }) as BoxFuture<'static, InterceptionResult>
     };
 
-    let proxy = PassThroughProxy::new(emulator_channel, interceptor);
+    let endpoint_str = format!("http://{}", emulator_host);
+    let uri = endpoint_str.parse::<Uri>()?;
+    let scheme = uri
+        .scheme()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing scheme"))?;
+    let authority = uri
+        .authority()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing authority"))?;
+    let proxy = PassThroughProxy::new(emulator_channel, scheme, authority, interceptor);
     let proxy_server = proxy.start("127.0.0.1:0").await?;
 
     // 5. Build Client pointing to Interceptor
@@ -203,7 +213,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     // 6. Spawn 20 tasks with random workloads
     let tx = intercepted_db
         .read_only_transaction()
-        .with_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
+        .set_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
         .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
@@ -261,30 +271,25 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
                     // Permanent stream error.
                     let result_set_res: Result<ResultSet, _> =
                         tx.execute_query("SELECT 'Permanent'").await;
-                    let mut result_set = match result_set_res {
-                        Ok(rs) => rs,
-                        Err(e) => anyhow::bail!(
-                            "Task {} expected successful RPC initiation but got: {:?}",
-                            i,
-                            e
-                        ),
-                    };
-
-                    let next = result_set.next().await;
-                    match next {
-                        Some(Err(e))
+                    match result_set_res {
+                        Err(e)
                             if e.to_string().contains("Permanent")
                                 || e.to_string().contains("Internal") =>
                         {
                             Ok(format!("Task {} Permanent: OK", i))
                         }
-                        Some(Ok(_)) => {
-                            anyhow::bail!("Task {} expected Permanent error but got a valid row", i)
+                        Ok(mut rs) => match rs.next().await {
+                            Some(Err(e))
+                                if e.to_string().contains("Permanent")
+                                    || e.to_string().contains("Internal") =>
+                            {
+                                Ok(format!("Task {} Permanent: OK", i))
+                            }
+                            _ => anyhow::bail!("Task {} expected Permanent error but succeeded", i),
+                        },
+                        Err(e) => {
+                            anyhow::bail!("Task {} expected Permanent error but got: {:?}", i, e)
                         }
-                        _ => anyhow::bail!(
-                            "Task {} expected Permanent error but succeeded or got empty results",
-                            i
-                        ),
                     }
                 }
                 _ => unreachable!(),

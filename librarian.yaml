@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.14.0
+version: v0.15.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 0e6dd9602b8f4a2fa119cd268eb01e82e762e08e
-    sha256: 4005f18049cc924eeacc4f060d96940202251de7ce65c92d361a3db5905b84e7
+    commit: 050cdf60334b9591054c252cb0111ab39d6bbe85
+    sha256: b1f2c1ec4a1d77a4a51abab663616f589f9999dd3ec695c7748e3de2fdbc5706
   googleapis:
-    commit: 43731d5d22f8e3526ba7aa708da9d5de26043d0f
-    sha256: d146cfa257ffa00fc298ec7b6f73f9c7395a5a5ba050dcc553cfd78d6705bc3b
+    commit: 8490ca4edad1b34f62b174292264c07607681100
+    sha256: 6994d873c0a240bfcde8fda75fc0bf3d2ee44c0602d2a2544a07fce53b2a6faa
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -150,6 +150,11 @@ libraries:
           output: src/wkt/tests/common/src/generated
           api_path: src/wkt/tests/protos
           template: mod
+  - name: google-backstory
+    version: 1.0.0
+    apis:
+      - path: backstory
+    copyright_year: "2026"
   - name: google-cloud-accessapproval-v1
     version: 1.9.0
     copyright_year: "2025"
@@ -1361,9 +1366,9 @@ libraries:
       - googleapis
     skip_release: true
   - name: google-cloud-spanner
+    version: 0.34.0-preview
     copyright_year: "2026"
     output: src/spanner
-    skip_release: true
     rust:
       modules:
         - module_path: crate::generated::gapic_dataplane::model

@@ -1479,10 +1479,10 @@ impl ProgrammaticBuilder {
         }
         if config_builder.token_url.is_none() {
             let mut token_url = STS_TOKEN_URL.to_string();
-            if let Some(ref ud) = config_builder.universe_domain {
-                if ud != DEFAULT_UNIVERSE_DOMAIN {
-                    token_url = token_url.replace(DEFAULT_UNIVERSE_DOMAIN, ud);
-                }
+            if let Some(ref ud) = config_builder.universe_domain
+                && ud != DEFAULT_UNIVERSE_DOMAIN
+            {
+                token_url = token_url.replace(DEFAULT_UNIVERSE_DOMAIN, ud);
             }
             config_builder = config_builder.with_token_url(token_url);
         }
@@ -2529,7 +2529,11 @@ mod tests {
             }
         });
 
-        let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let iam_endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
 
         let creds = Builder::new(contents)
             .maybe_iam_endpoint_override(Some(iam_endpoint))

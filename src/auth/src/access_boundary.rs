@@ -799,7 +799,11 @@ pub(crate) mod tests {
         });
         mock.expect_universe_domain().returning(|| None);
 
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
         let mds_client = MDSClient::new(Some(endpoint.clone()));
 
         let creds = CredentialsWithAccessBoundary::new_for_mds(mock, mds_client, Some(endpoint));

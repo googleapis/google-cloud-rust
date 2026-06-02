@@ -170,7 +170,7 @@ mod tests {
 
             let server_pool = ServerPool::new(1);
             let server = server_pool.get_server();
-            let endpoint = server.url("").to_string(); // Base endpoint
+            let endpoint = server.url("/").to_string(); // Base endpoint
             let redirect_url = server.url("/loop").to_string();
 
             server.expect(

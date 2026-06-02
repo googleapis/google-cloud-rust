@@ -3,8 +3,6 @@
 This crate contains traits, types, and functions to interact with [Pub/Sub].
 Most applications will use the structs defined in the client module.
 
-Receiving messages is not yet supported by this crate.
-
 > This crate used to contain a different implementation, with a different
 > surface. [@yoshidan](https://github.com/yoshidan) generously donated the crate
 > name to Google. Their crate continues to live as [gcloud-pubsub].

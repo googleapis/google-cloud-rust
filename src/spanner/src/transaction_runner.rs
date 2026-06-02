@@ -22,6 +22,8 @@ use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBu
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
 };
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
@@ -52,6 +54,8 @@ pub struct TransactionRunnerBuilder {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
     timeout: Option<StdDuration>,
+    begin_gax_options: Option<crate::RequestOptions>,
+    commit_gax_options: Option<crate::RequestOptions>,
 }
 
 impl TransactionRunnerBuilder {
@@ -60,6 +64,8 @@ impl TransactionRunnerBuilder {
             builder: ReadWriteTransactionBuilder::new(client),
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
             timeout: None,
+            begin_gax_options: None,
+            commit_gax_options: None,
         }
     }
 
@@ -88,6 +94,144 @@ impl TransactionRunnerBuilder {
         self
     }
 
+    /// Sets the per-attempt timeout for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_begin_attempt_timeout(Duration::from_secs(5))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Note: This timeout is only used if the transaction uses the `ExplicitBegin` transaction option.
+    pub fn with_begin_attempt_timeout(mut self, timeout: StdDuration) -> Self {
+        self.begin_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_begin_retry_policy(NeverRetry)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Note: This policy is only used if the transaction uses the `ExplicitBegin` transaction option.
+    pub fn with_begin_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.begin_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the BeginTransaction RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_begin_backoff_policy(ExponentialBackoff::default())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Note: This policy is only used if the transaction uses the `ExplicitBegin` transaction option.
+    pub fn with_begin_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.begin_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_backoff_policy(policy);
+        self
+    }
+
+    /// Sets the per-attempt timeout for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_commit_attempt_timeout(Duration::from_secs(5))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_attempt_timeout(mut self, timeout: StdDuration) -> Self {
+        self.commit_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_commit_retry_policy(NeverRetry)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.commit_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the Commit RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_commit_backoff_policy(ExponentialBackoff::default())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_commit_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.commit_gax_options
+            .get_or_insert_with(crate::RequestOptions::default)
+            .set_backoff_policy(policy);
+        self
+    }
+
     /// Sets the isolation level for the transaction.
     ///
     /// # Example
@@ -98,7 +242,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_isolation_level(IsolationLevel::Serializable)
+    ///     .set_isolation_level(IsolationLevel::Serializable)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -106,8 +250,8 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/isolation-levels>
-    pub fn with_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
-        self.builder = self.builder.with_isolation_level(isolation_level);
+    pub fn set_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
+        self.builder = self.builder.set_isolation_level(isolation_level);
         self
     }
 
@@ -121,7 +265,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_read_lock_mode(ReadLockMode::Pessimistic)
+    ///     .set_read_lock_mode(ReadLockMode::Pessimistic)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -129,8 +273,8 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/concurrency-control>
-    pub fn with_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
-        self.builder = self.builder.with_read_lock_mode(read_lock_mode);
+    pub fn set_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
+        self.builder = self.builder.set_read_lock_mode(read_lock_mode);
         self
     }
 
@@ -142,7 +286,7 @@ impl TransactionRunnerBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -152,8 +296,8 @@ impl TransactionRunnerBuilder {
     /// The tag is applied to all statements executed within the transaction.
     ///
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
-    pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
-        self.builder = self.builder.with_transaction_tag(tag);
+    pub fn set_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+        self.builder = self.builder.set_transaction_tag(tag);
         self
     }
 
@@ -203,14 +347,14 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_commit_priority(Priority::Low)
+    ///     .set_commit_priority(Priority::Low)
     ///     .build()
     ///     .await?;
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_commit_priority(mut self, priority: Priority) -> Self {
-        self.builder = self.builder.with_commit_priority(priority);
+    pub fn set_commit_priority(mut self, priority: Priority) -> Self {
+        self.builder = self.builder.set_commit_priority(priority);
         self
     }
 
@@ -224,7 +368,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_max_commit_delay(Duration::try_from("0.2s").unwrap())
+    ///     .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -236,8 +380,8 @@ impl TransactionRunnerBuilder {
     /// Increasing this value can increase throughput at the expense of latency.
     /// The value must be between 0 and 500 milliseconds. If not set, or set to 0,
     /// Spanner does not delay the commit.
-    pub fn with_max_commit_delay(mut self, delay: Duration) -> Self {
-        self.builder = self.builder.with_max_commit_delay(delay);
+    pub fn set_max_commit_delay(mut self, delay: Duration) -> Self {
+        self.builder = self.builder.set_max_commit_delay(delay);
         self
     }
 
@@ -249,7 +393,7 @@ impl TransactionRunnerBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
-    ///     .with_exclude_txn_from_change_streams(true)
+    ///     .set_exclude_txn_from_change_streams(true)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -263,8 +407,8 @@ impl TransactionRunnerBuilder {
     ///
     /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
     /// tracking columns modified by this transaction.
-    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
-        self.builder = self.builder.with_exclude_txn_from_change_streams(exclude);
+    pub fn set_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+        self.builder = self.builder.set_exclude_txn_from_change_streams(exclude);
         self
     }
 
@@ -276,7 +420,7 @@ impl TransactionRunnerBuilder {
     /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
-    ///     .with_return_commit_stats(true)
+    ///     .set_return_commit_stats(true)
     ///     .build()
     ///     .await?;
     ///
@@ -294,8 +438,8 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
-    pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
-        self.builder = self.builder.with_return_commit_stats(return_stats);
+    pub fn set_return_commit_stats(mut self, return_stats: bool) -> Self {
+        self.builder = self.builder.set_return_commit_stats(return_stats);
         self
     }
 
@@ -309,10 +453,9 @@ impl TransactionRunnerBuilder {
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     ///
-    /// let retry_policy = BasicTransactionRetryPolicy {
-    ///     max_attempts: 5,
-    ///     total_timeout: Duration::from_secs(60),
-    /// };
+    /// let retry_policy = BasicTransactionRetryPolicy::new()
+    ///     .with_max_attempts(5)
+    ///     .with_total_timeout(Duration::from_secs(60));
     ///
     /// let runner = db_client
     ///     .read_write_transaction()
@@ -347,7 +490,10 @@ impl TransactionRunnerBuilder {
     /// ```
     pub async fn build(self) -> crate::Result<TransactionRunner> {
         Ok(TransactionRunner {
-            builder: self.builder,
+            builder: self
+                .builder
+                .with_begin_transaction_request_options(self.begin_gax_options)
+                .with_commit_request_options(self.commit_gax_options),
             retry_policy: self.retry_policy,
             timeout: self.timeout,
         })
@@ -455,7 +601,7 @@ impl TransactionRunner {
                 Err(e) => {
                     if is_aborted(&e) {
                         let current_tx_id = current_tx_id.clone();
-                        self.builder = self.builder.with_previous_transaction_id(current_tx_id);
+                        self.builder = self.builder.set_previous_transaction_id(current_tx_id);
                     }
 
                     backoff_if_aborted(
@@ -479,6 +625,8 @@ mod tests {
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::value::Kind;
     use spanner_grpc_mock::google::spanner::v1;
@@ -490,6 +638,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector as ProtoSelector;
     use std::sync::Mutex;
     use std::sync::mpsc::channel as std_channel;
+    use std::time::Duration as StdDuration;
     use std::time::Duration as StdTimeDuration;
     use tokio::sync::oneshot::channel as oneshot_channel;
 
@@ -699,7 +848,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_return_commit_stats(true)
+            .set_return_commit_stats(true)
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await
@@ -1319,15 +1468,14 @@ mod tests {
         let mock = create_session_mock();
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let retry_policy = BasicTransactionRetryPolicy {
-            max_attempts: 1,
-            total_timeout: std::time::Duration::from_secs(10),
-        };
+        let retry_policy = BasicTransactionRetryPolicy::new()
+            .with_max_attempts(1)
+            .with_total_timeout(std::time::Duration::from_secs(10));
 
         // Validate builder chaining safely accepts and compiles options dynamically
         let _runner = TransactionRunnerBuilder::new(db_client)
-            .with_isolation_level(IsolationLevel::Serializable)
-            .with_read_lock_mode(ReadLockMode::Pessimistic)
+            .set_isolation_level(IsolationLevel::Serializable)
+            .set_read_lock_mode(ReadLockMode::Pessimistic)
             .with_retry_policy(retry_policy)
             .build()
             .await
@@ -1564,7 +1712,7 @@ mod tests {
 
         let runner = TransactionRunnerBuilder::new(db_client)
             .with_begin_transaction_option(begin_transaction_option)
-            .with_transaction_tag("my-test-tag")
+            .set_transaction_tag("my-test-tag")
             .build()
             .await?;
 
@@ -1649,7 +1797,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;
@@ -1733,7 +1881,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_max_commit_delay(Duration::try_from("0.2s").unwrap())
+            .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;
@@ -2087,5 +2235,43 @@ mod tests {
                 .seconds(),
             123456789
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_builder_sets_gax_options() -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_begin_attempt_timeout(StdDuration::from_secs(5))
+            .with_begin_retry_policy(NeverRetry)
+            .with_begin_backoff_policy(ExponentialBackoff::default())
+            .with_commit_attempt_timeout(StdDuration::from_secs(10))
+            .with_commit_retry_policy(NeverRetry)
+            .with_commit_backoff_policy(ExponentialBackoff::default());
+
+        let begin_gax = runner
+            .begin_gax_options
+            .as_ref()
+            .expect("begin_gax_options missing");
+        assert_eq!(
+            *begin_gax.attempt_timeout(),
+            Some(StdDuration::from_secs(5))
+        );
+        assert!(begin_gax.retry_policy().is_some());
+        assert!(begin_gax.backoff_policy().is_some());
+
+        let commit_gax = runner
+            .commit_gax_options
+            .as_ref()
+            .expect("commit_gax_options missing");
+        assert_eq!(
+            *commit_gax.attempt_timeout(),
+            Some(StdDuration::from_secs(10))
+        );
+        assert!(commit_gax.retry_policy().is_some());
+        assert!(commit_gax.backoff_policy().is_some());
+
+        Ok(())
     }
 }

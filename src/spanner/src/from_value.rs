@@ -25,9 +25,14 @@ use time::{Date, OffsetDateTime};
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {
-    /// The value kind is not what we expected.
+    /// The value kind is not as expected.
     #[error("expected {want:?}, got {got:?}")]
-    KindMismatch { want: Kind, got: Kind },
+    KindMismatch {
+        /// The expected Spanner value kind.
+        want: Kind,
+        /// The actual Spanner value kind.
+        got: Kind,
+    },
 
     /// The value is null, but the target type does not support nulls.
     #[error("expected non-null value, got null")]
@@ -40,8 +45,19 @@ pub enum ConvertError {
 
 type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 
-/// Converts Spanner [Value] to Rust types.
+/// Converts a Spanner [Value] into a Rust type.
+///
+/// Implementations are provided for all standard types like `String`, primitive integer
+/// and float types, decimals, timestamps, dates, vectors, and options for nullable fields.
 pub trait FromValue: Sized {
+    /// Converts a Spanner value into the target Rust type, using the provided
+    /// Spanner `Type` metadata for compatibility checks.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
+    /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if
+    /// parsing or decoding the inner value format fails.
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError>;
 }
 
@@ -170,6 +186,13 @@ impl FromValue for OffsetDateTime {
                 got: value.kind(),
             }),
         }
+    }
+}
+
+impl FromValue for wkt::Timestamp {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        let dt = OffsetDateTime::from_value(value, type_)?;
+        wkt::Timestamp::try_from(dt).map_err(|e| ConvertError::Convert(Box::new(e)))
     }
 }
 
@@ -490,6 +513,24 @@ mod tests {
 
         let v = "invalid timestamp".to_string().to_value();
         let err = SystemTime::from_value(&v, &types::timestamp()).unwrap_err();
+        assert!(format!("{}", err).contains("cannot convert value"));
+    }
+
+    #[test]
+    fn test_from_value_wkt_timestamp() {
+        let dt = OffsetDateTime::parse(
+            "2023-10-27T10:00:00Z",
+            &time::format_description::well_known::Rfc3339,
+        )
+        .expect("valid date time parsing");
+        let wkt_ts = wkt::Timestamp::try_from(dt).expect("valid wkt timestamp conversion");
+        let v = dt.to_value();
+        let res = wkt::Timestamp::from_value(&v, &types::timestamp())
+            .expect("valid wkt timestamp decoding");
+        assert_eq!(res, wkt_ts);
+
+        let v = "invalid timestamp".to_string().to_value();
+        let err = wkt::Timestamp::from_value(&v, &types::timestamp()).unwrap_err();
         assert!(format!("{}", err).contains("cannot convert value"));
     }
 

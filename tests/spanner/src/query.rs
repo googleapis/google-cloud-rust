@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{get_database_id, get_emulator_host, update_database_ddl};
+use crate::client::{
+    get_database_id, get_emulator_host, get_real_spanner_config, update_database_ddl,
+};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
 use google_cloud_spanner::client::{
@@ -23,7 +25,8 @@ use google_cloud_spanner::model::result_set_stats::RowCount;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::sync::Arc;
 use tokio::sync::Notify;
-use tonic::transport::Channel;
+use tonic::transport::{Channel, ClientTlsConfig};
+use tracing::info;
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rot = db_client.single_use().build();
@@ -161,7 +164,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
     let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
 
     assert!(rs.next().await.transpose()?.is_some());
-    let metadata = rs.metadata().await?;
+    let metadata = rs.metadata().expect("metadata available");
     assert_eq!(
         metadata.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -179,7 +182,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     assert!(rs_zero_rows.next().await.transpose()?.is_none());
-    let metadata_zero_rows = rs_zero_rows.metadata().await?;
+    let metadata_zero_rows = rs_zero_rows.metadata().expect("metadata available");
     assert_eq!(
         metadata_zero_rows.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -192,7 +195,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     let row_dup = rs_dup.next().await.transpose()?.unwrap();
-    let metadata_dup = rs_dup.metadata().await?;
+    let metadata_dup = rs_dup.metadata().expect("metadata available");
     assert_eq!(
         metadata_dup.column_names(),
         &["dup".to_string(), "dup".to_string()]
@@ -302,10 +305,21 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     // Expect a read timestamp to NOT have been chosen yet.
     assert!(tx.read_timestamp().is_none());
 
-    // Execute the first query with invalid syntax.
-    let rs_result = tx
+    // Execute the first query with an invalid table name.
+    // The error can be returned both directly from execute_query(...)
+    // (this happens on the Emulator) or when the first row is read
+    // (this happens on the real Spanner).
+    let rs_result: Result<(), google_cloud_spanner::Error> = match tx
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
-        .await;
+        .await
+    {
+        Ok(mut rs) => match rs.next().await {
+            Some(Err(e)) => Err(e),
+            Some(Ok(_)) => Ok(()),
+            None => Ok(()),
+        },
+        Err(e) => Err(e),
+    };
 
     assert!(
         rs_result.is_err(),
@@ -471,15 +485,28 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
 // transaction could delete the row in the time between the first attempt failed, and the
 // BeginTransaction RPC has been executed.
 pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let emulator_host = get_emulator_host().expect("SPANNER_EMULATOR_HOST must be set");
+    let destination_endpoint = match get_emulator_host() {
+        Some(host) => format!("http://{}", host),
+        None => "https://spanner.googleapis.com:443".to_string(),
+    };
+
+    let (project_id, instance_id) = match get_real_spanner_config() {
+        Some((project, instance)) => (project, instance),
+        None => ("test-project".to_string(), "test-instance".to_string()),
+    };
+
     let latch = Arc::new(Notify::new());
     let begin_transaction_entered_latch = Arc::new(Notify::new());
 
-    // Create a raw gRPC client that connects to the Spanner Emulator.
-    // This will be used by the proxy server to forward requests to the Emulator.
-    let endpoint = Channel::from_shared(format!("http://{}", emulator_host))?
-        .connect()
-        .await?;
+    // Create a raw gRPC client that connects to the Spanner Emulator or real Spanner.
+    // This will be used by the proxy server to forward requests.
+    let endpoint = Channel::from_shared(destination_endpoint.clone())?;
+    let endpoint = if destination_endpoint.starts_with("https") {
+        endpoint.tls_config(ClientTlsConfig::new().with_enabled_roots())?
+    } else {
+        endpoint
+    };
+    let endpoint = endpoint.connect().await?;
     let latch_clone = Arc::clone(&latch);
     let begin_entered_clone = Arc::clone(&begin_transaction_entered_latch);
 
@@ -498,7 +525,17 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         }) as BoxFuture<'static, InterceptionResult>
     };
 
-    let proxy = PassThroughProxy::new(endpoint, interceptor);
+    let uri = destination_endpoint.parse::<http::Uri>()?;
+    let scheme = uri
+        .scheme()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing scheme"))?;
+    let authority = uri
+        .authority()
+        .cloned()
+        .ok_or_else(|| anyhow::anyhow!("missing authority"))?;
+
+    let proxy = PassThroughProxy::new(endpoint, scheme, authority, interceptor);
     let proxy_server = proxy.start("127.0.0.1:0").await?;
 
     // We build the Spanner DatabaseClient pointing directly to our proxy address over gRPC.
@@ -507,7 +544,9 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         .build()
         .await?
         .database_client(format!(
-            "projects/test-project/instances/test-instance/databases/{}",
+            "projects/{}/instances/{}/databases/{}",
+            project_id,
+            instance_id,
             get_database_id().await
         ))
         .build()
@@ -570,7 +609,7 @@ pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()
     let sql = "SELECT 1";
     let query_options = QueryOptions::default().set_optimizer_version("1");
     let stmt = Statement::builder(sql)
-        .with_query_options(query_options)
+        .set_query_options(query_options)
         .build();
 
     let mut rs = rot.execute_query(stmt).await?;
@@ -586,32 +625,40 @@ pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
     let sql = "SELECT 1 as num";
     let stmt = Statement::builder(sql)
-        .with_query_mode(QueryMode::Plan)
+        .set_query_mode(QueryMode::Plan)
         .build();
 
     let mut rs = rot.execute_query(stmt).await?;
     let next = rs.next().await.transpose()?;
     assert!(next.is_none());
 
-    let metadata = rs.metadata().await?;
+    let metadata = rs.metadata().expect("metadata available");
     assert_eq!(metadata.column_names(), &["num".to_string()]);
 
     let stats = rs.stats();
-    assert!(stats.is_none());
+    if get_emulator_host().is_some() {
+        assert!(stats.is_none(), "Emulator returns no stats in PLAN mode");
+    } else {
+        assert!(stats.is_some(), "Real Spanner returns stats in PLAN mode");
+        assert!(
+            stats.unwrap().query_plan.is_some(),
+            "Real Spanner returns query_plan in PLAN mode"
+        );
+    }
 
     Ok(())
 }
 
 pub async fn query_profile(db_client: &DatabaseClient) -> anyhow::Result<()> {
     if get_emulator_host().is_some() {
-        println!("Skipping query_profile test on emulator");
+        info!("Skipping query_profile test on emulator");
         return Ok(());
     }
     let rot = db_client.single_use().build();
 
     let sql = "SELECT 1 as num";
     let stmt = Statement::builder(sql)
-        .with_query_mode(QueryMode::Profile)
+        .set_query_mode(QueryMode::Profile)
         .build();
 
     let mut rs = rot.execute_query(stmt).await?;
@@ -635,14 +682,14 @@ pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .run(async |tx| {
             let sql = "UPDATE AllTypes SET ColBool = TRUE WHERE Id = @id";
             let stmt = Statement::builder(sql)
-                .with_query_mode(QueryMode::Plan)
+                .set_query_mode(QueryMode::Plan)
                 .build();
 
             let mut rs = tx.execute_query(stmt).await?;
             let next = rs.next().await.transpose()?;
             assert!(next.is_none());
 
-            let metadata = rs.metadata().await.expect("metadata should be available");
+            let metadata = rs.metadata().expect("metadata should be available");
             assert!(metadata.column_names().is_empty());
 
             // Verify undeclared parameters

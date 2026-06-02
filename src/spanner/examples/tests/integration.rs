@@ -13,134 +13,144 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "run-integration-tests"))]
+mod common;
+
+#[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use google_cloud_spanner::client::{DatabaseClient, Mutation};
+    use super::common::{setup_sample_database, teardown_sample_database};
+    use google_cloud_lro::Poller;
+    use google_cloud_spanner::client::{DatabaseClient, Statement};
+    use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
     use google_cloud_test_utils::errors::anydump;
-    use integration_tests_spanner::client::{create_database_client, update_database_ddl_batch};
-    use spanner_samples::query;
+    use spanner_samples::{mutation, query, read};
 
-    async fn setup_sample_emulator() -> anyhow::Result<Option<DatabaseClient>> {
-        let Some(database_client) = create_database_client().await else {
-            return Ok(None);
+    /// Macro to define sample integration tests, managing database
+    /// provisioning and automatic teardown.
+    macro_rules! define_sample_tests {
+        (
+            $(
+                async fn $name:ident($ctx_client:ident : &DatabaseClient, $ctx:ident : &TestDatabaseContext) -> anyhow::Result<()> [dialect = $dialect:expr] $body:block
+            )*
+        ) => {
+            $(
+                #[tokio::test]
+                async fn $name() -> anyhow::Result<()> {
+                    let Some(ctx) = setup_sample_database($dialect).await.inspect_err(anydump)? else {
+                        return Ok(());
+                    };
+
+                    let $ctx_client = &ctx.client;
+                    let $ctx = &ctx;
+
+                    // Execute the test block
+                    let res: Result<(), anyhow::Error> = async $body.await;
+
+                    // Drop the provisioned database
+                    teardown_sample_database(ctx).await.inspect_err(anydump)?;
+
+                    res.inspect_err(anydump)
+                }
+            )*
         };
-
-        // Ensure the Singers and Albums tables exist in the provisioned test database.
-        update_database_ddl_batch(vec![
-            "CREATE TABLE IF NOT EXISTS Singers ( \
-                SingerId INT64 NOT NULL, \
-                FirstName STRING(1024), \
-                LastName STRING(1024), \
-                SingerInfo BYTES(MAX), \
-                FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], \" \")) STORED \
-             ) PRIMARY KEY (SingerId)"
-                .to_string(),
-            "CREATE TABLE IF NOT EXISTS Albums ( \
-                SingerId INT64 NOT NULL, \
-                AlbumId INT64 NOT NULL, \
-                AlbumTitle STRING(MAX) \
-             ) PRIMARY KEY (SingerId, AlbumId), \
-             INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
-                .to_string(),
-        ])
-        .await?;
-
-        // Populate standard sample data into Singers and Albums tables.
-        let write_transaction = database_client.write_only_transaction().build();
-        let mutations = vec![
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&1)
-                .set("FirstName")
-                .to(&"Marc")
-                .set("LastName")
-                .to(&"Richards")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&2)
-                .set("FirstName")
-                .to(&"Catalina")
-                .set("LastName")
-                .to(&"Smith")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&3)
-                .set("FirstName")
-                .to(&"Alice")
-                .set("LastName")
-                .to(&"Trentor")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&4)
-                .set("FirstName")
-                .to(&"Lea")
-                .set("LastName")
-                .to(&"Martin")
-                .build(),
-            Mutation::new_insert_or_update_builder("Singers")
-                .set("SingerId")
-                .to(&5)
-                .set("FirstName")
-                .to(&"David")
-                .set("LastName")
-                .to(&"Lomond")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&1)
-                .set("AlbumId")
-                .to(&1)
-                .set("AlbumTitle")
-                .to(&"Total Junk")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&1)
-                .set("AlbumId")
-                .to(&2)
-                .set("AlbumTitle")
-                .to(&"Go, Go, Go")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&2)
-                .set("AlbumId")
-                .to(&1)
-                .set("AlbumTitle")
-                .to(&"Green")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&2)
-                .set("AlbumId")
-                .to(&2)
-                .set("AlbumTitle")
-                .to(&"Forever Hold Your Peace")
-                .build(),
-            Mutation::new_insert_or_update_builder("Albums")
-                .set("SingerId")
-                .to(&2)
-                .set("AlbumId")
-                .to(&3)
-                .set("AlbumTitle")
-                .to(&"Terrified")
-                .build(),
-        ];
-        write_transaction.write_at_least_once(mutations).await?;
-
-        Ok(Some(database_client))
     }
 
-    #[tokio::test]
-    async fn query_samples() -> anyhow::Result<()> {
-        let Some(database_client) = setup_sample_emulator().await.inspect_err(anydump)? else {
-            return Ok(());
+    define_sample_tests! {
+        async fn query_samples(client: &DatabaseClient, _ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::GoogleStandardSql] {
+            query::query_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+            Ok(())
+        }
+
+        async fn mutation_and_read_samples(client: &DatabaseClient, ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::GoogleStandardSql] {
+            // 1. Test spanner_insert_data sample
+            mutation::insert_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 2. Test spanner_read_data sample
+            read::read_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 3. Add the MarketingBudget column to the Albums table
+            ctx.admin_client
+                .update_database_ddl()
+                .set_database(ctx.database_name.clone())
+                .set_statements(vec![
+                    "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64".to_string(),
+                ])
+                .poller()
+                .until_done()
+                .await
+                .map_err(anyhow::Error::from)
+                .inspect_err(anydump)?;
+
+            // 4. Test spanner_update_data sample
+            mutation::update_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 5. Clean up schema changes by dropping the column
+            ctx.admin_client
+                .update_database_ddl()
+                .set_database(ctx.database_name.clone())
+                .set_statements(vec![
+                    "ALTER TABLE Albums DROP COLUMN MarketingBudget".to_string(),
+                ])
+                .poller()
+                .until_done()
+                .await
+                .map_err(anyhow::Error::from)
+                .inspect_err(anydump)?;
+
+            Ok(())
+        }
+
+        async fn client_and_database_samples_googlesql(client: &DatabaseClient, _ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::GoogleStandardSql] {
+            // Verify GoogleSQL database tables exist using the macro-provisioned database client
+            let has_singers = verify_table_exists(client, "Singers", DatabaseDialect::GoogleStandardSql).await?;
+            let has_albums = verify_table_exists(client, "Albums", DatabaseDialect::GoogleStandardSql).await?;
+            assert!(has_singers, "GoogleSQL database missing Singers table");
+            assert!(has_albums, "GoogleSQL database missing Albums table");
+            Ok(())
+        }
+
+        async fn client_and_database_samples_postgresql(client: &DatabaseClient, _ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::Postgresql] {
+            // Verify PostgreSQL database tables exist (respecting lowercase folding in schema)
+            let has_singers = verify_table_exists(client, "singers", DatabaseDialect::Postgresql).await?;
+            let has_albums = verify_table_exists(client, "albums", DatabaseDialect::Postgresql).await?;
+            assert!(has_singers, "PostgreSQL database missing singers table");
+            assert!(has_albums, "PostgreSQL database missing albums table");
+            Ok(())
+        }
+    }
+
+    async fn verify_table_exists(
+        client: &DatabaseClient,
+        table_name: &str,
+        dialect: DatabaseDialect,
+    ) -> anyhow::Result<bool> {
+        let statement = match dialect {
+            DatabaseDialect::Postgresql => {
+                Statement::builder(
+                    "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = $1",
+                )
+                .add_param("p1", &table_name)
+                .build()
+            }
+            _ => {
+                Statement::builder(
+                    "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '' AND TABLE_NAME = @table_name",
+                )
+                .add_param("table_name", &table_name)
+                .build()
+            }
         };
 
-        query::query_data::sample(&database_client)
-            .await
-            .inspect_err(anydump)
+        let transaction = client.single_use().build();
+        let mut result_set = transaction.execute_query(statement).await?;
+        let exists = result_set.next().await.transpose()?.is_some();
+        Ok(exists)
     }
 }

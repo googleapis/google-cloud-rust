@@ -26,9 +26,7 @@ use std::sync::Arc;
 /// let tx = db.single_use().build();
 /// let mut rs = tx.execute_query(Statement::builder("SELECT 1 AS Number").build()).await?;
 ///
-/// // Metadata is available after the first `next` call
-/// let _ = rs.next().await.transpose()?;
-/// let metadata = rs.metadata().await?;
+/// let metadata = rs.metadata().expect("metadata available");
 ///
 /// for (name, type_) in metadata.column_names().iter().zip(metadata.column_types().iter()) {
 ///     println!("Column: {} has type: {:?}", name, type_.code());
@@ -49,12 +47,12 @@ impl ResultSetMetadata {
         let mut column_types = Vec::new();
         let mut undeclared_parameters = std::collections::BTreeMap::new();
 
-        if let Some(m) = &metadata {
-            if let Some(undeclared) = &m.undeclared_parameters {
-                for field in &undeclared.fields {
-                    let param_type = field.r#type.clone().map(Into::into).unwrap_or_default();
-                    undeclared_parameters.insert(field.name.clone(), param_type);
-                }
+        if let Some(m) = &metadata
+            && let Some(undeclared) = &m.undeclared_parameters
+        {
+            for field in &undeclared.fields {
+                let param_type = field.r#type.clone().map(Into::into).unwrap_or_default();
+                undeclared_parameters.insert(field.name.clone(), param_type);
             }
         }
 

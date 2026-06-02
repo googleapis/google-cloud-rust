@@ -42,49 +42,63 @@ impl ObjectDescriptorTransport {
         use gaxi::prost::FromProto;
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
+
+        // Convert the requested `ReadRange`s to proto format.
         let requested_ranges = ranges.into_iter().map(|r| r.0).collect::<Vec<_>>();
         let proto_ranges = requested_ranges
             .iter()
             .enumerate()
             .map(|(id, r)| r.as_proto(id as i64))
             .collect::<Vec<_>>();
+
+        // Establish the gRPC connection and extract object metadata.
         let (mut initial, headers, connection) = connector.connect(proto_ranges).await?;
         let object = FromProto::cnv(initial.metadata.take().ok_or_else(|| {
             Error::deser("initial response in bidi read must contain object metadata")
         })?)
         .expect("transforming from proto Object never fails");
         let object = Arc::new(object);
-        let (active, readers) = Self::map_ranges(requested_ranges, &tx, &object);
-        let mut worker = super::worker::Worker::new(connector, active);
+
+        // Construct the initial `ActiveRead`s and their corresponding `ReadObjectResponse` streams.
+        let (actives, responses) = requested_ranges
+            .into_iter()
+            .map(|r| Self::map_range(r, &tx, &object))
+            .unzip();
+
+        // Process any data ranges in the initial response and spawn the worker task.
+        let mut worker = super::worker::Worker::new(connector, actives);
         worker
             .handle_response_success(initial)
             .await
             .map_err(Error::io)?;
         let _handle = tokio::spawn(worker.run(connection, rx));
+
         Ok((
             Self {
                 object,
                 headers,
                 tx,
             },
-            readers,
+            responses,
         ))
     }
 
-    fn map_ranges(
-        ranges: Vec<RequestedRange>,
+    /// Builds the `ActiveRead`-`ReadObjectResponse` pair corresponding
+    /// to the given `RequestedRange`.
+    ///
+    /// The returned `ActiveRead` needs to be registered with the Worker
+    /// either via `Worker::new` or via `ObjectDescriptorTransport.tx.send` (once
+    /// the worker is running); otherwise, the corresponding `ReadObjectResponse` will
+    /// never receive any bytes.
+    fn map_range(
+        range: RequestedRange,
         requests: &Sender<ActiveRead>,
         object: &Arc<Object>,
-    ) -> (Vec<ActiveRead>, Vec<ReadObjectResponse>) {
-        ranges
-            .into_iter()
-            .map(|r| {
-                let (tx, rx) = tokio::sync::mpsc::channel(100);
-                let active = ActiveRead::new(tx, r);
-                let reader = RangeReader::new(rx, object.clone(), requests.clone());
-                (active, ReadObjectResponse::new(Box::new(reader)))
-            })
-            .unzip()
+    ) -> (ActiveRead, ReadObjectResponse) {
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let active = ActiveRead::new(tx, range);
+        let reader = RangeReader::new(rx, object.clone(), requests.clone());
+        (active, ReadObjectResponse::new(Box::new(reader)))
     }
 }
 
@@ -97,17 +111,12 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
-        let (tx, rx) = tokio::sync::mpsc::channel(100);
-        let range = ActiveRead::new(tx, range.0);
+        let (active, response) = Self::map_range(range.0, &self.tx, &self.object);
         self.tx
-            .send(range)
+            .send(active)
             .await
             .expect("worker never exits while ObjectDescriptor is live");
-        ReadObjectResponse::new(Box::new(RangeReader::new(
-            rx,
-            self.object.clone(),
-            self.tx.clone(),
-        )))
+        response
     }
 
     fn headers(&self) -> HeaderMap {
@@ -117,46 +126,28 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
 
 #[cfg(test)]
 mod tests {
-    use super::super::mocks::{MockTestClient, mock_connector};
+    use super::super::connector::Connector;
+    use super::super::mocks::{MockTestClient, SharedMockClient, mock_connector};
     use super::*;
     use crate::error::ReadError;
     use crate::google::storage::v2::{
-        BidiReadHandle, BidiReadObjectResponse, ChecksummedData, Object as ProtoObject,
-        ObjectRangeData, ReadRange as ProtoRange,
+        BidiReadHandle, BidiReadObjectRequest, BidiReadObjectResponse, ChecksummedData,
+        Object as ProtoObject, ObjectRangeData, ReadRange as ProtoRange,
     };
-    use crate::storage::bidi::tests::{permanent_error, proto_range};
+    use crate::storage::bidi::tests::{permanent_error, proto_range, proto_range_id};
     use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult, Status};
+    use std::sync::{Arc, Mutex};
+    use tokio::sync::mpsc::{Receiver, Sender, channel};
 
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
         const LEN: i64 = 42;
-        let (connect_tx, connect_rx) =
-            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(8);
-        let initial = BidiReadObjectResponse {
-            metadata: Some(ProtoObject {
-                bucket: "projects/_/buckets/test-bucket".into(),
-                name: "test-object".into(),
-                generation: 123456,
-                ..ProtoObject::default()
-            }),
-            read_handle: Some(BidiReadHandle {
-                handle: bytes::Bytes::from_static(b"test-read-handle"),
-            }),
-            ..BidiReadObjectResponse::default()
-        };
-        connect_tx.send(Ok(initial)).await?;
-        let connect_stream = TonicResponse::from(connect_rx);
+        let (connector, test_context) = BidiTestContext::new();
 
-        // Save the receivers sent to the mock connector.
-        let receivers = Arc::new(std::sync::Mutex::new(Vec::new()));
-        let save = receivers.clone();
-        let mut mock = MockTestClient::new();
-        mock.expect_start().return_once(move |_, _, rx, _, _, _| {
-            save.lock().expect("never poisoned").push(rx);
-            Ok(Ok(connect_stream))
-        });
-        let connector = mock_connector(mock);
+        // Send initial metadata/handshake response
+        test_context.connect_tx.send(Ok(base_response())).await?;
 
+        // Create the transport client
         let (transport, _) = ObjectDescriptorTransport::new(connector, Vec::new()).await?;
         let want = Object::new()
             .set_bucket("projects/_/buckets/test-bucket")
@@ -164,23 +155,20 @@ mod tests {
             .set_generation(123456);
         assert_eq!(transport.object(), want, "{transport:?}");
 
-        // At this point the mock has executed and we can fetch the data it
-        // captured:
-        let mut connect_rx = {
-            let mut guard = receivers.lock().expect("never poisoned");
-            let rx = guard.pop().expect("at least one receiver");
-            assert!(guard.is_empty(), "{receivers:?}");
-            rx
-        };
+        // Verify initial client connection request
+        let mut connect_rx = test_context.take_receiver();
         let request = connect_rx.recv().await.expect("the initial request");
         assert!(request.read_object_spec.is_some(), "{request:?}");
 
+        // Issue a read_range call
         let mut reader = transport.read_range(ReadRange::segment(100, 200)).await;
 
+        // Verify that transport sent the range request downstream
         let request = connect_rx.recv().await.expect("the read request");
         let range_request = request.read_ranges.first();
         assert_eq!(range_request, Some(&proto_range(100, 200)), "{request:?}");
 
+        // Prepare and transmit simulated server data response
         let content = bytes::Bytes::from_owner(String::from_iter((0..LEN).map(|_| 'x')));
         let response = BidiReadObjectResponse {
             object_data_ranges: vec![ObjectRangeData {
@@ -197,8 +185,9 @@ mod tests {
             }],
             ..BidiReadObjectResponse::default()
         };
-        connect_tx.send(Ok(response)).await?;
+        test_context.connect_tx.send(Ok(response)).await?;
 
+        // Read simulated content and confirm stream closure
         let got = reader.next().await.transpose()?;
         assert_eq!(got, Some(content));
         // Because `range_end` is true, the reader should be closed.
@@ -208,35 +197,47 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn success_with_ranges() -> anyhow::Result<()> {
+        const LEN: i64 = 42;
+        let (connector, test_context) = BidiTestContext::new();
+
+        // Send initial metadata/handshake response
+        test_context.connect_tx.send(Ok(base_response())).await?;
+
+        let ranges = vec![
+            ReadRange::segment(100, LEN as u64),
+            ReadRange::segment(200, LEN as u64),
+            ReadRange::segment(300, LEN as u64),
+        ];
+        let (_transport, readers) = ObjectDescriptorTransport::new(connector, ranges).await?;
+        assert_eq!(readers.len(), 3);
+
+        // Verify initial client connection requests contain range requests
+        let mut connect_rx = test_context.take_receiver();
+        let request = connect_rx.recv().await.expect("the initial request");
+        assert!(request.read_object_spec.is_some(), "{request:?}");
+        assert_eq!(
+            request.read_ranges,
+            vec![
+                proto_range_id(100, LEN, 0),
+                proto_range_id(200, LEN, 1),
+                proto_range_id(300, LEN, 2),
+            ],
+            "{request:?}"
+        );
+
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn read_range_error() -> anyhow::Result<()> {
         use std::error::Error as _;
 
-        let (connect_tx, connect_rx) =
-            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(8);
-        let initial = BidiReadObjectResponse {
-            metadata: Some(ProtoObject {
-                bucket: "projects/_/buckets/test-bucket".into(),
-                name: "test-object".into(),
-                generation: 123456,
-                ..ProtoObject::default()
-            }),
-            read_handle: Some(BidiReadHandle {
-                handle: bytes::Bytes::from_static(b"test-read-handle"),
-            }),
-            ..BidiReadObjectResponse::default()
-        };
-        connect_tx.send(Ok(initial)).await?;
-        let connect_stream = TonicResponse::from(connect_rx);
+        let (connector, test_context) = BidiTestContext::new();
 
-        // Save the receivers sent to the mock connector.
-        let mut mock = MockTestClient::new();
-        let mut seq = mockall::Sequence::new();
-        mock.expect_start()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |_, _, _, _, _, _| Ok(Ok(connect_stream)));
-        let connector = mock_connector(mock);
+        // Send initial metadata/handshake response
+        test_context.connect_tx.send(Ok(base_response())).await?;
 
         let (transport, _) = ObjectDescriptorTransport::new(connector, Vec::new()).await?;
         let want = Object::new()
@@ -250,7 +251,8 @@ mod tests {
         // Close the mock connection with an unrecoverable error.
         // This should terminate the worker task, and the object descriptor
         // should stop accepting requests.
-        connect_tx
+        test_context
+            .connect_tx
             .send(Err(Status::permission_denied("uh-oh")))
             .await?;
 
@@ -269,7 +271,7 @@ mod tests {
 
         // Close the mock I/O stream. From this point the `transport.read_range()`
         // calls should fail.
-        drop(connect_tx);
+        drop(test_context.connect_tx);
 
         // Now we know this call will fail, and we verify we get the correct
         // error.
@@ -305,27 +307,73 @@ mod tests {
 
     #[tokio::test]
     async fn deser_error() -> anyhow::Result<()> {
-        let (connect_tx, connect_rx) =
-            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(8);
-        let initial = BidiReadObjectResponse {
-            metadata: None,
-            read_handle: Some(BidiReadHandle {
-                handle: bytes::Bytes::from_static(b"test-read-handle"),
-            }),
-            ..BidiReadObjectResponse::default()
-        };
-        connect_tx.send(Ok(initial)).await?;
-        let connect_stream = TonicResponse::from(connect_rx);
-
-        let mut mock = MockTestClient::new();
-        mock.expect_start()
-            .return_once(move |_, _, _, _, _, _| Ok(Ok(connect_stream)));
-        let connector = mock_connector(mock);
+        let (connector, test_context) = BidiTestContext::new();
+        let mut initial = base_response();
+        initial.metadata = None;
+        test_context.connect_tx.send(Ok(initial)).await?;
 
         let err = ObjectDescriptorTransport::new(connector, Vec::new())
             .await
             .unwrap_err();
         assert!(err.is_deserialization(), "{err:?}");
         Ok(())
+    }
+
+    fn base_response() -> BidiReadObjectResponse {
+        BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            read_handle: Some(BidiReadHandle {
+                handle: bytes::Bytes::from_static(b"test-read-handle"),
+            }),
+            ..BidiReadObjectResponse::default()
+        }
+    }
+
+    struct BidiTestContext {
+        connect_tx: Sender<TonicResult<BidiReadObjectResponse>>,
+        receivers: Arc<Mutex<Vec<Receiver<BidiReadObjectRequest>>>>,
+    }
+
+    impl BidiTestContext {
+        fn new() -> (Connector<SharedMockClient>, Self) {
+            let (connect_tx, connect_rx) = channel::<TonicResult<BidiReadObjectResponse>>(8);
+            let connect_stream = TonicResponse::from(connect_rx);
+
+            // Save the receivers sent to the mock connector.
+            let receivers = Arc::new(Mutex::new(Vec::new()));
+            let save = receivers.clone();
+            let mut mock = MockTestClient::new();
+            mock.expect_start().return_once(move |_, _, rx, _, _, _| {
+                save.lock().expect("never poisoned").push(rx);
+                Ok(Ok(connect_stream))
+            });
+            let connector = mock_connector(mock);
+
+            (
+                connector,
+                Self {
+                    connect_tx,
+                    receivers,
+                },
+            )
+        }
+
+        /// Retrieves the single captured request receiver from the mock setup.
+        ///
+        /// Call this once the mock connector has executed to fetch the request stream captured by the mock.
+        fn take_receiver(&self) -> Receiver<BidiReadObjectRequest> {
+            let mut guard = self.receivers.lock().expect("never poisoned");
+            let rx = guard.pop().expect("at least one captured receiver");
+            assert!(
+                guard.is_empty(),
+                "expected exactly one active client receiver"
+            );
+            rx
+        }
     }
 }

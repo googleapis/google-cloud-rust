@@ -13,7 +13,10 @@
 // limitations under the License.
 
 use futures::future::BoxFuture;
-use http::{Request, Response, StatusCode};
+use http::{
+    Request, Response, StatusCode, Uri,
+    uri::{Authority, Scheme},
+};
 use spanner_grpc_mock::to_uri;
 use std::convert::Infallible;
 use tokio::net::TcpListener;
@@ -42,14 +45,23 @@ pub(crate) enum InterceptionResult {
 /// an interceptor closure to inspect and potentially handle specific requests.
 #[derive(Clone)]
 pub(crate) struct PassThroughProxy<F> {
-    emulator_channel: Channel,
+    destination_channel: Channel,
+    scheme: Scheme,
+    authority: Authority,
     interceptor: F,
 }
 
 impl<F> PassThroughProxy<F> {
-    pub(crate) fn new(emulator_channel: Channel, interceptor: F) -> Self {
+    pub(crate) fn new(
+        destination_channel: Channel,
+        scheme: Scheme,
+        authority: Authority,
+        interceptor: F,
+    ) -> Self {
         Self {
-            emulator_channel,
+            destination_channel,
+            scheme,
+            authority,
             interceptor,
         }
     }
@@ -77,18 +89,25 @@ where
     }
 
     fn call(&mut self, req: Request<Body>) -> Self::Future {
-        let channel = self.emulator_channel.clone();
+        let channel = self.destination_channel.clone();
+        let scheme = self.scheme.clone();
+        let authority = self.authority.clone();
         let interceptor = self.interceptor.clone();
 
         Box::pin(async move {
-            let req = match interceptor(req).await {
+            let mut req = match interceptor(req).await {
                 InterceptionResult::Continue(r) => r,
                 InterceptionResult::Complete(resp) => return Ok(resp),
             };
 
+            let mut parts = req.uri().clone().into_parts();
+            parts.scheme = Some(scheme);
+            parts.authority = Some(authority);
+            *req.uri_mut() = Uri::from_parts(parts).expect("Invalid URI parts");
+
             let response = match channel.oneshot(req).await {
                 Ok(resp) => resp,
-                // gRPC errors from the emulator are returned as successful HTTP responses
+                // gRPC errors from the emulator/real Spanner are returned as successful HTTP responses
                 // with `grpc-status` headers and are handled by the `Ok` branch above.
                 // This `Err` branch only handles transport-level errors. We must convert
                 // them to a valid gRPC response because Tonic requires `Error = Infallible`.

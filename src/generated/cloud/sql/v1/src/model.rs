@@ -4505,7 +4505,7 @@ pub struct SqlInstancesCloneRequest {
     /// not include the project ID.
     pub instance: std::string::String,
 
-    /// Required. Project ID of the source as well as the clone Cloud SQL instance.
+    /// Required. Project ID of the source Cloud SQL instance.
     pub project: std::string::String,
 
     #[allow(missing_docs)]
@@ -10366,6 +10366,18 @@ pub struct PointInTimeRestoreContext {
     /// instance. This value cannot be the same as the preferred_zone field.
     pub preferred_secondary_zone: std::option::Option<std::string::String>,
 
+    /// Optional. Specifies the instance settings that will be overridden from the
+    /// source instance. This field is only applicable for cross project PITRs.
+    pub target_instance_settings: std::option::Option<crate::model::DatabaseInstance>,
+
+    /// Optional. Specifies the instance settings that will be cleared from the
+    /// source instance. This field is only applicable for cross project PITRs.
+    pub target_instance_clear_settings_field_names: std::vec::Vec<std::string::String>,
+
+    /// Optional. The region of the target instance where the datasource will be
+    /// restored. For example: "us-central1".
+    pub region: std::option::Option<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10591,6 +10603,87 @@ impl PointInTimeRestoreContext {
         T: std::convert::Into<std::string::String>,
     {
         self.preferred_secondary_zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_instance_settings][crate::model::PointInTimeRestoreContext::target_instance_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PointInTimeRestoreContext;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = PointInTimeRestoreContext::new().set_target_instance_settings(DatabaseInstance::default()/* use setters */);
+    /// ```
+    pub fn set_target_instance_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseInstance>,
+    {
+        self.target_instance_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_instance_settings][crate::model::PointInTimeRestoreContext::target_instance_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PointInTimeRestoreContext;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = PointInTimeRestoreContext::new().set_or_clear_target_instance_settings(Some(DatabaseInstance::default()/* use setters */));
+    /// let x = PointInTimeRestoreContext::new().set_or_clear_target_instance_settings(None::<DatabaseInstance>);
+    /// ```
+    pub fn set_or_clear_target_instance_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseInstance>,
+    {
+        self.target_instance_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_instance_clear_settings_field_names][crate::model::PointInTimeRestoreContext::target_instance_clear_settings_field_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PointInTimeRestoreContext;
+    /// let x = PointInTimeRestoreContext::new().set_target_instance_clear_settings_field_names(["a", "b", "c"]);
+    /// ```
+    pub fn set_target_instance_clear_settings_field_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_instance_clear_settings_field_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [region][crate::model::PointInTimeRestoreContext::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PointInTimeRestoreContext;
+    /// let x = PointInTimeRestoreContext::new().set_region("example");
+    /// ```
+    pub fn set_region<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [region][crate::model::PointInTimeRestoreContext::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PointInTimeRestoreContext;
+    /// let x = PointInTimeRestoreContext::new().set_or_clear_region(Some("example"));
+    /// let x = PointInTimeRestoreContext::new().set_or_clear_region(None::<String>);
+    /// ```
+    pub fn set_or_clear_region<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = v.map(|x| x.into());
         self
     }
 }
@@ -16175,7 +16268,7 @@ pub mod execute_sql_payload {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum UserPassword {
-        /// Optional. When set to true, the API caller identity associated with the
+        /// Optional. When set to `true`, the API caller identity associated with the
         /// request is used for database authentication. The API caller must be an
         /// IAM user in the database.
         AutoIamAuthn(bool),
@@ -22853,6 +22946,22 @@ pub struct PscConfig {
     /// format: projects/PROJECT/regions/REGION/networkAttachments/ID
     pub network_attachment_uri: std::string::String,
 
+    /// Optional. Indicates whether PSC DNS automation is enabled for this
+    /// instance. When enabled, Cloud SQL provisions a universal DNS record across
+    /// all networks configured with Private Service Connect (PSC)
+    /// auto-connections. This will default to true for new instances when Private
+    /// Service Connect is enabled.
+    pub psc_auto_dns_enabled: std::option::Option<bool>,
+
+    /// Optional. Indicates whether PSC write endpoint DNS automation is enabled
+    /// for this instance. When enabled, Cloud SQL provisions a universal global
+    /// DNS record across all networks configured with Private Service Connect
+    /// (PSC) auto-connections that always points to the cluster primary instance.
+    /// This feature is only supported for Enterprise Plus edition.
+    /// This will default to true for new Enterprise Plus instances when
+    /// `psc_auto_dns_enabled` is enabled.
+    pub psc_write_endpoint_dns_enabled: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -22946,6 +23055,71 @@ impl PscConfig {
         self.network_attachment_uri = v.into();
         self
     }
+
+    /// Sets the value of [psc_auto_dns_enabled][crate::model::PscConfig::psc_auto_dns_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_psc_auto_dns_enabled(true);
+    /// ```
+    pub fn set_psc_auto_dns_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.psc_auto_dns_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [psc_auto_dns_enabled][crate::model::PscConfig::psc_auto_dns_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_or_clear_psc_auto_dns_enabled(Some(false));
+    /// let x = PscConfig::new().set_or_clear_psc_auto_dns_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_psc_auto_dns_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.psc_auto_dns_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [psc_write_endpoint_dns_enabled][crate::model::PscConfig::psc_write_endpoint_dns_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_psc_write_endpoint_dns_enabled(true);
+    /// ```
+    pub fn set_psc_write_endpoint_dns_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.psc_write_endpoint_dns_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [psc_write_endpoint_dns_enabled][crate::model::PscConfig::psc_write_endpoint_dns_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_or_clear_psc_write_endpoint_dns_enabled(Some(false));
+    /// let x = PscConfig::new().set_or_clear_psc_write_endpoint_dns_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_psc_write_endpoint_dns_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.psc_write_endpoint_dns_enabled = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for PscConfig {
@@ -22962,7 +23136,7 @@ pub struct PscAutoConnectionConfig {
     /// Optional. This is the project ID of consumer service project of this
     /// consumer endpoint.
     ///
-    /// Optional. This is only applicable if consumer_network is a shared vpc
+    /// This is only applicable if `consumer_network` is a shared VPC
     /// network.
     pub consumer_project: std::string::String,
 
@@ -24914,6 +25088,8 @@ pub mod operation {
         RepairReadPool,
         /// Creates a Cloud SQL read pool instance.
         CreateReadPool,
+        /// Pre-checks the major version upgrade operation.
+        PreCheckMajorVersionUpgrade,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SqlOperationType::value] or
@@ -24988,6 +25164,7 @@ pub mod operation {
                 Self::EnhancedBackup => std::option::Option::Some(51),
                 Self::RepairReadPool => std::option::Option::Some(52),
                 Self::CreateReadPool => std::option::Option::Some(53),
+                Self::PreCheckMajorVersionUpgrade => std::option::Option::Some(54),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -25052,6 +25229,9 @@ pub mod operation {
                 Self::EnhancedBackup => std::option::Option::Some("ENHANCED_BACKUP"),
                 Self::RepairReadPool => std::option::Option::Some("REPAIR_READ_POOL"),
                 Self::CreateReadPool => std::option::Option::Some("CREATE_READ_POOL"),
+                Self::PreCheckMajorVersionUpgrade => {
+                    std::option::Option::Some("PRE_CHECK_MAJOR_VERSION_UPGRADE")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -25125,6 +25305,7 @@ pub mod operation {
                 51 => Self::EnhancedBackup,
                 52 => Self::RepairReadPool,
                 53 => Self::CreateReadPool,
+                54 => Self::PreCheckMajorVersionUpgrade,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -25188,6 +25369,7 @@ pub mod operation {
                 "ENHANCED_BACKUP" => Self::EnhancedBackup,
                 "REPAIR_READ_POOL" => Self::RepairReadPool,
                 "CREATE_READ_POOL" => Self::CreateReadPool,
+                "PRE_CHECK_MAJOR_VERSION_UPGRADE" => Self::PreCheckMajorVersionUpgrade,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -25253,6 +25435,7 @@ pub mod operation {
                 Self::EnhancedBackup => serializer.serialize_i32(51),
                 Self::RepairReadPool => serializer.serialize_i32(52),
                 Self::CreateReadPool => serializer.serialize_i32(53),
+                Self::PreCheckMajorVersionUpgrade => serializer.serialize_i32(54),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -26247,6 +26430,10 @@ pub struct Settings {
 
     /// Optional. The read pool auto-scale configuration for the instance.
     pub read_pool_auto_scale_config: std::option::Option<crate::model::ReadPoolAutoScaleConfig>,
+
+    /// Optional. Whether the replica is in accelerated mode. This feature is in
+    /// private preview and requires allowlisting to take effect.
+    pub accelerated_replica_mode: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Cloud SQL for MySQL auto-upgrade configuration. When this
     /// parameter is set to true, auto-upgrade is enabled for MySQL 8.0 minor
@@ -27391,6 +27578,39 @@ impl Settings {
         self
     }
 
+    /// Sets the value of [accelerated_replica_mode][crate::model::Settings::accelerated_replica_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_accelerated_replica_mode(BoolValue::default()/* use setters */);
+    /// ```
+    pub fn set_accelerated_replica_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.accelerated_replica_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [accelerated_replica_mode][crate::model::Settings::accelerated_replica_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_accelerated_replica_mode(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_accelerated_replica_mode(None::<BoolValue>);
+    /// ```
+    pub fn set_or_clear_accelerated_replica_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.accelerated_replica_mode = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
     ///
     /// # Example
@@ -28076,30 +28296,31 @@ pub mod settings {
     }
 }
 
-/// Performance Capture configuration.
+/// Performance capture configuration.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PerformanceCaptureConfig {
-    /// Optional. Enable or disable the Performance Capture feature.
+    /// Optional. Enables or disables the performance capture feature.
     pub enabled: std::option::Option<bool>,
 
-    /// Optional. The time interval in seconds between any two probes.
+    /// Optional. Specifies the interval in seconds between consecutive probes that
+    /// check if any trigger condition thresholds have been reached.
     pub probing_interval_seconds: std::option::Option<i32>,
 
-    /// Optional. The minimum number of consecutive readings above threshold that
-    /// triggers instance state capture.
+    /// Optional. Specifies the minimum number of consecutive probe threshold that
+    /// triggers performance capture.
     pub probe_threshold: std::option::Option<i32>,
 
-    /// Optional. The minimum number of server threads running to trigger the
-    /// capture on primary.
+    /// Optional. Specifies the minimum number of MySQL `Threads_running` to
+    /// trigger the performance capture on the primary instance.
     pub running_threads_threshold: std::option::Option<i32>,
 
-    /// Optional. The minimum number of seconds replica must be lagging behind
-    /// primary to trigger capture on replica.
+    /// Optional. Specifies the minimum number of seconds replica must be lagging
+    /// behind primary instance to trigger the performance capture on replica.
     pub seconds_behind_source_threshold: std::option::Option<i32>,
 
-    /// Optional. The amount of time in seconds that a transaction needs to have
-    /// been open before the watcher starts recording it.
+    /// Optional. Specifies the amount of time in seconds that a transaction needs
+    /// to have been open before the watcher starts recording it.
     pub transaction_duration_threshold: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -33697,6 +33918,8 @@ pub enum SqlSuspensionReason {
     OperationalIssue,
     /// The KMS key used by the instance is either revoked or denied access to
     KmsKeyIssue,
+    /// The project is suspended due to abuse detected by Ares.
+    ProjectAbuse,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [SqlSuspensionReason::value] or
@@ -33724,6 +33947,7 @@ impl SqlSuspensionReason {
             Self::LegalIssue => std::option::Option::Some(3),
             Self::OperationalIssue => std::option::Option::Some(4),
             Self::KmsKeyIssue => std::option::Option::Some(5),
+            Self::ProjectAbuse => std::option::Option::Some(8),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -33739,6 +33963,7 @@ impl SqlSuspensionReason {
             Self::LegalIssue => std::option::Option::Some("LEGAL_ISSUE"),
             Self::OperationalIssue => std::option::Option::Some("OPERATIONAL_ISSUE"),
             Self::KmsKeyIssue => std::option::Option::Some("KMS_KEY_ISSUE"),
+            Self::ProjectAbuse => std::option::Option::Some("PROJECT_ABUSE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -33765,6 +33990,7 @@ impl std::convert::From<i32> for SqlSuspensionReason {
             3 => Self::LegalIssue,
             4 => Self::OperationalIssue,
             5 => Self::KmsKeyIssue,
+            8 => Self::ProjectAbuse,
             _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -33781,6 +34007,7 @@ impl std::convert::From<&str> for SqlSuspensionReason {
             "LEGAL_ISSUE" => Self::LegalIssue,
             "OPERATIONAL_ISSUE" => Self::OperationalIssue,
             "KMS_KEY_ISSUE" => Self::KmsKeyIssue,
+            "PROJECT_ABUSE" => Self::ProjectAbuse,
             _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -33799,6 +34026,7 @@ impl serde::ser::Serialize for SqlSuspensionReason {
             Self::LegalIssue => serializer.serialize_i32(3),
             Self::OperationalIssue => serializer.serialize_i32(4),
             Self::KmsKeyIssue => serializer.serialize_i32(5),
+            Self::ProjectAbuse => serializer.serialize_i32(8),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -34660,6 +34888,8 @@ pub enum SqlDatabaseVersion {
     Postgres17,
     /// The database version is PostgreSQL 18.
     Postgres18,
+    /// The database version is PostgreSQL 19.
+    Postgres19,
     /// The database version is SQL Server 2019 Standard.
     Sqlserver2019Standard,
     /// The database version is SQL Server 2019 Enterprise.
@@ -34676,6 +34906,12 @@ pub enum SqlDatabaseVersion {
     Sqlserver2022Express,
     /// The database version is SQL Server 2022 Web.
     Sqlserver2022Web,
+    /// The database version is SQL Server 2025 Standard.
+    Sqlserver2025Standard,
+    /// The database version is SQL Server 2025 Enterprise.
+    Sqlserver2025Enterprise,
+    /// The database version is SQL Server 2025 Express.
+    Sqlserver2025Express,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [SqlDatabaseVersion::value] or
@@ -34741,6 +34977,7 @@ impl SqlDatabaseVersion {
             Self::Postgres16 => std::option::Option::Some(272),
             Self::Postgres17 => std::option::Option::Some(408),
             Self::Postgres18 => std::option::Option::Some(557),
+            Self::Postgres19 => std::option::Option::Some(684),
             Self::Sqlserver2019Standard => std::option::Option::Some(26),
             Self::Sqlserver2019Enterprise => std::option::Option::Some(27),
             Self::Sqlserver2019Express => std::option::Option::Some(28),
@@ -34749,6 +34986,9 @@ impl SqlDatabaseVersion {
             Self::Sqlserver2022Enterprise => std::option::Option::Some(200),
             Self::Sqlserver2022Express => std::option::Option::Some(201),
             Self::Sqlserver2022Web => std::option::Option::Some(202),
+            Self::Sqlserver2025Standard => std::option::Option::Some(549),
+            Self::Sqlserver2025Enterprise => std::option::Option::Some(550),
+            Self::Sqlserver2025Express => std::option::Option::Some(551),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -34802,6 +35042,7 @@ impl SqlDatabaseVersion {
             Self::Postgres16 => std::option::Option::Some("POSTGRES_16"),
             Self::Postgres17 => std::option::Option::Some("POSTGRES_17"),
             Self::Postgres18 => std::option::Option::Some("POSTGRES_18"),
+            Self::Postgres19 => std::option::Option::Some("POSTGRES_19"),
             Self::Sqlserver2019Standard => std::option::Option::Some("SQLSERVER_2019_STANDARD"),
             Self::Sqlserver2019Enterprise => std::option::Option::Some("SQLSERVER_2019_ENTERPRISE"),
             Self::Sqlserver2019Express => std::option::Option::Some("SQLSERVER_2019_EXPRESS"),
@@ -34810,6 +35051,9 @@ impl SqlDatabaseVersion {
             Self::Sqlserver2022Enterprise => std::option::Option::Some("SQLSERVER_2022_ENTERPRISE"),
             Self::Sqlserver2022Express => std::option::Option::Some("SQLSERVER_2022_EXPRESS"),
             Self::Sqlserver2022Web => std::option::Option::Some("SQLSERVER_2022_WEB"),
+            Self::Sqlserver2025Standard => std::option::Option::Some("SQLSERVER_2025_STANDARD"),
+            Self::Sqlserver2025Enterprise => std::option::Option::Some("SQLSERVER_2025_ENTERPRISE"),
+            Self::Sqlserver2025Express => std::option::Option::Some("SQLSERVER_2025_EXPRESS"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -34876,12 +35120,16 @@ impl std::convert::From<i32> for SqlDatabaseVersion {
             408 => Self::Postgres17,
             488 => Self::Mysql8041,
             489 => Self::Mysql8042,
+            549 => Self::Sqlserver2025Standard,
+            550 => Self::Sqlserver2025Enterprise,
+            551 => Self::Sqlserver2025Express,
             553 => Self::Mysql8043,
             554 => Self::Mysql8044,
             555 => Self::Mysql8045,
             556 => Self::Mysql8046,
             557 => Self::Postgres18,
             654 => Self::Mysql97,
+            684 => Self::Postgres19,
             _ => Self::UnknownValue(sql_database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -34936,6 +35184,7 @@ impl std::convert::From<&str> for SqlDatabaseVersion {
             "POSTGRES_16" => Self::Postgres16,
             "POSTGRES_17" => Self::Postgres17,
             "POSTGRES_18" => Self::Postgres18,
+            "POSTGRES_19" => Self::Postgres19,
             "SQLSERVER_2019_STANDARD" => Self::Sqlserver2019Standard,
             "SQLSERVER_2019_ENTERPRISE" => Self::Sqlserver2019Enterprise,
             "SQLSERVER_2019_EXPRESS" => Self::Sqlserver2019Express,
@@ -34944,6 +35193,9 @@ impl std::convert::From<&str> for SqlDatabaseVersion {
             "SQLSERVER_2022_ENTERPRISE" => Self::Sqlserver2022Enterprise,
             "SQLSERVER_2022_EXPRESS" => Self::Sqlserver2022Express,
             "SQLSERVER_2022_WEB" => Self::Sqlserver2022Web,
+            "SQLSERVER_2025_STANDARD" => Self::Sqlserver2025Standard,
+            "SQLSERVER_2025_ENTERPRISE" => Self::Sqlserver2025Enterprise,
+            "SQLSERVER_2025_EXPRESS" => Self::Sqlserver2025Express,
             _ => Self::UnknownValue(sql_database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -35000,6 +35252,7 @@ impl serde::ser::Serialize for SqlDatabaseVersion {
             Self::Postgres16 => serializer.serialize_i32(272),
             Self::Postgres17 => serializer.serialize_i32(408),
             Self::Postgres18 => serializer.serialize_i32(557),
+            Self::Postgres19 => serializer.serialize_i32(684),
             Self::Sqlserver2019Standard => serializer.serialize_i32(26),
             Self::Sqlserver2019Enterprise => serializer.serialize_i32(27),
             Self::Sqlserver2019Express => serializer.serialize_i32(28),
@@ -35008,6 +35261,9 @@ impl serde::ser::Serialize for SqlDatabaseVersion {
             Self::Sqlserver2022Enterprise => serializer.serialize_i32(200),
             Self::Sqlserver2022Express => serializer.serialize_i32(201),
             Self::Sqlserver2022Web => serializer.serialize_i32(202),
+            Self::Sqlserver2025Standard => serializer.serialize_i32(549),
+            Self::Sqlserver2025Enterprise => serializer.serialize_i32(550),
+            Self::Sqlserver2025Express => serializer.serialize_i32(551),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

@@ -27,6 +27,7 @@ echo "RUSTDOCFLAGS in test-unstable-cfg: ${RUSTDOCFLAGS:-}"
 crates=(
     "google-cloud-gax"
     "google-cloud-gax-internal"
+    "google-cloud-lro"
     "google-cloud-test-utils"
 )
 for crate in "${crates[@]}"; do

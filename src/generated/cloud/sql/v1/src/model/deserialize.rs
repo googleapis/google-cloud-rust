@@ -10304,6 +10304,9 @@ impl<'de> serde::de::Deserialize<'de> for super::PointInTimeRestoreContext {
             __allocated_ip_range,
             __preferred_zone,
             __preferred_secondary_zone,
+            __target_instance_settings,
+            __target_instance_clear_settings_field_names,
+            __region,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10339,6 +10342,17 @@ impl<'de> serde::de::Deserialize<'de> for super::PointInTimeRestoreContext {
                             "preferred_secondary_zone" => {
                                 Ok(__FieldTag::__preferred_secondary_zone)
                             }
+                            "targetInstanceSettings" => Ok(__FieldTag::__target_instance_settings),
+                            "target_instance_settings" => {
+                                Ok(__FieldTag::__target_instance_settings)
+                            }
+                            "targetInstanceClearSettingsFieldNames" => {
+                                Ok(__FieldTag::__target_instance_clear_settings_field_names)
+                            }
+                            "target_instance_clear_settings_field_names" => {
+                                Ok(__FieldTag::__target_instance_clear_settings_field_names)
+                            }
+                            "region" => Ok(__FieldTag::__region),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10425,6 +10439,35 @@ impl<'de> serde::de::Deserialize<'de> for super::PointInTimeRestoreContext {
                                 ));
                             }
                             result.preferred_secondary_zone =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__target_instance_settings => {
+                            if !fields.insert(__FieldTag::__target_instance_settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_instance_settings",
+                                ));
+                            }
+                            result.target_instance_settings = map
+                                .next_value::<std::option::Option<crate::model::DatabaseInstance>>(
+                                )?;
+                        }
+                        __FieldTag::__target_instance_clear_settings_field_names => {
+                            if !fields
+                                .insert(__FieldTag::__target_instance_clear_settings_field_names)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_instance_clear_settings_field_names",
+                                ));
+                            }
+                            result.target_instance_clear_settings_field_names = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -19492,6 +19535,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PscConfig {
             __allowed_consumer_projects,
             __psc_auto_connections,
             __network_attachment_uri,
+            __psc_auto_dns_enabled,
+            __psc_write_endpoint_dns_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19524,6 +19569,14 @@ impl<'de> serde::de::Deserialize<'de> for super::PscConfig {
                             "psc_auto_connections" => Ok(__FieldTag::__psc_auto_connections),
                             "networkAttachmentUri" => Ok(__FieldTag::__network_attachment_uri),
                             "network_attachment_uri" => Ok(__FieldTag::__network_attachment_uri),
+                            "pscAutoDnsEnabled" => Ok(__FieldTag::__psc_auto_dns_enabled),
+                            "psc_auto_dns_enabled" => Ok(__FieldTag::__psc_auto_dns_enabled),
+                            "pscWriteEndpointDnsEnabled" => {
+                                Ok(__FieldTag::__psc_write_endpoint_dns_enabled)
+                            }
+                            "psc_write_endpoint_dns_enabled" => {
+                                Ok(__FieldTag::__psc_write_endpoint_dns_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -19586,6 +19639,24 @@ impl<'de> serde::de::Deserialize<'de> for super::PscConfig {
                             result.network_attachment_uri = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__psc_auto_dns_enabled => {
+                            if !fields.insert(__FieldTag::__psc_auto_dns_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for psc_auto_dns_enabled",
+                                ));
+                            }
+                            result.psc_auto_dns_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__psc_write_endpoint_dns_enabled => {
+                            if !fields.insert(__FieldTag::__psc_write_endpoint_dns_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for psc_write_endpoint_dns_enabled",
+                                ));
+                            }
+                            result.psc_write_endpoint_dns_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -21802,6 +21873,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Settings {
             __connection_pool_config,
             __final_backup_config,
             __read_pool_auto_scale_config,
+            __accelerated_replica_mode,
             __auto_upgrade_enabled,
             __entraid_config,
             __data_api_access,
@@ -21957,6 +22029,10 @@ impl<'de> serde::de::Deserialize<'de> for super::Settings {
                             }
                             "read_pool_auto_scale_config" => {
                                 Ok(__FieldTag::__read_pool_auto_scale_config)
+                            }
+                            "acceleratedReplicaMode" => Ok(__FieldTag::__accelerated_replica_mode),
+                            "accelerated_replica_mode" => {
+                                Ok(__FieldTag::__accelerated_replica_mode)
                             }
                             "autoUpgradeEnabled" => Ok(__FieldTag::__auto_upgrade_enabled),
                             "auto_upgrade_enabled" => Ok(__FieldTag::__auto_upgrade_enabled),
@@ -22447,6 +22523,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Settings {
                             }
                             result.read_pool_auto_scale_config = map.next_value::<std::option::Option<crate::model::ReadPoolAutoScaleConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__accelerated_replica_mode => {
+                            if !fields.insert(__FieldTag::__accelerated_replica_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for accelerated_replica_mode",
+                                ));
+                            }
+                            result.accelerated_replica_mode =
+                                map.next_value::<std::option::Option<wkt::BoolValue>>()?;
                         }
                         __FieldTag::__auto_upgrade_enabled => {
                             if !fields.insert(__FieldTag::__auto_upgrade_enabled) {

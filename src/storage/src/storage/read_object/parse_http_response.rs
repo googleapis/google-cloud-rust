@@ -152,7 +152,7 @@ mod tests {
             ),
         );
 
-        let endpoint = server.url("");
+        let endpoint = server.url("/");
         let client = Storage::builder()
             .with_endpoint(endpoint.to_string())
             .with_credentials(Anonymous::new().build())

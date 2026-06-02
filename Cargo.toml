@@ -88,6 +88,7 @@ members = [
   "src/generated/apps/script/gtype",
   "src/generated/apps/script/sheets",
   "src/generated/apps/script/slides",
+  "src/generated/backstory",
   "src/generated/bigtable/admin/v2",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
@@ -346,6 +347,7 @@ members = [
   "tests/spanner",
   "tests/storage",
   "tools/check-copyright",
+  "tools/check-versions",
   "tools/minimal-version-helper",
 ]
 
@@ -357,7 +359,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.87.0"
+rust-version = "1.88.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take
@@ -383,7 +385,7 @@ hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
 http-body             = { default-features = false, version = "1" }
 humantime             = { default-features = false, version = "2" }
-hyper                 = { default-features = false, version = "1.6" }
+hyper                 = { default-features = false, version = "1.10" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
 markdown              = { default-features = false, version = "1.0" }
 opentelemetry         = { default-features = false, version = "0.32" }
@@ -401,7 +403,8 @@ rustls                = { default-features = false, version = "0.23.38" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
-serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
+serde_json            = { default-features = false, version = "1.0.150", features = ["std"] }
+serde_yaml            = { default-features = false, version = "0.9" }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }
@@ -426,7 +429,7 @@ prost       = { default-features = false, version = "0.14", features = ["std"] }
 prost-build = { default-features = false, version = "0.14" }
 prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
-reqwest = { default-features = false, version = "0.13.3" }
+reqwest = { default-features = false, version = "0.13.4" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
 tonic             = { default-features = false, version = "0.14.5", features = ["tls-native-roots"] }
 tonic-prost       = { default-features = false, version = "0.14.5" }
@@ -510,25 +513,27 @@ google-cloud-oslogin-common                     = { default-features = false, ve
 google-cloud-recommender-v1                     = { default-features = false, version = "1.9.0", path = "src/generated/cloud/recommender/v1" }
 google-cloud-rpc-context                        = { default-features = false, version = "1.5.0", path = "src/generated/rpc/context" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
-google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }
-google-cloud-secretmanager-v1        = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1           = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1              = { default-features = false, path = "src/generated/cloud/compute/v1" }
-google-cloud-storage                 = { default-features = false, path = "src/storage" }
-google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
-google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
-google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
-google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
-google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
-google-cloud-firestore               = { default-features = false, path = "src/firestore" }
-google-cloud-monitoring-v3           = { default-features = false, path = "src/generated/monitoring/v3" }
-google-cloud-showcase-v1beta1        = { default-features = false, path = "src/generated/showcase" }
-google-cloud-telcoautomation-v1      = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
-google-cloud-trace-v1                = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
-google-cloud-workflows-v1            = { default-features = false, path = "src/generated/cloud/workflows/v1" }
-google-cloud-workflows-executions-v1 = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
-secretmanager-openapi-v1             = { default-features = false, path = "src/generated/openapi-validation" }
+google-cloud-speech-v2                 = { default-features = false, path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1          = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
+google-cloud-aiplatform-v1             = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-compute-v1                = { default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-storage                   = { default-features = false, path = "src/storage" }
+google-cloud-pubsub                    = { default-features = false, path = "src/pubsub" }
+google-cloud-spanner                   = { default-features = false, path = "src/spanner" }
+google-cloud-spanner-admin-database-v1 = { default-features = false, path = "src/generated/spanner/admin/database/v1" }
+google-cloud-spanner-admin-instance-v1 = { default-features = false, path = "src/generated/spanner/admin/instance/v1" }
+google-cloud-bigquery-v2               = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
+google-cloud-iam-credentials-v1        = { default-features = false, path = "src/generated/iam/credentials/v1" }
+google-cloud-language-v2               = { default-features = false, path = "src/generated/cloud/language/v2" }
+google-cloud-dns-v1                    = { default-features = false, path = "src/generated/cloud/dns/v1" }
+google-cloud-firestore                 = { default-features = false, path = "src/firestore" }
+google-cloud-monitoring-v3             = { default-features = false, path = "src/generated/monitoring/v3" }
+google-cloud-showcase-v1beta1          = { default-features = false, path = "src/generated/showcase" }
+google-cloud-telcoautomation-v1        = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
+google-cloud-trace-v1                  = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
+google-cloud-workflows-v1              = { default-features = false, path = "src/generated/cloud/workflows/v1" }
+google-cloud-workflows-executions-v1   = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
+secretmanager-openapi-v1               = { default-features = false, path = "src/generated/openapi-validation" }
 # Local test packages (never add a version)
 google-cloud-test-macros  = { path = "src/test-macros" }
 google-cloud-test-utils   = { default-features = false, path = "src/test-utils" }
