@@ -93,6 +93,16 @@ async fn wait_for_next_token(
     token_result.expect("There should always be a token or error in the channel after changed()")
 }
 
+fn current_expiration(
+    tx_token: &watch::Sender<Option<Result<(Token, EntityTag)>>>,
+) -> Option<Instant> {
+    tx_token
+        .borrow()
+        .as_ref()
+        .and_then(|r| r.as_ref().ok())
+        .and_then(|(token, _)| token.expires_at)
+}
+
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
@@ -100,56 +110,71 @@ async fn refresh_task<T>(
     T: TokenProvider + Send + Sync + 'static,
 {
     loop {
-        let token_result = token_provider.token().await;
-        let expiry = token_result.as_ref().map(|t| t.expires_at);
-        let tagged = token_result.clone().map(|token| {
-            let entity_tag = EntityTag::new();
-            (token, entity_tag)
-        });
+        let (expires_at, tagged) = match token_provider.token().await {
+            // The easy case, we got a new valid token, that is handled in the body of the loop. The
+            // errors are handled here.
+            Ok(token) => (token.expires_at, Ok((token, EntityTag::new()))),
+            Err(e) if !e.is_transient() => {
+                // This is a permanent error. The loop needs to terminate, but first wait until the
+                // current token expires (if applicable) before setting the result.
+                //
+                // If the error was misclassified as permanent, that is a bug in the retry policy
+                // and better fixed there than implemented as a workaround here.
+                if let Some(deadline) = current_expiration(&tx_token) {
+                    tokio::time::sleep_until(deadline).await;
+                }
+                let _ = tx_token.send(Some(Err(e)));
+                return;
+            }
+            Err(e) => {
+                // On transient errors, even if the retry policy is exhausted, we want to continue
+                // running this retry loop.
+                //
+                // This loop cannot stop because that may leave the credentials in an unrecoverable
+                // state (see #4541). We considered using a notification to wake up the next time a
+                // caller wants to retrieve a token, but that seemed prone to deadlocks. We may
+                // implement this as an improvement (#4593).
+                let short = Instant::now() + SHORT_REFRESH_SLACK;
+                // We need to sleep until the current token expires or the next short refresh slack,
+                // whichever happens first.
+                //
+                // We need to publish the error if the current token expired, or there was no prior
+                // token.
+                let (deadline, publish) = match current_expiration(&tx_token) {
+                    None => (short, true),
+                    Some(d) if d < short => (d, d >= Instant::now()),
+                    Some(d) => (short, d >= Instant::now()),
+                };
+                tokio::time::sleep_until(deadline).await;
+                if publish {
+                    let _ = tx_token.send(Some(Err(e)));
+                }
+                continue;
+            }
+        };
 
         let _ = tx_token.send(Some(tagged));
 
-        match expiry {
-            Ok(Some(expiry)) => {
-                let time_until_expiry = expiry.checked_duration_since(Instant::now());
+        let Some(expiry) = expires_at else {
+            // If there is no expiry, the token is valid forever, so no need to refresh
+            // TODO(#1553): Validate that all auth backends provide expiry and make expiry not optional.
+            break;
+        };
 
-                match time_until_expiry {
-                    None => {
-                        // We were given a token that is expired, or expires in less than 10 seconds.
-                        // We will immediately restart the loop, and fetch a new token.
-                    }
-                    Some(time_until_expiry) => {
-                        if time_until_expiry > NORMAL_REFRESH_SLACK {
-                            sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
-                        } else if time_until_expiry > SHORT_REFRESH_SLACK {
-                            // If expiry is less than 4 mins, try to refresh every 10 seconds
-                            // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
-                            sleep(SHORT_REFRESH_SLACK).await;
-                        }
-                    }
-                }
+        let time_until_expiry = expiry.checked_duration_since(Instant::now());
+        match time_until_expiry {
+            None => {
+                // We were given a token that is expired, or expires in less than 10 seconds.
+                // We will immediately restart the loop, and fetch a new token.
             }
-            Ok(None) => {
-                // If there is no expiry, the token is valid forever, so no need to refresh
-                // TODO(#1553): Validate that all auth backends provide expiry and make expiry not optional.
-                break;
-            }
-            Err(err) => {
-                // On transient errors, even if the retry policy is exhausted,
-                // we want to continue running this retry loop.
-                // This loop cannot stop because that may leave the
-                // credentials in an unrecoverable state (see #4541).
-                // We considered using a notification to wake up the next time
-                // a caller wants to retrieve a token, but that seemed prone to
-                // deadlocks. We may implement this as an improvement (#4593).
-                // On permanent errors, then there is really no point in trying
-                // again, by definition of "permanent". If the error was misclassified
-                // as permanent, that is a bug in the retry policy and better fixed
-                // there than implemented as a workaround here.
-                if !err.is_transient() {
-                    break;
+            Some(time_until_expiry) => {
+                if time_until_expiry > NORMAL_REFRESH_SLACK {
+                    sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
+                } else if time_until_expiry > SHORT_REFRESH_SLACK {
+                    // If expiry is less than 4 mins, try to refresh every 10 seconds
+                    // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
+                    sleep(SHORT_REFRESH_SLACK).await;
                 }
-                sleep(SHORT_REFRESH_SLACK).await;
             }
         }
     }
@@ -176,6 +201,10 @@ mod tests {
                 "Expecting token to be present.",
             )),
         }
+    }
+
+    fn retryable_from_str<T: Into<String>>(message: T) -> CredentialsError {
+        CredentialsError::from_msg(true, message)
     }
 
     #[tokio::test]
@@ -403,6 +432,90 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    async fn refresh_permanent_failure_preserves_valid_token() {
+        let now = Instant::now();
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(now + 3 * NORMAL_REFRESH_SLACK),
+            metadata: None,
+        };
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(1).return_once({
+            let c = token.clone();
+            move || Ok(c.clone())
+        });
+        // Refresh at T - NORMAL_REFRESH_SLACK fails with a permatransient error.
+        mock.expect_token()
+            .times(1..)
+            .returning(|| Err(errors::non_retryable_from_str("uh oh")));
+
+        let cache = TokenCache::new(mock);
+        let got = cache.token(Extensions::new()).await;
+        assert!(
+            matches!(
+                got.as_ref(),
+                Ok(CacheableResource::New {
+                    entity_tag: _,
+                    data: t
+                }) if t == &token
+            ),
+            "{got:?}"
+        );
+
+        // Advance past the refresh point. The original token is still valid for ~NORMAL_REFRESH_SLACK.
+        tokio::time::sleep(2 * NORMAL_REFRESH_SLACK + SHORT_REFRESH_SLACK).await;
+        let got = cache.token(Extensions::new()).await;
+        assert!(got.is_ok(), "{got:?}");
+
+        // Advance past the expiration point. The original token cannot work and this should return
+        // the permanent error.
+        tokio::time::sleep(NORMAL_REFRESH_SLACK + SHORT_REFRESH_SLACK).await;
+        let got = cache.token(Extensions::new()).await;
+        assert!(got.is_err(), "{got:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn refresh_transient_failure_preserves_valid_token() {
+        let now = Instant::now();
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(now + 3 * NORMAL_REFRESH_SLACK),
+            metadata: None,
+        };
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(1).return_once({
+            let c = token.clone();
+            move || Ok(c.clone())
+        });
+        // Refresh at T - NORMAL_REFRESH_SLACK fails with a transient error.
+        mock.expect_token()
+            .times(1..)
+            .returning(|| Err(retryable_from_str("try again")));
+
+        let cache = TokenCache::new(mock);
+        let got = cache.token(Extensions::new()).await;
+        assert!(
+            matches!(
+                got.as_ref(),
+                Ok(CacheableResource::New {
+                    entity_tag: _,
+                    data: t
+                }) if t == &token
+            ),
+            "{got:?}"
+        );
+
+        // Advance past the refresh point; the original token is still valid for ~NORMAL_REFRESH_SLACK.
+        tokio::time::sleep(2 * NORMAL_REFRESH_SLACK + SHORT_REFRESH_SLACK).await;
+
+        // This should succeed. The error was transient and the token has not expired.
+        let got = cache.token(Extensions::new()).await;
+        assert!(got.is_ok(), "{got:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
     async fn refresh_task_loop() {
         let now = Instant::now();
 
@@ -610,58 +723,80 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn refresh_task_sleeps_on_transient_error_and_recovers_on_next_loop() -> TestResult {
+        const TEST_INTERVAL: Duration = Duration::from_secs(60);
         let now = Instant::now();
+        // Simulate a token provider that first returns token1, then returns a transient error, and then returns token2.
+        //
+        // The expected behavior is to return token1 until it expires. Then the transient error,
+        // and then token2.
+        let start_returning_error = now + TEST_INTERVAL;
+        let first_token_expires = now + 2 * TEST_INTERVAL;
+        let start_returning_second_token = now + 3 * TEST_INTERVAL;
+        let second_token_expires = now + 4 * TEST_INTERVAL;
 
-        let token = Token {
+        let token1 = Token {
             token: "token-1".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + TOKEN_VALID_DURATION),
+            expires_at: Some(first_token_expires),
+            metadata: None,
+        };
+        let token2 = Token {
+            token: "token-2".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(second_token_expires),
             metadata: None,
         };
 
         let mut mock = MockTokenProvider::new();
-        // 1st request succeeds
-        mock.expect_token()
-            .times(1)
-            .return_once(move || Ok(token.clone()));
-
-        // 2nd request (triggered by refresh loop) fails with transient error
-        mock.expect_token()
-            .times(1)
-            .return_once(|| Err(CredentialsError::from_msg(true, "transient error")));
-
-        let token = Token {
-            token: "token-2".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: Some(now + 2 * TOKEN_VALID_DURATION),
-            metadata: None,
-        };
-
-        // 3rd request (triggered by next loop) succeeds
-        mock.expect_token()
-            .times(1)
-            .return_once(move || Ok(token.clone()));
+        mock.expect_token().times(3..).returning({
+            let t1 = token1.clone();
+            let t2 = token2.clone();
+            move || {
+                if Instant::now() < start_returning_error {
+                    return Ok(t1.clone());
+                }
+                if Instant::now() < start_returning_second_token {
+                    return Err(CredentialsError::from_msg(true, "transient error"));
+                }
+                Ok(t2.clone())
+            }
+        });
 
         let cache = TokenCache::new(mock);
 
-        // fetch an initial token
-        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
-        assert_eq!(actual.token, "token-1");
+        let got = cache.token(Extensions::new()).await;
+        assert!(
+            matches!(got.as_ref(), Ok(CacheableResource::New { data: t, .. }) if t == &token1),
+            "{got:?}"
+        );
 
-        // advance time to force expiration, which wakes up the background task.
-        let sleep = TOKEN_VALID_DURATION.add(Duration::from_secs(10));
-        tokio::time::advance(sleep).await;
+        // Advance time to the point where the token provider starts returning errors.
+        tokio::time::sleep_until(start_returning_error + Duration::from_secs(1)).await;
 
-        let result = cache.token(Extensions::new()).await;
-        assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("transient error"));
+        // The token is not expired yet, so it should suceed.
+        let got = cache.token(Extensions::new()).await;
+        assert!(
+            matches!(got.as_ref(), Ok(CacheableResource::New { data: t, .. }) if t == &token1),
+            "{got:?}"
+        );
 
-        // Wait another SHORT_REFRESH_SLACK + buffer for the background loop to try again and recover
-        tokio::time::advance(SHORT_REFRESH_SLACK.add(Duration::from_secs(10))).await;
-        tokio::task::yield_now().await;
+        // Advance time to the point where the token is expired and the token provider is
+        // still returning errors.
+        tokio::time::sleep_until(first_token_expires + Duration::from_secs(1)).await;
+        let got = cache.token(Extensions::new()).await;
+        assert!(
+            matches!(got.as_ref(), Err(e) if e.is_transient()),
+            "{got:?}"
+        );
 
-        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
-        assert_eq!(actual.token, "token-2");
+        // Advance time to the point where the token is expired and the token provider is
+        // still returning errors.
+        tokio::time::sleep_until(start_returning_second_token + Duration::from_secs(1)).await;
+        let got = cache.token(Extensions::new()).await;
+        assert!(
+            matches!(got.as_ref(), Ok(CacheableResource::New { data: t, .. }) if t == &token2),
+            "{got:?}"
+        );
 
         Ok(())
     }
