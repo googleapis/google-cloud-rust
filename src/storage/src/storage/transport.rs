@@ -18,7 +18,7 @@ use crate::model::{MoveObjectRequest, Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
-use crate::storage::info::{self, INSTRUMENTATION};
+use crate::storage::info::INSTRUMENTATION;
 use crate::storage::move_object::Mover;
 use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
