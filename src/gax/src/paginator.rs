@@ -304,10 +304,10 @@ where
     /// Enable the `unstable-stream` feature to convert this to a [Stream].
     async fn next(&mut self) -> Option<Result<T::PageItem, E>> {
         loop {
-            if let Some(ref mut iter) = self.current_items {
-                if let Some(item) = iter.next() {
-                    return Some(Ok(item));
-                }
+            if let Some(ref mut iter) = self.current_items
+                && let Some(item) = iter.next()
+            {
+                return Some(Ok(item));
             }
 
             let next_page = self.stream.next().await;

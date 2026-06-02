@@ -188,11 +188,13 @@ pub async fn batch_write_partial_failure(db_client: &DatabaseClient) -> Result<(
         while let Some(response) = stream.next().await {
             match response {
                 Ok(resp) => {
-                    if let Some(status) = &resp.status {
-                        if status.code == Code::Aborted as i32 {
-                            aborted = true;
-                            break;
-                        }
+                    if resp
+                        .status
+                        .as_ref()
+                        .is_some_and(|s| s.code == Code::Aborted as i32)
+                    {
+                        aborted = true;
+                        break;
                     }
                     process_batch_write_response(&resp, &mut seen_ok, &mut seen_err);
                 }

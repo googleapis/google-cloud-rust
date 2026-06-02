@@ -52,12 +52,12 @@ impl BatchDmlBuilder {
     /// let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
     /// let batch = BatchDml::builder()
     ///     .add_statement(statement1)
-    ///     .with_request_tag("my-tag")
+    ///     .set_request_tag("my-tag")
     ///     .build();
     /// ```
     ///
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
-    pub fn with_request_tag(mut self, tag: impl Into<String>) -> Self {
+    pub fn set_request_tag(mut self, tag: impl Into<String>) -> Self {
         self.request_options
             .get_or_insert_with(RequestOptions::default)
             .request_tag = tag.into();
@@ -228,7 +228,7 @@ mod tests {
 
         let batch = BatchDml::builder()
             .add_statement(stmt)
-            .with_request_tag("tag1")
+            .set_request_tag("tag1")
             .build();
 
         assert_eq!(batch.statements.len(), 1);

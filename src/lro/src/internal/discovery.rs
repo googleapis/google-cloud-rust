@@ -118,6 +118,14 @@ where
     async fn poll(&mut self) -> Option<PollingResult<O, O>> {
         if let Some(start) = self.start.take() {
             let result = start().await;
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Ok(ref op) = result {
+                if let Some(name) = op.name() {
+                    if let Some(recorder) = crate::internal::LroRecorder::current() {
+                        recorder.record_destination_id(name);
+                    }
+                }
+            }
             let (op, poll) = self::handle_start(result);
             self.operation = op;
             return Some(poll);
@@ -127,6 +135,12 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref next_name) = op {
+                if let Some(recorder) = crate::internal::LroRecorder::current() {
+                    recorder.record_destination_id(next_name);
+                }
+            }
             self.operation = op;
             return Some(poll);
         }
@@ -203,6 +217,35 @@ mod tests {
     use google_cloud_gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
     use std::time::Duration;
 
+    #[cfg(not(google_cloud_unstable_tracing))]
+    pub(crate) struct DummySpan;
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    fn test_span() -> DummySpan {
+        DummySpan
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    pub(crate) trait Instrument: Sized {
+        fn instrument(self, _span: DummySpan) -> Self {
+            self
+        }
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    impl<T> Instrument for T {}
+
+    #[cfg(google_cloud_unstable_tracing)]
+    use tracing::Instrument;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn test_span() -> tracing::Span {
+        tracing::info_span!(
+            "test_span",
+            gcp.resource.destination.id = tracing::field::Empty,
+        )
+    }
+
     #[tokio::test]
     async fn poller_until_done_success() {
         let start = || async move {
@@ -227,6 +270,7 @@ mod tests {
             query,
         )
         .until_done()
+        .instrument(test_span())
         .await;
         assert!(
             matches!(
@@ -274,6 +318,7 @@ mod tests {
             query,
         )
         .until_done()
+        .instrument(test_span())
         .await;
         assert!(
             matches!(
@@ -522,6 +567,93 @@ mod tests {
         }
         fn name(&self) -> Option<&String> {
             self.name.as_ref()
+        }
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_discovery_poller_tracing() {
+        let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
+
+        let start = || async move {
+            let op = TestOperation {
+                name: Some("discovery-operation-123".into()),
+                ..TestOperation::default()
+            };
+            Ok(op)
+        };
+
+        let count = Arc::new(std::sync::Mutex::new(0));
+        let query_count = count.clone();
+        let query = move |_: String| {
+            let mut c = query_count.lock().unwrap();
+            *c += 1;
+            let is_done = *c > 1;
+            async move {
+                if is_done {
+                    let op = TestOperation {
+                        done: true,
+                        value: Some(42),
+                        ..TestOperation::default()
+                    };
+                    Ok(op)
+                } else {
+                    let op = TestOperation {
+                        name: Some("discovery-operation-123".into()),
+                        ..TestOperation::default()
+                    };
+                    Ok(op)
+                }
+            }
+        };
+
+        let mut poller = DiscoveryPoller::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(test_backoff()),
+            start,
+            query,
+        );
+
+        let span = test_span();
+        let poller_ref = &mut poller;
+        let recorder = crate::internal::LroRecorder::new(span.clone());
+        let _ = recorder
+            .scope(async move { poller_ref.poll().instrument(span).await })
+            .await;
+
+        {
+            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "test_span")
+                .unwrap_or_else(|| panic!("missing `test_span` in captured spans: {captured:?}"));
+            assert_eq!(
+                got.attributes
+                    .get("gcp.resource.destination.id")
+                    .and_then(|v| v.as_string()),
+                Some("discovery-operation-123".to_string())
+            );
+        }
+
+        let span = test_span();
+        let poller_ref2 = &mut poller;
+        let recorder2 = crate::internal::LroRecorder::new(span.clone());
+        let _ = recorder2
+            .scope(async move { poller_ref2.poll().instrument(span).await })
+            .await;
+
+        {
+            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "test_span")
+                .unwrap_or_else(|| panic!("missing `test_span` in captured spans: {captured:?}"));
+            assert_eq!(
+                got.attributes
+                    .get("gcp.resource.destination.id")
+                    .and_then(|v| v.as_string()),
+                Some("discovery-operation-123".to_string())
+            );
         }
     }
 }

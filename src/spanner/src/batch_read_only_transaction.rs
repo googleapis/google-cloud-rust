@@ -37,7 +37,7 @@ use std::time::Duration;
 /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let read_only_transaction = db_client.batch_read_only_transaction()
-///     .with_timestamp_bound(TimestampBound::strong())
+///     .set_timestamp_bound(TimestampBound::strong())
 ///     .build()
 ///     .await?;
 /// # Ok(())
@@ -63,13 +63,13 @@ impl BatchReadOnlyTransactionBuilder {
     /// # use google_cloud_spanner::TimestampBound;
     /// # async fn set_bound(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let builder = db_client.batch_read_only_transaction().with_timestamp_bound(TimestampBound::strong());
+    /// let builder = db_client.batch_read_only_transaction().set_timestamp_bound(TimestampBound::strong());
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_timestamp_bound(self, bound: TimestampBound) -> Self {
+    pub fn set_timestamp_bound(self, bound: TimestampBound) -> Self {
         Self {
-            inner: self.inner.with_timestamp_bound(bound),
+            inner: self.inner.set_timestamp_bound(bound),
         }
     }
 
@@ -276,13 +276,13 @@ impl Partition {
     /// # let partitions = transaction.partition_query(Statement::builder("SELECT * FROM Users").build(), PartitionOptions::default()).await?;
     /// // On a worker receiving a partition, execute it with Data Boost:
     /// let mut result_set = partitions[0].clone()
-    ///     .with_data_boost(true)
+    ///     .set_data_boost(true)
     ///     .execute(&db_client)
     ///     .await?;
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_data_boost(mut self, enabled: bool) -> Self {
+    pub fn set_data_boost(mut self, enabled: bool) -> Self {
         match &mut self.inner {
             PartitionedOperation::Query(req) => req.data_boost_enabled = enabled,
             PartitionedOperation::Read(req) => req.data_boost_enabled = enabled,
@@ -747,7 +747,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .batch_read_only_transaction()
-            .with_timestamp_bound(TimestampBound::strong())
+            .set_timestamp_bound(TimestampBound::strong())
             .build()
             .await?;
 
@@ -860,7 +860,7 @@ pub(crate) mod tests {
             gax_options: GaxRequestOptions::default(),
         };
 
-        let _result_set = partition.with_data_boost(true).execute(&db_client).await?;
+        let _result_set = partition.set_data_boost(true).execute(&db_client).await?;
 
         Ok(())
     }
@@ -894,7 +894,7 @@ pub(crate) mod tests {
             gax_options: GaxRequestOptions::default(),
         };
 
-        let _result_set = partition.with_data_boost(true).execute(&db_client).await?;
+        let _result_set = partition.set_data_boost(true).execute(&db_client).await?;
 
         Ok(())
     }

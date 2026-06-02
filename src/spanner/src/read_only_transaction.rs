@@ -39,7 +39,7 @@ use tokio::sync::Notify;
 /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let read_only_tx = db_client.single_use()
-///     .with_timestamp_bound(TimestampBound::strong())
+///     .set_timestamp_bound(TimestampBound::strong())
 ///     .build();
 /// # Ok(())
 /// # }
@@ -65,7 +65,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// # use google_cloud_spanner::TimestampBound;
     /// # async fn set_bound(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let builder = db_client.single_use().with_timestamp_bound(TimestampBound::strong());
+    /// let builder = db_client.single_use().set_timestamp_bound(TimestampBound::strong());
     /// # Ok(())
     /// # }
     /// ```
@@ -73,7 +73,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// which tells Spanner how to choose a timestamp at which to read the data.
     ///
     /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds> for more information.
-    pub fn with_timestamp_bound(mut self, bound: TimestampBound) -> Self {
+    pub fn set_timestamp_bound(mut self, bound: TimestampBound) -> Self {
         self.timestamp_bound = Some(bound);
         self
     }
@@ -226,7 +226,7 @@ pub enum BeginTransactionOption {
 /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let read_only_tx = db_client.read_only_transaction()
-///     .with_timestamp_bound(TimestampBound::strong())
+///     .set_timestamp_bound(TimestampBound::strong())
 ///     .build()
 ///     .await?;
 /// # Ok(())
@@ -365,11 +365,11 @@ impl MultiUseReadOnlyTransactionBuilder {
     /// # use google_cloud_spanner::TimestampBound;
     /// # async fn set_bound(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let builder = db_client.read_only_transaction().with_timestamp_bound(TimestampBound::strong());
+    /// let builder = db_client.read_only_transaction().set_timestamp_bound(TimestampBound::strong());
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_timestamp_bound(mut self, bound: TimestampBound) -> Self {
+    pub fn set_timestamp_bound(mut self, bound: TimestampBound) -> Self {
         self.timestamp_bound = Some(bound);
         self
     }
@@ -842,10 +842,10 @@ impl ReadContextTransactionSelector {
                 let guard = lazy
                     .lock()
                     .map_err(|_| internal_error("transaction state mutex poisoned"))?;
-                if let TransactionState::Started(selector, _) = &*guard {
-                    if let Some(Selector::Id(id)) = &selector.selector {
-                        return Ok(Some(id.clone()));
-                    }
+                if let TransactionState::Started(selector, _) = &*guard
+                    && let Some(Selector::Id(id)) = &selector.selector
+                {
+                    return Ok(Some(id.clone()));
                 }
             }
         }
@@ -1205,7 +1205,7 @@ pub(crate) mod tests {
 
         let tx2 = db_client
             .single_use()
-            .with_timestamp_bound(crate::timestamp_bound::TimestampBound::max_staleness(
+            .set_timestamp_bound(crate::timestamp_bound::TimestampBound::max_staleness(
                 std::time::Duration::from_secs(10),
             ))
             .build();

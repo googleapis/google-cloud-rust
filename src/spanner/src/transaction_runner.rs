@@ -241,7 +241,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_isolation_level(IsolationLevel::Serializable)
+    ///     .set_isolation_level(IsolationLevel::Serializable)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -249,8 +249,8 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/isolation-levels>
-    pub fn with_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
-        self.builder = self.builder.with_isolation_level(isolation_level);
+    pub fn set_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
+        self.builder = self.builder.set_isolation_level(isolation_level);
         self
     }
 
@@ -264,7 +264,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_read_lock_mode(ReadLockMode::Pessimistic)
+    ///     .set_read_lock_mode(ReadLockMode::Pessimistic)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -272,8 +272,8 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/concurrency-control>
-    pub fn with_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
-        self.builder = self.builder.with_read_lock_mode(read_lock_mode);
+    pub fn set_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
+        self.builder = self.builder.set_read_lock_mode(read_lock_mode);
         self
     }
 
@@ -285,7 +285,7 @@ impl TransactionRunnerBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
-    ///     .with_transaction_tag("my-tag")
+    ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -295,8 +295,8 @@ impl TransactionRunnerBuilder {
     /// The tag is applied to all statements executed within the transaction.
     ///
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
-    pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
-        self.builder = self.builder.with_transaction_tag(tag);
+    pub fn set_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+        self.builder = self.builder.set_transaction_tag(tag);
         self
     }
 
@@ -347,14 +347,14 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_commit_priority(Priority::Low)
+    ///     .set_commit_priority(Priority::Low)
     ///     .build()
     ///     .await?;
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_commit_priority(mut self, priority: Priority) -> Self {
-        self.builder = self.builder.with_commit_priority(priority);
+    pub fn set_commit_priority(mut self, priority: Priority) -> Self {
+        self.builder = self.builder.set_commit_priority(priority);
         self
     }
 
@@ -368,7 +368,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_max_commit_delay(Duration::try_from("0.2s").unwrap())
+    ///     .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -380,8 +380,8 @@ impl TransactionRunnerBuilder {
     /// Increasing this value can increase throughput at the expense of latency.
     /// The value must be between 0 and 500 milliseconds. If not set, or set to 0,
     /// Spanner does not delay the commit.
-    pub fn with_max_commit_delay(mut self, delay: Duration) -> Self {
-        self.builder = self.builder.with_max_commit_delay(delay);
+    pub fn set_max_commit_delay(mut self, delay: Duration) -> Self {
+        self.builder = self.builder.set_max_commit_delay(delay);
         self
     }
 
@@ -393,7 +393,7 @@ impl TransactionRunnerBuilder {
     /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
-    ///     .with_exclude_txn_from_change_streams(true)
+    ///     .set_exclude_txn_from_change_streams(true)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -407,8 +407,8 @@ impl TransactionRunnerBuilder {
     ///
     /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
     /// tracking columns modified by this transaction.
-    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
-        self.builder = self.builder.with_exclude_txn_from_change_streams(exclude);
+    pub fn set_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+        self.builder = self.builder.set_exclude_txn_from_change_streams(exclude);
         self
     }
 
@@ -420,7 +420,7 @@ impl TransactionRunnerBuilder {
     /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction()
-    ///     .with_return_commit_stats(true)
+    ///     .set_return_commit_stats(true)
     ///     .build()
     ///     .await?;
     ///
@@ -438,8 +438,8 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/commit-statistics>
-    pub fn with_return_commit_stats(mut self, return_stats: bool) -> Self {
-        self.builder = self.builder.with_return_commit_stats(return_stats);
+    pub fn set_return_commit_stats(mut self, return_stats: bool) -> Self {
+        self.builder = self.builder.set_return_commit_stats(return_stats);
         self
     }
 
@@ -599,7 +599,7 @@ impl TransactionRunner {
                 Err(e) => {
                     if is_aborted(&e) {
                         let current_tx_id = current_tx_id.clone();
-                        self.builder = self.builder.with_previous_transaction_id(current_tx_id);
+                        self.builder = self.builder.set_previous_transaction_id(current_tx_id);
                     }
 
                     backoff_if_aborted(
@@ -846,7 +846,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_return_commit_stats(true)
+            .set_return_commit_stats(true)
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await
@@ -1472,8 +1472,8 @@ mod tests {
 
         // Validate builder chaining safely accepts and compiles options dynamically
         let _runner = TransactionRunnerBuilder::new(db_client)
-            .with_isolation_level(IsolationLevel::Serializable)
-            .with_read_lock_mode(ReadLockMode::Pessimistic)
+            .set_isolation_level(IsolationLevel::Serializable)
+            .set_read_lock_mode(ReadLockMode::Pessimistic)
             .with_retry_policy(retry_policy)
             .build()
             .await
@@ -1710,7 +1710,7 @@ mod tests {
 
         let runner = TransactionRunnerBuilder::new(db_client)
             .with_begin_transaction_option(begin_transaction_option)
-            .with_transaction_tag("my-test-tag")
+            .set_transaction_tag("my-test-tag")
             .build()
             .await?;
 
@@ -1795,7 +1795,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;
@@ -1879,7 +1879,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_max_commit_delay(Duration::try_from("0.2s").unwrap())
+            .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;

@@ -209,7 +209,7 @@ async fn write_internal(
 
     let write_tx = db_client
         .write_only_transaction()
-        .with_transaction_tag("write-only-tag")
+        .set_transaction_tag("write-only-tag")
         .build();
     let commit_ts = match method {
         WriteMethod::WriteAtLeastOnce => write_tx.write_at_least_once(vec![m1, m2]).await?,

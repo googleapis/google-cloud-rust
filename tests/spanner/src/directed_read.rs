@@ -25,7 +25,7 @@ pub async fn read_only_with_directed_read(db_client: &DatabaseClient) -> anyhow:
 
     let read = ReadRequest::builder("AllTypes", vec!["Id"])
         .with_keys(KeySet::all())
-        .with_directed_read_options(dro)
+        .set_directed_read_options(dro)
         .build();
 
     let mut result_set = db_client
@@ -48,7 +48,7 @@ pub async fn read_write_with_directed_read_error(db_client: &DatabaseClient) -> 
 
     let read = ReadRequest::builder("AllTypes", vec!["Id"])
         .with_keys(KeySet::all())
-        .with_directed_read_options(dro)
+        .set_directed_read_options(dro)
         .build();
 
     // Read-write transaction runner

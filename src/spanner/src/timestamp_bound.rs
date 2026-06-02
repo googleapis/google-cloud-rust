@@ -24,7 +24,7 @@ use std::fmt::Debug;
 /// let client = Spanner::builder().build().await.unwrap();
 /// let db = client.database_client("projects/p/instances/i/databases/d").build().await.unwrap();
 ///
-/// let tx = db.single_use().with_timestamp_bound(TimestampBound::strong()).build();
+/// let tx = db.single_use().set_timestamp_bound(TimestampBound::strong()).build();
 /// # Ok(())
 /// # }
 /// ```

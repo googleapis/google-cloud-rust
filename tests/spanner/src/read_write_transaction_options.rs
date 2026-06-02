@@ -48,10 +48,10 @@ pub async fn runner_commit_configurations(db_client: &DatabaseClient) -> anyhow:
 
     let runner = db_client
         .read_write_transaction()
-        .with_commit_priority(Priority::Low)
-        .with_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
-        .with_exclude_txn_from_change_streams(true)
-        .with_return_commit_stats(true)
+        .set_commit_priority(Priority::Low)
+        .set_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
+        .set_exclude_txn_from_change_streams(true)
+        .set_return_commit_stats(true)
         .build()
         .await?;
 

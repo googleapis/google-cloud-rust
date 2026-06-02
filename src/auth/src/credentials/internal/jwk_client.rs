@@ -56,10 +56,10 @@ impl JwkClient {
         let mut cache = self.cache.try_write().map_err(|_e| {
             CredentialsError::from_msg(false, "failed to obtain lock to read certificate cache")
         })?;
-        if let Some(entry) = cache.get(key_id_str) {
-            if entry.expires_at > Instant::now() {
-                return Ok(entry.key.clone());
-            }
+        if let Some(entry) = cache.get(key_id_str)
+            && entry.expires_at > Instant::now()
+        {
+            return Ok(entry.key.clone());
         }
 
         let jwks_url = self.resolve_jwks_url(alg, jwks_url)?;

@@ -566,12 +566,11 @@ impl ResultSet {
         }
 
         let mut values_iter = values.into_iter();
-        if self.chunked {
-            if let Some(last_val) = self.buffered_values.last_mut() {
-                if let Some(first_new) = values_iter.next() {
-                    merge_values(last_val, first_new)?;
-                }
-            }
+        if self.chunked
+            && let Some(last_val) = self.buffered_values.last_mut()
+            && let Some(first_new) = values_iter.next()
+        {
+            merge_values(last_val, first_new)?;
         }
 
         self.buffered_values.extend(values_iter);

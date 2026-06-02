@@ -35,14 +35,14 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("success-tag")
+        .set_transaction_tag("success-tag")
         .build()
         .await?;
     runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
                 .add_param("id", &id)
-                .with_request_tag("select-tag")
+                .set_request_tag("select-tag")
                 .build();
             let mut result_set = transaction.execute_query(statement).await?;
             let row = result_set
@@ -56,7 +56,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
                     .add_param("new_val", &(current_val + 50))
                     .add_param("id", &id)
-                    .with_request_tag("update-tag")
+                    .set_request_tag("update-tag")
                     .build();
             transaction.execute_update(update_statement).await?;
 
@@ -102,14 +102,14 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("rollback-tag")
+        .set_transaction_tag("rollback-tag")
         .build()
         .await?;
     let res: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
                 .add_param("id", &id)
-                .with_request_tag("select-tag")
+                .set_request_tag("select-tag")
                 .build();
             let mut result_set = transaction.execute_query(statement).await?;
             let row = result_set
@@ -123,7 +123,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
                     .add_param("new_val", &(current_val + 50))
                     .add_param("id", &id)
-                    .with_request_tag("update-tag")
+                    .set_request_tag("update-tag")
                     .build();
             transaction.execute_update(update_statement).await?;
 
@@ -201,7 +201,7 @@ pub async fn concurrent_read_write_transaction_retries(
 
             let runner = client
                 .read_write_transaction()
-                .with_transaction_tag("concurrent-tag")
+                .set_transaction_tag("concurrent-tag")
                 .build()
                 .await
                 .expect("Failed to build transaction runner");
@@ -219,7 +219,7 @@ pub async fn concurrent_read_write_transaction_retries(
                         )
                         .add_param("start", &start_id)
                         .add_param("end", &end_id)
-                        .with_request_tag("concurrent-select")
+                        .set_request_tag("concurrent-select")
                         .build()
                     };
                     let mut result_set = transaction.execute_query(statement).await?;
@@ -235,7 +235,7 @@ pub async fn concurrent_read_write_transaction_retries(
                         )
                         .add_param("inc", &50_i64)
                         .add_param("id", &update_id)
-                        .with_request_tag("concurrent-update")
+                        .set_request_tag("concurrent-update")
                         .build()
                     };
                     transaction.execute_update(update_statement).await?;
@@ -297,7 +297,7 @@ pub async fn read_write_transaction_with_mutations(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("mutations-tag")
+        .set_transaction_tag("mutations-tag")
         .build()
         .await?;
     runner
@@ -364,7 +364,7 @@ pub async fn read_write_transaction_mutation_only(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("only-mutations-tag")
+        .set_transaction_tag("only-mutations-tag")
         .build()
         .await?;
     runner
@@ -424,7 +424,7 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("multi-query-tag")
+        .set_transaction_tag("multi-query-tag")
         .build()
         .await?;
     runner
@@ -515,7 +515,7 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("consecutive-reads-tag")
+        .set_transaction_tag("consecutive-reads-tag")
         .build()
         .await?;
 
@@ -603,7 +603,7 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("mixed-operations-tag")
+        .set_transaction_tag("mixed-operations-tag")
         .build()
         .await?;
 
@@ -690,7 +690,7 @@ pub async fn multiple_execute_updates(db_client: &DatabaseClient) -> anyhow::Res
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("multiple-updates-tag")
+        .set_transaction_tag("multiple-updates-tag")
         .build()
         .await?;
 
@@ -762,7 +762,7 @@ pub async fn read_your_writes_consistency(db_client: &DatabaseClient) -> anyhow:
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("read-your-writes-tag")
+        .set_transaction_tag("read-your-writes-tag")
         .build()
         .await?;
 
@@ -827,7 +827,7 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("buffered-interleaving-tag")
+        .set_transaction_tag("buffered-interleaving-tag")
         .build()
         .await?;
 
@@ -873,7 +873,7 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
 pub async fn initial_statement_failure_handling(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("initial-fail-tag")
+        .set_transaction_tag("initial-fail-tag")
         .build()
         .await?;
 
@@ -924,7 +924,7 @@ pub async fn intermediate_statement_constraint_error(
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("constraint-error-tag")
+        .set_transaction_tag("constraint-error-tag")
         .build()
         .await?;
 
@@ -976,7 +976,7 @@ pub async fn buffered_mutation_commit_rejection(db_client: &DatabaseClient) -> a
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("commit-rejection-tag")
+        .set_transaction_tag("commit-rejection-tag")
         .build()
         .await?;
 
@@ -1027,7 +1027,7 @@ pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> 
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("explicit-rollback-tag")
+        .set_transaction_tag("explicit-rollback-tag")
         .build()
         .await?;
 
@@ -1097,7 +1097,7 @@ pub async fn continue_after_initial_query_error(db_client: &DatabaseClient) -> a
 
     let runner = db_client
         .read_write_transaction()
-        .with_transaction_tag("continue-after-err-tag")
+        .set_transaction_tag("continue-after-err-tag")
         .build()
         .await?;
 

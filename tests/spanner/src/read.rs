@@ -211,7 +211,7 @@ pub async fn read_with_limit(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
     let read = ReadRequest::builder("AllTypes", vec!["Id", "ColString"])
         .with_keys(keyset)
-        .with_limit(2) // limit to 2 rows
+        .set_limit(2) // limit to 2 rows
         .build();
 
     let mut result_set = db_client
