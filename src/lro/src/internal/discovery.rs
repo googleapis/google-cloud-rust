@@ -31,6 +31,9 @@ use google_cloud_gax::polling_state::PollingState;
 use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
 
+#[cfg(google_cloud_unstable_tracing)]
+use super::LroRecorder;
+
 /// Defines the trait for an "Operation" type in the discovery poller.
 ///
 /// In discovery-based services each client library defines a different type as
@@ -120,10 +123,9 @@ where
             let result = start().await;
             #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
-                if let Some(name) = op.name() {
-                    if let Some(recorder) = crate::internal::LroRecorder::current() {
-                        recorder.record_destination_id(name);
-                    }
+                let name = op.name();
+                if let (Some(name), Some(recorder)) = (name, LroRecorder::current()) {
+                    recorder.record_destination_id(name);
                 }
             }
             let (op, poll) = self::handle_start(result);
@@ -136,10 +138,8 @@ where
             let (op, poll) =
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
             #[cfg(google_cloud_unstable_tracing)]
-            if let Some(ref next_name) = op {
-                if let Some(recorder) = crate::internal::LroRecorder::current() {
-                    recorder.record_destination_id(next_name);
-                }
+            if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
+                recorder.record_destination_id(next_name);
             }
             self.operation = op;
             return Some(poll);
