@@ -64,6 +64,9 @@ impl LroRecorder {
     }
 
     /// Returns the current LRO polling attempt count, if active.
+    ///
+    /// This returns `Some(u32)` when queried during an active polling attempt,
+    /// and `None` otherwise (e.g., when executing outside the scope of an active polling cycle).
     pub fn attempt_count(&self) -> Option<u32> {
         self.attempt_count
     }
