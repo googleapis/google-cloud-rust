@@ -263,6 +263,31 @@ impl Storage {
         Ok((descriptor, readers))
     }
 
+    #[tracing::instrument(name = "move_object", level = tracing::Level::DEBUG, ret, err(Debug))]
+    async fn move_object_tracing(
+        &self,
+        request: MoveObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        let resource_name = format!("//storage.googleapis.com/{}", request.bucket);
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::move_object",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_rpc_method("google.storage.v2.Storage/MoveObject")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.move_object_plain(request, options).await
+            }
+        );
+        pending.await
+    }
+
     async fn move_object_plain(
         &self,
         request: MoveObjectRequest,
@@ -405,6 +430,9 @@ impl super::stub::Storage for Storage {
         request: MoveObjectRequest,
         options: RequestOptions,
     ) -> Result<Object> {
+        if self.tracing {
+            return self.move_object_tracing(request, options).await;
+        }
         self.move_object_plain(request, options).await
     }
 }
@@ -864,6 +892,11 @@ mod tests {
 
         let captured = TestLayer::capture(&guard);
         check_debug_log(&captured, "move_object");
+
+        let _span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
         Ok(())
     }
 }

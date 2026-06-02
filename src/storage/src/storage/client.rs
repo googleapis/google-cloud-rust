@@ -225,6 +225,18 @@ where
 
     /// Moves or renames a source object to a destination object atomically.
     ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let moved = client
+    ///     .move_object("projects/_/buckets/my-bucket", "source.txt", "dest.txt")
+    ///     .if_generation_match(0)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
     /// # Parameters
     /// * `bucket` - the bucket containing both source and destination objects (e.g., "projects/_/buckets/my-bucket").
     /// * `source_object` - the name of the source object.
