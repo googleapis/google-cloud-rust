@@ -37,6 +37,7 @@ locals {
   unstable_flags = join(" ", [
     "--cfg google_cloud_unstable_storage_bidi",
     "--cfg google_cloud_unstable_grpc_server_streaming",
+    "--cfg google_cloud_unstable_tracing",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
