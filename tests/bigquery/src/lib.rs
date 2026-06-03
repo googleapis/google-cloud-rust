@@ -198,7 +198,7 @@ pub async fn job_service() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
-        .poller(&client, &project_id, None);
+        .poller(&client, &project_id, Some("US".to_string()));
 
     let job = poller.until_done().await?;
     println!("CREATE JOB (POLLED) = {job:?}");
@@ -210,7 +210,8 @@ pub async fn job_service() -> Result<()> {
         .get_query_results()
         .set_project_id(&project_id)
         .set_job_id(&job_id)
-        .poller(&client, &project_id, None);
+        .set_location("US")
+        .poller(&client, &project_id, Some("US".to_string()));
 
     let results = results_poller.until_done().await?;
     println!("QUERY RESULTS (POLLED) = {results:?}");
@@ -257,6 +258,21 @@ pub async fn job_service() -> Result<()> {
     assert!(
         status.error_result.is_some(),
         "Job should have an error_result payload"
+    );
+
+    // Verify GetQueryResults poller also properly returns on a failing job
+    let failing_results_poller = client
+        .get_query_results()
+        .set_project_id(&project_id)
+        .set_job_id(&failing_job_id)
+        .poller(&client, &project_id, None);
+
+    let failing_results = failing_results_poller.until_done().await?;
+    println!("FAILING QUERY RESULTS (POLLED) = {failing_results:?}");
+    assert_eq!(failing_results.job_complete, Some(true));
+    assert!(
+        !failing_results.errors.is_empty(),
+        "Failed GetQueryResults should have errors array populated"
     );
 
     // EDGE CASE 2: Polling an invalid/non-existent job
