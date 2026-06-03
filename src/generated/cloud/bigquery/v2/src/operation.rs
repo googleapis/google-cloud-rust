@@ -43,6 +43,39 @@ impl DiscoveryOperation for GetQueryResultsResponse {
 }
 
 /// Extension trait for [`InsertJob`] to support Long-Running Operation (LRO) polling.
+///
+/// # Example
+/// ```no_run
+/// use google_cloud_bigquery_v2::client::JobService;
+/// use google_cloud_bigquery_v2::model::{Job, JobConfiguration, JobConfigurationQuery};
+/// use google_cloud_bigquery_v2::operation::InsertJobBuilderExt;
+/// use google_cloud_lro::Poller;
+///
+/// async fn example(client: JobService, project_id: &str) -> Result<(), google_cloud_gax::error::Error> {
+///     let mut poller = client
+///         .insert_job()
+///         .set_project_id(project_id)
+///         .set_job(
+///             Job::new().set_configuration(
+///                 JobConfiguration::new().set_query(
+///                     JobConfigurationQuery::new().set_query("SELECT 1")
+///                 )
+///             )
+///         )
+///         .poller(&client, project_id, None);
+///     
+///     // Wait for the job to complete
+///     let job = poller.until_done().await?;
+///     
+///     // Check for BigQuery specific errors inside the payload
+///     if let Some(status) = job.status {
+///         if let Some(err) = status.error_result {
+///             println!("Job failed with: {}", err.message);
+///         }
+///     }
+///     Ok(())
+/// }
+/// ```
 pub trait InsertJobBuilderExt {
     /// Returns a poller to monitor the status of the inserted job.
     fn poller(
@@ -99,6 +132,28 @@ impl InsertJobBuilderExt for InsertJob {
 }
 
 /// Extension trait for [`GetQueryResults`] to support Long-Running Operation (LRO) polling.
+///
+/// # Example
+/// ```no_run
+/// use google_cloud_bigquery_v2::client::JobService;
+/// use google_cloud_bigquery_v2::operation::GetQueryResultsBuilderExt;
+/// use google_cloud_lro::Poller;
+///
+/// async fn example(client: JobService, project_id: &str, job_id: &str) -> Result<(), google_cloud_gax::error::Error> {
+///     let mut poller = client
+///         .get_query_results()
+///         .set_project_id(project_id)
+///         .set_job_id(job_id)
+///         .poller(&client, project_id, None);
+///     
+///     let response = poller.until_done().await?;
+///     
+///     if response.job_complete.unwrap_or(false) {
+///         println!("Query finished! Received {} rows", response.total_rows.unwrap_or_default());
+///     }
+///     Ok(())
+/// }
+/// ```
 pub trait GetQueryResultsBuilderExt {
     /// Returns a poller to monitor the status of the query results.
     fn poller(
