@@ -2007,6 +2007,7 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-lro",
  "google-cloud-type",
  "google-cloud-wkt",
  "serde",

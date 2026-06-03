@@ -79,6 +79,9 @@ pub mod client;
 /// Request builders.
 pub mod builder;
 
+#[allow(missing_docs)]
+pub mod operation;
+
 #[doc(hidden)]
 pub(crate) mod tracing;
 
