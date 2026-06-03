@@ -496,6 +496,42 @@ impl StorageControl {
         self.control.test_iam_permissions()
     }
 
+    /// Gets the `IntelligenceFinding` for a project.
+    pub fn get_intelligence_finding(
+        &self,
+    ) -> crate::builder::storage_control::GetIntelligenceFinding {
+        self.control.get_intelligence_finding()
+    }
+
+    /// Lists the `IntelligenceFinding` resources for the specified project.
+    pub fn list_intelligence_findings(
+        &self,
+    ) -> crate::builder::storage_control::ListIntelligenceFindings {
+        self.control.list_intelligence_findings()
+    }
+
+    /// Summarize the intelligence findings for the specified scope(org, folder or
+    /// project).
+    pub fn summarize_intelligence_findings(
+        &self,
+    ) -> crate::builder::storage_control::SummarizeIntelligenceFindings {
+        self.control.summarize_intelligence_findings()
+    }
+
+    /// Gets the `IntelligenceFindingRevision` resource.
+    pub fn get_intelligence_finding_revision(
+        &self,
+    ) -> crate::builder::storage_control::GetIntelligenceFindingRevision {
+        self.control.get_intelligence_finding_revision()
+    }
+
+    /// Lists all the revisions of an `IntelligenceFinding` resource.
+    pub fn list_intelligence_finding_revisions(
+        &self,
+    ) -> crate::builder::storage_control::ListIntelligenceFindingRevisions {
+        self.control.list_intelligence_finding_revisions()
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations

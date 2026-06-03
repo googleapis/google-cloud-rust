@@ -233,6 +233,9 @@ impl serde::ser::Serialize for super::Recommendation {
         if !self.xor_group_id.is_empty() {
             state.serialize_entry("xorGroupId", &self.xor_group_id)?;
         }
+        if !self.target_resources.is_empty() {
+            state.serialize_entry("targetResources", &self.target_resources)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -515,6 +518,9 @@ impl serde::ser::Serialize for super::Impact {
         }
         if let Some(value) = self.reliability_projection() {
             state.serialize_entry("reliabilityProjection", value)?;
+        }
+        if !self.service.is_empty() {
+            state.serialize_entry("service", &self.service)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

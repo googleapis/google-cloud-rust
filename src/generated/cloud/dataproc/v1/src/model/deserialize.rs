@@ -10779,6 +10779,8 @@ impl<'de> serde::de::Deserialize<'de> for super::YarnApplication {
             __state,
             __progress,
             __tracking_url,
+            __vcore_seconds,
+            __memory_mb_seconds,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10804,6 +10806,10 @@ impl<'de> serde::de::Deserialize<'de> for super::YarnApplication {
                             "progress" => Ok(__FieldTag::__progress),
                             "trackingUrl" => Ok(__FieldTag::__tracking_url),
                             "tracking_url" => Ok(__FieldTag::__tracking_url),
+                            "vcoreSeconds" => Ok(__FieldTag::__vcore_seconds),
+                            "vcore_seconds" => Ok(__FieldTag::__vcore_seconds),
+                            "memoryMbSeconds" => Ok(__FieldTag::__memory_mb_seconds),
+                            "memory_mb_seconds" => Ok(__FieldTag::__memory_mb_seconds),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10875,6 +10881,46 @@ impl<'de> serde::de::Deserialize<'de> for super::YarnApplication {
                             result.tracking_url = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__vcore_seconds => {
+                            if !fields.insert(__FieldTag::__vcore_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vcore_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.vcore_seconds =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__memory_mb_seconds => {
+                            if !fields.insert(__FieldTag::__memory_mb_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for memory_mb_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.memory_mb_seconds =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

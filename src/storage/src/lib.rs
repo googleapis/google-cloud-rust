@@ -137,7 +137,16 @@ pub(crate) mod google {
         include!("generated/protos/control/google.longrunning.rs");
         include!("generated/convert/longrunning/convert.rs");
     }
+    pub(crate) mod control_type {
+        // google.storage.v2.control uses a different set of types from google.type vs.
+        // google.storage.v2. We need to define them in a separate module to avoid conflicts and
+        // manually re-export some key symbols.
+        include!("generated/protos/control/google.r#type.rs");
+    }
     pub mod r#type {
+        // Re-export the google.type.Interval type generated for storage control. Unfortunately
+        // none of the tonic-generated files has all the types from google.type that we need.
+        pub use super::control_type::Interval;
         include!("generated/protos/storage/google.r#type.rs");
         include!("generated/convert/type/convert.rs");
     }

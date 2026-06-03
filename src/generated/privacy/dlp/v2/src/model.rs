@@ -2208,6 +2208,7 @@ impl ContentItem {
     /// assert!(x.value().is_some());
     /// assert!(x.table().is_none());
     /// assert!(x.byte_item().is_none());
+    /// assert!(x.conversation().is_none());
     /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_item =
@@ -2240,6 +2241,7 @@ impl ContentItem {
     /// assert!(x.table().is_some());
     /// assert!(x.value().is_none());
     /// assert!(x.byte_item().is_none());
+    /// assert!(x.conversation().is_none());
     /// ```
     pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::Table>>>(
         mut self,
@@ -2277,6 +2279,7 @@ impl ContentItem {
     /// assert!(x.byte_item().is_some());
     /// assert!(x.value().is_none());
     /// assert!(x.table().is_none());
+    /// assert!(x.conversation().is_none());
     /// ```
     pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteContentItem>>>(
         mut self,
@@ -2284,6 +2287,44 @@ impl ContentItem {
     ) -> Self {
         self.data_item =
             std::option::Option::Some(crate::model::content_item::DataItem::ByteItem(v.into()));
+        self
+    }
+
+    /// The value of [data_item][crate::model::ContentItem::data_item]
+    /// if it holds a `Conversation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn conversation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::Conversation>> {
+        #[allow(unreachable_patterns)]
+        self.data_item.as_ref().and_then(|v| match v {
+            crate::model::content_item::DataItem::Conversation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_item][crate::model::ContentItem::data_item]
+    /// to hold a `Conversation`.
+    ///
+    /// Note that all the setters affecting `data_item` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::Conversation;
+    /// let x = ContentItem::new().set_conversation(Conversation::default()/* use setters */);
+    /// assert!(x.conversation().is_some());
+    /// assert!(x.value().is_none());
+    /// assert!(x.table().is_none());
+    /// assert!(x.byte_item().is_none());
+    /// ```
+    pub fn set_conversation<T: std::convert::Into<std::boxed::Box<crate::model::Conversation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_item =
+            std::option::Option::Some(crate::model::content_item::DataItem::Conversation(v.into()));
         self
     }
 }
@@ -2311,6 +2352,10 @@ pub mod content_item {
         Table(std::boxed::Box<crate::model::Table>),
         /// Content data to inspect or redact. Replaces `type` and `data`.
         ByteItem(std::boxed::Box<crate::model::ByteContentItem>),
+        /// Represents a conversation (either complete or a slice).
+        /// It is assumed that all included messages are contiguous and ordered in
+        /// chronological order.
+        Conversation(std::boxed::Box<crate::model::Conversation>),
     }
 }
 
@@ -2356,6 +2401,273 @@ impl ContentMetadata {
 impl wkt::message::Message for ContentMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.privacy.dlp.v2.ContentMetadata"
+    }
+}
+
+/// Complete conversation or slice of a conversation.
+/// It is assumed that all included messages are contiguous and ordered in
+/// chronological order.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Conversation {
+    /// Messages exchanged within this conversation.
+    /// The maximum number of messages allowed is 50k.
+    /// The order of the messages is assumed to be chronological and will be used
+    /// to index findings in the response.
+    pub messages: std::vec::Vec<crate::model::ConversationMessage>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Conversation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [messages][crate::model::Conversation::messages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Conversation;
+    /// use google_cloud_privacy_dlp_v2::model::ConversationMessage;
+    /// let x = Conversation::new()
+    ///     .set_messages([
+    ///         ConversationMessage::default()/* use setters */,
+    ///         ConversationMessage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConversationMessage>,
+    {
+        use std::iter::Iterator;
+        self.messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Conversation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.Conversation"
+    }
+}
+
+/// Single message in a conversation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConversationMessage {
+    /// The contents of this message.
+    pub content: std::string::String,
+
+    /// The type of message.
+    pub message_type: crate::model::conversation_message::MessageType,
+
+    /// Optional. The identifier of the participant,
+    /// for example, 'test-user' or 'gemini'.
+    /// The participant ID can contain lowercase letters, numbers, and hyphens;
+    /// that is, it must match the regular expression:
+    /// `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+    /// The maximum length is 63 characters.
+    pub participant_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConversationMessage {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [content][crate::model::ConversationMessage::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ConversationMessage;
+    /// let x = ConversationMessage::new().set_content("example");
+    /// ```
+    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.content = v.into();
+        self
+    }
+
+    /// Sets the value of [message_type][crate::model::ConversationMessage::message_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ConversationMessage;
+    /// use google_cloud_privacy_dlp_v2::model::conversation_message::MessageType;
+    /// let x0 = ConversationMessage::new().set_message_type(MessageType::Content);
+    /// let x1 = ConversationMessage::new().set_message_type(MessageType::Context);
+    /// ```
+    pub fn set_message_type<
+        T: std::convert::Into<crate::model::conversation_message::MessageType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message_type = v.into();
+        self
+    }
+
+    /// Sets the value of [participant_id][crate::model::ConversationMessage::participant_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ConversationMessage;
+    /// let x = ConversationMessage::new().set_participant_id("example");
+    /// ```
+    pub fn set_participant_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.participant_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ConversationMessage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ConversationMessage"
+    }
+}
+
+/// Defines additional types related to [ConversationMessage].
+pub mod conversation_message {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of message.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MessageType {
+        /// Unused.
+        Unspecified,
+        /// Message contains content to be inspected.
+        Content,
+        /// Message contains context only and will not have findings reported from
+        /// it during inspection or redacted from it during de-identification.
+        Context,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MessageType::value] or
+        /// [MessageType::name].
+        UnknownValue(message_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod message_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl MessageType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Content => std::option::Option::Some(1),
+                Self::Context => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MESSAGE_TYPE_UNSPECIFIED"),
+                Self::Content => std::option::Option::Some("CONTENT"),
+                Self::Context => std::option::Option::Some("CONTEXT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for MessageType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MessageType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MessageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Content,
+                2 => Self::Context,
+                _ => Self::UnknownValue(message_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MessageType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MESSAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CONTENT" => Self::Content,
+                "CONTEXT" => Self::Context,
+                _ => Self::UnknownValue(message_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MessageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Content => serializer.serialize_i32(1),
+                Self::Context => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MessageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MessageType>::new(
+                ".google.privacy.dlp.v2.ConversationMessage.MessageType",
+            ))
+        }
     }
 }
 
@@ -3271,6 +3583,7 @@ impl ContentLocation {
     /// assert!(x.image_location().is_none());
     /// assert!(x.document_location().is_none());
     /// assert!(x.metadata_location().is_none());
+    /// assert!(x.conversation_location().is_none());
     /// ```
     pub fn set_record_location<
         T: std::convert::Into<std::boxed::Box<crate::model::RecordLocation>>,
@@ -3314,6 +3627,7 @@ impl ContentLocation {
     /// assert!(x.record_location().is_none());
     /// assert!(x.document_location().is_none());
     /// assert!(x.metadata_location().is_none());
+    /// assert!(x.conversation_location().is_none());
     /// ```
     pub fn set_image_location<
         T: std::convert::Into<std::boxed::Box<crate::model::ImageLocation>>,
@@ -3357,6 +3671,7 @@ impl ContentLocation {
     /// assert!(x.record_location().is_none());
     /// assert!(x.image_location().is_none());
     /// assert!(x.metadata_location().is_none());
+    /// assert!(x.conversation_location().is_none());
     /// ```
     pub fn set_document_location<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentLocation>>,
@@ -3400,6 +3715,7 @@ impl ContentLocation {
     /// assert!(x.record_location().is_none());
     /// assert!(x.image_location().is_none());
     /// assert!(x.document_location().is_none());
+    /// assert!(x.conversation_location().is_none());
     /// ```
     pub fn set_metadata_location<
         T: std::convert::Into<std::boxed::Box<crate::model::MetadataLocation>>,
@@ -3409,6 +3725,50 @@ impl ContentLocation {
     ) -> Self {
         self.location = std::option::Option::Some(
             crate::model::content_location::Location::MetadataLocation(v.into()),
+        );
+        self
+    }
+
+    /// The value of [location][crate::model::ContentLocation::location]
+    /// if it holds a `ConversationLocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn conversation_location(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ConversationLocation>> {
+        #[allow(unreachable_patterns)]
+        self.location.as_ref().and_then(|v| match v {
+            crate::model::content_location::Location::ConversationLocation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location][crate::model::ContentLocation::location]
+    /// to hold a `ConversationLocation`.
+    ///
+    /// Note that all the setters affecting `location` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::ConversationLocation;
+    /// let x = ContentLocation::new().set_conversation_location(ConversationLocation::default()/* use setters */);
+    /// assert!(x.conversation_location().is_some());
+    /// assert!(x.record_location().is_none());
+    /// assert!(x.image_location().is_none());
+    /// assert!(x.document_location().is_none());
+    /// assert!(x.metadata_location().is_none());
+    /// ```
+    pub fn set_conversation_location<
+        T: std::convert::Into<std::boxed::Box<crate::model::ConversationLocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = std::option::Option::Some(
+            crate::model::content_location::Location::ConversationLocation(v.into()),
         );
         self
     }
@@ -3437,6 +3797,166 @@ pub mod content_location {
         DocumentLocation(std::boxed::Box<crate::model::DocumentLocation>),
         /// Location within the metadata for inspected content.
         MetadataLocation(std::boxed::Box<crate::model::MetadataLocation>),
+        /// Location within a conversation.
+        ConversationLocation(std::boxed::Box<crate::model::ConversationLocation>),
+    }
+}
+
+/// Location within a conversation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConversationLocation {
+    /// The location of the finding within a conversation.
+    pub location: std::option::Option<crate::model::conversation_location::Location>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConversationLocation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::ConversationLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ConversationLocation;
+    /// use google_cloud_privacy_dlp_v2::model::conversation_location::Location;
+    /// let x = ConversationLocation::new().set_location(Some(Location::MessageIndex(42)));
+    /// ```
+    pub fn set_location<
+        T: std::convert::Into<std::option::Option<crate::model::conversation_location::Location>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// The value of [location][crate::model::ConversationLocation::location]
+    /// if it holds a `MessageIndex`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn message_index(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.location.as_ref().and_then(|v| match v {
+            crate::model::conversation_location::Location::MessageIndex(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location][crate::model::ConversationLocation::location]
+    /// to hold a `MessageIndex`.
+    ///
+    /// Note that all the setters affecting `location` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ConversationLocation;
+    /// let x = ConversationLocation::new().set_message_index(42);
+    /// assert!(x.message_index().is_some());
+    /// assert!(x.all_messages().is_none());
+    /// ```
+    pub fn set_message_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.location = std::option::Option::Some(
+            crate::model::conversation_location::Location::MessageIndex(v.into()),
+        );
+        self
+    }
+
+    /// The value of [location][crate::model::ConversationLocation::location]
+    /// if it holds a `AllMessages`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn all_messages(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::conversation_location::AllMessages>>
+    {
+        #[allow(unreachable_patterns)]
+        self.location.as_ref().and_then(|v| match v {
+            crate::model::conversation_location::Location::AllMessages(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location][crate::model::ConversationLocation::location]
+    /// to hold a `AllMessages`.
+    ///
+    /// Note that all the setters affecting `location` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ConversationLocation;
+    /// use google_cloud_privacy_dlp_v2::model::conversation_location::AllMessages;
+    /// let x = ConversationLocation::new().set_all_messages(AllMessages::default()/* use setters */);
+    /// assert!(x.all_messages().is_some());
+    /// assert!(x.message_index().is_none());
+    /// ```
+    pub fn set_all_messages<
+        T: std::convert::Into<std::boxed::Box<crate::model::conversation_location::AllMessages>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = std::option::Option::Some(
+            crate::model::conversation_location::Location::AllMessages(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ConversationLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ConversationLocation"
+    }
+}
+
+/// Defines additional types related to [ConversationLocation].
+pub mod conversation_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// If set, indicates that the finding applies to all messages in the
+    /// conversation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AllMessages {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AllMessages {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for AllMessages {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ConversationLocation.AllMessages"
+        }
+    }
+
+    /// The location of the finding within a conversation.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Location {
+        /// Matches an index of a message in the conversation provided in the
+        /// request.
+        MessageIndex(i32),
+        /// If set, indicates that the finding applies to all messages in the
+        /// conversation.
+        AllMessages(std::boxed::Box<crate::model::conversation_location::AllMessages>),
     }
 }
 
@@ -24165,7 +24685,7 @@ pub mod data_profile_action {
         ///   visible to queries by the time your topic receives the Pub/Sub
         ///   notification.
         /// * The best practice is to use the same table for an entire organization
-        ///   so that you can take advantage of the [provided Looker
+        ///   so that you can take advantage of the [provided Data Studio
         ///   reports](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#use_a_premade_report).
         ///   If you use VPC Service Controls to define security perimeters, then
         ///   you must use a separate table for each boundary.
@@ -50480,18 +51000,17 @@ impl wkt::message::Message for TableOptions {
 pub enum TransformationResultStatusType {
     /// Unused.
     StateTypeUnspecified,
-    /// This will be set when a finding could not be transformed (i.e. outside user
+    /// This is set when a finding cannot be transformed (i.e. outside user
     /// set bucket range).
     InvalidTransform,
-    /// This will be set when a BigQuery transformation was successful but could
-    /// not be stored back in BigQuery because the transformed row exceeds
-    /// BigQuery's max row size.
+    /// This is set when a transformation is successful but cannot be stored in
+    /// BigQuery because the transformed row exceeds BigQuery's max row size.
     BigqueryMaxRowSizeExceeded,
-    /// This will be set when there is a finding in the custom metadata of a file,
+    /// This is set when there is a finding in the custom metadata of a file,
     /// but at the write time of the transformed file, this key / value pair is
     /// unretrievable.
     MetadataUnretrievable,
-    /// This will be set when the transformation and storing of it is successful.
+    /// This is set when the transformation and its storage are successful.
     Success,
     /// If set, the enum was initialized with an unknown value.
     ///

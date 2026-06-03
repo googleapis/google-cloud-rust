@@ -420,6 +420,76 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_intelligence_finding(
+        &self,
+        req: crate::model::GetIntelligenceFindingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceFinding>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::get_intelligence_finding",
+            self.inner.get_intelligence_finding(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_intelligence_findings(
+        &self,
+        req: crate::model::ListIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIntelligenceFindingsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::list_intelligence_findings",
+            self.inner.list_intelligence_findings(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn summarize_intelligence_findings(
+        &self,
+        req: crate::model::SummarizeIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SummarizeIntelligenceFindingsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::summarize_intelligence_findings",
+            self.inner.summarize_intelligence_findings(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_intelligence_finding_revision(
+        &self,
+        req: crate::model::GetIntelligenceFindingRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceFindingRevision>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::get_intelligence_finding_revision",
+            self.inner.get_intelligence_finding_revision(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_intelligence_finding_revisions(
+        &self,
+        req: crate::model::ListIntelligenceFindingRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::list_intelligence_finding_revisions",
+            self.inner.list_intelligence_finding_revisions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,

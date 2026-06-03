@@ -828,6 +828,9 @@ impl serde::ser::Serialize for super::NodeConfig {
         if !self.image_type.is_empty() {
             state.serialize_entry("imageType", &self.image_type)?;
         }
+        if self.node_image_config.is_some() {
+            state.serialize_entry("nodeImageConfig", &self.node_image_config)?;
+        }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
@@ -1226,6 +1229,31 @@ impl serde::ser::Serialize for super::ShieldedInstanceConfig {
                 "enableIntegrityMonitoring",
                 &self.enable_integrity_monitoring,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomImageConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.image.is_empty() {
+            state.serialize_entry("image", &self.image)?;
+        }
+        if !self.image_project.is_empty() {
+            state.serialize_entry("imageProject", &self.image_project)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1895,6 +1923,9 @@ impl serde::ser::Serialize for super::AddonsConfig {
         if self.slice_controller_config.is_some() {
             state.serialize_entry("sliceControllerConfig", &self.slice_controller_config)?;
         }
+        if self.agent_sandbox_config.is_some() {
+            state.serialize_entry("agentSandboxConfig", &self.agent_sandbox_config)?;
+        }
         if self.node_readiness_config.is_some() {
             state.serialize_entry("nodeReadinessConfig", &self.node_readiness_config)?;
         }
@@ -2300,6 +2331,28 @@ impl serde::ser::Serialize for super::LustreCsiDriverConfig {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SlurmOperatorConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AgentSandboxConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3399,6 +3452,12 @@ impl serde::ser::Serialize for super::ClusterUpdate {
         if !self.desired_image_type.is_empty() {
             state.serialize_entry("desiredImageType", &self.desired_image_type)?;
         }
+        if !self.desired_image.is_empty() {
+            state.serialize_entry("desiredImage", &self.desired_image)?;
+        }
+        if !self.desired_image_project.is_empty() {
+            state.serialize_entry("desiredImageProject", &self.desired_image_project)?;
+        }
         if self.desired_database_encryption.is_some() {
             state.serialize_entry(
                 "desiredDatabaseEncryption",
@@ -4218,6 +4277,12 @@ impl serde::ser::Serialize for super::UpdateNodePoolRequest {
         }
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !self.image.is_empty() {
+            state.serialize_entry("image", &self.image)?;
+        }
+        if !self.image_project.is_empty() {
+            state.serialize_entry("imageProject", &self.image_project)?;
         }
         if !self.locations.is_empty() {
             state.serialize_entry("locations", &self.locations)?;
@@ -6622,6 +6687,9 @@ impl serde::ser::Serialize for super::NetworkConfig {
                 &self.default_enable_private_nodes,
             )?;
         }
+        if self.dataplane_v2_config.is_some() {
+            state.serialize_entry("dataplaneV2Config", &self.dataplane_v2_config)?;
+        }
         if self.disable_l4_lb_firewall_reconciliation.is_some() {
             state.serialize_entry(
                 "disableL4LbFirewallReconciliation",
@@ -8212,6 +8280,28 @@ impl serde::ser::Serialize for super::MonitoringComponentConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.enable_components.is_empty() {
             state.serialize_entry("enableComponents", &self.enable_components)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DataplaneV2Config {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.scalability_mode.is_some() {
+            state.serialize_entry("scalabilityMode", &self.scalability_mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

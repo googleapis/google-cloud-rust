@@ -1256,6 +1256,8 @@ impl std::fmt::Debug for super::YarnApplication {
         debug_struct.field("state", &self.state);
         debug_struct.field("progress", &self.progress);
         debug_struct.field("tracking_url", &self.tracking_url);
+        debug_struct.field("vcore_seconds", &self.vcore_seconds);
+        debug_struct.field("memory_mb_seconds", &self.memory_mb_seconds);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

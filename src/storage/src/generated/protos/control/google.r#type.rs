@@ -20,3 +20,20 @@ impl ::prost::Name for Expr {
         "type.googleapis.com/google.type.Expr".into()
     }
 }
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Interval {
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+impl ::prost::Name for Interval {
+    const NAME: &'static str = "Interval";
+    const PACKAGE: &'static str = "google.type";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.type.Interval".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.type.Interval".into()
+    }
+}

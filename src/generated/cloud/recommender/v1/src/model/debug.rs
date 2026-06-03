@@ -111,6 +111,7 @@ impl std::fmt::Debug for super::Recommendation {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("associated_insights", &self.associated_insights);
         debug_struct.field("xor_group_id", &self.xor_group_id);
+        debug_struct.field("target_resources", &self.target_resources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -234,6 +235,7 @@ impl std::fmt::Debug for super::Impact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Impact");
         debug_struct.field("category", &self.category);
+        debug_struct.field("service", &self.service);
         debug_struct.field("projection", &self.projection);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

@@ -323,6 +323,7 @@ impl std::fmt::Debug for super::NodeConfig {
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("image_type", &self.image_type);
+        debug_struct.field("node_image_config", &self.node_image_config);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("local_ssd_count", &self.local_ssd_count);
         debug_struct.field("tags", &self.tags);
@@ -504,6 +505,18 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
             "enable_integrity_monitoring",
             &self.enable_integrity_monitoring,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CustomImageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomImageConfig");
+        debug_struct.field("image", &self.image);
+        debug_struct.field("image_project", &self.image_project);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -826,6 +839,7 @@ impl std::fmt::Debug for super::AddonsConfig {
         debug_struct.field("pod_snapshot_config", &self.pod_snapshot_config);
         debug_struct.field("slurm_operator_config", &self.slurm_operator_config);
         debug_struct.field("slice_controller_config", &self.slice_controller_config);
+        debug_struct.field("agent_sandbox_config", &self.agent_sandbox_config);
         debug_struct.field("node_readiness_config", &self.node_readiness_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1030,6 +1044,17 @@ impl std::fmt::Debug for super::LustreCsiDriverConfig {
 impl std::fmt::Debug for super::SlurmOperatorConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlurmOperatorConfig");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AgentSandboxConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentSandboxConfig");
         debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1532,6 +1557,8 @@ impl std::fmt::Debug for super::ClusterUpdate {
         debug_struct.field("desired_addons_config", &self.desired_addons_config);
         debug_struct.field("desired_node_pool_id", &self.desired_node_pool_id);
         debug_struct.field("desired_image_type", &self.desired_image_type);
+        debug_struct.field("desired_image", &self.desired_image);
+        debug_struct.field("desired_image_project", &self.desired_image_project);
         debug_struct.field(
             "desired_database_encryption",
             &self.desired_database_encryption,
@@ -1946,6 +1973,8 @@ impl std::fmt::Debug for super::UpdateNodePoolRequest {
         debug_struct.field("node_version", &self.node_version);
         debug_struct.field("image_type", &self.image_type);
         debug_struct.field("name", &self.name);
+        debug_struct.field("image", &self.image);
+        debug_struct.field("image_project", &self.image_project);
         debug_struct.field("locations", &self.locations);
         debug_struct.field("workload_metadata_config", &self.workload_metadata_config);
         debug_struct.field("upgrade_settings", &self.upgrade_settings);
@@ -2979,6 +3008,7 @@ impl std::fmt::Debug for super::NetworkConfig {
             "default_enable_private_nodes",
             &self.default_enable_private_nodes,
         );
+        debug_struct.field("dataplane_v2_config", &self.dataplane_v2_config);
         debug_struct.field(
             "disable_l4_lb_firewall_reconciliation",
             &self.disable_l4_lb_firewall_reconciliation,
@@ -3737,6 +3767,17 @@ impl std::fmt::Debug for super::MonitoringComponentConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MonitoringComponentConfig");
         debug_struct.field("enable_components", &self.enable_components);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataplaneV2Config {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataplaneV2Config");
+        debug_struct.field("scalability_mode", &self.scalability_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

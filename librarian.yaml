@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 050cdf60334b9591054c252cb0111ab39d6bbe85
-    sha256: b1f2c1ec4a1d77a4a51abab663616f589f9999dd3ec695c7748e3de2fdbc5706
+    commit: f8432864dd7cbeb512b632a2b6b07f771235574e
+    sha256: 77fedb5714703f610e552d0594c316f0f09e378475bf904ed460efa5832fa94a
   googleapis:
-    commit: 8490ca4edad1b34f62b174292264c07607681100
-    sha256: 6994d873c0a240bfcde8fda75fc0bf3d2ee44c0602d2a2544a07fce53b2a6faa
+    commit: 5481332007e57ad3d9cb81e83ff6bf9c449476b6
+    sha256: 57d732d5167385cf7111a523314f073bf5843d0b76e2adfa0c93a330138e03bd
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -1490,6 +1490,7 @@ libraries:
         - include_list:
             - date.proto
             - expr.proto
+            - interval.proto
           module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           api_path: google/type

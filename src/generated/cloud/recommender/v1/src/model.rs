@@ -38,7 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Insight {
-    /// Name of the insight.
+    /// Identifier. Name of the insight.
     pub name: std::string::String,
 
     /// Free-form human readable summary in English. The maximum length is 500
@@ -925,7 +925,7 @@ pub mod insight_state_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightTypeConfig {
-    /// Name of insight type config.
+    /// Identifier. Name of insight type config.
     /// Eg,
     /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/config
     pub name: std::string::String,
@@ -1182,7 +1182,7 @@ impl wkt::message::Message for InsightTypeGenerationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Recommendation {
-    /// Name of recommendation.
+    /// Identifier. Name of recommendation.
     pub name: std::string::String,
 
     /// Free-form human readable summary in English. The maximum length is 500
@@ -1234,6 +1234,9 @@ pub struct Recommendation {
     /// exclusive group. This means that only one recommendation within the group
     /// is suggested to be applied.
     pub xor_group_id: std::string::String,
+
+    /// Fully qualified resource names that this recommendation is targeting.
+    pub target_resources: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1502,6 +1505,23 @@ impl Recommendation {
     /// ```
     pub fn set_xor_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.xor_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resources][crate::model::Recommendation::target_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = Recommendation::new().set_target_resources(["a", "b", "c"]);
+    /// ```
+    pub fn set_target_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2164,7 +2184,7 @@ pub mod operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueMatcher {
-    #[allow(missing_docs)]
+    /// To be used for full regex matching.
     pub match_variant: std::option::Option<crate::model::value_matcher::MatchVariant>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2241,7 +2261,7 @@ pub mod value_matcher {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
+    /// To be used for full regex matching.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MatchVariant {
@@ -2748,6 +2768,9 @@ pub struct Impact {
     /// Category that is being targeted.
     pub category: crate::model::impact::Category,
 
+    /// The service that this impact is associated with.
+    pub service: std::string::String,
+
     /// Contains projections (if any) for this category.
     pub projection: std::option::Option<crate::model::impact::Projection>,
 
@@ -2775,6 +2798,18 @@ impl Impact {
         v: T,
     ) -> Self {
         self.category = v.into();
+        self
+    }
+
+    /// Sets the value of [service][crate::model::Impact::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// let x = Impact::new().set_service("example");
+    /// ```
+    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service = v.into();
         self
     }
 
@@ -3397,7 +3432,7 @@ pub mod recommendation_state_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommenderConfig {
-    /// Name of recommender config.
+    /// Identifier. Name of recommender config.
     /// Eg,
     /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/config
     pub name: std::string::String,
