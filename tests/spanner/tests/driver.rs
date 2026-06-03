@@ -78,6 +78,7 @@ mod spanner {
         }
 
         async fn run_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
+            let _ = db_client;
             #[cfg(false)] // TODO(#5826) - disable because it flakes
             {
                 integration_tests_spanner::write::write_only_transaction(db_client).await?;
