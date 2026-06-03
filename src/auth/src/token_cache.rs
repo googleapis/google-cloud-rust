@@ -142,7 +142,11 @@ async fn refresh_task<T>(
                 // token.
                 let (deadline, publish) = match current_expiration(&tx_token) {
                     None => (short, true),
-                    Some(d) if d < Instant::now() => (short, d >= short),
+                    Some(d) if d < Instant::now() => {
+                        // Already expired, replace the cached token with the error.
+                        let _ = tx_token.send(Some(Err(e.clone())));
+                        (short, false)
+                    }
                     Some(d) if d < short => (short, true),
                     Some(_d) => (short, true),
                 };
