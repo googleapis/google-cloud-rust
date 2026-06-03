@@ -12,4 +12,4 @@ should not introduce breaking changes to the client libraries.
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-alloydb-connectors-v1/1.5.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-alloydb-connectors-v1/1.6.0)
