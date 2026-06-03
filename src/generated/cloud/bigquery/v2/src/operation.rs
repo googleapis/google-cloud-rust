@@ -42,7 +42,9 @@ impl DiscoveryOperation for GetQueryResultsResponse {
     }
 }
 
+/// Extension trait for [`InsertJob`] to support Long-Running Operation (LRO) polling.
 pub trait InsertJobBuilderExt {
+    /// Returns a poller to monitor the status of the inserted job.
     fn poller(
         self,
         client: &JobService,
@@ -96,7 +98,9 @@ impl InsertJobBuilderExt for InsertJob {
     }
 }
 
+/// Extension trait for [`GetQueryResults`] to support Long-Running Operation (LRO) polling.
 pub trait GetQueryResultsBuilderExt {
+    /// Returns a poller to monitor the status of the query results.
     fn poller(
         self,
         client: &JobService,
