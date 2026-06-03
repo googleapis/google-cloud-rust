@@ -5214,3 +5214,3852 @@ impl wkt::message::Message for GetProjectIntelligenceConfigRequest {
         "type.googleapis.com/google.storage.control.v2.GetProjectIntelligenceConfigRequest"
     }
 }
+
+/// The `IntelligenceFinding` resource that represents a security, performance,
+/// or cost-related finding about a project or bucket.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IntelligenceFinding {
+    /// Identifier. The resource name of `IntelligenceFinding`.
+    /// Format:
+    /// `projects/{project}/locations/{location}/intelligenceFindings/{intelligence_finding}`
+    pub name: std::string::String,
+
+    /// Output only. A short description about the finding.
+    pub description: std::string::String,
+
+    /// Output only. Type of this finding.
+    pub r#type: crate::model::FindingType,
+
+    /// Output only. Category of this finding.
+    pub category: crate::model::FindingCategory,
+
+    /// Output only. Severity of the finding.
+    pub severity: crate::model::FindingSeverity,
+
+    /// Output only. The time at which the finding was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the finding was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The fully qualified resource name of the resource that this
+    /// `IntelligenceFinding` applies to. eg:
+    ///
+    /// - `storage.googleapis.com/projects/_/buckets/b1`
+    /// - `cloudresourecemanager.googleapis.com/projects/p1`
+    pub target_resource: std::string::String,
+
+    /// Output only. Contains GCP resource names that are
+    /// relevant to this `IntelligenceFinding`. The `target_resource` is also added
+    /// as part of `associated_resources`. eg:
+    ///
+    /// - `storage.googleapis.com/projects/_/buckets/b1`
+    /// - `cloudresourecemanager.googleapis.com/projects/p1`
+    pub associated_resources: std::vec::Vec<std::string::String>,
+
+    /// Output only. The time interval during which the underlying data was used to
+    /// generate this `IntelligenceFinding`.
+    pub observation_period: std::option::Option<google_cloud_type::model::Interval>,
+
+    /// The specific details of the `IntelligenceFinding`.
+    pub intelligence_finding_details:
+        std::option::Option<crate::model::intelligence_finding::IntelligenceFindingDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IntelligenceFinding {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::IntelligenceFinding::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intelligence_finding_id = "intelligence_finding_id";
+    /// let x = IntelligenceFinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::IntelligenceFinding::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// let x = IntelligenceFinding::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::IntelligenceFinding::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::FindingType;
+    /// let x0 = IntelligenceFinding::new().set_type(FindingType::ColdlineAndArchivalStorageOperationsSpike);
+    /// let x1 = IntelligenceFinding::new().set_type(FindingType::ThrottledRequestSpike);
+    /// let x2 = IntelligenceFinding::new().set_type(FindingType::CrossRegionEgressSpike);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::FindingType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [category][crate::model::IntelligenceFinding::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::FindingCategory;
+    /// let x0 = IntelligenceFinding::new().set_category(FindingCategory::DataManagement);
+    /// let x1 = IntelligenceFinding::new().set_category(FindingCategory::Performance);
+    /// ```
+    pub fn set_category<T: std::convert::Into<crate::model::FindingCategory>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.category = v.into();
+        self
+    }
+
+    /// Sets the value of [severity][crate::model::IntelligenceFinding::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::FindingSeverity;
+    /// let x0 = IntelligenceFinding::new().set_severity(FindingSeverity::Critical);
+    /// ```
+    pub fn set_severity<T: std::convert::Into<crate::model::FindingSeverity>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.severity = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::IntelligenceFinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use wkt::Timestamp;
+    /// let x = IntelligenceFinding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::IntelligenceFinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use wkt::Timestamp;
+    /// let x = IntelligenceFinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IntelligenceFinding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::IntelligenceFinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use wkt::Timestamp;
+    /// let x = IntelligenceFinding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::IntelligenceFinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use wkt::Timestamp;
+    /// let x = IntelligenceFinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IntelligenceFinding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_resource][crate::model::IntelligenceFinding::target_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// let x = IntelligenceFinding::new().set_target_resource("example");
+    /// ```
+    pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [associated_resources][crate::model::IntelligenceFinding::associated_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// let x = IntelligenceFinding::new().set_associated_resources(["a", "b", "c"]);
+    /// ```
+    pub fn set_associated_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.associated_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [observation_period][crate::model::IntelligenceFinding::observation_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_type::model::Interval;
+    /// let x = IntelligenceFinding::new().set_observation_period(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_observation_period<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.observation_period = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [observation_period][crate::model::IntelligenceFinding::observation_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_type::model::Interval;
+    /// let x = IntelligenceFinding::new().set_or_clear_observation_period(Some(Interval::default()/* use setters */));
+    /// let x = IntelligenceFinding::new().set_or_clear_observation_period(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_observation_period<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.observation_period = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details].
+    ///
+    /// Note that all the setters affecting `intelligence_finding_details` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike;
+    /// let x = IntelligenceFinding::new().set_intelligence_finding_details(Some(
+    ///     google_cloud_storage::model::intelligence_finding::IntelligenceFindingDetails::ColdlineAndArchivalStorageOperationsSpike(ColdlineAndArchivalStorageOperationsSpike::default().into())));
+    /// ```
+    pub fn set_intelligence_finding_details<
+        T: std::convert::Into<
+                std::option::Option<crate::model::intelligence_finding::IntelligenceFindingDetails>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intelligence_finding_details = v.into();
+        self
+    }
+
+    /// The value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// if it holds a `ColdlineAndArchivalStorageOperationsSpike`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn coldline_and_archival_storage_operations_spike(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.intelligence_finding_details.as_ref().and_then(|v| match v {
+            crate::model::intelligence_finding::IntelligenceFindingDetails::ColdlineAndArchivalStorageOperationsSpike(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// to hold a `ColdlineAndArchivalStorageOperationsSpike`.
+    ///
+    /// Note that all the setters affecting `intelligence_finding_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike;
+    /// let x = IntelligenceFinding::new().set_coldline_and_archival_storage_operations_spike(ColdlineAndArchivalStorageOperationsSpike::default()/* use setters */);
+    /// assert!(x.coldline_and_archival_storage_operations_spike().is_some());
+    /// assert!(x.throttled_requests_spike().is_none());
+    /// assert!(x.cross_region_egress_spike().is_none());
+    /// assert!(x.storage_growth_above_trend().is_none());
+    /// ```
+    pub fn set_coldline_and_archival_storage_operations_spike<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intelligence_finding_details = std::option::Option::Some(
+            crate::model::intelligence_finding::IntelligenceFindingDetails::ColdlineAndArchivalStorageOperationsSpike(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// if it holds a `ThrottledRequestsSpike`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn throttled_requests_spike(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::intelligence_finding::ThrottledRequestSpike>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.intelligence_finding_details.as_ref().and_then(|v| match v {
+            crate::model::intelligence_finding::IntelligenceFindingDetails::ThrottledRequestsSpike(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// to hold a `ThrottledRequestsSpike`.
+    ///
+    /// Note that all the setters affecting `intelligence_finding_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::intelligence_finding::ThrottledRequestSpike;
+    /// let x = IntelligenceFinding::new().set_throttled_requests_spike(ThrottledRequestSpike::default()/* use setters */);
+    /// assert!(x.throttled_requests_spike().is_some());
+    /// assert!(x.coldline_and_archival_storage_operations_spike().is_none());
+    /// assert!(x.cross_region_egress_spike().is_none());
+    /// assert!(x.storage_growth_above_trend().is_none());
+    /// ```
+    pub fn set_throttled_requests_spike<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::intelligence_finding::ThrottledRequestSpike>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intelligence_finding_details = std::option::Option::Some(
+            crate::model::intelligence_finding::IntelligenceFindingDetails::ThrottledRequestsSpike(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// if it holds a `CrossRegionEgressSpike`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cross_region_egress_spike(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::intelligence_finding::CrossRegionEgressSpike>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.intelligence_finding_details.as_ref().and_then(|v| match v {
+            crate::model::intelligence_finding::IntelligenceFindingDetails::CrossRegionEgressSpike(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// to hold a `CrossRegionEgressSpike`.
+    ///
+    /// Note that all the setters affecting `intelligence_finding_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::intelligence_finding::CrossRegionEgressSpike;
+    /// let x = IntelligenceFinding::new().set_cross_region_egress_spike(CrossRegionEgressSpike::default()/* use setters */);
+    /// assert!(x.cross_region_egress_spike().is_some());
+    /// assert!(x.coldline_and_archival_storage_operations_spike().is_none());
+    /// assert!(x.throttled_requests_spike().is_none());
+    /// assert!(x.storage_growth_above_trend().is_none());
+    /// ```
+    pub fn set_cross_region_egress_spike<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::intelligence_finding::CrossRegionEgressSpike>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intelligence_finding_details = std::option::Option::Some(
+            crate::model::intelligence_finding::IntelligenceFindingDetails::CrossRegionEgressSpike(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// if it holds a `StorageGrowthAboveTrend`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn storage_growth_above_trend(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::intelligence_finding::StorageGrowthAboveTrend>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.intelligence_finding_details.as_ref().and_then(|v| match v {
+            crate::model::intelligence_finding::IntelligenceFindingDetails::StorageGrowthAboveTrend(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [intelligence_finding_details][crate::model::IntelligenceFinding::intelligence_finding_details]
+    /// to hold a `StorageGrowthAboveTrend`.
+    ///
+    /// Note that all the setters affecting `intelligence_finding_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFinding;
+    /// use google_cloud_storage::model::intelligence_finding::StorageGrowthAboveTrend;
+    /// let x = IntelligenceFinding::new().set_storage_growth_above_trend(StorageGrowthAboveTrend::default()/* use setters */);
+    /// assert!(x.storage_growth_above_trend().is_some());
+    /// assert!(x.coldline_and_archival_storage_operations_spike().is_none());
+    /// assert!(x.throttled_requests_spike().is_none());
+    /// assert!(x.cross_region_egress_spike().is_none());
+    /// ```
+    pub fn set_storage_growth_above_trend<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::intelligence_finding::StorageGrowthAboveTrend>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intelligence_finding_details = std::option::Option::Some(
+            crate::model::intelligence_finding::IntelligenceFindingDetails::StorageGrowthAboveTrend(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for IntelligenceFinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding"
+    }
+}
+
+/// Defines additional types related to [IntelligenceFinding].
+pub mod intelligence_finding {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a finding about a spike in Class A/B operations on Coldline
+    /// or Archive Cloud Storage objects.
+    /// This corresponds to the `COLD_AND_ARCHIVAL_STORAGE_OPERATIONS_SPIKE`
+    /// finding type.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColdlineAndArchivalStorageOperationsSpike {
+
+        /// Output only. The percentage increase in operations across the project.
+        pub percentage_increase: f64,
+
+        /// Output only. The total count of operations across the project.
+        pub total_operations_count: i64,
+
+        /// Output only. A list of the top buckets driving the increase in
+        /// operations.
+        pub top_buckets: std::vec::Vec<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColdlineAndArchivalStorageOperationsSpike {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [percentage_increase][crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike::percentage_increase].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike;
+        /// let x = ColdlineAndArchivalStorageOperationsSpike::new().set_percentage_increase(42.0);
+        /// ```
+        pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.percentage_increase = v.into();
+            self
+        }
+
+        /// Sets the value of [total_operations_count][crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike::total_operations_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike;
+        /// let x = ColdlineAndArchivalStorageOperationsSpike::new().set_total_operations_count(42);
+        /// ```
+        pub fn set_total_operations_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.total_operations_count = v.into();
+            self
+        }
+
+        /// Sets the value of [top_buckets][crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike::top_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike;
+        /// use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+        /// let x = ColdlineAndArchivalStorageOperationsSpike::new()
+        ///     .set_top_buckets([
+        ///         BucketContribution::default()/* use setters */,
+        ///         BucketContribution::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_top_buckets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution>
+        {
+            use std::iter::Iterator;
+            self.top_buckets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColdlineAndArchivalStorageOperationsSpike {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike"
+        }
+    }
+
+    /// Defines additional types related to [ColdlineAndArchivalStorageOperationsSpike].
+    pub mod coldline_and_archival_storage_operations_spike {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents the operation spike details for a bucket.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BucketContribution {
+
+            /// Output only. The name of the bucket.
+            pub bucket: std::string::String,
+
+            /// Output only. The percentage increase in operations for the bucket.
+            pub percentage_increase: f64,
+
+            /// Output only. The total count of operations for the bucket.
+            pub total_operations_count: i64,
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            pub details: std::option::Option<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl BucketContribution {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [bucket][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::bucket].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_bucket("example");
+            /// ```
+            pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.bucket = v.into();
+                self
+            }
+
+            /// Sets the value of [percentage_increase][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::percentage_increase].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_percentage_increase(42.0);
+            /// ```
+            pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                self.percentage_increase = v.into();
+                self
+            }
+
+            /// Sets the value of [total_operations_count][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::total_operations_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_total_operations_count(42);
+            /// ```
+            pub fn set_total_operations_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.total_operations_count = v.into();
+                self
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::details].
+            ///
+            /// Note that all the setters affecting `details` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+            /// use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution;
+            /// let x = BucketContribution::new().set_details(Some(
+            ///     google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details::Contribution(Contribution::default().into())));
+            /// ```
+            pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details>>>(mut self, v: T) -> Self
+            {
+                self.details = v.into();
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::details]
+            /// if it holds a `Contribution`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn contribution(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution>>{
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details::Contribution(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::details]
+            /// to hold a `Contribution`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+            /// use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution;
+            /// let x = BucketContribution::new().set_contribution(Contribution::default()/* use setters */);
+            /// assert!(x.contribution().is_some());
+            /// assert!(x.error().is_none());
+            /// ```
+            pub fn set_contribution<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution>>>(mut self, v: T) -> Self{
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details::Contribution(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::details]
+            /// if it holds a `Error`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn error(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>>
+            {
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details::Error(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution::details]
+            /// to hold a `Error`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = BucketContribution::new().set_error(Status::default()/* use setters */);
+            /// assert!(x.error().is_some());
+            /// assert!(x.contribution().is_none());
+            /// ```
+            pub fn set_error<
+                T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details::Error(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for BucketContribution {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution"
+            }
+        }
+
+        /// Defines additional types related to [BucketContribution].
+        pub mod bucket_contribution {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Represents the contribution of the bucket towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Contribution {
+
+                /// Output only. A list of the top object prefixes driving the increase
+                /// in operations.
+                pub top_prefixes: std::vec::Vec<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Contribution {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [top_prefixes][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution::top_prefixes].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution;
+                /// use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution;
+                /// let x = Contribution::new()
+                ///     .set_top_prefixes([
+                ///         PrefixContribution::default()/* use setters */,
+                ///         PrefixContribution::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_top_prefixes<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution>
+                {
+                    use std::iter::Iterator;
+                    self.top_prefixes = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Contribution {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution.Contribution"
+                }
+            }
+
+            /// Defines additional types related to [Contribution].
+            pub mod contribution {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Represents the operation spike details for an object prefix.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct PrefixContribution {
+                    /// Output only. The object prefix.
+                    /// Format: `a/b/c`, 'a/b/d', etc.
+                    pub prefix: std::string::String,
+
+                    /// Output only. The percentage increase in operations for the object
+                    /// prefix.
+                    pub percentage_increase: f64,
+
+                    /// Output only. The total count of operations for the object prefix.
+                    pub total_operations_count: i64,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl PrefixContribution {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [prefix][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution::prefix].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_prefix("example");
+                    /// ```
+                    pub fn set_prefix<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.prefix = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [percentage_increase][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution::percentage_increase].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_percentage_increase(42.0);
+                    /// ```
+                    pub fn set_percentage_increase<T: std::convert::Into<f64>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.percentage_increase = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [total_operations_count][crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution::total_operations_count].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_total_operations_count(42);
+                    /// ```
+                    pub fn set_total_operations_count<T: std::convert::Into<i64>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.total_operations_count = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for PrefixContribution {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ColdlineAndArchivalStorageOperationsSpike.BucketContribution.Contribution.PrefixContribution"
+                    }
+                }
+            }
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Details {
+                /// Output only. The details about the contribution of the bucket.
+                Contribution(std::boxed::Box<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution>),
+                /// Output only. The error related to accessing the details about the
+                /// contribution of the bucket.
+                Error(std::boxed::Box<google_cloud_rpc::model::Status>),
+            }
+
+            impl Details {
+                /// Initializes the enum to the [Contribution](Self::Contribution) branch.
+                pub fn from_contribution(
+                    value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution>>,
+                ) -> Self {
+                    Self::Contribution(value.into())
+                }
+                /// Initializes the enum to the [Error](Self::Error) branch.
+                pub fn from_error(
+                    value: impl std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+                ) -> Self {
+                    Self::Error(value.into())
+                }
+            }
+        }
+    }
+
+    /// Represents a finding about a spike in cross-region egress from Cloud
+    /// Storage.
+    /// This corresponds to the `CROSS_REGION_EGRESS_SPIKE` finding type.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CrossRegionEgressSpike {
+        /// Output only. The total cross-region egress volume in bytes across the
+        /// project.
+        pub total_egress_bytes: i64,
+
+        /// Output only. The percentage increase in cross-region egress across the
+        /// project.
+        pub percentage_increase: f64,
+
+        /// Output only. A list of top buckets driving the increase in cross-region
+        /// egress.
+        pub top_buckets: std::vec::Vec<
+            crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CrossRegionEgressSpike {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [total_egress_bytes][crate::model::intelligence_finding::CrossRegionEgressSpike::total_egress_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::CrossRegionEgressSpike;
+        /// let x = CrossRegionEgressSpike::new().set_total_egress_bytes(42);
+        /// ```
+        pub fn set_total_egress_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.total_egress_bytes = v.into();
+            self
+        }
+
+        /// Sets the value of [percentage_increase][crate::model::intelligence_finding::CrossRegionEgressSpike::percentage_increase].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::CrossRegionEgressSpike;
+        /// let x = CrossRegionEgressSpike::new().set_percentage_increase(42.0);
+        /// ```
+        pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.percentage_increase = v.into();
+            self
+        }
+
+        /// Sets the value of [top_buckets][crate::model::intelligence_finding::CrossRegionEgressSpike::top_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::CrossRegionEgressSpike;
+        /// use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+        /// let x = CrossRegionEgressSpike::new()
+        ///     .set_top_buckets([
+        ///         BucketContribution::default()/* use setters */,
+        ///         BucketContribution::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_top_buckets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution>
+        {
+            use std::iter::Iterator;
+            self.top_buckets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CrossRegionEgressSpike {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike"
+        }
+    }
+
+    /// Defines additional types related to [CrossRegionEgressSpike].
+    pub mod cross_region_egress_spike {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents the cross-region egress spike details for a bucket.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BucketContribution {
+
+            /// Output only. The name of the bucket.
+            pub bucket: std::string::String,
+
+            /// Output only. The total cross-region egress volume in bytes for the
+            /// bucket.
+            pub total_egress_bytes: i64,
+
+            /// Output only. The percentage increase in cross-region egress for the
+            /// bucket.
+            pub percentage_increase: f64,
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            pub details: std::option::Option<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl BucketContribution {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [bucket][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::bucket].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_bucket("example");
+            /// ```
+            pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.bucket = v.into();
+                self
+            }
+
+            /// Sets the value of [total_egress_bytes][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::total_egress_bytes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_total_egress_bytes(42);
+            /// ```
+            pub fn set_total_egress_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.total_egress_bytes = v.into();
+                self
+            }
+
+            /// Sets the value of [percentage_increase][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::percentage_increase].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_percentage_increase(42.0);
+            /// ```
+            pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                self.percentage_increase = v.into();
+                self
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::details].
+            ///
+            /// Note that all the setters affecting `details` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+            /// use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution;
+            /// let x = BucketContribution::new().set_details(Some(
+            ///     google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details::Contribution(Contribution::default().into())));
+            /// ```
+            pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details>>>(mut self, v: T) -> Self
+            {
+                self.details = v.into();
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::details]
+            /// if it holds a `Contribution`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn contribution(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution>>{
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details::Contribution(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::details]
+            /// to hold a `Contribution`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+            /// use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution;
+            /// let x = BucketContribution::new().set_contribution(Contribution::default()/* use setters */);
+            /// assert!(x.contribution().is_some());
+            /// assert!(x.error().is_none());
+            /// ```
+            pub fn set_contribution<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution>>>(mut self, v: T) -> Self{
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details::Contribution(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::details]
+            /// if it holds a `Error`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn error(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>>
+            {
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details::Error(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution::details]
+            /// to hold a `Error`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::BucketContribution;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = BucketContribution::new().set_error(Status::default()/* use setters */);
+            /// assert!(x.error().is_some());
+            /// assert!(x.contribution().is_none());
+            /// ```
+            pub fn set_error<
+                T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details::Error(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for BucketContribution {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution"
+            }
+        }
+
+        /// Defines additional types related to [BucketContribution].
+        pub mod bucket_contribution {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Represents the contribution of the bucket towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Contribution {
+
+                /// Output only. A list of the top object prefixes driving the increase
+                /// in cross-region egress.
+                pub top_prefixes: std::vec::Vec<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Contribution {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [top_prefixes][crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution::top_prefixes].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution;
+                /// use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution;
+                /// let x = Contribution::new()
+                ///     .set_top_prefixes([
+                ///         PrefixContribution::default()/* use setters */,
+                ///         PrefixContribution::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_top_prefixes<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution>
+                {
+                    use std::iter::Iterator;
+                    self.top_prefixes = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Contribution {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution.Contribution"
+                }
+            }
+
+            /// Defines additional types related to [Contribution].
+            pub mod contribution {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Represents the cross-region egress spike details for an object
+                /// prefix.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct PrefixContribution {
+                    /// Output only. The object prefix.
+                    /// Format: `a/b/c`, 'a/b/d', etc.
+                    pub prefix: std::string::String,
+
+                    /// Output only. The total cross-region egress volume in bytes from the
+                    /// object prefix.
+                    pub total_egress_bytes: i64,
+
+                    /// Output only. The percentage increase in cross-region egress for the
+                    /// object prefix.
+                    pub percentage_increase: f64,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl PrefixContribution {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [prefix][crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution::prefix].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_prefix("example");
+                    /// ```
+                    pub fn set_prefix<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.prefix = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [total_egress_bytes][crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution::total_egress_bytes].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_total_egress_bytes(42);
+                    /// ```
+                    pub fn set_total_egress_bytes<T: std::convert::Into<i64>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.total_egress_bytes = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [percentage_increase][crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution::percentage_increase].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_percentage_increase(42.0);
+                    /// ```
+                    pub fn set_percentage_increase<T: std::convert::Into<f64>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.percentage_increase = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for PrefixContribution {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.CrossRegionEgressSpike.BucketContribution.Contribution.PrefixContribution"
+                    }
+                }
+            }
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Details {
+                /// Output only. The details about the contribution of the bucket.
+                Contribution(std::boxed::Box<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution>),
+                /// Output only. The error related to accessing the details about the
+                /// contribution of the bucket.
+                Error(std::boxed::Box<google_cloud_rpc::model::Status>),
+            }
+
+            impl Details {
+                /// Initializes the enum to the [Contribution](Self::Contribution) branch.
+                pub fn from_contribution(
+                    value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution>>,
+                ) -> Self {
+                    Self::Contribution(value.into())
+                }
+                /// Initializes the enum to the [Error](Self::Error) branch.
+                pub fn from_error(
+                    value: impl std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+                ) -> Self {
+                    Self::Error(value.into())
+                }
+            }
+        }
+    }
+
+    /// Represents a finding about a spike in throttled requests (429 errors)
+    /// within a project.
+    /// This corresponds to the `THROTTLED_REQUEST_SPIKE` finding type.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ThrottledRequestSpike {
+        /// Output only. The count of throttled requests across the project.
+        pub throttled_requests: i64,
+
+        /// Output only. The percentage increase in throttled requests across the
+        /// project.
+        pub percentage_increase: f64,
+
+        /// Output only. A list of top buckets driving the increase in throttled
+        /// requests.
+        pub top_buckets: std::vec::Vec<
+            crate::model::intelligence_finding::throttled_request_spike::BucketContribution,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ThrottledRequestSpike {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [throttled_requests][crate::model::intelligence_finding::ThrottledRequestSpike::throttled_requests].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::ThrottledRequestSpike;
+        /// let x = ThrottledRequestSpike::new().set_throttled_requests(42);
+        /// ```
+        pub fn set_throttled_requests<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.throttled_requests = v.into();
+            self
+        }
+
+        /// Sets the value of [percentage_increase][crate::model::intelligence_finding::ThrottledRequestSpike::percentage_increase].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::ThrottledRequestSpike;
+        /// let x = ThrottledRequestSpike::new().set_percentage_increase(42.0);
+        /// ```
+        pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.percentage_increase = v.into();
+            self
+        }
+
+        /// Sets the value of [top_buckets][crate::model::intelligence_finding::ThrottledRequestSpike::top_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::ThrottledRequestSpike;
+        /// use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+        /// let x = ThrottledRequestSpike::new()
+        ///     .set_top_buckets([
+        ///         BucketContribution::default()/* use setters */,
+        ///         BucketContribution::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_top_buckets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::intelligence_finding::throttled_request_spike::BucketContribution,
+                >,
+        {
+            use std::iter::Iterator;
+            self.top_buckets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ThrottledRequestSpike {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike"
+        }
+    }
+
+    /// Defines additional types related to [ThrottledRequestSpike].
+    pub mod throttled_request_spike {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents the throttled requests details for a bucket.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BucketContribution {
+
+            /// Output only. The name of the bucket.
+            pub bucket: std::string::String,
+
+            /// Output only. The count of throttled requests for the bucket.
+            pub throttled_requests: i64,
+
+            /// Output only. The percentage increase in throttled requests for the
+            /// bucket.
+            pub percentage_increase: f64,
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            pub details: std::option::Option<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl BucketContribution {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [bucket][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::bucket].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_bucket("example");
+            /// ```
+            pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.bucket = v.into();
+                self
+            }
+
+            /// Sets the value of [throttled_requests][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::throttled_requests].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_throttled_requests(42);
+            /// ```
+            pub fn set_throttled_requests<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.throttled_requests = v.into();
+                self
+            }
+
+            /// Sets the value of [percentage_increase][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::percentage_increase].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+            /// let x = BucketContribution::new().set_percentage_increase(42.0);
+            /// ```
+            pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                self.percentage_increase = v.into();
+                self
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::details].
+            ///
+            /// Note that all the setters affecting `details` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+            /// use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution;
+            /// let x = BucketContribution::new().set_details(Some(
+            ///     google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details::Contribution(Contribution::default().into())));
+            /// ```
+            pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details>>>(mut self, v: T) -> Self
+            {
+                self.details = v.into();
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::details]
+            /// if it holds a `Contribution`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn contribution(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution>>{
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details::Contribution(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::details]
+            /// to hold a `Contribution`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+            /// use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution;
+            /// let x = BucketContribution::new().set_contribution(Contribution::default()/* use setters */);
+            /// assert!(x.contribution().is_some());
+            /// assert!(x.error().is_none());
+            /// ```
+            pub fn set_contribution<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution>>>(mut self, v: T) -> Self{
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details::Contribution(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::details]
+            /// if it holds a `Error`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn error(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>>
+            {
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details::Error(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::throttled_request_spike::BucketContribution::details]
+            /// to hold a `Error`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::BucketContribution;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = BucketContribution::new().set_error(Status::default()/* use setters */);
+            /// assert!(x.error().is_some());
+            /// assert!(x.contribution().is_none());
+            /// ```
+            pub fn set_error<
+                T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details::Error(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for BucketContribution {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution"
+            }
+        }
+
+        /// Defines additional types related to [BucketContribution].
+        pub mod bucket_contribution {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Represents the contribution of the bucket towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Contribution {
+
+                /// Output only. A list of top object prefixes driving the increase in
+                /// throttled requests.
+                pub top_prefixes: std::vec::Vec<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Contribution {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [top_prefixes][crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution::top_prefixes].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution;
+                /// use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution;
+                /// let x = Contribution::new()
+                ///     .set_top_prefixes([
+                ///         PrefixContribution::default()/* use setters */,
+                ///         PrefixContribution::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_top_prefixes<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution>
+                {
+                    use std::iter::Iterator;
+                    self.top_prefixes = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Contribution {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution.Contribution"
+                }
+            }
+
+            /// Defines additional types related to [Contribution].
+            pub mod contribution {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Represents throttled requests details for an object prefix.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct PrefixContribution {
+                    /// Output only. The object prefix.
+                    /// Format: `a/b/c`, 'a/b/d', etc.
+                    pub prefix: std::string::String,
+
+                    /// Output only. The count of throttled requests for the object prefix.
+                    pub throttled_requests: i64,
+
+                    /// Output only. The percentage increase in throttled requests for the
+                    /// object prefix.
+                    pub percentage_increase: f64,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl PrefixContribution {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [prefix][crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution::prefix].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_prefix("example");
+                    /// ```
+                    pub fn set_prefix<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.prefix = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [throttled_requests][crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution::throttled_requests].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_throttled_requests(42);
+                    /// ```
+                    pub fn set_throttled_requests<T: std::convert::Into<i64>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.throttled_requests = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [percentage_increase][crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution::percentage_increase].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution;
+                    /// let x = PrefixContribution::new().set_percentage_increase(42.0);
+                    /// ```
+                    pub fn set_percentage_increase<T: std::convert::Into<f64>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.percentage_increase = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for PrefixContribution {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.ThrottledRequestSpike.BucketContribution.Contribution.PrefixContribution"
+                    }
+                }
+            }
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Details {
+                /// Output only. The details about the contribution of the bucket.
+                Contribution(std::boxed::Box<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution>),
+                /// Output only. The error related to accessing the details about the
+                /// contribution of the bucket.
+                Error(std::boxed::Box<google_cloud_rpc::model::Status>),
+            }
+
+            impl Details {
+                /// Initializes the enum to the [Contribution](Self::Contribution) branch.
+                pub fn from_contribution(
+                    value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution>>,
+                ) -> Self {
+                    Self::Contribution(value.into())
+                }
+                /// Initializes the enum to the [Error](Self::Error) branch.
+                pub fn from_error(
+                    value: impl std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+                ) -> Self {
+                    Self::Error(value.into())
+                }
+            }
+        }
+    }
+
+    /// Represents a finding about a storage growth above the expected trend.
+    /// This corresponds to the `STORAGE_GROWTH_ABOVE_TREND` finding type.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct StorageGrowthAboveTrend {
+        /// Output only. The total storage growth in bytes.
+        pub total_storage_growth_bytes: i64,
+
+        /// Output only. The percentage increase in storage growth.
+        pub percentage_increase: f64,
+
+        /// Output only. A list of top buckets driving the increase in storage
+        /// growth.
+        pub top_buckets: std::vec::Vec<
+            crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StorageGrowthAboveTrend {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [total_storage_growth_bytes][crate::model::intelligence_finding::StorageGrowthAboveTrend::total_storage_growth_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::StorageGrowthAboveTrend;
+        /// let x = StorageGrowthAboveTrend::new().set_total_storage_growth_bytes(42);
+        /// ```
+        pub fn set_total_storage_growth_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.total_storage_growth_bytes = v.into();
+            self
+        }
+
+        /// Sets the value of [percentage_increase][crate::model::intelligence_finding::StorageGrowthAboveTrend::percentage_increase].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::StorageGrowthAboveTrend;
+        /// let x = StorageGrowthAboveTrend::new().set_percentage_increase(42.0);
+        /// ```
+        pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.percentage_increase = v.into();
+            self
+        }
+
+        /// Sets the value of [top_buckets][crate::model::intelligence_finding::StorageGrowthAboveTrend::top_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::intelligence_finding::StorageGrowthAboveTrend;
+        /// use google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::BucketContribution;
+        /// let x = StorageGrowthAboveTrend::new()
+        ///     .set_top_buckets([
+        ///         BucketContribution::default()/* use setters */,
+        ///         BucketContribution::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_top_buckets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution>
+        {
+            use std::iter::Iterator;
+            self.top_buckets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for StorageGrowthAboveTrend {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.StorageGrowthAboveTrend"
+        }
+    }
+
+    /// Defines additional types related to [StorageGrowthAboveTrend].
+    pub mod storage_growth_above_trend {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents the storage growth details for a bucket.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BucketContribution {
+
+            /// Output only. The name of the bucket.
+            pub bucket: std::string::String,
+
+            /// Output only. The total storage growth in bytes for the bucket.
+            pub total_storage_growth_bytes: i64,
+
+            /// Output only. The percentage increase in storage growth for the bucket.
+            pub percentage_increase: f64,
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            pub details: std::option::Option<crate::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl BucketContribution {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [bucket][crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution::bucket].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::BucketContribution;
+            /// let x = BucketContribution::new().set_bucket("example");
+            /// ```
+            pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.bucket = v.into();
+                self
+            }
+
+            /// Sets the value of [total_storage_growth_bytes][crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution::total_storage_growth_bytes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::BucketContribution;
+            /// let x = BucketContribution::new().set_total_storage_growth_bytes(42);
+            /// ```
+            pub fn set_total_storage_growth_bytes<T: std::convert::Into<i64>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.total_storage_growth_bytes = v.into();
+                self
+            }
+
+            /// Sets the value of [percentage_increase][crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution::percentage_increase].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::BucketContribution;
+            /// let x = BucketContribution::new().set_percentage_increase(42.0);
+            /// ```
+            pub fn set_percentage_increase<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                self.percentage_increase = v.into();
+                self
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution::details].
+            ///
+            /// Note that all the setters affecting `details` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::BucketContribution;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = BucketContribution::new().set_details(Some(
+            ///     google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details::Error(Status::default().into())));
+            /// ```
+            pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details>>>(mut self, v: T) -> Self
+            {
+                self.details = v.into();
+                self
+            }
+
+            /// The value of [details][crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution::details]
+            /// if it holds a `Error`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn error(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>>
+            {
+                #[allow(unreachable_patterns)]
+                self.details.as_ref().and_then(|v| match v {
+                    crate::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details::Error(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [details][crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution::details]
+            /// to hold a `Error`.
+            ///
+            /// Note that all the setters affecting `details` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::BucketContribution;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = BucketContribution::new().set_error(Status::default()/* use setters */);
+            /// assert!(x.error().is_some());
+            /// ```
+            pub fn set_error<
+                T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.details = std::option::Option::Some(
+                    crate::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details::Error(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for BucketContribution {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceFinding.StorageGrowthAboveTrend.BucketContribution"
+            }
+        }
+
+        /// Defines additional types related to [BucketContribution].
+        pub mod bucket_contribution {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The details of the bucket's contribution towards the
+            /// `IntelligenceFinding`.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Details {
+                /// Output only. The error related to accessing the details about the
+                /// contribution of the bucket.
+                Error(std::boxed::Box<google_cloud_rpc::model::Status>),
+            }
+
+            impl Details {
+                /// Initializes the enum to the [Error](Self::Error) branch.
+                pub fn from_error(
+                    value: impl std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+                ) -> Self {
+                    Self::Error(value.into())
+                }
+            }
+        }
+    }
+
+    /// The specific details of the `IntelligenceFinding`.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IntelligenceFindingDetails {
+        /// Output only. `IntelligenceFinding` about a spike in Class A/B operations
+        /// on Coldline or Archive Cloud Storage objects.
+        ColdlineAndArchivalStorageOperationsSpike(
+            std::boxed::Box<
+                crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike,
+            >,
+        ),
+        /// Output only. `IntelligenceFinding` about a spike in throttled requests
+        /// (429 errors) within a project.
+        ThrottledRequestsSpike(
+            std::boxed::Box<crate::model::intelligence_finding::ThrottledRequestSpike>,
+        ),
+        /// Output only. `IntelligenceFinding` about a spike in cross-region egress.
+        CrossRegionEgressSpike(
+            std::boxed::Box<crate::model::intelligence_finding::CrossRegionEgressSpike>,
+        ),
+        /// Output only. `IntelligenceFinding` about growth in storage above the
+        /// expected trend.
+        StorageGrowthAboveTrend(
+            std::boxed::Box<crate::model::intelligence_finding::StorageGrowthAboveTrend>,
+        ),
+    }
+
+    impl IntelligenceFindingDetails {
+        /// Initializes the enum to the [ColdlineAndArchivalStorageOperationsSpike](Self::ColdlineAndArchivalStorageOperationsSpike) branch.
+        pub fn from_coldline_and_archival_storage_operations_spike(
+            value: impl std::convert::Into<
+                std::boxed::Box<
+                    crate::model::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike,
+                >,
+            >,
+        ) -> Self {
+            Self::ColdlineAndArchivalStorageOperationsSpike(value.into())
+        }
+        /// Initializes the enum to the [ThrottledRequestsSpike](Self::ThrottledRequestsSpike) branch.
+        pub fn from_throttled_requests_spike(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::intelligence_finding::ThrottledRequestSpike>,
+            >,
+        ) -> Self {
+            Self::ThrottledRequestsSpike(value.into())
+        }
+        /// Initializes the enum to the [CrossRegionEgressSpike](Self::CrossRegionEgressSpike) branch.
+        pub fn from_cross_region_egress_spike(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::intelligence_finding::CrossRegionEgressSpike>,
+            >,
+        ) -> Self {
+            Self::CrossRegionEgressSpike(value.into())
+        }
+        /// Initializes the enum to the [StorageGrowthAboveTrend](Self::StorageGrowthAboveTrend) branch.
+        pub fn from_storage_growth_above_trend(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::intelligence_finding::StorageGrowthAboveTrend>,
+            >,
+        ) -> Self {
+            Self::StorageGrowthAboveTrend(value.into())
+        }
+    }
+}
+
+/// An `IntelligenceFindingRevision` represents a specific revision of an
+/// `IntelligenceFinding` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IntelligenceFindingRevision {
+    /// Identifier. The resource name of `IntelligenceFindingRevision`.
+    /// Format:
+    /// `projects/{project}/locations/{location}/intelligenceFindings/{intelligence_finding}/revisions/{revision}`
+    pub name: std::string::String,
+
+    /// Output only. The snapshot of the `IntelligenceFinding` at the time the
+    /// revision was created. This field contains the full finding details as they
+    /// existed for the revision.
+    pub snapshot: std::option::Option<crate::model::IntelligenceFinding>,
+
+    /// Output only. The timestamp when the revision was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IntelligenceFindingRevision {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::IntelligenceFindingRevision::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFindingRevision;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intelligence_finding_id = "intelligence_finding_id";
+    /// # let revision_id = "revision_id";
+    /// let x = IntelligenceFindingRevision::new().set_name(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot][crate::model::IntelligenceFindingRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFindingRevision;
+    /// use google_cloud_storage::model::IntelligenceFinding;
+    /// let x = IntelligenceFindingRevision::new().set_snapshot(IntelligenceFinding::default()/* use setters */);
+    /// ```
+    pub fn set_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceFinding>,
+    {
+        self.snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snapshot][crate::model::IntelligenceFindingRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFindingRevision;
+    /// use google_cloud_storage::model::IntelligenceFinding;
+    /// let x = IntelligenceFindingRevision::new().set_or_clear_snapshot(Some(IntelligenceFinding::default()/* use setters */));
+    /// let x = IntelligenceFindingRevision::new().set_or_clear_snapshot(None::<IntelligenceFinding>);
+    /// ```
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceFinding>,
+    {
+        self.snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::IntelligenceFindingRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFindingRevision;
+    /// use wkt::Timestamp;
+    /// let x = IntelligenceFindingRevision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::IntelligenceFindingRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::IntelligenceFindingRevision;
+    /// use wkt::Timestamp;
+    /// let x = IntelligenceFindingRevision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IntelligenceFindingRevision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for IntelligenceFindingRevision {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.IntelligenceFindingRevision"
+    }
+}
+
+/// Request message to get the `IntelligenceFinding` resource associated with a
+/// project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetIntelligenceFindingRequest {
+    /// Required. The name of the `IntelligenceFinding` resource.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/intelligenceFindings/{intelligence_finding}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetIntelligenceFindingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetIntelligenceFindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::GetIntelligenceFindingRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intelligence_finding_id = "intelligence_finding_id";
+    /// let x = GetIntelligenceFindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetIntelligenceFindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetIntelligenceFindingRequest"
+    }
+}
+
+/// Request message to list `IntelligenceFinding` resources associated with
+/// a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListIntelligenceFindingsRequest {
+    /// Required. The parent of the `IntelligenceFinding` resource.
+    ///
+    /// Format: `projects/{project}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. The filter expression to be applied.
+    /// Supports filtering by `type` and `associated_resources`.
+    pub filter: std::string::String,
+
+    /// Optional. The maximum number of `IntelligenceFinding` resources to return.
+    ///
+    /// The maximum value is `100`; values above `100` will be coerced to `100`.
+    /// The default value is `100`.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListIntelligenceFindings`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListIntelligenceFindings` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIntelligenceFindingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListIntelligenceFindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListIntelligenceFindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListIntelligenceFindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingsRequest;
+    /// let x = ListIntelligenceFindingsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListIntelligenceFindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingsRequest;
+    /// let x = ListIntelligenceFindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListIntelligenceFindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingsRequest;
+    /// let x = ListIntelligenceFindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIntelligenceFindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingsRequest"
+    }
+}
+
+/// Response message to list the `IntelligenceFinding` resources associated with
+/// a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListIntelligenceFindingsResponse {
+    /// The `IntelligenceFinding` resources from the specified project.
+    pub intelligence_findings: std::vec::Vec<crate::model::IntelligenceFinding>,
+
+    /// A token to retrieve the next page of results.
+    /// Pass this value in the `page_token` field in the subsequent call.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIntelligenceFindingsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intelligence_findings][crate::model::ListIntelligenceFindingsResponse::intelligence_findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingsResponse;
+    /// use google_cloud_storage::model::IntelligenceFinding;
+    /// let x = ListIntelligenceFindingsResponse::new()
+    ///     .set_intelligence_findings([
+    ///         IntelligenceFinding::default()/* use setters */,
+    ///         IntelligenceFinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_intelligence_findings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IntelligenceFinding>,
+    {
+        use std::iter::Iterator;
+        self.intelligence_findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIntelligenceFindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingsResponse;
+    /// let x = ListIntelligenceFindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIntelligenceFindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListIntelligenceFindingsResponse {
+    type PageItem = crate::model::IntelligenceFinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.intelligence_findings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message to summarize the intelligence findings for the specified
+/// scope(org, folder or project).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SummarizeIntelligenceFindingsRequest {
+    /// Required. The scope to summarize the findings for.
+    /// Format:
+    ///
+    /// - `organizations/{organization}/locations/{location}`
+    /// - `folders/{folder}/locations/{location}`
+    /// - `projects/{project}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. Determines the granularity of the findings
+    /// when the `parent` is an organization or folder.
+    ///
+    /// - `PARENT` (or not set): A single summary is
+    ///   returned for each insight type, aggregated across the entire `parent`
+    ///   scope.
+    /// - `PROJECT`: A separate summary is returned for each
+    ///   insight type for every project within the `parent` scope.
+    ///
+    /// The only supported values are `PARENT` and `PROJECT`.
+    /// If no value is specified, the API behaviour defaults to the `PARENT`.
+    pub resource_scope: crate::model::summarize_intelligence_findings_request::ResourceScope,
+
+    /// Optional. The filter expression, following AIP-160.
+    /// Supports filtering by FindingType.
+    pub filter: std::string::String,
+
+    /// Optional. The maximum number of findings to return.
+    ///
+    /// The maximum value is `100`; values above `100` will be coerced to `100`.
+    /// The default value is `100`.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `SummarizeIntelligenceFindings` call. Provide this to retrieve the
+    /// subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `SummarizeIntelligenceFindings` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SummarizeIntelligenceFindingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::SummarizeIntelligenceFindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsRequest;
+    /// let x = SummarizeIntelligenceFindingsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_scope][crate::model::SummarizeIntelligenceFindingsRequest::resource_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsRequest;
+    /// use google_cloud_storage::model::summarize_intelligence_findings_request::ResourceScope;
+    /// let x0 = SummarizeIntelligenceFindingsRequest::new().set_resource_scope(ResourceScope::Parent);
+    /// let x1 = SummarizeIntelligenceFindingsRequest::new().set_resource_scope(ResourceScope::Project);
+    /// ```
+    pub fn set_resource_scope<
+        T: std::convert::Into<crate::model::summarize_intelligence_findings_request::ResourceScope>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_scope = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::SummarizeIntelligenceFindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsRequest;
+    /// let x = SummarizeIntelligenceFindingsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::SummarizeIntelligenceFindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsRequest;
+    /// let x = SummarizeIntelligenceFindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::SummarizeIntelligenceFindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsRequest;
+    /// let x = SummarizeIntelligenceFindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SummarizeIntelligenceFindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.SummarizeIntelligenceFindingsRequest"
+    }
+}
+
+/// Defines additional types related to [SummarizeIntelligenceFindingsRequest].
+pub mod summarize_intelligence_findings_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The list of resource scopes.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResourceScope {
+        /// The default behavior. Falls back to PARENT behaviour
+        Unspecified,
+        /// Summaries are aggregated at the level of the `parent` resource.
+        Parent,
+        /// Summaries are broken down by each project within the `parent` scope.
+        Project,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ResourceScope::value] or
+        /// [ResourceScope::name].
+        UnknownValue(resource_scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod resource_scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ResourceScope {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Parent => std::option::Option::Some(1),
+                Self::Project => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESOURCE_SCOPE_UNSPECIFIED"),
+                Self::Parent => std::option::Option::Some("PARENT"),
+                Self::Project => std::option::Option::Some("PROJECT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ResourceScope {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ResourceScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ResourceScope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Parent,
+                2 => Self::Project,
+                _ => Self::UnknownValue(resource_scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ResourceScope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESOURCE_SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "PARENT" => Self::Parent,
+                "PROJECT" => Self::Project,
+                _ => Self::UnknownValue(resource_scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ResourceScope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Parent => serializer.serialize_i32(1),
+                Self::Project => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResourceScope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResourceScope>::new(
+                ".google.storage.control.v2.SummarizeIntelligenceFindingsRequest.ResourceScope",
+            ))
+        }
+    }
+}
+
+/// Response message to summarize the intelligence findings for a specified
+/// scope(org, folder or project).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SummarizeIntelligenceFindingsResponse {
+    /// The list of `FindingSummary` summaries.
+    pub finding_summaries: std::vec::Vec<crate::model::FindingSummary>,
+
+    /// A token to retrieve the next page of results.
+    /// Pass this value in the `page_token` field in the subsequent call to
+    /// `SummarizeIntelligenceFindings` to retrieve the next page of results.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SummarizeIntelligenceFindingsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [finding_summaries][crate::model::SummarizeIntelligenceFindingsResponse::finding_summaries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsResponse;
+    /// use google_cloud_storage::model::FindingSummary;
+    /// let x = SummarizeIntelligenceFindingsResponse::new()
+    ///     .set_finding_summaries([
+    ///         FindingSummary::default()/* use setters */,
+    ///         FindingSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_finding_summaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FindingSummary>,
+    {
+        use std::iter::Iterator;
+        self.finding_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SummarizeIntelligenceFindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::SummarizeIntelligenceFindingsResponse;
+    /// let x = SummarizeIntelligenceFindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SummarizeIntelligenceFindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.SummarizeIntelligenceFindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for SummarizeIntelligenceFindingsResponse
+{
+    type PageItem = crate::model::FindingSummary;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.finding_summaries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message to get the `IntelligenceFindingRevision` resource associated
+/// with a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetIntelligenceFindingRevisionRequest {
+    /// Required. The name of the `IntelligenceFindingRevision` resource.
+    ///
+    /// ## Format:
+    ///
+    /// `projects/{project}/locations/{location}/intelligenceFindings/{intelligence_finding}/revisions/{revision}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetIntelligenceFindingRevisionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetIntelligenceFindingRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::GetIntelligenceFindingRevisionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intelligence_finding_id = "intelligence_finding_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetIntelligenceFindingRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetIntelligenceFindingRevisionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetIntelligenceFindingRevisionRequest"
+    }
+}
+
+/// Request message to list `IntelligenceFindingRevision` resources associated
+/// with a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListIntelligenceFindingRevisionsRequest {
+    /// Required. The parent of the `IntelligenceFindingRevision` resource.
+    ///
+    /// ## Format:
+    ///
+    /// `projects/{project}/locations/{location}/intelligenceFindings/{intelligence_finding}`
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of `IntelligenceFindingRevision` resources to
+    /// return.
+    ///
+    /// The maximum value is `100`; values above `100` will be coerced to `100`.
+    /// The default value is `100`.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListIntelligenceFindingRevisions` call. Provide this to retrieve the
+    /// subsequent page.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIntelligenceFindingRevisionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListIntelligenceFindingRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingRevisionsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let intelligence_finding_id = "intelligence_finding_id";
+    /// let x = ListIntelligenceFindingRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListIntelligenceFindingRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingRevisionsRequest;
+    /// let x = ListIntelligenceFindingRevisionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListIntelligenceFindingRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingRevisionsRequest;
+    /// let x = ListIntelligenceFindingRevisionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIntelligenceFindingRevisionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingRevisionsRequest"
+    }
+}
+
+/// Response message to list `IntelligenceFindingRevision` resources associated
+/// with a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListIntelligenceFindingRevisionsResponse {
+    /// The `IntelligenceFindingRevision` resources from the specified project.
+    pub intelligence_finding_revisions: std::vec::Vec<crate::model::IntelligenceFindingRevision>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIntelligenceFindingRevisionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intelligence_finding_revisions][crate::model::ListIntelligenceFindingRevisionsResponse::intelligence_finding_revisions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingRevisionsResponse;
+    /// use google_cloud_storage::model::IntelligenceFindingRevision;
+    /// let x = ListIntelligenceFindingRevisionsResponse::new()
+    ///     .set_intelligence_finding_revisions([
+    ///         IntelligenceFindingRevision::default()/* use setters */,
+    ///         IntelligenceFindingRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_intelligence_finding_revisions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IntelligenceFindingRevision>,
+    {
+        use std::iter::Iterator;
+        self.intelligence_finding_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIntelligenceFindingRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListIntelligenceFindingRevisionsResponse;
+    /// let x = ListIntelligenceFindingRevisionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIntelligenceFindingRevisionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListIntelligenceFindingRevisionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListIntelligenceFindingRevisionsResponse
+{
+    type PageItem = crate::model::IntelligenceFindingRevision;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.intelligence_finding_revisions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// A summary of findings generated for an organization, a folder, or a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FindingSummary {
+    /// Output only. The type of the finding.
+    pub r#type: crate::model::FindingType,
+
+    /// Output only. The category of finding.
+    pub category: crate::model::FindingCategory,
+
+    /// Output only. The fully qualified Cloud resource name for which this
+    /// summary was generated.
+    /// eg: `//cloudresourcemanager.googleapis.com/projects/p1`
+    pub target_resource: std::string::String,
+
+    /// Output only. The creation time of the earliest finding that this summary is
+    /// based on.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time of the most recent update among all the findings that
+    /// this summary is based on.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Severity of the finding.
+    pub severity: crate::model::FindingSeverity,
+
+    /// Output only. List of `SummaryDetails`.
+    pub summary_details: std::vec::Vec<crate::model::finding_summary::SummaryDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FindingSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::FindingSummary::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use google_cloud_storage::model::FindingType;
+    /// let x0 = FindingSummary::new().set_type(FindingType::ColdlineAndArchivalStorageOperationsSpike);
+    /// let x1 = FindingSummary::new().set_type(FindingType::ThrottledRequestSpike);
+    /// let x2 = FindingSummary::new().set_type(FindingType::CrossRegionEgressSpike);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::FindingType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [category][crate::model::FindingSummary::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use google_cloud_storage::model::FindingCategory;
+    /// let x0 = FindingSummary::new().set_category(FindingCategory::DataManagement);
+    /// let x1 = FindingSummary::new().set_category(FindingCategory::Performance);
+    /// ```
+    pub fn set_category<T: std::convert::Into<crate::model::FindingCategory>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.category = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource][crate::model::FindingSummary::target_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// let x = FindingSummary::new().set_target_resource("example");
+    /// ```
+    pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::FindingSummary::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use wkt::Timestamp;
+    /// let x = FindingSummary::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::FindingSummary::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use wkt::Timestamp;
+    /// let x = FindingSummary::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FindingSummary::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FindingSummary::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use wkt::Timestamp;
+    /// let x = FindingSummary::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FindingSummary::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use wkt::Timestamp;
+    /// let x = FindingSummary::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FindingSummary::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [severity][crate::model::FindingSummary::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use google_cloud_storage::model::FindingSeverity;
+    /// let x0 = FindingSummary::new().set_severity(FindingSeverity::Critical);
+    /// ```
+    pub fn set_severity<T: std::convert::Into<crate::model::FindingSeverity>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.severity = v.into();
+        self
+    }
+
+    /// Sets the value of [summary_details][crate::model::FindingSummary::summary_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::FindingSummary;
+    /// use google_cloud_storage::model::finding_summary::SummaryDetails;
+    /// let x = FindingSummary::new()
+    ///     .set_summary_details([
+    ///         SummaryDetails::default()/* use setters */,
+    ///         SummaryDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_summary_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::finding_summary::SummaryDetails>,
+    {
+        use std::iter::Iterator;
+        self.summary_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FindingSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.FindingSummary"
+    }
+}
+
+/// Defines additional types related to [FindingSummary].
+pub mod finding_summary {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Details about the `FindingSummary` resource.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SummaryDetails {
+        /// Output only. The type of Cloud resource this summary detail applies to.
+        pub resource_type: crate::model::finding_summary::summary_details::ResourceType,
+
+        /// Output only. A short description about the FindingSummary
+        pub description: std::string::String,
+
+        /// The value of the summary.
+        pub magnitude:
+            std::option::Option<crate::model::finding_summary::summary_details::Magnitude>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SummaryDetails {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [resource_type][crate::model::finding_summary::SummaryDetails::resource_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::finding_summary::SummaryDetails;
+        /// use google_cloud_storage::model::finding_summary::summary_details::ResourceType;
+        /// let x0 = SummaryDetails::new().set_resource_type(ResourceType::Project);
+        /// let x1 = SummaryDetails::new().set_resource_type(ResourceType::Bucket);
+        /// ```
+        pub fn set_resource_type<
+            T: std::convert::Into<crate::model::finding_summary::summary_details::ResourceType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.resource_type = v.into();
+            self
+        }
+
+        /// Sets the value of [description][crate::model::finding_summary::SummaryDetails::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::finding_summary::SummaryDetails;
+        /// let x = SummaryDetails::new().set_description("example");
+        /// ```
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+
+        /// Sets the value of [magnitude][crate::model::finding_summary::SummaryDetails::magnitude].
+        ///
+        /// Note that all the setters affecting `magnitude` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::finding_summary::SummaryDetails;
+        /// use google_cloud_storage::model::finding_summary::summary_details::Magnitude;
+        /// let x = SummaryDetails::new().set_magnitude(Some(Magnitude::Count(42)));
+        /// ```
+        pub fn set_magnitude<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::finding_summary::summary_details::Magnitude>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.magnitude = v.into();
+            self
+        }
+
+        /// The value of [magnitude][crate::model::finding_summary::SummaryDetails::magnitude]
+        /// if it holds a `Count`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn count(&self) -> std::option::Option<&i64> {
+            #[allow(unreachable_patterns)]
+            self.magnitude.as_ref().and_then(|v| match v {
+                crate::model::finding_summary::summary_details::Magnitude::Count(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [magnitude][crate::model::finding_summary::SummaryDetails::magnitude]
+        /// to hold a `Count`.
+        ///
+        /// Note that all the setters affecting `magnitude` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::finding_summary::SummaryDetails;
+        /// let x = SummaryDetails::new().set_count(42);
+        /// assert!(x.count().is_some());
+        /// assert!(x.percentage().is_none());
+        /// ```
+        pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.magnitude = std::option::Option::Some(
+                crate::model::finding_summary::summary_details::Magnitude::Count(v.into()),
+            );
+            self
+        }
+
+        /// The value of [magnitude][crate::model::finding_summary::SummaryDetails::magnitude]
+        /// if it holds a `Percentage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn percentage(&self) -> std::option::Option<&f32> {
+            #[allow(unreachable_patterns)]
+            self.magnitude.as_ref().and_then(|v| match v {
+                crate::model::finding_summary::summary_details::Magnitude::Percentage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [magnitude][crate::model::finding_summary::SummaryDetails::magnitude]
+        /// to hold a `Percentage`.
+        ///
+        /// Note that all the setters affecting `magnitude` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::finding_summary::SummaryDetails;
+        /// let x = SummaryDetails::new().set_percentage(42.0);
+        /// assert!(x.percentage().is_some());
+        /// assert!(x.count().is_none());
+        /// ```
+        pub fn set_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.magnitude = std::option::Option::Some(
+                crate::model::finding_summary::summary_details::Magnitude::Percentage(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for SummaryDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.FindingSummary.SummaryDetails"
+        }
+    }
+
+    /// Defines additional types related to [SummaryDetails].
+    pub mod summary_details {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The list of resource types.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ResourceType {
+            /// Resource type is unspecified.
+            Unspecified,
+            /// Resource type is project.
+            Project,
+            /// Resource type is bucket.
+            Bucket,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ResourceType::value] or
+            /// [ResourceType::name].
+            UnknownValue(resource_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod resource_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ResourceType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Project => std::option::Option::Some(1),
+                    Self::Bucket => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("RESOURCE_TYPE_UNSPECIFIED"),
+                    Self::Project => std::option::Option::Some("PROJECT"),
+                    Self::Bucket => std::option::Option::Some("BUCKET"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ResourceType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ResourceType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ResourceType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Project,
+                    2 => Self::Bucket,
+                    _ => Self::UnknownValue(resource_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ResourceType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RESOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "PROJECT" => Self::Project,
+                    "BUCKET" => Self::Bucket,
+                    _ => Self::UnknownValue(resource_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ResourceType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Project => serializer.serialize_i32(1),
+                    Self::Bucket => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ResourceType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResourceType>::new(
+                    ".google.storage.control.v2.FindingSummary.SummaryDetails.ResourceType",
+                ))
+            }
+        }
+
+        /// The value of the summary.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Magnitude {
+            /// The count of impacted resources.
+            Count(i64),
+            /// The percentage of impacted resources.
+            Percentage(f32),
+        }
+
+        impl Magnitude {
+            /// Initializes the enum to the [Count](Self::Count) branch.
+            pub fn from_count(value: impl std::convert::Into<i64>) -> Self {
+                Self::Count(value.into())
+            }
+            /// Initializes the enum to the [Percentage](Self::Percentage) branch.
+            pub fn from_percentage(value: impl std::convert::Into<f32>) -> Self {
+                Self::Percentage(value.into())
+            }
+        }
+    }
+}
+
+/// List the finding types.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FindingType {
+    /// Finding type is unspecified.
+    Unspecified,
+    /// Finding is about a spike in Class A/B operations on Coldline or Archive
+    /// Cloud Storage objects.
+    ColdlineAndArchivalStorageOperationsSpike,
+    /// Finding is about a spike in throttled requests (429 errors) within a
+    /// project.
+    ThrottledRequestSpike,
+    /// Finding is about a spike in cross region egress in Cloud Storage.
+    CrossRegionEgressSpike,
+    /// Finding is about growth in storage above the expected trend.
+    StorageGrowthAboveTrend,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FindingType::value] or
+    /// [FindingType::name].
+    UnknownValue(finding_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod finding_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FindingType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ColdlineAndArchivalStorageOperationsSpike => std::option::Option::Some(1),
+            Self::ThrottledRequestSpike => std::option::Option::Some(2),
+            Self::CrossRegionEgressSpike => std::option::Option::Some(3),
+            Self::StorageGrowthAboveTrend => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FINDING_TYPE_UNSPECIFIED"),
+            Self::ColdlineAndArchivalStorageOperationsSpike => std::option::Option::Some(
+                "FINDING_TYPE_COLDLINE_AND_ARCHIVAL_STORAGE_OPERATIONS_SPIKE",
+            ),
+            Self::ThrottledRequestSpike => {
+                std::option::Option::Some("FINDING_TYPE_THROTTLED_REQUEST_SPIKE")
+            }
+            Self::CrossRegionEgressSpike => {
+                std::option::Option::Some("FINDING_TYPE_CROSS_REGION_EGRESS_SPIKE")
+            }
+            Self::StorageGrowthAboveTrend => {
+                std::option::Option::Some("FINDING_TYPE_STORAGE_GROWTH_ABOVE_TREND")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FindingType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FindingType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FindingType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ColdlineAndArchivalStorageOperationsSpike,
+            2 => Self::ThrottledRequestSpike,
+            3 => Self::CrossRegionEgressSpike,
+            4 => Self::StorageGrowthAboveTrend,
+            _ => Self::UnknownValue(finding_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FindingType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FINDING_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "FINDING_TYPE_COLDLINE_AND_ARCHIVAL_STORAGE_OPERATIONS_SPIKE" => {
+                Self::ColdlineAndArchivalStorageOperationsSpike
+            }
+            "FINDING_TYPE_THROTTLED_REQUEST_SPIKE" => Self::ThrottledRequestSpike,
+            "FINDING_TYPE_CROSS_REGION_EGRESS_SPIKE" => Self::CrossRegionEgressSpike,
+            "FINDING_TYPE_STORAGE_GROWTH_ABOVE_TREND" => Self::StorageGrowthAboveTrend,
+            _ => Self::UnknownValue(finding_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FindingType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ColdlineAndArchivalStorageOperationsSpike => serializer.serialize_i32(1),
+            Self::ThrottledRequestSpike => serializer.serialize_i32(2),
+            Self::CrossRegionEgressSpike => serializer.serialize_i32(3),
+            Self::StorageGrowthAboveTrend => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FindingType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingType>::new(
+            ".google.storage.control.v2.FindingType",
+        ))
+    }
+}
+
+/// List of categories a finding falls under.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FindingCategory {
+    /// Category is unspecified.
+    Unspecified,
+    /// Category is 'Data Management'.
+    DataManagement,
+    /// Category is 'Performance'.
+    Performance,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FindingCategory::value] or
+    /// [FindingCategory::name].
+    UnknownValue(finding_category::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod finding_category {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FindingCategory {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::DataManagement => std::option::Option::Some(1),
+            Self::Performance => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FINDING_CATEGORY_UNSPECIFIED"),
+            Self::DataManagement => std::option::Option::Some("FINDING_CATEGORY_DATA_MANAGEMENT"),
+            Self::Performance => std::option::Option::Some("FINDING_CATEGORY_PERFORMANCE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FindingCategory {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FindingCategory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FindingCategory {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::DataManagement,
+            2 => Self::Performance,
+            _ => Self::UnknownValue(finding_category::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FindingCategory {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FINDING_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+            "FINDING_CATEGORY_DATA_MANAGEMENT" => Self::DataManagement,
+            "FINDING_CATEGORY_PERFORMANCE" => Self::Performance,
+            _ => Self::UnknownValue(finding_category::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FindingCategory {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::DataManagement => serializer.serialize_i32(1),
+            Self::Performance => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FindingCategory {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingCategory>::new(
+            ".google.storage.control.v2.FindingCategory",
+        ))
+    }
+}
+
+/// Severity of the `IntelligenceFinding` resource.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FindingSeverity {
+    /// Severity is unspecified.
+    Unspecified,
+    /// Severity is critical.
+    Critical,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FindingSeverity::value] or
+    /// [FindingSeverity::name].
+    UnknownValue(finding_severity::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod finding_severity {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FindingSeverity {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Critical => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FINDING_SEVERITY_UNSPECIFIED"),
+            Self::Critical => std::option::Option::Some("FINDING_SEVERITY_CRITICAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FindingSeverity {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FindingSeverity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FindingSeverity {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Critical,
+            _ => Self::UnknownValue(finding_severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FindingSeverity {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FINDING_SEVERITY_UNSPECIFIED" => Self::Unspecified,
+            "FINDING_SEVERITY_CRITICAL" => Self::Critical,
+            _ => Self::UnknownValue(finding_severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FindingSeverity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Critical => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FindingSeverity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingSeverity>::new(
+            ".google.storage.control.v2.FindingSeverity",
+        ))
+    }
+}

@@ -633,3 +633,367 @@ impl std::fmt::Debug for super::GetProjectIntelligenceConfigRequest {
         debug_struct.finish()
     }
 }
+
+impl std::fmt::Debug for super::IntelligenceFinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntelligenceFinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("target_resource", &self.target_resource);
+        debug_struct.field("associated_resources", &self.associated_resources);
+        debug_struct.field("observation_period", &self.observation_period);
+        debug_struct.field(
+            "intelligence_finding_details",
+            &self.intelligence_finding_details,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::ColdlineAndArchivalStorageOperationsSpike {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColdlineAndArchivalStorageOperationsSpike");
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("total_operations_count", &self.total_operations_count);
+        debug_struct.field("top_buckets", &self.top_buckets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketContribution");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("total_operations_count", &self.total_operations_count);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contribution");
+        debug_struct.field("top_prefixes", &self.top_prefixes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrefixContribution");
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("total_operations_count", &self.total_operations_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::CrossRegionEgressSpike {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CrossRegionEgressSpike");
+        debug_struct.field("total_egress_bytes", &self.total_egress_bytes);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("top_buckets", &self.top_buckets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::intelligence_finding::cross_region_egress_spike::BucketContribution
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketContribution");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("total_egress_bytes", &self.total_egress_bytes);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contribution");
+        debug_struct.field("top_prefixes", &self.top_prefixes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrefixContribution");
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("total_egress_bytes", &self.total_egress_bytes);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::ThrottledRequestSpike {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ThrottledRequestSpike");
+        debug_struct.field("throttled_requests", &self.throttled_requests);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("top_buckets", &self.top_buckets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::throttled_request_spike::BucketContribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketContribution");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("throttled_requests", &self.throttled_requests);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::intelligence_finding::throttled_request_spike::bucket_contribution::Contribution
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contribution");
+        debug_struct.field("top_prefixes", &self.top_prefixes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrefixContribution");
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("throttled_requests", &self.throttled_requests);
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::intelligence_finding::StorageGrowthAboveTrend {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageGrowthAboveTrend");
+        debug_struct.field(
+            "total_storage_growth_bytes",
+            &self.total_storage_growth_bytes,
+        );
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("top_buckets", &self.top_buckets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::intelligence_finding::storage_growth_above_trend::BucketContribution
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketContribution");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field(
+            "total_storage_growth_bytes",
+            &self.total_storage_growth_bytes,
+        );
+        debug_struct.field("percentage_increase", &self.percentage_increase);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IntelligenceFindingRevision {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntelligenceFindingRevision");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("snapshot", &self.snapshot);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetIntelligenceFindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIntelligenceFindingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListIntelligenceFindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIntelligenceFindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListIntelligenceFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIntelligenceFindingsResponse");
+        debug_struct.field("intelligence_findings", &self.intelligence_findings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SummarizeIntelligenceFindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SummarizeIntelligenceFindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_scope", &self.resource_scope);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SummarizeIntelligenceFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SummarizeIntelligenceFindingsResponse");
+        debug_struct.field("finding_summaries", &self.finding_summaries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetIntelligenceFindingRevisionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIntelligenceFindingRevisionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListIntelligenceFindingRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIntelligenceFindingRevisionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListIntelligenceFindingRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIntelligenceFindingRevisionsResponse");
+        debug_struct.field(
+            "intelligence_finding_revisions",
+            &self.intelligence_finding_revisions,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FindingSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FindingSummary");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("target_resource", &self.target_resource);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("summary_details", &self.summary_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::finding_summary::SummaryDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SummaryDetails");
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("magnitude", &self.magnitude);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}

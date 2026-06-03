@@ -701,6 +701,126 @@ impl StorageControl {
         super::builder::storage_control::TestIamPermissions::new(self.inner.clone())
     }
 
+    /// Gets the `IntelligenceFinding` for a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl, project_id: &str, location_id: &str, intelligence_finding_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intelligence_finding()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_intelligence_finding(
+        &self,
+    ) -> super::builder::storage_control::GetIntelligenceFinding {
+        super::builder::storage_control::GetIntelligenceFinding::new(self.inner.clone())
+    }
+
+    /// Lists the `IntelligenceFinding` resources for the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intelligence_findings()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_intelligence_findings(
+        &self,
+    ) -> super::builder::storage_control::ListIntelligenceFindings {
+        super::builder::storage_control::ListIntelligenceFindings::new(self.inner.clone())
+    }
+
+    /// Summarize the intelligence findings for the specified scope(org, folder or
+    /// project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> Result<()> {
+    ///     let mut list = client.summarize_intelligence_findings()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn summarize_intelligence_findings(
+        &self,
+    ) -> super::builder::storage_control::SummarizeIntelligenceFindings {
+        super::builder::storage_control::SummarizeIntelligenceFindings::new(self.inner.clone())
+    }
+
+    /// Gets the `IntelligenceFindingRevision` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl, project_id: &str, location_id: &str, intelligence_finding_id: &str, revision_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intelligence_finding_revision()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}/revisions/{revision_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_intelligence_finding_revision(
+        &self,
+    ) -> super::builder::storage_control::GetIntelligenceFindingRevision {
+        super::builder::storage_control::GetIntelligenceFindingRevision::new(self.inner.clone())
+    }
+
+    /// Lists all the revisions of an `IntelligenceFinding` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl, project_id: &str, location_id: &str, intelligence_finding_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intelligence_finding_revisions()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/intelligenceFindings/{intelligence_finding_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_intelligence_finding_revisions(
+        &self,
+    ) -> super::builder::storage_control::ListIntelligenceFindingRevisions {
+        super::builder::storage_control::ListIntelligenceFindingRevisions::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations

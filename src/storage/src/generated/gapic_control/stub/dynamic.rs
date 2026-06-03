@@ -179,6 +179,36 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
+    async fn get_intelligence_finding(
+        &self,
+        req: crate::model::GetIntelligenceFindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IntelligenceFinding>>;
+
+    async fn list_intelligence_findings(
+        &self,
+        req: crate::model::ListIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIntelligenceFindingsResponse>>;
+
+    async fn summarize_intelligence_findings(
+        &self,
+        req: crate::model::SummarizeIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SummarizeIntelligenceFindingsResponse>>;
+
+    async fn get_intelligence_finding_revision(
+        &self,
+        req: crate::model::GetIntelligenceFindingRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IntelligenceFindingRevision>>;
+
+    async fn list_intelligence_finding_revisions(
+        &self,
+        req: crate::model::ListIntelligenceFindingRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>>;
+
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
@@ -441,6 +471,52 @@ impl<T: super::StorageControl> StorageControl for T {
     ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
     {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_intelligence_finding(
+        &self,
+        req: crate::model::GetIntelligenceFindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IntelligenceFinding>> {
+        T::get_intelligence_finding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_intelligence_findings(
+        &self,
+        req: crate::model::ListIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIntelligenceFindingsResponse>> {
+        T::list_intelligence_findings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn summarize_intelligence_findings(
+        &self,
+        req: crate::model::SummarizeIntelligenceFindingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SummarizeIntelligenceFindingsResponse>> {
+        T::summarize_intelligence_findings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_intelligence_finding_revision(
+        &self,
+        req: crate::model::GetIntelligenceFindingRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IntelligenceFindingRevision>> {
+        T::get_intelligence_finding_revision(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_intelligence_finding_revisions(
+        &self,
+        req: crate::model::ListIntelligenceFindingRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>>
+    {
+        T::list_intelligence_finding_revisions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

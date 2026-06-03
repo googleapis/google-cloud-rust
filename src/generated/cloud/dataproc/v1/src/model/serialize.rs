@@ -2977,6 +2977,30 @@ impl serde::ser::Serialize for super::YarnApplication {
         if !self.tracking_url.is_empty() {
             state.serialize_entry("trackingUrl", &self.tracking_url)?;
         }
+        if !wkt::internal::is_default(&self.vcore_seconds) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("vcoreSeconds", &__With(&self.vcore_seconds))?;
+        }
+        if !wkt::internal::is_default(&self.memory_mb_seconds) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("memoryMbSeconds", &__With(&self.memory_mb_seconds))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

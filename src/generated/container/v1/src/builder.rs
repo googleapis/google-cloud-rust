@@ -521,6 +521,18 @@ pub mod cluster_manager {
             self
         }
 
+        /// Sets the value of [image][crate::model::UpdateNodePoolRequest::image].
+        pub fn set_image<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.image = v.into();
+            self
+        }
+
+        /// Sets the value of [image_project][crate::model::UpdateNodePoolRequest::image_project].
+        pub fn set_image_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.image_project = v.into();
+            self
+        }
+
         /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where

@@ -331,6 +331,65 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::StorageControl::get_intelligence_finding].
+    fn get_intelligence_finding(
+        &self,
+        _req: crate::model::GetIntelligenceFindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::IntelligenceFinding>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::list_intelligence_findings].
+    fn list_intelligence_findings(
+        &self,
+        _req: crate::model::ListIntelligenceFindingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListIntelligenceFindingsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::summarize_intelligence_findings].
+    fn summarize_intelligence_findings(
+        &self,
+        _req: crate::model::SummarizeIntelligenceFindingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::SummarizeIntelligenceFindingsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::get_intelligence_finding_revision].
+    fn get_intelligence_finding_revision(
+        &self,
+        _req: crate::model::GetIntelligenceFindingRevisionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::IntelligenceFindingRevision>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::list_intelligence_finding_revisions].
+    fn list_intelligence_finding_revisions(
+        &self,
+        _req: crate::model::ListIntelligenceFindingRevisionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::StorageControl::get_operation].
     fn get_operation(
         &self,

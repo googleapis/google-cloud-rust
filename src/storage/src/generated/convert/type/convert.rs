@@ -59,3 +59,23 @@ impl gaxi::prost::FromProto<google_cloud_type::model::Expr> for Expr {
         )
     }
 }
+
+impl gaxi::prost::ToProto<Interval> for google_cloud_type::model::Interval {
+    type Output = Interval;
+    fn to_proto(self) -> std::result::Result<Interval, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            start_time: self.start_time.map(|v| v.to_proto()).transpose()?,
+            end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<google_cloud_type::model::Interval> for Interval {
+    fn cnv(self) -> std::result::Result<google_cloud_type::model::Interval, gaxi::prost::ConvertError> {
+        Ok(
+            google_cloud_type::model::Interval::new()
+                .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
