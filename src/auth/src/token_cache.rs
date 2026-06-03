@@ -142,8 +142,9 @@ async fn refresh_task<T>(
                 // token.
                 let (deadline, publish) = match current_expiration(&tx_token) {
                     None => (short, true),
-                    Some(d) if d < short => (d, d >= Instant::now()),
-                    Some(d) => (short, d >= Instant::now()),
+                    Some(d) if d < Instant::now() => (short, d >= short),
+                    Some(d) if d < short => (short, true),
+                    Some(_d) => (short, true),
                 };
                 tokio::time::sleep_until(deadline).await;
                 if publish {
@@ -773,7 +774,7 @@ mod tests {
         // Advance time to the point where the token provider starts returning errors.
         tokio::time::sleep_until(start_returning_error + Duration::from_secs(1)).await;
 
-        // The token is not expired yet, so it should suceed.
+        // The token is not expired yet, so it should succeed.
         let got = cache.token(Extensions::new()).await;
         assert!(
             matches!(got.as_ref(), Ok(CacheableResource::New { data: t, .. }) if t == &token1),
