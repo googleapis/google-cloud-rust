@@ -18,7 +18,7 @@ This doc was written with AI assistance.
 
    > I want to understand `open_object`. Starting with a call to
    > `Client::open_object`, trace execution all the way until the function
-   > returns. Pay particular attention to `src/storage/bidi` as that where I
+   > returns. Pay particular attention to `src/storage/bidi` as that is where I
    > believe the bulk of the code lies. Ground every citation by annotating
    > every code snippet and claim with file name and line numbers.
 
@@ -43,7 +43,7 @@ This doc was written with AI assistance.
    > You are an expert in Rust, the google-cloud-rust repository, and a highly
    > skilled technical writer. Here is a document written to understand the
    > `open_object` flow. I suspect that it is poorly written and contains
-   > numerous factual inaccuracies. Please read the document tell me all the
+   > numerous factual inaccuracies. Please read the document and tell me all the
    > ways the doc is inaccurate. Check every single code citation rigorously,
    > ensuring the cited line numbers and files are correct. Check whether the
    > document accurately represents the flow. Tell me all the ways the doc
@@ -59,24 +59,35 @@ This doc was written with AI assistance.
    the final was still necessary. To make this task more manageable, the
    document was checked in piecemeal.
 
+1. Over time, the underlying code may change. I run this prompt periodically to
+   keep the walkthrough up to date:
+
+   > You are an expert in Rust and the `google-cloud-rust` codebase. Update the
+   > `open_object` walkthrough to match the latest implementation on disk. Trace
+   > execution from `Client::open_object` through `src/storage/bidi` until
+   > completion. Check every single code citation rigorously, ensuring the cited
+   > line numbers and files are correct. Check whether the document accurately
+   > represents the flow. Tell me all the ways the doc misrepresents the code.
+
 ## Table of Contents
 
 - [Mental Model: A Persistent Object Handle](#mental-model-a-persistent-object-handle)
 - [Files Involved](#files-involved)
 - [End-to-End Call Graph](#end-to-end-call-graph)
 - [Part 1 - The Linear Execution Trace](#part-1---the-linear-execution-trace)
-  - [1. `open_object()` Returns a Request Builder — Lazy, No I/O](#1-open_object-returns-a-request-builder-lazy-no-io)
-  - [2. `.send()` / `.send_and_read()`](#2-send-send_and_read)
-  - [3. The Stub Trait — The Mock Seam](#3-the-stub-trait-the-mock-seam)
+  - [1. `open_object()` Returns a Request Builder — Lazy, No I/O](#1-open_object-returns-a-request-builder--lazy-no-io)
+  - [2. `.send()` / `.send_and_read()`](#2-send--send_and_read)
+  - [3. The Stub Trait — The Mock Seam](#3-the-stub-trait--the-mock-seam)
   - [4. The Transport Routes on Tracing](#4-the-transport-routes-on-tracing)
-  - [5. `open_object_plain` — Four Crucial Lines](#5-open_object_plain-four-crucial-lines)
-  - [6. `into_parts` — Splitting the Request](#6-into_parts-splitting-the-request)
-  - [7. `Connector::new` — Armed but Not Fired](#7-connectornew-armed-but-not-fired)
-  - [8. `ObjectDescriptorTransport::new` — Orchestration (Part 1: Prep)](#8-objectdescriptortransportnew-orchestration-part-1-prep)
-  - [9. `connect()` — The Retry and Self-Heal Loop](#9-connect-the-retry-and-self-heal-loop)
-  - [10. `connect_attempt` — Establishing the Connection](#10-connect_attempt-establishing-the-connection)
-  - [11. `ObjectDescriptorTransport::new` — Orchestration (Part 2)](#11-objectdescriptortransportnew-orchestration-part-2)
+  - [5. `open_object_plain` — Four Crucial Lines](#5-open_object_plain--four-crucial-lines)
+  - [6. `into_parts` — Splitting the Request](#6-into_parts--splitting-the-request)
+  - [7. `Connector::new` — Armed but Not Fired](#7-connectornew--armed-but-not-fired)
+  - [8. `ObjectDescriptorTransport::new` — Orchestration (Part 1: Prep)](#8-objectdescriptortransportnew--orchestration-part-1-prep)
+  - [9. `connect()` — The Retry and Self-Heal Loop](#9-connect--the-retry-and-self-heal-loop)
+  - [10. `connect_attempt` — Establishing the Connection](#10-connect_attempt--establishing-the-connection)
+  - [11. `ObjectDescriptorTransport::new` — Orchestration (Part 2)](#11-objectdescriptortransportnew--orchestration-part-2)
   - [12. The Climb Back Up](#12-the-climb-back-up)
+  - [13. After `send()` / `send_and_read()` Returns](#13-after-send--send_and_read-returns)
 - [Part 2 — Reference and Deep Dives](#part-2--reference-and-deep-dives)
   - [A. The Client Type and the Stub Seam](#a-the-client-type-and-the-stub-seam)
   - [B. `ObjectDescriptor` Anatomy](#b-objectdescriptor-anatomy)
@@ -87,6 +98,8 @@ This doc was written with AI assistance.
   - [G. `ActiveRead` vs `ReadObjectResponse`](#g-activeread-vs-readobjectresponse)
   - [H. The Two "Metadata"s](#h-the-two-metadatas)
   - [I. The Worker's `run` Loop, Branch by Branch](#i-the-workers-run-loop-branch-by-branch)
+  - [J. The Range-Type Stack](#j-the-range-type-stack)
+  - [K. Redirects and the Resilience Machinery](#k-redirects-and-the-resilience-machinery)
 
 ## Mental Model: A Persistent Object Handle
 
@@ -578,6 +591,24 @@ The call stack unwinds cleanly:
 The user is now successfully holding an `ObjectDescriptor` (analogous to a file
 descriptor) which allows reads on the object.
 
+## 13. After `send()` / `send_and_read()` Returns
+
+When the dust settles, three entities remain alive and active:
+
+1. The user's `ObjectDescriptor` (holding the `tx` to the worker).
+1. The detached `Worker` task (owning the connection, the connector, and the
+   read-id HashMap).
+1. The enriched spec, living safely behind its `Arc<Mutex>`.
+
+When the user issues a new `ObjectDescriptor::read_range()`, a new byte channel
+is minted and packaged into an `ActiveRead`. The `ActiveRead` is sent down the
+read-request channel, is processed by Branch B of the worker loop, and gets
+tagged with a fresh read-id. The worker issues a `BidiReadObjectRequest` to the
+server, the server responds, the worker intercepts the chunks, looks up the
+read-id in the HashMap, and pushes the bytes down the channel to the user via
+the corresponding `RangeReader`, finally reaching the user through the
+`ReadObjectResponse`.
+
 # Part 2 — Reference and Deep Dives
 
 ## A. The Client Type and the Stub Seam
@@ -866,7 +897,7 @@ HTTP/2 -> raw socket.
 While `bidi_stream` (`:168`) eagerly flattens the inner error using
 `to_gax_error` (`:190`), `bidi_stream_with_status` deliberately preserves the
 raw `Status`. This is crucial because **the Storage layer needs to extract
-redirect details directly from the Status** (as documented at `:195–197`). so
+redirect details directly from the Status** (as documented at `:195–197`) so
 that `connect_attempt` can gracefully handle `Err(status) -> handle_redirect`
 (`connector.rs:211/230`).
 
@@ -904,9 +935,9 @@ eventually returns. The user inspects this by reading `err.status().code` (for
 example, the `open_object` test asserts that `s.code == Code::NotFound` at
 `transport.rs:528`).
 
-**Manually inspecting trailing metadata:** this is not currently not done
-because the codebase only cares about the status. If this is desired the user
-would need to completely drain the body until `Ok(None)` and then invoke Tonic's
+**Manually inspecting trailing metadata:** this is currently not done because
+the codebase only cares about the status. If this is desired the user would need
+to completely drain the body until `Ok(None)` and then invoke Tonic's
 `Streaming::trailers()`. To implement it, the user would add a `trailers()`
 method to the `TonicStreaming` trait (`bidi.rs:38`) and call it on the
 clean-exit path after the worker's loop terminates (`worker.rs:74`/`:96`), while
@@ -944,7 +975,7 @@ Because the channel inherently carries `Result<Bytes, ReadError>`, errors share
 the exact same conduit as data. Thus, `reader.next().await` yields an
 `Option<Result<Bytes>>` (`Some(Ok)` means a chunk, `Some(Err)` means failure,
 and `None` means done). This is why, in
-[step 11 of Part 1](#11-objectdescriptortransportnew-orchestration-part-2), the
+[step 11 of Part 1](#11-objectdescriptortransportnew--orchestration-part-2), the
 `active` half is given to the worker while the `readers` half is handed back to
 the user.
 
@@ -967,6 +998,10 @@ The very first chunk in that body happens to carry the object's storage metadata
 inside a field literally named `metadata`.
 
 ## I. The Worker's `run` Loop, Branch by Branch
+
+The worker operates as the central hinge of the entire flow. It consumes
+`ActiveRead`s from the read-request channel, pushes outbound messages to the
+wire, processes returning responses, and routes them back to the user.
 
 At `worker.rs:59`, after `Worker::new` initializes everything and the first
 message is processed via `handle_response_success`, the worker is launched in
@@ -1039,7 +1074,7 @@ three states:
 - `Err(status)` — a stream error (could be an error trailer or a broken socket,
   both synthesized into a `Status` by Tonic).
 
-**`handle_response` and the `transpose()?` Trick** (`worker.rs:110–122`):
+**`handle_response`** (`worker.rs:110–122`):
 
 ```rust
 pub async fn handle_response(
@@ -1205,20 +1240,44 @@ After processing the loop, all protos are batched into a single
 the remaining fields, most importantly setting `read_object_spec: None` - the
 spec is only sent during the initial handshake or a full reconnect.
 
-**Insert-Before-Send is the Design Hinge.** Crucially, the HashMap insert
-(`:201`) happens *before* the `tx.send` (`:211`). If the send succeeds, the
-routing is already prepped. If the send fails (because the wire-out is dead),
-the entry safely *remains* in the HashMap. Branch A is on the verge of noticing
-the dead connection and will trigger `reconnect` (`worker.rs:153`), which
-systematically scoops up every range from the HashMap (`:157–163`) and
-forcefully re-requests them in the new connection's opening message. Thus,
-`tx.send` failures are intentionally logged and ignored; the robust reconnect
-path catches them.
+**Insert-Before-Send** Crucially, the HashMap insert (`:201`) happens *before*
+the `tx.send` (`:211`). If the send succeeds, the routing is already prepped. If
+the send fails (because the wire-out is dead), the entry safely remains in the
+HashMap. When Branch A notices the dead connection, it triggers `reconnect`
+(`worker.rs:153`) which scoops up every range from the HashMap (`:157–163`) and
+re-requests them in the new connection's opening message.
 
 The governing pattern: **The HashMap is durable; the network wire is
 disposable.** Reads secure a spot in the HashMap first, wire delivery is
 inherently best-effort, and reconnect logic re-sends anything the network
 dropped. No read is ever lost.
+
+### The `read_id` Round Trip — How Multiplexing Works
+
+The `id` is **opaque to the server**, which merely echoes back whatever the SDK
+sends.
+
+```
+SDK side                             
+─────────────────────────────────────────────────────────────────────────────────
+worker.rs:197
+  id = self.next_range_id++
+worker.rs:201
+  ranges.insert(id, ActiveRead)       <- HashMap entry secured
+worker.rs:200
+  r.as_proto(id)                      <- ProtoRange { read_id: 7, ... }
+
+...Server returns read result...      <- ObjectRangeData {
+                                            read_range: { read_id: 7, // echoed back },
+                                            checksummed_data: { ... }
+                                        }
+worker.rs:216 handle_range_data
+  ranges.lock().get_mut(&7)           <- Looks up by id -> finds correct byte channel
+```
+
+This is how multiplexing multiple concurrent reads over a single connection
+works. Every chunk is tagged with its `read_id`, and the worker's HashMap
+operates like a tiny switchboard routing the returned payload.
 
 ### The Inbound Pipeline in Depth
 
@@ -1433,3 +1492,455 @@ wherever the reader stores it. A standard reference `&Error` would dangle, and
 deep-cloning an error `N` times is a massive waste of resources. `Arc::clone`
 provides a cheap atomic bump, giving us an owned, shared error ideal for
 broadcasting.
+
+## J. The Range-Type Stack
+
+A read range's single byte channel is handled by a group of five specialized
+types. Together, they handle the various responsibilities of *"The user
+requested bytes, the user wants them streamed, and reconnects cannot lose
+progress"*.
+
+### Cheat Sheet
+
+| Type              | Layer                                                                                                      | Lifetime                             | Owner                                   |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------- |
+| `RequestedRange`  | "What the user asked for" (pre-resolution)                                                                 | Immutable after creation             | Wrapped in `RemainingRange::Requested`  |
+| `NormalizedRange` | "What we are actively tracking" (post-first-chunk)                                                         | Mutates dynamically as bytes arrive  | Wrapped in `RemainingRange::Normalized` |
+| `RemainingRange`  | State machine governing the two above                                                                      | One per `ActiveRead` (`state` field) | `ActiveRead.state`                      |
+| `ActiveRead`      | State machine for a given read request + the byte-channel **write end** for bytes received from the server | One per range, living in the HashMap | Worker (`self.ranges`)                  |
+| `RangeReader`     | Byte-channel **read end** for bytes received from the server + keepalive signal                            | One per range                        | The user (inside `ReadObjectResponse`)  |
+
+Two invariants tie this system together:
+
+1. **One range maps to one byte channel.** `ActiveRead` and `RangeReader` are
+   created together (`bidi/transport.rs:82–85`) and linked by a `(tx, rx)` pair.
+1. **The state machine is strictly unidirectional:** `Requested` permanently
+   pivots to `Normalized` upon receiving the first chunk.
+
+### `RequestedRange` — The User's Request
+
+From `model_ext.rs:291–296`:
+
+```rust
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(crate) enum RequestedRange {
+    Offset(u64),                          // "From byte N onward"
+    Tail(u64),                            // "The final N bytes"
+    Segment { offset: u64, limit: u64 },  // "N bytes beginning at offset M"
+}
+```
+
+These are user-friendly units (positive `u64`), mapping to GCS's three native
+read shapes.
+
+**The `ReadRange` Newtype** (`model_ext.rs:171`):
+
+```rust
+pub struct ReadRange(pub(crate) RequestedRange);
+```
+
+The inner field is **pub(crate)**. This wrapper provides four benefits:
+
+1. **API Stability:** The internal enum can safely evolve without breaking
+   downstream applications.
+1. **Validated Factories:** Users must construct them correctly:
+   - `ReadRange::offset(...)`
+   - `ReadRange::tail(...)`
+   - `ReadRange::head(...)`
+   - `ReadRange::segment(...)`
+   - `ReadRange::all()`
+1. **Obscured Proto Idioms:** Users ask for `ReadRange::tail(100)` without ever
+   knowing that it transmits as `read_offset: -100` on the wire.
+1. **Rich Documentation:** Each constructor function gets its own dedicated
+   rustdoc and runnable example.
+
+#### `as_proto` — Wire Encoding and Routing
+
+From `bidi/requested_range.rs:24–42`:
+
+```rust
+pub fn as_proto(&self, id: i64) -> ProtoRange {
+    match self {
+        Self::Offset(o)                 => ProtoRange { read_id: id, read_offset:  *o as i64, ..default() },
+        Self::Tail(o)                   => ProtoRange { read_id: id, read_offset: -(*o as i64), ..default() },
+        Self::Segment { offset, limit } => ProtoRange { read_id: id, read_offset: *offset as i64, read_length: *limit as i64 },
+    }
+}
+```
+
+Two things to note:
+
+- **`Tail` maps to a negative offset**, matching the GCS protobuf convention for
+  "from the end."
+- **`read_length: 0` is the sentinel for "to EOF"**, utilized by `Offset` and
+  `Tail`.
+
+**Why not implement `From<RequestedRange>` to do the proto conversion?** A
+standard `From::from` takes only one argument, leaving no room to pass the
+**`id`** (the routing key generated at `worker.rs:197–198`). `as_proto` handles
+serialization and routing tagging simultaneously.
+
+### `NormalizedRange` — Keeping track of progress
+
+From `normalized_range.rs:40–44`:
+
+```rust
+pub struct NormalizedRange {
+    offset: i64,
+    length: Option<i64>,
+}
+```
+
+Under the hood, ranges are normalized into:
+
+- **`offset`**: The absolute byte offset.
+- **`length`**: `Some(n)` for exact remaining bytes, or `None` representing an
+  unbounded read ("to EOF").
+
+#### `NormalizedRange::update`
+
+Located at `normalized_range.rs:91`, this function executes every single time a
+chunk arrives:
+
+```rust
+pub fn update(&mut self, response: ProtoRange) -> ReadResult<()> {
+    let update = NormalizedRange::from_proto(response)?;            // 1. parse the incoming chunk's range
+    if update.offset != self.offset {
+        return Err(ReadError::bidi_out_of_order(...));              // 2. enforce in-order delivery
+    }
+    self.length = match (self.length, update.length) {              // 3. update the remaining bytes-to-read
+        (None, _)                                       => None,
+        (Some(l), None)                                 => Some(l),
+        (Some(expected), Some(got)) if got <= expected  => Some(expected - got),
+        (Some(expected), Some(got))                     => return Err(LongRead { ... }),
+    };
+    self.offset = update.offset + update.length().unwrap_or_default(); // 4. advance the cursor
+    Ok(())
+}
+```
+
+After `update` returns, `(offset, length)` describes the bytes still pending.
+This makes the state self-describing: after a reconnect, calling `as_proto`
+emits the correct "resume from here" range.
+
+The length match (step 3) broken down:
+
+| `self.length`                      | `update.length` | Result                 | Meaning                                                    |
+| ---------------------------------- | --------------- | ---------------------- | ---------------------------------------------------------- |
+| `None`                             | anything        | `None`                 | An unbounded request stays unbounded.                      |
+| `Some(l)`                          | `None`          | `Some(l)`              | Chunk reported zero size — leave the expectation untouched |
+| `Some(expected)`, `got ≤ expected` | `Some(got)`     | `Some(expected - got)` | Normal case — subtract the delta.                          |
+| `Some(expected)`, `got > expected` | `Some(got)`     | `LongRead` error       | Server overran the limit — bail.                           |
+
+`unwrap_or_default()` in step 4 yields the inner value when `Some`, or
+`i64::default() == 0` otherwise. So if `update.length` is `None`, the cursor
+stays put.
+
+##### A Worked Example
+
+Say the user requested `Segment { offset: 1000, limit: 500 }` on a 10,000-byte
+object, so the state starts at `offset: 1000, length: Some(500)`. A chunk
+arrives carrying `read_offset: 1000, read_length: 200`:
+
+| Step | Operation                                                                 | State after                                  |
+| ---- | ------------------------------------------------------------------------- | -------------------------------------------- |
+| 1    | Parse the incoming range → `update = { offset: 1000, length: Some(200) }` | (no change to `self` yet)                    |
+| 2    | Check `update.offset == self.offset` (1000 == 1000)                       | OK                                           |
+| 3    | Subtract length: `Some(500) - Some(200)` → `Some(300)`                    | `self.length = Some(300)`                    |
+| 4    | Advance cursor: `self.offset = 1000 + 200 = 1200`                         | `self = { offset: 1200, length: Some(300) }` |
+
+```
+byte:   0      1000   1200          1500              10000
+        ├───────┼──────┼─────────────┼──────────────────┤
+                xxxxxxx╞═════════════╡
+                received  what's left to receive
+```
+
+Call `as_proto` at this moment and the user gets
+`{read_offset: 1200, read_length: 300}` — precisely the re-request payload a
+reconnect needs.
+
+### `RemainingRange` — The State Machine
+
+From `remaining_range.rs:27–31`:
+
+```rust
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum RemainingRange {
+    Requested(RequestedRange),     // Prior to the very first response
+    Normalized(NormalizedRange),   // Following the first response
+}
+```
+
+This enum handles the two situations where a reconnect might occur:
+
+- **Before the server has sent a single chunk**, requiring us to re-send the
+  original read request.
+- **Mid-stream**, requiring us to send the normalized read request.
+
+When the first chunk is processed, the `update` method (`:34`) switches the enum
+from `Requested` to `Normalized`, applies the chunk's delta, and commits the
+state. From that point on, everything flows into the simpler `Normalized`
+pathway.
+
+### `ActiveRead` — The Worker's Handle
+
+From `active_read.rs:24–28`:
+
+```rust
+#[derive(Debug)]
+pub(crate) struct ActiveRead {
+    state: RemainingRange,                       // ← The self-healing state machine
+    sender: Sender<ReadResult<bytes::Bytes>>,    // ← The byte channel's write end
+}
+```
+
+This represents the server-facing end of a single range, residing in the
+worker's HashMap. Both fields survive a reconnect untouched.
+
+### `RangeReader` — The User's Handle
+
+From `range_reader.rs:26–33`:
+
+```rust
+#[derive(Debug)]
+pub struct RangeReader {
+    inner: Receiver<Result<bytes::Bytes, ReadError>>,
+    object: Arc<Object>,
+    // Unused, holding to a copy prevents the worker task from terminating
+    // early.
+    _tx: Sender<ActiveRead>,
+}
+```
+
+**The `_tx` Keepalive Trick:** The `_tx` field is an intentional dummy
+reference. Since the worker uses the "all senders dropped" condition of the
+read-request channel as its signal to shut down (`worker.rs:88–93`), holding a
+clone here keeps the worker alive.
+
+## K. Redirects and the Resilience Machinery
+
+Sometimes, the server decides to redirect a bidirectional read mid-stream. The
+machinery that handles this lives across:
+
+- `redirect.rs`
+- `retry_redirect.rs`
+- `resume_redirect.rs`
+- `connector.rs` (specifically the `Connector` struct)
+
+Let's map it out.
+
+### The Protocol — What a Redirect Actually Looks Like
+
+Google Cloud Storage doesn't use a dedicated "redirect" gRPC status code.
+Instead, redirects are signalled using a `tonic::Status` error that carries a
+structured payload in its details:
+
+```
+tonic::Status {
+    code:    Code::Aborted,                    // It looks like a permanent failure at first glance
+    message: "...",
+    details: <bytes that decode to google.rpc.Status>
+        RpcStatus {
+            details: [
+                Any::<BidiReadObjectRedirectedError> {
+                    routing_token: Option<String>,    // The new value to use for x-goog-request-params
+                    read_handle:   Option<...>,       // A server-issued resume handle
+                }
+            ]
+        }
+}
+```
+
+This represents two layers of "status" (reminiscent of the
+[two metadatas pattern](#h-the-two-metadatas)):
+
+- `tonic::Status`: The transport envelope containing the code, message, and raw
+  bytes.
+- `google.rpc.Status`: The rich protobuf error payload.
+  `RpcStatus::decode(tonic_status.details())` opens the envelope.
+
+**Why use `Aborted`?** A standard retry policy generally treats `Aborted` as a
+permanent failure to avoid hammering a dead endpoint. By hijacking this
+"permanent" code, GCS efficiently signals, "This specific stream is dead—but
+here is exactly where the user should connect next." A specialized decorator
+pattern then intentionally overrides that "give up" verdict.
+
+### `redirect.rs` — Recognize and React
+
+This file houses two distinct functions:
+
+**`handle_redirect(spec, status)`** (`redirect.rs:25`): This function extracts
+the redirect information from the status and updates the shared
+`Arc<Mutex<BidiReadObjectSpec>>` with the new routing token and resume handle.
+This guarantees that any subsequent reconnect attempt will carry the new routing
+token.
+
+It always returns the GAX-converted error, regardless of whether a redirect was
+actually found (acting as a safe no-op for standard errors).
+
+**`is_redirect(&error)`** (`redirect.rs:40`): This is a pure predicate function
+with zero side effects. It checks four conditions in order:
+
+- The error code must be `Aborted`.
+- The error must wrap a `tonic::Status`.
+- The details must cleanly decode as a `google.rpc.Status`.
+- At least one detail must be a `BidiReadObjectRedirectedError`.
+
+**Why split this into two functions?**
+
+- `handle_redirect` operates on the wire boundary, updating state for the *next*
+  attempt. It is called in three places within `connector.rs` during error paths
+  where the raw `tonic::Status` is still available:
+  - `connector.rs:213` (Early dial failure)
+  - `connector.rs:230` (First-message handshake failure)
+  - `connector.rs:120` (Mid-stream worker failure)
+- `is_redirect` operates inside policy decorators where the error is already a
+  `gax::Error`; it decides whether there *will be* a next attempt by overriding
+  the policy's verdict. It is called purely inside policy decorators:
+  - `retry_redirect.rs:47` (`RetryRedirect::on_error`, used by the inner retry
+    loop)
+  - `resume_redirect.rs:45` (`ResumeRedirect::on_error`, used directly by
+    `connector.reconnect`)
+
+### The Decorator Pattern
+
+Both `RetryRedirect` and `ResumeRedirect` utilize the exact same shape:
+
+```rust
+fn on_error(&self, state: &..., error: Error) -> RetryResult {
+    match self.inner.on_error(state, error) {
+        RetryResult::Permanent(e) if is_redirect(&e) => RetryResult::Continue(e),
+        result => result,
+    }
+}
+```
+
+This pattern **selectively overrides `Permanent` to `Continue` strictly for
+redirect errors**. It respects `Exhausted` (if the attempt budget is tapped out,
+redirects halt), and it respects genuine `Permanent` errors (like auth
+failures).
+
+Decorators are mandatory here because they inject logic directly *inside* the
+external `retry_loop` (from the `gax` crate), which is only accessible through
+the `RetryPolicy` trait.
+
+### End-to-End Redirect Trace & The Durable-State Principle
+
+To put it all together, let's trace a redirect mid-stream.
+
+Imagine three concurrent reads are happily humming along. Here is the internal
+state the instant before the redirect fires — one read from `send_and_read`, two
+added via `read_range`, and the worker parked in its `select!`:
+
+```
+Spec (Arc<Mutex<BidiReadObjectSpec>>)
+    bucket:        "projects/_/buckets/my-bucket"
+    object:        "my-object"
+    generation:    789               // resolved by the server at the first handshake
+    read_handle:   Some(handle_v1)   // server-issued at the first handshake
+    routing_token: None              // no redirect yet
+
+Worker routing HashMap (self.ranges)
+    { 0: ActiveRead { state: Normalized { offset: 9700, length: None      }, sender: <byte_tx_a> },
+      1: ActiveRead { state: Normalized { offset: 2500, length: None      }, sender: <byte_tx_b> },
+      2: ActiveRead { state: Normalized { offset: 5800, length: Some(200) }, sender: <byte_tx_c> } }
+
+Worker
+    connector.reconnect_attempts: 0
+    rx: <Streaming v1>   tx: <Sender v1>      // current wire halves
+    parked in tokio::select! at worker.rs:70
+```
+
+Now, phase by phase:
+
+1. **Interruption.** GCS closes the stream with
+   `tonic::Status { code: Aborted, details: <BidiReadObjectRedirectedError { routing_token: Some("rt-v2"), read_handle: Some(handle_v2) }> }`.
+   Tonic surfaces it as the next value from `rx.next_message()`.
+
+1. **Detection.** Branch A inside `Worker::run` (`worker.rs:71`) resolves to
+   `m = Err(status)`. In `Worker::handle_response` (`worker.rs:110`),
+   `message.transpose()?` takes the
+   `Err(status) => return self.reconnect(status).await` arm
+   (`worker.rs:114–117`), invoking `Worker::reconnect`.
+
+1. **Snapshot progress.** `Worker::reconnect` (`worker.rs:153`) maps every range
+   to `ActiveRead::as_proto(*id)` (`worker.rs:157–163`). Because
+   `NormalizedRange::update` advanced each cursor as chunks arrived, the protos
+   ask only for what is still outstanding:
+
+   ```
+   [ ProtoRange { read_id: 0, read_offset: 9700, read_length: 0   },   // open tail
+     ProtoRange { read_id: 1, read_offset: 2500, read_length: 0   },   // open offset
+     ProtoRange { read_id: 2, read_offset: 5800, read_length: 200 } ]  // bounded segment
+   ```
+
+   No already-received byte is re-requested.
+
+1. **Mutate the spec.** `Connector::reconnect` (`connector.rs:113`) calls
+   `handle_redirect(self.spec.clone(), status)` (`connector.rs:120`), which
+   decodes the redirect detail and writes it through:
+
+   ```
+   routing_token: Some("rt-v2")     // updated
+   read_handle:   Some(handle_v2)   // updated   (all other fields unchanged)
+   ```
+
+1. **Policy verdict: continue.** `Connector::reconnect` increments
+   `self.reconnect_attempts` (`connector.rs:122`), then
+   `ResumeRedirect::on_error` runs (`connector.rs:124–128`). The inner policy
+   sees `Aborted` and returns `Permanent`; the decorator calls `is_redirect`
+   (true) and overrides it to `Continue`, so `Connector::reconnect` calls
+   `Connector::connect(ranges)` (`connector.rs:125`).
+
+1. **Reconnect with the updated spec (Connector).** The `Connector::connect`
+   (`connector.rs:84`) retry loop fires `Connector::connect_attempt`
+   (`connector.rs:140`), which uses the now-updated spec in the opening message
+   and builds the routing header from it:
+
+   ```
+   x-goog-request-params: bucket=projects/_/buckets/my-bucket&routing_token=rt-v2
+   ```
+
+   A fresh `(tx_v2, rx_v2)` pair is created (`connector.rs:185`), the opening
+   message preloaded (`connector.rs:186`), and `client.start(...)`
+   (`connector.rs:200`) opens a new stream. The first message is read
+   (`connector.rs:218`) and the spec re-enriched (`connector.rs:220–226`).
+
+1. **First response data (Worker).** Back in `Worker::reconnect`
+   (`worker.rs:153`), any range bytes the server packed into the handshake go
+   through `Worker::handle_ranges` (`worker.rs:173`) just like a mid-stream
+   message — looked up by `read_id` in the same HashMap, pushed down the same
+   byte channels, cursors advanced. The `Worker::reconnect` method returns
+   `Some(Ok(Some(connection_v2)))` (`worker.rs:180`).
+
+1. **Atomic wire swap.** The matching arm of Branch A inside `Worker::run` runs
+   `(rx, tx) = (connection.rx, connection.tx)` (`worker.rs:84`). The dead v1
+   wires drop; the v2 wires take their place. The HashMap is untouched.
+
+1. **Resume.** The `Worker::run` loop re-enters `select!` on the new wires.
+   Chunks arriving on `rx_v2` carry the same `read_id`s, route to the same
+   `ActiveRead`s, and flow down the same user-facing channels. The user's parked
+   `reader.next().await` wakes and yields the next chunk — no error, no panic,
+   just a brief latency pause.
+
+### The Durable / Disposable Split
+
+The architecture works because of the following separation of concerns:
+
+- **The Durable Layer (Survives Reconnects):**
+  - **The Spec** (holds identity and routing): `self.spec` in `Connector`
+    (`connector.rs:63`).
+  - **The HashMap** (holds state machines): `self.ranges` in `Worker`
+    (`worker.rs:32`).
+  - **The user-facing read-request channel** (receives new read requests):
+    `requests` in `Worker::run` (`worker.rs:62`).
+  - **The user-facing byte channels** (transfers data bytes to reader): `sender`
+    in `ActiveRead` (`active_read.rs:27`).
+- **The Disposable Layer (Discarded on Reconnect):**
+  - **The wire-in stream** (receives messages from GCS): `rx` field in
+    `Connection` (`connector.rs:36`).
+  - **The wire-out sender** (sends requests to GCS): `tx` field in `Connection`
+    (`connector.rs:35`).
+  - **The connection wrapper** (groups stream and channel): `Connection` struct
+    (`connector.rs:34`).
