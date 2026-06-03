@@ -18,7 +18,9 @@ use google_cloud_bigquery_v2::client::{DatasetService, JobService};
 use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
 };
+use google_cloud_bigquery_v2::operation::{GetQueryResultsBuilderExt, InsertJobBuilderExt};
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
+use google_cloud_lro::Poller;
 use google_cloud_test_utils::runtime_config::project_id;
 use rand::{RngExt, distr::Alphanumeric};
 
@@ -184,7 +186,7 @@ pub async fn job_service() -> Result<()> {
     println!("CREATING JOB WITH ID: {job_id}");
 
     let query = "SELECT 1 as one";
-    let job = client
+    let poller = client
         .insert_job()
         .set_project_id(&project_id)
         .set_job(
@@ -196,11 +198,23 @@ pub async fn job_service() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
-        .send()
-        .await?;
-    println!("CREATE JOB = {job:?}");
+        .poller(&client, &project_id, None);
+
+    let job = poller.until_done().await?;
+    println!("CREATE JOB (POLLED) = {job:?}");
 
     assert!(job.job_reference.is_some(), "{job:?}");
+
+    // Also test polling for query results
+    let results_poller = client
+        .get_query_results()
+        .set_project_id(&project_id)
+        .set_job_id(&job_id)
+        .poller(&client, &project_id, None);
+
+    let results = results_poller.until_done().await?;
+    println!("QUERY RESULTS (POLLED) = {results:?}");
+    assert_eq!(results.job_complete, Some(true));
 
     let list = client
         .list_jobs()
@@ -215,6 +229,53 @@ pub async fn job_service() -> Result<()> {
             .iter()
             .any(|v| v.as_ref().unwrap().id.contains(&job_id))
     );
+
+    // EDGE CASE 1: Deliberately failing job (e.g. syntax error or missing table)
+    let failing_query = "SELECT * FROM dataset_that_does_not_exist.table_that_does_not_exist";
+    let failing_job_id = random_job_id();
+    let failing_poller = client
+        .insert_job()
+        .set_project_id(&project_id)
+        .set_job(
+            Job::new()
+                .set_job_reference(JobReference::new().set_job_id(&failing_job_id))
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_labels([(INSTANCE_LABEL, "true")])
+                        .set_query(JobConfigurationQuery::new().set_query(failing_query)),
+                ),
+        )
+        .poller(&client, &project_id, None);
+
+    // The poller itself should succeed (because the HTTP polling worked and the job reached DONE state)
+    let failed_job = failing_poller.until_done().await?;
+    println!("FAILING JOB (POLLED) = {failed_job:?}");
+
+    // But the job payload must contain an error_result!
+    let status = failed_job.status.expect("Job should have a status");
+    assert_eq!(status.state, "DONE");
+    assert!(
+        status.error_result.is_some(),
+        "Job should have an error_result payload"
+    );
+
+    // EDGE CASE 2: Polling an invalid/non-existent job
+    // According to the Aip194Strict policy, a 404 is NOT transient.
+    // The poller should immediately return the 404 error instead of looping forever.
+    let invalid_job_id = "job_that_definitely_does_not_exist_123456789";
+    let invalid_poller = client
+        .get_query_results()
+        .set_project_id(&project_id)
+        .set_job_id(invalid_job_id)
+        .poller(&client, &project_id, None);
+
+    let result = invalid_poller.until_done().await;
+    match result {
+        Ok(_) => panic!("Expected polling a non-existent job to fail"),
+        Err(e) => {
+            println!("INVALID JOB ERR = {e:?}");
+        }
+    }
 
     Ok(())
 }
