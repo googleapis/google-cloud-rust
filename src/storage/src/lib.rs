@@ -139,7 +139,8 @@ pub(crate) mod google {
     }
     pub(crate) mod control_type {
         // google.storage.v2.control uses a different set of types from google.type vs.
-        // google.storage.v2. We need to
+        // google.storage.v2. We need to define them in a separate module to avoid conflicts and
+        // manually re-export some key symbols.
         include!("generated/protos/control/google.r#type.rs");
     }
     pub mod r#type {
