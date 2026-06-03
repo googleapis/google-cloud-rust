@@ -1490,6 +1490,7 @@ libraries:
         - include_list:
             - date.proto
             - expr.proto
+            - interval.proto
           module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           api_path: google/type
