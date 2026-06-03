@@ -140,20 +140,26 @@ async fn refresh_task<T>(
                 //
                 // We need to publish the error if the current token expired, or there was no prior
                 // token.
-                let (deadline, publish) = match current_expiration(&tx_token) {
-                    None => (short, true),
+                let deadline = match current_expiration(&tx_token) {
+                    None => {
+                        // There is no cached token, replace the cache with the error.
+                        let _ = tx_token.send(Some(Err(e)));
+                        short
+                    }
                     Some(d) if d < Instant::now() => {
                         // Already expired, replace the cached token with the error.
-                        let _ = tx_token.send(Some(Err(e.clone())));
-                        (short, false)
+                        let _ = tx_token.send(Some(Err(e)));
+                        short
                     }
-                    Some(d) if d < short => (short, true),
-                    Some(_d) => (short, true),
+                    Some(d) if d < short => {
+                        // Wait until it expires, then replace the cached token with the error.
+                        tokio::time::sleep_until(d).await;
+                        let _ = tx_token.send(Some(Err(e)));
+                        short
+                    }
+                    Some(_d) => short,
                 };
                 tokio::time::sleep_until(deadline).await;
-                if publish {
-                    let _ = tx_token.send(Some(Err(e)));
-                }
                 continue;
             }
         };
