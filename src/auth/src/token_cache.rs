@@ -110,6 +110,10 @@ async fn refresh_task<T>(
     T: TokenProvider + Send + Sync + 'static,
 {
     loop {
+        if tx_token.receiver_count() == 0 {
+            // If there are no receivers, we can terminate the loop early.
+            return;
+        }
         let (expires_at, tagged) = match token_provider.token().await {
             // The easy case, we got a new valid token, that is handled in the body of the loop. The
             // errors are handled here.
@@ -130,36 +134,37 @@ async fn refresh_task<T>(
                 // On transient errors, even if the retry policy is exhausted, we want to continue
                 // running this retry loop.
                 //
-                // This loop cannot stop because that may leave the credentials in an unrecoverable
-                // state (see #4541). We considered using a notification to wake up the next time a
-                // caller wants to retrieve a token, but that seemed prone to deadlocks. We may
-                // implement this as an improvement (#4593).
+                // Stopping the loop may leave the credentials in an unrecoverable state (see
+                // #4541). We considered using a notification to wake up the next time a caller
+                // wants to retrieve a token, but that seemed prone to deadlocks. We may implement
+                // this as an improvement (#4593).
                 let short = Instant::now() + SHORT_REFRESH_SLACK;
                 // We need to sleep until the current token expires or the next short refresh slack,
                 // whichever happens first.
                 //
                 // We need to publish the error if the current token expired, or there was no prior
                 // token.
-                let deadline = match current_expiration(&tx_token) {
+                match current_expiration(&tx_token) {
                     None => {
                         // There is no cached token, replace the cache with the error.
                         let _ = tx_token.send(Some(Err(e)));
-                        short
                     }
                     Some(d) if d < Instant::now() => {
                         // Already expired, replace the cached token with the error.
                         let _ = tx_token.send(Some(Err(e)));
-                        short
                     }
                     Some(d) if d < short => {
-                        // Wait until it expires, then replace the cached token with the error.
+                        // First, wait until it expires, then replace the cached token with the
+                        // error, and then continue sleeping.
                         tokio::time::sleep_until(d).await;
                         let _ = tx_token.send(Some(Err(e)));
-                        short
                     }
-                    Some(_d) => short,
-                };
-                tokio::time::sleep_until(deadline).await;
+                    Some(_d) => {
+                        // The current token is valid and will not expire before the next refresh
+                        // attempt, leave it as-is.
+                    }
+                }
+                tokio::time::sleep_until(short).await;
                 continue;
             }
         };
