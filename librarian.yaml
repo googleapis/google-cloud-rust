@@ -418,7 +418,7 @@ libraries:
     version: 1.2.0
     copyright_year: "2026"
   - name: google-cloud-auth
-    version: 1.11.0
+    version: 1.12.0
     copyright_year: "2025"
     output: src/auth
   - name: google-cloud-backupdr-v1
@@ -1442,7 +1442,7 @@ libraries:
           item_field: items
       quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
     output: src/storage
     rust:
