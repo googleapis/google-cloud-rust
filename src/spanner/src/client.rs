@@ -20,7 +20,9 @@ use crate::model::{
 };
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
+use google_cloud_auth::credentials::anonymous;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
+use google_cloud_gax::client_builder::internal::new_builder;
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
 };
@@ -49,6 +51,7 @@ pub struct Spanner {
     pub(crate) channels: Vec<Channel>,
     pub(crate) counter: std::sync::Arc<AtomicUsize>,
     pub(crate) config: ClientConfig,
+    pub(crate) is_emulator: bool,
 }
 
 /// A factory for constructing `Spanner` clients.
@@ -58,7 +61,21 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     type Client = Spanner;
     type Credentials = Credentials;
 
-    async fn build(self, config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
+    async fn build(self, mut config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
+        let mut is_emulator = false;
+        if let Some(endpoint) = std::env::var("SPANNER_EMULATOR_HOST")
+            .ok()
+            .filter(|s| !s.is_empty())
+        {
+            is_emulator = true;
+            if config.endpoint.is_none() {
+                config.endpoint = Some(parse_emulator_endpoint(&endpoint));
+            }
+            if config.cred.is_none() {
+                config.cred = Some(anonymous::Builder::new().build());
+            }
+        }
+
         let num_channels = std::env::var("SPANNER_NUM_CHANNELS")
             .ok()
             .and_then(|s| s.parse::<usize>().ok())
@@ -73,6 +90,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             channels,
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
             config,
+            is_emulator,
         })
     }
 }
@@ -175,22 +193,7 @@ impl Spanner {
     /// detects and connects to the Spanner emulator if the `SPANNER_EMULATOR_HOST`
     /// environment variable is set.
     pub fn builder() -> ClientBuilder {
-        let builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
-        // The Spanner client should automatically use the Spanner emulator if the
-        // SPANNER_EMULATOR_HOST environment variable is set.
-        let Some(endpoint) = std::env::var("SPANNER_EMULATOR_HOST")
-            .ok()
-            .filter(|s| !s.is_empty())
-        else {
-            return builder;
-        };
-
-        // Determine if we need to prefix the endpoint with a scheme
-        let full_endpoint = parse_emulator_endpoint(&endpoint);
-
-        builder
-            .with_endpoint(full_endpoint)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+        new_builder(Factory)
     }
 
     /// Returns a builder for the [DatabaseAdmin] client.
@@ -221,11 +224,7 @@ impl Spanner {
         C: Clone + From<Credentials>,
     {
         if let Some(ref endpoint) = self.config.endpoint {
-            let is_emulator = std::env::var("SPANNER_EMULATOR_HOST")
-                .ok()
-                .filter(|s| !s.is_empty())
-                .is_some();
-            let ep = map_emulator_admin_endpoint(endpoint, is_emulator);
+            let ep = map_emulator_admin_endpoint(endpoint, self.is_emulator);
             builder = builder.with_endpoint(ep);
         }
         if let Some(ref cred) = self.config.cred {
@@ -279,7 +278,12 @@ impl Spanner {
             }],
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
             config: ClientConfig::default(),
+            is_emulator: false,
         }
+    }
+
+    pub(crate) fn is_emulator(&self) -> bool {
+        self.is_emulator
     }
 
     pub(crate) fn get_channel(&self, hint: usize) -> &Channel {

@@ -104,6 +104,7 @@ impl TransactionRetryPolicy for BasicTransactionRetryPolicy {
 pub(crate) async fn retry_aborted<T, F, Fut>(
     policy: &dyn TransactionRetryPolicy,
     mut f: F,
+    is_emulator: bool,
 ) -> crate::Result<T>
 where
     F: FnMut() -> Fut,
@@ -120,7 +121,15 @@ where
         match f().await {
             Ok(v) => return Ok(v),
             Err(e) => {
-                backoff_if_aborted(e, attempts, start_time.elapsed(), policy, &backoff).await?;
+                backoff_if_aborted(
+                    e,
+                    attempts,
+                    start_time.elapsed(),
+                    policy,
+                    &backoff,
+                    is_emulator,
+                )
+                .await?;
             }
         }
     }
@@ -149,6 +158,18 @@ pub(crate) fn default_retry_backoff() -> ExponentialBackoff {
         .unwrap()
 }
 
+pub(crate) fn is_internal_emulator_error(err: &crate::Error) -> bool {
+    if let Some(status) = err.status() {
+        status.code == google_cloud_gax::error::rpc::Code::Internal
+            && status.message.contains("Schema generation")
+            && status
+                .message
+                .contains("was not registered with the Action Manager")
+    } else {
+        false
+    }
+}
+
 /// Evaluates the error against the retry policy and delays execution if a retry is warranted.
 /// Returns Ok(()) after sleeping if a retry should occur, otherwise returns Err with the original error.
 pub(crate) async fn backoff_if_aborted(
@@ -157,8 +178,17 @@ pub(crate) async fn backoff_if_aborted(
     elapsed: Duration,
     policy: &dyn TransactionRetryPolicy,
     backoff: &ExponentialBackoff,
+    is_emulator: bool,
 ) -> crate::Result<()> {
-    if !is_aborted(&err) {
+    let should_retry = if is_aborted(&err) {
+        true
+    } else if is_emulator {
+        is_internal_emulator_error(&err)
+    } else {
+        false
+    };
+
+    if !should_retry {
         return Err(err);
     }
 
@@ -265,19 +295,28 @@ pub(crate) mod tests {
     #[tokio::test]
     async fn retry_aborted_success_first_try() {
         let policy = BasicTransactionRetryPolicy::default();
-        let res = retry_aborted(&policy, || async { Ok::<i32, Error>(42) }).await;
+        let res = retry_aborted(
+            &policy,
+            || async { Ok::<i32, Error>(42) },
+            /* is_emulator = */ false,
+        )
+        .await;
         assert_eq!(res.expect("Transaction should succeed cleanly"), 42);
     }
 
     #[tokio::test]
     async fn retry_aborted_not_aborted_error() {
         let policy = BasicTransactionRetryPolicy::default();
-        let res = retry_aborted(&policy, || async {
-            let status = Status::default()
-                .set_code(Code::Unavailable)
-                .set_message("server unavailable");
-            Err::<i32, Error>(Error::service(status))
-        })
+        let res = retry_aborted(
+            &policy,
+            || async {
+                let status = Status::default()
+                    .set_code(Code::Unavailable)
+                    .set_message("server unavailable");
+                Err::<i32, Error>(Error::service(status))
+            },
+            /* is_emulator = */ false,
+        )
         .await;
 
         let err = res.unwrap_err();
@@ -294,13 +333,17 @@ pub(crate) mod tests {
             .with_total_timeout(Duration::from_secs(0));
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&policy, || {
-            let attempts = attempts.clone();
-            async move {
-                attempts.fetch_add(1, Ordering::SeqCst);
-                Err::<i32, Error>(create_aborted_error(None))
-            }
-        })
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                async move {
+                    attempts.fetch_add(1, Ordering::SeqCst);
+                    Err::<i32, Error>(create_aborted_error(None))
+                }
+            },
+            /* is_emulator = */ false,
+        )
         .await;
 
         assert!(res.is_err());
@@ -313,17 +356,21 @@ pub(crate) mod tests {
         let attempts = Arc::new(AtomicU32::new(0));
 
         let start = tokio::time::Instant::now();
-        let res = retry_aborted(&policy, || {
-            let attempts = attempts.clone();
-            async move {
-                let current = attempts.fetch_add(1, Ordering::SeqCst);
-                if current == 0 {
-                    Err::<i32, Error>(create_aborted_error(Some(Duration::from_nanos(1))))
-                } else {
-                    Ok::<i32, Error>(100)
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                async move {
+                    let current = attempts.fetch_add(1, Ordering::SeqCst);
+                    if current == 0 {
+                        Err::<i32, Error>(create_aborted_error(Some(Duration::from_nanos(1))))
+                    } else {
+                        Ok::<i32, Error>(100)
+                    }
                 }
-            }
-        })
+            },
+            /* is_emulator = */ false,
+        )
         .await;
         let elapsed = start.elapsed();
 
@@ -341,17 +388,21 @@ pub(crate) mod tests {
         let policy = BasicTransactionRetryPolicy::default();
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&policy, || {
-            let attempts = attempts.clone();
-            async move {
-                let current = attempts.fetch_add(1, Ordering::SeqCst);
-                if current == 0 {
-                    Err::<i32, Error>(create_aborted_error(None))
-                } else {
-                    Ok::<i32, Error>(100)
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                async move {
+                    let current = attempts.fetch_add(1, Ordering::SeqCst);
+                    if current == 0 {
+                        Err::<i32, Error>(create_aborted_error(None))
+                    } else {
+                        Ok::<i32, Error>(100)
+                    }
                 }
-            }
-        })
+            },
+            /* is_emulator = */ false,
+        )
         .await;
 
         assert_eq!(
@@ -368,15 +419,19 @@ pub(crate) mod tests {
             .with_total_timeout(Duration::from_secs(1));
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&policy, || {
-            let attempts = attempts.clone();
-            async move {
-                attempts.fetch_add(1, Ordering::SeqCst);
-                // Return a retry delay of 600ms so that after 2 attempts (1.2s total delay),
-                // we should definitely exceed the 1 second timeout for the 3rd fail check.
-                Err::<i32, Error>(create_aborted_error(Some(Duration::from_millis(600))))
-            }
-        })
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                async move {
+                    attempts.fetch_add(1, Ordering::SeqCst);
+                    // Return a retry delay of 600ms so that after 2 attempts (1.2s total delay),
+                    // we should definitely exceed the 1 second timeout for the 3rd fail check.
+                    Err::<i32, Error>(create_aborted_error(Some(Duration::from_millis(600))))
+                }
+            },
+            /* is_emulator = */ false,
+        )
         .await;
 
         assert!(res.is_err());
@@ -441,16 +496,72 @@ pub(crate) mod tests {
         let policy = CustomPolicy;
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&policy, || {
-            let attempts = attempts.clone();
-            async move {
-                attempts.fetch_add(1, Ordering::SeqCst);
-                Err::<i32, Error>(create_aborted_error(None))
-            }
-        })
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                async move {
+                    attempts.fetch_add(1, Ordering::SeqCst);
+                    Err::<i32, Error>(create_aborted_error(None))
+                }
+            },
+            /* is_emulator = */ false,
+        )
         .await;
 
         assert!(res.is_err());
         assert_eq!(attempts.load(Ordering::SeqCst), 3); // Initial + 2 failures check
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn retry_aborted_emulator_internal_schema_error() {
+        let policy = BasicTransactionRetryPolicy::default();
+        let attempts = Arc::new(AtomicU32::new(0));
+
+        let make_schema_error = || {
+            let status = Status::default().set_code(Code::Internal).set_message(
+                "INTERNAL: Schema generation 0 was not registered with the Action Manager",
+            );
+            Error::service(status)
+        };
+
+        // If not running on emulator, it should fail immediately (no retry)
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                let err = make_schema_error();
+                async move {
+                    attempts.fetch_add(1, Ordering::SeqCst);
+                    Err::<i32, Error>(err)
+                }
+            },
+            /* is_emulator = */ false,
+        )
+        .await;
+        assert!(res.is_err());
+        assert_eq!(attempts.load(Ordering::SeqCst), 1);
+
+        // If running on the emulator, it should retry just like aborted error
+        attempts.store(0, Ordering::SeqCst);
+        let res = retry_aborted(
+            &policy,
+            || {
+                let attempts = attempts.clone();
+                let err = make_schema_error();
+                async move {
+                    let current = attempts.fetch_add(1, Ordering::SeqCst);
+                    if current == 0 {
+                        Err::<i32, Error>(err)
+                    } else {
+                        Ok::<i32, Error>(200)
+                    }
+                }
+            },
+            /* is_emulator = */ true,
+        )
+        .await;
+        assert_eq!(res.expect("should succeed after retry"), 200);
+        assert_eq!(attempts.load(Ordering::SeqCst), 2);
     }
 }

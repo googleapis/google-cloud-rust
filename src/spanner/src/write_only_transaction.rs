@@ -416,8 +416,9 @@ impl WriteOnlyTransaction {
 
         let max_commit_delay = self.max_commit_delay;
         let return_commit_stats = self.return_commit_stats;
+        let is_emulator = client.is_emulator();
 
-        retry_aborted(&*self.retry_policy, || {
+        let action = || {
             let client = client.clone();
             let session_name = session_name.clone();
             let req_options = req_options.clone();
@@ -486,8 +487,9 @@ impl WriteOnlyTransaction {
                     Ok(response)
                 }
             }
-        })
-        .await
+        };
+
+        retry_aborted(&*self.retry_policy, action, is_emulator).await
     }
 
     /// Writes a set of mutations at least once using a single Commit RPC.
@@ -543,8 +545,9 @@ impl WriteOnlyTransaction {
             .set_return_commit_stats(self.return_commit_stats);
         let client = self.client;
         let channel_hint = client.spanner.next_channel_hint();
+        let is_emulator = client.is_emulator();
 
-        retry_aborted(&*self.retry_policy, || {
+        let action = || {
             let client = client.clone();
             let request = request.clone();
             let commit_gax_options = commit_gax_options.clone();
@@ -555,8 +558,9 @@ impl WriteOnlyTransaction {
                     .commit(request, commit_gax_options, channel_hint)
                     .await
             }
-        })
-        .await
+        };
+
+        retry_aborted(&*self.retry_policy, action, is_emulator).await
     }
 
     fn begin_gax_options(&self) -> GaxRequestOptions {

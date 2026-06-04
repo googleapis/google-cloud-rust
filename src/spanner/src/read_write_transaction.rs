@@ -63,7 +63,7 @@ use wkt::Duration;
 /// A builder for [ReadWriteTransaction].
 #[derive(Clone, Debug)]
 pub(crate) struct ReadWriteTransactionBuilder {
-    client: DatabaseClient,
+    pub(crate) client: DatabaseClient,
     options: TransactionOptions,
     transaction_tag: Option<String>,
     max_commit_delay: Option<Duration>,
