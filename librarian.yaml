@@ -1366,7 +1366,7 @@ libraries:
       - googleapis
     skip_release: true
   - name: google-cloud-spanner
-    version: 0.34.0-preview
+    version: 0.34.1-preview
     copyright_year: "2026"
     output: src/spanner
     rust:
