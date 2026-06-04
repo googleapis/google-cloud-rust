@@ -27,6 +27,9 @@ use google_cloud_wkt::Empty;
 use google_cloud_wkt::message::Message;
 use std::sync::Arc;
 
+#[cfg(google_cloud_unstable_tracing)]
+use super::LroRecorder;
+
 pub type Operation<R, M> = crate::details::Operation<R, M>;
 
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
@@ -281,7 +284,7 @@ where
             #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
                 let name = op.name();
-                if let Some(recorder) = crate::internal::LroRecorder::current() {
+                if let Some(recorder) = LroRecorder::current() {
                     recorder.record_destination_id(&name);
                 }
             }
@@ -295,10 +298,8 @@ where
             let (op, poll) =
                 crate::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
             #[cfg(google_cloud_unstable_tracing)]
-            if let Some(ref next_name) = op {
-                if let Some(recorder) = crate::internal::LroRecorder::current() {
-                    recorder.record_destination_id(next_name);
-                }
+            if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
+                recorder.record_destination_id(next_name);
             }
             self.operation = op;
             return Some(poll);

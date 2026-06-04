@@ -36,6 +36,6 @@ pub use either::Either;
 #[cfg(google_cloud_unstable_tracing)]
 pub use ext::{PollerExt, PollerOptions, TracingDetails};
 #[cfg(google_cloud_unstable_tracing)]
-pub(crate) use tracing::LroRecorder;
+pub use tracing::LroRecorder;
 #[cfg(google_cloud_unstable_tracing)]
 pub use tracing::Tracing;
