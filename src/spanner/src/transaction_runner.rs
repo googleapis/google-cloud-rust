@@ -612,6 +612,7 @@ impl TransactionRunner {
                         start_time.elapsed(),
                         self.retry_policy.as_ref(),
                         &backoff,
+                        self.builder.client.is_emulator(),
                     )
                     .await?;
                 }

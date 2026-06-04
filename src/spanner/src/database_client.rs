@@ -54,6 +54,10 @@ pub struct DatabaseClient {
 }
 
 impl DatabaseClient {
+    pub(crate) fn is_emulator(&self) -> bool {
+        self.spanner.is_emulator()
+    }
+
     /// Returns a builder for a single-use read-only transaction.
     ///
     /// # Example

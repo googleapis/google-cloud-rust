@@ -180,9 +180,9 @@ impl PartitionedDmlTransaction {
         let base_request = statement.into_request();
         let channel_hint = self.client.spanner.next_channel_hint();
         let client = self.client;
+        let is_emulator = client.is_emulator();
 
-        // Execute the statement and retry if the transaction is aborted by Spanner.
-        retry_aborted(&*self.retry_policy, || {
+        let action = || {
             let begin_request = begin_request.clone();
             let base_request = base_request.clone();
             let session_name = session_name.clone();
@@ -214,8 +214,9 @@ impl PartitionedDmlTransaction {
 
                 extract_lower_bound_update_count_from_stream(stream).await
             }
-        })
-        .await
+        };
+
+        retry_aborted(&*self.retry_policy, action, is_emulator).await
     }
 
     fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
