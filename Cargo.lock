@@ -1669,7 +1669,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "1.11.0"
+version = "1.12.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4803,7 +4803,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "1.13.0"
+version = "1.14.0"
 dependencies = [
  "anyhow",
  "async-trait",
