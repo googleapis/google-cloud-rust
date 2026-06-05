@@ -118,7 +118,7 @@ pub async fn try_get_metric(
     let end = Timestamp::try_from(SystemTime::now())?;
     let start = Timestamp::try_from(SystemTime::now() - Duration::from_secs(300))?;
     let (key, value) = label;
-    let response = client
+    let response = match client
         .list_time_series()
         .set_name(format!("projects/{project_id}"))
         .set_interval(TimeInterval::new().set_end_time(end).set_start_time(start))
@@ -126,7 +126,19 @@ pub async fn try_get_metric(
             r#"metric.type = "{metric_name}" AND metric.label.{key} = "{value}""#
         ))
         .send()
-        .await?;
+        .await
+    {
+        Ok(r) => r,
+        Err(e) => {
+            if let Some(status) = e.status()
+                && (status.code == Code::NotFound || status.code == Code::Internal)
+            {
+                println!("Metric list returned {:?}, retrying...", status.code);
+                return Ok(None);
+            }
+            return Err(e.into());
+        }
+    };
     Ok(Some(response).filter(|r| !r.time_series.is_empty()))
 }
 
