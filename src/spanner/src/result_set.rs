@@ -298,12 +298,9 @@ impl ResultSet {
             if self.seen_last {
                 if let Some(mut s) = self.stream.take() {
                     tokio::spawn(async move {
-                        let _ = timeout(
-                            Duration::from_secs(5),
-                            async move {
-                                while s.next_message().await.is_some() {}
-                            },
-                        )
+                        let _ = timeout(Duration::from_secs(5), async move {
+                            while let Some(Ok(_)) = s.next_message().await {}
+                        })
                         .await;
                     });
                 }
@@ -1310,7 +1307,10 @@ pub(crate) mod tests {
 
         // 4. Since the stream is being drained in a background task, the connection
         // receiver should still be alive, and therefore tx should NOT be closed yet.
-        assert!(!tx.is_closed(), "Expected stream to remain open in background task for draining");
+        assert!(
+            !tx.is_closed(),
+            "Expected stream to remain open in background task for draining"
+        );
 
         // 5. Drop the sender to close the stream.
         drop(tx);
