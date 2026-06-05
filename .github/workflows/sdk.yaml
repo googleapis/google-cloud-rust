@@ -35,8 +35,8 @@ jobs:
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/cache@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # rachet:actions/cache@v5
         with:
           path: |
             ~/.cargo
@@ -62,7 +62,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
@@ -78,8 +78,8 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/cache@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5
         with:
           path: |
             ~/.cargo
@@ -146,8 +146,8 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/cache@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5
         with:
           path: |
             ~/.cargo
@@ -168,7 +168,7 @@ jobs:
       - name: Upload user guide
         if: matrix.rust-version == 'rust:current'
         id: deployment
-        uses: actions/upload-pages-artifact@v5 # or specific "vX.X.X" version tag for this action
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # ratchet:actions/upload-pages-artifact@v5
         with:
           path: guide/book/
 
@@ -187,4 +187,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # ratchet:actions/deploy-pages@v5
