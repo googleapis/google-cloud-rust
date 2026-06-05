@@ -33,7 +33,8 @@ use google_cloud_gax::retry_state::RetryState;
 use std::collections::VecDeque;
 use std::mem::take;
 use std::sync::Arc;
-use tokio::time::sleep;
+use std::time::Duration;
+use tokio::time::{sleep, timeout};
 
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -295,7 +296,17 @@ impl ResultSet {
             }
 
             if self.seen_last {
-                self.stream = None;
+                if let Some(mut s) = self.stream.take() {
+                    tokio::spawn(async move {
+                        let _ = timeout(
+                            Duration::from_secs(5),
+                            async move {
+                                while s.next_message().await.is_some() {}
+                            },
+                        )
+                        .await;
+                    });
+                }
                 return None;
             }
 
@@ -1251,7 +1262,7 @@ pub(crate) mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn result_set_early_termination_not_cancelled() -> anyhow::Result<()> {
+    async fn result_set_last_flag_drained_in_background() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let (tx, rx) = tokio::sync::mpsc::channel(10);
 
@@ -1293,21 +1304,16 @@ pub(crate) mod tests {
         let row = rs.next().await.expect("Expected a row")?;
         assert_eq!(row.raw_values()[0].0, string_val("a"));
 
-        // 3. Call next again. It should see seen_last and return None early,
-        // and drain/cancel the stream cleanly without detached tasks.
+        // 3. Call next again. It should see seen_last and return None early.
         assert!(rs.next().await.is_none());
         drop(rs);
-        tx.closed().await;
 
-        // 4. Now try to send another message. The stream is cancelled (dropped), so this fails.
-        let send_result = tx
-            .send(Ok(PartialResultSet {
-                values: vec![string_val("c"), string_val("d")],
-                ..Default::default()
-            }))
-            .await;
+        // 4. Since the stream is being drained in a background task, the connection
+        // receiver should still be alive, and therefore tx should NOT be closed yet.
+        assert!(!tx.is_closed(), "Expected stream to remain open in background task for draining");
 
-        assert!(send_result.is_err(), "Expected stream to be cancelled");
+        // 5. Drop the sender to close the stream.
+        drop(tx);
 
         Ok(())
     }
