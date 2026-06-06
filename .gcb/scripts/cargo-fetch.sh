@@ -13,13 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ev
-
-echo HOME=$HOME
-echo HOME
-ls -l $HOME || true
-echo HOME/.cargo
-ls -l ${HOME}/.cargo || true
+set -e
 
 maximum=5
 delay=10
@@ -34,9 +28,3 @@ for attempt in $(seq 1 ${maximum}); do
     sleep $((delay))
     delay=$((2 * delay))
 done
-
-echo HOME=$HOME
-echo HOME
-ls -l $HOME || true
-echo HOME/.cargo
-ls -l ${HOME}/.cargo || true
