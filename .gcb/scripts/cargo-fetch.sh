@@ -21,7 +21,7 @@ for attempt in $(seq 1 ${maximum}); do
     if cargo fetch; then
         exit 0
     fi
-    if "${attempt}" == "${maximum}"; then
+    if [[ "${attempt}" == "${maximum}" ]]; then
         echo "Cannot fetch dependencies after ${maximum} attempts"
         exit 1
     fi
