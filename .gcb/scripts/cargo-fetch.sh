@@ -15,6 +15,12 @@
 
 set -ev
 
+echo HOME=$HOME
+echo HOME
+ls -l $HOME || true
+echo HOME/.cargo
+ls -l ${HOME}/.cargo || true
+
 maximum=5
 delay=10
 for attempt in $(seq 1 ${maximum}); do
@@ -28,3 +34,9 @@ for attempt in $(seq 1 ${maximum}); do
     sleep $((delay))
     delay=$((2 * delay))
 done
+
+echo HOME=$HOME
+echo HOME
+ls -l $HOME || true
+echo HOME/.cargo
+ls -l ${HOME}/.cargo || true

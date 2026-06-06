@@ -31,7 +31,6 @@ options:
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
-    - CARGO_HOME=/workspace/.cargo
   workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
@@ -44,6 +43,9 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Download dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     args: ['.gcb/scripts/cargo-fetch.sh']
   - id: 'Install terraform'
     name: 'gcr.io/cloud-builders/curl'
@@ -57,6 +59,9 @@ steps:
       curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /workspace/.download/terraform.zip
       sha256sum -c <(echo "${_TERRAFORM_SHA256} */workspace/.download/terraform.zip")
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     id: 'Search for typos'
     script: |
       #!/usr/bin/env bash
@@ -67,6 +72,9 @@ steps:
         cargo install typos-cli --version 1.45.0 --locked
       typos
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     id: 'Verify all files have a copyright boilerplate'
     script: |
       #!/usr/bin/env bash
@@ -76,6 +84,9 @@ steps:
         ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 target/release/check-copyright
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     id: 'Format TOML files'
     script: |
       #!/usr/bin/env bash
@@ -87,6 +98,9 @@ steps:
       git ls-files -z -- '*.toml' ':!:testdata/**' ':!:**/generated/**' | \
         xargs -0 taplo fmt
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     id: 'Format Rust files'
     script: |
       #!/usr/bin/env bash
@@ -141,6 +155,9 @@ steps:
   # `git`. We could install `git` on that image, but that is as hard / slow as
   # installing `terraform` on Debian.
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     id: 'Format Terraform (.tf) files'
     script: |
       #!/usr/bin/env bash

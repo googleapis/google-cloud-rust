@@ -32,7 +32,6 @@ options:
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
     - GCB_TRIGGER_NAME=${TRIGGER_NAME}
-    - CARGO_HOME=/workspace/.cargo
   workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
@@ -46,7 +45,13 @@ steps:
   - id: 'Download dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
     args: ['.gcb/scripts/cargo-fetch.sh']
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     args: ['.gcb/scripts/${_SCRIPT}.sh']
 substitutions:
   _SCCACHE_VERSION: 'v0.12.0'

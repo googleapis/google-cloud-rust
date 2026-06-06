@@ -27,7 +27,6 @@ options:
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
-    - CARGO_HOME=/workspace/.cargo
   workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
@@ -40,9 +39,15 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Download dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     args: ['.gcb/scripts/cargo-fetch.sh']
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     script: |
       #!/usr/bin/env bash
       set -e

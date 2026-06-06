@@ -24,7 +24,6 @@ options:
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
-    - CARGO_HOME=/workspace/.cargo
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - id: 'Set up build cache'
@@ -36,9 +35,15 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Download dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     args: ['.gcb/scripts/cargo-fetch.sh']
   - id: 'Run auth integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     script: |
       #!/usr/bin/env bash
       set -e
@@ -46,6 +51,9 @@ steps:
         --package integration-tests-auth
   - id: 'Run External Account integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+    - name: 'fetched'
+      path: /builder/home/.cargo
     env:
       - 'EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}'
       - 'GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${_WORKLOAD_IDENTITY_AUDIENCE}'
