@@ -24,6 +24,7 @@ options:
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
+    - CARGO_HOME=/workspace/.cargo
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - id: 'Set up build cache'
@@ -33,6 +34,9 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
+  - id: 'Download dependencies'
+    name: 'rust:${_RUST_VERSION}-bookworm'
+    args: ['.gcb/scripts/cargo-fetch.sh']
   - id: 'Run auth integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
     script: |
