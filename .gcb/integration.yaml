@@ -40,8 +40,8 @@ steps:
   - id: 'Download dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
     volumes:
-    - name: 'fetched'
-      path: /builder/home/.cargo
+      - name: 'fetched'
+        path: /builder/home/.cargo
     args: ['.gcb/scripts/cargo-fetch.sh']
   - id: 'Start Spanner Emulator'
     name: 'gcr.io/cloud-builders/docker'
@@ -55,8 +55,8 @@ steps:
   - id: Run integration tests
     name: 'rust:${_RUST_VERSION}-bookworm'
     volumes:
-    - name: 'fetched'
-      path: /builder/home/.cargo
+      - name: 'fetched'
+        path: /builder/home/.cargo
     script: |
       #!/usr/bin/env bash
       set -e
