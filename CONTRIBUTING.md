@@ -10,16 +10,16 @@ Agreement. You (or your employer) retain the copyright to your contribution;
 this simply gives us permission to use and redistribute your contributions as
 part of the project. Head over to
 [https://cla.developers.google.com/](https://cla.developers.google.com/) to see
-your current agreements on file or to sign a new one.  You generally only need
-to submit a CLA once, so if you've already submitted one (even if it was for a
+your current agreements on file or to sign a new one. You generally only need to
+submit a CLA once, so if you've already submitted one (even if it was for a
 different project), you probably don't need to do it again.
 
 ## Code Reviews
 
 All submissions, including submissions by project members, require review. We
 use GitHub pull requests for this purpose. Submissions by non-Googlers require
-two reviewers. Consult [GitHub
-Help](https://help.github.com/articles/about-pull-requests/) for more
+two reviewers. Consult
+[GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests.
 
 ### Multi-Approvers Check
@@ -28,6 +28,7 @@ Each pull request must be approved by two Googlers. This is enforced by an
 automated multi-approvers check. This check may not automatically re-run after
 the second approval is added. If it remains in a failed state, you can manually
 re-trigger it by:
+
 - Clicking "View details" on the failed workflow to bring you to the "Actions"
   page.
 - Clicking "Re-run failed jobs".
@@ -42,13 +43,14 @@ This project follows
 
 ## Before contributing code
 
-Before doing any significant work, open an issue to propose your idea and
-ensure alignment. You can either
-[file a new issue](https://github.com/googleapis/google-cloud-rust/issues/new/choose), or comment on an
+Before doing any significant work, open an issue to propose your idea and ensure
+alignment. You can either
+[file a new issue](https://github.com/googleapis/google-cloud-rust/issues/new/choose),
+or comment on an
 [existing one](https://github.com/googleapis/google-cloud-rust/issues).
 
 A pull request (PR) that does not go through this coordination process may be
-closed to avoid wasted effort.  Make sure your code follows the
+closed to avoid wasted effort. Make sure your code follows the
 [style guidelines](ARCHITECTURE.md).
 
 ## Using the issue tracker
@@ -70,8 +72,8 @@ request without needing to contact you directly for clarification.
 
 ## Leaving a TODO
 
-When adding a TODO to the codebase, always include a link to an issue, no
-matter how small the task.
+When adding a TODO to the codebase, always include a link to an issue, no matter
+how small the task.
 
 Use the format:
 
@@ -91,9 +93,7 @@ before starting.
 
 Before sending a pull request, make sure it includes tests if there are logic
 changes, copyright headers in every file, and a commit message following the
-conventions in the
-[Commit messages](#commit-messages)
-section below.
+conventions in the [Commit messages](#commit-messages) section below.
 
 ### Open pull requests from a personal fork
 
@@ -108,7 +108,7 @@ For a step-by-step guide, see the official documentation on
 
 The repository is configured to not require branches to be up to date before
 merging. This means that you do not have to have the latest changes from the
-base branch integrated, unless GitHub detects merge conflicts.  To minimize the
+base branch integrated, unless GitHub detects merge conflicts. To minimize the
 risk of the pull request getting out of date with the base branch, enable
 [auto-merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request)
 so that the pull request submits as soon as it is approved and the checks pass.
@@ -135,7 +135,7 @@ change, following the structure `<type>(<package>): <description>`:
 #### type
 
 A structural element defined by the conventions at
-[https://www.conventionalcommits.org/en/v1.0.0/\#summary](https://www.conventionalcommits.org/en/v1.0.0/#summary).
+[https://www.conventionalcommits.org/en/v1.0.0/#summary](https://www.conventionalcommits.org/en/v1.0.0/#summary).
 
 Conventional commits are parsed by release tooling to generate release notes.
 
@@ -146,29 +146,29 @@ parentheses before the colon. (For example, storage or pubsub).
 
 ### description
 
-A short one-line summary of the change, which should be written to
-complete the sentence "This change modifies the crate to ..." That means it
-does not start with a capital letter, is not a complete sentence, and actually
-summarizes the result of the change. Note that the verb after the colon is
-lowercase, and there is no trailing period.  The first line should be kept as
-short as possible (many git viewing tools prefer under ~76 characters).
+A short one-line summary of the change, which should be written to complete the
+sentence "This change modifies the crate to ..." That means it does not start
+with a capital letter, is not a complete sentence, and actually summarizes the
+result of the change. Note that the verb after the colon is lowercase, and there
+is no trailing period. The first line should be kept as short as possible (many
+git viewing tools prefer under ~76 characters).
 
 Follow the first line by a blank line.
 
 ### Main content
 
-The rest of the commit message should provide context for the change and
-explain what it does. Write in complete sentences with correct punctuation.
-Don't use HTML, Markdown, or any other markup language.
+The rest of the commit message should provide context for the change and explain
+what it does. Write in complete sentences with correct punctuation. Don't use
+HTML, Markdown, or any other markup language.
 
 ### Referencing issues
 
-The special notation "Fixes \#12345" associates the change with issue 12345 in
+The special notation "Fixes #12345" associates the change with issue 12345 in
 the issue tracker. When this change is eventually applied, the issue tracker
-will automatically mark the issue as fixed.  If the change is a partial step
-towards the resolution of the issue, write "For \#12345" instead. This will
-leave a comment in the issue linking back to the pull request, but it will not
-close the issue when the change is applied.  Please don’t use alternate
+will automatically mark the issue as fixed. If the change is a partial step
+towards the resolution of the issue, write "For #12345" instead. This will leave
+a comment in the issue linking back to the pull request, but it will not close
+the issue when the change is applied. Please don’t use alternate
 GitHub-supported aliases like Close or Resolves instead of Fixes.
 
 ## The review process
@@ -180,25 +180,27 @@ after a pull request has been sent for review.
 
 Before creating a pull request, make sure that your commit message follows the
 suggested format. Otherwise, it can be common for the pull request to be sent
-back with that request without review.  After creating a pull request, request
-a specific reviewer if relevant, or leave it for the default group.
+back with that request without review. After creating a pull request, request a
+specific reviewer if relevant, or leave it for the default group.
 
 ### Merging a pull request
 
 Pull request titles and descriptions must follow the
-[commit messages](#commit-messages)
-conventions. This enables approvers to review the final commit message. Once
-the pull request has been approved and all checks have passed, click the
+[commit messages](#commit-messages) conventions. This enables approvers to
+review the final commit message. Once the pull request has been approved and all
+checks have passed, click the
 [Squash and Merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#squash-and-merge-your-commits)
 button. The resulting commit message will be based on the pull request's title
 and description.
 
 ### Reverting a pull request
 
-If a merged pull request needs to be undone, for reasons such as breaking the build, the standard process is to
+If a merged pull request needs to be undone, for reasons such as breaking the
+build, the standard process is to
 [revert it through the GitHub interface](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/reverting-a-pull-request).
 
 To revert a pull request:
+
 - Navigate to the merged pull request on GitHub.
 - Click the Revert button. This action automatically creates a new branch and a
   pull request containing the revert commit.
@@ -213,10 +215,10 @@ a revert commit using git revert.
 ### Keeping the pull request dashboard clean
 
 We aim to keep the pull requests page clean so that we can quickly notice and
-review incoming changes that require attention.  Given that goal, please do not
+review incoming changes that require attention. Given that goal, please do not
 open a pull request unless you are ready for a code review. Draft pull requests
 and ones without author activity for more than one business day may be closed
-(they can always be reopened later).  If you're still working on something,
+(they can always be reopened later). If you're still working on something,
 continue iterating on your branch without creating a pull request until it’s
 ready for review.
 
@@ -224,44 +226,43 @@ ready for review.
 
 Creating additional commits to address reviewer feedback is generally preferred
 over amending and force-pushing. This makes it easier for reviewers to see what
-has changed since their last review.  Pull requests are always squashed and
+has changed since their last review. Pull requests are always squashed and
 merged. Before merging, please review and edit the resulting commit message to
 ensure it clearly describes the change.
 
 After pushing,
-[click the
-button](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review#requesting-reviews-from-collaborators-and-organization-members)
+[click the button](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review#requesting-reviews-from-collaborators-and-organization-members)
 to ask a reviewer to re-request your review.
 
 ## Expectations for the team
 
 A lot of our communication will happen on GitHub issues. Team members are
 expected to configure their inboxes to receive GitHub notifications alerts for
-all issues and pull requests to ensure effective communication.  If a pull
+all issues and pull requests to ensure effective communication. If a pull
 request becomes inactive or misaligned with current priorities, we may close it
 to respect contributor and reviewer time. If you’d like to revisit it, just
-comment and reopen the conversation.  If your pull request or issue is stuck,
+comment and reopen the conversation. If your pull request or issue is stuck,
 feel free to follow up over chat. We encourage it!
 
 ### Reviewing a pull request
 
 When reviewing a pull request:
+
 - Start by reading the PR description to understand the purpose and context. If
   the commit message doesn’t follow the
-  [commit message guidelines](#commit-messages),
-  request changes.
+  [commit message guidelines](#commit-messages), request changes.
 - Use Approve or Request changes explicitly. Avoid leaving ambiguous feedback.
 - Focus on what is in scope. If unrelated issues arise, suggest filing a
   separate PR or issue.
-- If you’ve requested changes, approve the PR once the updates are
-  satisfactory, even if the author forgot to click the re-request review.
-- If a review has stalled or the context has shifted, leave a comment to
-  clarify expectations, or close the PR. Keeping the dashboard clean is
-  encouraged.
+- If you’ve requested changes, approve the PR once the updates are satisfactory,
+  even if the author forgot to click the re-request review.
+- If a review has stalled or the context has shifted, leave a comment to clarify
+  expectations, or close the PR. Keeping the dashboard clean is encouraged.
 
 ### Addressing Urgent Issues
 
 We categorize issues into two primary levels of urgency:
+
 - critical 🚨: requires immediate fix, should be treated as a p0 issue
 - needs fix soon ❗: high priority issue, can be fixed during business hours
 
@@ -273,11 +274,11 @@ enough to downgrade the severity to needs fix soon ❗.
 All pull requests require passing CI checks to be merged.
 
 The main branch must always be stable, and tests should never fail at HEAD. A
-red build on the main branch is a critical issue that must be fixed
-immediately.  If tests become flaky or the main branch is not consistently
-green, the team's top priority should shift to restoring stability. All feature
-development should be deprioritized until green builds can be guaranteed.  When
-you see a red x next to a commit on main, file an issue on your GitHub issue
-tracker, and label it critical 🚨.  Create a PR to temporarily skip the test,
-and verify that you have a green checkmark next to the commit on your main
-branch. The issue can now be downgraded to needs fix soon ❗.
+red build on the main branch is a critical issue that must be fixed immediately.
+If tests become flaky or the main branch is not consistently green, the team's
+top priority should shift to restoring stability. All feature development should
+be deprioritized until green builds can be guaranteed. When you see a red x next
+to a commit on main, file an issue on your GitHub issue tracker, and label it
+critical 🚨. Create a PR to temporarily skip the test, and verify that you have a
+green checkmark next to the commit on your main branch. The issue can now be
+downgraded to needs fix soon ❗.
