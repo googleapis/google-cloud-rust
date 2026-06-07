@@ -18,6 +18,7 @@ use gcs::builder::storage_control::RewriteObject;
 use gcs::client::StorageControl;
 use gcs::model::Object;
 use gcs::retry_policy::RetryableErrors;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::retry_policy::RetryPolicyExt as _;
 use google_cloud_storage as gcs;
 
@@ -34,6 +35,7 @@ pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
     // ANCHOR: builder
     let mut builder = control
         .rewrite_object()
+        .with_idempotency(true) // retry transient errors
         .set_source_bucket(bucket_name)
         .set_source_object(&source_object.name)
         .set_destination_bucket(bucket_name)
@@ -136,6 +138,7 @@ pub async fn rewrite_object_until_done(bucket_name: &str) -> anyhow::Result<()> 
 
     let builder = control
         .rewrite_object()
+        .with_idempotency(true) // retry transient errors
         .set_source_bucket(bucket_name)
         .set_source_object(&source_object.name)
         .set_destination_bucket(bucket_name)
