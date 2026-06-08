@@ -274,19 +274,11 @@ where
             method: "client::Agents::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -466,19 +458,11 @@ where
             method: "client::Changelogs::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -644,19 +628,11 @@ where
             method: "client::Deployments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -892,19 +868,11 @@ where
             method: "client::EntityTypes::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -1182,19 +1150,11 @@ where
             method: "client::Environments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -1416,19 +1376,11 @@ where
             method: "client::Examples::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -1664,19 +1616,11 @@ where
             method: "client::Experiments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -1954,19 +1898,11 @@ where
             method: "client::Flows::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -2188,19 +2124,11 @@ where
             method: "client::Generators::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -2436,19 +2364,11 @@ where
             method: "client::Intents::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -2670,19 +2590,11 @@ where
             method: "client::Pages::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -2988,19 +2900,11 @@ where
             method: "client::Playbooks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -3222,19 +3126,11 @@ where
             method: "client::SecuritySettingsService::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -3428,19 +3324,11 @@ where
             method: "client::Sessions::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -3648,19 +3536,11 @@ where
             method: "client::SessionEntityTypes::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -3966,19 +3846,11 @@ where
             method: "client::TestCases::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -4270,19 +4142,11 @@ where
             method: "client::Tools::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -4490,19 +4354,11 @@ where
             method: "client::TransitionRouteGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -4738,19 +4594,11 @@ where
             method: "client::Versions::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
@@ -4972,19 +4820,11 @@ where
             method: "client::Webhooks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Ok(attempt) = google_cloud_lro::POLL_ATTEMPT_COUNT.try_with(|c| *c) {
-                _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
-            if google_cloud_lro::POLL_ATTEMPT_COUNT
-                .try_with(|c| *c)
-                .is_ok()
-            {
+            if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
                     Ok(response) => {
                         let op = response.body();
