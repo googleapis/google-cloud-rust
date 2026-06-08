@@ -64,6 +64,7 @@ pub struct ResultSet {
     local_metadata: Option<ResultSetMetadata>,
     stats: Option<ResultSetStats>,
     precommit_token_tracker: PrecommitTokenTracker,
+    tokio_handle: Option<Handle>,
 
     // Fields for retries and buffering of a stream of PartialResultSets.
     client: DatabaseClient,
@@ -148,6 +149,7 @@ impl ResultSet {
             transaction_selector,
             channel_hint,
             gax_options,
+            tokio_handle: Handle::try_current().ok(),
         }
     }
 
@@ -297,8 +299,10 @@ impl ResultSet {
             }
 
             if self.seen_last {
-                if let Some(s) = self.stream.take() {
-                    drain_stream_in_background(s);
+                if let Some(handle) = &self.tokio_handle
+                    && let Some(s) = self.stream.take()
+                {
+                    drain_stream_in_background(handle, s);
                 }
                 return None;
             }
@@ -684,21 +688,22 @@ impl Drop for ResultSet {
         // To prevent this, we drain the remaining trailers asynchronously in a background task.
         // Note: We only do this if seen_last is true, to prevent a background task from potentially
         // iterating through a large number of partial results.
-        if self.seen_last && let Some(s) = self.stream.take() {
-            drain_stream_in_background(s);
+        if self.seen_last
+            && let Some(handle) = &self.tokio_handle
+            && let Some(s) = self.stream.take()
+        {
+            drain_stream_in_background(handle, s);
         }
     }
 }
 
-fn drain_stream_in_background(mut stream: PartialResultSetStream) {
-    if let Ok(handle) = Handle::try_current() {
-        handle.spawn(async move {
-            let _ = timeout(Duration::from_secs(5), async move {
-                while let Some(Ok(_)) = stream.next_message().await {}
-            })
-            .await;
-        });
-    }
+fn drain_stream_in_background(handle: &Handle, mut stream: PartialResultSetStream) {
+    handle.spawn(async move {
+        let _ = timeout(Duration::from_secs(5), async move {
+            while let Some(Ok(_)) = stream.next_message().await {}
+        })
+        .await;
+    });
 }
 
 /// Merges two values from successive `PartialResultSet`s into a single value.
@@ -784,7 +789,6 @@ pub(crate) mod tests {
     use spanner_grpc_mock::start;
     use spanner_v1::result_set_stats::RowCount;
     use std::time::Duration;
-    use tokio::time::sleep;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -1393,10 +1397,73 @@ pub(crate) mod tests {
 
         // 4. Since the stream is being drained in a background task, the connection
         // receiver should still be alive, and therefore tx should NOT be closed yet.
-        sleep(Duration::from_millis(5)).await;
         assert!(
             !tx.is_closed(),
             "Expected stream to remain open in background task for draining"
+        );
+
+        // 5. Drop the sender to close the stream.
+        drop(tx);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_last_flag_drained_in_background_on_drop_outside_runtime()
+    -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let (tx, rx) = tokio::sync::mpsc::channel(10);
+
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx_single = db_client.single_use().build();
+
+        // 1. Send the first message with last: true
+        tx.send(Ok(PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: true,
+            ..Default::default()
+        }))
+        .await
+        .expect("Failed to send first message");
+
+        let mut result_set: ResultSet = tx_single.execute_query("SELECT 1").await?;
+
+        // 2. Consume the first message
+        let row = result_set.next().await.expect("Expected a row")?;
+        assert_eq!(row.raw_values()[0].0, string_val("a"));
+
+        // 3. Move the ResultSet to a separate non-Tokio OS thread and drop it there.
+        std::thread::spawn(move || {
+            drop(result_set);
+        })
+        .join()
+        .expect("Thread panicked");
+
+        // 4. Since the stream is being drained in a background task on the captured runtime,
+        // the connection receiver should still be alive, and therefore tx should NOT be closed yet.
+        assert!(
+            !tx.is_closed(),
+            "Expected stream to remain open in background task for draining when dropped outside runtime"
         );
 
         // 5. Drop the sender to close the stream.
