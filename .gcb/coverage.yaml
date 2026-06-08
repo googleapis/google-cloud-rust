@@ -41,6 +41,12 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
+  - id: 'Download dependencies'
+    name: 'rust:${_RUST_VERSION}-bookworm'
+    args: ['.gcb/scripts/cargo-fetch.sh']
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
   - name: 'gcr.io/cloud-builders/curl'
     automapSubstitutions: true
     script: |
@@ -53,6 +59,9 @@ steps:
 
       chmod 755 /workspace/.bin/codecovcli
   - name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
     args: ['.gcb/scripts/${_SCRIPT}.sh']
     secretEnv: ['CODECOV_TOKEN']
     env:

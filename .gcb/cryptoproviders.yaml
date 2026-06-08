@@ -37,8 +37,17 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
+  - id: 'Download dependencies'
+    name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
+    args: ['.gcb/scripts/cargo-fetch.sh']
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
     script: |
       #!/usr/bin/env bash
       set -e

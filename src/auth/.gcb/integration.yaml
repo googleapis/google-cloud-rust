@@ -33,8 +33,17 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
+  - id: 'Download dependencies'
+    name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
+    args: ['.gcb/scripts/cargo-fetch.sh']
   - id: 'Run auth integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
     script: |
       #!/usr/bin/env bash
       set -e
@@ -42,6 +51,9 @@ steps:
         --package integration-tests-auth
   - id: 'Run External Account integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
+    volumes:
+      - name: 'fetched'
+        path: /builder/home/.cargo
     env:
       - 'EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}'
       - 'GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${_WORKLOAD_IDENTITY_AUDIENCE}'
