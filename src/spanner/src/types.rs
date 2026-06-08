@@ -137,6 +137,15 @@ impl Type {
             .as_deref()
             .map(|t| Type(t.clone()))
     }
+
+    /// Returns the struct type metadata, or `None` if this type is not a struct.
+    ///
+    /// When `code() == TypeCode::Struct`, this provides the field names and
+    /// their types. This is essential for reconstructing named fields from the
+    /// positional `ListValue` wire format that Spanner uses for STRUCT values.
+    pub fn struct_type(&self) -> Option<&crate::generated::gapic_dataplane::model::StructType> {
+        self.0.struct_type.as_deref()
+    }
 }
 
 impl gaxi::prost::ToProto<i32> for TypeCode {
