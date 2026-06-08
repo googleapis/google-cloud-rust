@@ -117,16 +117,19 @@ macro_rules! define_idempotent_rpc {
                 .inner
                 .$method()
                 .with_request(request)
-                .with_options(with_default_idempotency(options))
+                .with_options(apply_request_defaults(options))
                 .send()
                 .await
         }
     };
 }
 
-fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
+fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestOptions {
     if options.idempotent().is_none() {
         options.set_idempotency(true);
+    }
+    if options.retry_policy().is_none() {
+        options.set_retry_policy(crate::retry_policy::SpannerRetryPolicy::new());
     }
     options
 }
@@ -607,6 +610,66 @@ mod tests {
         assert_eq!(
             session.name,
             "projects/test-project/instances/test-instance/databases/test-db/sessions/456"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn test_create_session_transport_retry() {
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                let mut status = Status::unavailable("connection reset");
+                let mut headers = std::mem::take(status.metadata_mut()).into_headers();
+                headers.insert("content-type", http::HeaderValue::from_static("text/html"));
+                *status.metadata_mut() = MetadataMap::from_headers(headers);
+                Err(status)
+            });
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(gaxi::grpc::tonic::Response::new(mock_v1::Session {
+                    name: "projects/test-project/instances/test-instance/databases/test-db/sessions/789".to_string(),
+                    ..Default::default()
+                }))
+            });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        // 3. Configure Client to use mock endpoint
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        // 4. Call CreateSession
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let session = client
+            .create_session(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
+            .await
+            .expect("Failed to call create_session after transport error retry");
+
+        // 5. Verify Response
+        assert_eq!(
+            session.name,
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/789",
+            "Expected session name to match the second successful response after transport retry"
         );
     }
 

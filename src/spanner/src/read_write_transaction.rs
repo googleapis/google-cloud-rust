@@ -41,13 +41,14 @@ use crate::read_only_transaction::{
     BeginTransactionOption, ReadContext, ReadContextTransactionSelector, TransactionState,
 };
 use crate::result_set::ResultSet;
+use crate::retry_policy::SpannerRetryPolicy;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
 use crate::write_only_transaction::create_commit_request;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
+use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
@@ -738,7 +739,7 @@ pub(crate) fn amend_gax_options(
         let inner_policy = options
             .retry_policy()
             .clone()
-            .unwrap_or_else(|| Arc::new(Aip194Strict));
+            .unwrap_or_else(|| Arc::new(SpannerRetryPolicy::new()));
         let bounded_policy = TransactionBoundedRetryPolicy {
             inner: inner_policy,
             deadline,
