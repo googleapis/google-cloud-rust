@@ -99,6 +99,7 @@ impl LroRecorder {
 }
 
 /// Helper macro to create a tracing span for polling standard LROs with consistently named attributes.
+#[cfg(test)]
 #[macro_export]
 #[doc(hidden)]
 macro_rules! polling_span {
