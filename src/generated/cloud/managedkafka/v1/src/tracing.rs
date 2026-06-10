@@ -389,14 +389,7 @@ where
             method: "client::ManagedKafka::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -480,6 +473,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -759,14 +764,7 @@ where
             method: "client::ManagedKafkaConnect::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -850,6 +848,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 

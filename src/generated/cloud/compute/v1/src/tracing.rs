@@ -367,14 +367,7 @@ where
             method: "client::Addresses::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -408,6 +401,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -608,14 +613,7 @@ where
             method: "client::Autoscalers::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -649,6 +647,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -889,14 +899,7 @@ where
             method: "client::BackendBuckets::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -930,6 +933,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -1212,14 +1227,7 @@ where
             method: "client::BackendServices::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -1253,6 +1261,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -1367,14 +1387,7 @@ where
             method: "client::CrossSiteNetworks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -1408,6 +1421,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -1804,14 +1829,7 @@ where
             method: "client::Disks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -1845,6 +1863,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -1973,14 +2003,7 @@ where
             method: "client::ExternalVpnGateways::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -2014,6 +2037,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -2310,14 +2345,7 @@ where
             method: "client::FirewallPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -2351,6 +2379,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -2493,14 +2533,7 @@ where
             method: "client::Firewalls::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -2534,6 +2567,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -2690,14 +2735,7 @@ where
             method: "client::ForwardingRules::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -2731,6 +2769,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -2873,14 +2923,7 @@ where
             method: "client::FutureReservations::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -2914,6 +2957,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3056,14 +3111,7 @@ where
             method: "client::GlobalAddresses::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -3097,6 +3145,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3239,14 +3299,7 @@ where
             method: "client::GlobalForwardingRules::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -3280,6 +3333,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3422,14 +3487,7 @@ where
             method: "client::GlobalNetworkEndpointGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -3463,6 +3521,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3749,14 +3819,7 @@ where
             method: "client::GlobalPublicDelegatedPrefixes::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -3790,6 +3853,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3918,14 +3993,7 @@ where
             method: "client::GlobalVmExtensionPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -3959,6 +4027,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4115,14 +4195,7 @@ where
             method: "client::HealthChecks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -4156,6 +4229,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4298,14 +4383,7 @@ where
             method: "client::HttpHealthChecks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -4339,6 +4417,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4481,14 +4571,7 @@ where
             method: "client::HttpsHealthChecks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -4522,6 +4605,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4764,14 +4859,7 @@ where
             method: "client::Images::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -4805,6 +4893,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4919,14 +5019,7 @@ where
             method: "client::InstanceGroupManagerResizeRequests::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -4960,6 +5053,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -5342,14 +5447,7 @@ where
             method: "client::InstanceGroupManagers::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -5383,6 +5481,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -5567,14 +5677,7 @@ where
             method: "client::InstanceGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -5608,6 +5711,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -5680,14 +5795,7 @@ where
             method: "client::InstanceSettings::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -5721,6 +5829,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -5877,14 +5997,7 @@ where
             method: "client::InstanceTemplates::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -5918,6 +6031,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -6676,14 +6801,7 @@ where
             method: "client::Instances::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -6717,6 +6835,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -6859,14 +6989,7 @@ where
             method: "client::InstantSnapshotGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -6900,6 +7023,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7070,14 +7205,7 @@ where
             method: "client::InstantSnapshots::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -7111,6 +7239,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7283,14 +7423,7 @@ where
             method: "client::InterconnectAttachmentGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -7324,6 +7457,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7466,14 +7611,7 @@ where
             method: "client::InterconnectAttachments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -7507,6 +7645,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7691,14 +7841,7 @@ where
             method: "client::InterconnectGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -7732,6 +7875,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8004,14 +8159,7 @@ where
             method: "client::Interconnects::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -8045,6 +8193,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8287,14 +8447,7 @@ where
             method: "client::Licenses::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -8328,6 +8481,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8484,14 +8649,7 @@ where
             method: "client::MachineImages::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -8525,6 +8683,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8767,14 +8937,7 @@ where
             method: "client::NetworkAttachments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -8808,6 +8971,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8922,14 +9097,7 @@ where
             method: "client::NetworkEdgeSecurityServices::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -8963,6 +9131,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -9133,14 +9313,7 @@ where
             method: "client::NetworkEndpointGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -9174,6 +9347,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -9512,14 +9697,7 @@ where
             method: "client::NetworkFirewallPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -9553,6 +9731,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -9837,14 +10027,7 @@ where
             method: "client::Networks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -9878,6 +10061,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -10132,14 +10327,7 @@ where
             method: "client::NodeGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -10173,6 +10361,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -10329,14 +10529,7 @@ where
             method: "client::NodeTemplates::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -10370,6 +10563,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -10713,14 +10918,7 @@ where
             method: "client::OrganizationSecurityPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -10754,6 +10952,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -10896,14 +11106,7 @@ where
             method: "client::PacketMirrorings::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -10937,6 +11140,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11023,14 +11238,7 @@ where
             method: "client::PreviewFeatures::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -11064,6 +11272,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11304,14 +11524,7 @@ where
             method: "client::Projects::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -11345,6 +11558,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11487,14 +11712,7 @@ where
             method: "client::PublicAdvertisedPrefixes::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -11528,6 +11746,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11684,14 +11914,7 @@ where
             method: "client::PublicDelegatedPrefixes::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -11725,6 +11948,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11867,14 +12102,7 @@ where
             method: "client::RegionAutoscalers::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -11908,6 +12136,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12078,14 +12318,7 @@ where
             method: "client::RegionBackendBuckets::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -12119,6 +12352,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12331,14 +12576,7 @@ where
             method: "client::RegionBackendServices::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -12372,6 +12610,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12486,14 +12736,7 @@ where
             method: "client::RegionCommitments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -12527,6 +12770,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12683,14 +12938,7 @@ where
             method: "client::RegionCompositeHealthChecks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -12724,6 +12972,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13078,14 +13338,7 @@ where
             method: "client::RegionDisks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -13119,6 +13372,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13261,14 +13526,7 @@ where
             method: "client::RegionHealthAggregationPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -13302,6 +13560,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13444,14 +13714,7 @@ where
             method: "client::RegionHealthCheckServices::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -13485,6 +13748,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13627,14 +13902,7 @@ where
             method: "client::RegionHealthChecks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -13668,6 +13936,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13824,14 +14104,7 @@ where
             method: "client::RegionHealthSources::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -13865,6 +14138,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13981,14 +14266,7 @@ where
             method: "client::RegionInstanceGroupManagerResizeRequests::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -14022,6 +14300,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14390,14 +14680,7 @@ where
             method: "client::RegionInstanceGroupManagers::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -14431,6 +14714,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14545,14 +14840,7 @@ where
             method: "client::RegionInstanceGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -14586,6 +14874,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14686,14 +14986,7 @@ where
             method: "client::RegionInstanceTemplates::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -14727,6 +15020,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14785,14 +15090,7 @@ where
             method: "client::RegionInstances::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -14826,6 +15124,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14968,14 +15278,7 @@ where
             method: "client::RegionInstantSnapshotGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -15009,6 +15312,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -15165,14 +15480,7 @@ where
             method: "client::RegionInstantSnapshots::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -15206,6 +15514,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -15348,14 +15668,7 @@ where
             method: "client::RegionNetworkEndpointGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -15389,6 +15702,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -15673,14 +15998,7 @@ where
             method: "client::RegionNetworkFirewallPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -15714,6 +16032,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -15842,14 +16172,7 @@ where
             method: "client::RegionNotificationEndpoints::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -15883,6 +16206,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16153,14 +16488,7 @@ where
             method: "client::RegionSecurityPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -16194,6 +16522,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16266,14 +16606,7 @@ where
             method: "client::RegionSnapshotSettings::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -16307,6 +16640,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16477,14 +16822,7 @@ where
             method: "client::RegionSnapshots::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -16518,6 +16856,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16618,14 +16968,7 @@ where
             method: "client::RegionSslCertificates::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -16659,6 +17002,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16787,14 +17142,7 @@ where
             method: "client::RegionSslPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -16828,6 +17176,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16942,14 +17302,7 @@ where
             method: "client::RegionTargetHttpProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -16983,6 +17336,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17125,14 +17490,7 @@ where
             method: "client::RegionTargetHttpsProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -17166,6 +17524,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17266,14 +17636,7 @@ where
             method: "client::RegionTargetTcpProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -17307,6 +17670,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17449,14 +17824,7 @@ where
             method: "client::RegionUrlMaps::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -17490,6 +17858,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17720,14 +18100,7 @@ where
             method: "client::ReservationBlocks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -17761,6 +18134,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17861,14 +18246,7 @@ where
             method: "client::ReservationSlots::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -17902,6 +18280,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18058,14 +18448,7 @@ where
             method: "client::ReservationSubBlocks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -18099,6 +18482,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18297,14 +18692,7 @@ where
             method: "client::Reservations::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -18338,6 +18726,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18508,14 +18908,7 @@ where
             method: "client::ResourcePolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -18549,6 +18942,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18649,14 +19054,7 @@ where
             method: "client::RolloutPlans::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -18690,6 +19088,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18832,14 +19242,7 @@ where
             method: "client::Rollouts::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -18873,6 +19276,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19155,14 +19570,7 @@ where
             method: "client::Routers::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -19196,6 +19604,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19310,14 +19730,7 @@ where
             method: "client::Routes::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -19351,6 +19764,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19565,14 +19990,7 @@ where
             method: "client::SecurityPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -19606,6 +20024,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19776,14 +20206,7 @@ where
             method: "client::ServiceAttachments::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -19817,6 +20240,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19889,14 +20324,7 @@ where
             method: "client::SnapshotSettings::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -19930,6 +20358,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20100,14 +20540,7 @@ where
             method: "client::Snapshots::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -20141,6 +20574,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20255,14 +20700,7 @@ where
             method: "client::SslCertificates::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -20296,6 +20734,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20438,14 +20888,7 @@ where
             method: "client::SslPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -20479,6 +20922,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20735,14 +21190,7 @@ where
             method: "client::StoragePools::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -20776,6 +21224,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20988,14 +21448,7 @@ where
             method: "client::Subnetworks::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -21029,6 +21482,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -21143,14 +21608,7 @@ where
             method: "client::TargetGrpcProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -21184,6 +21642,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -21326,14 +21796,7 @@ where
             method: "client::TargetHttpProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -21367,6 +21830,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -21565,14 +22040,7 @@ where
             method: "client::TargetHttpsProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -21606,6 +22074,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -21748,14 +22228,7 @@ where
             method: "client::TargetInstances::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -21789,6 +22262,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22015,14 +22500,7 @@ where
             method: "client::TargetPools::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -22056,6 +22534,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22240,14 +22730,7 @@ where
             method: "client::TargetSslProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -22281,6 +22764,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22437,14 +22932,7 @@ where
             method: "client::TargetTcpProxies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -22478,6 +22966,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22606,14 +23106,7 @@ where
             method: "client::TargetVpnGateways::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -22647,6 +23140,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22831,14 +23336,7 @@ where
             method: "client::UrlMaps::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -22872,6 +23370,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -23028,14 +23538,7 @@ where
             method: "client::VpnGateways::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -23069,6 +23572,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -23197,14 +23712,7 @@ where
             method: "client::VpnTunnels::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -23238,6 +23746,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -23352,14 +23872,7 @@ where
             method: "client::WireGroups::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -23393,6 +23906,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -23593,14 +24118,7 @@ where
             method: "client::ZoneVmExtensionPolicies::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -23634,6 +24152,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 

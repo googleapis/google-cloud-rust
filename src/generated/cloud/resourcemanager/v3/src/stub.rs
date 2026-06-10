@@ -192,6 +192,19 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
+    }
 }
 
 /// Defines the trait used to implement [super::client::Organizations].
@@ -441,6 +454,19 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
+    }
 }
 
 /// Defines the trait used to implement [super::client::TagBindings].
@@ -531,6 +557,19 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
+    }
 }
 
 /// Defines the trait used to implement [super::client::TagHolds].
@@ -609,6 +648,19 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
     }
 }
 
@@ -755,6 +807,19 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
+    }
 }
 
 /// Defines the trait used to implement [super::client::TagValues].
@@ -899,5 +964,18 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
     }
 }

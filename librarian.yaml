@@ -118,6 +118,7 @@ default:
     generate_setter_samples: "true"
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
+    lro_stub_options: true
 libraries:
   - name: bigquery-write-grpc-mock
     copyright_year: "2026"
