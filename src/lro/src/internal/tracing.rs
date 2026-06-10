@@ -67,7 +67,31 @@ impl LroRecorder {
     pub fn attempt_count(&self) -> Option<u32> {
         self.attempt_count
     }
+}
 
+/// Helper macro to record telemetry for Discovery LROs.
+#[macro_export]
+#[doc(hidden)]
+macro_rules! record_discovery_polling_result {
+    ($span:expr, $op:expr) => {
+        let span = &$span;
+        let op = &$op;
+        let done = $crate::internal::DiscoveryOperation::done(op);
+        span.record("gcp.longrunning.done", done);
+        if done {
+            let error = $crate::internal::DiscoveryOperation::error(op);
+            let code = error.as_ref().map(|e| e.code as i32).unwrap_or(0);
+            span.record("gcp.longrunning.status_code", code);
+            if let Some(status) = error {
+                span.record("otel.status_code", "ERROR");
+                span.record("otel.status_description", &status.message);
+                span.record("error.type", status.code.to_string());
+            }
+        }
+    };
+}
+
+impl LroRecorder {
     /// Creates a new clone of `LroRecorder` carrying the specified LRO polling attempt count.
     ///
     /// Since `LroRecorder` is immutable to guarantee thread-safety, this updates the context
@@ -418,5 +442,147 @@ mod tests {
                 .is_none()
         );
         assert!(got.attributes.get("gcp.longrunning.done").is_none());
+    }
+
+    #[derive(Default)]
+    struct MockDiscoveryOperation {
+        done: bool,
+        error: Option<google_cloud_gax::error::rpc::Status>,
+    }
+
+    impl crate::internal::DiscoveryOperation for MockDiscoveryOperation {
+        fn done(&self) -> bool {
+            self.done
+        }
+
+        fn name(&self) -> Option<&String> {
+            None
+        }
+
+        fn error(&self) -> Option<google_cloud_gax::error::rpc::Status> {
+            self.error.clone()
+        }
+    }
+
+    #[tokio::test]
+    async fn record_discovery_polling_result_success() {
+        let guard = TestLayer::initialize();
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
+        let op = MockDiscoveryOperation {
+            done: true,
+            error: None,
+        };
+
+        record_discovery_polling_result!(span, op);
+
+        {
+            let captured = TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "client_request")
+                .unwrap();
+
+            assert_eq!(
+                got.attributes
+                    .get("gcp.longrunning.done")
+                    .and_then(|v| v.as_bool()),
+                Some(true)
+            );
+            assert_eq!(
+                got.attributes
+                    .get("gcp.longrunning.status_code")
+                    .and_then(|v| v.as_i64()),
+                Some(0)
+            );
+            assert_eq!(
+                got.attributes
+                    .get("otel.status_code")
+                    .and_then(|v| v.as_string()),
+                Some("UNSET".to_string())
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn record_discovery_polling_result_error() {
+        let guard = TestLayer::initialize();
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
+        let status = google_cloud_gax::error::rpc::Status::default()
+            .set_code(google_cloud_gax::error::rpc::Code::NotFound)
+            .set_message("not found");
+        let op = MockDiscoveryOperation {
+            done: true,
+            error: Some(status),
+        };
+
+        record_discovery_polling_result!(span, op);
+
+        {
+            let captured = TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "client_request")
+                .unwrap();
+
+            assert_eq!(
+                got.attributes
+                    .get("gcp.longrunning.done")
+                    .and_then(|v| v.as_bool()),
+                Some(true)
+            );
+            assert_eq!(
+                got.attributes
+                    .get("gcp.longrunning.status_code")
+                    .and_then(|v| v.as_i64()),
+                Some(google_cloud_gax::error::rpc::Code::NotFound as i64)
+            );
+            assert_eq!(
+                got.attributes
+                    .get("otel.status_code")
+                    .and_then(|v| v.as_string()),
+                Some("ERROR".to_string())
+            );
+            assert_eq!(
+                got.attributes
+                    .get("otel.status_description")
+                    .and_then(|v| v.as_string()),
+                Some("not found".to_string())
+            );
+            assert_eq!(
+                got.attributes.get("error.type").and_then(|v| v.as_string()),
+                Some("NOT_FOUND".to_string())
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn record_discovery_polling_result_in_progress() {
+        let guard = TestLayer::initialize();
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
+        let op = MockDiscoveryOperation {
+            done: false,
+            error: None,
+        };
+
+        record_discovery_polling_result!(span, op);
+
+        {
+            let captured = TestLayer::capture(&guard);
+            let got = captured
+                .iter()
+                .find(|s| s.name == "client_request")
+                .unwrap();
+
+            assert_eq!(
+                got.attributes
+                    .get("gcp.longrunning.done")
+                    .and_then(|v| v.as_bool()),
+                Some(false)
+            );
+            assert!(got.attributes.get("gcp.longrunning.status_code").is_none());
+        }
     }
 }
