@@ -44,7 +44,7 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [dev-dependencies]
 anyhow.workspace = true
-tokio            = { workspace = true, features = ["rt-multi-thread", "macros"] }
+tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }
 
 [lints]
 workspace = true
