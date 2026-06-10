@@ -93,13 +93,18 @@ impl FromValue for Value {
 /// | `BoolValue` | `true` / `false` |
 /// | `NumberValue` (finite) | JSON number |
 /// | `NumberValue` (NaN/±Infinity) | `null` (matches SDK's `into_serde_value`) |
-/// | `StringValue` | JSON string (or parsed JSON if `TypeCode::Json`) |
+/// | `StringValue` (standard) | JSON string (includes stringified `INT64`, `NUMERIC`, Base64 `BYTES`, `TIMESTAMP`, `DATE`) |
+/// | `StringValue` (+ `TypeCode::Json`) | Parsed JSON object/array/value |
 /// | `ListValue` + `TypeCode::Struct` | JSON object (positional → named via metadata) |
 /// | `ListValue` + `TypeCode::Array` | JSON array |
 /// | `StructValue` (named wire format) | JSON object |
 ///
 /// # Known limitations
 ///
+/// - **Precision Safety**: Types such as `INT64`, `NUMERIC`, and temporal types (which
+///   Spanner transmits as `StringValue` on the wire) are preserved as JSON strings.
+///   This prevents precision loss (e.g. for integers exceeding $2^{53}-1$ or
+///   high-precision decimals) during deserialization.
 /// - **NaN/Infinity → null**: Non-finite floats become `null` since JSON has no
 ///   representation. Callers cannot distinguish these from genuine SQL NULLs.
 /// - **Duplicate field names**: Spanner allows structs with duplicate field names
@@ -110,24 +115,21 @@ impl FromValue for Value {
 ///   JSON array to avoid silent data loss.
 impl FromValue for JsonValue {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        from_value_recursive(value, type_, 0)
+        from_value_recursive(value, Some(type_), 0)
     }
 }
 
-const MAX_RECURSION_DEPTH: usize = 64;
-
 fn from_value_recursive(
     value: &Value,
-    type_: &Type,
+    type_: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
+    const MAX_RECURSION_DEPTH: usize = 64;
     if depth > MAX_RECURSION_DEPTH {
         return Err(ConvertError::Convert(
             "maximum nesting depth exceeded".into(),
         ));
     }
-
-    let default_type = Type::default();
 
     match &value.0.kind {
         Some(prost_types::value::Kind::NullValue(_)) => Ok(JsonValue::Null),
@@ -141,8 +143,26 @@ fn from_value_recursive(
         }
 
         Some(prost_types::value::Kind::StringValue(s)) => {
-            if type_.code() == TypeCode::Json {
-                serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
+            if let Some(t) = type_ {
+                match t.code() {
+                    TypeCode::Json => {
+                        serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
+                    }
+                    TypeCode::Float64 | TypeCode::Float32 => {
+                        if s == "NaN" || s == "Infinity" || s == "-Infinity" {
+                            Ok(JsonValue::Null)
+                        } else if let Ok(f) = s.parse::<f64>() {
+                            if let Some(num) = serde_json::Number::from_f64(f) {
+                                Ok(JsonValue::Number(num))
+                            } else {
+                                Ok(JsonValue::Null)
+                            }
+                        } else {
+                            Ok(JsonValue::String(s.clone()))
+                        }
+                    }
+                    _ => Ok(JsonValue::String(s.clone())),
+                }
             } else {
                 Ok(JsonValue::String(s.clone()))
             }
@@ -150,86 +170,92 @@ fn from_value_recursive(
 
         Some(prost_types::value::Kind::BoolValue(b)) => Ok(JsonValue::Bool(*b)),
 
-        Some(prost_types::value::Kind::StructValue(s)) => {
-            let s = crate::value::Struct::from_ref(s);
-            let mut map = serde_json::Map::new();
+        Some(prost_types::value::Kind::StructValue(s)) => struct_value_to_json(s, type_, depth + 1),
 
-            if let Some(struct_type) = type_.struct_type() {
-                for field in &struct_type.fields {
-                    let field_type = field
-                        .r#type
-                        .as_deref()
-                        .map(Type::from_ref)
-                        .unwrap_or(&default_type);
-                    let value = if let Some(v) = s.get(&field.name) {
-                        from_value_recursive(v, field_type, depth + 1)?
+        Some(prost_types::value::Kind::ListValue(list)) => {
+            list_value_to_json(list, type_, depth + 1)
+        }
+
+        None => Ok(JsonValue::Null),
+    }
+}
+
+fn struct_value_to_json(
+    s: &prost_types::Struct,
+    type_: Option<&Type>,
+    depth: usize,
+) -> Result<JsonValue, ConvertError> {
+    let s = crate::value::Struct::from_ref(s);
+    let mut map = serde_json::Map::new();
+
+    if let Some(struct_type) = type_.and_then(|t| t.struct_type()) {
+        for field in &struct_type.fields {
+            let field_type = field.r#type.as_deref().map(Type::from_ref);
+            let value = if let Some(v) = s.get(&field.name) {
+                from_value_recursive(v, field_type, depth)?
+            } else {
+                JsonValue::Null
+            };
+            map.insert(field.name.clone(), value);
+        }
+    } else {
+        for (k, v) in s.fields() {
+            map.insert(k.clone(), from_value_recursive(v, None, depth)?);
+        }
+    }
+
+    Ok(JsonValue::Object(map))
+}
+
+fn list_value_to_json(
+    list: &prost_types::ListValue,
+    type_: Option<&Type>,
+    depth: usize,
+) -> Result<JsonValue, ConvertError> {
+    let code = type_.map_or(TypeCode::Unspecified, |t| t.code());
+    match code {
+        TypeCode::Struct => {
+            if let Some(struct_type) = type_.and_then(|t| t.struct_type()) {
+                let mut map = serde_json::Map::new();
+                for (i, field) in struct_type.fields.iter().enumerate() {
+                    let field_type = field.r#type.as_deref().map(Type::from_ref);
+                    let value = if let Some(v) = list.values.get(i) {
+                        let val = Value::from_ref(v);
+                        from_value_recursive(val, field_type, depth)?
                     } else {
                         JsonValue::Null
                     };
                     map.insert(field.name.clone(), value);
                 }
+                Ok(JsonValue::Object(map))
             } else {
-                for (k, v) in s.fields() {
-                    map.insert(
-                        k.to_string(),
-                        from_value_recursive(v, &default_type, depth + 1)?,
-                    );
+                let mut arr = Vec::with_capacity(list.values.len());
+                for v in &list.values {
+                    let val = Value::from_ref(v);
+                    arr.push(from_value_recursive(val, None, depth)?);
                 }
+                Ok(JsonValue::Array(arr))
             }
-
-            Ok(JsonValue::Object(map))
         }
 
-        Some(prost_types::value::Kind::ListValue(list)) => match type_.code() {
-            TypeCode::Struct => {
-                if let Some(struct_type) = type_.struct_type() {
-                    let mut map = serde_json::Map::new();
-                    for (i, field) in struct_type.fields.iter().enumerate() {
-                        let field_type = field
-                            .r#type
-                            .as_deref()
-                            .map(Type::from_ref)
-                            .unwrap_or(&default_type);
-                        let value = if let Some(v) = list.values.get(i) {
-                            let val = Value::from_ref(v);
-                            from_value_recursive(val, field_type, depth + 1)?
-                        } else {
-                            JsonValue::Null
-                        };
-                        map.insert(field.name.clone(), value);
-                    }
-                    Ok(JsonValue::Object(map))
-                } else {
-                    let mut arr = Vec::with_capacity(list.values.len());
-                    for v in &list.values {
-                        let val = Value::from_ref(v);
-                        arr.push(from_value_recursive(val, &default_type, depth + 1)?);
-                    }
-                    Ok(JsonValue::Array(arr))
-                }
+        TypeCode::Array => {
+            let element_type = type_.and_then(|t| t.array_element_type());
+            let mut arr = Vec::with_capacity(list.values.len());
+            for v in &list.values {
+                let val = Value::from_ref(v);
+                arr.push(from_value_recursive(val, element_type.as_ref(), depth)?);
             }
+            Ok(JsonValue::Array(arr))
+        }
 
-            TypeCode::Array => {
-                let element_type = type_.array_element_type().unwrap_or_default();
-                let mut arr = Vec::with_capacity(list.values.len());
-                for v in &list.values {
-                    let val = Value::from_ref(v);
-                    arr.push(from_value_recursive(val, &element_type, depth + 1)?);
-                }
-                Ok(JsonValue::Array(arr))
+        _ => {
+            let mut arr = Vec::with_capacity(list.values.len());
+            for v in &list.values {
+                let val = Value::from_ref(v);
+                arr.push(from_value_recursive(val, None, depth)?);
             }
-
-            _ => {
-                let mut arr = Vec::with_capacity(list.values.len());
-                for v in &list.values {
-                    let val = Value::from_ref(v);
-                    arr.push(from_value_recursive(val, &default_type, depth + 1)?);
-                }
-                Ok(JsonValue::Array(arr))
-            }
-        },
-
-        None => Ok(JsonValue::Null),
+            Ok(JsonValue::Array(arr))
+        }
     }
 }
 
@@ -477,8 +503,10 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::generated::gapic_dataplane::model as mdl;
     use crate::to_value::ToValue;
     use crate::types;
+    use serde_json::Value as JsonValue;
 
     #[test]
     fn test_from_value_string() {
@@ -784,8 +812,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_primitives() {
-        use serde_json::Value as JsonValue;
-
         // String → JSON string
         let v = "hello".to_value();
         let j = JsonValue::from_value(&v, &types::string()).unwrap();
@@ -820,8 +846,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_string_array() {
-        use serde_json::Value as JsonValue;
-
         let str_array = vec!["a".to_string(), "b".to_string()];
         let v = str_array.to_value();
         let j = JsonValue::from_value(&v, &types::array(types::string())).unwrap();
@@ -830,8 +854,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_int_array() {
-        use serde_json::Value as JsonValue;
-
         // INT64 array — values are string-encoded
         let int_array = vec![10i64, 20i64];
         let v = int_array.to_value();
@@ -841,9 +863,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_positional_struct() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT<name STRING, age INT64>
         let struct_type = types::create_type(TypeCode::Struct);
         let mut inner: mdl::Type = struct_type.0;
@@ -868,16 +887,18 @@ mod tests {
 
         // Wire value: positional ListValue ["Alice", "30"]
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("Alice".to_string())),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("30".to_string())),
-                    },
-                ],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("Alice".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("30".to_string())),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -886,9 +907,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_array_of_structs() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: ARRAY<STRUCT<a STRING, b INT64>>
         let elem_struct = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -920,42 +938,48 @@ mod tests {
 
         // Wire: [[x, 1], [y, 2]] — positional structs inside an array
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                            values: vec![
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "x".to_string(),
-                                    )),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::ListValue(
+                                prost_types::ListValue {
+                                    values: vec![
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "x".to_string(),
+                                            )),
+                                        },
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "1".to_string(),
+                                            )),
+                                        },
+                                    ],
                                 },
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "1".to_string(),
-                                    )),
+                            )),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::ListValue(
+                                prost_types::ListValue {
+                                    values: vec![
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "y".to_string(),
+                                            )),
+                                        },
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "2".to_string(),
+                                            )),
+                                        },
+                                    ],
                                 },
-                            ],
-                        })),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                            values: vec![
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "y".to_string(),
-                                    )),
-                                },
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "2".to_string(),
-                                    )),
-                                },
-                            ],
-                        })),
-                    },
-                ],
-            })),
+                            )),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -970,23 +994,21 @@ mod tests {
 
     #[test]
     fn test_from_value_json_named_struct() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT<name STRING>
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
-                fields: vec![mdl::struct_type::Field::new()
-                    .set_name("name")
-                    .set_type(mdl::Type {
-                        code: mdl::TypeCode::String,
-                        ..Default::default()
-                    })],
-                _unknown_fields: Default::default(),
-            })),
-            ..Default::default()
-        };
+        let struct_type_mdl =
+            mdl::Type {
+                code: mdl::TypeCode::Struct,
+                struct_type: Some(Box::new(mdl::StructType {
+                    fields: vec![mdl::struct_type::Field::new().set_name("name").set_type(
+                        mdl::Type {
+                            code: mdl::TypeCode::String,
+                            ..Default::default()
+                        },
+                    )],
+                    _unknown_fields: Default::default(),
+                })),
+                ..Default::default()
+            };
         let spanner_type = Type(struct_type_mdl);
 
         // Wire: named StructValue (rare but valid)
@@ -1007,9 +1029,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_named_struct_missing_fields_become_null() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type declares 2 fields but wire StructValue only has 1
         let struct_type_mdl = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -1052,8 +1071,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_spanner_json_column() {
-        use serde_json::Value as JsonValue;
-
         // Spanner JSON column: value arrives as a StringValue containing JSON text
         let json_str = r#"{"key": "value", "nested": [1, 2, 3]}"#;
         let v = crate::value::Value(prost_types::Value {
@@ -1061,17 +1078,11 @@ mod tests {
         });
 
         let j = JsonValue::from_value(&v, &types::json()).unwrap();
-        assert_eq!(
-            j,
-            serde_json::json!({"key": "value", "nested": [1, 2, 3]})
-        );
+        assert_eq!(j, serde_json::json!({"key": "value", "nested": [1, 2, 3]}));
     }
 
     #[test]
     fn test_from_value_json_nested_struct_in_struct() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT<outer_field STRING, inner STRUCT<x INT64, y BOOL>>
         let inner_struct_type = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -1117,27 +1128,31 @@ mod tests {
 
         // Wire: positional list ["hello", ["42", true]]
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("hello".to_string())),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                            values: vec![
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "42".to_string(),
-                                    )),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("hello".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::ListValue(
+                                prost_types::ListValue {
+                                    values: vec![
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "42".to_string(),
+                                            )),
+                                        },
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::BoolValue(true)),
+                                        },
+                                    ],
                                 },
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::BoolValue(true)),
-                                },
-                            ],
-                        })),
-                    },
-                ],
-            })),
+                            )),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -1149,9 +1164,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_null_in_struct() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT<name STRING, value INT64>
         let struct_type_mdl = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -1178,16 +1190,18 @@ mod tests {
 
         // Wire: ["test", null]
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("test".to_string())),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::NullValue(0)),
-                    },
-                ],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("test".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::NullValue(0)),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -1196,8 +1210,7 @@ mod tests {
 
     #[test]
     fn test_from_value_json_nan_becomes_null() {
-        use serde_json::Value as JsonValue;
-
+        // NumberValue representations
         let v = crate::value::Value(prost_types::Value {
             kind: Some(prost_types::value::Kind::NumberValue(f64::NAN)),
         });
@@ -1215,12 +1228,33 @@ mod tests {
         });
         let j = JsonValue::from_value(&v, &types::float64()).unwrap();
         assert_eq!(j, JsonValue::Null);
+
+        // StringValue representations (as sent by Spanner wire format)
+        let v = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StringValue("NaN".to_string())),
+        });
+        let j = JsonValue::from_value(&v, &types::float64()).unwrap();
+        assert_eq!(j, JsonValue::Null);
+
+        let v = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StringValue(
+                "Infinity".to_string(),
+            )),
+        });
+        let j = JsonValue::from_value(&v, &types::float64()).unwrap();
+        assert_eq!(j, JsonValue::Null);
+
+        let v = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StringValue(
+                "-Infinity".to_string(),
+            )),
+        });
+        let j = JsonValue::from_value(&v, &types::float64()).unwrap();
+        assert_eq!(j, JsonValue::Null);
     }
 
     #[test]
     fn test_from_value_json_option_wrapping() {
-        use serde_json::Value as JsonValue;
-
         // Option<JsonValue> for a non-null value
         let v = "hello".to_value();
         let j = Option::<JsonValue>::from_value(&v, &types::string()).unwrap();
@@ -1234,9 +1268,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_empty_struct() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT<> (zero fields)
         let struct_type_mdl = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -1250,9 +1281,9 @@ mod tests {
 
         // Wire: empty positional list
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue { values: vec![] },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -1261,9 +1292,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_unnamed_fields() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT with unnamed fields (empty string names)
         // This is valid in Spanner for SELECT expressions without aliases.
         let struct_type_mdl = mdl::Type {
@@ -1291,34 +1319,36 @@ mod tests {
 
         // Wire: positional values
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("val".to_string())),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("99".to_string())),
-                    },
-                ],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("val".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("99".to_string())),
+                        },
+                    ],
+                },
+            )),
         });
 
         // Unnamed fields map to empty-string keys; last write wins for duplicates.
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
         assert!(j.is_object());
         // With duplicate empty keys, the map retains the last inserted value
-        assert_eq!(j.as_object().unwrap().get("").unwrap(), &serde_json::json!("99"));
+        assert_eq!(
+            j.as_object().unwrap().get("").unwrap(),
+            &serde_json::json!("99")
+        );
     }
 
     #[test]
     fn test_from_value_json_vec_composition() {
-        use serde_json::Value as JsonValue;
-
         // Vec<JsonValue> uses the existing Vec<T>: FromValue impl
         let str_array = vec!["one".to_string(), "two".to_string()];
         let v = str_array.to_value();
-        let res =
-            Vec::<JsonValue>::from_value(&v, &types::array(types::string())).unwrap();
+        let res = Vec::<JsonValue>::from_value(&v, &types::array(types::string())).unwrap();
         assert_eq!(res.len(), 2);
         assert_eq!(res[0], JsonValue::String("one".to_string()));
         assert_eq!(res[1], JsonValue::String("two".to_string()));
@@ -1326,8 +1356,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_struct_without_metadata() {
-        use serde_json::Value as JsonValue;
-
         // StructValue wire format without type metadata — preserves raw field names
         let mut s = prost_types::Struct::default();
         s.fields.insert(
@@ -1347,20 +1375,20 @@ mod tests {
 
     #[test]
     fn test_from_value_json_list_without_type_info() {
-        use serde_json::Value as JsonValue;
-
         // ListValue with no type context — falls back to plain array
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("a".to_string())),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::BoolValue(false)),
-                    },
-                ],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("a".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::BoolValue(false)),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &Type::default()).unwrap();
@@ -1369,11 +1397,11 @@ mod tests {
 
     #[test]
     fn test_from_value_json_invalid_json_column() {
-        use serde_json::Value as JsonValue;
-
         // Spanner JSON column with invalid JSON text → error
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StringValue("not valid json{".to_string())),
+            kind: Some(prost_types::value::Kind::StringValue(
+                "not valid json{".to_string(),
+            )),
         });
 
         let err = JsonValue::from_value(&v, &types::json()).unwrap_err();
@@ -1382,9 +1410,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_missing_positional_fields_become_null() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type declares 3 fields but wire only has 1 value
         let struct_type_mdl = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -1417,25 +1442,21 @@ mod tests {
 
         // Wire: only one value present
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![prost_types::Value {
-                    kind: Some(prost_types::value::Kind::StringValue("only_a".to_string())),
-                }],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("only_a".to_string())),
+                    }],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
-        assert_eq!(
-            j,
-            serde_json::json!({"a": "only_a", "b": null, "c": null})
-        );
+        assert_eq!(j, serde_json::json!({"a": "only_a", "b": null, "c": null}));
     }
 
     #[test]
     fn test_from_value_json_array_of_json_columns() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: ARRAY<JSON>
         let json_type = mdl::Type {
             code: mdl::TypeCode::Json,
@@ -1450,20 +1471,22 @@ mod tests {
 
         // Wire: array of JSON strings
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue(
-                            r#"{"x":1}"#.to_string(),
-                        )),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue(
-                            r#"{"y":2}"#.to_string(),
-                        )),
-                    },
-                ],
-            })),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue(
+                                r#"{"x":1}"#.to_string(),
+                            )),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue(
+                                r#"{"y":2}"#.to_string(),
+                            )),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -1472,9 +1495,6 @@ mod tests {
 
     #[test]
     fn test_from_value_json_nested_array_in_struct() {
-        use crate::generated::gapic_dataplane::model as mdl;
-        use serde_json::Value as JsonValue;
-
         // Type: STRUCT<tags ARRAY<STRING>, id INT64>
         let struct_type_mdl = mdl::Type {
             code: mdl::TypeCode::Struct,
@@ -1505,29 +1525,33 @@ mod tests {
 
         // Wire: [["foo", "bar"], "42"]
         let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                values: vec![
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                            values: vec![
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "foo".to_string(),
-                                    )),
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::ListValue(
+                                prost_types::ListValue {
+                                    values: vec![
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "foo".to_string(),
+                                            )),
+                                        },
+                                        prost_types::Value {
+                                            kind: Some(prost_types::value::Kind::StringValue(
+                                                "bar".to_string(),
+                                            )),
+                                        },
+                                    ],
                                 },
-                                prost_types::Value {
-                                    kind: Some(prost_types::value::Kind::StringValue(
-                                        "bar".to_string(),
-                                    )),
-                                },
-                            ],
-                        })),
-                    },
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("42".to_string())),
-                    },
-                ],
-            })),
+                            )),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("42".to_string())),
+                        },
+                    ],
+                },
+            )),
         });
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
@@ -1536,22 +1560,77 @@ mod tests {
 
     #[test]
     fn test_from_value_json_recursion_depth_limit() {
-        use serde_json::Value as JsonValue;
-
         // Build a deeply nested ListValue (65 levels deep) to exceed MAX_RECURSION_DEPTH
         let mut inner = prost_types::Value {
             kind: Some(prost_types::value::Kind::BoolValue(true)),
         };
         for _ in 0..65 {
             inner = prost_types::Value {
-                kind: Some(prost_types::value::Kind::ListValue(prost_types::ListValue {
-                    values: vec![inner],
-                })),
+                kind: Some(prost_types::value::Kind::ListValue(
+                    prost_types::ListValue {
+                        values: vec![inner],
+                    },
+                )),
             };
         }
         let v = crate::value::Value(inner);
 
         let err = JsonValue::from_value(&v, &Type::default()).unwrap_err();
         assert!(format!("{}", err).contains("nesting depth exceeded"));
+    }
+
+    #[test]
+    fn test_from_value_json_array_without_element_type() {
+        // Type: ARRAY but array_element_type is None
+        let array_type = mdl::Type {
+            code: mdl::TypeCode::Array,
+            array_element_type: None,
+            ..Default::default()
+        };
+        let spanner_type = Type(array_type);
+
+        // Wire: array of strings
+        let v = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("hello".to_string())),
+                    }],
+                },
+            )),
+        });
+
+        let j = JsonValue::from_value(&v, &spanner_type).unwrap();
+        assert_eq!(j, serde_json::json!(["hello"]));
+    }
+
+    #[test]
+    fn test_from_value_json_struct_with_missing_field_type() {
+        // Type: STRUCT where field "a" has no type metadata
+        let struct_type_mdl = mdl::Type {
+            code: mdl::TypeCode::Struct,
+            struct_type: Some(Box::new(mdl::StructType {
+                fields: vec![
+                    mdl::struct_type::Field::new().set_name("a"), // type is None
+                ],
+                _unknown_fields: Default::default(),
+            })),
+            ..Default::default()
+        };
+        let spanner_type = Type(struct_type_mdl);
+
+        // Wire: positional list ["hello"]
+        let v = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("hello".to_string())),
+                    }],
+                },
+            )),
+        });
+
+        let j = JsonValue::from_value(&v, &spanner_type).unwrap();
+        assert_eq!(j, serde_json::json!({"a": "hello"}));
     }
 }
