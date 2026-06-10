@@ -256,6 +256,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
             __confidential_space_info,
             __token_options,
             __attester,
+            __instance,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -292,6 +293,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
                             "tokenOptions" => Ok(__FieldTag::__token_options),
                             "token_options" => Ok(__FieldTag::__token_options),
                             "attester" => Ok(__FieldTag::__attester),
+                            "instance" => Ok(__FieldTag::__instance),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -426,6 +428,16 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
                                 ));
                             }
                             result.attester = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__instance => {
+                            if !fields.insert(__FieldTag::__instance) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance",
+                                ));
+                            }
+                            result.instance = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

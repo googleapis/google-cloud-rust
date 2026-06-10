@@ -16531,6 +16531,11 @@ impl Rollouts {
             .map(super::tracing::Rollouts::new)
     }
 
+    /// Advances a Rollout to the next wave, or completes it if no waves remain.
+    pub fn advance(&self) -> super::builder::rollouts::Advance {
+        super::builder::rollouts::Advance::new(self.inner.clone())
+    }
+
     /// Cancels a Rollout.
     pub fn cancel(&self) -> super::builder::rollouts::Cancel {
         super::builder::rollouts::Cancel::new(self.inner.clone())
@@ -16549,6 +16554,16 @@ impl Rollouts {
     /// Lists Rollouts in a given project and location.
     pub fn list(&self) -> super::builder::rollouts::List {
         super::builder::rollouts::List::new(self.inner.clone())
+    }
+
+    /// Pauses a Rollout.
+    pub fn pause(&self) -> super::builder::rollouts::Pause {
+        super::builder::rollouts::Pause::new(self.inner.clone())
+    }
+
+    /// Resumes a Rollout.
+    pub fn resume(&self) -> super::builder::rollouts::Resume {
+        super::builder::rollouts::Resume::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.

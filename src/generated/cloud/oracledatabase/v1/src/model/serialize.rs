@@ -42,6 +42,12 @@ impl serde::ser::Serialize for super::AutonomousDatabase {
         if !self.admin_password.is_empty() {
             state.serialize_entry("adminPassword", &self.admin_password)?;
         }
+        if !self.admin_password_secret_version.is_empty() {
+            state.serialize_entry(
+                "adminPasswordSecretVersion",
+                &self.admin_password_secret_version,
+            )?;
+        }
         if self.properties.is_some() {
             state.serialize_entry("properties", &self.properties)?;
         }
@@ -466,6 +472,29 @@ impl serde::ser::Serialize for super::AutonomousDatabaseProperties {
         }
         if !self.service_agent_email.is_empty() {
             state.serialize_entry("serviceAgentEmail", &self.service_agent_email)?;
+        }
+        if self.local_data_guard_enabled.is_some() {
+            state.serialize_entry("localDataGuardEnabled", &self.local_data_guard_enabled)?;
+        }
+        if self
+            .local_adg_auto_failover_max_data_loss_limit_duration
+            .is_some()
+        {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "localAdgAutoFailoverMaxDataLossLimitDuration",
+                &__With(&self.local_adg_auto_failover_max_data_loss_limit_duration),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1081,8 +1110,20 @@ impl serde::ser::Serialize for super::Database {
         if !self.admin_password.is_empty() {
             state.serialize_entry("adminPassword", &self.admin_password)?;
         }
+        if !self.admin_password_secret_version.is_empty() {
+            state.serialize_entry(
+                "adminPasswordSecretVersion",
+                &self.admin_password_secret_version,
+            )?;
+        }
         if !self.tde_wallet_password.is_empty() {
             state.serialize_entry("tdeWalletPassword", &self.tde_wallet_password)?;
+        }
+        if !self.tde_wallet_password_secret_version.is_empty() {
+            state.serialize_entry(
+                "tdeWalletPasswordSecretVersion",
+                &self.tde_wallet_password_secret_version,
+            )?;
         }
         if !self.character_set.is_empty() {
             state.serialize_entry("characterSet", &self.character_set)?;
@@ -1110,6 +1151,12 @@ impl serde::ser::Serialize for super::Database {
         }
         if !wkt::internal::is_default(&self.ops_insights_status) {
             state.serialize_entry("opsInsightsStatus", &self.ops_insights_status)?;
+        }
+        if !self.pluggable_database_id.is_empty() {
+            state.serialize_entry("pluggableDatabaseId", &self.pluggable_database_id)?;
+        }
+        if !self.pluggable_database_name.is_empty() {
+            state.serialize_entry("pluggableDatabaseName", &self.pluggable_database_name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2069,6 +2116,9 @@ impl serde::ser::Serialize for super::ListDbSystemsResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3433,6 +3483,9 @@ impl serde::ser::Serialize for super::ListExascaleDbStorageVaultsResponse {
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3516,6 +3569,3737 @@ impl serde::ser::Serialize for super::GiVersion {
         }
         if !self.version.is_empty() {
             state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateConnection {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.properties.is_some() {
+            state.serialize_entry("properties", &self.properties)?;
+        }
+        if !self.gcp_oracle_zone.is_empty() {
+            state.serialize_entry("gcpOracleZone", &self.gcp_oracle_zone)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.odb_network.is_empty() {
+            state.serialize_entry("odbNetwork", &self.odb_network)?;
+        }
+        if !self.odb_subnet.is_empty() {
+            state.serialize_entry("odbSubnet", &self.odb_subnet)?;
+        }
+        if !self.entitlement_id.is_empty() {
+            state.serialize_entry("entitlementId", &self.entitlement_id)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self.oci_url.is_empty() {
+            state.serialize_entry("ociUrl", &self.oci_url)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.oracle_connection_properties() {
+            state.serialize_entry("oracleConnectionProperties", value)?;
+        }
+        if let Some(value) = self.goldengate_connection_properties() {
+            state.serialize_entry("goldengateConnectionProperties", value)?;
+        }
+        if let Some(value) = self.generic_connection_properties() {
+            state.serialize_entry("genericConnectionProperties", value)?;
+        }
+        if let Some(value) = self.google_cloud_storage_connection_properties() {
+            state.serialize_entry("googleCloudStorageConnectionProperties", value)?;
+        }
+        if let Some(value) = self.google_big_query_connection_properties() {
+            state.serialize_entry("googleBigQueryConnectionProperties", value)?;
+        }
+        if let Some(value) = self.mysql_connection_properties() {
+            state.serialize_entry("mysqlConnectionProperties", value)?;
+        }
+        if let Some(value) = self.kafka_connection_properties() {
+            state.serialize_entry("kafkaConnectionProperties", value)?;
+        }
+        if let Some(value) = self.kafka_schema_registry_connection_properties() {
+            state.serialize_entry("kafkaSchemaRegistryConnectionProperties", value)?;
+        }
+        if let Some(value) = self.oci_object_storage_connection_properties() {
+            state.serialize_entry("ociObjectStorageConnectionProperties", value)?;
+        }
+        if let Some(value) = self.azure_data_lake_storage_connection_properties() {
+            state.serialize_entry("azureDataLakeStorageConnectionProperties", value)?;
+        }
+        if let Some(value) = self.azure_synapse_analytics_connection_properties() {
+            state.serialize_entry("azureSynapseAnalyticsConnectionProperties", value)?;
+        }
+        if let Some(value) = self.postgresql_connection_properties() {
+            state.serialize_entry("postgresqlConnectionProperties", value)?;
+        }
+        if let Some(value) = self.microsoft_sqlserver_connection_properties() {
+            state.serialize_entry("microsoftSqlserverConnectionProperties", value)?;
+        }
+        if let Some(value) = self.amazon_s3_connection_properties() {
+            state.serialize_entry("amazonS3ConnectionProperties", value)?;
+        }
+        if let Some(value) = self.hdfs_connection_properties() {
+            state.serialize_entry("hdfsConnectionProperties", value)?;
+        }
+        if let Some(value) = self.java_message_service_connection_properties() {
+            state.serialize_entry("javaMessageServiceConnectionProperties", value)?;
+        }
+        if let Some(value) = self.mongodb_connection_properties() {
+            state.serialize_entry("mongodbConnectionProperties", value)?;
+        }
+        if let Some(value) = self.oracle_nosql_connection_properties() {
+            state.serialize_entry("oracleNosqlConnectionProperties", value)?;
+        }
+        if let Some(value) = self.snowflake_connection_properties() {
+            state.serialize_entry("snowflakeConnectionProperties", value)?;
+        }
+        if let Some(value) = self.amazon_redshift_connection_properties() {
+            state.serialize_entry("amazonRedshiftConnectionProperties", value)?;
+        }
+        if let Some(value) = self.elasticsearch_connection_properties() {
+            state.serialize_entry("elasticsearchConnectionProperties", value)?;
+        }
+        if let Some(value) = self.amazon_kinesis_connection_properties() {
+            state.serialize_entry("amazonKinesisConnectionProperties", value)?;
+        }
+        if let Some(value) = self.db2_connection_properties() {
+            state.serialize_entry("db2ConnectionProperties", value)?;
+        }
+        if let Some(value) = self.redis_connection_properties() {
+            state.serialize_entry("redisConnectionProperties", value)?;
+        }
+        if let Some(value) = self.databricks_connection_properties() {
+            state.serialize_entry("databricksConnectionProperties", value)?;
+        }
+        if let Some(value) = self.google_pubsub_connection_properties() {
+            state.serialize_entry("googlePubsubConnectionProperties", value)?;
+        }
+        if let Some(value) = self.microsoft_fabric_connection_properties() {
+            state.serialize_entry("microsoftFabricConnectionProperties", value)?;
+        }
+        if let Some(value) = self.oracle_ai_data_platform_connection_properties() {
+            state.serialize_entry("oracleAiDataPlatformConnectionProperties", value)?;
+        }
+        if let Some(value) = self.iceberg_connection_properties() {
+            state.serialize_entry("icebergConnectionProperties", value)?;
+        }
+        if !wkt::internal::is_default(&self.connection_type) {
+            state.serialize_entry("connectionType", &self.connection_type)?;
+        }
+        if !self.ocid.is_empty() {
+            state.serialize_entry("ocid", &self.ocid)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !wkt::internal::is_default(&self.lifecycle_state) {
+            state.serialize_entry("lifecycleState", &self.lifecycle_state)?;
+        }
+        if !self.lifecycle_details.is_empty() {
+            state.serialize_entry("lifecycleDetails", &self.lifecycle_details)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !wkt::internal::is_default(&self.routing_method) {
+            state.serialize_entry("routingMethod", &self.routing_method)?;
+        }
+        if !self.ingress_ip_addresses.is_empty() {
+            state.serialize_entry("ingressIpAddresses", &self.ingress_ip_addresses)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateOracleConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_mode) {
+            state.serialize_entry("authenticationMode", &self.authentication_mode)?;
+        }
+        if !self.connection_string.is_empty() {
+            state.serialize_entry("connectionString", &self.connection_string)?;
+        }
+        if !wkt::internal::is_default(&self.session_mode) {
+            state.serialize_entry("sessionMode", &self.session_mode)?;
+        }
+        if !self.gcp_oracle_database_id.is_empty() {
+            state.serialize_entry("gcpOracleDatabaseId", &self.gcp_oracle_database_id)?;
+        }
+        if !self.wallet_file.is_empty() {
+            state.serialize_entry("walletFile", &self.wallet_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateGoldengateConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.goldengate_deployment_id.is_empty() {
+            state.serialize_entry("goldengateDeploymentId", &self.goldengate_deployment_id)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateGenericConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateGoogleCloudStorageConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.service_account_key_file.is_empty() {
+            state.serialize_entry("serviceAccountKeyFile", &self.service_account_key_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateGoogleBigQueryConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.service_account_key_file.is_empty() {
+            state.serialize_entry("serviceAccountKeyFile", &self.service_account_key_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateMysqlConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !wkt::internal::is_default(&self.ssl_mode) {
+            state.serialize_entry("sslMode", &self.ssl_mode)?;
+        }
+        if !self.ssl_ca_file.is_empty() {
+            state.serialize_entry("sslCaFile", &self.ssl_ca_file)?;
+        }
+        if !self.ssl_crl_file.is_empty() {
+            state.serialize_entry("sslCrlFile", &self.ssl_crl_file)?;
+        }
+        if !self.ssl_cert_file.is_empty() {
+            state.serialize_entry("sslCertFile", &self.ssl_cert_file)?;
+        }
+        if !self.ssl_key_file.is_empty() {
+            state.serialize_entry("sslKeyFile", &self.ssl_key_file)?;
+        }
+        if !self.additional_attributes.is_empty() {
+            state.serialize_entry("additionalAttributes", &self.additional_attributes)?;
+        }
+        if !self.db_system_id.is_empty() {
+            state.serialize_entry("dbSystemId", &self.db_system_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateKafkaConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if let Some(value) = self.trust_store_password() {
+            state.serialize_entry("trustStorePassword", value)?;
+        }
+        if let Some(value) = self.trust_store_password_secret_version() {
+            state.serialize_entry("trustStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.key_store_password() {
+            state.serialize_entry("keyStorePassword", value)?;
+        }
+        if let Some(value) = self.key_store_password_secret_version() {
+            state.serialize_entry("keyStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.ssl_key_password() {
+            state.serialize_entry("sslKeyPassword", value)?;
+        }
+        if let Some(value) = self.ssl_key_password_secret_version() {
+            state.serialize_entry("sslKeyPasswordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.stream_pool_id.is_empty() {
+            state.serialize_entry("streamPoolId", &self.stream_pool_id)?;
+        }
+        if !self.cluster_id.is_empty() {
+            state.serialize_entry("clusterId", &self.cluster_id)?;
+        }
+        if !self.bootstrap_servers.is_empty() {
+            state.serialize_entry("bootstrapServers", &self.bootstrap_servers)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.trust_store_file.is_empty() {
+            state.serialize_entry("trustStoreFile", &self.trust_store_file)?;
+        }
+        if !self.key_store_file.is_empty() {
+            state.serialize_entry("keyStoreFile", &self.key_store_file)?;
+        }
+        if !self.consumer_properties_file.is_empty() {
+            state.serialize_entry("consumerPropertiesFile", &self.consumer_properties_file)?;
+        }
+        if !self.producer_properties_file.is_empty() {
+            state.serialize_entry("producerPropertiesFile", &self.producer_properties_file)?;
+        }
+        if !wkt::internal::is_default(&self.use_resource_principal) {
+            state.serialize_entry("useResourcePrincipal", &self.use_resource_principal)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateKafkaSchemaRegistryConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if let Some(value) = self.trust_store_password() {
+            state.serialize_entry("trustStorePassword", value)?;
+        }
+        if let Some(value) = self.trust_store_password_secret_version() {
+            state.serialize_entry("trustStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.key_store_password() {
+            state.serialize_entry("keyStorePassword", value)?;
+        }
+        if let Some(value) = self.key_store_password_secret_version() {
+            state.serialize_entry("keyStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.ssl_key_password() {
+            state.serialize_entry("sslKeyPassword", value)?;
+        }
+        if let Some(value) = self.ssl_key_password_secret_version() {
+            state.serialize_entry("sslKeyPasswordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.url.is_empty() {
+            state.serialize_entry("url", &self.url)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.trust_store_file.is_empty() {
+            state.serialize_entry("trustStoreFile", &self.trust_store_file)?;
+        }
+        if !self.key_store_file.is_empty() {
+            state.serialize_entry("keyStoreFile", &self.key_store_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateOciObjectStorageConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.tenancy_id.is_empty() {
+            state.serialize_entry("tenancyId", &self.tenancy_id)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.user_id.is_empty() {
+            state.serialize_entry("userId", &self.user_id)?;
+        }
+        if !self.private_key_file.is_empty() {
+            state.serialize_entry("privateKeyFile", &self.private_key_file)?;
+        }
+        if !self.private_key_passphrase_secret.is_empty() {
+            state.serialize_entry(
+                "privateKeyPassphraseSecret",
+                &self.private_key_passphrase_secret,
+            )?;
+        }
+        if !self.public_key_fingerprint.is_empty() {
+            state.serialize_entry("publicKeyFingerprint", &self.public_key_fingerprint)?;
+        }
+        if !wkt::internal::is_default(&self.use_resource_principal) {
+            state.serialize_entry("useResourcePrincipal", &self.use_resource_principal)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateAzureDataLakeStorageConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.account.is_empty() {
+            state.serialize_entry("account", &self.account)?;
+        }
+        if !self.account_key_secret.is_empty() {
+            state.serialize_entry("accountKeySecret", &self.account_key_secret)?;
+        }
+        if !self.sas_token_secret.is_empty() {
+            state.serialize_entry("sasTokenSecret", &self.sas_token_secret)?;
+        }
+        if !self.azure_tenant_id.is_empty() {
+            state.serialize_entry("azureTenantId", &self.azure_tenant_id)?;
+        }
+        if !self.client_id.is_empty() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if !self.client_secret.is_empty() {
+            state.serialize_entry("clientSecret", &self.client_secret)?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self.azure_authority_host.is_empty() {
+            state.serialize_entry("azureAuthorityHost", &self.azure_authority_host)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateAzureSynapseAnalyticsConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.connection_string.is_empty() {
+            state.serialize_entry("connectionString", &self.connection_string)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengatePostgresqlConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.additional_attributes.is_empty() {
+            state.serialize_entry("additionalAttributes", &self.additional_attributes)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !wkt::internal::is_default(&self.ssl_mode) {
+            state.serialize_entry("sslMode", &self.ssl_mode)?;
+        }
+        if !self.ssl_ca_file.is_empty() {
+            state.serialize_entry("sslCaFile", &self.ssl_ca_file)?;
+        }
+        if !self.ssl_crl_file.is_empty() {
+            state.serialize_entry("sslCrlFile", &self.ssl_crl_file)?;
+        }
+        if !self.ssl_cert_file.is_empty() {
+            state.serialize_entry("sslCertFile", &self.ssl_cert_file)?;
+        }
+        if !self.ssl_key_file.is_empty() {
+            state.serialize_entry("sslKeyFile", &self.ssl_key_file)?;
+        }
+        if !self.db_system_id.is_empty() {
+            state.serialize_entry("dbSystemId", &self.db_system_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateMicrosoftSqlserverConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.additional_attributes.is_empty() {
+            state.serialize_entry("additionalAttributes", &self.additional_attributes)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !self.ssl_ca_file.is_empty() {
+            state.serialize_entry("sslCaFile", &self.ssl_ca_file)?;
+        }
+        if !wkt::internal::is_default(&self.server_certificate_validation_required) {
+            state.serialize_entry(
+                "serverCertificateValidationRequired",
+                &self.server_certificate_validation_required,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateAmazonS3ConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.access_key_id.is_empty() {
+            state.serialize_entry("accessKeyId", &self.access_key_id)?;
+        }
+        if !self.secret_access_key_secret.is_empty() {
+            state.serialize_entry("secretAccessKeySecret", &self.secret_access_key_secret)?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateHdfsConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.core_site_xml.is_empty() {
+            state.serialize_entry("coreSiteXml", &self.core_site_xml)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateJavaMessageServiceConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if let Some(value) = self.trust_store_password() {
+            state.serialize_entry("trustStorePassword", value)?;
+        }
+        if let Some(value) = self.trust_store_password_secret_version() {
+            state.serialize_entry("trustStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.key_store_password() {
+            state.serialize_entry("keyStorePassword", value)?;
+        }
+        if let Some(value) = self.key_store_password_secret_version() {
+            state.serialize_entry("keyStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.ssl_key_password() {
+            state.serialize_entry("sslKeyPassword", value)?;
+        }
+        if let Some(value) = self.ssl_key_password_secret_version() {
+            state.serialize_entry("sslKeyPasswordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !wkt::internal::is_default(&self.use_jndi) {
+            state.serialize_entry("useJndi", &self.use_jndi)?;
+        }
+        if !self.jndi_connection_factory.is_empty() {
+            state.serialize_entry("jndiConnectionFactory", &self.jndi_connection_factory)?;
+        }
+        if !self.jndi_provider_url.is_empty() {
+            state.serialize_entry("jndiProviderUrl", &self.jndi_provider_url)?;
+        }
+        if !self.jndi_initial_context_factory.is_empty() {
+            state.serialize_entry(
+                "jndiInitialContextFactory",
+                &self.jndi_initial_context_factory,
+            )?;
+        }
+        if !self.jndi_security_principal.is_empty() {
+            state.serialize_entry("jndiSecurityPrincipal", &self.jndi_security_principal)?;
+        }
+        if !self.jndi_security_credentials_secret.is_empty() {
+            state.serialize_entry(
+                "jndiSecurityCredentialsSecret",
+                &self.jndi_security_credentials_secret,
+            )?;
+        }
+        if !self.connection_url.is_empty() {
+            state.serialize_entry("connectionUrl", &self.connection_url)?;
+        }
+        if !self.connection_factory.is_empty() {
+            state.serialize_entry("connectionFactory", &self.connection_factory)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.trust_store_file.is_empty() {
+            state.serialize_entry("trustStoreFile", &self.trust_store_file)?;
+        }
+        if !self.key_store_file.is_empty() {
+            state.serialize_entry("keyStoreFile", &self.key_store_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateMongodbConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if let Some(value) = self.tls_certificate_key_file_password() {
+            state.serialize_entry("tlsCertificateKeyFilePassword", value)?;
+        }
+        if let Some(value) = self.tls_certificate_key_file_password_secret_version() {
+            state.serialize_entry("tlsCertificateKeyFilePasswordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.connection_string.is_empty() {
+            state.serialize_entry("connectionString", &self.connection_string)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.database_id.is_empty() {
+            state.serialize_entry("databaseId", &self.database_id)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !self.tls_ca_file.is_empty() {
+            state.serialize_entry("tlsCaFile", &self.tls_ca_file)?;
+        }
+        if !self.tls_certificate_key_file.is_empty() {
+            state.serialize_entry("tlsCertificateKeyFile", &self.tls_certificate_key_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateOracleNosqlConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.tenancy_id.is_empty() {
+            state.serialize_entry("tenancyId", &self.tenancy_id)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.user_id.is_empty() {
+            state.serialize_entry("userId", &self.user_id)?;
+        }
+        if !self.private_key_file.is_empty() {
+            state.serialize_entry("privateKeyFile", &self.private_key_file)?;
+        }
+        if !self.private_key_passphrase_secret.is_empty() {
+            state.serialize_entry(
+                "privateKeyPassphraseSecret",
+                &self.private_key_passphrase_secret,
+            )?;
+        }
+        if !self.public_key_fingerprint.is_empty() {
+            state.serialize_entry("publicKeyFingerprint", &self.public_key_fingerprint)?;
+        }
+        if !wkt::internal::is_default(&self.use_resource_principal) {
+            state.serialize_entry("useResourcePrincipal", &self.use_resource_principal)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateSnowflakeConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.connection_url.is_empty() {
+            state.serialize_entry("connectionUrl", &self.connection_url)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.private_key_file.is_empty() {
+            state.serialize_entry("privateKeyFile", &self.private_key_file)?;
+        }
+        if !self.private_key_passphrase_secret.is_empty() {
+            state.serialize_entry(
+                "privateKeyPassphraseSecret",
+                &self.private_key_passphrase_secret,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateAmazonRedshiftConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.connection_url.is_empty() {
+            state.serialize_entry("connectionUrl", &self.connection_url)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateElasticsearchConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.servers.is_empty() {
+            state.serialize_entry("servers", &self.servers)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.fingerprint.is_empty() {
+            state.serialize_entry("fingerprint", &self.fingerprint)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateAmazonKinesisConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.access_key_id.is_empty() {
+            state.serialize_entry("accessKeyId", &self.access_key_id)?;
+        }
+        if !self.secret_access_key_secret.is_empty() {
+            state.serialize_entry("secretAccessKeySecret", &self.secret_access_key_secret)?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self.aws_region.is_empty() {
+            state.serialize_entry("awsRegion", &self.aws_region)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDb2ConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !self.additional_attributes.is_empty() {
+            state.serialize_entry("additionalAttributes", &self.additional_attributes)?;
+        }
+        if !self.ssl_client_keystoredb_file.is_empty() {
+            state.serialize_entry("sslClientKeystoredbFile", &self.ssl_client_keystoredb_file)?;
+        }
+        if !self.ssl_client_keystash_file.is_empty() {
+            state.serialize_entry("sslClientKeystashFile", &self.ssl_client_keystash_file)?;
+        }
+        if !self.ssl_server_certificate_file.is_empty() {
+            state.serialize_entry(
+                "sslServerCertificateFile",
+                &self.ssl_server_certificate_file,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateRedisConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if let Some(value) = self.trust_store_password() {
+            state.serialize_entry("trustStorePassword", value)?;
+        }
+        if let Some(value) = self.trust_store_password_secret_version() {
+            state.serialize_entry("trustStorePasswordSecretVersion", value)?;
+        }
+        if let Some(value) = self.key_store_password() {
+            state.serialize_entry("keyStorePassword", value)?;
+        }
+        if let Some(value) = self.key_store_password_secret_version() {
+            state.serialize_entry("keyStorePasswordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.servers.is_empty() {
+            state.serialize_entry("servers", &self.servers)?;
+        }
+        if !wkt::internal::is_default(&self.security_protocol) {
+            state.serialize_entry("securityProtocol", &self.security_protocol)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.redis_cluster_id.is_empty() {
+            state.serialize_entry("redisClusterId", &self.redis_cluster_id)?;
+        }
+        if !self.trust_store_file.is_empty() {
+            state.serialize_entry("trustStoreFile", &self.trust_store_file)?;
+        }
+        if !self.key_store_file.is_empty() {
+            state.serialize_entry("keyStoreFile", &self.key_store_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDatabricksConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.password() {
+            state.serialize_entry("password", value)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !wkt::internal::is_default(&self.authentication_type) {
+            state.serialize_entry("authenticationType", &self.authentication_type)?;
+        }
+        if !self.connection_url.is_empty() {
+            state.serialize_entry("connectionUrl", &self.connection_url)?;
+        }
+        if !self.client_id.is_empty() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if !self.client_secret.is_empty() {
+            state.serialize_entry("clientSecret", &self.client_secret)?;
+        }
+        if !self.storage_credential.is_empty() {
+            state.serialize_entry("storageCredential", &self.storage_credential)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateGooglePubsubConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.service_account_key_file.is_empty() {
+            state.serialize_entry("serviceAccountKeyFile", &self.service_account_key_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateMicrosoftFabricConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.tenant_id.is_empty() {
+            state.serialize_entry("tenantId", &self.tenant_id)?;
+        }
+        if !self.client_id.is_empty() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if !self.client_secret.is_empty() {
+            state.serialize_entry("clientSecret", &self.client_secret)?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateOracleAIDataPlatformConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if !self.connection_url.is_empty() {
+            state.serialize_entry("connectionUrl", &self.connection_url)?;
+        }
+        if !self.tenancy_id.is_empty() {
+            state.serialize_entry("tenancyId", &self.tenancy_id)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.user_id.is_empty() {
+            state.serialize_entry("userId", &self.user_id)?;
+        }
+        if !self.private_key_file.is_empty() {
+            state.serialize_entry("privateKeyFile", &self.private_key_file)?;
+        }
+        if !self.private_key_passphrase_secret.is_empty() {
+            state.serialize_entry(
+                "privateKeyPassphraseSecret",
+                &self.private_key_passphrase_secret,
+            )?;
+        }
+        if !self.public_key_fingerprint.is_empty() {
+            state.serialize_entry("publicKeyFingerprint", &self.public_key_fingerprint)?;
+        }
+        if !wkt::internal::is_default(&self.use_resource_principal) {
+            state.serialize_entry("useResourcePrincipal", &self.use_resource_principal)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GlueIcebergCatalog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.glue_id.is_empty() {
+            state.serialize_entry("glueId", &self.glue_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NessieIcebergCatalog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.branch.is_empty() {
+            state.serialize_entry("branch", &self.branch)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PolarisIcebergCatalog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.polaris_catalog.is_empty() {
+            state.serialize_entry("polarisCatalog", &self.polaris_catalog)?;
+        }
+        if !self.client_id.is_empty() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if !self.principal_role.is_empty() {
+            state.serialize_entry("principalRole", &self.principal_role)?;
+        }
+        if !self.client_secret.is_empty() {
+            state.serialize_entry("clientSecret", &self.client_secret)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RestIcebergCatalog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.properties.is_empty() {
+            state.serialize_entry("properties", &self.properties)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::IcebergCatalog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.glue_iceberg_catalog() {
+            state.serialize_entry("glueIcebergCatalog", value)?;
+        }
+        if let Some(value) = self.nessie_iceberg_catalog() {
+            state.serialize_entry("nessieIcebergCatalog", value)?;
+        }
+        if let Some(value) = self.polaris_iceberg_catalog() {
+            state.serialize_entry("polarisIcebergCatalog", value)?;
+        }
+        if let Some(value) = self.rest_iceberg_catalog() {
+            state.serialize_entry("restIcebergCatalog", value)?;
+        }
+        if !wkt::internal::is_default(&self.catalog_type) {
+            state.serialize_entry("catalogType", &self.catalog_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AmazonS3IcebergStorage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.scheme_type) {
+            state.serialize_entry("schemeType", &self.scheme_type)?;
+        }
+        if !self.access_key_id.is_empty() {
+            state.serialize_entry("accessKeyId", &self.access_key_id)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.bucket.is_empty() {
+            state.serialize_entry("bucket", &self.bucket)?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self.secret_access_key_secret.is_empty() {
+            state.serialize_entry("secretAccessKeySecret", &self.secret_access_key_secret)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoogleCloudStorageIcebergStorage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bucket.is_empty() {
+            state.serialize_entry("bucket", &self.bucket)?;
+        }
+        if !self.project_id.is_empty() {
+            state.serialize_entry("projectId", &self.project_id)?;
+        }
+        if !self.service_account_key_file.is_empty() {
+            state.serialize_entry("serviceAccountKeyFile", &self.service_account_key_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AzureDataLakeStorageIcebergStorage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.azure_account.is_empty() {
+            state.serialize_entry("azureAccount", &self.azure_account)?;
+        }
+        if !self.container.is_empty() {
+            state.serialize_entry("container", &self.container)?;
+        }
+        if !self.account_key_secret.is_empty() {
+            state.serialize_entry("accountKeySecret", &self.account_key_secret)?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::IcebergStorage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.amazon_s3_iceberg_storage() {
+            state.serialize_entry("amazonS3IcebergStorage", value)?;
+        }
+        if let Some(value) = self.google_cloud_storage_iceberg_storage() {
+            state.serialize_entry("googleCloudStorageIcebergStorage", value)?;
+        }
+        if let Some(value) = self.azure_data_lake_storage_iceberg_storage() {
+            state.serialize_entry("azureDataLakeStorageIcebergStorage", value)?;
+        }
+        if !wkt::internal::is_default(&self.storage_type) {
+            state.serialize_entry("storageType", &self.storage_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateIcebergConnectionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.technology_type.is_empty() {
+            state.serialize_entry("technologyType", &self.technology_type)?;
+        }
+        if self.catalog.is_some() {
+            state.serialize_entry("catalog", &self.catalog)?;
+        }
+        if self.storage.is_some() {
+            state.serialize_entry("storage", &self.storage)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateGoldengateConnectionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.goldengate_connection_id.is_empty() {
+            state.serialize_entry("goldengateConnectionId", &self.goldengate_connection_id)?;
+        }
+        if self.goldengate_connection.is_some() {
+            state.serialize_entry("goldengateConnection", &self.goldengate_connection)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteGoldengateConnectionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateConnectionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateConnectionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateConnectionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_connections.is_empty() {
+            state.serialize_entry("goldengateConnections", &self.goldengate_connections)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NameValuePair {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::KafkaBootstrapServer {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self.private_ip_address.is_empty() {
+            state.serialize_entry("privateIpAddress", &self.private_ip_address)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateConnectionAssignment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.properties.is_some() {
+            state.serialize_entry("properties", &self.properties)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.entitlement_id.is_empty() {
+            state.serialize_entry("entitlementId", &self.entitlement_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateConnectionAssignmentProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ocid.is_empty() {
+            state.serialize_entry("ocid", &self.ocid)?;
+        }
+        if !self.goldengate_connection.is_empty() {
+            state.serialize_entry("goldengateConnection", &self.goldengate_connection)?;
+        }
+        if !self.goldengate_deployment.is_empty() {
+            state.serialize_entry("goldengateDeployment", &self.goldengate_deployment)?;
+        }
+        if !self.alias.is_empty() {
+            state.serialize_entry("alias", &self.alias)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateConnectionAssignmentsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateConnectionAssignmentsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_connection_assignments.is_empty() {
+            state.serialize_entry(
+                "goldengateConnectionAssignments",
+                &self.goldengate_connection_assignments,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateConnectionAssignmentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateGoldengateConnectionAssignmentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.goldengate_connection_assignment_id.is_empty() {
+            state.serialize_entry(
+                "goldengateConnectionAssignmentId",
+                &self.goldengate_connection_assignment_id,
+            )?;
+        }
+        if self.goldengate_connection_assignment.is_some() {
+            state.serialize_entry(
+                "goldengateConnectionAssignment",
+                &self.goldengate_connection_assignment,
+            )?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TestGoldengateConnectionAssignmentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TestConnectionAssignmentError {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.code.is_empty() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self.action.is_empty() {
+            state.serialize_entry("action", &self.action)?;
+        }
+        if !self.issue.is_empty() {
+            state.serialize_entry("issue", &self.issue)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TestGoldengateConnectionAssignmentResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.result_type) {
+            state.serialize_entry("resultType", &self.result_type)?;
+        }
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
+        }
+        if !self.errors.is_empty() {
+            state.serialize_entry("errors", &self.errors)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteGoldengateConnectionAssignmentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateConnectionType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.connection_type) {
+            state.serialize_entry("connectionType", &self.connection_type)?;
+        }
+        if !self.technology_types.is_empty() {
+            state.serialize_entry("technologyTypes", &self.technology_types)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateConnectionTypeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateConnectionTypesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateConnectionTypesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_connection_types.is_empty() {
+            state.serialize_entry(
+                "goldengateConnectionTypes",
+                &self.goldengate_connection_types,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeployment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.properties.is_some() {
+            state.serialize_entry("properties", &self.properties)?;
+        }
+        if !self.gcp_oracle_zone.is_empty() {
+            state.serialize_entry("gcpOracleZone", &self.gcp_oracle_zone)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.odb_network.is_empty() {
+            state.serialize_entry("odbNetwork", &self.odb_network)?;
+        }
+        if !self.odb_subnet.is_empty() {
+            state.serialize_entry("odbSubnet", &self.odb_subnet)?;
+        }
+        if !self.entitlement_id.is_empty() {
+            state.serialize_entry("entitlementId", &self.entitlement_id)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self.oci_url.is_empty() {
+            state.serialize_entry("ociUrl", &self.oci_url)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeploymentProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ocid.is_empty() {
+            state.serialize_entry("ocid", &self.ocid)?;
+        }
+        if !wkt::internal::is_default(&self.lifecycle_state) {
+            state.serialize_entry("lifecycleState", &self.lifecycle_state)?;
+        }
+        if !wkt::internal::is_default(&self.license_model) {
+            state.serialize_entry("licenseModel", &self.license_model)?;
+        }
+        if !self.environment_type.is_empty() {
+            state.serialize_entry("environmentType", &self.environment_type)?;
+        }
+        if !wkt::internal::is_default(&self.cpu_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("cpuCoreCount", &__With(&self.cpu_core_count))?;
+        }
+        if !wkt::internal::is_default(&self.is_auto_scaling_enabled) {
+            state.serialize_entry("isAutoScalingEnabled", &self.is_auto_scaling_enabled)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.deployment_type.is_empty() {
+            state.serialize_entry("deploymentType", &self.deployment_type)?;
+        }
+        if self.ogg_data.is_some() {
+            state.serialize_entry("oggData", &self.ogg_data)?;
+        }
+        if self.maintenance_window.is_some() {
+            state.serialize_entry("maintenanceWindow", &self.maintenance_window)?;
+        }
+        if self.maintenance_config.is_some() {
+            state.serialize_entry("maintenanceConfig", &self.maintenance_config)?;
+        }
+        if !self.fqdn.is_empty() {
+            state.serialize_entry("fqdn", &self.fqdn)?;
+        }
+        if !wkt::internal::is_default(&self.lifecycle_sub_state) {
+            state.serialize_entry("lifecycleSubState", &self.lifecycle_sub_state)?;
+        }
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !self.deployment_backup_id.is_empty() {
+            state.serialize_entry("deploymentBackupId", &self.deployment_backup_id)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.lifecycle_details.is_empty() {
+            state.serialize_entry("lifecycleDetails", &self.lifecycle_details)?;
+        }
+        if !wkt::internal::is_default(&self.healthy) {
+            state.serialize_entry("healthy", &self.healthy)?;
+        }
+        if !self.load_balancer_subnet_id.is_empty() {
+            state.serialize_entry("loadBalancerSubnetId", &self.load_balancer_subnet_id)?;
+        }
+        if !self.load_balancer_id.is_empty() {
+            state.serialize_entry("loadBalancerId", &self.load_balancer_id)?;
+        }
+        if !self.nsg_ids.is_empty() {
+            state.serialize_entry("nsgIds", &self.nsg_ids)?;
+        }
+        if !wkt::internal::is_default(&self.is_public) {
+            state.serialize_entry("isPublic", &self.is_public)?;
+        }
+        if !self.public_ip_address.is_empty() {
+            state.serialize_entry("publicIpAddress", &self.public_ip_address)?;
+        }
+        if !self.private_ip_address.is_empty() {
+            state.serialize_entry("privateIpAddress", &self.private_ip_address)?;
+        }
+        if !self.deployment_url.is_empty() {
+            state.serialize_entry("deploymentUrl", &self.deployment_url)?;
+        }
+        if !wkt::internal::is_default(&self.is_latest_version) {
+            state.serialize_entry("isLatestVersion", &self.is_latest_version)?;
+        }
+        if self.upgrade_required_time.is_some() {
+            state.serialize_entry("upgradeRequiredTime", &self.upgrade_required_time)?;
+        }
+        if !wkt::internal::is_default(&self.storage_utilization_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "storageUtilizationBytes",
+                &__With(&self.storage_utilization_bytes),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.is_storage_utilization_limit_exceeded) {
+            state.serialize_entry(
+                "isStorageUtilizationLimitExceeded",
+                &self.is_storage_utilization_limit_exceeded,
+            )?;
+        }
+        if self.deployment_diagnostic_data.is_some() {
+            state.serialize_entry("deploymentDiagnosticData", &self.deployment_diagnostic_data)?;
+        }
+        if self.backup_schedule.is_some() {
+            state.serialize_entry("backupSchedule", &self.backup_schedule)?;
+        }
+        if self.next_maintenance_time.is_some() {
+            state.serialize_entry("nextMaintenanceTime", &self.next_maintenance_time)?;
+        }
+        if !wkt::internal::is_default(&self.next_maintenance_action_type) {
+            state.serialize_entry(
+                "nextMaintenanceActionType",
+                &self.next_maintenance_action_type,
+            )?;
+        }
+        if !self.next_maintenance_description.is_empty() {
+            state.serialize_entry(
+                "nextMaintenanceDescription",
+                &self.next_maintenance_description,
+            )?;
+        }
+        if self.ogg_version_support_end_time.is_some() {
+            state.serialize_entry(
+                "oggVersionSupportEndTime",
+                &self.ogg_version_support_end_time,
+            )?;
+        }
+        if !self.ingress_ips.is_empty() {
+            state.serialize_entry("ingressIps", &self.ingress_ips)?;
+        }
+        if !wkt::internal::is_default(&self.deployment_role) {
+            state.serialize_entry("deploymentRole", &self.deployment_role)?;
+        }
+        if self.last_backup_schedule_time.is_some() {
+            state.serialize_entry("lastBackupScheduleTime", &self.last_backup_schedule_time)?;
+        }
+        if self.next_backup_schedule_time.is_some() {
+            state.serialize_entry("nextBackupScheduleTime", &self.next_backup_schedule_time)?;
+        }
+        if self.role_change_time.is_some() {
+            state.serialize_entry("roleChangeTime", &self.role_change_time)?;
+        }
+        if !self.locks.is_empty() {
+            state.serialize_entry("locks", &self.locks)?;
+        }
+        if !self.placements.is_empty() {
+            state.serialize_entry("placements", &self.placements)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateOggDeployment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.admin_password() {
+            state.serialize_entry("adminPassword", value)?;
+        }
+        if let Some(value) = self.admin_password_secret_version() {
+            state.serialize_entry("adminPasswordSecretVersion", value)?;
+        }
+        if !self.deployment.is_empty() {
+            state.serialize_entry("deployment", &self.deployment)?;
+        }
+        if !self.admin_username.is_empty() {
+            state.serialize_entry("adminUsername", &self.admin_username)?;
+        }
+        if !self.ogg_version.is_empty() {
+            state.serialize_entry("oggVersion", &self.ogg_version)?;
+        }
+        if !self.certificate.is_empty() {
+            state.serialize_entry("certificate", &self.certificate)?;
+        }
+        if !wkt::internal::is_default(&self.credential_store) {
+            state.serialize_entry("credentialStore", &self.credential_store)?;
+        }
+        if !self.identity_domain_id.is_empty() {
+            state.serialize_entry("identityDomainId", &self.identity_domain_id)?;
+        }
+        if !self.password_secret_id.is_empty() {
+            state.serialize_entry("passwordSecretId", &self.password_secret_id)?;
+        }
+        if self.group_roles_mapping.is_some() {
+            state.serialize_entry("groupRolesMapping", &self.group_roles_mapping)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateMaintenanceWindow {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.day) {
+            state.serialize_entry("day", &self.day)?;
+        }
+        if !wkt::internal::is_default(&self.start_hour) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("startHour", &__With(&self.start_hour))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateMaintenanceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.is_interim_release_auto_upgrade_enabled) {
+            state.serialize_entry(
+                "isInterimReleaseAutoUpgradeEnabled",
+                &self.is_interim_release_auto_upgrade_enabled,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.interim_release_upgrade_period_days) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "interimReleaseUpgradePeriodDays",
+                &__With(&self.interim_release_upgrade_period_days),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.bundle_release_upgrade_period_days) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "bundleReleaseUpgradePeriodDays",
+                &__With(&self.bundle_release_upgrade_period_days),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.major_release_upgrade_period_days) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "majorReleaseUpgradePeriodDays",
+                &__With(&self.major_release_upgrade_period_days),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.security_patch_upgrade_period_days) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "securityPatchUpgradePeriodDays",
+                &__With(&self.security_patch_upgrade_period_days),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeploymentDiagnosticData {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.namespace.is_empty() {
+            state.serialize_entry("namespace", &self.namespace)?;
+        }
+        if !self.bucket.is_empty() {
+            state.serialize_entry("bucket", &self.bucket)?;
+        }
+        if !self.object.is_empty() {
+            state.serialize_entry("object", &self.object)?;
+        }
+        if !wkt::internal::is_default(&self.diagnostic_state) {
+            state.serialize_entry("diagnosticState", &self.diagnostic_state)?;
+        }
+        if self.diagnostic_start_time.is_some() {
+            state.serialize_entry("diagnosticStartTime", &self.diagnostic_start_time)?;
+        }
+        if self.diagnostic_end_time.is_some() {
+            state.serialize_entry("diagnosticEndTime", &self.diagnostic_end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateBackupSchedule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bucket.is_empty() {
+            state.serialize_entry("bucket", &self.bucket)?;
+        }
+        if !self.compartment_id.is_empty() {
+            state.serialize_entry("compartmentId", &self.compartment_id)?;
+        }
+        if !wkt::internal::is_default(&self.frequency_backup_scheduled) {
+            state.serialize_entry("frequencyBackupScheduled", &self.frequency_backup_scheduled)?;
+        }
+        if !wkt::internal::is_default(&self.metadata_only) {
+            state.serialize_entry("metadataOnly", &self.metadata_only)?;
+        }
+        if !self.namespace.is_empty() {
+            state.serialize_entry("namespace", &self.namespace)?;
+        }
+        if self.backup_scheduled_time.is_some() {
+            state.serialize_entry("backupScheduledTime", &self.backup_scheduled_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::IngressIp {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ingress_ip_address.is_empty() {
+            state.serialize_entry("ingressIpAddress", &self.ingress_ip_address)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeploymentLock {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.compartment_id.is_empty() {
+            state.serialize_entry("compartmentId", &self.compartment_id)?;
+        }
+        if !self.related_resource_id.is_empty() {
+            state.serialize_entry("relatedResourceId", &self.related_resource_id)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengatePlacement {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.availability_domain.is_empty() {
+            state.serialize_entry("availabilityDomain", &self.availability_domain)?;
+        }
+        if !self.fault_domain.is_empty() {
+            state.serialize_entry("faultDomain", &self.fault_domain)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateGroupToRolesMapping {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.security_group_id.is_empty() {
+            state.serialize_entry("securityGroupId", &self.security_group_id)?;
+        }
+        if !self.administrator_group_id.is_empty() {
+            state.serialize_entry("administratorGroupId", &self.administrator_group_id)?;
+        }
+        if !self.operator_group_id.is_empty() {
+            state.serialize_entry("operatorGroupId", &self.operator_group_id)?;
+        }
+        if !self.user_group_id.is_empty() {
+            state.serialize_entry("userGroupId", &self.user_group_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateGoldengateDeploymentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.goldengate_deployment_id.is_empty() {
+            state.serialize_entry("goldengateDeploymentId", &self.goldengate_deployment_id)?;
+        }
+        if self.goldengate_deployment.is_some() {
+            state.serialize_entry("goldengateDeployment", &self.goldengate_deployment)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteGoldengateDeploymentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateDeploymentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_deployments.is_empty() {
+            state.serialize_entry("goldengateDeployments", &self.goldengate_deployments)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StopGoldengateDeploymentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StartGoldengateDeploymentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeploymentEnvironment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !wkt::internal::is_default(&self.default_cpu_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("defaultCpuCoreCount", &__With(&self.default_cpu_core_count))?;
+        }
+        if !wkt::internal::is_default(&self.environment_type) {
+            state.serialize_entry("environmentType", &self.environment_type)?;
+        }
+        if !wkt::internal::is_default(&self.auto_scaling_enabled) {
+            state.serialize_entry("autoScalingEnabled", &self.auto_scaling_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.max_cpu_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxCpuCoreCount", &__With(&self.max_cpu_core_count))?;
+        }
+        if !wkt::internal::is_default(&self.memory_gb_per_cpu_core) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("memoryGbPerCpuCore", &__With(&self.memory_gb_per_cpu_core))?;
+        }
+        if !wkt::internal::is_default(&self.min_cpu_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("minCpuCoreCount", &__With(&self.min_cpu_core_count))?;
+        }
+        if !wkt::internal::is_default(&self.network_bandwidth_gbps_per_cpu_core) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "networkBandwidthGbpsPerCpuCore",
+                &__With(&self.network_bandwidth_gbps_per_cpu_core),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.storage_usage_limit_gb_per_cpu_core) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "storageUsageLimitGbPerCpuCore",
+                &__With(&self.storage_usage_limit_gb_per_cpu_core),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateDeploymentEnvironmentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentEnvironmentsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentEnvironmentsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_deployment_environments.is_empty() {
+            state.serialize_entry(
+                "goldengateDeploymentEnvironments",
+                &self.goldengate_deployment_environments,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeploymentType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.deployment_type) {
+            state.serialize_entry("deploymentType", &self.deployment_type)?;
+        }
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !self.connection_types.is_empty() {
+            state.serialize_entry("connectionTypes", &self.connection_types)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.ogg_version.is_empty() {
+            state.serialize_entry("oggVersion", &self.ogg_version)?;
+        }
+        if !self.source_technologies.is_empty() {
+            state.serialize_entry("sourceTechnologies", &self.source_technologies)?;
+        }
+        if !self.supported_capabilities.is_empty() {
+            state.serialize_entry("supportedCapabilities", &self.supported_capabilities)?;
+        }
+        if !self.supported_technologies_url.is_empty() {
+            state.serialize_entry("supportedTechnologiesUrl", &self.supported_technologies_url)?;
+        }
+        if !self.target_technologies.is_empty() {
+            state.serialize_entry("targetTechnologies", &self.target_technologies)?;
+        }
+        if !self.default_username.is_empty() {
+            state.serialize_entry("defaultUsername", &self.default_username)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateDeploymentTypeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentTypesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentTypesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_deployment_types.is_empty() {
+            state.serialize_entry(
+                "goldengateDeploymentTypes",
+                &self.goldengate_deployment_types,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeploymentVersion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.ocid.is_empty() {
+            state.serialize_entry("ocid", &self.ocid)?;
+        }
+        if self.properties.is_some() {
+            state.serialize_entry("properties", &self.properties)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoldengateDeploymentVersionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.deployment_type) {
+            state.serialize_entry("deploymentType", &self.deployment_type)?;
+        }
+        if !wkt::internal::is_default(&self.security_fix) {
+            state.serialize_entry("securityFix", &self.security_fix)?;
+        }
+        if !self.ogg_version.is_empty() {
+            state.serialize_entry("oggVersion", &self.ogg_version)?;
+        }
+        if !wkt::internal::is_default(&self.release_type) {
+            state.serialize_entry("releaseType", &self.release_type)?;
+        }
+        if self.release_time.is_some() {
+            state.serialize_entry("releaseTime", &self.release_time)?;
+        }
+        if self.support_end_time.is_some() {
+            state.serialize_entry("supportEndTime", &self.support_end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGoldengateDeploymentVersionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentVersionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGoldengateDeploymentVersionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.goldengate_deployment_versions.is_empty() {
+            state.serialize_entry(
+                "goldengateDeploymentVersions",
+                &self.goldengate_deployment_versions,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4078,6 +7862,9 @@ impl serde::ser::Serialize for super::ListCloudExadataInfrastructuresResponse {
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4229,6 +8016,9 @@ impl serde::ser::Serialize for super::ListCloudVmClustersResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4746,6 +8536,9 @@ impl serde::ser::Serialize for super::ListAutonomousDatabasesResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5399,6 +9192,9 @@ impl serde::ser::Serialize for super::ListExadbVmClustersResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

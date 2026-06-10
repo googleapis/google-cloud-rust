@@ -777,6 +777,24 @@ pub mod model_armor {
             self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [streaming_mode][crate::model::SanitizeUserPromptRequest::streaming_mode].
+        pub fn set_streaming_mode<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StreamingMode>,
+        {
+            self.0.request.streaming_mode = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [streaming_mode][crate::model::SanitizeUserPromptRequest::streaming_mode].
+        pub fn set_or_clear_streaming_mode<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StreamingMode>,
+        {
+            self.0.request.streaming_mode = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -889,6 +907,24 @@ pub mod model_armor {
             T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
         {
             self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [streaming_mode][crate::model::SanitizeModelResponseRequest::streaming_mode].
+        pub fn set_streaming_mode<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StreamingMode>,
+        {
+            self.0.request.streaming_mode = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [streaming_mode][crate::model::SanitizeModelResponseRequest::streaming_mode].
+        pub fn set_or_clear_streaming_mode<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StreamingMode>,
+        {
+            self.0.request.streaming_mode = v.map(|x| x.into());
             self
         }
     }

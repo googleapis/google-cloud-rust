@@ -630,6 +630,7 @@ impl<'de> serde::de::Deserialize<'de> for super::transaction_options::ReadWrite 
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __retry_transaction,
+            __concurrency_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -652,6 +653,8 @@ impl<'de> serde::de::Deserialize<'de> for super::transaction_options::ReadWrite 
                         match value {
                             "retryTransaction" => Ok(__FieldTag::__retry_transaction),
                             "retry_transaction" => Ok(__FieldTag::__retry_transaction),
+                            "concurrencyMode" => Ok(__FieldTag::__concurrency_mode),
+                            "concurrency_mode" => Ok(__FieldTag::__concurrency_mode),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -696,6 +699,18 @@ impl<'de> serde::de::Deserialize<'de> for super::transaction_options::ReadWrite 
                             }
                             result.retry_transaction =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__concurrency_mode => {
+                            if !fields.insert(__FieldTag::__concurrency_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for concurrency_mode",
+                                ));
+                            }
+                            result.concurrency_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::transaction_options::ConcurrencyMode,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

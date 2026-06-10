@@ -144,6 +144,7 @@ impl gaxi::prost::ToProto<transaction_options::ReadWrite> for crate::generated::
     fn to_proto(self) -> std::result::Result<transaction_options::ReadWrite, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             retry_transaction: self.retry_transaction.to_proto()?,
+            concurrency_mode: self.concurrency_mode.to_proto()?,
         })
     }
 }
@@ -153,6 +154,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
         Ok(
             crate::generated::gapic::model::transaction_options::ReadWrite::new()
                 .set_retry_transaction(self.retry_transaction)
+                .set_concurrency_mode(self.concurrency_mode)
         )
     }
 }
@@ -190,6 +192,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
             crate::generated::gapic::model::transaction_options::ReadOnly::new()
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
+    }
+}
+
+impl gaxi::prost::ToProto<transaction_options::ConcurrencyMode> for crate::generated::gapic::model::transaction_options::ConcurrencyMode {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::transaction_options::ConcurrencyMode"))
     }
 }
 

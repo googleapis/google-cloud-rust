@@ -1681,6 +1681,494 @@ impl OracleDatabase {
         super::builder::oracle_database::DeleteDbSystem::new(self.inner.clone())
     }
 
+    /// Lists all the GoldengateDeployments for the given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_deployments()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_deployments(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateDeployments {
+        super::builder::oracle_database::ListGoldengateDeployments::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GoldengateDeployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_deployment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeployments/{goldengate_deployment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_deployment(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateDeployment {
+        super::builder::oracle_database::GetGoldengateDeployment::new(self.inner.clone())
+    }
+
+    /// Creates a new GoldengateDeployment in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateDeployment;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_goldengate_deployment()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_goldengate_deployment(
+    ///             GoldengateDeployment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_goldengate_deployment(
+        &self,
+    ) -> super::builder::oracle_database::CreateGoldengateDeployment {
+        super::builder::oracle_database::CreateGoldengateDeployment::new(self.inner.clone())
+    }
+
+    /// Deletes a single GoldengateDeployment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_goldengate_deployment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeployments/{goldengate_deployment_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_goldengate_deployment(
+        &self,
+    ) -> super::builder::oracle_database::DeleteGoldengateDeployment {
+        super::builder::oracle_database::DeleteGoldengateDeployment::new(self.inner.clone())
+    }
+
+    /// Stops a single GoldengateDeployment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.stop_goldengate_deployment()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop_goldengate_deployment(
+        &self,
+    ) -> super::builder::oracle_database::StopGoldengateDeployment {
+        super::builder::oracle_database::StopGoldengateDeployment::new(self.inner.clone())
+    }
+
+    /// Starts a single GoldengateDeployment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.start_goldengate_deployment()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_goldengate_deployment(
+        &self,
+    ) -> super::builder::oracle_database::StartGoldengateDeployment {
+        super::builder::oracle_database::StartGoldengateDeployment::new(self.inner.clone())
+    }
+
+    /// Lists all the GoldengateConnections for the given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_connections()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_connections(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateConnections {
+        super::builder::oracle_database::ListGoldengateConnections::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GoldengateConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_connection()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnections/{goldengate_connection_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_connection(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateConnection {
+        super::builder::oracle_database::GetGoldengateConnection::new(self.inner.clone())
+    }
+
+    /// Creates a new GoldengateConnection in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnection;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_goldengate_connection()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_goldengate_connection(
+    ///             GoldengateConnection::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_goldengate_connection(
+        &self,
+    ) -> super::builder::oracle_database::CreateGoldengateConnection {
+        super::builder::oracle_database::CreateGoldengateConnection::new(self.inner.clone())
+    }
+
+    /// Deletes a single GoldengateConnection.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_goldengate_connection()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnections/{goldengate_connection_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_goldengate_connection(
+        &self,
+    ) -> super::builder::oracle_database::DeleteGoldengateConnection {
+        super::builder::oracle_database::DeleteGoldengateConnection::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GoldengateDeploymentVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_version_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_deployment_version()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentVersions/{goldengate_deployment_version_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_deployment_version(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateDeploymentVersion {
+        super::builder::oracle_database::GetGoldengateDeploymentVersion::new(self.inner.clone())
+    }
+
+    /// Lists GoldengateDeploymentVersions in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_deployment_versions()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_deployment_versions(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateDeploymentVersions {
+        super::builder::oracle_database::ListGoldengateDeploymentVersions::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GoldenGateDeploymentType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_type_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_deployment_type()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentTypes/{goldengate_deployment_type_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_deployment_type(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateDeploymentType {
+        super::builder::oracle_database::GetGoldengateDeploymentType::new(self.inner.clone())
+    }
+
+    /// Lists GoldenGateDeploymentTypes in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_deployment_types()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_deployment_types(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateDeploymentTypes {
+        super::builder::oracle_database::ListGoldengateDeploymentTypes::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GoldengateDeploymentEnvironment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_environment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_deployment_environment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentEnvironments/{goldengate_deployment_environment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_deployment_environment(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateDeploymentEnvironment {
+        super::builder::oracle_database::GetGoldengateDeploymentEnvironment::new(self.inner.clone())
+    }
+
+    /// Lists GoldengateDeploymentEnvironments in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_deployment_environments()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_deployment_environments(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateDeploymentEnvironments {
+        super::builder::oracle_database::ListGoldengateDeploymentEnvironments::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single GoldengateConnectionType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_type_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_connection_type()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnectionTypes/{goldengate_connection_type_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_connection_type(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateConnectionType {
+        super::builder::oracle_database::GetGoldengateConnectionType::new(self.inner.clone())
+    }
+
+    /// Lists GoldengateConnectionTypes in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_connection_types()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_connection_types(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateConnectionTypes {
+        super::builder::oracle_database::ListGoldengateConnectionTypes::new(self.inner.clone())
+    }
+
     /// List DbVersions for the given project and location.
     ///
     /// # Example
@@ -1729,7 +2217,169 @@ impl OracleDatabase {
         super::builder::oracle_database::ListDatabaseCharacterSets::new(self.inner.clone())
     }
 
+    /// Lists GoldengateConnectionAssignments in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_goldengate_connection_assignments()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_goldengate_connection_assignments(
+        &self,
+    ) -> super::builder::oracle_database::ListGoldengateConnectionAssignments {
+        super::builder::oracle_database::ListGoldengateConnectionAssignments::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single GoldengateConnectionAssignment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_assignment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_goldengate_connection_assignment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnectionAssignments/{goldengate_connection_assignment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_goldengate_connection_assignment(
+        &self,
+    ) -> super::builder::oracle_database::GetGoldengateConnectionAssignment {
+        super::builder::oracle_database::GetGoldengateConnectionAssignment::new(self.inner.clone())
+    }
+
+    /// Creates a new GoldengateConnectionAssignment in a given project and
+    /// location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnectionAssignment;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_goldengate_connection_assignment()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_goldengate_connection_assignment(
+    ///             GoldengateConnectionAssignment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_goldengate_connection_assignment(
+        &self,
+    ) -> super::builder::oracle_database::CreateGoldengateConnectionAssignment {
+        super::builder::oracle_database::CreateGoldengateConnectionAssignment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single GoldengateConnectionAssignment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_assignment_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_goldengate_connection_assignment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnectionAssignments/{goldengate_connection_assignment_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_goldengate_connection_assignment(
+        &self,
+    ) -> super::builder::oracle_database::DeleteGoldengateConnectionAssignment {
+        super::builder::oracle_database::DeleteGoldengateConnectionAssignment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Tests a single GoldengateConnectionAssignment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.test_goldengate_connection_assignment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_goldengate_connection_assignment(
+        &self,
+    ) -> super::builder::oracle_database::TestGoldengateConnectionAssignment {
+        super::builder::oracle_database::TestGoldengateConnectionAssignment::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

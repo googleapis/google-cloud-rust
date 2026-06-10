@@ -25,6 +25,10 @@ impl std::fmt::Debug for super::AutonomousDatabase {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("entitlement_id", &self.entitlement_id);
         debug_struct.field("admin_password", &self.admin_password);
+        debug_struct.field(
+            "admin_password_secret_version",
+            &self.admin_password_secret_version,
+        );
         debug_struct.field("properties", &self.properties);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("network", &self.network);
@@ -180,6 +184,11 @@ impl std::fmt::Debug for super::AutonomousDatabaseProperties {
             &self.encryption_key_history_entries,
         );
         debug_struct.field("service_agent_email", &self.service_agent_email);
+        debug_struct.field("local_data_guard_enabled", &self.local_data_guard_enabled);
+        debug_struct.field(
+            "local_adg_auto_failover_max_data_loss_limit_duration",
+            &self.local_adg_auto_failover_max_data_loss_limit_duration,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -450,7 +459,15 @@ impl std::fmt::Debug for super::Database {
         debug_struct.field("db_name", &self.db_name);
         debug_struct.field("db_unique_name", &self.db_unique_name);
         debug_struct.field("admin_password", &self.admin_password);
+        debug_struct.field(
+            "admin_password_secret_version",
+            &self.admin_password_secret_version,
+        );
         debug_struct.field("tde_wallet_password", &self.tde_wallet_password);
+        debug_struct.field(
+            "tde_wallet_password_secret_version",
+            &self.tde_wallet_password_secret_version,
+        );
         debug_struct.field("character_set", &self.character_set);
         debug_struct.field("ncharacter_set", &self.ncharacter_set);
         debug_struct.field("oci_url", &self.oci_url);
@@ -460,6 +477,8 @@ impl std::fmt::Debug for super::Database {
         debug_struct.field("db_home_name", &self.db_home_name);
         debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
         debug_struct.field("ops_insights_status", &self.ops_insights_status);
+        debug_struct.field("pluggable_database_id", &self.pluggable_database_id);
+        debug_struct.field("pluggable_database_name", &self.pluggable_database_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -815,6 +834,7 @@ impl std::fmt::Debug for super::ListDbSystemsResponse {
         let mut debug_struct = f.debug_struct("ListDbSystemsResponse");
         debug_struct.field("db_systems", &self.db_systems);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1256,6 +1276,7 @@ impl std::fmt::Debug for super::ListExascaleDbStorageVaultsResponse {
             &self.exascale_db_storage_vaults,
         );
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1297,6 +1318,1589 @@ impl std::fmt::Debug for super::GiVersion {
         let mut debug_struct = f.debug_struct("GiVersion");
         debug_struct.field("name", &self.name);
         debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("oci_url", &self.oci_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateConnectionProperties");
+        debug_struct.field("connection_type", &self.connection_type);
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("lifecycle_details", &self.lifecycle_details);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("routing_method", &self.routing_method);
+        debug_struct.field("ingress_ip_addresses", &self.ingress_ip_addresses);
+        debug_struct.field("connection_details", &self.connection_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateOracleConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateOracleConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("authentication_mode", &self.authentication_mode);
+        debug_struct.field("connection_string", &self.connection_string);
+        debug_struct.field("session_mode", &self.session_mode);
+        debug_struct.field("gcp_oracle_database_id", &self.gcp_oracle_database_id);
+        debug_struct.field("wallet_file", &self.wallet_file);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateGoldengateConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateGoldengateConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("goldengate_deployment_id", &self.goldengate_deployment_id);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("username", &self.username);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateGenericConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateGenericConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("host", &self.host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateGoogleCloudStorageConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateGoogleCloudStorageConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("service_account_key_file", &self.service_account_key_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateGoogleBigQueryConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateGoogleBigQueryConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("service_account_key_file", &self.service_account_key_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateMysqlConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateMysqlConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("ssl_mode", &self.ssl_mode);
+        debug_struct.field("ssl_ca_file", &self.ssl_ca_file);
+        debug_struct.field("ssl_crl_file", &self.ssl_crl_file);
+        debug_struct.field("ssl_cert_file", &self.ssl_cert_file);
+        debug_struct.field("ssl_key_file", &self.ssl_key_file);
+        debug_struct.field("additional_attributes", &self.additional_attributes);
+        debug_struct.field("db_system_id", &self.db_system_id);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateKafkaConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateKafkaConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("stream_pool_id", &self.stream_pool_id);
+        debug_struct.field("cluster_id", &self.cluster_id);
+        debug_struct.field("bootstrap_servers", &self.bootstrap_servers);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("trust_store_file", &self.trust_store_file);
+        debug_struct.field("key_store_file", &self.key_store_file);
+        debug_struct.field("consumer_properties_file", &self.consumer_properties_file);
+        debug_struct.field("producer_properties_file", &self.producer_properties_file);
+        debug_struct.field("use_resource_principal", &self.use_resource_principal);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        debug_struct.field(
+            "trust_store_password_options",
+            &self.trust_store_password_options,
+        );
+        debug_struct.field(
+            "key_store_password_options",
+            &self.key_store_password_options,
+        );
+        debug_struct.field("ssl_key_password_options", &self.ssl_key_password_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateKafkaSchemaRegistryConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateKafkaSchemaRegistryConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("url", &self.url);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("trust_store_file", &self.trust_store_file);
+        debug_struct.field("key_store_file", &self.key_store_file);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        debug_struct.field(
+            "trust_store_password_options",
+            &self.trust_store_password_options,
+        );
+        debug_struct.field(
+            "key_store_password_options",
+            &self.key_store_password_options,
+        );
+        debug_struct.field("ssl_key_password_options", &self.ssl_key_password_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateOciObjectStorageConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateOciObjectStorageConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("tenancy_id", &self.tenancy_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("private_key_file", &self.private_key_file);
+        debug_struct.field(
+            "private_key_passphrase_secret",
+            &self.private_key_passphrase_secret,
+        );
+        debug_struct.field("public_key_fingerprint", &self.public_key_fingerprint);
+        debug_struct.field("use_resource_principal", &self.use_resource_principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateAzureDataLakeStorageConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateAzureDataLakeStorageConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("account", &self.account);
+        debug_struct.field("account_key_secret", &self.account_key_secret);
+        debug_struct.field("sas_token_secret", &self.sas_token_secret);
+        debug_struct.field("azure_tenant_id", &self.azure_tenant_id);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("azure_authority_host", &self.azure_authority_host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateAzureSynapseAnalyticsConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("GoldengateAzureSynapseAnalyticsConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("connection_string", &self.connection_string);
+        debug_struct.field("username", &self.username);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengatePostgresqlConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengatePostgresqlConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("additional_attributes", &self.additional_attributes);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("ssl_mode", &self.ssl_mode);
+        debug_struct.field("ssl_ca_file", &self.ssl_ca_file);
+        debug_struct.field("ssl_crl_file", &self.ssl_crl_file);
+        debug_struct.field("ssl_cert_file", &self.ssl_cert_file);
+        debug_struct.field("ssl_key_file", &self.ssl_key_file);
+        debug_struct.field("db_system_id", &self.db_system_id);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateMicrosoftSqlserverConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateMicrosoftSqlserverConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("additional_attributes", &self.additional_attributes);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("ssl_ca_file", &self.ssl_ca_file);
+        debug_struct.field(
+            "server_certificate_validation_required",
+            &self.server_certificate_validation_required,
+        );
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateAmazonS3ConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateAmazonS3ConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("access_key_id", &self.access_key_id);
+        debug_struct.field("secret_access_key_secret", &self.secret_access_key_secret);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateHdfsConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateHdfsConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("core_site_xml", &self.core_site_xml);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateJavaMessageServiceConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateJavaMessageServiceConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("use_jndi", &self.use_jndi);
+        debug_struct.field("jndi_connection_factory", &self.jndi_connection_factory);
+        debug_struct.field("jndi_provider_url", &self.jndi_provider_url);
+        debug_struct.field(
+            "jndi_initial_context_factory",
+            &self.jndi_initial_context_factory,
+        );
+        debug_struct.field("jndi_security_principal", &self.jndi_security_principal);
+        debug_struct.field(
+            "jndi_security_credentials_secret",
+            &self.jndi_security_credentials_secret,
+        );
+        debug_struct.field("connection_url", &self.connection_url);
+        debug_struct.field("connection_factory", &self.connection_factory);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("trust_store_file", &self.trust_store_file);
+        debug_struct.field("key_store_file", &self.key_store_file);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        debug_struct.field(
+            "trust_store_password_options",
+            &self.trust_store_password_options,
+        );
+        debug_struct.field(
+            "key_store_password_options",
+            &self.key_store_password_options,
+        );
+        debug_struct.field("ssl_key_password_options", &self.ssl_key_password_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateMongodbConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateMongodbConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("connection_string", &self.connection_string);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("database_id", &self.database_id);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("tls_ca_file", &self.tls_ca_file);
+        debug_struct.field("tls_certificate_key_file", &self.tls_certificate_key_file);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        debug_struct.field(
+            "tls_certificate_key_file_password_options",
+            &self.tls_certificate_key_file_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateOracleNosqlConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateOracleNosqlConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("tenancy_id", &self.tenancy_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("private_key_file", &self.private_key_file);
+        debug_struct.field(
+            "private_key_passphrase_secret",
+            &self.private_key_passphrase_secret,
+        );
+        debug_struct.field("public_key_fingerprint", &self.public_key_fingerprint);
+        debug_struct.field("use_resource_principal", &self.use_resource_principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateSnowflakeConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateSnowflakeConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("connection_url", &self.connection_url);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("private_key_file", &self.private_key_file);
+        debug_struct.field(
+            "private_key_passphrase_secret",
+            &self.private_key_passphrase_secret,
+        );
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateAmazonRedshiftConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateAmazonRedshiftConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("connection_url", &self.connection_url);
+        debug_struct.field("username", &self.username);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateElasticsearchConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateElasticsearchConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("servers", &self.servers);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateAmazonKinesisConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateAmazonKinesisConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("access_key_id", &self.access_key_id);
+        debug_struct.field("secret_access_key_secret", &self.secret_access_key_secret);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("aws_region", &self.aws_region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDb2ConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDb2ConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("additional_attributes", &self.additional_attributes);
+        debug_struct.field(
+            "ssl_client_keystoredb_file",
+            &self.ssl_client_keystoredb_file,
+        );
+        debug_struct.field("ssl_client_keystash_file", &self.ssl_client_keystash_file);
+        debug_struct.field(
+            "ssl_server_certificate_file",
+            &self.ssl_server_certificate_file,
+        );
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateRedisConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateRedisConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("servers", &self.servers);
+        debug_struct.field("security_protocol", &self.security_protocol);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("redis_cluster_id", &self.redis_cluster_id);
+        debug_struct.field("trust_store_file", &self.trust_store_file);
+        debug_struct.field("key_store_file", &self.key_store_file);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        debug_struct.field(
+            "trust_store_password_options",
+            &self.trust_store_password_options,
+        );
+        debug_struct.field(
+            "key_store_password_options",
+            &self.key_store_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDatabricksConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDatabricksConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("authentication_type", &self.authentication_type);
+        debug_struct.field("connection_url", &self.connection_url);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field("storage_credential", &self.storage_credential);
+        debug_struct.field(
+            "connection_password_options",
+            &self.connection_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateGooglePubsubConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateGooglePubsubConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("service_account_key_file", &self.service_account_key_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateMicrosoftFabricConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateMicrosoftFabricConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("tenant_id", &self.tenant_id);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateOracleAIDataPlatformConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateOracleAIDataPlatformConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("connection_url", &self.connection_url);
+        debug_struct.field("tenancy_id", &self.tenancy_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("private_key_file", &self.private_key_file);
+        debug_struct.field(
+            "private_key_passphrase_secret",
+            &self.private_key_passphrase_secret,
+        );
+        debug_struct.field("public_key_fingerprint", &self.public_key_fingerprint);
+        debug_struct.field("use_resource_principal", &self.use_resource_principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GlueIcebergCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlueIcebergCatalog");
+        debug_struct.field("glue_id", &self.glue_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NessieIcebergCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NessieIcebergCatalog");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("branch", &self.branch);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PolarisIcebergCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolarisIcebergCatalog");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("polaris_catalog", &self.polaris_catalog);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("principal_role", &self.principal_role);
+        debug_struct.field("client_secret", &self.client_secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RestIcebergCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestIcebergCatalog");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IcebergCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IcebergCatalog");
+        debug_struct.field("catalog_type", &self.catalog_type);
+        debug_struct.field("catalog_details", &self.catalog_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AmazonS3IcebergStorage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AmazonS3IcebergStorage");
+        debug_struct.field("scheme_type", &self.scheme_type);
+        debug_struct.field("access_key_id", &self.access_key_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("secret_access_key_secret", &self.secret_access_key_secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoogleCloudStorageIcebergStorage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleCloudStorageIcebergStorage");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("service_account_key_file", &self.service_account_key_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AzureDataLakeStorageIcebergStorage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureDataLakeStorageIcebergStorage");
+        debug_struct.field("azure_account", &self.azure_account);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("account_key_secret", &self.account_key_secret);
+        debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IcebergStorage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IcebergStorage");
+        debug_struct.field("storage_type", &self.storage_type);
+        debug_struct.field("storage_details", &self.storage_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateIcebergConnectionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateIcebergConnectionProperties");
+        debug_struct.field("technology_type", &self.technology_type);
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("storage", &self.storage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateGoldengateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGoldengateConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("goldengate_connection_id", &self.goldengate_connection_id);
+        debug_struct.field("goldengate_connection", &self.goldengate_connection);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteGoldengateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGoldengateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateConnectionsResponse");
+        debug_struct.field("goldengate_connections", &self.goldengate_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NameValuePair {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NameValuePair");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::KafkaBootstrapServer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KafkaBootstrapServer");
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("private_ip_address", &self.private_ip_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateConnectionAssignment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateConnectionAssignment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateConnectionAssignmentProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateConnectionAssignmentProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("goldengate_connection", &self.goldengate_connection);
+        debug_struct.field("goldengate_deployment", &self.goldengate_deployment);
+        debug_struct.field("alias", &self.alias);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateConnectionAssignmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateConnectionAssignmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateConnectionAssignmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateConnectionAssignmentsResponse");
+        debug_struct.field(
+            "goldengate_connection_assignments",
+            &self.goldengate_connection_assignments,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateConnectionAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateConnectionAssignmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateGoldengateConnectionAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGoldengateConnectionAssignmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "goldengate_connection_assignment_id",
+            &self.goldengate_connection_assignment_id,
+        );
+        debug_struct.field(
+            "goldengate_connection_assignment",
+            &self.goldengate_connection_assignment,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TestGoldengateConnectionAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestGoldengateConnectionAssignmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TestConnectionAssignmentError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestConnectionAssignmentError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("issue", &self.issue);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TestGoldengateConnectionAssignmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestGoldengateConnectionAssignmentResponse");
+        debug_struct.field("result_type", &self.result_type);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteGoldengateConnectionAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGoldengateConnectionAssignmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateConnectionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateConnectionType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("connection_type", &self.connection_type);
+        debug_struct.field("technology_types", &self.technology_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateConnectionTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateConnectionTypeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateConnectionTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateConnectionTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateConnectionTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateConnectionTypesResponse");
+        debug_struct.field(
+            "goldengate_connection_types",
+            &self.goldengate_connection_types,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("oci_url", &self.oci_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeploymentProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeploymentProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("license_model", &self.license_model);
+        debug_struct.field("environment_type", &self.environment_type);
+        debug_struct.field("cpu_core_count", &self.cpu_core_count);
+        debug_struct.field("is_auto_scaling_enabled", &self.is_auto_scaling_enabled);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("deployment_type", &self.deployment_type);
+        debug_struct.field("ogg_data", &self.ogg_data);
+        debug_struct.field("maintenance_window", &self.maintenance_window);
+        debug_struct.field("maintenance_config", &self.maintenance_config);
+        debug_struct.field("fqdn", &self.fqdn);
+        debug_struct.field("lifecycle_sub_state", &self.lifecycle_sub_state);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("deployment_backup_id", &self.deployment_backup_id);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("lifecycle_details", &self.lifecycle_details);
+        debug_struct.field("healthy", &self.healthy);
+        debug_struct.field("load_balancer_subnet_id", &self.load_balancer_subnet_id);
+        debug_struct.field("load_balancer_id", &self.load_balancer_id);
+        debug_struct.field("nsg_ids", &self.nsg_ids);
+        debug_struct.field("is_public", &self.is_public);
+        debug_struct.field("public_ip_address", &self.public_ip_address);
+        debug_struct.field("private_ip_address", &self.private_ip_address);
+        debug_struct.field("deployment_url", &self.deployment_url);
+        debug_struct.field("is_latest_version", &self.is_latest_version);
+        debug_struct.field("upgrade_required_time", &self.upgrade_required_time);
+        debug_struct.field("storage_utilization_bytes", &self.storage_utilization_bytes);
+        debug_struct.field(
+            "is_storage_utilization_limit_exceeded",
+            &self.is_storage_utilization_limit_exceeded,
+        );
+        debug_struct.field(
+            "deployment_diagnostic_data",
+            &self.deployment_diagnostic_data,
+        );
+        debug_struct.field("backup_schedule", &self.backup_schedule);
+        debug_struct.field("next_maintenance_time", &self.next_maintenance_time);
+        debug_struct.field(
+            "next_maintenance_action_type",
+            &self.next_maintenance_action_type,
+        );
+        debug_struct.field(
+            "next_maintenance_description",
+            &self.next_maintenance_description,
+        );
+        debug_struct.field(
+            "ogg_version_support_end_time",
+            &self.ogg_version_support_end_time,
+        );
+        debug_struct.field("ingress_ips", &self.ingress_ips);
+        debug_struct.field("deployment_role", &self.deployment_role);
+        debug_struct.field("last_backup_schedule_time", &self.last_backup_schedule_time);
+        debug_struct.field("next_backup_schedule_time", &self.next_backup_schedule_time);
+        debug_struct.field("role_change_time", &self.role_change_time);
+        debug_struct.field("locks", &self.locks);
+        debug_struct.field("placements", &self.placements);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateOggDeployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateOggDeployment");
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("admin_username", &self.admin_username);
+        debug_struct.field("ogg_version", &self.ogg_version);
+        debug_struct.field("certificate", &self.certificate);
+        debug_struct.field("credential_store", &self.credential_store);
+        debug_struct.field("identity_domain_id", &self.identity_domain_id);
+        debug_struct.field("password_secret_id", &self.password_secret_id);
+        debug_struct.field("group_roles_mapping", &self.group_roles_mapping);
+        debug_struct.field(
+            "deployment_password_options",
+            &self.deployment_password_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateMaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateMaintenanceWindow");
+        debug_struct.field("day", &self.day);
+        debug_struct.field("start_hour", &self.start_hour);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateMaintenanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateMaintenanceConfig");
+        debug_struct.field(
+            "is_interim_release_auto_upgrade_enabled",
+            &self.is_interim_release_auto_upgrade_enabled,
+        );
+        debug_struct.field(
+            "interim_release_upgrade_period_days",
+            &self.interim_release_upgrade_period_days,
+        );
+        debug_struct.field(
+            "bundle_release_upgrade_period_days",
+            &self.bundle_release_upgrade_period_days,
+        );
+        debug_struct.field(
+            "major_release_upgrade_period_days",
+            &self.major_release_upgrade_period_days,
+        );
+        debug_struct.field(
+            "security_patch_upgrade_period_days",
+            &self.security_patch_upgrade_period_days,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeploymentDiagnosticData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeploymentDiagnosticData");
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("diagnostic_state", &self.diagnostic_state);
+        debug_struct.field("diagnostic_start_time", &self.diagnostic_start_time);
+        debug_struct.field("diagnostic_end_time", &self.diagnostic_end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateBackupSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateBackupSchedule");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("compartment_id", &self.compartment_id);
+        debug_struct.field(
+            "frequency_backup_scheduled",
+            &self.frequency_backup_scheduled,
+        );
+        debug_struct.field("metadata_only", &self.metadata_only);
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("backup_scheduled_time", &self.backup_scheduled_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IngressIp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IngressIp");
+        debug_struct.field("ingress_ip_address", &self.ingress_ip_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeploymentLock {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeploymentLock");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("compartment_id", &self.compartment_id);
+        debug_struct.field("related_resource_id", &self.related_resource_id);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengatePlacement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengatePlacement");
+        debug_struct.field("availability_domain", &self.availability_domain);
+        debug_struct.field("fault_domain", &self.fault_domain);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateGroupToRolesMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateGroupToRolesMapping");
+        debug_struct.field("security_group_id", &self.security_group_id);
+        debug_struct.field("administrator_group_id", &self.administrator_group_id);
+        debug_struct.field("operator_group_id", &self.operator_group_id);
+        debug_struct.field("user_group_id", &self.user_group_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateGoldengateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGoldengateDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("goldengate_deployment_id", &self.goldengate_deployment_id);
+        debug_struct.field("goldengate_deployment", &self.goldengate_deployment);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteGoldengateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGoldengateDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentsResponse");
+        debug_struct.field("goldengate_deployments", &self.goldengate_deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StopGoldengateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopGoldengateDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartGoldengateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartGoldengateDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeploymentEnvironment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeploymentEnvironment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("default_cpu_core_count", &self.default_cpu_core_count);
+        debug_struct.field("environment_type", &self.environment_type);
+        debug_struct.field("auto_scaling_enabled", &self.auto_scaling_enabled);
+        debug_struct.field("max_cpu_core_count", &self.max_cpu_core_count);
+        debug_struct.field("memory_gb_per_cpu_core", &self.memory_gb_per_cpu_core);
+        debug_struct.field("min_cpu_core_count", &self.min_cpu_core_count);
+        debug_struct.field(
+            "network_bandwidth_gbps_per_cpu_core",
+            &self.network_bandwidth_gbps_per_cpu_core,
+        );
+        debug_struct.field(
+            "storage_usage_limit_gb_per_cpu_core",
+            &self.storage_usage_limit_gb_per_cpu_core,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateDeploymentEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentEnvironmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentEnvironmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentEnvironmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentEnvironmentsResponse");
+        debug_struct.field(
+            "goldengate_deployment_environments",
+            &self.goldengate_deployment_environments,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeploymentType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeploymentType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("deployment_type", &self.deployment_type);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("connection_types", &self.connection_types);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("ogg_version", &self.ogg_version);
+        debug_struct.field("source_technologies", &self.source_technologies);
+        debug_struct.field("supported_capabilities", &self.supported_capabilities);
+        debug_struct.field(
+            "supported_technologies_url",
+            &self.supported_technologies_url,
+        );
+        debug_struct.field("target_technologies", &self.target_technologies);
+        debug_struct.field("default_username", &self.default_username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateDeploymentTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentTypeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentTypesResponse");
+        debug_struct.field(
+            "goldengate_deployment_types",
+            &self.goldengate_deployment_types,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeploymentVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeploymentVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GoldengateDeploymentVersionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoldengateDeploymentVersionProperties");
+        debug_struct.field("deployment_type", &self.deployment_type);
+        debug_struct.field("security_fix", &self.security_fix);
+        debug_struct.field("ogg_version", &self.ogg_version);
+        debug_struct.field("release_type", &self.release_type);
+        debug_struct.field("release_time", &self.release_time);
+        debug_struct.field("support_end_time", &self.support_end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetGoldengateDeploymentVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListGoldengateDeploymentVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoldengateDeploymentVersionsResponse");
+        debug_struct.field(
+            "goldengate_deployment_versions",
+            &self.goldengate_deployment_versions,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1540,6 +3144,7 @@ impl std::fmt::Debug for super::ListCloudExadataInfrastructuresResponse {
             &self.cloud_exadata_infrastructures,
         );
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1610,6 +3215,7 @@ impl std::fmt::Debug for super::ListCloudVmClustersResponse {
         let mut debug_struct = f.debug_struct("ListCloudVmClustersResponse");
         debug_struct.field("cloud_vm_clusters", &self.cloud_vm_clusters);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1820,6 +3426,7 @@ impl std::fmt::Debug for super::ListAutonomousDatabasesResponse {
         let mut debug_struct = f.debug_struct("ListAutonomousDatabasesResponse");
         debug_struct.field("autonomous_databases", &self.autonomous_databases);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2111,6 +3718,7 @@ impl std::fmt::Debug for super::ListExadbVmClustersResponse {
         let mut debug_struct = f.debug_struct("ListExadbVmClustersResponse");
         debug_struct.field("exadb_vm_clusters", &self.exadb_vm_clusters);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

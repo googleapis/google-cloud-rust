@@ -266,6 +266,8 @@ pub mod transaction_options {
     pub struct ReadWrite {
         #[prost(bytes = "bytes", tag = "1")]
         pub retry_transaction: ::prost::bytes::Bytes,
+        #[prost(enumeration = "ConcurrencyMode", tag = "2")]
+        pub concurrency_mode: i32,
     }
     impl ::prost::Name for ReadWrite {
         const NAME: &'static str = "ReadWrite";
@@ -298,6 +300,45 @@ pub mod transaction_options {
         }
         fn type_url() -> ::prost::alloc::string::String {
             "type.googleapis.com/google.firestore.v1.TransactionOptions.ReadOnly".into()
+        }
+    }
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum ConcurrencyMode {
+        Unspecified = 0,
+        Optimistic = 1,
+        Pessimistic = 2,
+    }
+    impl ConcurrencyMode {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "CONCURRENCY_MODE_UNSPECIFIED",
+                Self::Optimistic => "OPTIMISTIC",
+                Self::Pessimistic => "PESSIMISTIC",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CONCURRENCY_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "OPTIMISTIC" => Some(Self::Optimistic),
+                "PESSIMISTIC" => Some(Self::Pessimistic),
+                _ => None,
+            }
         }
     }
     #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
@@ -1594,6 +1635,8 @@ impl ::prost::Name for RunQueryResponse {
 pub struct ExecutePipelineRequest {
     #[prost(string, tag = "1")]
     pub database: ::prost::alloc::string::String,
+    #[prost(bool, tag = "9")]
+    pub auto_commit_transaction: bool,
     #[prost(oneof = "execute_pipeline_request::PipelineType", tags = "2")]
     pub pipeline_type: ::core::option::Option<execute_pipeline_request::PipelineType>,
     #[prost(oneof = "execute_pipeline_request::ConsistencySelector", tags = "5, 6, 7")]

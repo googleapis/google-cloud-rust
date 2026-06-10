@@ -18723,6 +18723,20 @@ where
     T: super::stub::Rollouts + std::fmt::Debug + Send + Sync,
 {
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn advance(
+        &self,
+        req: crate::model::rollouts::AdvanceRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::advance",
+            self.inner.advance(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel(
         &self,
         req: crate::model::rollouts::CancelRequest,
@@ -18775,6 +18789,34 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Rollouts::list",
             self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn pause(
+        &self,
+        req: crate::model::rollouts::PauseRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::pause",
+            self.inner.pause(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn resume(
+        &self,
+        req: crate::model::rollouts::ResumeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Rollouts::resume",
+            self.inner.resume(req, options));
         pending.await
     }
 

@@ -12383,6 +12383,16 @@ pub trait RolloutPlans: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "rollouts")]
 #[cfg_attr(docsrs, doc(cfg(feature = "rollouts")))]
 pub trait Rollouts: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Rollouts::advance].
+    fn advance(
+        &self,
+        _req: crate::model::rollouts::AdvanceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Rollouts::cancel].
     fn cancel(
         &self,
@@ -12421,6 +12431,26 @@ pub trait Rollouts: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::RolloutsListResponse>>,
     > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Rollouts::pause].
+    fn pause(
+        &self,
+        _req: crate::model::rollouts::PauseRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Rollouts::resume].
+    fn resume(
+        &self,
+        _req: crate::model::rollouts::ResumeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 

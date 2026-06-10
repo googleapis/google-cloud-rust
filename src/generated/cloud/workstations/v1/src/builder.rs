@@ -238,6 +238,12 @@ pub mod workstations {
             self.0.request.page_token = v.into();
             self
         }
+
+        /// Sets the value of [filter][crate::model::ListWorkstationClustersRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -860,6 +866,12 @@ pub mod workstations {
         /// Sets the value of [page_token][crate::model::ListWorkstationConfigsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListWorkstationConfigsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
             self
         }
     }
@@ -1594,6 +1606,12 @@ pub mod workstations {
             self.0.request.page_token = v.into();
             self
         }
+
+        /// Sets the value of [filter][crate::model::ListWorkstationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2259,6 +2277,12 @@ pub mod workstations {
             self.0.request.etag = v.into();
             self
         }
+
+        /// Sets the value of [boost_config][crate::model::StartWorkstationRequest::boost_config].
+        pub fn set_boost_config<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.boost_config = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2443,6 +2467,12 @@ pub mod workstations {
         /// This is a **required** field for requests.
         pub fn set_workstation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation = v.into();
+            self
+        }
+
+        /// Sets the value of [port][crate::model::GenerateAccessTokenRequest::port].
+        pub fn set_port<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.port = v.into();
             self
         }
 

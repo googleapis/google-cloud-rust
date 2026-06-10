@@ -3081,6 +3081,9 @@ pub struct SanitizeUserPromptRequest {
     pub multi_language_detection_metadata:
         std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
 
+    /// Optional. Streaming Mode for StreamSanitize* API.
+    pub streaming_mode: std::option::Option<crate::model::StreamingMode>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3173,6 +3176,41 @@ impl SanitizeUserPromptRequest {
         self.multi_language_detection_metadata = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [streaming_mode][crate::model::SanitizeUserPromptRequest::streaming_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// use google_cloud_modelarmor_v1::model::StreamingMode;
+    /// let x0 = SanitizeUserPromptRequest::new().set_streaming_mode(StreamingMode::Buffered);
+    /// let x1 = SanitizeUserPromptRequest::new().set_streaming_mode(StreamingMode::Realtime);
+    /// ```
+    pub fn set_streaming_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingMode>,
+    {
+        self.streaming_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [streaming_mode][crate::model::SanitizeUserPromptRequest::streaming_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// use google_cloud_modelarmor_v1::model::StreamingMode;
+    /// let x0 = SanitizeUserPromptRequest::new().set_or_clear_streaming_mode(Some(StreamingMode::Buffered));
+    /// let x1 = SanitizeUserPromptRequest::new().set_or_clear_streaming_mode(Some(StreamingMode::Realtime));
+    /// let x_none = SanitizeUserPromptRequest::new().set_or_clear_streaming_mode(None::<StreamingMode>);
+    /// ```
+    pub fn set_or_clear_streaming_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingMode>,
+    {
+        self.streaming_mode = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for SanitizeUserPromptRequest {
@@ -3198,6 +3236,9 @@ pub struct SanitizeModelResponseRequest {
     /// Optional. Metadata related for multi language detection.
     pub multi_language_detection_metadata:
         std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
+
+    /// Optional. Streaming Mode for StreamSanitize* API.
+    pub streaming_mode: std::option::Option<crate::model::StreamingMode>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3301,6 +3342,41 @@ impl SanitizeModelResponseRequest {
         T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
     {
         self.multi_language_detection_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [streaming_mode][crate::model::SanitizeModelResponseRequest::streaming_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// use google_cloud_modelarmor_v1::model::StreamingMode;
+    /// let x0 = SanitizeModelResponseRequest::new().set_streaming_mode(StreamingMode::Buffered);
+    /// let x1 = SanitizeModelResponseRequest::new().set_streaming_mode(StreamingMode::Realtime);
+    /// ```
+    pub fn set_streaming_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingMode>,
+    {
+        self.streaming_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [streaming_mode][crate::model::SanitizeModelResponseRequest::streaming_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// use google_cloud_modelarmor_v1::model::StreamingMode;
+    /// let x0 = SanitizeModelResponseRequest::new().set_or_clear_streaming_mode(Some(StreamingMode::Buffered));
+    /// let x1 = SanitizeModelResponseRequest::new().set_or_clear_streaming_mode(Some(StreamingMode::Realtime));
+    /// let x_none = SanitizeModelResponseRequest::new().set_or_clear_streaming_mode(None::<StreamingMode>);
+    /// ```
+    pub fn set_or_clear_streaming_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingMode>,
+    {
+        self.streaming_mode = v.map(|x| x.into());
         self
     }
 }
@@ -3577,6 +3653,9 @@ pub mod sanitization_result {
         /// ignore partial invocation failures.
         pub ignore_partial_invocation_failures: bool,
 
+        /// Output only. The stream chunk processed by the Sanitization service.
+        pub stream_chunk_processed: std::option::Option<crate::model::DataItem>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3625,6 +3704,39 @@ pub mod sanitization_result {
             v: T,
         ) -> Self {
             self.ignore_partial_invocation_failures = v.into();
+            self
+        }
+
+        /// Sets the value of [stream_chunk_processed][crate::model::sanitization_result::SanitizationMetadata::stream_chunk_processed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// use google_cloud_modelarmor_v1::model::DataItem;
+        /// let x = SanitizationMetadata::new().set_stream_chunk_processed(DataItem::default()/* use setters */);
+        /// ```
+        pub fn set_stream_chunk_processed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.stream_chunk_processed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stream_chunk_processed][crate::model::sanitization_result::SanitizationMetadata::stream_chunk_processed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// use google_cloud_modelarmor_v1::model::DataItem;
+        /// let x = SanitizationMetadata::new().set_or_clear_stream_chunk_processed(Some(DataItem::default()/* use setters */));
+        /// let x = SanitizationMetadata::new().set_or_clear_stream_chunk_processed(None::<DataItem>);
+        /// ```
+        pub fn set_or_clear_stream_chunk_processed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.stream_chunk_processed = v.map(|x| x.into());
             self
         }
     }
@@ -7309,6 +7421,138 @@ impl<'de> serde::de::Deserialize<'de> for InvocationResult {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<InvocationResult>::new(
             ".google.cloud.modelarmor.v1.InvocationResult",
+        ))
+    }
+}
+
+/// Streaming Mode for Sanitize* API.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum StreamingMode {
+    /// Default value.
+    Unspecified,
+    /// Buffered Streaming mode.
+    Buffered,
+    /// Real Time Streaming mode.
+    Realtime,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [StreamingMode::value] or
+    /// [StreamingMode::name].
+    UnknownValue(streaming_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod streaming_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl StreamingMode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Buffered => std::option::Option::Some(1),
+            Self::Realtime => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("STREAMING_MODE_UNSPECIFIED"),
+            Self::Buffered => std::option::Option::Some("STREAMING_MODE_BUFFERED"),
+            Self::Realtime => std::option::Option::Some("STREAMING_MODE_REALTIME"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for StreamingMode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for StreamingMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for StreamingMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Buffered,
+            2 => Self::Realtime,
+            _ => Self::UnknownValue(streaming_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for StreamingMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "STREAMING_MODE_UNSPECIFIED" => Self::Unspecified,
+            "STREAMING_MODE_BUFFERED" => Self::Buffered,
+            "STREAMING_MODE_REALTIME" => Self::Realtime,
+            _ => Self::UnknownValue(streaming_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for StreamingMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Buffered => serializer.serialize_i32(1),
+            Self::Realtime => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for StreamingMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<StreamingMode>::new(
+            ".google.cloud.modelarmor.v1.StreamingMode",
         ))
     }
 }

@@ -2527,6 +2527,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SanitizeUserPromptRequest {
             __name,
             __user_prompt_data,
             __multi_language_detection_metadata,
+            __streaming_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2556,6 +2557,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SanitizeUserPromptRequest {
                             "multi_language_detection_metadata" => {
                                 Ok(__FieldTag::__multi_language_detection_metadata)
                             }
+                            "streamingMode" => Ok(__FieldTag::__streaming_mode),
+                            "streaming_mode" => Ok(__FieldTag::__streaming_mode),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2611,6 +2614,15 @@ impl<'de> serde::de::Deserialize<'de> for super::SanitizeUserPromptRequest {
                                     crate::model::MultiLanguageDetectionMetadata,
                                 >>()?;
                         }
+                        __FieldTag::__streaming_mode => {
+                            if !fields.insert(__FieldTag::__streaming_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for streaming_mode",
+                                ));
+                            }
+                            result.streaming_mode = map
+                                .next_value::<std::option::Option<crate::model::StreamingMode>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2638,6 +2650,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SanitizeModelResponseRequest {
             __model_response_data,
             __user_prompt,
             __multi_language_detection_metadata,
+            __streaming_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2669,6 +2682,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SanitizeModelResponseRequest {
                             "multi_language_detection_metadata" => {
                                 Ok(__FieldTag::__multi_language_detection_metadata)
                             }
+                            "streamingMode" => Ok(__FieldTag::__streaming_mode),
+                            "streaming_mode" => Ok(__FieldTag::__streaming_mode),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2733,6 +2748,15 @@ impl<'de> serde::de::Deserialize<'de> for super::SanitizeModelResponseRequest {
                                 map.next_value::<std::option::Option<
                                     crate::model::MultiLanguageDetectionMetadata,
                                 >>()?;
+                        }
+                        __FieldTag::__streaming_mode => {
+                            if !fields.insert(__FieldTag::__streaming_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for streaming_mode",
+                                ));
+                            }
+                            result.streaming_mode = map
+                                .next_value::<std::option::Option<crate::model::StreamingMode>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3047,6 +3071,7 @@ impl<'de> serde::de::Deserialize<'de> for super::sanitization_result::Sanitizati
             __error_code,
             __error_message,
             __ignore_partial_invocation_failures,
+            __stream_chunk_processed,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3077,6 +3102,8 @@ impl<'de> serde::de::Deserialize<'de> for super::sanitization_result::Sanitizati
                             "ignore_partial_invocation_failures" => {
                                 Ok(__FieldTag::__ignore_partial_invocation_failures)
                             }
+                            "streamChunkProcessed" => Ok(__FieldTag::__stream_chunk_processed),
+                            "stream_chunk_processed" => Ok(__FieldTag::__stream_chunk_processed),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3140,6 +3167,15 @@ impl<'de> serde::de::Deserialize<'de> for super::sanitization_result::Sanitizati
                             result.ignore_partial_invocation_failures = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__stream_chunk_processed => {
+                            if !fields.insert(__FieldTag::__stream_chunk_processed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for stream_chunk_processed",
+                                ));
+                            }
+                            result.stream_chunk_processed =
+                                map.next_value::<std::option::Option<crate::model::DataItem>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

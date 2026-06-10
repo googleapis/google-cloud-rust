@@ -89,6 +89,7 @@ impl std::fmt::Debug for super::transaction_options::ReadWrite {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReadWrite");
         debug_struct.field("retry_transaction", &self.retry_transaction);
+        debug_struct.field("concurrency_mode", &self.concurrency_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
