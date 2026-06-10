@@ -24,7 +24,6 @@ use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 #[derive(Clone, Debug)]
 pub struct ClientBuilder {
     pub(crate) config: ClientConfig,
-    pub(crate) storage_endpoint: Option<String>,
 }
 
 impl Default for ClientBuilder {
@@ -38,7 +37,6 @@ impl ClientBuilder {
     pub fn new() -> Self {
         Self {
             config: ClientConfig::default(),
-            storage_endpoint: None,
         }
     }
 
@@ -102,7 +100,6 @@ mod tests {
     fn defaults() -> anyhow::Result<()> {
         let builder = ClientBuilder::new();
         assert!(builder.config.endpoint.is_none(), "{builder:?}");
-        assert!(builder.storage_endpoint.is_none(), "{builder:?}");
         assert!(builder.config.universe_domain.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
