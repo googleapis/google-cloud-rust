@@ -98,20 +98,6 @@ impl LroRecorder {
     }
 }
 
-/// Helper macro to create a tracing span for polling standard LROs with consistently named attributes.
-#[cfg(test)]
-#[macro_export]
-#[doc(hidden)]
-macro_rules! polling_span {
-    ($name:expr) => {
-        tracing::info_span!(
-            $name,
-            "gcp.longrunning.poll_attempt_count" = tracing::field::Empty,
-            "gcp.longrunning.done" = tracing::field::Empty,
-        )
-    };
-}
-
 /// Injects LRO-specific telemetry attributes into the active span.
 #[macro_export]
 #[doc(hidden)]
@@ -214,6 +200,8 @@ where
 mod tests {
     use super::*;
     use crate::Error;
+    use gaxi::client_request_signals;
+    use gaxi::options::InstrumentationClientInfo;
     use google_cloud_test_utils::test_layer::TestLayer;
     use google_cloud_wkt::{Duration, Timestamp};
 
@@ -345,7 +333,8 @@ mod tests {
     async fn record_polling_attributes_macro() {
         let guard = TestLayer::initialize();
 
-        let span = crate::polling_span!("test_span");
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
 
         let recorder = LroRecorder::new(span.clone()).with_attempt_count(42);
 
@@ -358,7 +347,10 @@ mod tests {
         drop(recorder);
 
         let captured = TestLayer::capture(&guard);
-        let got = captured.iter().find(|s| s.name == "test_span").unwrap();
+        let got = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap();
 
         assert_eq!(
             got.attributes.get("gcp.longrunning.poll_attempt_count"),
@@ -375,7 +367,8 @@ mod tests {
     async fn record_polling_attributes_macro_no_recorder() {
         let guard = TestLayer::initialize();
 
-        let span = crate::polling_span!("test_span_no_recorder");
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
 
         crate::record_polling_attributes!(&span);
 
@@ -384,7 +377,7 @@ mod tests {
         let captured = TestLayer::capture(&guard);
         let got = captured
             .iter()
-            .find(|s| s.name == "test_span_no_recorder")
+            .find(|s| s.name == "client_request")
             .unwrap();
 
         assert!(
@@ -400,7 +393,8 @@ mod tests {
     async fn record_polling_attributes_macro_no_attempt_count() {
         let guard = TestLayer::initialize();
 
-        let span = crate::polling_span!("test_span_no_attempt");
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
 
         let recorder = LroRecorder::new(span.clone());
 
@@ -415,7 +409,7 @@ mod tests {
         let captured = TestLayer::capture(&guard);
         let got = captured
             .iter()
-            .find(|s| s.name == "test_span_no_attempt")
+            .find(|s| s.name == "client_request")
             .unwrap();
 
         assert!(
