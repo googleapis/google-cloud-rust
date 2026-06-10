@@ -48,12 +48,6 @@ impl ClientBuilder {
         self
     }
 
-    /// Sets the BigQuery storage API endpoint.
-    pub fn with_storage_endpoint<V: Into<String>>(mut self, v: V) -> Self {
-        self.storage_endpoint = Some(v.into());
-        self
-    }
-
     /// Sets custom credentials for the client.
     pub fn with_credentials<V: Into<Credentials>>(mut self, credentials: V) -> Self {
         self.config.cred = Some(credentials.into());
@@ -132,7 +126,6 @@ mod tests {
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
-            .with_storage_endpoint("test-storage-endpoint.com")
             .with_universe_domain("test-universe.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
@@ -144,10 +137,6 @@ mod tests {
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
-        );
-        assert_eq!(
-            builder.storage_endpoint,
-            Some("test-storage-endpoint.com".to_string())
         );
         assert_eq!(
             builder.config.universe_domain,
