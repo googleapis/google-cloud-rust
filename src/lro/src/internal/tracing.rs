@@ -114,7 +114,10 @@ impl LroRecorder {
     }
 
     pub fn destination_id(&self) -> Option<String> {
-        self.destination_id.lock().ok().and_then(|g| g.as_ref().cloned())
+        self.destination_id
+            .lock()
+            .ok()
+            .and_then(|g| g.as_ref().cloned())
     }
 
     pub fn record_error(&self, err: &crate::Error) {
