@@ -27,4 +27,19 @@
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 
+pub mod error;
+
 pub(crate) mod query;
+
+pub mod model {
+    //! Re-exports for the Google Cloud BigQuery API.
+    pub use google_cloud_bigquery_v2::model::*;
+}
+
+pub mod builder {
+    //! Request builders.
+    pub mod bigquery {
+        //! Request builders for [BigQuery][crate::client::BigQuery].
+        pub use crate::query::{RunQuery, RunQueryRequest};
+    }
+}

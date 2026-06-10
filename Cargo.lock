@@ -1872,6 +1872,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-wkt",
  "serde_json",
+ "thiserror",
 ]
 
 [[package]]
