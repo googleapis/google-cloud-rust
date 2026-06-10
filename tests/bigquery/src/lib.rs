@@ -276,29 +276,28 @@ pub async fn job_service_copy_fail() -> Result<()> {
         .insert_job()
         .set_project_id(&_project_id)
         .set_job(
-            Job::new()
-                .set_configuration(
-                    JobConfiguration::new().set_copy(
-                        google_cloud_bigquery_v2::model::JobConfigurationTableCopy::new()
-                            .set_source_table(
-                                google_cloud_bigquery_v2::model::TableReference::new()
-                                    .set_project_id(&_project_id)
-                                    .set_dataset_id("does_not_exist")
-                                    .set_table_id("does_not_exist")
-                            )
-                            .set_destination_table(
-                                google_cloud_bigquery_v2::model::TableReference::new()
-                                    .set_project_id(&_project_id)
-                                    .set_dataset_id("does_not_exist")
-                                    .set_table_id("does_not_exist_either")
-                            )
-                    )
+            Job::new().set_configuration(
+                JobConfiguration::new().set_copy(
+                    google_cloud_bigquery_v2::model::JobConfigurationTableCopy::new()
+                        .set_source_table(
+                            google_cloud_bigquery_v2::model::TableReference::new()
+                                .set_project_id(&_project_id)
+                                .set_dataset_id("does_not_exist")
+                                .set_table_id("does_not_exist"),
+                        )
+                        .set_destination_table(
+                            google_cloud_bigquery_v2::model::TableReference::new()
+                                .set_project_id(&_project_id)
+                                .set_dataset_id("does_not_exist")
+                                .set_table_id("does_not_exist_either"),
+                        ),
                 ),
+            ),
         )
         .poller();
 
-    let job = Box::pin(async move { poller.until_done().await }).await?;
-    assert!(job.status.is_some_and(|s| s.error_result.is_some()));
+    let result = Box::pin(async move { poller.until_done().await }).await;
+    assert!(result.is_err(), "Expected job to fail");
     Ok(())
 }
 
@@ -309,24 +308,23 @@ pub async fn job_service_load_fail() -> Result<()> {
         .insert_job()
         .set_project_id(&_project_id)
         .set_job(
-            Job::new()
-                .set_configuration(
-                    JobConfiguration::new().set_load(
-                        google_cloud_bigquery_v2::model::JobConfigurationLoad::new()
-                            .set_source_uris(vec!["gs://bucket_does_not_exist/file.csv".to_string()])
-                            .set_destination_table(
-                                google_cloud_bigquery_v2::model::TableReference::new()
-                                    .set_project_id(&_project_id)
-                                    .set_dataset_id("does_not_exist")
-                                    .set_table_id("does_not_exist")
-                            )
-                    )
+            Job::new().set_configuration(
+                JobConfiguration::new().set_load(
+                    google_cloud_bigquery_v2::model::JobConfigurationLoad::new()
+                        .set_source_uris(vec!["gs://bucket_does_not_exist/file.csv".to_string()])
+                        .set_destination_table(
+                            google_cloud_bigquery_v2::model::TableReference::new()
+                                .set_project_id(&_project_id)
+                                .set_dataset_id("does_not_exist")
+                                .set_table_id("does_not_exist"),
+                        ),
                 ),
+            ),
         )
         .poller();
 
-    let job = Box::pin(async move { poller.until_done().await }).await?;
-    assert!(job.status.is_some_and(|s| s.error_result.is_some()));
+    let result = Box::pin(async move { poller.until_done().await }).await;
+    assert!(result.is_err(), "Expected job to fail");
     Ok(())
 }
 
@@ -337,24 +335,25 @@ pub async fn job_service_extract_fail() -> Result<()> {
         .insert_job()
         .set_project_id(&_project_id)
         .set_job(
-            Job::new()
-                .set_configuration(
-                    JobConfiguration::new().set_extract(
-                        google_cloud_bigquery_v2::model::JobConfigurationExtract::new()
-                            .set_source_table(
-                                google_cloud_bigquery_v2::model::TableReference::new()
-                                    .set_project_id(&_project_id)
-                                    .set_dataset_id("does_not_exist")
-                                    .set_table_id("does_not_exist")
-                            )
-                            .set_destination_uris(vec!["gs://bucket_does_not_exist/file.csv".to_string()])
-                    )
+            Job::new().set_configuration(
+                JobConfiguration::new().set_extract(
+                    google_cloud_bigquery_v2::model::JobConfigurationExtract::new()
+                        .set_source_table(
+                            google_cloud_bigquery_v2::model::TableReference::new()
+                                .set_project_id(&_project_id)
+                                .set_dataset_id("does_not_exist")
+                                .set_table_id("does_not_exist"),
+                        )
+                        .set_destination_uris(vec![
+                            "gs://bucket_does_not_exist/file.csv".to_string(),
+                        ]),
                 ),
+            ),
         )
         .poller();
 
-    let job = Box::pin(async move { poller.until_done().await }).await?;
-    assert!(job.status.is_some_and(|s| s.error_result.is_some()));
+    let result = Box::pin(async move { poller.until_done().await }).await;
+    assert!(result.is_err(), "Expected job to fail");
     Ok(())
 }
 
