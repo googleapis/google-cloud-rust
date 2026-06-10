@@ -98,6 +98,21 @@ impl LroRecorder {
     }
 }
 
+/// Injects LRO-specific telemetry attributes into the active span.
+#[macro_export]
+#[doc(hidden)]
+macro_rules! record_polling_attributes {
+    ($span:expr) => {
+        if let Some(recorder) = $crate::LroRecorder::current() {
+            if let Some(attempt) = recorder.attempt_count() {
+                let span = &$span;
+                span.record("gcp.longrunning.poll_attempt_count", attempt);
+                span.record("gcp.longrunning.done", false);
+            }
+        }
+    };
+}
+
 /// Decorate a poller with tracing information.
 #[derive(Clone, Debug)]
 pub struct Tracing<P> {
@@ -185,6 +200,9 @@ where
 mod tests {
     use super::*;
     use crate::Error;
+    use gaxi::client_request_signals;
+    use gaxi::options::InstrumentationClientInfo;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use google_cloud_wkt::{Duration, Timestamp};
 
     struct FailingPoller;
@@ -210,12 +228,12 @@ mod tests {
 
     #[tokio::test]
     async fn test_tracing_decorator_error_reporting() {
-        let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
+        let guard = TestLayer::initialize();
 
         let span = tracing::info_span!(
             "test_span",
-            otel.status_code = tracing::field::Empty,
-            otel.status_description = tracing::field::Empty,
+            "otel.status_code" = tracing::field::Empty,
+            "otel.status_description" = tracing::field::Empty,
         );
 
         let poller = Tracing::new(FailingPoller, span);
@@ -224,7 +242,7 @@ mod tests {
         assert!(got.is_err());
 
         {
-            let captured = google_cloud_test_utils::test_layer::TestLayer::capture(&guard);
+            let captured = TestLayer::capture(&guard);
             let got = captured
                 .iter()
                 .find(|s| s.name == "test_span")
@@ -308,5 +326,97 @@ mod tests {
                 assert_eq!(active_recorder.span, span_clone);
             })
             .await;
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn record_polling_attributes_macro() {
+        let guard = TestLayer::initialize();
+
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
+
+        let recorder = LroRecorder::new(span.clone()).with_attempt_count(42);
+
+        recorder
+            .scope(async move {
+                crate::record_polling_attributes!(&span);
+            })
+            .await;
+
+        drop(recorder);
+
+        let captured = TestLayer::capture(&guard);
+        let got = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap();
+
+        assert_eq!(
+            got.attributes.get("gcp.longrunning.poll_attempt_count"),
+            Some(&google_cloud_test_utils::test_layer::AttributeValue::UInt64(42))
+        );
+        assert_eq!(
+            got.attributes.get("gcp.longrunning.done"),
+            Some(&google_cloud_test_utils::test_layer::AttributeValue::Boolean(false))
+        );
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn record_polling_attributes_macro_no_recorder() {
+        let guard = TestLayer::initialize();
+
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
+
+        crate::record_polling_attributes!(&span);
+
+        drop(span); // capture it
+
+        let captured = TestLayer::capture(&guard);
+        let got = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap();
+
+        assert!(
+            got.attributes
+                .get("gcp.longrunning.poll_attempt_count")
+                .is_none()
+        );
+        assert!(got.attributes.get("gcp.longrunning.done").is_none());
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn record_polling_attributes_macro_no_attempt_count() {
+        let guard = TestLayer::initialize();
+
+        let span =
+            client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
+
+        let recorder = LroRecorder::new(span.clone());
+
+        recorder
+            .scope(async move {
+                crate::record_polling_attributes!(&span);
+            })
+            .await;
+
+        drop(recorder);
+
+        let captured = TestLayer::capture(&guard);
+        let got = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap();
+
+        assert!(
+            got.attributes
+                .get("gcp.longrunning.poll_attempt_count")
+                .is_none()
+        );
+        assert!(got.attributes.get("gcp.longrunning.done").is_none());
     }
 }
